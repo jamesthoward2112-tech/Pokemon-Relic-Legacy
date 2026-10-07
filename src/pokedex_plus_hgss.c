@@ -47,6 +47,7 @@
 #include "constants/abilities.h"
 #include "constants/form_change_types.h"
 #include "constants/items.h"
+#include "constants/map_types.h"
 #include "constants/moves.h"
 #include "constants/party_menu.h"
 #include "constants/rgb.h"
@@ -3744,6 +3745,29 @@ static void PrintEvolutionTargetSpeciesAndMethod(u8 taskId, enum Species species
                     {
                         CopyItemName(evolutions[i].params[j].arg1, gStringVar2); //item
                         StringAppend(gStringVar4, gStringVar2);
+                    }
+                    break;
+                case IF_MIN_LEVEL:
+                    StringAppend(gStringVar4, COMPOUND_STRING("{LV}"));
+                    ConvertIntToDecimalStringN(gStringVar2, evolutions[i].params[j].arg1, STR_CONV_MODE_LEFT_ALIGN, EVO_SCREEN_LVL_DIGITS);
+                    StringAppend(gStringVar4, gStringVar2);
+                    StringAppend(gStringVar4, COMPOUND_STRING("+"));
+                    break;
+                case IF_MAP_TYPE:
+                    switch ((enum MapType)evolutions[i].params[j].arg1)
+                    {
+                    case MAP_TYPE_TOWN:        StringAppend(gStringVar4, COMPOUND_STRING("in town")); break;
+                    case MAP_TYPE_CITY:        StringAppend(gStringVar4, COMPOUND_STRING("in city")); break;
+                    case MAP_TYPE_ROUTE:       StringAppend(gStringVar4, COMPOUND_STRING("on route")); break;
+                    case MAP_TYPE_UNDERGROUND: StringAppend(gStringVar4, COMPOUND_STRING("in cave")); break;
+                    case MAP_TYPE_UNDERWATER:  StringAppend(gStringVar4, COMPOUND_STRING("underwater")); break;
+                    case MAP_TYPE_OCEAN_ROUTE: StringAppend(gStringVar4, COMPOUND_STRING("at sea")); break;
+                    case MAP_TYPE_INDOOR:      StringAppend(gStringVar4, COMPOUND_STRING("indoors")); break;
+                    case MAP_TYPE_SECRET_BASE: StringAppend(gStringVar4, COMPOUND_STRING("in secret base")); break;
+                    case MAP_TYPE_NONE:
+                    case MAP_TYPE_UNKNOWN:
+                        StringAppend(gStringVar4, COMPOUND_STRING("in required area"));
+                        break;
                     }
                     break;
                 // Gen 3
