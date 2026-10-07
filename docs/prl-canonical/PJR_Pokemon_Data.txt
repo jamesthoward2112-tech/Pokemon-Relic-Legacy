@@ -1,0 +1,810 @@
+# Pokémon Relic canonical species data
+# Format: human-readable PBS-style reference, not an engine parser contract.
+# Source precedence: Notion canon > latest master sheet > implementation/ROM fallback.
+# Generated: 2026-10-06
+#
+# IMPORTANT PRL IMPORT RULE:
+# Recording a PKR feature here does NOT automatically approve it for PRL.
+# PRL only imports QoL/system changes that have been explicitly agreed for PRL.
+# Game = PJR
+# MasterSheet = PJR_Master_Implementation_Sheet_v10_01OCT2026_MAROWAK_BRANCH_LOCK.xlsx
+# MasterSheetSHA256 = 52f8ac0ddeb602d49b81d579b16d67a1ee3455baa536e13fbd726bf0386bd0a0
+# PrimaryNotionCanon = PJR Custom Pokémon — Canon Audit Reference (updated 6 Oct 2026)
+# QA = Run292 evolution/sprite audit currently in progress; update this file after results are reported.
+
+# ============================================================================
+# REGIONAL CUSTOM POKÉDEX #252–#280
+# ============================================================================
+# Reconciled: 2026-10-06; see PRL_Canonical_Status.md and PRL_Import_Gates.json.
+
+[SPECIES:252:SCARABUB]
+Dex = 252
+Name = Scarabub
+OriginGame = PJR
+Canon = LOCKED
+Types = Bug
+EvolutionOrAccess = Starter choice; Scarabub → Heracross at Lv18
+Abilities = Swarm / Guts / Hidden: Battle Armor
+LevelUpMoves = Lv1 Tackle, Leer; Lv5 Endure; Lv8 Bug Bite; Lv11 Arm Thrust; Lv14 Counter
+SpriteSource = PJR custom baby Heracross; approved
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 45/55/45/30/40/50
+BST = 265
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_SCARABUB
+DonorLevelUpTable = sScarabubLevelUpLearnset
+DonorTeachableTable = sHeracrossTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:253:SKARMET]
+Dex = 253
+Name = Skarmet
+OriginGame = PJR
+Canon = LOCKED
+Types = Steel/Flying
+EvolutionOrAccess = Starter choice; Skarmet → Skarmory at Lv18
+Abilities = Keen Eye / Sturdy / Hidden: Weak Armor
+LevelUpMoves = Lv1 Peck, Leer; Lv5 Sand Attack; Lv8 Metal Claw; Lv11 Fury Attack; Lv14 Roost; Lv17 Air Cutter
+SpriteSource = User concept/final GBA set; current party icon still awaiting Run292 confirmation
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 45/45/65/30/35/50
+BST = 270
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_SKARMET
+DonorLevelUpTable = sSkarmetLevelUpLearnset
+DonorTeachableTable = sSkarmoryTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:254:MOOTINY]
+Dex = 254
+Name = Mootiny
+OriginGame = PJR
+Canon = LOCKED
+Types = Normal
+EvolutionOrAccess = Starter choice; Mootiny → Miltank at Lv18
+Abilities = Thick Fat / Scrappy / Hidden: Sap Sipper
+LevelUpMoves = Lv1 Tackle, Growl; Lv5 Defense Curl; Lv8 Rollout; Lv11 Stomp; Lv14 Headbutt; Lv17 Milk Drink
+SpriteSource = PJR custom/final GBA set; current party icon still awaiting Run292 confirmation
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 50/45/55/30/45/45
+BST = 270
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_MOOTINY
+DonorLevelUpTable = sMootinyLevelUpLearnset
+DonorTeachableTable = sMiltankTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:255:HERACURION]
+Dex = 255
+Name = Heracurion
+OriginGame = PJR
+Canon = LOCKED
+Types = Bug/Fighting
+EvolutionOrAccess = Heracross Lv40+ holding Ancient Horn; item consumed
+Abilities = Moxie / Guts / Hidden: Battle Armor
+LevelUpMoves = Lv0 Stag Stab; Lv1 Tackle, Leer, Horn Attack, Endure; Lv19 Fury Attack; Lv27 Counter; Lv35 Take Down; Lv44 Reversal; Lv48 Brick Break; Lv52 Megahorn; Lv56 Bulk Up; Lv60 Close Combat; Lv64 Stone Edge; Lv68 Superpower
+CustomMechanics = Stag Stab — Fighting Physical 85 BP / 100 Acc / 10 PP / contact / 20% flinch
+SpriteSource = Insurgence Mega Heracross
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 95/140/110/45/85/75
+BST = 550
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_HERACURION
+DonorLevelUpTable = sHeracurionLevelUpLearnset
+DonorTeachableTable = sHeracrossTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:256:SKARMADON]
+Dex = 256
+Name = Skarmadon
+OriginGame = PJR
+Canon = LOCKED
+Types = Steel/Flying
+EvolutionOrAccess = Skarmory Lv40+ holding Ancient Plume; item consumed
+Abilities = Sturdy / Keen Eye / Hidden: Battle Armor
+LevelUpMoves = Lv0 Iron Tempest; Lv1 Leer, Peck, Sand Attack; Lv19 Swift; Lv25 Agility; Lv37 Fury Attack; Lv44 Iron Defense; Lv49 Steel Wing; Lv52 Drill Peck; Lv56 Iron Head; Lv60 Roost; Lv64 Brave Bird; Lv68 Heavy Slam
+CustomMechanics = Iron Tempest — Steel Physical 85 BP / 100 Acc / 10 PP / 20% chance to lower Speed
+SpriteSource = Elite Redux SKARMORY_MEGA_REDUX; metallic-grey palette
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/125/140/45/80/85
+BST = 555
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_SKARMADON
+DonorLevelUpTable = sSkarmadonLevelUpLearnset
+DonorTeachableTable = sSkarmoryTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:257:MILTITAN]
+Dex = 257
+Name = Miltitan
+OriginGame = PJR
+Canon = LOCKED
+Types = Normal/Fairy
+EvolutionOrAccess = Miltank Lv40+ holding Ancient Bell; item consumed
+Abilities = Thick Fat / Scrappy / Hidden: Sap Sipper
+LevelUpMoves = Lv0 Tailspin; Lv1 Tackle, Growl, Defense Curl; Lv13 Stomp; Lv19 Milk Drink; Lv26 Bide; Lv34 Rollout; Lv40 Bulk Up; Lv43 Body Slam; Lv48 Hammer Arm; Lv52 High Horsepower; Lv56 Milk Drink; Lv60 Double-Edge; Lv64 Close Combat; Lv68 Heal Bell
+CustomMechanics = Tailspin — Normal Physical / 95 Acc / 10 PP / contact; consecutive power 30→60→120→180→240; Defense Curl synergy; +1 Speed each turn
+SpriteSource = Insurgence Mega Miltank
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 110/120/105/45/100/75
+BST = 555
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_MILTITAN
+DonorLevelUpTable = sMiltitanLevelUpLearnset
+DonorTeachableTable = sMiltankTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:258:SHUCKOLOSSE]
+Dex = 258
+Name = Shuckolosse
+OriginGame = PJR
+Canon = LOCKED
+Types = Bug/Rock
+EvolutionOrAccess = Shuckle Lv40+ holding Ancient Shell; item consumed
+Abilities = Ancient Bastion
+LevelUpMoves = Lv0 Fortress Crush; Lv1 Withdraw, Constrict, Wrap, Encore; Lv23 Safeguard; Lv28 Bide; Lv34 Stealth Rock; Lv37 Rest; Lv42 Sticky Web; Lv46 Iron Defense; Lv50 Power Split; Lv54 Guard Split; Lv58 Body Press; Lv62 Rock Slide; Lv66 Earthquake; Lv70 Shell Smash
+CustomMechanics = Ancient Bastion: first damaging hit halved; on damaging hit set Stealth Rock if absent, otherwise add one Spikes layer. Fortress Crush banked: Rock Physical 90 BP, uses Defense for damage.
+SpriteSource = PJR Redux SHUCKLE_MEGA
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 40/30/230/30/230/20
+BST = 580
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_SHUCKOLOSSE
+DonorLevelUpTable = sShuckolosseLevelUpLearnset
+DonorTeachableTable = sShuckleTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:259:RETIRED_UNUSED]
+Dex = 259
+Name = RETIRED_UNUSED
+OriginGame = PJR
+Canon = RETIRED
+EvolutionOrAccess = Sudowarden removed from canon 6 Oct 2026
+Notes = Keep slot unused; do not renumber later species casually.
+Run292QA = N/A
+
+[SPECIES:260:DONPHALANX]
+Dex = 260
+Name = Donphalanx
+OriginGame = PJR
+Canon = LOCKED
+Types = Ground/Dark
+EvolutionOrAccess = Donphan Lv40+ holding Ancient Tusk; item consumed
+Abilities = Stamina / Intimidate / Hidden: Sand Rush
+LevelUpMoves = Lv1 Electric Terrain, Horn Attack, Defense Curl, Rollout; Lv7 Bulldoze; Lv21 Rapid Spin; Lv28 Iron Head; Lv35 Stomping Tantrum; Lv42 Knock Off; Lv49 Earthquake; Lv56 Heavy Slam; Lv63 Wild Charge; Lv70 Endeavor; Lv77 Megahorn; Lv84 Giga Impact; Lv91 Steel Roller
+CustomMechanics = Use Iron Treads level-up moveset. Old Siege Tusk/custom Donphalanx learnset is retired unless explicitly reopened.
+SpriteSource = Iron Treads sprite set; exact donor asset path/provenance to resolve during PRL import
+Notes = Keep Donphalanx name/type/abilities/stats/evolution unchanged by sprite/moveset donor decision.
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 110/140/135/60/85/60
+BST = 590
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_DONPHALANX
+DonorLevelUpTable = sDonphalanxLevelUpLearnset
+DonorTeachableTable = sDonphanTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:261:MYSTYNX]
+Dex = 261
+Name = Mystynx
+OriginGame = PJR
+Canon = LOCKED
+Types = Ice/Fairy
+EvolutionOrAccess = Jynx Lv40+ holding Frost Mirror; item consumed
+Abilities = Competitive / Oblivious / Hidden: Snow Warning
+LevelUpMoves = Lv0 Brain Freeze; Lv1 Pound, Lick, Draining Kiss, Powder Snow; Lv5 Lick; Lv8 Lovely Kiss; Lv11 Powder Snow; Lv15 Double Slap; Lv18 Ice Punch; Lv21 Heart Stamp; Lv25 Mean Look; Lv28 Fake Tears; Lv33 Wake-Up Slap; Lv39 Avalanche; Lv40 Brain Freeze; Lv44 Body Slam; Lv49 Wring Out; Lv55 Perish Song; Lv60 Blizzard
+CustomMechanics = Evolution move: Brain Freeze
+SpriteSource = Pokémon Infinity Sorcerice #769 visuals; retain Mystynx name/mechanics
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 75/60/40/130/105/125
+BST = 535
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_MYSTYNX
+DonorLevelUpTable = sMystynxLevelUpLearnset
+DonorTeachableTable = sMystynxInfinityTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:262:PINSIREX]
+Dex = 262
+Name = Pinsirex
+OriginGame = PJR
+Canon = LOCKED
+Types = Bug/Flying
+EvolutionOrAccess = Pinsir evolves at Lv42
+Abilities = Aerilate / Mold Breaker / Hidden: Hyper Cutter
+LevelUpMoves = Lv0 Aerial Ace; Lv1 Vise Grip, Harden; Lv4 Focus Energy; Lv8 Bind; Lv12 Seismic Toss; Lv16 Bug Bite; Lv20 Storm Throw; Lv24 Double Hit; Lv28 Vital Throw; Lv32 X-Scissor; Lv36 Strength; Lv40 Swords Dance; Lv44 Submission; Lv48 Guillotine; Lv52 Superpower
+CustomMechanics = Evolution move: Aerial Ace
+SpriteSource = PJR base repo graphics/pokemon/pinsir/mega/ donor set
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/135/100/45/80/110
+BST = 550
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_PINSIREX
+DonorLevelUpTable = sPinsirexLevelUpLearnset
+DonorTeachableTable = sPinsirTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:263:FAERANIUM]
+Dex = 263
+Name = Faeranium
+OriginGame = PJR
+Canon = LOCKED
+Types = Grass/Fairy
+EvolutionOrAccess = Meganium Lv45+ holding Miracle Seed; item consumed
+Abilities = Ancient Bloom
+LevelUpMoves = Lv0 Eternal Bloom; Lv1 Tackle, Growl, Razor Leaf, Reflect; Lv23 Synthesis; Lv31 Body Slam; Lv41 Light Screen; Lv45 Eternal Bloom; Lv50 Dazzling Gleam; Lv54 Synthesis; Lv58 Moonblast; Lv62 Giga Drain; Lv66 Aromatherapy; Lv70 Solar Beam; Lv74 Petal Blizzard
+CustomMechanics = Ancient Bloom: once below 50% HP, heal 33% and create Grassy Terrain for 5 turns. Eternal Bloom banked: Fairy Special 90 BP/100 Acc; heals 50% damage dealt.
+SpriteSource = Insurgence Mega Meganium
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 100/85/115/105/120/65
+BST = 590
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_FAERANIUM
+DonorLevelUpTable = sFaeraniumLevelUpLearnset
+DonorTeachableTable = sMeganiumTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:264:PYROCLAST]
+Dex = 264
+Name = Pyroclast
+OriginGame = PJR
+Canon = LOCKED
+Types = Fire/Ghost
+EvolutionOrAccess = Typhlosion Lv45+ holding Charcoal; item consumed
+Abilities = Cinder Veil
+LevelUpMoves = Lv0 Magma Rift; Lv1 Tackle, Leer, Smokescreen, Ember; Lv21 Quick Attack; Lv31 Flame Wheel; Lv45 Magma Rift; Lv50 Earth Power; Lv54 Lava Plume; Lv58 Flamethrower; Lv62 Scorching Sands; Lv66 Eruption; Lv70 Earthquake; Lv74 Overheat
+CustomMechanics = Cinder Veil: first hit takes 50% damage; contact has 20% burn chance. Magma Rift: Ground Special 100 BP/100 Acc; 20% burn.
+SpriteSource = Insurgence Mega Typhlosion / approved Redux direction in later sprite audit
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/95/85/130/90/105
+BST = 590
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_PYROCLAST
+DonorLevelUpTable = sPyroclastLevelUpLearnset
+DonorTeachableTable = sTyphlosionTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:265:FERALODON]
+Dex = 265
+Name = Feralodon
+OriginGame = PJR
+Canon = LOCKED
+Types = Water/Dragon
+EvolutionOrAccess = Feraligatr Lv45+ holding Mystic Water; item consumed
+Abilities = Tidal Roar
+LevelUpMoves = Lv0 Death Roll; Lv1 Scratch, Leer, Rage, Water Gun; Lv21 Bite; Lv28 Scary Face; Lv38 Slash; Lv45 Death Roll; Lv50 Crunch; Lv54 Aqua Tail; Lv58 Ice Fang; Lv62 Dragon Dance; Lv66 Liquidation; Lv70 Hydro Pump; Lv74 Superpower
+CustomMechanics = Tidal Roar: once on switch-in lowers opponent Attack and Sp. Atk by one stage. Death Roll: Water Physical 95 BP/100 Acc, biting, 20% flinch.
+SpriteSource = Elite Redux Mega Feraligatr X locked later for Feralodon visuals
+Notes = Must not simply inherit Feraligatr level-up table.
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 105/135/105/70/85/80
+BST = 580
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_FERALODON
+DonorLevelUpTable = sFeralodonLevelUpLearnset
+DonorTeachableTable = sFeraligatrTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:266:CHAMPEON]
+Dex = 266
+Name = Champeon
+OriginGame = PJR
+Canon = LOCKED
+Types = Fighting
+EvolutionOrAccess = Eevee evolves during the day while holding Expert Belt
+Abilities = Scrappy / Hidden: Competitive
+LevelUpMoves = Lv0 Reversal; Lv1 Helping Hand, Tackle, Tail Whip, Agility, Meditate; Lv6 Vacuum Wave; Lv10 Endure; Lv12 Confusion; Lv15 Calm Mind; Lv17 Low Kick; Lv20 Pain Split; Lv24 Swift; Lv26 Low Sweep; Lv28 Heart Stamp; Lv34 Swords Dance; Lv37 Jump Kick; Lv40 Heal Block; Lv41 Roar; Lv45 Mega Kick; Lv52 Aura Sphere; Lv55 Extrasensory; Lv63 Superpower; Lv70 High Jump Kick; Lv75 Extreme Speed
+SpriteSource = Pokémon Infinity Champeon
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 65/110/65/95/60/130
+BST = 525
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_CHAMPEON
+DonorLevelUpTable = sChampeonLevelUpLearnset
+DonorTeachableTable = sChampeonInfinityTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:267:LEPIDEON]
+Dex = 267
+Name = Lepideon
+OriginGame = PJR
+Canon = LOCKED
+Types = Bug
+EvolutionOrAccess = Eevee evolves during the day while holding Silver Powder
+Abilities = Rattled / Hidden: Tinted Lens
+LevelUpMoves = Lv0 Signal Beam; Lv1 Helping Hand, Tackle, Tail Whip, Poison Powder, Struggle Bug, Spark; Lv8 Stun Spore; Lv12 Ion Deluge; Lv19 Fairy Wind; Lv20 Sleep Powder; Lv23 Silver Wind; Lv28 Rage Powder, U-turn; Lv33 Air Slash; Lv39 Charge Beam; Lv44 Charge; Lv49 Bug Buzz; Lv52 Whirlwind; Lv58 Agility; Lv62 Moonblast; Lv70 Tail Glow
+SpriteSource = Pokémon Infinity Lepideon
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/65/72/115/90/103
+BST = 525
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_LEPIDEON
+DonorLevelUpTable = sLepideonLevelUpLearnset
+DonorTeachableTable = sLepideonInfinityTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:268:SPHYNXEON]
+Dex = 268
+Name = Sphynxeon
+OriginGame = PJR
+Canon = LOCKED
+Types = Ground
+EvolutionOrAccess = Eevee evolves during the day while holding Soft Sand
+Abilities = Synchronize / Hidden: Technician
+LevelUpMoves = Lv0 Bonemerang; Lv1 Helping Hand, Tackle, Tail Whip, Rock Polish, Simple Beam; Lv5 Sand Attack; Lv9 Sand Tomb; Lv12 Covet; Lv14 Psycho Shift, Psybeam; Lv20 Bone Rush; Lv24 Rock Blast; Lv27 Trick; Lv32 Dig; Lv37 Zen Headbutt, Trick Room; Lv40 Bulldoze; Lv46 Earth Power; Lv51 Sandstorm; Lv58 Ancient Power; Lv63 Fissure; Lv68 Future Sight, Pain Split
+SpriteSource = Pokémon Infinity Sphynxeon
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 120/88/106/70/80/61
+BST = 525
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_SPHYNXEON
+DonorLevelUpTable = sSphynxeonLevelUpLearnset
+DonorTeachableTable = sSphynxeonInfinityTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:269:GUARDEON]
+Dex = 269
+Name = Guardeon
+OriginGame = PJR
+Canon = LOCKED
+Types = Steel
+EvolutionOrAccess = Eevee evolves at night while holding Metal Coat
+Abilities = Bulletproof / Hidden: Heatproof
+LevelUpMoves = Lv0 Iron Defense; Lv1 Helping Hand, Tackle, Tail Whip, Harden, Heat Crash; Lv6 Magnet Bomb; Lv10 Metal Burst; Lv12 Confusion; Lv15 Nasty Plot; Lv17 Mirror Shot; Lv20 Dragon Breath; Lv24 Psybeam; Lv26 King's Shield; Lv28 Taunt; Lv35 Extrasensory; Lv38 Flash Cannon; Lv41 Dragon Pulse; Lv45 Uproar; Lv52 Quick Guard; Lv55 Foul Play; Lv63 Hyper Voice; Lv70 Destiny Bond
+SpriteSource = Pokémon Infinity Guardeon
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 65/60/130/110/95/65
+BST = 525
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_GUARDEON
+DonorLevelUpTable = sGuardeonLevelUpLearnset
+DonorTeachableTable = sGuardeonInfinityTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:270:OBSIDEON]
+Dex = 270
+Name = Obsideon
+OriginGame = PJR
+Canon = LOCKED
+Types = Rock
+EvolutionOrAccess = Eevee evolves at night while holding Hard Stone
+Abilities = Rock Head / Hidden: Sand Rush
+LevelUpMoves = Lv0 Pressurize; Lv1 Helping Hand, Tackle, Tail Whip, Bite; Lv4 Sand Attack; Lv9 Smack Down; Lv14 Stomp, Spikes; Lv19 Sandstorm; Lv21 Headbutt; Lv25 Rock Blast; Lv28 Hone Claws; Lv32 Super Fang; Lv33 Night Slash; Lv37 Rock Polish; Lv40 Rock Slide; Lv41 Ice Fang; Lv42 Fire Fang, Thunder Fang; Lv45 Head Charge; Lv52 Sucker Punch; Lv60 Stone Edge; Lv75 Head Smash
+SpriteSource = Pokémon Infinity Obsideon
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 75/120/75/60/115/80
+BST = 525
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_OBSIDEON
+DonorLevelUpTable = sObsideonLevelUpLearnset
+DonorTeachableTable = sObsideonInfinityTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:271:TOXEON]
+Dex = 271
+Name = Toxeon
+OriginGame = PJR
+Canon = LOCKED
+Types = Poison
+EvolutionOrAccess = Eevee evolves at night while holding Poison Barb
+Abilities = Poison Touch / Hidden: Lightning Rod
+LevelUpMoves = Lv0 Venom Swipe; Lv1 Helping Hand, Tackle, Tail Whip, Bite; Lv4 Poison Sting; Lv9 Roar; Lv15 Toxic Spikes; Lv19 Spiky Shield; Lv21 Poison Tail; Lv26 Thunder Fang; Lv30 Venom Drench; Lv31 Agility; Lv36 Crunch; Lv40 Sludge Wave; Lv46 Punishment; Lv51 Swagger; Lv56 Belch; Lv62 Electro Ball; Lv70 Nasty Plot
+SpriteSource = Pokémon Infinity Scorpeon visuals under Toxeon name; current PJR visual set approved as-is
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 65/111/105/84/50/110
+BST = 525
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_TOXEON
+DonorLevelUpTable = sToxeonLevelUpLearnset
+DonorTeachableTable = sToxeonInfinityTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:272:OMEON]
+Dex = 272
+Name = Omeon
+OriginGame = PJR
+Canon = LOCKED
+Types = Ghost
+EvolutionOrAccess = Eevee evolves with Dusk Stone
+Abilities = Super Luck / Hidden: Moxie
+LevelUpMoves = Lv0 Vanish; Lv1 Teleport, Helping Hand, Tackle, Tail Whip, Grudge, Counter, Switcheroo; Lv5 Taunt; Lv9 Lick; Lv14 Pursuit; Lv17 Confuse Ray; Lv21 Double Kick; Lv23 Slash; Lv30 Will-O-Wisp; Lv35 Bounce; Lv37 Knock Off; Lv39 Shadow Claw; Lv49 Cross Chop; Lv55 Glare; Lv59 Shadow Sneak; Lv65 Skull Bash; Lv72 Phantom Force
+SpriteSource = Pokémon Infinity Omeon
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 70/124/85/65/65/116
+BST = 525
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_OMEON
+DonorLevelUpTable = sOmeonLevelUpLearnset
+DonorTeachableTable = sOmeonInfinityTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:273:DRAKEON]
+Dex = 273
+Name = Drakeon
+OriginGame = PJR
+Canon = LOCKED
+Types = Dragon
+EvolutionOrAccess = Eevee Lv25+ while holding Dragon Fang
+Abilities = Intimidate / Hidden: Multiscale
+LevelUpMoves = Lv0 Dragon Claw; Lv1 Helping Hand, Tackle, Tail Whip; Lv5 Sand Attack; Lv9 Dragon Rage; Lv13 Quick Attack; Lv17 Dragon Breath; Lv21 Knock Off; Lv25 Dragon Dance; Lv29 Dragon Claw; Lv33 Crunch; Lv37 Dragon Tail; Lv41 Iron Head; Lv45 Dragon Rush; Lv50 Zen Headbutt
+CustomMechanics = Evolution move: Dragon Claw
+SpriteSource = Shining Victory Wyveon donor under Drakeon name
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 75/130/85/110/65/80
+BST = 545
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_DRAKEON
+DonorLevelUpTable = sDrakeonLevelUpLearnset
+DonorTeachableTable = sEeveeTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:274:JOLLIBIRD]
+Dex = 274
+Name = Jollibird
+OriginGame = PJR
+Canon = LOCKED
+Types = Ice/Fairy
+EvolutionOrAccess = Delibird evolves with Shiny Stone
+Abilities = Thick Fat / Hidden: Snow Warning
+LevelUpMoves = Lv0 Dazzling Gleam; Lv1 Present; Lv12 Bestow; Lv25 Drill Peck; Lv37 Freeze-Dry; Lv50 Defog; Lv62 Grass Knot; Lv75 Milk Drink; Lv87 Clear Smog; Lv100 Happy Hour, Wish, Aura Sphere, Parting Shot
+SpriteSource = Pokémon Infinity #789
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/50/105/120/115/75
+BST = 545
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_JOLLIBIRD
+DonorLevelUpTable = sJollibirdLevelUpLearnset
+DonorTeachableTable = sJollibirdInfinityTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:275:GRIMFOWL]
+Dex = 275
+Name = Grimfowl
+OriginGame = PJR
+Canon = LOCKED
+Types = Dark/Flying
+EvolutionOrAccess = Noctowl evolves with Dusk Stone
+Abilities = Unnerve / Hidden: No Guard
+LevelUpMoves = Lv0 Night Daze; Lv1 Foul Play, Growl, Gust, Echoed Voice; Lv5 Hypnosis; Lv9 Confusion; Lv13 Night Shade; Lv17 Horn Attack; Lv21 Nightmare; Lv25 Ominous Wind; Lv29 Snarl; Lv33 Air Slash; Lv37 Razor Wind; Lv41 Moonblast; Lv45 Snatch; Lv49 Night Daze; Lv53 Roost; Lv57 Dream Eater; Lv62 Hurricane; Lv66 Nasty Plot
+SpriteSource = Pokémon Infinity #757
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 112/63/80/130/77/78
+BST = 540
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_GRIMFOWL
+DonorLevelUpTable = sGrimfowlLevelUpLearnset
+DonorTeachableTable = sGrimfowlInfinityTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:276:KABLOWFISH]
+Dex = 276
+Name = Kablowfish
+OriginGame = PJR
+Canon = LOCKED
+Types = Water/Steel
+EvolutionOrAccess = Qwilfish Lv40+ while holding Metal Coat
+Abilities = Poison Point / Swift Swim / Hidden: Intimidate
+LevelUpMoves = Lv0 Explosion; Lv1 Iron Tail, Iron Defense, Spikes, Tackle, Poison Sting; Lv9 Harden, Minimize; Lv13 Water Gun; Lv17 Rollout; Lv21 Toxic Spikes; Lv25 Stockpile, Spit Up; Lv29 Revenge; Lv33 Brine; Lv37 Gyro Ball; Lv43 Poison Tail; Lv47 Pin Missile; Lv51 Take Down; Lv55 Aqua Tail; Lv59 Poison Jab; Lv63 Destiny Bond; Lv67 Hydro Pump; Lv70 Kablow; Lv73 Iron Head; Lv80 Metal Burst
+SpriteSource = Pokémon Infinity #790
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/100/125/65/85/75
+BST = 535
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_KABLOWFISH
+DonorLevelUpTable = sKablowfishLevelUpLearnset
+DonorTeachableTable = sKablowfishInfinityTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:277:SUNFLORID]
+Dex = 277
+Name = Sunflorid
+OriginGame = PJR
+Canon = LOCKED
+Types = Grass/Fire
+EvolutionOrAccess = Sunflora evolves with Fire Stone
+Abilities = Chlorophyll / Solar Power / Hidden: Drought
+LevelUpMoves = Lv0 Incinerate; Lv1 Double-Edge, Natural Gift, Bullet Seed, Worry Seed, Razor Leaf, Leech Seed, Absorb, Pound, Growth; Lv4 Ingrain; Lv7 Grass Whistle; Lv10 Mega Drain; Lv13 Ember; Lv16 Grass Pledge; Lv19 Incinerate; Lv22 Giga Drain; Lv28 Happy Hour; Lv35 Petal Dance; Lv38 Fire Pledge; Lv41 Solar Beam; Lv44 Belly Drum; Lv47 Sunny Day; Lv52 Leaf Storm; Lv58 Flamethrower; Lv67 Weather Ball; Lv72 Heat Wave; Lv77 Discharge, Wild Charge
+SpriteSource = Pokémon Infinity #768
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 110/90/75/115/80/65
+BST = 535
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_SUNFLORID
+DonorLevelUpTable = sSunfloridLevelUpLearnset
+DonorTeachableTable = sSunfloridInfinityTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:279:GHOULBAT]
+Dex = 279
+Name = Ghoulbat
+OriginGame = PJR
+Canon = LOCKED
+Types = Ghost/Flying
+EvolutionOrAccess = Crobat Lv50+ at night while inside a cave
+Abilities = Infiltrator / Pressure / Hidden: Cursed Body
+LevelUpMoves = Lv0 Shadow Bone; Lv1 Cross Poison, Air Slash; Lv50 Shadow Bone; Lv60 Brave Bird
+CustomMechanics = Evolution move: Shadow Bone
+SpriteSource = Previously reserved ghost-like Crobat donor sprite
+Notes = Do not silently replace sparse declared table with Crobat normal table.
+Run292QA = PENDING
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 95/110/90/80/95/130
+BST = 600
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_GHOULBAT
+DonorLevelUpTable = sGhoulbatLevelUpLearnset
+DonorTeachableTable = sCrobatTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:280:ALPHORACLE]
+Dex = 280
+Name = Alphoracle
+OriginGame = PJR
+Canon = LOCKED
+Types = Psychic/Fairy
+EvolutionOrAccess = Static after RELICS chain at Ruins of Alph; not a normal evolution
+Abilities = TBD — explicitly NOT Wonder Guard and NOT Full Metal Body
+LevelUpMoves = Lv1 Hidden Power, Substitute, Psystrike, Lock-On; Lv20 Glare; Lv40 Ominous Wind; Lv60 Future Sight; Lv75 Glyphic Chorus; Lv80 Cosmic Ray; Lv100 Deja Vu
+SpriteSource = Pokémon Infinity Oculeus #799
+Notes = Ability replacement remains TBD until explicitly locked.
+Run292QA = PENDING
+
+
+# ============================================================================
+# MODIFIED / CUSTOM FORMS WITHOUT NEW REGIONAL DEX NUMBERS
+# ============================================================================
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 100/70/110/150/150/100
+BST = 680
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_ALPHORACLE
+DonorLevelUpTable = sAlphoracleLevelUpLearnset
+DonorTeachableTable = sAlphoracleInfinityTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = BLOCKED: replacement ability not locked; exclude Wonder Guard and Full Metal Body
+ObservedDonorAbility = Full Metal Body in pinned species initializer; rejected by current Notion
+
+[FORM:REGULAR_UNOWN]
+Name = Regular Unown
+Types = Unown
+Access = Unown
+Ability = Wonder Guard
+Moves = Lv1 Hidden Power; Lv5 Confusion; Lv10 Swift; Lv15 Ancient Power; Lv20 Psybeam; Lv25 Ominous Wind; Lv30 Power Gem; Lv35 Cosmic Power; Lv40 Shadow Ball; Lv45 Dazzling Gleam; Lv50 Psychic; Lv55 Calm Mind; Lv60 Future Sight; Lv65 Stored Power
+Notes = Normal Unown identity; no new Dex species.
+
+[FORM:I-UNOWN]
+Name = I-Unown
+Types = Psychic
+Access = Static RELICS Eye/King Unown donor visual; displays as I-Unown
+Ability = Wonder Guard target unless separately changed
+Moves = Lv1 Hidden Power, Confusion; Lv20 Ancient Power; Lv30 Ominous Wind; Lv40 Power Gem; Lv50 Psychic; Lv60 Future Sight; Lv65 Psystrike; Lv70 Dazzling Gleam; Lv75 Cosmic Power; Lv80 Stored Power
+Notes = Separate encounter/form but shared Unown Pokédex identity.
+
+[FORM:RELIC_GENGAR]
+Name = Relic Gengar
+Access = Form/variant; not new evolution/Dex species
+Ability = Base Gengar ability handling
+Moves = Shadow Ball / Sludge Bomb / Hypnosis / Dream Eater; also Nasty Plot, Destiny Bond
+Notes = Trainer/Relic presentation.
+
+[FORM:RELIC_CROBAT]
+Name = Relic Crobat
+Access = Form/variant; not Ghoulbat and not new Dex species
+Ability = Base Crobat ability handling
+Moves = Brave Bird / Cross Poison / Leech Life / U-turn; also Roost, Haze
+Notes = Trainer/Relic presentation.
+
+[FORM:RELIC_HOUNDOOM]
+Name = Relic Houndoom
+Access = Form/variant; not new Dex species
+Ability = Base Houndoom ability handling
+Moves = Flamethrower / Dark Pulse / Crunch / Nasty Plot; also Will-O-Wisp, Destiny Bond
+Notes = Trainer/Relic presentation.
+
+[FORM:RELIC_KINGDRA]
+Name = Relic Kingdra
+Access = Form/variant; not new Dex species
+Ability = Base Kingdra ability handling
+Moves = Hydro Pump / Dragon Pulse / Ice Beam / Rain Dance; also Draco Meteor, Agility
+Notes = Trainer/Relic presentation.
+
+[FORM:RELIC_TYRANITAR]
+Name = Relic Tyranitar
+Access = Form/variant; not new Dex species
+Ability = Base Tyranitar ability handling
+Moves = Stone Edge / Crunch / Earthquake / Dragon Dance; also Iron Head, Superpower
+Notes = Trainer/Relic presentation.
+
+[FORM:RELIC_SCIZOR]
+Name = Relic Scizor
+Access = Form/variant; not new Dex species
+Ability = Base Scizor ability handling
+Moves = Bullet Punch / X-Scissor / Iron Head / Swords Dance; also Roost, U-turn
+Notes = Trainer/Relic presentation.
+
+
+# ============================================================================
+# RELICS LEGENDARY DONOR PRESENTATION
+# ============================================================================
+
+[RELICS_CHAIN]
+Order = Raikou → Entei → Lugia → I-Unown → Celebi → Suicune → Alphoracle → Ho-Oh
+Rule = Raikou, Entei, Lugia, Celebi and Suicune keep vanilla species names/Pokédex identity/normal mechanics unless separately overridden.
+RaikouSprite = Xenoverse Legendary Beasts donor
+EnteiSprite = Xenoverse Legendary Beasts donor
+LugiaSprite = TRE 1038_Lugia-P
+CelebiSprite = TRE 1039_Celebi-P
+SuicuneSprite = Xenoverse Legendary Beasts donor
+RelicHoOhSprite = TRE 1037_Ho-oh-P
+RelicHoOhTargetMoves = Lv1 Sacred Fire; Lv11 Safeguard; Lv22 Gust; Lv33 Recover; Lv44 Fire Blast; Lv55 Sunny Day; Lv66 Brave Bird; Lv72 Dazzling Gleam; Lv77 Whirlwind; Lv80 Moonblast; Lv85 Phoenix Hymn; Lv88 Ancient Power; Lv99 Future Sight
+Note = Alphoracle ability remains TBD; it must not be Wonder Guard or Full Metal Body.
+
+
+# ============================================================================
+# RED-EXCLUSIVE KANTO RELIC FORMS IN PJR
+# ============================================================================
+
+[RED_FORM:EDENSAUR]
+Name = Edensaur
+Types = Grass/Poison
+Ability = Grassy Surge
+Access = Red-only champion form in PJR; no player evolution route in PJR
+Learnset = Venusaur level-up and teachable learnsets
+PRLNote = PKR provides the player-obtainable canonical evolution route; do not use PJR's Red-only access rule in PRL.
+
+[RED_FORM:CHARAXIS]
+Name = Charaxis
+Types = Fire/Flying
+Ability = Gale Wings
+Access = Red-only champion form in PJR; no player evolution route in PJR
+Learnset = Charizard level-up and teachable learnsets
+PRLNote = PKR provides the player-obtainable canonical evolution route; do not use PJR's Red-only access rule in PRL.
+
+[RED_FORM:FORTOTOISE]
+Name = Fortotoise
+Types = Water/Steel
+Ability = Sturdy
+Access = Red-only champion form in PJR; no player evolution route in PJR
+Learnset = Blastoise level-up and teachable learnsets
+PRLNote = PKR provides the player-obtainable canonical evolution route; do not use PJR's Red-only access rule in PRL.
+
+[RED_FORM:KHANG]
+Name = Khang
+Types = Normal
+Ability = Parental Bond
+Access = Red-only champion form in PJR; no player evolution route in PJR
+Learnset = Kangaskhan level-up and teachable learnsets
+PRLNote = PKR provides the player-obtainable canonical evolution route; do not use PJR's Red-only access rule in PRL.
+
+[RED_FORM:NOLAX]
+Name = Nolax
+Types = Normal
+Ability = Insomnia
+Access = Red-only champion form in PJR; no player evolution route in PJR
+Learnset = Snorlax level-up and teachable learnsets
+PRLNote = PKR provides the player-obtainable canonical evolution route; do not use PJR's Red-only access rule in PRL.
+
+[RED_FORM:NOXICHU]
+Name = Noxichu
+Types = Electric/Dark
+Ability = Infiltrator
+Access = Red-only champion form in PJR; no player evolution route in PJR
+Learnset = Pikachu level-up and teachable learnsets
+PRLNote = PKR provides the player-obtainable canonical evolution route; do not use PJR's Red-only access rule in PRL.
+
+
+# ============================================================================
+# KNOWN CANON / SOURCE CONFLICTS TO RESOLVE
+# ============================================================================
+
+[CONFLICT:MAROWAK_BRANCHES]
+Status = RESOLVED in source; Run292 QA pending
+Resolution = Osteodian and Maroghost are the approved current branches; historical Terathwack is excluded
+Source = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/gen_1_families.h
+Run292Source = 64c68bfa8b2db8ae31af21837cabe1953729379d
+NumericIDPolicy = Do not infer PRL Dex IDs from PJR engine constants or the old audit #278
+
+[CONFLICT:OLD_CUSTOM_MOVES]
+OldMaster = Titan Horn / Razor Dive / Stampede / Siege Tusk path
+CurrentNotion = Stag Stab / Iron Tempest / Tailspin; PRL Donphalanx sprite and learnset donor basis is Great Tusk, superseding prior Iron Treads basis.
+Action = Current Notion wins.
+
+[CONFLICT:SUDOWARDEN]
+CurrentNotion = Removed from playable canon on 6 Oct 2026; #259 retired.
+Action = Do not import Sudowarden or Fossil Bark evolution into PRL.
+
+
+# ============================================================================
+# PRL IMPORT POLICY
+# ============================================================================
+
+[POLICY:PJR_TO_PRL]
+DataDonor = Current Notion audit + pjr-rebuild + latest master sheet as fallback
+QoLPolicy = SELECTIVE ONLY
+Rule = Do not blanket-port PJR QoL into PRL.
+Rule = Run292 visual/evolution results should update PJR and PRL canonical files immediately.
+Rule = Trainer-only donor forms do not become PRL species unless the player also receives an obtainable route.
+Rule = Marowak source conflict is resolved; PRL numeric IDs remain unfrozen until the combined roster and engine are ready.
+Rule = Sudowarden is excluded.
+
+[LEGACY:TERATHWACK]
+Dex = 278
+Name = Terathwack
+OriginGame = PJR
+Canon = SUPERSEDED
+Types = Normal/Ground
+EvolutionOrAccess = Marowak Lv40+ while holding Thick Club
+Abilities = Rock Head / Scrappy / Hidden: Battle Armor
+LevelUpMoves = Lv0 Bone Sweep; Lv1 Bone Club, Leer, Fling, Focus Energy; Lv7 Fake Out; Lv10 Headbutt; Lv13 Bite; Lv19 Double Hit; Lv22 Rage; Lv25 Mega Punch; Lv31 Bonemerang; Lv34 False Swipe; Lv37 Crunch; Lv43 Thrash; Lv46 Outrage; Lv49 Sucker Punch; Lv53 Bone Rush, Double-Edge; Lv59 Retaliate; Lv62 Reversal; Lv66 Head Charge; Lv71 Wide Guard; Lv78 Last Resort
+SpriteSource = Pokémon Infinity #752
+Notes = Conflict note: older PJR master also defines Maroghost/Osteodian branches. Current Notion audit declares Terathwack #278. Run292/source audit should reconcile before PRL implementation.
+Run292QA = N/A historical design
+PRLImportStatus = EXCLUDED: replaced by approved Osteodian / Maroghost branches
+
+[SPECIES:OSTEODIAN]
+Name = Osteodian
+OriginGame = PJR
+Canon = LOCKED
+BaseSpecies = Marowak
+Types = Ground
+EvolutionOrAccess = Marowak Lv40+ holding Thick Club during the day
+Abilities = Rock Head / Scrappy / Hidden: Battle Armor
+LevelUpMoves = Inherit sMarowakLevelUpLearnset from pinned donor source; generation-dependent table retained by reference
+EvolutionMove = No separately locked custom evolution move
+SpriteSource = Current PJR gMonFrontPic_Osteodian, gMonBackPic_Osteodian, gMonIcon_Osteodian; preserve original donor provenance
+Run292QA = PENDING
+NumericIDPolicy = PJR engine constant is donor-only; no new regional/PRL Dex allocation
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 105/95/145/60/95/60
+BST = 560
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_OSTEODIAN
+DonorLevelUpTable = sMarowakLevelUpLearnset
+DonorTeachableTable = sMarowakTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending
+
+[SPECIES:MAROGHOST]
+Name = Maroghost
+OriginGame = PJR
+Canon = LOCKED
+BaseSpecies = Marowak
+Types = Ground/Ghost
+EvolutionOrAccess = Marowak Lv40+ holding Spell Tag during the night
+Abilities = Rock Head / Cursed Body / Hidden: Battle Armor
+LevelUpMoves = Inherit sMarowakLevelUpLearnset from pinned donor source; generation-dependent table retained by reference
+EvolutionMove = No separately locked custom evolution move
+SpriteSource = Current PJR gMonFrontPic_Maroghost, gMonBackPic_Maroghost, gMonIcon_Maroghost; preserve original donor provenance
+Run292QA = PENDING
+NumericIDPolicy = PJR engine constant is donor-only; no new regional/PRL Dex allocation
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 100/140/120/50/90/70
+BST = 570
+StatsSource = https://github.com/jamesthoward2112-tech/Pokemon-Johto-Relics/blob/78f3d308f71be9990262a5985b2e0c1e92d7e3cb/src/data/pokemon/species_info/pjr_families.h
+DonorSpeciesConstant = SPECIES_MAROGHOST
+DonorLevelUpTable = sMarowakLevelUpLearnset
+DonorTeachableTable = sMarowakTeachableLearnset
+CanonSource = https://app.notion.com/p/3ec4939d431681149ab8c18542bafe22
+PRLImportStatus = APPROVED DONOR TARGET; Run292 player QA and PRL integration pending

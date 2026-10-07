@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "source": "Project Kanto Relics / MasterRomPKR",
+  "source_rom_sha256": "fb8d62b8410f8de2e5a12e48819d10be946a9c65729392bab0dd083d53c16307",
+  "policy": [
+    "Never copy PKR numeric IDs or ROM offsets into PRL canonical data.",
+    "Reimplement donor behavior against pokeemerald-expansion 1.17.1 source symbols.",
+    "Preserve genuine FireRed geography.",
+    "Only port QoL/features already approved for PRL; keep other donor features deferred until explicitly selected.",
+    "Build and runtime-test after each major layer."
+  ],
+  "layers": [
+    {
+      "id": "pkr_story_kanto",
+      "status": "in_progress",
+      "contents": [
+        "Relic/fossil story beats",
+        "Giovanni relic finale",
+        "post-Champion Oak briefing"
+      ],
+      "ported": [
+        "PKR T48 Professor Oak relic/fossil opening dialogue, reimplemented source-level in data/text/new_game_intro_frlg.inc",
+        "Mt. Moon Rocket relic/fossil story pass: four B2F grunts + Miguel fossil handoff reauthored to establish Rocket excavation, cataloguing and BOSS continuity without changing FireRed geography or progression.",
+        "Cerulean milestone: Relic Reports replaces visible Oak Parcel presentation while retaining the safe internal story item.",
+        "Cerulean milestone: Viridian forced Weedle tutorial skipped after Relic Reports; low-value early NPC clutter removed/replaced with a Noxichu Moon Stone hint.",
+        "Cerulean milestone: Kanto starters changed to NidoranM / Growlithe / Pikachu with rival owning both unchosen lines by Route 22 and Cerulean.",
+        "Cerulean milestone: visible Lv10 Bulbasaur/Charmander/Squirtle gifts beside Oak aides with Miracle Seed/Sharp Beak/Metal Coat.",
+        "Cerulean milestone: Noxichu added as fresh PRL custom species ID with locked Electric/Dark, Infiltrator, 70/110/70/110/80/125 and Moon Stone evolution.",
+        "Cerulean milestone QoL: direct R-to-run in wild battles, L last Ball, reusable TMs, Gen6-style Exp Share key item and useful Oak lab aides."
+      ],
+      "notes": "Adapt dialogue/scripts to PRL continuity; do not binary-patch offsets. Exact T48 welcome wording was recovered from the approved MasterRomPKR donor and ported without donor offsets.",
+      "qa": [
+        "PKR Port 002 Mt. Moon relic story passed player QA through Miguel fossil dialogue on 2026-10-07"
+      ]
+    },
+    {
+      "id": "pkr_kanto_progression",
+      "status": "ready",
+      "contents": [
+        "Kanto-only/Sevii retirement behavior",
+        "Moltres -> Victory Road",
+        "Magmar -> Pokemon Mansion"
+      ],
+      "notes": "Final PRL handoff will eventually lead to Johto, not Sevii."
+    },
+    {
+      "id": "pkr_starters_gifts",
+      "status": "implemented_to_cerulean_awaiting_qa",
+      "contents": [
+        "PRL Kanto starters Pikachu/NidoranM/Growlithe",
+        "Bulbasaur/Charmander/Squirtle Lv10 gifts"
+      ],
+      "notes": "PRL design overrides PKR's old starter setup."
+    },
+    {
+      "id": "pkr_custom_species",
+      "status": "noxichu_ported_first_batch_awaiting_qa",
+      "contents": [
+        "Edensaur",
+        "Charaxis",
+        "Fortotoise",
+        "Khang",
+        "Toxeon",
+        "Noxichu",
+        "Nolax",
+        "nuMew",
+        "Relicanth special variant"
+      ],
+      "notes": "Allocate fresh PRL canonical IDs; import direct source assets where available."
+    },
+    {
+      "id": "pkr_gym_league_rematches",
+      "status": "deferred_until_base_story_stable",
+      "contents": [
+        "8 Gym rematches",
+        "Elite Four title defense",
+        "Champion/Rival title defense"
+      ],
+      "notes": "Port trainer/species references only after canonical species layer exists."
+    },
+    {
+      "id": "pkr_qol",
+      "status": "cerulean_subset_implemented_awaiting_qa",
+      "contents": [
+        "trainer-use HM",
+        "legendary/static retry safeguard",
+        "Fly changes",
+        "TM/shop tweaks"
+      ],
+      "notes": "Do not bulk-port; include only PRL-approved QoL."
+    }
+  ],
+  "milestones": {
+    "PRL_PKR_PORT_003_CERULEAN": {
+      "status": "built_targeted_qa_passed_user_runtime_qa_pending",
+      "boundary": "New game through Cerulean/Bill approach",
+      "requires_fresh_save": true
+    }
+  }
+}

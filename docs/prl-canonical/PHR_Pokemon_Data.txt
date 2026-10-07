@@ -1,0 +1,1583 @@
+# Pokémon Relic canonical species data
+# Format: human-readable PBS-style reference, not an engine parser contract.
+# Source precedence: Notion canon > latest master sheet > implementation/ROM fallback.
+# Generated: 2026-10-06
+#
+# IMPORTANT PRL IMPORT RULE:
+# Recording a PKR feature here does NOT automatically approve it for PRL.
+# PRL only imports QoL/system changes that have been explicitly agreed for PRL.
+# Game = PHR
+# MasterSheet = Pokemon_Hoenn_Relics_Master_Sheet_v0.16.xlsx
+# MasterSheetSHA256 = 5f6d164925550496e6962f5beaecbfa3612461ee35ff463894d52ad3365b9868
+# Notion = PHR — Pokémon Hoenn Relics + Relic Pokédex
+# WARNING = Notion roster supersedes stale v0.16 naming where conflicts exist.
+
+# ============================================================================
+# CANONICAL PHR RELIC / CUSTOM SPECIES
+# ============================================================================
+# Reconciled: 2026-10-06; see PRL_Canonical_Status.md and PRL_Import_Gates.json.
+
+[SPECIES:SCEPTITAN]
+Name = Sceptitan
+OriginGame = PHR
+Dex = 203
+BaseSpecies = Sceptile
+Types = Grass/Dragon
+Ability = Ancient Grove
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/125/90/115/90/125
+BST = 630
+Evolution = Lv40+ Sceptile + reusable Ancient Emblem + Forest Altar in the Route 120 Relic Sanctuary
+RelicSite = Route 120 Relic Sanctuary — Forest Altar
+StoryAvailability = Around Winona / 6th Gym once the sanctuary opens
+EvolutionOrCoreMove = Evolution: Amber Blade
+LevelUpMoves = Lv1 Leaf Blade / Dragon Breath / Quick Attack / Detect; Lv29 Dual Chop; Lv34 Giga Drain; Lv39 Dragon Dance; Lv44 X-Scissor; Lv49 Dragon Claw; Lv54 Synthesis; Lv59 Leaf Storm; Lv64 Outrage
+Mechanics = On entry creates a 5-turn Ancient Grove effect; Sceptitan's Defense is +50% during it; no passive healing
+MoveTuning = Amber Blade: Grass / Physical / 95 BP / 100 Acc / 10 PP / high critical-hit ratio / 20% target Defense drop; evolution-only. 95 BP and Defense drop are the current Notion override.
+HeldItemOrKeyNote = Ancient Emblem is a reusable Key Item for evolution
+SpriteSource = Emerald Imperium v1.3.1 — native Mega Sceptile front/back/icon; approved 6 Oct 2026
+Notes = Fast mixed forest guardian; fern-tree tail, amber seeds and resin spines
+PRLImportStatus = LOCKED SPECIES DONOR / final mechanics subject to PRL conflict resolution
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3e94939d431681b09ea4fa24933f4c3c
+CheckedSource = Pokemon-Hoenn-Relics develop 1b54f17e3650a58c08f2eb9f3aa1de4b39014851; data/hoennmon_species_v0.15.json; runtime-fix overrides also retain old roster
+
+[SPECIES:SOLAZIKEN]
+Name = Solaziken
+OriginGame = PHR
+Dex = 204
+BaseSpecies = Blaziken
+Types = Fire/Psychic
+Ability = Solar Discipline
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/145/80/120/80/120
+BST = 630
+Evolution = Lv40+ Blaziken + reusable Ancient Emblem + Sun Altar in the Route 120 Relic Sanctuary
+RelicSite = Route 120 Relic Sanctuary — Sun Altar
+StoryAvailability = Around Winona / 6th Gym once the sanctuary opens
+EvolutionOrCoreMove = Evolution: Sun Rite
+LevelUpMoves = Lv42 Zen Headbutt; Lv46 Blaze Kick; Lv50 Bulk Up; Lv54 High Jump Kick; Lv58 Psychic; Lv62 Flare Blitz; Lv66 Close Combat; Lv70 Brave Bird
+Mechanics = On entry active for 5 turns; Fire- and Psychic-type moves +20%; Attack and Sp. Atk cannot be lowered; does not create weather
+MoveTuning = Sun Rite: Fire / Physical / 95 BP / 100 Acc / 10 PP / 30% chance Speed +1. Zen Headbutt global tune: 80 BP / 100 Acc / 15 PP / 10% flinch
+HeldItemOrKeyNote = Ancient Emblem is a reusable Key Item for evolution
+SpriteSource = Emerald Imperium v1.3.1 — native Mega Blaziken front/back/icon; approved 6 Oct 2026
+Notes = Physical-first mixed sun-temple martial guardian with bronze ceremonial armour
+PRLImportStatus = LOCKED SPECIES DONOR / final mechanics subject to PRL conflict resolution
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3e94939d431681b09ea4fa24933f4c3c
+CheckedSource = Pokemon-Hoenn-Relics develop 1b54f17e3650a58c08f2eb9f3aa1de4b39014851; data/hoennmon_species_v0.15.json; runtime-fix overrides also retain old roster
+
+[SPECIES:SWAMPLITH]
+Name = Swamplith
+OriginGame = PHR
+Dex = 205
+BaseSpecies = Swampert
+Types = Water/Ground
+Ability = Tidal Bastion
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 125/135/125/80/105/60
+BST = 630
+Evolution = Lv40+ Swampert + reusable Ancient Emblem + Tide Altar in the Route 120 Relic Sanctuary
+RelicSite = Route 120 Relic Sanctuary — Tide Altar
+StoryAvailability = Around Winona / 6th Gym once the sanctuary opens
+EvolutionOrCoreMove = Evolution: Tectonic Tide
+LevelUpMoves = Lv42 Earthquake; Lv46 Ice Punch; Lv50 Curse; Lv54 Liquidation; Lv58 Hammer Arm; Lv62 Stone Edge; Lv66 High Horsepower; Lv70 Wave Crash
+Mechanics = On entry active for 5 turns; super-effective damage against Swamplith is reduced by 25%
+MoveTuning = Tectonic Tide: Water / Physical / 95 BP / 100 Acc / 10 PP / 30% chance target Defense -1
+HeldItemOrKeyNote = Ancient Emblem is a reusable Key Item for evolution
+Notes = Slow primordial amphibious physical fortress with megalithic armour
+PRLImportStatus = LOCKED SPECIES DONOR / final mechanics subject to PRL conflict resolution
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3e94939d431681b09ea4fa24933f4c3c
+CheckedSource = Pokemon-Hoenn-Relics develop 1b54f17e3650a58c08f2eb9f3aa1de4b39014851; data/hoennmon_species_v0.15.json; runtime-fix overrides also retain old roster
+
+[SPECIES:HYENADON]
+Name = Hyenadon
+OriginGame = PHR
+Dex = 206
+BaseSpecies = Mightyena
+Types = Dark/Ground
+Ability = Strong Jaw
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90/135/85/50/80/110
+BST = 550
+Evolution = Level up while holding Hard Stone; works anywhere; catalyst is consumed by the evolution
+RelicSite = Route 111 Desert Track — lore / catalyst clue only
+StoryAvailability = Once Hard Stone and Mightyena are available
+EvolutionOrCoreMove = Evolution: Crunch
+LevelUpMoves = Lv38 Fire Fang; Lv42 Ice Fang; Lv46 Thunder Fang; Lv50 High Horsepower; Lv54 Psychic Fangs; Lv58 Sucker Punch; Lv62 Earthquake; Lv66 Jaw Lock; Lv70 Play Rough
+Mechanics = Standard Strong Jaw; existing ability
+MoveTuning = No custom/signature move. Jaw Lock is a biting move and benefits from Strong Jaw.
+HeldItemOrKeyNote = —
+Notes = Fast physical prehistoric pursuit hunter; Strong Jaw bite specialist
+PRLImportStatus = LOCKED SPECIES DONOR / final mechanics subject to PRL conflict resolution
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3e94939d431681b09ea4fa24933f4c3c
+CheckedSource = Pokemon-Hoenn-Relics develop 1b54f17e3650a58c08f2eb9f3aa1de4b39014851; data/hoennmon_species_v0.15.json; runtime-fix overrides also retain old roster
+
+[SPECIES:GEMIGOYLE]
+Name = Gemigoyle
+OriginGame = PHR
+Dex = 207
+BaseSpecies = Sableye
+Types = Ghost/Rock
+Ability = Prism Armor
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/70/130/115/115/45
+BST = 560
+Evolution = Level up while holding Hard Stone; works anywhere; catalyst is consumed by the evolution
+RelicSite = Granite Idol Chamber — lore / catalyst clue only
+StoryAvailability = Once Hard Stone and Sableye are available
+EvolutionOrCoreMove = Evolution: Power Gem
+LevelUpMoves = Lv42 Shadow Ball; Lv46 Ancient Power; Lv50 Calm Mind; Lv54 Earth Power; Lv58 Will-O-Wisp; Lv62 Psychic; Lv66 Recover; Lv70 Meteor Beam
+Mechanics = Standard Prism Armor; super-effective damage reduced by 25%
+MoveTuning = Ghost/Rock special attacker / wall; no custom move
+HeldItemOrKeyNote = —
+Notes = Slow bulky special relic sentinel; gemstone idol with extreme defensive presence
+PRLImportStatus = LOCKED SPECIES DONOR / final mechanics subject to PRL conflict resolution
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3e94939d431681b09ea4fa24933f4c3c
+CheckedSource = Pokemon-Hoenn-Relics develop 1b54f17e3650a58c08f2eb9f3aa1de4b39014851; data/hoennmon_species_v0.15.json; runtime-fix overrides also retain old roster
+
+[SPECIES:MAWYRM]
+Name = Mawyrm
+OriginGame = PHR
+Dex = 208
+BaseSpecies = Mawile
+Types = UNRESOLVED complete type pair; Fairy component locked
+Ability = Intimidate
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/130/115/60/95/80
+BST = 560
+Evolution = Mawile shrine evolution; exact shrine/catalyst conditions require final-source recovery
+RelicSite = Mt. Pyre Shrine — lore / catalyst clue only
+StoryAvailability = Once Dragon Fang and Mawile are available
+EvolutionOrCoreMove = Evolution: Dragon Claw
+LevelUpMoves = Lv42 Iron Head; Lv46 Crunch; Lv50 Dragon Dance; Lv54 Play Rough; Lv58 Iron Defense; Lv62 Outrage; Lv66 Heavy Slam; Lv70 Glaive Rush
+Mechanics = Standard Intimidate
+MoveTuning = No custom move; Strong Jaw deliberately reserved for Hyenadon
+HeldItemOrKeyNote = —
+Notes = Bulky physical shrine guardian whose false jaw becomes a serpentine dragon | Notion property says 'Fairy final typing'; stale master sheet says Steel/Dragon. Treat Notion as authoritative and resolve exact secondary typing only if later clarified.
+PRLImportStatus = BLOCKED: complete typing and exact shrine evolution unresolved
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3e94939d431681b09ea4fa24933f4c3c
+CheckedSource = Pokemon-Hoenn-Relics develop 1b54f17e3650a58c08f2eb9f3aa1de4b39014851; data/hoennmon_species_v0.15.json; runtime-fix overrides also retain old roster
+LegacyDonorEvolution = Level up holding Dragon Fang, anywhere; conflicts with the current Notion shrine wording
+LegacyDonorTypes = Steel/Dragon; superseded
+
+[SPECIES:TORKALDERA]
+Name = Torkaldera
+OriginGame = PHR
+Dex = 209
+BaseSpecies = Torkoal
+Types = Fire/Rock
+Ability = Solid Rock
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 100/75/145/125/95/40
+BST = 580
+Evolution = Level up while holding Charcoal; works anywhere; catalyst is consumed by the evolution
+RelicSite = Magma Hideout Caldera — lore / catalyst clue only
+StoryAvailability = Once Charcoal and Torkoal are available
+EvolutionOrCoreMove = Evolution: Lava Plume
+LevelUpMoves = Lv42 Power Gem; Lv46 Earth Power; Lv50 Iron Defense; Lv54 Flamethrower; Lv58 Stealth Rock; Lv62 Heat Wave; Lv66 Shell Smash; Lv70 Eruption
+Mechanics = Standard Solid Rock; super-effective damage reduced by 25%
+MoveTuning = Slow bulky special cannon / tank; no custom move
+HeldItemOrKeyNote = —
+Notes = Slow bulky special cannon / tank with a living magma-chamber shell
+PRLImportStatus = LOCKED SPECIES DONOR / final mechanics subject to PRL conflict resolution
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3e94939d431681b09ea4fa24933f4c3c
+CheckedSource = Pokemon-Hoenn-Relics develop 1b54f17e3650a58c08f2eb9f3aa1de4b39014851; data/hoennmon_species_v0.15.json; runtime-fix overrides also retain old roster
+
+[SPECIES:CACTOMB]
+Name = Cactomb
+OriginGame = PHR
+Dex = 210
+BaseSpecies = Cacturne
+Types = Grass/Ghost
+Ability = Spirit Thorns
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/95/95/120/95/70
+BST = 560
+Evolution = Level up while holding Spell Tag; works anywhere; catalyst is consumed by the evolution
+RelicSite = Desert Ruins Burial Court — lore / catalyst clue only
+StoryAvailability = Once Spell Tag and Cacturne are available
+EvolutionOrCoreMove = UNRESOLVED evolution-move assignment; donor used Shadow Ball, Notion adds Grave Spines without timing
+LevelUpMoves = Lv42 Energy Ball; Lv46 Dark Pulse; Lv50 Leech Seed; Lv54 Giga Drain; Lv58 Will-O-Wisp; Lv62 Nasty Plot; Lv66 Sludge Bomb; Lv70 Poltergeist
+Mechanics = UNRESOLVED exact Spirit Thorns effect; the Notion name overrides old Rough Skin
+MoveTuning = UNRESOLVED Grave Spines effect, power, accuracy, PP and learn timing; do not invent
+HeldItemOrKeyNote = —
+Notes = Special-leaning haunted cactus tomb effigy leaking spectral desert sand
+PRLImportStatus = BLOCKED: exact Spirit Thorns / Grave Spines mechanics and timing unresolved
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3e94939d431681b09ea4fa24933f4c3c
+CheckedSource = Pokemon-Hoenn-Relics develop 1b54f17e3650a58c08f2eb9f3aa1de4b39014851; data/hoennmon_species_v0.15.json; runtime-fix overrides also retain old roster
+SignatureMove = Grave Spines
+LegacyDonorAbility = Rough Skin; superseded by current Notion Spirit Thorns
+
+[SPECIES:TROPISAUR]
+Name = Tropisaur
+OriginGame = PHR
+Dex = 211
+BaseSpecies = Tropius
+Types = Grass/Dragon
+Ability = Harvest
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 125/85/105/115/110/50
+BST = 590
+Evolution = Level up while holding Enigma Berry; works anywhere; Berry is consumed by the evolution
+RelicSite = Ancient Canopy / Fortree–Route 120 relic trail — lore and guaranteed Enigma Berry
+StoryAvailability = Around Fortree / Route 120 once the Enigma Berry reward is available
+EvolutionOrCoreMove = Evolution: Air Slash
+LevelUpMoves = Lv42 Energy Ball; Lv46 Leech Seed; Lv50 Ancient Power; Lv54 Synthesis; Lv58 Dragon Pulse; Lv62 Hurricane; Lv66 Earth Power; Lv70 Solar Beam
+Mechanics = Standard Harvest: 50% chance to restore a consumed Berry at end of turn; 100% in harsh sunlight
+MoveTuning = No custom move
+HeldItemOrKeyNote = Enigma Berry is the evolution catalyst; battle-consumed Berry is restored after battle unless it triggers evolution
+Notes = Bulky special/support primeval flying sauropod carrying a miniature ecosystem | Notion final typing supersedes stale master-sheet Grass/Flying typing.
+PRLImportStatus = LOCKED SPECIES DONOR / final mechanics subject to PRL conflict resolution
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3e94939d431681b09ea4fa24933f4c3c
+CheckedSource = Pokemon-Hoenn-Relics develop 1b54f17e3650a58c08f2eb9f3aa1de4b39014851; data/hoennmon_species_v0.15.json; runtime-fix overrides also retain old roster
+TypingResolution = RESOLVED: current Notion Grass/Dragon supersedes source/master Grass/Flying
+LegacyDonorTypes = Grass/Flying; do not import
+
+[SPECIES:BELLANTEM]
+Name = Bellantem
+OriginGame = PHR
+Dex = 212
+Canon = LOCKED DONOR
+MechanicsStatus = UNRESOLVED. Notion locks name/roster only. The v0.16 master, develop JSON and inspected runtime-fix scripts do not define this species. No rename inference permitted.
+PRLImportStatus = BLOCKED: final type/stats/ability/evolution/learnset source unavailable
+CanonSource = https://app.notion.com/p/3e94939d431681b09ea4fa24933f4c3c
+CheckedSource = Pokemon-Hoenn-Relics develop 1b54f17e3650a58c08f2eb9f3aa1de4b39014851; data/hoennmon_species_v0.15.json; runtime-fix overrides also retain old roster
+
+[SPECIES:SABELLITE]
+Name = Sabellite
+OriginGame = PHR
+Dex = 213
+Canon = LOCKED DONOR
+MechanicsStatus = UNRESOLVED. Notion locks name/roster only. The v0.16 master, develop JSON and inspected runtime-fix scripts do not define this species. No rename inference permitted.
+PRLImportStatus = BLOCKED: final type/stats/ability/evolution/learnset source unavailable
+CanonSource = https://app.notion.com/p/3e94939d431681b09ea4fa24933f4c3c
+CheckedSource = Pokemon-Hoenn-Relics develop 1b54f17e3650a58c08f2eb9f3aa1de4b39014851; data/hoennmon_species_v0.15.json; runtime-fix overrides also retain old roster
+
+[SPECIES:COELOSSUS]
+Name = Coelossus
+OriginGame = PHR
+Dex = 214
+BaseSpecies = Relicanth
+Types = Water/Rock
+Ability = Ancient Core
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 110/120/145/115/125/65
+BST = 680
+Evolution = One-time First Current transformation of the exact returning PKR Shiny Wonder Guard Relicanth after all ten native guardian evolutions are registered
+RelicSite = Sealed Chamber — First Current; ordinary Relicanth is explicitly rejected
+StoryAvailability = Postgame after the ten-guardian circuit and capture of THE Shiny Relicanth
+EvolutionOrCoreMove = Evolution: Epoch Crash
+LevelUpMoves = Lv42 Liquidation; Lv46 Ancient Power; Lv50 Earthquake; Lv54 Aqua Ring; Lv58 Power Gem; Lv62 Curse; Lv66 Wave Crash; Lv70 Head Smash; Lv74 Shore Up; Lv78 Meteor Beam
+Mechanics = Ancient Core donor modifiers: super-effective damage -25%, Water/Rock moves +20%, Attack/Sp. Atk protected. Current Notion hazard target is ON ENTRY; exact hazard damage/layers/timing require recovery.
+MoveTuning = Epoch Crash: Rock / Physical / 120 BP / 100 Acc / 5 PP / no recoil / 20% chance target Defense -1. Ancient stones do not stack and use normal Rock-type entry damage.
+HeldItemOrKeyNote = —
+Notes = Ultimate Relic Legendary; ancient fortress and mixed Water/Rock titan
+PRLImportStatus = BLOCKED: exact hazard-on-entry specification unresolved
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3e94939d431681b09ea4fa24933f4c3c
+CheckedSource = Pokemon-Hoenn-Relics develop 1b54f17e3650a58c08f2eb9f3aa1de4b39014851; data/hoennmon_species_v0.15.json; runtime-fix overrides also retain old roster
+LegacyHazardTrigger = Physical damaging hit from v0.16; superseded by the Notion hazard-on-entry concept
+
+[SPECIES:ASTRACHI]
+Name = Astrachi
+OriginGame = PHR
+Dex = 215
+BaseSpecies = None
+Types = Psychic/Fairy
+Ability = Wishmaker
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 105/70/100/150/130/95
+BST = 650
+Evolution = Static Mythical encounter after Coelossus, League rematch and final Sky Pillar puzzle
+RelicSite = Sky Pillar — Star Chamber
+StoryAvailability = Final postgame
+EvolutionOrCoreMove = Lv70: Relic Wish
+LevelUpMoves = Lv1 Confusion; Lv1 Disarming Voice; Lv10 Swift; Lv18 Wish; Lv24 Psybeam; Lv30 Dazzling Gleam; Lv36 Cosmic Power; Lv42 Stored Power; Lv48 Future Sight; Lv54 Mystical Fire; Lv58 Psychic; Lv62 Aura Sphere; Lv66 Moonblast; Lv70 Relic Wish; Lv74 Calm Mind; Lv78 Healing Wish; Lv82 Misty Explosion
+Mechanics = On entry creates 5-turn Wishlight; Psychic/Fairy moves +20%; heals 1/16 max HP at end of each turn; opponents cannot lower Astrachi's stats
+MoveTuning = Relic Wish: Fairy / Special / 100 BP / 100 Acc / 10 PP; restores 1/8 max HP after dealing damage
+HeldItemOrKeyNote = —
+Notes = Meteor-wish Mythical and original source of Hoenn's Resonance; bulky special powerhouse
+PRLImportStatus = LOCKED SPECIES DONOR / final mechanics subject to PRL conflict resolution
+
+
+# ============================================================================
+# RETURNING / CROSS-GAME SPECIES PRESENT IN PHR
+# ============================================================================
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3e94939d431681b09ea4fa24933f4c3c
+CheckedSource = Pokemon-Hoenn-Relics develop 1b54f17e3650a58c08f2eb9f3aa1de4b39014851; data/hoennmon_species_v0.15.json; runtime-fix overrides also retain old roster
+
+[RETURNING:NOXICHU]
+Name = Noxichu
+OriginGame = PKR
+PHRRole = Returning PKR Relic Evolution; not counted among the current 13 Notion PHR roster entries
+Types = Electric/Dark
+Ability = Infiltrator
+Evolution = Use Moon Stone on Pikachu
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 70/110/70/110/80/125
+BST = 565
+LevelUpMoves = Lv24 Snarl; Lv28 Electroweb; Lv32 Thunderbolt; Lv36 Crunch; Lv40 Agility; Lv44 Night Slash; Lv50 Zing Zap; Lv52 Sucker Punch; Lv56 Discharge; Lv60 Dark Pulse
+MoveTuning = Volt Switch TM-only; Nasty Plot via Move Relearner. Retain PKR move tunes: Night Slash 90 BP; Electroweb 75 BP / 100 Acc; Zing Zap 90 BP / 20 PP; Volt Switch remains standard special category in PHR.
+Notes = Notion/PHR lock: Electroweb Lv28; Thunderbolt Lv32; Night Slash Lv44; Zing Zap Lv50; Volt Switch TM-only; Nasty Plot via Move Relearner.
+
+
+# ============================================================================
+# SUPERSEDED / CONFLICTING MASTER-SHEET RECORDS
+# ============================================================================
+
+[LEGACY:CHIMORACLE]
+Name = Chimoracle
+LegacyDex = 212
+LegacyTypes = Fairy/Steel
+LegacyBaseSpecies = Chimecho
+LegacyEvolution = Level up while holding Shiny Stone; works anywhere; catalyst is consumed by the evolution
+LegacyAbility = Levitate
+LegacyStats = 80/60/105/135/125/65
+LegacyLevelUpMoves = Lv42 Dazzling Gleam; Lv46 Iron Defense; Lv50 Calm Mind; Lv54 Aura Sphere; Lv58 Light Screen; Lv62 Moonblast; Lv66 Stored Power; Lv70 Fleur Cannon
+Status = SUPERSEDED IN CURRENT NOTION ROSTER by Bellantem/Sabellite naming set; keep only for provenance until final PHR ROM/source recovery resolves the mapping.
+
+
+# ============================================================================
+# TARGETED VANILLA / REGIONAL REBALANCE — 82 SPECIES
+# ============================================================================
+
+[MODIFIED:REGIROCK]
+Name = Regirock
+OriginGame = PHR
+Tier = Ancient / legendary
+Types = Rock
+AbilityTarget = Sturdy
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90/120/200/50/100/40
+BST = 600
+Role = True postgame relic boss; physical fortress
+LevelUpAdditions = Lv30 Rock Slide; 36 Body Press; 42 Iron Defense; 48 Earthquake; 54 Stone Edge; 60 Explosion; 66 Hammer Arm
+Teachables = Stealth Rock; Sandstorm; Rock Polish; Drain Punch; Fire Punch; Ice Punch; Thunder Punch; Heavy Slam
+Guardrail = Physical fortress. Body Press arrives before the strongest STAB; elemental punches give boss-grade coverage without fixing its low Speed.
+Source = https://bulbapedia.bulbagarden.net/wiki/Regirock_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:REGICE]
+Name = Regice
+OriginGame = PHR
+Tier = Ancient / legendary
+Types = Ice
+AbilityTarget = Clear Body
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90/50/100/120/200/40
+BST = 600
+Role = True postgame relic boss; special fortress
+LevelUpAdditions = Lv30 Icy Wind; 36 Freeze-Dry; 42 Amnesia; 48 Ice Beam; 54 Thunderbolt; 60 Blizzard; 66 Focus Blast
+Teachables = Calm Mind; Thunder; Flash Cannon; Ancient Power; Rest; Sleep Talk; Protect
+Guardrail = Special fortress. Freeze-Dry gives it a clear niche; coverage is strong but it remains slow and physically exploitable.
+Source = https://bulbapedia.bulbagarden.net/wiki/Regice_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:REGISTEEL]
+Name = Registeel
+OriginGame = PHR
+Tier = Ancient / legendary
+Types = Steel
+AbilityTarget = Clear Body
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90/90/150/90/150/30
+BST = 600
+Role = Balanced relic fortress; stronger offensive presence
+LevelUpAdditions = Lv30 Iron Head; 36 Body Press; 42 Iron Defense; 48 Flash Cannon; 54 Earthquake; 60 Heavy Slam; 66 Curse
+Teachables = Stealth Rock; Rock Slide; Thunderbolt; Ice Punch; Thunder Punch; Rest; Sleep Talk; Protect
+Guardrail = Balanced relic tank. Physical and special Steel options stay viable without turning it into a fast sweeper.
+Source = https://bulbapedia.bulbagarden.net/wiki/Registeel_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:GOLEM]
+Name = Golem
+OriginGame = PHR
+Tier = Ancient / major
+Types = Rock / Ground
+AbilityTarget = Sturdy
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/130/140/55/80/50
+BST = 540
+Role = Ancient boulder bruiser; Earthquake, Stone Edge/Rock Blast, Body Press, Explosion, Rock Polish
+LevelUpAdditions = Lv16 Rock Tomb; 20 Bulldoze; 26 Rock Slide; 32 Smack Down; 38 Body Press; 44 Earthquake; 50 Stone Edge; 56 Explosion
+Teachables = Stealth Rock; Rock Polish; Fire Punch; Thunder Punch; Heavy Slam; Superpower; Sandstorm
+Guardrail = Ancient boulder bruiser. Earlier reliable STAB and Body Press make its huge Defense matter.
+Source = https://bulbapedia.bulbagarden.net/wiki/Golem_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:NOSEPASS]
+Name = Nosepass
+OriginGame = PHR
+Tier = Ancient / major
+Types = Rock
+AbilityTarget = Sturdy
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 60/65/145/55/100/25
+BST = 450
+Role = Living monument; much stronger early wall while retaining slow identity
+LevelUpAdditions = Lv14 Rock Tomb; 20 Thunder Wave; 26 Rock Slide; 32 Iron Defense; 38 Body Press; 44 Power Gem; 50 Stone Edge
+Teachables = Stealth Rock; Sandstorm; Flash Cannon; Earth Power; Volt Switch; Rest; Protect
+Guardrail = Living monument wall. Body Press is the main payoff; special coverage remains secondary.
+Source = https://bulbapedia.bulbagarden.net/wiki/Nosepass_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:ARON]
+Name = Aron
+OriginGame = PHR
+Tier = Ancient / major
+Types = Steel / Rock
+AbilityTarget = Rock Head
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 60/80/100/40/50/30
+BST = 360
+Role = Scaled ancient-armour pre-evolution; earlier Steel/Rock STAB and recoil synergy
+LevelUpAdditions = Lv8 Metal Claw; 12 Rock Tomb; 16 Headbutt; 20 Iron Defense; 24 Rock Slide; 28 Iron Head; 30 Take Down
+Teachables = Bulldoze; Brick Break; Aerial Ace; Rock Polish; Protect; Sandstorm
+Guardrail = Make the early armour line usable without handing it endgame moves before Lairon.
+Source = https://bulbapedia.bulbagarden.net/wiki/Aron_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:LAIRON]
+Name = Lairon
+OriginGame = PHR
+Tier = Ancient / major
+Types = Steel / Rock
+AbilityTarget = Rock Head
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 70/100/140/50/65/45
+BST = 470
+Role = Scaled ancient-armour mid-stage; Iron Head, Rock Slide, Body Press, Curse
+LevelUpAdditions = Evolution Iron Head; Lv34 Rock Slide; 36 Take Down; 38 Iron Defense; 40 Body Press; 42 Head Smash
+Teachables = Earthquake; Stone Edge; Rock Polish; Heavy Slam; Dragon Tail; Protect; Sandstorm
+Guardrail = Mid-stage should feel powerful but still clearly short of Aggron.
+Source = https://bulbapedia.bulbagarden.net/wiki/Lairon_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:AGGRON]
+Name = Aggron
+OriginGame = PHR
+Tier = Ancient / major
+Types = Steel / Rock
+AbilityTarget = Rock Head
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/130/180/60/80/40
+BST = 570
+Role = Primeval armoured kaiju; Head Smash + Rock Head, Heavy Slam, Body Press, Earthquake, Dragon Tail
+LevelUpAdditions = Evolution Iron Head; Lv44 Dragon Tail; 48 Head Smash; 52 Heavy Slam; 56 Body Press; 60 Double-Edge; 64 Metal Burst
+Teachables = Earthquake; Stone Edge; Rock Polish; Fire Punch; Ice Punch; Thunder Punch; Superpower; Stealth Rock
+Guardrail = Rock Head is actively rewarded by Head Smash and Double-Edge; coverage is broad but Speed remains the limiting factor.
+Source = https://bulbapedia.bulbagarden.net/wiki/Aggron_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:MAGCARGO]
+Name = Magcargo
+OriginGame = PHR
+Tier = Ancient / major
+Types = Fire / Rock
+AbilityTarget = Weak Armor
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/60/140/110/100/50
+BST = 540
+Role = Living volcanic relic; Weak Armor as standard, Lava Plume, Power Gem, Earth Power, Recover, Shell Smash
+LevelUpAdditions = Lv20 Ancient Power; 24 Lava Plume; 28 Recover; 32 Power Gem; 36 Earth Power; 40 Shell Smash; 46 Heat Wave; 52 Stealth Rock
+Teachables = Flamethrower; Fire Blast; Solar Beam; Will-O-Wisp; Scorching Sands; Body Press; Protect
+Guardrail = Weak Armor + Shell Smash creates an offensive route while Recover/Stealth Rock preserves a defensive route.
+Source = https://bulbapedia.bulbagarden.net/wiki/Magcargo_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:TRAPINCH]
+Name = Trapinch
+OriginGame = PHR
+Tier = Ancient / major
+Types = Ground
+AbilityTarget = Arena Trap
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 55/110/50/45/50/40
+BST = 350
+Role = Scaled desert-fossil line foundation; preserve huge Attack and improve usable early Ground STAB
+LevelUpAdditions = Lv5 Bite; 9 Sand Attack; 13 Bulldoze; 17 Rock Tomb; 21 Dig; 25 Crunch; 29 Sand Tomb; 33 Earthquake
+Teachables = Rock Slide; Aerial Ace; Protect; Sandstorm; Toxic; Substitute
+Guardrail = Huge Attack is usable before evolution; no excessive coverage at the baby stage.
+Source = https://bulbapedia.bulbagarden.net/wiki/Trapinch_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:VIBRAVA]
+Name = Vibrava
+OriginGame = PHR
+Tier = Ancient / major
+Types = Ground / Dragon
+AbilityTarget = Levitate
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 70/80/65/75/65/85
+BST = 440
+Role = Meaningful mid-stage rather than a weak bridge; Dragon Breath/Claw, Earth Power, U-turn
+LevelUpAdditions = Evolution Dragon Breath; Lv36 Bulldoze; 39 U-turn; 42 Dragon Claw; 45 Earth Power; 48 Bug Buzz; 51 Sandstorm
+Teachables = Flamethrower; Rock Slide; Roost; Tailwind; Steel Wing; Protect
+Guardrail = Fixes the notorious mid-stage power dip with genuine mixed options.
+Source = https://bulbapedia.bulbagarden.net/wiki/Vibrava_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:FLYGON]
+Name = Flygon
+OriginGame = PHR
+Tier = Ancient / major
+Types = Ground / Dragon
+AbilityTarget = Levitate
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/120/85/95/85/100
+BST = 570
+Role = Ancient desert dragon; physical/mixed role with Earthquake, Dragon Claw, Dragon Dance, U-turn, Stone Edge
+LevelUpAdditions = Evolution Dragon Claw; Lv46 Earthquake; 50 U-turn; 54 Dragon Dance; 58 Stone Edge; 62 Boomburst; 66 Outrage
+Teachables = Flamethrower; Fire Blast; Earth Power; Roost; Tailwind; Steel Wing; Rock Slide; Giga Drain
+Guardrail = Physical-first mixed ancient dragon. Dragon Dance is the main buff; Boomburst rewards the improved SpA without replacing its core role.
+Source = https://bulbapedia.bulbagarden.net/wiki/Flygon_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:LUNATONE]
+Name = Lunatone
+OriginGame = PHR
+Tier = Ancient / major
+Types = Rock / Psychic
+AbilityTarget = Levitate
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90/55/85/115/95/90
+BST = 530
+Role = Special moon/rock counterpart; improve special coverage
+LevelUpAdditions = Lv16 Psybeam; 22 Rock Tomb; 28 Cosmic Power; 34 Power Gem; 40 Moonblast; 46 Psychic; 52 Earth Power; 58 Meteor Beam
+Teachables = Calm Mind; Ice Beam; Shadow Ball; Dazzling Gleam; Stealth Rock; Trick Room; Light Screen; Reflect
+Guardrail = Special moon guardian with Fairy-flavoured coverage and a late Meteor Beam payoff.
+Source = https://bulbapedia.bulbagarden.net/wiki/Lunatone_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:SOLROCK]
+Name = Solrock
+OriginGame = PHR
+Tier = Ancient / major
+Types = Rock / Psychic
+AbilityTarget = Levitate
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90/115/95/55/85/90
+BST = 530
+Role = Physical sun/rock identity; improve physical coverage
+LevelUpAdditions = Lv16 Rock Tomb; 22 Zen Headbutt; 28 Cosmic Power; 34 Rock Slide; 40 Morning Sun; 46 Stone Edge; 52 Flare Blitz; 58 Explosion
+Teachables = Earthquake; Will-O-Wisp; Stealth Rock; Rock Polish; Iron Head; Light Screen; Reflect; Sunny Day
+Guardrail = Physical solar counterpart to Lunatone; Morning Sun improves longevity while Flare Blitz gives thematic coverage.
+Source = https://bulbapedia.bulbagarden.net/wiki/Solrock_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:BALTOY]
+Name = Baltoy
+OriginGame = PHR
+Tier = Ancient / major
+Types = Ground / Psychic
+AbilityTarget = Levitate
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 60/50/75/60/85/70
+BST = 400
+Role = Useful pre-evolution rather than dead weight
+LevelUpAdditions = Lv7 Confusion; 11 Rapid Spin; 15 Mud Shot; 19 Psybeam; 23 Ancient Power; 27 Cosmic Power; 31 Earth Power
+Teachables = Rock Tomb; Light Screen; Reflect; Trick Room; Sandstorm; Protect
+Guardrail = Useful ancient utility Pokémon before Claydol instead of dead weight.
+Source = https://bulbapedia.bulbagarden.net/wiki/Baltoy_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:CLAYDOL]
+Name = Claydol
+OriginGame = PHR
+Tier = Ancient / major
+Types = Ground / Psychic
+AbilityTarget = Levitate
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/75/120/95/120/75
+BST = 565
+Role = Ancient guardian tank with viable special offence and utility
+LevelUpAdditions = Evolution Psychic; Lv38 Earth Power; 42 Cosmic Power; 46 Rapid Spin; 50 Stored Power; 54 Power Gem; 58 Explosion
+Teachables = Stealth Rock; Trick Room; Calm Mind; Ice Beam; Shadow Ball; Body Press; Light Screen; Reflect
+Guardrail = Ancient guardian utility tank. No reliable recovery added, preserving counterplay despite the large stat buff.
+Source = https://bulbapedia.bulbagarden.net/wiki/Claydol_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:LILEEP]
+Name = Lileep
+OriginGame = PHR
+Tier = Ancient / major
+Types = Rock / Grass
+AbilityTarget = Storm Drain
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 75/55/90/70/100/35
+BST = 425
+Role = Scale the fossil line upward early without losing tank identity
+LevelUpAdditions = Lv8 Acid; 12 Mega Drain; 16 Ingrain; 20 Ancient Power; 24 Giga Drain; 28 Stockpile; 32 Recover; 36 Power Gem
+Teachables = Energy Ball; Sludge Bomb; Stealth Rock; Protect; Sandstorm; Earth Power
+Guardrail = Fossil tank comes online early; Recover/Ingrain sell the immovable sea-lily identity.
+Source = https://bulbapedia.bulbagarden.net/wiki/Lileep_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:CRADILY]
+Name = Cradily
+OriginGame = PHR
+Tier = Ancient / major
+Types = Rock / Grass
+AbilityTarget = Storm Drain
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 100/90/115/95/120/40
+BST = 560
+Role = Premier special/mixed wall; stronger Grass/Rock recovery and utility access
+LevelUpAdditions = Evolution Giga Drain; Lv42 Recover; 46 Power Gem; 50 Earth Power; 54 Toxic; 58 Energy Ball; 62 Meteor Beam
+Teachables = Stealth Rock; Sludge Bomb; Sandstorm; Protect; Curse; Stockpile; Infestation
+Guardrail = Premier mixed wall. Recovery and hazard utility are strong, but low Speed keeps it manageable.
+Source = https://bulbapedia.bulbagarden.net/wiki/Cradily_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:ANORITH]
+Name = Anorith
+OriginGame = PHR
+Tier = Ancient / major
+Types = Rock / Bug
+AbilityTarget = Swift Swim
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 60/105/65/50/60/80
+BST = 420
+Role = Fast fossil attacker foundation
+LevelUpAdditions = Lv7 Fury Cutter; 11 Rock Tomb; 15 Metal Claw; 19 Aqua Jet; 23 Bug Bite; 27 Rock Slide; 31 X-Scissor
+Teachables = Aerial Ace; Brick Break; Rock Polish; Protect; Sandstorm; Swords Dance
+Guardrail = Fast fossil attacker foundation; Aqua Jet gives it a distinctive relic-sea flavour.
+Source = https://bulbapedia.bulbagarden.net/wiki/Anorith_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:ARMALDO]
+Name = Armaldo
+OriginGame = PHR
+Tier = Ancient / major
+Types = Rock / Bug
+AbilityTarget = Swift Swim
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/140/110/70/90/65
+BST = 560
+Role = Heavy physical fossil sweeper; better Rock/Bug coverage
+LevelUpAdditions = Evolution X-Scissor; Lv42 Aqua Jet; 46 Rock Slide; 50 Knock Off; 54 Swords Dance; 58 Stone Edge; 62 Leech Life; 66 Superpower
+Teachables = Liquidation; Earthquake; Brick Break; Rock Polish; Iron Defense; Stealth Rock; Protect
+Guardrail = Swift Swim plus Aqua Jet/Liquidation makes rain teams possible without changing its Rock/Bug identity.
+Source = https://bulbapedia.bulbagarden.net/wiki/Armaldo_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:DUSCLOPS]
+Name = Dusclops
+OriginGame = PHR
+Tier = Ancient / major
+Types = Ghost
+AbilityTarget = Frisk
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 60/80/130/70/130/30
+BST = 500
+Role = Mummy/relic guardian; promote Hidden Ability Frisk, Will-O-Wisp, Poltergeist/Shadow Punch, Pain Split, Trick Room
+LevelUpAdditions = Lv18 Night Shade; 24 Will-O-Wisp; 30 Shadow Punch; 36 Pain Split; 42 Hex; 48 Poltergeist; 54 Trick Room; 60 Curse
+Teachables = Body Press; Protect; Rest; Sleep Talk; Taunt; Thief; Shadow Ball
+Guardrail = Frisk utility guardian. No conventional recovery beyond Pain Split so the buffed bulk stays fair.
+Source = https://bulbapedia.bulbagarden.net/wiki/Dusclops_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:XATU]
+Name = Xatu
+OriginGame = PHR
+Tier = Ancient / major
+Types = Psychic / Flying
+AbilityTarget = Magic Bounce
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/70/80/105/95/110
+BST = 540
+Role = Totem/oracle bird; promote Hidden Ability Magic Bounce, with Psychic, Air Slash, Roost, Heat Wave, Calm Mind
+LevelUpAdditions = Lv16 Air Cutter; 22 Psybeam; 28 Tailwind; 34 Roost; 40 Psychic; 46 Air Slash; 52 Calm Mind; 58 Future Sight; 64 Hurricane
+Teachables = U-turn; Heat Wave; Dazzling Gleam; Shadow Ball; Solar Beam; Light Screen; Reflect; Thunder Wave
+Guardrail = Magic Bounce makes it an elite utility pivot; learnset supports both fast support and special attacking.
+Source = https://bulbapedia.bulbagarden.net/wiki/Xatu_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:DONPHAN]
+Name = Donphan
+OriginGame = PHR
+Tier = Ancient / major
+Types = Ground
+AbilityTarget = Sturdy
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 100/120/120/50/70/70
+BST = 530
+Role = Ancient elephant/tusk tank; Earthquake, Rapid Spin, Knock Off, Ice Shard, Stone Edge
+LevelUpAdditions = Lv12 Rapid Spin; 18 Bulldoze; 24 Knock Off; 30 Ice Shard; 36 Earthquake; 42 Heavy Slam; 48 Stone Edge; 54 Play Rough
+Teachables = Body Press; Rock Slide; Iron Head; Seed Bomb; Sandstorm; Protect; Stealth Rock
+Guardrail = Ancient tusk tank with meaningful priority and hazard control.
+Source = https://bulbapedia.bulbagarden.net/wiki/Donphan_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:RHYHORN]
+Name = Rhyhorn
+OriginGame = PHR
+Tier = Ancient / major
+Types = Ground / Rock
+AbilityTarget = Rock Head
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90/100/110/30/50/30
+BST = 410
+Role = Scaled prehistoric rhino pre-evolution; earlier Ground/Rock STAB and recoil synergy
+LevelUpAdditions = Lv9 Rock Tomb; 13 Bulldoze; 17 Stomp; 21 Smack Down; 25 Rock Slide; 29 Drill Run; 33 Take Down
+Teachables = Megahorn; Brick Break; Protect; Sandstorm; Rock Polish
+Guardrail = Prehistoric rhino receives earlier STAB but not Rhydon's full endgame package.
+Source = https://bulbapedia.bulbagarden.net/wiki/Rhyhorn_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:RHYDON]
+Name = Rhydon
+OriginGame = PHR
+Tier = Ancient / major
+Types = Ground / Rock
+AbilityTarget = Rock Head
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 115/140/130/45/65/40
+BST = 535
+Role = PKR carry-over: slow physical tank; Earthquake, Stone Edge, Megahorn, Double-Edge, Rock Polish
+LevelUpAdditions = Evolution Drill Run; Lv44 Earthquake; 48 Stone Edge; 52 Megahorn; 56 Double-Edge; 60 Rock Polish; 64 Horn Drill
+Teachables = Fire Punch; Ice Punch; Thunder Punch; Superpower; Heavy Slam; Stealth Rock; Protect
+Guardrail = PKR-style slow physical tank. Horn Drill stays level-up flavour only; never pair OHKO moves with No Guard effects.
+Source = https://bulbapedia.bulbagarden.net/wiki/Rhydon_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:RELICANTH]
+Name = Relicanth
+OriginGame = PHR
+Tier = Ancient / major
+Types = Water / Rock
+AbilityTarget = Rock Head
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 100/110/130/45/80/55
+BST = 520
+Role = Normal wild Hoenn Relicanth: Head Smash + Rock Head ancient-fish bruiser. Explicitly NOT the Wonder Guard PKR individual and cannot become Coelossus.
+LevelUpAdditions = Lv12 Aqua Jet; 18 Rock Tomb; 24 Yawn; 30 Ancient Power; 36 Rock Slide; 42 Liquidation; 48 Double-Edge; 54 Head Smash; 62 Wave Crash
+Teachables = Earthquake; Waterfall; Stone Edge; Ice Beam; Stealth Rock; Protect; Rain Dance
+Guardrail = Rock Head gets two major recoil-free rewards late without overlapping the unique PKR Shiny Relicanth's identity.
+Source = https://bulbapedia.bulbagarden.net/wiki/Relicanth_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:CORSOLA]
+Name = Corsola
+OriginGame = PHR
+Tier = Ancient / major
+Types = Water / Rock
+AbilityTarget = Regenerator
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/65/110/95/110/55
+BST = 520
+Role = Ancient coral wall; promote Hidden Ability Regenerator, Recover, Power Gem, Water STAB, Stealth Rock
+LevelUpAdditions = Lv12 Water Pulse; 18 Ancient Power; 24 Recover; 30 Power Gem; 36 Brine; 42 Mirror Coat; 48 Earth Power; 54 Aqua Ring
+Teachables = Stealth Rock; Scald; Ice Beam; Calm Mind; Light Screen; Reflect; Protect
+Guardrail = Regenerator coral wall with actual recovery and utility; damage remains moderate.
+Source = https://bulbapedia.bulbagarden.net/wiki/Corsola_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:MIGHTYENA]
+Name = Mightyena
+OriginGame = PHR
+Tier = Relic base
+Types = Dark
+AbilityTarget = Moxie
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/115/75/60/75/90
+BST = 500
+Role = Reliable physical Dark attacker; better fang/priority coverage
+LevelUpAdditions = Lv12 Bite; 18 Howl; 24 Snarl; 28 Crunch; 32 Fire Fang; 36 Sucker Punch; 40 Play Rough; 44 Psychic Fangs
+Teachables = Ice Fang; Thunder Fang; Taunt; Trailblaze; Dig; Rock Tomb; Protect
+Guardrail = Moxie base form becomes genuinely usable while Hyenadon still owns the premium Ground/Strong Jaw ceiling.
+Source = https://bulbapedia.bulbagarden.net/wiki/Mightyena_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:SABLEYE]
+Name = Sableye
+OriginGame = PHR
+Tier = Relic base
+Types = Dark / Ghost
+AbilityTarget = Prankster
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 75/85/95/85/95/55
+BST = 490
+Role = Useful disruptive base before optional Gemigoyle evolution
+LevelUpAdditions = Lv10 Knock Off; 16 Fake Out; 22 Will-O-Wisp; 28 Recover; 34 Shadow Sneak; 40 Foul Play; 46 Taunt; 52 Power Gem
+Teachables = Calm Mind; Shadow Ball; Dazzling Gleam; Thunder Wave; Protect; Trick; Snarl
+Guardrail = Prankster disruption is the identity; Gemigoyle remains the heavier special wall evolution.
+Source = https://bulbapedia.bulbagarden.net/wiki/Sableye_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:MAWILE]
+Name = Mawile
+OriginGame = PHR
+Tier = Relic base
+Types = Steel / Fairy
+AbilityTarget = Sheer Force
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 70/105/100/70/80/65
+BST = 490
+Role = Useful offensive base before optional Mawyrm evolution
+LevelUpAdditions = Lv10 Bite; 16 Fairy Wind; 22 Iron Head; 28 Crunch; 34 Play Rough; 40 Sucker Punch; 46 Swords Dance; 52 Iron Defense
+Teachables = Fire Fang; Ice Fang; Thunder Fang; Rock Slide; Brick Break; Taunt; Protect
+Guardrail = Sheer Force gives base Mawile a real offensive niche without stepping on Mawyrm's Dragon role.
+Source = https://bulbapedia.bulbagarden.net/wiki/Mawile_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:TORKOAL]
+Name = Torkoal
+OriginGame = PHR
+Tier = Relic base
+Types = Fire
+AbilityTarget = Drought
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90/85/150/100/90/25
+BST = 540
+Role = Premier sun setter before optional Torkaldera evolution
+LevelUpAdditions = Lv12 Smokescreen; 18 Flame Wheel; 24 Rapid Spin; 30 Lava Plume; 36 Body Press; 42 Stealth Rock; 48 Flamethrower; 54 Eruption; 60 Shell Smash
+Teachables = Solar Beam; Will-O-Wisp; Earth Power; Heat Wave; Protect; Sunny Day
+Guardrail = Drought makes it useful immediately; Torkaldera remains the stronger Rock-type evolution.
+Source = https://bulbapedia.bulbagarden.net/wiki/Torkoal_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:CACTURNE]
+Name = Cacturne
+OriginGame = PHR
+Tier = Relic base
+Types = Grass / Dark
+AbilityTarget = Water Absorb
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/120/70/120/70/65
+BST = 525
+Role = Mixed desert attacker with useful immunity before Cactomb
+LevelUpAdditions = Lv12 Absorb; 18 Needle Arm; 24 Sucker Punch; 30 Seed Bomb; 36 Dark Pulse; 42 Giga Drain; 48 Spiky Shield; 54 Nasty Plot; 60 Swords Dance
+Teachables = Energy Ball; Sludge Bomb; Drain Punch; Brick Break; Shadow Ball; Protect; Sunny Day
+Guardrail = 120/120 mixed attacker gets both physical and special routes; Water Absorb gives safe switching.
+Source = https://bulbapedia.bulbagarden.net/wiki/Cacturne_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:TROPIUS]
+Name = Tropius
+OriginGame = PHR
+Tier = Relic base
+Types = Grass / Flying
+AbilityTarget = Harvest
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 105/90/95/90/105/65
+BST = 550
+Role = Durable berry-based utility before Tropisaur
+LevelUpAdditions = Lv12 Magical Leaf; 18 Gust; 24 Leech Seed; 30 Air Slash; 36 Synthesis; 42 Dragon Pulse; 48 Leaf Storm; 54 Hurricane
+Teachables = Earthquake; Dragon Dance; Energy Ball; Solar Beam; Roost; Tailwind; Protect; Sunny Day
+Guardrail = Harvest + Berry restoration supports bulky utility; Tropisaur remains the superior special tank.
+Source = https://bulbapedia.bulbagarden.net/wiki/Tropius_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:CHIMECHO]
+Name = Chimecho
+OriginGame = PHR
+Tier = Relic base
+Types = Psychic
+AbilityTarget = Levitate
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/60/90/105/100/80
+BST = 520
+Role = Viable support/special attacker before Chimoracle
+LevelUpAdditions = Lv10 Confusion; 16 Disarming Voice; 22 Heal Bell; 28 Extrasensory; 34 Recover; 40 Psychic; 46 Hyper Voice; 52 Calm Mind; 58 Healing Wish
+Teachables = Dazzling Gleam; Shadow Ball; Energy Ball; Light Screen; Reflect; Thunder Wave; Trick Room
+Guardrail = Stronger Psychic support base that foreshadows Chimoracle's Fairy evolution.
+Source = https://bulbapedia.bulbagarden.net/wiki/Chimecho_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:BEAUTIFLY]
+Name = Beautifly
+OriginGame = PHR
+Tier = General rescue
+Types = Bug / Flying
+AbilityTarget = Swarm
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 70/70/70/110/70/100
+BST = 490
+Role = Fast special attacker; meaningful Bug/Flying coverage
+LevelUpAdditions = Evolution Gust; Lv14 Struggle Bug; 20 Air Cutter; 26 Giga Drain; 32 Bug Buzz; 38 Air Slash; 44 Quiver Dance; 50 Psychic; 56 Hurricane
+Teachables = Energy Ball; Shadow Ball; Roost; U-turn; Tailwind; Sunny Day; Protect
+Guardrail = Fast special glass cannon; Quiver Dance arrives late enough not to trivialise early Hoenn.
+Source = https://bulbapedia.bulbagarden.net/wiki/Beautifly_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:DUSTOX]
+Name = Dustox
+OriginGame = PHR
+Tier = General rescue
+Types = Bug / Poison
+AbilityTarget = Compound Eyes
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/50/100/65/110/75
+BST = 480
+Role = Bulky status/support specialist
+LevelUpAdditions = Evolution Confusion; Lv14 Struggle Bug; 20 Venoshock; 26 Psybeam; 32 Moonlight; 38 Bug Buzz; 44 Sludge Bomb; 50 Quiver Dance; 56 Sleep Powder
+Teachables = Toxic; Psychic; Giga Drain; Roost; Light Screen; Protect; U-turn
+Guardrail = Compound Eyes makes late Sleep Powder a genuine reward; otherwise it plays bulky status/support.
+Source = https://bulbapedia.bulbagarden.net/wiki/Dustox_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:SHIFTRY]
+Name = Shiftry
+OriginGame = PHR
+Tier = General rescue
+Types = Grass / Dark
+AbilityTarget = Wind Rider
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90/115/70/100/70/85
+BST = 530
+Role = Use modern Wind Rider identity; Leaf Blade, Knock Off, Sucker Punch, Tailwind, U-turn and mixed Grass coverage
+LevelUpAdditions = Evolution Leaf Blade; Lv24 Snarl; 30 Knock Off; 36 Tailwind; 42 Sucker Punch; 48 Extrasensory; 54 Leaf Storm; 60 Hurricane
+Teachables = U-turn; Heat Wave; Low Kick; Rock Slide; Nasty Plot; Swords Dance; Sunny Day; Protect
+Guardrail = Wind Rider is deliberately paired with Tailwind/Hurricane access while keeping Shiftry mixed.
+Source = https://bulbapedia.bulbagarden.net/wiki/Shiftry_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:SWELLOW]
+Name = Swellow
+OriginGame = PHR
+Tier = General rescue
+Types = Normal / Flying
+AbilityTarget = Scrappy
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 75/105/70/75/70/135
+BST = 530
+Role = Promote Hidden Ability Scrappy; Facade/Double-Edge, Brave Bird, U-turn, Quick Attack; keep extreme Speed identity
+LevelUpAdditions = Lv12 Quick Attack; 18 Wing Attack; 24 Facade; 30 Aerial Ace; 36 U-turn; 42 Brave Bird; 48 Double-Edge; 54 Endeavor
+Teachables = Steel Wing; Roost; Tailwind; Protect; Thief; Sunny Day; Rain Dance
+Guardrail = Scrappy makes Normal STAB reliable even into Ghosts; no huge coverage package needed.
+Source = https://bulbapedia.bulbagarden.net/wiki/Swellow_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:PELIPPER]
+Name = Pelipper
+OriginGame = PHR
+Tier = General rescue
+Types = Water / Flying
+AbilityTarget = Drizzle
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 75/60/100/100/80/85
+BST = 500
+Role = Weather setter with solid defensive utility
+LevelUpAdditions = Lv12 Water Pulse; 18 Air Cutter; 24 Roost; 30 Scald; 36 Tailwind; 42 Air Slash; 48 Hydro Pump; 54 Hurricane
+Teachables = U-turn; Ice Beam; Surf; Protect; Rain Dance; Knock Off; Defog
+Guardrail = Drizzle plus Hurricane/Scald makes the intended weather role immediately obvious.
+Source = https://bulbapedia.bulbagarden.net/wiki/Pelipper_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:MASQUERAIN]
+Name = Masquerain
+OriginGame = PHR
+Tier = General rescue
+Types = Bug / Flying
+AbilityTarget = Intimidate
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/60/80/110/90/100
+BST = 520
+Role = Fast intimidator with real special damage
+LevelUpAdditions = Evolution Air Cutter; Lv18 Bubble Beam; 24 Bug Buzz; 30 Air Slash; 36 Sticky Web; 42 Quiver Dance; 48 Hydro Pump; 54 Hurricane
+Teachables = Ice Beam; Energy Ball; Shadow Ball; Roost; U-turn; Tailwind; Protect
+Guardrail = Intimidate gives setup chances; Sticky Web/Quiver Dance creates two distinct roles.
+Source = https://bulbapedia.bulbagarden.net/wiki/Masquerain_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:BRELOOM]
+Name = Breloom
+OriginGame = PHR
+Tier = General rescue
+Types = Grass / Fighting
+AbilityTarget = Technician
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 75/130/85/60/70/90
+BST = 510
+Role = Strong priority/low-BP move specialist
+LevelUpAdditions = Evolution Mach Punch; Lv20 Bullet Seed; 24 Rock Tomb; 28 Force Palm; 32 Spore; 36 Seed Bomb; 42 Drain Punch; 48 Swords Dance
+Teachables = Low Sweep; Aerial Ace; Bulldoze; Thunder Punch; Poison Jab; Protect; Substitute
+Guardrail = Technician is supported by Mach Punch/Bullet Seed/Rock Tomb without giving it every possible coverage move.
+Source = https://bulbapedia.bulbagarden.net/wiki/Breloom_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:EXPLOUD]
+Name = Exploud
+OriginGame = PHR
+Tier = General rescue
+Types = Normal
+AbilityTarget = Scrappy
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 110/95/75/105/85/70
+BST = 540
+Role = Boomburst/sound identity and broad coverage
+LevelUpAdditions = Lv12 Echoed Voice; 18 Bite; 24 Uproar; 30 Stomp; 36 Hyper Voice; 42 Crunch; 48 Boomburst; 54 Roar
+Teachables = Flamethrower; Ice Beam; Surf; Shadow Ball; Focus Blast; Earthquake; Snarl; Protect
+Guardrail = Scrappy Boomburst is the headline; broad TM coverage mirrors PKR's sound-cannon philosophy.
+Source = https://bulbapedia.bulbagarden.net/wiki/Exploud_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:HARIYAMA]
+Name = Hariyama
+OriginGame = PHR
+Tier = General rescue
+Types = Fighting
+AbilityTarget = Sheer Force
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 150/125/70/40/70/65
+BST = 520
+Role = Promote Hidden Ability Sheer Force; Close Combat, Force Palm, elemental punches, Heavy Slam, Bullet Punch
+LevelUpAdditions = Evolution Fake Out; Lv20 Force Palm; 24 Knock Off; 28 Bullet Punch; 32 Belly Drum; 36 Heavy Slam; 42 Close Combat; 48 Reversal
+Teachables = Fire Punch; Ice Punch; Thunder Punch; Rock Slide; Earthquake; Bulk Up; Protect
+Guardrail = Sheer Force gives real value to Force Palm/elemental coverage; bulk and low Speed keep it fair.
+Source = https://bulbapedia.bulbagarden.net/wiki/Hariyama_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:DELCATTY]
+Name = Delcatty
+OriginGame = PHR
+Tier = General rescue
+Types = Normal
+AbilityTarget = Wonder Skin
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/80/80/80/80/90
+BST = 490
+Role = Flexible utility Normal; broaden TM access
+LevelUpAdditions = Evolution Fake Out; Lv18 Disarming Voice; 24 Sing; 30 Covet; 36 Heal Bell; 42 Hyper Voice; 48 Play Rough; 54 Wish
+Teachables = Thunderbolt; Ice Beam; Shadow Ball; Calm Mind; Thunder Wave; Dazzling Gleam; Protect
+Guardrail = Wonder Skin turns Delcatty into a flexible utility Normal rather than a raw-stat attacker.
+Source = https://bulbapedia.bulbagarden.net/wiki/Delcatty_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:MANECTRIC]
+Name = Manectric
+OriginGame = PHR
+Tier = General rescue
+Types = Electric
+AbilityTarget = Lightning Rod
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 75/75/70/115/70/115
+BST = 520
+Role = Fast special Electric; Lightning Rod, Thunderbolt, Volt Switch, Flamethrower, Snarl
+LevelUpAdditions = Lv12 Spark; 18 Bite; 24 Shock Wave; 30 Volt Switch; 36 Thunder Fang; 42 Flamethrower; 48 Discharge; 54 Thunderbolt; 60 Overheat
+Teachables = Snarl; Charge Beam; Wild Charge; Light Screen; Rain Dance; Protect
+Guardrail = Lightning Rod and Fire coverage define the fast special pivot role.
+Source = https://bulbapedia.bulbagarden.net/wiki/Manectric_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:PLUSLE]
+Name = Plusle
+OriginGame = PHR
+Tier = General rescue
+Types = Electric
+AbilityTarget = Lightning Rod
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 75/65/70/105/85/110
+BST = 510
+Role = Fast special support/attacker
+LevelUpAdditions = Lv10 Nuzzle; 16 Spark; 22 Electro Ball; 28 Encore; 34 Baton Pass; 40 Discharge; 46 Thunderbolt; 52 Nasty Plot
+Teachables = Volt Switch; Grass Knot; Dazzling Gleam; Light Screen; Rain Dance; Protect
+Guardrail = More aggressive of the pair: Nasty Plot + Lightning Rod supports special sweeping.
+Source = https://bulbapedia.bulbagarden.net/wiki/Plusle_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:MINUN]
+Name = Minun
+OriginGame = PHR
+Tier = General rescue
+Types = Electric
+AbilityTarget = Volt Absorb
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 75/55/80/95/95/110
+BST = 510
+Role = Faster bulky support counterpart
+LevelUpAdditions = Lv10 Nuzzle; 16 Spark; 22 Electro Ball; 28 Encore; 34 Helping Hand; 40 Discharge; 46 Thunderbolt; 52 Wish
+Teachables = Volt Switch; Grass Knot; Light Screen; Reflect; Rain Dance; Protect
+Guardrail = More defensive/supportive counterpart: Volt Absorb + Wish distinguishes it from Plusle.
+Source = https://bulbapedia.bulbagarden.net/wiki/Minun_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:VOLBEAT]
+Name = Volbeat
+OriginGame = PHR
+Tier = General rescue
+Types = Bug
+AbilityTarget = Prankster
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/90/75/55/85/105
+BST = 490
+Role = Priority utility with competent physical pressure
+LevelUpAdditions = Lv12 Quick Attack; 18 Struggle Bug; 24 Thunder Wave; 30 Encore; 36 U-turn; 42 Knock Off; 48 Tail Glow; 54 Baton Pass
+Teachables = Rain Dance; Sunny Day; Roost; Play Rough; Brick Break; Protect; Substitute
+Guardrail = Prankster utility first, physical pivot second; Tail Glow remains a support/Baton Pass trick rather than its main damage plan.
+Source = https://bulbapedia.bulbagarden.net/wiki/Volbeat_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:ILLUMISE]
+Name = Illumise
+OriginGame = PHR
+Tier = General rescue
+Types = Bug
+AbilityTarget = Prankster
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/55/75/90/85/105
+BST = 490
+Role = Priority utility with special/support focus
+LevelUpAdditions = Lv12 Struggle Bug; 18 Sweet Scent; 24 Encore; 30 Wish; 36 Bug Buzz; 42 Tailwind; 48 Dazzling Gleam; 54 Baton Pass
+Teachables = Thunder Wave; Rain Dance; Sunny Day; Roost; Shadow Ball; Protect; Substitute
+Guardrail = Special/support counterpart to Volbeat with Prankster Wish/Tailwind utility.
+Source = https://bulbapedia.bulbagarden.net/wiki/Illumise_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:SWALOT]
+Name = Swalot
+OriginGame = PHR
+Tier = General rescue
+Types = Poison
+AbilityTarget = Gluttony
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 110/85/100/85/100/50
+BST = 530
+Role = Bulky Poison glue; improve recovery/coverage options without custom mechanics
+LevelUpAdditions = Lv12 Acid Spray; 18 Yawn; 24 Stockpile; 30 Body Slam; 36 Gunk Shot; 42 Gastro Acid; 48 Belch; 54 Recycle
+Teachables = Earthquake; Ice Beam; Giga Drain; Shadow Ball; Pain Split; Protect; Toxic
+Guardrail = Gluttony + Recycle/berries becomes the hook; coverage is broad but Speed is deliberately poor.
+Source = https://bulbapedia.bulbagarden.net/wiki/Swalot_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:SHARPEDO]
+Name = Sharpedo
+OriginGame = PHR
+Tier = General rescue
+Types = Water / Dark
+AbilityTarget = Speed Boost
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 75/125/60/105/60/105
+BST = 530
+Role = Fast cleaner; preserve frailty
+LevelUpAdditions = Lv12 Bite; 18 Aqua Jet; 24 Ice Fang; 30 Crunch; 36 Liquidation; 42 Psychic Fangs; 48 Hydro Pump; 54 Destiny Bond
+Teachables = Protect; Poison Jab; Earthquake; Waterfall; Ice Beam; Dark Pulse; Rain Dance
+Guardrail = Speed Boost is powerful enough already; the pass mainly fixes physical Water STAB and progression.
+Source = https://bulbapedia.bulbagarden.net/wiki/Sharpedo_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:WAILORD]
+Name = Wailord
+OriginGame = PHR
+Tier = General rescue
+Types = Water
+AbilityTarget = Pressure
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 180/100/55/100/55/50
+BST = 540
+Role = Actually feels enormous; Water Spout, Surf/Hydro Pump, Heavy Slam, Ice Beam, Rest; keep exploitable defenses
+LevelUpAdditions = Lv12 Water Pulse; 18 Rollout; 24 Heavy Slam; 30 Amnesia; 36 Aqua Ring; 42 Rest; 48 Water Spout; 54 Hydro Pump
+Teachables = Ice Beam; Blizzard; Earthquake; Body Press; Surf; Rain Dance; Protect
+Guardrail = Actually feels enormous: Heavy Slam + Water Spout, but weak defenses remain exploitable.
+Source = https://bulbapedia.bulbagarden.net/wiki/Wailord_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:CAMERUPT]
+Name = Camerupt
+OriginGame = PHR
+Tier = General rescue
+Types = Fire / Ground
+AbilityTarget = Solid Rock
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90/115/85/120/85/45
+BST = 540
+Role = Slow mixed volcanic breaker
+LevelUpAdditions = Evolution Rock Slide; Lv24 Bulldoze; 30 Lava Plume; 36 Earth Power; 42 Yawn; 48 Eruption; 54 Earthquake; 60 Stealth Rock
+Teachables = Stone Edge; Solar Beam; Will-O-Wisp; Heat Wave; Rock Polish; Protect
+Guardrail = Solid Rock supports slow mixed breaking; it gets both physical and special Ground routes.
+Source = https://bulbapedia.bulbagarden.net/wiki/Camerupt_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:GRUMPIG]
+Name = Grumpig
+OriginGame = PHR
+Tier = General rescue
+Types = Psychic
+AbilityTarget = Thick Fat
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90/65/85/110/120/80
+BST = 550
+Role = Bulky special Psychic with strong elemental resilience
+LevelUpAdditions = Lv12 Psybeam; 18 Confuse Ray; 24 Power Gem; 30 Psychic; 36 Calm Mind; 42 Shadow Ball; 48 Future Sight; 54 Heal Bell
+Teachables = Energy Ball; Focus Blast; Thunder Wave; Reflect; Light Screen; Trick Room; Protect
+Guardrail = Thick Fat plus good SpD makes it a special sponge that can still threaten damage.
+Source = https://bulbapedia.bulbagarden.net/wiki/Grumpig_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:SPINDA]
+Name = Spinda
+OriginGame = PHR
+Tier = General rescue
+Types = Normal
+AbilityTarget = Contrary
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/90/80/90/80/90
+BST = 510
+Role = Contrary gimmick becomes a genuine build-around
+LevelUpAdditions = Lv10 Feint Attack; 16 Teeter Dance; 22 Facade; 28 Sucker Punch; 34 Drain Punch; 40 Superpower; 46 Psycho Cut; 52 Thrash
+Teachables = Fire Punch; Ice Punch; Thunder Punch; Rock Slide; Shadow Ball; Protect; Substitute
+Guardrail = Contrary Superpower is the deliberate build-around. Do not add Close Combat/Leaf Storm-style extra stat-drop attacks that would overstack it.
+Source = https://bulbapedia.bulbagarden.net/wiki/Spinda_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:ALTARIA]
+Name = Altaria
+OriginGame = PHR
+Tier = General rescue
+Types = Dragon / Flying
+AbilityTarget = Natural Cure
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90/80/100/90/115/85
+BST = 560
+Role = Bulky dragon with support and setup options
+LevelUpAdditions = Lv12 Dragon Breath; 18 Sing; 24 Roost; 30 Dragon Pulse; 36 Air Slash; 42 Cotton Guard; 48 Dragon Dance; 54 Hurricane; 60 Moonblast
+Teachables = Flamethrower; Earthquake; Dazzling Gleam; Ice Beam; Tailwind; Draco Meteor tutor; Protect
+Guardrail = Bulky setup/support dragon with both physical and special paths; Natural Cure preserves its flexible identity.
+Source = https://bulbapedia.bulbagarden.net/wiki/Altaria_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:ZANGOOSE]
+Name = Zangoose
+OriginGame = PHR
+Tier = General rescue
+Types = Normal
+AbilityTarget = Toxic Boost
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/125/70/60/70/105
+BST = 510
+Role = High-pressure physical attacker
+LevelUpAdditions = Lv12 Quick Attack; 18 Fury Cutter; 24 Slash; 30 Facade; 36 Night Slash; 42 Close Combat; 48 Swords Dance; 54 Crush Claw
+Teachables = Poison Jab; Shadow Claw; X-Scissor; Rock Slide; Dig; Protect
+Guardrail = Toxic Boost Facade is the obvious high-risk reward; no Speed boosting added.
+Source = https://bulbapedia.bulbagarden.net/wiki/Zangoose_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:SEVIPER]
+Name = Seviper
+OriginGame = PHR
+Tier = General rescue
+Types = Poison
+AbilityTarget = Infiltrator
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/120/70/120/70/60
+BST = 520
+Role = Mixed wallbreaker with expanded Poison/Dark coverage
+LevelUpAdditions = Lv12 Bite; 18 Poison Tail; 24 Glare; 30 Crunch; 36 Poison Jab; 42 Coil; 48 Gunk Shot; 54 Sludge Wave; 60 Dark Pulse
+Teachables = Flamethrower; Earthquake; Giga Drain; Sucker Punch; Protect; Toxic
+Guardrail = True mixed wallbreaker with Infiltrator; Coil gives the physical route a setup option.
+Source = https://bulbapedia.bulbagarden.net/wiki/Seviper_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:WHISCASH]
+Name = Whiscash
+OriginGame = PHR
+Tier = General rescue
+Types = Water / Ground
+AbilityTarget = Hydration
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 120/95/85/75/85/70
+BST = 530
+Role = Promote Hidden Ability Hydration; bulky rain utility with Liquidation/Surf, Earthquake, Dragon Dance, Rest
+LevelUpAdditions = Lv12 Water Pulse; 18 Mud Shot; 24 Aqua Tail; 30 Earthquake; 36 Rest; 42 Dragon Dance; 48 Muddy Water; 54 Zen Headbutt
+Teachables = Scald; Ice Beam; Stone Edge; Rain Dance; Protect; Amnesia
+Guardrail = Hydration + Rest creates the rain-tank route while Dragon Dance supports physical sets.
+Source = https://bulbapedia.bulbagarden.net/wiki/Whiscash_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:CRAWDAUNT]
+Name = Crawdaunt
+OriginGame = PHR
+Tier = General rescue
+Types = Water / Dark
+AbilityTarget = Adaptability
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 75/125/90/90/70/70
+BST = 520
+Role = Hard-hitting physical/mixed wallbreaker
+LevelUpAdditions = Evolution Aqua Jet; Lv24 Knock Off; 30 Razor Shell; 36 Crunch; 42 Dragon Dance; 48 Crabhammer; 54 Swords Dance; 60 Liquidation
+Teachables = Superpower; X-Scissor; Ice Beam; Sludge Bomb; Protect; Rain Dance
+Guardrail = Adaptability already supplies huge damage; setup is strong but low Speed/bulk remain real limitations.
+Source = https://bulbapedia.bulbagarden.net/wiki/Crawdaunt_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:CASTFORM]
+Name = Castform
+OriginGame = PHR
+Tier = General rescue
+Types = Normal
+AbilityTarget = Forecast
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/85/85/85/85/85
+BST = 510
+Role = Weather forms become usable; expand weather-ball coverage
+LevelUpAdditions = Lv10 Weather Ball; 16 Sunny Day; 20 Rain Dance; 24 Snowscape; 30 Headbutt; 36 Energy Ball; 42 Hydro Pump; 46 Fire Blast; 50 Blizzard; 54 Thunder
+Teachables = Solar Beam; Hurricane; Flamethrower; Ice Beam; Thunderbolt; Scald; Shadow Ball; Protect
+Guardrail = All three weather forms receive a real offensive path. Weather Ball stays the central identity.
+Source = https://bulbapedia.bulbagarden.net/wiki/Castform_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:KECLEON]
+Name = Kecleon
+OriginGame = PHR
+Tier = General rescue
+Types = Normal
+AbilityTarget = Protean
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/100/90/75/120/55
+BST = 520
+Role = Bulky Protean utility attacker
+LevelUpAdditions = Lv12 Shadow Sneak; 18 Slash; 24 Sucker Punch; 30 Recover; 36 Knock Off; 42 Drain Punch; 48 Shadow Claw; 54 Trick Room
+Teachables = Fire Punch; Ice Punch; Thunder Punch; Rock Slide; Dazzling Gleam; Protect; Substitute
+Guardrail = Protean rewards varied coverage, so its raw Speed remains deliberately low.
+Source = https://bulbapedia.bulbagarden.net/wiki/Kecleon_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:BANETTE]
+Name = Banette
+OriginGame = PHR
+Tier = General rescue
+Types = Ghost
+AbilityTarget = Cursed Body
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/125/80/85/80/70
+BST = 520
+Role = Physical Ghost attacker with disruptive utility
+LevelUpAdditions = Lv12 Shadow Sneak; 18 Will-O-Wisp; 24 Knock Off; 30 Shadow Claw; 36 Sucker Punch; 42 Poltergeist; 48 Destiny Bond; 54 Curse
+Teachables = Thunder Wave; Trick Room; Taunt; Gunk Shot; Dazzling Gleam; Protect; Substitute
+Guardrail = Physical Ghost attacker with disruptive utility; no unnecessary Speed boost.
+Source = https://bulbapedia.bulbagarden.net/wiki/Banette_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:ABSOL]
+Name = Absol
+OriginGame = PHR
+Tier = General rescue
+Types = Dark
+AbilityTarget = Super Luck
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/130/75/85/75/105
+BST = 550
+Role = Crit-focused fast physical/mixed threat
+LevelUpAdditions = Lv12 Bite; 18 Quick Attack; 24 Focus Energy; 30 Psycho Cut; 36 Night Slash; 42 Sucker Punch; 48 Swords Dance; 54 Play Rough
+Teachables = Stone Edge; X-Scissor; Shadow Claw; Flamethrower; Ice Beam; Taunt; Protect
+Guardrail = Super Luck + Focus Energy/Night Slash makes the crit build explicit; coverage remains selective.
+Source = https://bulbapedia.bulbagarden.net/wiki/Absol_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:NINETALES]
+Name = Ninetales
+OriginGame = PHR
+Tier = General rescue
+Types = Fire
+AbilityTarget = Drought
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/75/80/100/110/95
+BST = 540
+Role = Promote Hidden Ability Drought; fast special sun support with Flamethrower, Solar Beam, Will-O-Wisp, Nasty Plot
+LevelUpAdditions = Evolution Flamethrower; Lv1 Ember / Quick Attack / Confuse Ray / Will-O-Wisp; 34 Extrasensory; 42 Nasty Plot; 50 Fire Blast
+Teachables = Solar Beam; Energy Ball; Dark Pulse; Calm Mind; Sunny Day; Will-O-Wisp; Protect
+Guardrail = Drought is the real buff. Relearner access must retain key Vulpix moves so stone evolution never punishes the player.
+Source = https://bulbapedia.bulbagarden.net/wiki/Ninetales_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:RAICHU]
+Name = Raichu
+OriginGame = PHR
+Tier = General rescue
+Types = Electric
+AbilityTarget = Lightning Rod
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 70/95/65/110/85/115
+BST = 540
+Role = Makes Raichu a legitimate alternative to Noxichu; promote Hidden Ability Lightning Rod, mixed Electric coverage
+LevelUpAdditions = Evolution Thunder Punch; Lv1 Nuzzle / Electro Ball / Quick Attack; 28 Volt Switch; 34 Psychic; 40 Thunderbolt; 46 Agility; 52 Discharge
+Teachables = Grass Knot; Focus Blast; Brick Break; Wild Charge; Light Screen; Rain Dance; Protect
+Guardrail = Lightning Rod + 540 BST makes Raichu a legitimate alternative to Noxichu without copying Noxichu's Dark tools.
+Source = https://bulbapedia.bulbagarden.net/wiki/Raichu_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:GIRAFARIG]
+Name = Girafarig
+OriginGame = PHR
+Tier = General rescue
+Types = Normal / Psychic
+AbilityTarget = Sap Sipper
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/90/75/110/75/95
+BST = 525
+Role = Promote Hidden Ability Sap Sipper; mixed Psychic utility with Psychic, Hyper Voice, Crunch, Agility/Calm Mind
+LevelUpAdditions = Lv12 Psybeam; 18 Stomp; 24 Agility; 30 Crunch; 36 Psychic; 42 Hyper Voice; 48 Calm Mind; 54 Baton Pass
+Teachables = Thunderbolt; Energy Ball; Shadow Ball; Dazzling Gleam; Light Screen; Reflect; Protect
+Guardrail = Sap Sipper gives a useful switch-in niche. Avoid Twin Beam in PHR so no accidental Farigiraf evolution path is introduced.
+Source = https://bulbapedia.bulbagarden.net/wiki/Girafarig_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:GLALIE]
+Name = Glalie
+OriginGame = PHR
+Tier = General rescue
+Types = Ice
+AbilityTarget = Ice Body
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90/100/90/100/90/60
+BST = 530
+Role = Balanced Ice bruiser rather than 80-across mediocrity; Ice Beam, Icicle Crash, Crunch, Earthquake, Spikes
+LevelUpAdditions = Evolution Ice Fang; Lv24 Crunch; 30 Ice Shard; 36 Frost Breath; 42 Icicle Crash; 48 Ice Beam; 54 Spikes; 60 Freeze-Dry
+Teachables = Earthquake; Shadow Ball; Crunch; Explosion; Taunt; Protect; Snowscape
+Guardrail = 100/100 offenses mean mixed sets are real; Freeze-Dry gives the late-game special set purpose.
+Source = https://bulbapedia.bulbagarden.net/wiki/Glalie_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:HUNTAIL]
+Name = Huntail
+OriginGame = PHR
+Tier = General rescue
+Types = Water
+AbilityTarget = Swift Swim
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/115/100/80/80/70
+BST = 530
+Role = Physical rain sweeper
+LevelUpAdditions = Evolution Aqua Jet; Lv28 Bite; 34 Ice Fang; 40 Crunch; 46 Liquidation; 52 Sucker Punch; 58 Shell Smash; 64 Psychic Fangs
+Teachables = Waterfall; Ice Beam; Earthquake; Rain Dance; Protect; Substitute
+Guardrail = Physical rain sweeper with Swift Swim; Shell Smash remains the high-risk ceiling.
+Source = https://bulbapedia.bulbagarden.net/wiki/Huntail_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:GOREBYSS]
+Name = Gorebyss
+OriginGame = PHR
+Tier = General rescue
+Types = Water
+AbilityTarget = Swift Swim
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/70/85/125/95/75
+BST = 530
+Role = Special rain sweeper
+LevelUpAdditions = Evolution Water Pulse; Lv28 Aqua Ring; 34 Psychic; 40 Ice Beam; 46 Hydro Pump; 52 Baton Pass; 58 Shell Smash; 64 Dazzling Gleam
+Teachables = Scald; Shadow Ball; Energy Ball; Rain Dance; Protect; Substitute
+Guardrail = Special counterpart to Huntail; Shell Smash/Baton Pass is powerful enough, so no extra Speed tech.
+Source = https://bulbapedia.bulbagarden.net/wiki/Gorebyss_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:LANTURN]
+Name = Lanturn
+OriginGame = PHR
+Tier = General rescue
+Types = Water / Electric
+AbilityTarget = Water Absorb
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 130/55/70/95/90/80
+BST = 520
+Role = Promote Hidden Ability Water Absorb; bulky special pivot with Surf, Thunderbolt, Ice Beam, Volt Switch, Heal Bell
+LevelUpAdditions = Lv12 Spark; 18 Water Pulse; 24 Electro Ball; 30 Discharge; 36 Scald; 42 Heal Bell; 48 Volt Switch; 54 Hydro Pump
+Teachables = Ice Beam; Thunderbolt; Surf; Dazzling Gleam; Rain Dance; Protect; Thunder Wave
+Guardrail = Water Absorb turns it into a superb bulky pivot; no reliable recovery beyond Rest/utility.
+Source = https://bulbapedia.bulbagarden.net/wiki/Lanturn_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:LUVDISC]
+Name = Luvdisc
+OriginGame = PHR
+Tier = General rescue
+Types = Water
+AbilityTarget = Swift Swim
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/60/75/95/85/120
+BST = 515
+Role = Very fast rain support/special attacker instead of joke encounter
+LevelUpAdditions = Lv10 Aqua Jet; 16 Draining Kiss; 22 Aqua Ring; 28 Scald; 34 Sweet Kiss; 40 Flip Turn; 46 Ice Beam; 52 Hydro Pump
+Teachables = Rain Dance; Dazzling Gleam; Psychic; Protect; Charm; Substitute
+Guardrail = 120 Speed + Swift Swim is intentionally extreme; damage stays moderate and pivot/support tools do the heavy lifting.
+Source = https://bulbapedia.bulbagarden.net/wiki/Luvdisc_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:SEAKING]
+Name = Seaking
+OriginGame = PHR
+Tier = PKR carry-over
+Types = Water
+AbilityTarget = Lightning Rod
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/110/75/65/80/85
+BST = 495
+Role = Preserve PKR identity: physical Water attacker with Waterfall, Drill Run, Megahorn, Poison Jab, Aqua Jet
+LevelUpAdditions = Lv12 Aqua Jet; 18 Horn Attack; 24 Waterfall; 30 Drill Run; 36 Megahorn; 42 Poison Jab; 48 Agility; 54 Swords Dance
+Teachables = Ice Beam; Surf; Rain Dance; Knock Off; Protect; Substitute
+Guardrail = Preserves PKR's physical Lightning Rod identity exactly: Waterfall/Drill Run/Megahorn are the core.
+Source = PKR Master Sheet — Vanilla Buffs; https://bulbapedia.bulbagarden.net/wiki/Seaking_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:MUK]
+Name = Muk
+OriginGame = PHR
+Tier = PKR carry-over
+Types = Poison
+AbilityTarget = Poison Touch
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 115/120/80/65/110/50
+BST = 540
+Role = Preserve PKR identity: bulky physical Poison with Gunk Shot, Knock Off, Shadow Sneak, Curse and elemental punches
+LevelUpAdditions = Lv12 Poison Fang; 18 Shadow Sneak; 24 Knock Off; 30 Poison Jab; 36 Curse; 42 Gunk Shot; 48 Brick Break; 54 Acid Armor
+Teachables = Fire Punch; Ice Punch; Thunder Punch; Drain Punch; Earthquake; Protect; Toxic
+Guardrail = Preserves PKR bulky physical Poison identity; Poison Touch works naturally with multi-contact coverage.
+Source = PKR Master Sheet — Vanilla Buffs; https://bulbapedia.bulbagarden.net/wiki/Muk_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:WEEZING]
+Name = Weezing
+OriginGame = PHR
+Tier = PKR carry-over
+Types = Poison
+AbilityTarget = Levitate
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 85/80/135/100/85/55
+BST = 540
+Role = Preserve PKR identity: physical wall/status disruption with Sludge Bomb, Flamethrower, Will-O-Wisp, Pain Split, Haze
+LevelUpAdditions = Lv12 Clear Smog; 18 Will-O-Wisp; 24 Sludge Bomb; 30 Haze; 36 Flamethrower; 42 Pain Split; 48 Toxic Spikes; 54 Explosion
+Teachables = Body Press; Thunderbolt; Dark Pulse; Protect; Toxic; Rest; Sleep Talk
+Guardrail = PKR physical-wall identity with Levitate; Body Press finally exploits its Defense offensively.
+Source = PKR Master Sheet — Vanilla Buffs; https://bulbapedia.bulbagarden.net/wiki/Weezing_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:SANDSLASH]
+Name = Sandslash
+OriginGame = PHR
+Tier = PKR carry-over
+Types = Ground
+AbilityTarget = Sand Rush
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/115/120/45/70/80
+BST = 510
+Role = Preserve PKR identity: Sand Rush physical Ground sweeper with Earthquake, Stone Edge, Rapid Spin, Swords Dance
+LevelUpAdditions = Lv12 Rollout; 18 Bulldoze; 24 Rapid Spin; 30 Slash; 36 Earthquake; 42 X-Scissor; 48 Stone Edge; 54 Swords Dance
+Teachables = Knock Off; Brick Break; Rock Slide; Poison Jab; Sandstorm; Protect
+Guardrail = PKR Sand Rush sweeper: straightforward physical toolkit and hazard control.
+Source = PKR Master Sheet — Vanilla Buffs; https://bulbapedia.bulbagarden.net/wiki/Sandslash_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:WIGGLYTUFF]
+Name = Wigglytuff
+OriginGame = PHR
+Tier = PKR carry-over
+Types = Normal / Fairy
+AbilityTarget = Competitive
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 150/70/60/100/70/55
+BST = 505
+Role = Preserve PKR identity: bulky special support with Hyper Voice, Dazzling Gleam, coverage, Wish, Calm Mind
+LevelUpAdditions = Evolution Disarming Voice; Lv1 Sing / Defense Curl / Disable; 24 Dazzling Gleam; 30 Hyper Voice; 36 Wish; 42 Calm Mind; 48 Moonblast
+Teachables = Thunderbolt; Flamethrower; Ice Beam; Shadow Ball; Energy Ball; Light Screen; Protect
+Guardrail = Preserves PKR Competitive special-support identity and its classic wide TM coverage.
+Source = PKR Master Sheet — Vanilla Buffs; https://bulbapedia.bulbagarden.net/wiki/Wigglytuff_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:GOLDUCK]
+Name = Golduck
+OriginGame = PHR
+Tier = PKR carry-over
+Types = Water
+AbilityTarget = Cloud Nine
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/82/78/110/80/95
+BST = 525
+Role = Preserve PKR identity: special Water attacker with Surf/Hydro Pump, Psychic, Ice Beam and Calm Mind
+LevelUpAdditions = Lv12 Water Pulse; 18 Confusion; 24 Aqua Jet; 30 Psybeam; 36 Surf; 42 Psychic; 48 Ice Beam; 54 Hydro Pump; 60 Calm Mind
+Teachables = Focus Blast; Shadow Ball; Grass Knot; Rain Dance; Protect; Disable
+Guardrail = PKR Cloud Nine special attacker; Psychic coverage is elevated to a proper secondary identity.
+Source = PKR Master Sheet — Vanilla Buffs; https://bulbapedia.bulbagarden.net/wiki/Golduck_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:PINSIR]
+Name = Pinsir
+OriginGame = PHR
+Tier = PKR carry-over
+Types = Bug
+AbilityTarget = Moxie
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 65/140/100/55/70/95
+BST = 525
+Role = Preserve PKR identity: Moxie physical cleaner with X-Scissor, Close Combat, First Impression, Swords Dance
+LevelUpAdditions = Lv12 Fury Cutter; 18 Rock Throw; 24 Brick Break; 30 X-Scissor; 36 First Impression; 42 Close Combat; 48 Swords Dance; 54 Guillotine
+Teachables = Earthquake; Knock Off; Rock Slide; Stone Edge; Bulk Up; Protect; Substitute
+Guardrail = PKR Moxie cleaner. Guillotine remains flavour only; do not create No Guard/OHKO interactions.
+Source = PKR Master Sheet — Vanilla Buffs; https://bulbapedia.bulbagarden.net/wiki/Pinsir_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:SEADRA]
+Name = Seadra
+OriginGame = PHR
+Tier = PKR carry-over
+Types = Water
+AbilityTarget = Sniper
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 60/65/95/110/60/100
+BST = 490
+Role = Preserve PKR identity: fast special Water with Hydro Pump/Surf, Ice Beam, Dragon Pulse and Focus Energy
+LevelUpAdditions = Lv12 Water Pulse; 18 Smokescreen; 24 Focus Energy; 30 Dragon Breath; 36 Scald; 42 Dragon Pulse; 48 Hydro Pump; 54 Agility
+Teachables = Ice Beam; Flash Cannon; Surf; Rain Dance; Protect; Substitute
+Guardrail = PKR Sniper identity: Focus Energy is brought into the main level-up path so crit builds are practical.
+Source = PKR Master Sheet — Vanilla Buffs; https://bulbapedia.bulbagarden.net/wiki/Seadra_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:MACHAMP]
+Name = Machamp
+OriginGame = PHR
+Tier = Ability promotion
+Types = Fighting
+AbilityTarget = No Guard
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90/130/80/65/85/55
+BST = 505
+Role = Preserve PKR ability lock; no stat inflation needed. Dynamic Punch and high-risk coverage exploit No Guard.
+LevelUpAdditions = Ensure Dynamic Punch by Lv36; Knock Off 42; Heavy Slam 48; Bullet Punch 54; Close Combat 60
+Teachables = Fire Punch; Ice Punch; Thunder Punch; Stone Edge; Rock Slide; High Horsepower; Bulk Up; Protect
+Guardrail = No Guard is the whole change. Explicit guardrail: Machamp must not gain any OHKO move through TM/tutor compatibility.
+Source = https://bulbapedia.bulbagarden.net/wiki/Machamp_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+[MODIFIED:HERACROSS]
+Name = Heracross
+OriginGame = PHR
+Tier = Ability promotion
+Types = Bug / Fighting
+AbilityTarget = Moxie
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80/125/75/40/95/85
+BST = 500
+Role = Promote Hidden Ability Moxie as a standard option; stats already strong, so no stat buff required.
+LevelUpAdditions = Lv12 Arm Thrust; 18 Aerial Ace; 24 Brick Break; 30 Pin Missile; 36 Megahorn; 42 Close Combat; 48 Swords Dance; 54 First Impression
+Teachables = Rock Slide; Earthquake; Throat Chop; Bulk Up; Trailblaze; Protect; Substitute
+Guardrail = Moxie cleaner with excellent dual STAB. No direct stat buff and no unnecessary Speed-boosting move.
+Source = https://bulbapedia.bulbagarden.net/wiki/Heracross_(Pok%C3%A9mon)
+PRLImportStatus = REVIEW — data donor only; no blanket balance import into PRL
+
+
+# ============================================================================
+# PRL IMPORT POLICY
+# ============================================================================
+
+[POLICY:PHR_TO_PRL]
+Region = Hoenn
+DataDonor = PHR master sheet + Notion canon + final PHR ROM/source where Notion/master conflict
+QoLPolicy = SELECTIVE ONLY
+Rule = Do not automatically port PHR QoL, HM handling, DexNav, Remote PC, Safari settings, marts, or encounter rules into PRL.
+Rule = PRL's explicit full-ROM QoL specification is the whitelist.
+Rule = Bellantem/Sabellite mechanics must be recovered before implementation; do not infer them from Chimoracle/Noxichu.
+Rule = All imported custom Pokémon must be player-obtainable in PRL if their sprite/species is present.

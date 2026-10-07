@@ -1,0 +1,92 @@
+{
+  "format_version": 1,
+  "canonical_completion": "partial",
+  "source_foundation_locked": false,
+  "numeric_ids_frozen": false,
+  "blanket_qol_import": false,
+  "blanket_global_balance_import": false,
+  "approved_qol_keys": [
+    "Policy",
+    "SELECT",
+    "DexNav",
+    "Fly",
+    "RemotePC",
+    "FieldHMs",
+    "MoveRelearner",
+    "ReusableTMs",
+    "RToRun",
+    "LastBall",
+    "IndoorRunning",
+    "Repel",
+    "Bag",
+    "TradeEvolution",
+    "LegendaryRetry",
+    "NatureAbilityServices",
+    "EncounterRates",
+    "EvolutionItems",
+    "RockShops",
+    "GymRematches",
+    "KantoAides",
+    "GiftPresentation",
+    "LeagueRematchMart",
+    "SecondEliteFour",
+    "NotAutomaticallyLocked"
+  ],
+  "excluded_species": [
+    "SUDOWARDEN",
+    "TERATHWACK"
+  ],
+  "excluded_evolution_items": [
+    "FOSSIL_BARK"
+  ],
+  "blocked_species": {
+    "VALKYVOIR": [
+      "base_stats",
+      "wider_learnset",
+      "party_icon",
+      "overworld_if_used"
+    ],
+    "TOXEON": [
+      "cross_game_evolution",
+      "cross_game_abilities",
+      "cross_game_stats",
+      "cross_game_learnset"
+    ],
+    "BELLANTEM": [
+      "types",
+      "base_stats",
+      "ability",
+      "evolution",
+      "learnset"
+    ],
+    "SABELLITE": [
+      "types",
+      "base_stats",
+      "ability",
+      "evolution",
+      "learnset"
+    ],
+    "MAWYRM": [
+      "complete_types",
+      "exact_shrine_evolution"
+    ],
+    "CACTOMB": [
+      "spirit_thorns_effect",
+      "grave_spines_effect_and_timing"
+    ],
+    "COELOSSUS": [
+      "hazard_on_entry_exact_effect"
+    ],
+    "ALPHORACLE": [
+      "approved_replacement_ability"
+    ]
+  },
+  "global_remaining": [
+    "Source-engine foundation and FireRed Kanto integration",
+    "Run292 user QA",
+    "Map every custom/form to a player route",
+    "Match remaining asset manifests and compile engine adapter"
+  ],
+  "data_port_rule": "Only current canonical_fields may be consumed. Stop for mechanics_blockers; donor/global-balance fields are not engine defaults.",
+  "build_ready": false
+}

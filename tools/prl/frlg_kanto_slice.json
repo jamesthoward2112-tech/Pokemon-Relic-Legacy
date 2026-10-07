@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "foundation": "PRL_FOUNDATION_001_KANTO_SLICE",
+  "engine": "pokeemerald-expansion",
+  "upstream_tag": "expansion/1.17.1",
+  "upstream_commit": "bb1093a7c72d3961d9a37d8e02ad2abc2c866682",
+  "build_target": "firered",
+  "runtime_qa": {
+    "status": "passed",
+    "date": "2026-10-07",
+    "rom_sha256": "11bf46109f78e1dee09841f0b65eea35172954ebdca1bf2c0b50c4b8a6cfb0be",
+    "sequence": ["Oak intro", "Pallet bedroom", "Pallet Town", "Route 1", "Viridian City", "save", "reload"]
+  },
+  "maps": [
+    {"name": "PalletTown_PlayersHouse_2F_Frlg", "id": "MAP_PALLET_TOWN_PLAYERS_HOUSE_2F", "region": "REGION_KANTO"},
+    {"name": "PalletTown_PlayersHouse_1F_Frlg", "id": "MAP_PALLET_TOWN_PLAYERS_HOUSE_1F", "region": "REGION_KANTO"},
+    {"name": "PalletTown_Frlg", "id": "MAP_PALLET_TOWN", "region": "REGION_KANTO"},
+    {"name": "Route1_Frlg", "id": "MAP_ROUTE1", "region": "REGION_KANTO"},
+    {"name": "ViridianCity_Frlg", "id": "MAP_VIRIDIAN_CITY", "region": "REGION_KANTO"}
+  ],
+  "required_edges": [
+    ["PalletTown_PlayersHouse_2F_Frlg", "PalletTown_PlayersHouse_1F_Frlg"],
+    ["PalletTown_PlayersHouse_1F_Frlg", "PalletTown_Frlg"],
+    ["PalletTown_Frlg", "Route1_Frlg"],
+    ["Route1_Frlg", "ViridianCity_Frlg"]
+  ]
+}

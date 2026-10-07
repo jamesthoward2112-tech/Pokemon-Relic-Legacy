@@ -1,0 +1,36 @@
+{
+  "branch": "prl/step10-mass-integration",
+  "species_constants": 50,
+  "canonical_species": 49,
+  "forms": {
+    "I-Unown": "SPECIES_UNOWN_I",
+    "Relic Ho-Oh": "SPECIES_RELIC_HO_OH"
+  },
+  "custom_moves": 24,
+  "custom_abilities": 12,
+  "active_custom_items": [
+    "ITEM_ANCIENT_RAINBOW_CREST",
+    "ITEM_ANCIENT_STONE"
+  ],
+  "map_script_gates": [
+    "Sceptitan",
+    "Solaziken",
+    "Swamplith",
+    "Coelossus",
+    "nuMew",
+    "Astrachi",
+    "Alphoracle",
+    "Relic Ho-Oh"
+  ],
+  "runtime_hooks_pending": [
+    "Ancient Grove",
+    "Solar Discipline",
+    "Tidal Bastion",
+    "Ancient Core",
+    "Wishmaker",
+    "Eden's Canopy",
+    "Thermal Wings",
+    "Citadel Shell",
+    "Relic Wish post-hit healing"
+  ]
+}

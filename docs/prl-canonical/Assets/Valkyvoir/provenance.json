@@ -1,0 +1,71 @@
+{
+  "library_file_id": "libfile_40efb49f7cac81919011544cee2e317f",
+  "source_archive": "PHR_Elite_Redux_Hoenn_Mega_Sprites_v2.65.zip",
+  "source_sha256": "73b8498707c23875a253fc89cf58ca16cfd495c73e2c4abe17721677aba3dd9c",
+  "choice": "Elite Redux Gardevoir Redux Mega",
+  "files": [
+    {
+      "file": "Assets/Valkyvoir/GARDEVOIR_REDUX_MEGA.png",
+      "archive_member": "PHR_Elite_Redux_Hoenn_Mega_Sprites_v2.65/GARDEVOIR_REDUX_MEGA/GARDEVOIR_REDUX_MEGA.png",
+      "sha256": "afa31ffa08fd14bc77bccbe462f565de63d7067573aabe9c9f15c7704fae6edc",
+      "dimensions": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "colors": 14,
+      "conversion": "none; unchanged donor bytes",
+      "original_archive_member": "REDUXsprites/GARDEVOIR_REDUX_MEGA.png",
+      "original_archive_sha256": "afa31ffa08fd14bc77bccbe462f565de63d7067573aabe9c9f15c7704fae6edc",
+      "matches_original_archive": true
+    },
+    {
+      "file": "Assets/Valkyvoir/GARDEVOIR_REDUX_MEGA_BACK.png",
+      "archive_member": "PHR_Elite_Redux_Hoenn_Mega_Sprites_v2.65/GARDEVOIR_REDUX_MEGA/GARDEVOIR_REDUX_MEGA_BACK.png",
+      "sha256": "c4b4dc8e85a2e56a99702b30dac472a00c1a248c81f8056175b5153c30629de7",
+      "dimensions": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "colors": 14,
+      "conversion": "none; unchanged donor bytes",
+      "original_archive_member": "REDUXsprites/GARDEVOIR_REDUX_MEGA_BACK.png",
+      "original_archive_sha256": "c4b4dc8e85a2e56a99702b30dac472a00c1a248c81f8056175b5153c30629de7",
+      "matches_original_archive": true
+    },
+    {
+      "file": "Assets/Valkyvoir/GARDEVOIR_REDUX_MEGA_BACK_SHINY.png",
+      "archive_member": "PHR_Elite_Redux_Hoenn_Mega_Sprites_v2.65/GARDEVOIR_REDUX_MEGA/GARDEVOIR_REDUX_MEGA_BACK_SHINY.png",
+      "sha256": "79b05eb9c94169aa7dbf3bfd624c72d07ded35fe2fef95df5b0e270bda2f0324",
+      "dimensions": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "colors": 14,
+      "conversion": "none; unchanged donor bytes",
+      "original_archive_member": "REDUXsprites/GARDEVOIR_REDUX_MEGA_BACK_SHINY.png",
+      "original_archive_sha256": "79b05eb9c94169aa7dbf3bfd624c72d07ded35fe2fef95df5b0e270bda2f0324",
+      "matches_original_archive": true
+    },
+    {
+      "file": "Assets/Valkyvoir/GARDEVOIR_REDUX_MEGA_SHINY.png",
+      "archive_member": "PHR_Elite_Redux_Hoenn_Mega_Sprites_v2.65/GARDEVOIR_REDUX_MEGA/GARDEVOIR_REDUX_MEGA_SHINY.png",
+      "sha256": "ab13d321ef8e9097ec0521e3a42f1442922abde8b3ef98e8948ce69d6fe53402",
+      "dimensions": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "colors": 14,
+      "conversion": "none; unchanged donor bytes",
+      "original_archive_member": "REDUXsprites/GARDEVOIR_REDUX_MEGA_SHINY.png",
+      "original_archive_sha256": "ab13d321ef8e9097ec0521e3a42f1442922abde8b3ef98e8948ce69d6fe53402",
+      "matches_original_archive": true
+    }
+  ],
+  "icon_status": "No icon in either inspected GARDEVOIR_REDUX_MEGA donor archive; not fabricated",
+  "overworld_status": "No overworld in either inspected GARDEVOIR_REDUX_MEGA donor archive; not fabricated",
+  "original_archive_library_file_id": "libfile_6304f598d070819192019b2c26371c0b"
+}

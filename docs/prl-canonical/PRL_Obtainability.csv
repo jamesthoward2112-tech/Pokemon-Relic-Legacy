@@ -1,0 +1,78 @@
+key,name,origin,approved_route_basis,prl_map_or_npc,status
+VALKYVOIR,Valkyvoir,PRL,Gardevoir + Shiny Stone at Lv50+,UNASSIGNED,BLOCKED_MECHANICS
+EDENSAUR,Edensaur,PKR,Lv.50+ level-up while holding Miracle Seed,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+CHARAXIS,Charaxis,PKR,Lv.50+ level-up while holding Sharp Beak,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+FORTOTOISE,Fortotoise,PKR,Lv.50+ level-up while holding Metal Coat,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+KHANG,Khang,PKR,Level up with high friendship,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+NOXICHU,Noxichu,PKR,Moon Stone,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+NOLAX,Nolax,PKR,Level up while holding Chesto Berry; no level minimum,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+NUMEW,nuMew,PKR,"None — unique postgame static encounter; Notion source-of-truth location: Berry Forest, Lv70",UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+SCEPTITAN,Sceptitan,PHR,Lv40+ Sceptile + reusable Ancient Emblem + Forest Altar in the Route 120 Relic Sanctuary,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+SOLAZIKEN,Solaziken,PHR,Lv40+ Blaziken + reusable Ancient Emblem + Sun Altar in the Route 120 Relic Sanctuary,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+SWAMPLITH,Swamplith,PHR,Lv40+ Swampert + reusable Ancient Emblem + Tide Altar in the Route 120 Relic Sanctuary,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+HYENADON,Hyenadon,PHR,Level up while holding Hard Stone; works anywhere; catalyst is consumed by the evolution,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+GEMIGOYLE,Gemigoyle,PHR,Level up while holding Hard Stone; works anywhere; catalyst is consumed by the evolution,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+MAWYRM,Mawyrm,PHR,Mawile shrine evolution; exact shrine/catalyst conditions require final-source recovery,UNASSIGNED,BLOCKED_MECHANICS
+TORKALDERA,Torkaldera,PHR,Level up while holding Charcoal; works anywhere; catalyst is consumed by the evolution,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+CACTOMB,Cactomb,PHR,Level up while holding Spell Tag; works anywhere; catalyst is consumed by the evolution,UNASSIGNED,BLOCKED_MECHANICS
+TROPISAUR,Tropisaur,PHR,Level up while holding Enigma Berry; works anywhere; Berry is consumed by the evolution,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+BELLANTEM,Bellantem,PHR,,UNASSIGNED,BLOCKED_MECHANICS
+SABELLITE,Sabellite,PHR,,UNASSIGNED,BLOCKED_MECHANICS
+COELOSSUS,Coelossus,PHR,One-time First Current transformation of the exact returning PKR Shiny Wonder Guard Relicanth after all ten native guardian evolutions are registered,UNASSIGNED,BLOCKED_MECHANICS
+ASTRACHI,Astrachi,PHR,"Static Mythical encounter after Coelossus, League rematch and final Sky Pillar puzzle",UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+SCARABUB,Scarabub,PJR,Starter choice; Scarabub → Heracross at Lv18,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+SKARMET,Skarmet,PJR,Starter choice; Skarmet → Skarmory at Lv18,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+MOOTINY,Mootiny,PJR,Starter choice; Mootiny → Miltank at Lv18,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+HERACURION,Heracurion,PJR,Heracross Lv40+ holding Ancient Horn; item consumed,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+SKARMADON,Skarmadon,PJR,Skarmory Lv40+ holding Ancient Plume; item consumed,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+MILTITAN,Miltitan,PJR,Miltank Lv40+ holding Ancient Bell; item consumed,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+SHUCKOLOSSE,Shuckolosse,PJR,Shuckle Lv40+ holding Ancient Shell; item consumed,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+DONPHALANX,Donphalanx,PJR,Donphan Lv40+ holding Ancient Tusk; item consumed,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+MYSTYNX,Mystynx,PJR,Jynx Lv40+ holding Frost Mirror; item consumed,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+PINSIREX,Pinsirex,PJR,Pinsir evolves at Lv42,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+FAERANIUM,Faeranium,PJR,Meganium Lv45+ holding Miracle Seed; item consumed,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+PYROCLAST,Pyroclast,PJR,Typhlosion Lv45+ holding Charcoal; item consumed,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+FERALODON,Feralodon,PJR,Feraligatr Lv45+ holding Mystic Water; item consumed,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+CHAMPEON,Champeon,PJR,Eevee evolves during the day while holding Expert Belt,KANTO — exact placement pending,KANTO_AVAILABILITY_LOCKED; exact placement pending
+LEPIDEON,Lepideon,PJR,Eevee evolves during the day while holding Silver Powder,KANTO — exact placement pending,KANTO_AVAILABILITY_LOCKED; exact placement pending
+SPHYNXEON,Sphynxeon,PJR,Eevee evolves during the day while holding Soft Sand,KANTO — exact placement pending,KANTO_AVAILABILITY_LOCKED; exact placement pending
+GUARDEON,Guardeon,PJR,Eevee evolves at night while holding Metal Coat,KANTO — exact placement pending,KANTO_AVAILABILITY_LOCKED; exact placement pending
+OBSIDEON,Obsideon,PJR,Eevee evolves at night while holding Hard Stone,KANTO — exact placement pending,KANTO_AVAILABILITY_LOCKED; exact placement pending
+OMEON,Omeon,PJR,Eevee evolves with Dusk Stone,KANTO — exact placement pending,KANTO_AVAILABILITY_LOCKED; exact placement pending
+DRAKEON,Drakeon,PJR,Eevee Lv25+ while holding Dragon Fang,KANTO — exact placement pending,KANTO_AVAILABILITY_LOCKED; exact placement pending
+JOLLIBIRD,Jollibird,PJR,Delibird evolves with Shiny Stone,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+GRIMFOWL,Grimfowl,PJR,Noctowl evolves with Dusk Stone,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+KABLOWFISH,Kablowfish,PJR,Qwilfish Lv40+ while holding Metal Coat,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+SUNFLORID,Sunflorid,PJR,Sunflora evolves with Fire Stone,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+GHOULBAT,Ghoulbat,PJR,Crobat Lv50+ at night while inside a cave,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+ALPHORACLE,Alphoracle,PJR,Static after RELICS chain at Ruins of Alph; not a normal evolution,UNASSIGNED,BLOCKED_MECHANICS
+OSTEODIAN,Osteodian,PJR,Marowak Lv40+ holding Thick Club during the day,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+MAROGHOST,Maroghost,PJR,Marowak Lv40+ holding Spell Tag during the night,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+TOXEON,Toxeon,PKR/PJR,UNRESOLVED: PKR item-use Poison Barb versus PJR held Poison Barb at night,KANTO — exact placement pending,KANTO_AVAILABILITY_LOCKED; BLOCKED_MECHANICS
+STARTER_Kanto_Pikachu,Pikachu,Kanto,Regional starter choice; also normally obtainable,Exact normal-game route UNASSIGNED,LOCKED; implementation pending
+STARTER_Kanto_Nidoran♂,Nidoran♂,Kanto,Regional starter choice; also normally obtainable,Exact normal-game route UNASSIGNED,LOCKED; implementation pending
+STARTER_Kanto_Growlithe,Growlithe,Kanto,Regional starter choice; also normally obtainable,Exact normal-game route UNASSIGNED,LOCKED; implementation pending
+GIFT_Kanto_Bulbasaur,Bulbasaur,Kanto,Exactly Lv10 gift within first three towns; visible overworld beside NPC,Exact gift NPC UNASSIGNED,LOCKED; implementation pending
+GIFT_Kanto_Charmander,Charmander,Kanto,Exactly Lv10 gift within first three towns; visible overworld beside NPC,Exact gift NPC UNASSIGNED,LOCKED; implementation pending
+GIFT_Kanto_Squirtle,Squirtle,Kanto,Exactly Lv10 gift within first three towns; visible overworld beside NPC,Exact gift NPC UNASSIGNED,LOCKED; implementation pending
+STARTER_Johto_Phanpy,Phanpy,Johto,Regional starter choice; also normally obtainable,Exact normal-game route UNASSIGNED,LOCKED; implementation pending
+STARTER_Johto_Scarabub,Scarabub,Johto,Regional starter choice; also normally obtainable,Exact normal-game route UNASSIGNED,LOCKED; implementation pending
+STARTER_Johto_Skarmet,Skarmet,Johto,Regional starter choice; also normally obtainable,Exact normal-game route UNASSIGNED,LOCKED; implementation pending
+GIFT_Johto_Chikorita,Chikorita,Johto,Exactly Lv10 gift within first three towns; visible overworld beside NPC,Exact gift NPC UNASSIGNED,LOCKED; implementation pending
+GIFT_Johto_Cyndaquil,Cyndaquil,Johto,Exactly Lv10 gift within first three towns; visible overworld beside NPC,Exact gift NPC UNASSIGNED,LOCKED; implementation pending
+GIFT_Johto_Totodile,Totodile,Johto,Exactly Lv10 gift within first three towns; visible overworld beside NPC,Exact gift NPC UNASSIGNED,LOCKED; implementation pending
+STARTER_Hoenn_Poochyena,Poochyena,Hoenn,Regional starter choice; also normally obtainable,Exact normal-game route UNASSIGNED,LOCKED; implementation pending
+STARTER_Hoenn_Sableye,Sableye,Hoenn,Regional starter choice; also normally obtainable,Exact normal-game route UNASSIGNED,LOCKED; implementation pending
+STARTER_Hoenn_Ralts,Ralts,Hoenn,Regional starter choice; also normally obtainable,Exact normal-game route UNASSIGNED,LOCKED; implementation pending
+GIFT_Hoenn_Treecko,Treecko,Hoenn,Exactly Lv10 gift within first three towns; visible overworld beside NPC,Exact gift NPC UNASSIGNED,LOCKED; implementation pending
+GIFT_Hoenn_Torchic,Torchic,Hoenn,Exactly Lv10 gift within first three towns; visible overworld beside NPC,Exact gift NPC UNASSIGNED,LOCKED; implementation pending
+GIFT_Hoenn_Mudkip,Mudkip,Hoenn,Exactly Lv10 gift within first three towns; visible overworld beside NPC,Exact gift NPC UNASSIGNED,LOCKED; implementation pending
+FORM:REGULAR_UNOWN,Regular Unown,PKR/PJR,Unown,UNASSIGNED,Player-obtainable route required before export
+FORM:I-UNOWN,I-Unown,PKR/PJR,Static RELICS Eye/King Unown donor visual; displays as I-Unown,UNASSIGNED,Player-obtainable route required before export
+FORM:RELIC_GENGAR,Relic Gengar,PKR/PJR,Form/variant; not new evolution/Dex species,UNASSIGNED,Player-obtainable route required before export
+FORM:RELIC_CROBAT,Relic Crobat,PKR/PJR,Form/variant; not Ghoulbat and not new Dex species,UNASSIGNED,Player-obtainable route required before export
+FORM:RELIC_HOUNDOOM,Relic Houndoom,PKR/PJR,Form/variant; not new Dex species,UNASSIGNED,Player-obtainable route required before export
+FORM:RELIC_KINGDRA,Relic Kingdra,PKR/PJR,Form/variant; not new Dex species,UNASSIGNED,Player-obtainable route required before export
+FORM:RELIC_TYRANITAR,Relic Tyranitar,PKR/PJR,Form/variant; not new Dex species,UNASSIGNED,Player-obtainable route required before export
+FORM:RELIC_SCIZOR,Relic Scizor,PKR/PJR,Form/variant; not new Dex species,UNASSIGNED,Player-obtainable route required before export
+FORM:SHINY_RELICANTH,Relicanth,PKR/PJR,See canonical form record,UNASSIGNED,Player-obtainable route required before export

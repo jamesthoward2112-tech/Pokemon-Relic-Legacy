@@ -1,0 +1,657 @@
+# Pokémon Relic canonical species data
+# Format: human-readable PBS-style reference, not an engine parser contract.
+# Source precedence: Notion canon > latest master sheet > implementation/ROM fallback.
+# Generated: 2026-10-06
+#
+# IMPORTANT PRL IMPORT RULE:
+# Recording a PKR feature here does NOT automatically approve it for PRL.
+# PRL only imports QoL/system changes that have been explicitly agreed for PRL.
+# Game = PKR
+# MasterSheet = Project_Kantomon_Master_Sheet_v3_30_14SEP2026_PKR_MASTER1_T26.xlsx
+# MasterSheetSHA256 = edcc17a9ce8d182a441d460bb3977fcaf73738fdeb82570f32df5191d1253b12
+# Notion = PKR — Pokémon Kanto Relics + Relic Pokédex
+# Status = PKR complete; file records custom species and targeted Pokémon changes.
+
+# ============================================================================
+# CUSTOM / RELIC SPECIES
+# ============================================================================
+# Reconciled: 2026-10-06; see PRL_Canonical_Status.md and PRL_Import_Gates.json.
+
+[SPECIES:EDENSAUR]
+Name = Edensaur
+OriginGame = PKR
+BaseSpecies = Venusaur
+Types = Grass/Poison
+Evolution = Lv.50+ level-up while holding Miracle Seed
+Abilities = Grassy Surge
+HeldItem = Black Sludge
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 95 / 80 / 110 / 135 / 105 / 55
+BST = 580
+Role = Bulky special breaker
+CoreMoves = Petal Blizzard (90 BP, 100 Acc, 15 PP, SPECIAL) / Sludge Bomb / Earth Power (15 PP) / Synthesis (10 PP)
+LevelUpMoves = Evolution: Earth Power; Lv52 Synthesis; Lv54 Sludge Bomb; Lv57 Giga Drain; Lv60 Sleep Powder; Lv63 Growth; Lv66 Solar Beam; Lv69 Leech Seed; Lv70 Frenzy Plant; Petal Blizzard retained from Venusaur / pre-evolution relearner inheritance.
+Teachables = Everything Venusaur can learn; No additional species pool
+CompatibilityNotes = Compatibility inherits Venusaur wholesale. Edensaur's bespoke level-up/signature/core moves remain exactly as defined in the MS.
+Notes = Final-six member; Petal Blizzard is premium Grass STAB. Evolution move: Earth Power. Lv70 Frenzy Plant; relearnable at/after Lv70.
+PRLImportStatus = LOCKED SPECIES DONOR / mechanics subject to PRL conflict resolution
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3f14939d43168198af98dcce4834d06c
+PRLMoveTuningPolicy = Existing standard-move tuning is donor-only; do not apply globally in PRL without a separate lock.
+
+[SPECIES:CHARAXIS]
+Name = Charaxis
+OriginGame = PKR
+BaseSpecies = Charizard
+Types = Fire/Flying
+Evolution = Lv.50+ level-up while holding Sharp Beak
+Abilities = Gale Wings
+HeldItem = Sharp Beak
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 80 / 120 / 85 / 90 / 80 / 125
+BST = 580
+Role = Fast physical pivot
+CoreMoves = Flame Charge (70 BP, 20 PP) / Aerial Ace (70 BP) / U-turn / Roost
+LevelUpMoves = Evolution: Flame Charge; Lv52 Aerial Ace; Lv54 U-turn; Lv57 Roost; Lv60 Dragon Claw; Lv63 Air Slash; Lv66 Flamethrower; Lv69 Tailwind; Lv70 Blast Burn; Lv72 Heat Wave
+Teachables = Everything Charizard can learn; No additional species pool
+CompatibilityNotes = Compatibility inherits Charizard wholesale. Charaxis's bespoke level-up/signature/core moves remain exactly as defined in the MS.
+Notes = Final-six member. Evolution move: Flame Charge (70 BP, 20 PP). Lv70 Blast Burn; relearnable at/after Lv70.
+PRLImportStatus = LOCKED SPECIES DONOR / mechanics subject to PRL conflict resolution
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3f14939d43168198af98dcce4834d06c
+PRLMoveTuningPolicy = Existing standard-move tuning is donor-only; do not apply globally in PRL without a separate lock.
+
+[SPECIES:FORTOTOISE]
+Name = Fortotoise
+OriginGame = PKR
+BaseSpecies = Blastoise
+Types = Water/Steel
+Evolution = Lv.50+ level-up while holding Metal Coat
+Abilities = Sturdy
+HeldItem = Leftovers
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 95 / 80 / 155 / 100 / 105 / 50
+BST = 585
+Role = Physical wall / Body Press tank
+CoreMoves = Surf (HM) / Flash Cannon (90 BP, 15 PP) / Ice Beam (15 PP) / Body Press (15 PP)
+LevelUpMoves = Evolution: Water Spout; Lv52 Body Press; Lv54 Ice Beam; Surf via HM; Lv60 Iron Defense; Lv63 Aqua Ring; Lv66 Hydro Pump; Lv69 Mirror Coat; Lv70 Hydro Cannon; Lv72 Protect
+Teachables = Everything Blastoise can learn; All Steel-type moves available through the ROM's compatibility systems
+CompatibilityNotes = Fortotoise inherits the full Blastoise pool plus Steel coverage. Bespoke level-up/signature/core moves remain exactly as defined in the MS.
+Notes = Final-six member; very high Defence. Evolution move: Water Spout (10 PP). Lv70 Hydro Cannon; relearnable at/after Lv70.
+PRLImportStatus = LOCKED SPECIES DONOR / mechanics subject to PRL conflict resolution
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3f14939d43168198af98dcce4834d06c
+PRLMoveTuningPolicy = Existing standard-move tuning is donor-only; do not apply globally in PRL without a separate lock.
+
+[SPECIES:KHANG]
+Name = Khang
+OriginGame = PKR
+BaseSpecies = Kangaskhan
+Types = Normal
+Evolution = Level up with high friendship
+Abilities = Parental Bond
+HeldItem = Silk Scarf
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 105 / 105 / 95 / 50 / 90 / 110
+BST = 555
+Role = Bulky physical pressure
+CoreMoves = Return (25 PP) / Drain Punch / Crunch / Fake Out (50 BP, 15 PP)
+LevelUpMoves = Evolution: Return; Lv35 Drain Punch; Lv40 Crunch; Fake Out: normal/relearner pool; Lv50 Power-Up Punch; Lv55 Sucker Punch; Lv60 Double-Edge; Lv65 Endure; Lv70 Reversal
+Teachables = Everything Kangaskhan can learn; No additional species pool
+CompatibilityNotes = Khang inherits Kangaskhan compatibility wholesale. Khang's bespoke evolution/signature/core moves remain exactly as defined in the MS.
+Notes = Final-six member; pure Normal
+PRLImportStatus = LOCKED SPECIES DONOR / mechanics subject to PRL conflict resolution
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3f14939d43168198af98dcce4834d06c
+PRLMoveTuningPolicy = Existing standard-move tuning is donor-only; do not apply globally in PRL without a separate lock.
+
+[SPECIES:TOXEON]
+Name = Toxeon
+OriginGame = PKR
+BaseSpecies = Eevee
+Types = Poison
+Evolution = Use Poison Barb on Eevee (permanent evolution)
+Abilities = Corrosion
+HeldItem = Poison Barb
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 90 / 60 / 95 / 115 / 115 / 85
+BST = 560
+Role = Special attacker / Toxic staller
+CoreMoves = Toxic / Venoshock (75 BP) / Psychic / Sand Attack
+LevelUpMoves = Evolution: Toxic; Lv20 Acid Spray; Lv25 Sludge; Lv30 Venoshock; Lv34 Psychic; Lv38 Protect; Lv42 Acid Armor; Lv46 Sludge Bomb; Lv50 Venom Drench; Lv52 Shadow Ball; Lv56 Toxic Spikes; Sand Attack via Relearner
+Teachables = Everything Eevee can learn; Everything Glimmora can learn
+CompatibilityNotes = Toxeon uses the union of Eevee + Glimmora compatibility. Its bespoke Poison identity, level-up/signature/core moves remain exactly as defined in the MS.
+Notes = Final-six member; pure Poison; Poison Barb sold in Celadon Mart; true permanent Eevee evolution confirmed M1v68 (no Mega/Gigantamax reversion).
+PRLImportStatus = LOCKED SPECIES DONOR / mechanics subject to PRL conflict resolution
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3f14939d43168198af98dcce4834d06c
+PRLMoveTuningPolicy = Existing standard-move tuning is donor-only; do not apply globally in PRL without a separate lock.
+
+[SPECIES:NOXICHU]
+Name = Noxichu
+OriginGame = PKR
+BaseSpecies = Pikachu
+Types = Electric/Dark
+Evolution = Moon Stone
+Abilities = Infiltrator
+HeldItem = Scope Lens
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 70 / 110 / 70 / 110 / 80 / 125
+BST = 565
+Role = Fast mixed cleaner
+CoreMoves = Night Slash (90 BP) / Dark Pulse / Volt Switch / Electroweb (65 BP)
+LevelUpMoves = Lv28 Electroweb; Lv32 Thunderbolt; Lv44 Night Slash; Lv50 Zing Zap; Volt Switch via TM. Other level-up/relearner details remain from PKR unless separately superseded.
+Teachables = Everything Pikachu can learn; Everything Umbreon can learn
+CompatibilityNotes = Noxichu uses the union of Pikachu + Umbreon compatibility, including Dark coverage. Its bespoke level-up/signature/core moves remain exactly as defined in the MS.
+Notes = Final-six member; Attack = Sp. Atk; M1v69 level-up learnset includes Electroweb 65 BP at Lv30 | NOTION OVERRIDE 6 Oct 2026: Noxichu level landmarks use Electroweb Lv28, Thunderbolt Lv32, Night Slash Lv44, Zing Zap Lv50; Volt Switch via TM.
+PRLImportStatus = LOCKED SPECIES DONOR / mechanics subject to PRL conflict resolution
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3f14939d43168198af98dcce4834d06c
+PRLMoveTuningPolicy = Existing standard-move tuning is donor-only; do not apply globally in PRL without a separate lock.
+LegacyMasterLevelUpMoves = Evolution: Bite; Lv24 Snarl; Lv28 Volt Switch; Lv30 Electroweb; Lv32 Night Slash; Lv36 Crunch; Lv40 Agility; Lv44 Thunderbolt; Lv48 Nasty Plot; Lv52 Sucker Punch; Lv56 Discharge; Lv60 Dark Pulse; historical only where superseded by the active Notion landmarks
+
+[SPECIES:NOLAX]
+Name = Nolax
+OriginGame = PKR
+BaseSpecies = Snorlax
+Types = Normal
+Evolution = Level up while holding Chesto Berry; no level minimum
+Abilities = Insomnia
+HeldItem = Choice Band
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 100 / 130 / 80 / 45 / 90 / 130
+BST = 575
+Role = Very fast physical alternative
+CoreMoves = Extreme Speed (90 BP) / Double-Edge / Earthquake / Crunch
+LevelUpMoves = Evolution: Extreme Speed; Lv32 Crunch; Lv36 Body Slam; Lv40 Zen Headbutt; Lv44 Double-Edge; Lv48 Taunt; Lv52 Bulk Up; Lv56 Heavy Slam; Lv60 Giga Impact
+Teachables = Everything Lopunny can learn; Do NOT automatically inherit Snorlax's full pool
+CompatibilityNotes = Nolax compatibility is based on Lopunny, not Snorlax. Preserve Nolax's bespoke level-up/signature/core moves from the MS. Specific locked exceptions may be added deliberately.
+Notes = Not part of intended final six; Chesto Berry available before Snorlax
+PRLImportStatus = LOCKED SPECIES DONOR / mechanics subject to PRL conflict resolution
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3f14939d43168198af98dcce4834d06c
+PRLMoveTuningPolicy = Existing standard-move tuning is donor-only; do not apply globally in PRL without a separate lock.
+
+[SPECIES:NUMEW]
+Name = nuMew
+OriginGame = PKR
+BaseSpecies = Artificial legendary
+Types = Fairy
+Evolution = None — unique postgame static encounter; Notion source-of-truth location: Berry Forest, Lv70
+Abilities = Magic Guard
+HeldItem = Life Orb
+BaseStats_HP_Atk_Def_SpA_SpD_Spe = 100 / 70 / 90 / 150 / 110 / 80
+BST = 600
+Role = Fairy special powerhouse
+CoreMoves = Moonblast / Mystical Fire / Thunderbolt / Recover
+LevelUpMoves = Lv1 Disarming Voice / Sweet Kiss; Lv10 Draining Kiss; Lv20 Magical Leaf; Lv30 Dazzling Gleam; Lv40 Calm Mind; Lv50 Moonlight; Lv55 Psychic; Lv60 Mystical Fire; Lv65 Thunderbolt; Lv68 Recover; Lv70 Moonblast; Lv80 Misty Explosion. Lv70 wild encounter therefore arrives with Mystical Fire / Thunderbolt / Recover / Moonblast.
+Teachables = Everything Mewtwo can learn; Everything Sylveon can learn
+CompatibilityNotes = nuMew uses the union of Mewtwo + Sylveon compatibility. Its bespoke Fairy level-up/signature/core moves remain exactly as defined in the MS.
+Notes = Dex #160; Fairy / Magic Guard. Unique post-E4 Berry Forest encounter at Lv70. The old Viridian Forest location is superseded. A proposed battle-set Life Orb is not the wild held item.
+PRLImportStatus = LOCKED SPECIES DONOR / mechanics subject to PRL conflict resolution
+
+
+# ============================================================================
+# TARGETED VANILLA POKÉMON BUFFS
+# ============================================================================
+Canon = LOCKED DONOR
+CanonSource = https://app.notion.com/p/3f14939d43168198af98dcce4834d06c
+PRLMoveTuningPolicy = Existing standard-move tuning is donor-only; do not apply globally in PRL without a separate lock.
+WildHeldItem = Berry; exact Berry unresolved. Never use the battle-set Life Orb as the encounter item.
+
+[MODIFIED:FARFETCH'D]
+Name = Farfetch'd
+OriginGame = PKR
+AbilityTarget = Super Luck
+Role = Crit specialist
+StatOrDesignChanges = Keep trade-exclusive; leek/Stick crit synergy
+KeyMoves = Slash; Leaf Blade; Night Slash; Aerial Ace/Brave Bird
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:ONIX]
+Name = Onix
+OriginGame = PKR
+AbilityTarget = Sturdy
+Role = Physical wall / setup
+StatOrDesignChanges = Modest Attack buff; high Defence; Rock Polish; Body Press; earlier Rock/Ground STAB
+KeyMoves = Rock Polish; Body Press; Stone Edge; Earthquake
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:SEAKING]
+Name = Seaking
+OriginGame = PKR
+AbilityTarget = Lightning Rod
+Role = Physical Water attacker
+StatOrDesignChanges = Attack ~110; Speed ~85
+KeyMoves = Waterfall; Drill Run; Megahorn; Poison Jab; Aqua Jet; Agility; Swords Dance
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:DITTO]
+Name = Ditto
+OriginGame = PKR
+AbilityTarget = Imposter
+Role = Transform revenge/pivot
+StatOrDesignChanges = HP 80; all other base stats 48
+KeyMoves = Transform only
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:PINSIR]
+Name = Pinsir
+OriginGame = PKR
+AbilityTarget = Moxie
+Role = Physical cleaner
+StatOrDesignChanges = Attack 140; Speed 95
+KeyMoves = X-Scissor; Close Combat; First Impression; Swords Dance; Earthquake; Knock Off
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:TAUROS]
+Name = Tauros
+OriginGame = PKR
+AbilityTarget = Sheer Force
+Role = Fast wallbreaker
+StatOrDesignChanges = Attack 120; Speed 110
+KeyMoves = Body Slam; Double-Edge; Earthquake; Rock Slide; Close Combat; Wild Charge
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:FLAREON]
+Name = Flareon
+OriginGame = PKR
+AbilityTarget = Guts
+Role = Fast physical Fire wallbreaker
+StatOrDesignChanges = HP 75; Attack 130; Speed 95
+KeyMoves = Flare Blitz; Facade; Superpower; Crunch; Quick Attack; Baton Pass
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:MR. MIME]
+Name = Mr. Mime
+OriginGame = PKR
+AbilityTarget = Prankster
+Role = Fast special support
+StatOrDesignChanges = HP 60; SpA 110; Speed 105; SpD 120
+KeyMoves = Psychic; Dazzling Gleam; Thunder Wave; Encore; screens; Baton Pass
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:PORYGON]
+Name = Porygon
+OriginGame = PKR
+AbilityTarget = Trace
+Role = Bulky special utility
+StatOrDesignChanges = HP 85; Def 80; SpA 105; SpD 85; Speed 60
+KeyMoves = Tri Attack; Thunderbolt; Ice Beam; Psychic; Recover; Thunder Wave
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:LICKITUNG]
+Name = Lickitung
+OriginGame = PKR
+AbilityTarget = Regenerator
+Role = Bulky physical pivot
+StatOrDesignChanges = HP 100; Atk 100; Def 90; SpD 90; Lick buffed to 50 BP
+KeyMoves = Body Slam; Lick; Knock Off; Power Whip; Earthquake; Wish
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:JYNX]
+Name = Jynx
+OriginGame = PKR
+AbilityTarget = Dry Skin
+Role = Fast special glass cannon
+StatOrDesignChanges = SpA 125; Speed 105; keep poor physical bulk
+KeyMoves = Ice Beam; Psychic; Lovely Kiss; Energy Ball; Shadow Ball; Nasty Plot
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:ELECTABUZZ]
+Name = Electabuzz
+OriginGame = PKR
+AbilityTarget = Motor Drive
+Role = Very fast mixed Electric
+StatOrDesignChanges = Atk 90; SpA 115; Speed 115
+KeyMoves = Thunderbolt; Thunder Punch; Volt Switch; Psychic; Focus Blast; Ice Punch
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:MAGMAR]
+Name = Magmar
+OriginGame = PKR
+AbilityTarget = Flame Body
+Role = Special Fire attacker / disruption
+StatOrDesignChanges = HP 75; Atk 95; SpA 120; SpD 90; Speed 100
+KeyMoves = Flamethrower; Mystical Fire; Psychic; Thunderbolt; Will-O-Wisp
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:LAPRAS]
+Name = Lapras
+OriginGame = PKR
+AbilityTarget = Water Absorb
+Role = Bulky Water/Ice special tank
+StatOrDesignChanges = HP 140; SpA 105; SpD 105; Speed 60
+KeyMoves = Surf; Freeze-Dry; Ice Beam; Thunderbolt; Perish Song
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:KANGASKHAN]
+Name = Kangaskhan
+OriginGame = PKR
+AbilityTarget = Scrappy
+Role = Bulky physical attacker
+StatOrDesignChanges = Attack 110; Speed 95
+KeyMoves = Fake Out; Return; Crunch; Drain Punch; Power-Up Punch; Earthquake
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:CHANSEY]
+Name = Chansey
+OriginGame = PKR
+AbilityTarget = Natural Cure
+Role = Kanto special wall
+StatOrDesignChanges = HP 250; Def 35; SpA 55; SpD 125; Speed 50
+KeyMoves = Soft-Boiled; Seismic Toss; Toxic; Thunder Wave; Heal Bell; screens
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:TANGELA]
+Name = Tangela
+OriginGame = PKR
+AbilityTarget = Regenerator
+Role = Physical wall / disruption
+StatOrDesignChanges = HP 85; Def 130; SpA 110; SpD 60
+KeyMoves = Giga Drain; Sleep Powder; Leech Seed; Knock Off; Synthesis
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:RHYDON]
+Name = Rhydon
+OriginGame = PKR
+AbilityTarget = Rock Head
+Role = Slow physical tank
+StatOrDesignChanges = HP 115; Atk 140; Def 130; SpD 65; Speed 40
+KeyMoves = Earthquake; Stone Edge; Megahorn; Double-Edge; Rock Polish
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:MUK]
+Name = Muk
+OriginGame = PKR
+AbilityTarget = Poison Touch
+Role = Bulky physical Poison
+StatOrDesignChanges = HP 115; Atk 120; SpD 110; Def ~75; low Speed
+KeyMoves = Gunk Shot; Knock Off; Shadow Sneak; Curse; elemental punches
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:WEEZING]
+Name = Weezing
+OriginGame = PKR
+AbilityTarget = Levitate
+Role = Physical wall / status disruption
+StatOrDesignChanges = HP 85; Def 135; SpA 100; SpD 85
+KeyMoves = Sludge Bomb; Flamethrower; Will-O-Wisp; Pain Split; Haze
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:BUTTERFREE]
+Name = Butterfree
+OriginGame = PKR
+AbilityTarget = Compound Eyes
+Role = Sleep/setup special attacker
+StatOrDesignChanges = SpA 100; Speed 90
+KeyMoves = Sleep Powder; Bug Buzz; Psychic; Hurricane; Quiver Dance
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:BEEDRILL]
+Name = Beedrill
+OriginGame = PKR
+AbilityTarget = Adaptability
+Role = Fast physical Bug/Poison
+StatOrDesignChanges = Atk 115; Speed 105
+KeyMoves = X-Scissor; Poison Jab; Drill Run; U-turn; Fell Stinger; Swords Dance
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:PIDGEOT]
+Name = Pidgeot
+OriginGame = PKR
+AbilityTarget = Competitive
+Role = Fast special/mixed Flying
+StatOrDesignChanges = SpA 110; Speed 110
+KeyMoves = Hurricane; Heat Wave; U-turn; Roost; Tailwind; Brave Bird
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:RATICATE]
+Name = Raticate
+OriginGame = PKR
+AbilityTarget = Guts
+Role = Fast Normal attacker
+StatOrDesignChanges = Atk 100; Speed 105
+KeyMoves = Facade; Crunch; Sucker Punch; U-turn; Super Fang
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:FEAROW]
+Name = Fearow
+OriginGame = PKR
+AbilityTarget = Sniper
+Role = Crit-oriented fast Flying
+StatOrDesignChanges = Atk 105; Speed 110
+KeyMoves = Drill Peck; Drill Run; U-turn; Focus Energy; Night Slash
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:ARBOK]
+Name = Arbok
+OriginGame = PKR
+AbilityTarget = Intimidate
+Role = Physical disruptor
+StatOrDesignChanges = Atk 110; Speed 95
+KeyMoves = Poison Jab; Crunch; Earthquake; Glare; Coil
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:SANDSLASH]
+Name = Sandslash
+OriginGame = PKR
+AbilityTarget = Sand Rush
+Role = Physical Ground sweeper
+StatOrDesignChanges = Atk 115; Def 120; Speed 80
+KeyMoves = Earthquake; Stone Edge; X-Scissor; Swords Dance; Rapid Spin
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:WIGGLYTUFF]
+Name = Wigglytuff
+OriginGame = PKR
+AbilityTarget = Competitive
+Role = Bulky special support
+StatOrDesignChanges = HP 150; SpA 100; SpD 70
+KeyMoves = Hyper Voice; Dazzling Gleam; Flamethrower; Thunderbolt; Wish; Calm Mind
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:PARASECT]
+Name = Parasect
+OriginGame = PKR
+AbilityTarget = Dry Skin
+Role = Bulky status attacker
+StatOrDesignChanges = HP 80; Atk 110; Def 100; SpD 90
+KeyMoves = Spore; Leech Life; Seed Bomb; Knock Off; Swords Dance
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:VENOMOTH]
+Name = Venomoth
+OriginGame = PKR
+AbilityTarget = Tinted Lens
+Role = Quiver Dance sweeper
+StatOrDesignChanges = SpA 105; Speed 100
+KeyMoves = Quiver Dance; Bug Buzz; Sludge Bomb; Psychic; Sleep Powder
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:PERSIAN]
+Name = Persian
+OriginGame = PKR
+AbilityTarget = Technician
+Role = Fast utility attacker
+StatOrDesignChanges = Atk 95; Speed 120
+KeyMoves = Fake Out; Return; Knock Off; U-turn; Bite; Taunt
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:GOLDUCK]
+Name = Golduck
+OriginGame = PKR
+AbilityTarget = Cloud Nine
+Role = Special Water attacker
+StatOrDesignChanges = SpA 110; Speed 95
+KeyMoves = Surf; Hydro Pump; Psychic; Ice Beam; Calm Mind
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:PRIMEAPE]
+Name = Primeape
+OriginGame = PKR
+AbilityTarget = Defiant
+Role = Fast physical Fighting
+StatOrDesignChanges = Atk 120; Speed 105
+KeyMoves = Close Combat; U-turn; Stone Edge; Night Slash; Bulk Up
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:POLIWRATH]
+Name = Poliwrath
+OriginGame = PKR
+AbilityTarget = Water Absorb
+Role = Bulky physical Water/Fighting
+StatOrDesignChanges = Atk 110; preserve bulk
+KeyMoves = Liquidation; Drain Punch; Ice Punch; Bulk Up; Earthquake
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:RAPIDASH]
+Name = Rapidash
+OriginGame = PKR
+AbilityTarget = Flash Fire
+Role = Fast physical Fire
+StatOrDesignChanges = Atk 115; Speed 110
+KeyMoves = Flare Blitz; High Horsepower; Megahorn; Morning Sun; Wild Charge
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:DEWGONG]
+Name = Dewgong
+OriginGame = PKR
+AbilityTarget = Thick Fat
+Role = Bulky Water/Ice support
+StatOrDesignChanges = HP 100; Def 90; SpA 90; SpD 110
+KeyMoves = Surf; Ice Beam; Aqua Jet; Encore; Perish Song; Rest
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:CLOYSTER]
+Name = Cloyster
+OriginGame = PKR
+AbilityTarget = Skill Link
+Role = Shell Smash attacker
+StatOrDesignChanges = Keep current stats; no major stat buff
+KeyMoves = Shell Smash; Icicle Spear; Rock Blast; Razor Shell; Ice Shard
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:HYPNO]
+Name = Hypno
+OriginGame = PKR
+AbilityTarget = Insomnia
+Role = Bulky Psychic/status
+StatOrDesignChanges = HP 100; Def 90; SpA 90; SpD 125
+KeyMoves = Psychic; Hypnosis; Dream Eater; Thunder Wave; Nasty Plot; Shadow Ball
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:KINGLER]
+Name = Kingler
+OriginGame = PKR
+AbilityTarget = Sheer Force
+Role = Physical Water breaker
+StatOrDesignChanges = Atk 140; Speed 85
+KeyMoves = Crabhammer; Liquidation; Knock Off; Superpower; Rock Slide; Agility
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:MAROWAK]
+Name = Marowak
+OriginGame = PKR
+AbilityTarget = Rock Head + Thick Club
+Role = Physical Ground breaker
+StatOrDesignChanges = HP 80; Def 110; Speed 60; Thick Club remains defining item
+KeyMoves = Bonemerang; Double-Edge; Earthquake; Stone Edge; Swords Dance
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:SEADRA]
+Name = Seadra
+OriginGame = PKR
+AbilityTarget = Sniper
+Role = Fast special Water
+StatOrDesignChanges = SpA 110; Speed 100
+KeyMoves = Hydro Pump; Surf; Ice Beam; Dragon Pulse; Focus Energy
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+[MODIFIED:MACHAMP]
+Name = Machamp
+OriginGame = PKR
+AbilityTarget = No Guard
+Role = Physical Fighting powerhouse
+StatOrDesignChanges = No Guard locked; existing strong stats retained
+KeyMoves = Dynamic Punch and other high-risk moves benefit from No Guard
+PRLImportStatus = REVIEW — do not blanket-port; retain only if explicitly approved for PRL
+
+
+# ============================================================================
+# SPECIAL ENCOUNTERS / FORMS
+# ============================================================================
+
+[SPECIAL:MEW]
+Name = Mew
+DexOrRole = #151
+Level = Lv70
+Ability = Synchronize
+HeldItem = Lum Berry
+Stats = 100 / 100 / 100 / 100 / 100 / 100
+Moveset = Psychic / Aura Sphere / Ancient Power / Recover
+Encounter = Post-E4 S.S. Anne truck; one per save; reappears until caught
+PRLImportStatus = REVIEW unless separately locked
+
+[SPECIAL:RELICANTH]
+Name = Relicanth
+DexOrRole = #159
+Level = Lv90, always Shiny
+Ability = Wonder Guard
+HeldItem = Leftovers
+Stats = 110 / 140 / 160 / 45 / 105 / 60 = 620
+Moveset = Head Smash / Liquidation / Earthquake / Shore Up (20 PP)
+Encounter = Seafoam; unlock only after the player has 159 total caught, with nuMew caught first despite nuMew being Dex #160, then the Celadon clue. Unique Lv90 Shiny static; strongest Pokémon in game.
+PRLImportStatus = REVIEW unless separately locked
+
+[SPECIAL:NUMEW]
+Name = nuMew
+DexOrRole = #160
+Level = Lv70
+Ability = Magic Guard
+HeldItem = Berry (TBD; NOT Life Orb)
+Stats = 100 / 70 / 90 / 150 / 110 / 80 = 600
+Moveset = Moonblast / Mystical Fire / Thunderbolt / Recover
+Encounter = Post-E4 Viridian Forest Gracidea/central flower interaction. T26 repairs the species level-up list so a fresh Lv70 encounter has the locked core set Moonblast / Mystical Fire / Thunderbolt / Recover. Retry-safe with caught lockout; intended catch order remains 158 total → nuMew → 159 total → Relicanth.
+PRLImportStatus = REVIEW unless separately locked
+
+[SPECIAL:OMASTAR]
+Name = Omastar
+DexOrRole = Fossil final
+Level = —
+Ability = Solid Rock
+HeldItem = —
+Stats = 80 / 70 / 145 / 140 / 90 / 65 = 590
+Moveset = Shell Smash / Surf / Power Gem / Ice Beam
+Encounter = Major fossil buff
+PRLImportStatus = REVIEW unless separately locked
+
+[SPECIAL:KABUTOPS]
+Name = Kabutops
+DexOrRole = Fossil final
+Level = —
+Ability = Tough Claws
+HeldItem = —
+Stats = 80 / 145 / 120 / 65 / 80 / 100 = 590
+Moveset = Swords Dance / Liquidation / Stone Edge / Leech Life
+Encounter = Major fossil buff
+PRLImportStatus = REVIEW unless separately locked
+
+[SPECIAL:AERODACTYL]
+Name = Aerodactyl
+DexOrRole = Fossil final
+Level = —
+Ability = Rock Head
+HeldItem = —
+Stats = 90 / 135 / 80 / 70 / 80 / 135 = 590
+Moveset = Head Smash / Brave Bird / Earthquake / Roost
+Encounter = Major fossil buff; fossil-only
+PRLImportStatus = REVIEW unless separately locked
+
+
+# ============================================================================
+# PRL IMPORT POLICY
+# ============================================================================
+
+[POLICY:PKR_TO_PRL]
+Region = Kanto
+MapAuthority = FireRed Kanto geography/layout
+DataDonor = PKR master sheet and final PKR canon
+QoLPolicy = SELECTIVE ONLY
+Rule = Do not carry a PKR QoL feature into PRL merely because PKR has it.
+Rule = Use PRL's already-agreed full-ROM QoL specification as the whitelist.
+Rule = Port species, sprites, balance, encounters, trainers or story content only when selected for PRL.
+Rule = Never transplant old binary addresses or map assumptions directly into the PRL source architecture.
