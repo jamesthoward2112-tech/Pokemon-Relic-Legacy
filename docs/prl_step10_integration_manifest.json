@@ -22,19 +22,17 @@
     "Alphoracle",
     "Relic Ho-Oh"
   ],
-  "runtime_hooks_pending": [
-    "Ancient Core hazard-on-entry: exact damage/layers/timing unresolved in locked canon"
-  ],
+  "runtime_hooks_pending": [],
   "runtime_hooks_completed": [
     "Ancient Grove",
     "Solar Discipline",
     "Tidal Bastion",
-    "Ancient Core resolved modifiers (super-effective damage -25%; Water/Rock moves +20%; Attack/Sp. Atk protection)",
+    "Ancient Core",
     "Wishmaker",
     "Eden's Canopy",
     "Thermal Wings",
     "Citadel Shell",
     "Relic Wish post-hit healing"
   ],
-  "runtime_hook_provenance": "Locked PRL Notion canon; exact tested PHR H008 donor mechanics ported unchanged where applicable. Ancient Core hazard-on-entry remains intentionally unimplemented until its exact locked specification is recovered."
+  "runtime_hook_provenance": "Locked PRL Notion canon; exact tested PHR H008 donor mechanics ported unchanged where applicable. Ancient Core uses the locked tested donor physical-hit trigger; the later hazard-on-entry redesign note is retired."
 }
