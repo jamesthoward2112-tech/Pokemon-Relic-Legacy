@@ -3365,6 +3365,8 @@ static enum MoveEndResult MoveEndAbsorb(struct BattleCalcValues *cv)
          && !IsAbilityAndRecord(cv->battlerAtk, cv->abilities[cv->battlerAtk], ABILITY_MAGIC_GUARD))
         {
             s32 recoil = (GetNonDynamaxMaxHP(cv->battlerAtk) + 1) / 2; // Half of Max HP Rounded UP
+            if (cv->abilities[cv->battlerAtk] == ABILITY_THERMAL_WINGS)
+                recoil = max(1, recoil / 2);
             SetPassiveDamageAmount(cv->battlerAtk, recoil);
             gSpecialStatuses[cv->battlerAtk].mindBlownRecoil = TRUE;
             TryUpdateEvolutionTracker(IF_RECOIL_DAMAGE_GE, gBattleStruct->passiveHpUpdate[cv->battlerAtk], MOVE_NONE);
