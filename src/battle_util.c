@@ -4086,18 +4086,6 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 }
             }
             break;
-        case ABILITY_ANCIENT_CORE:
-            if (!IsBattlerAlly(gBattlerAttacker, battler)
-             && IsBattleMovePhysical(move)
-             && IsBattlerTurnDamaged(battler, EXCLUDING_SUBSTITUTES)
-             && !IsHazardOnSide(GetBattlerSide(gBattlerAttacker), HAZARDS_STEALTH_ROCK))
-            {
-                PushHazardTypeToQueue(GetBattlerSide(gBattlerAttacker), HAZARDS_STEALTH_ROCK);
-                gBattlerAbility = gBattleScripting.battler = battler;
-                BattleScriptCall(BattleScript_AbilityPopUp);
-                effect++;
-            }
-            break;
         case ABILITY_ROUGH_SKIN:
         case ABILITY_IRON_BARBS:
             if (IsBattlerAlive(gBattlerAttacker)
