@@ -4156,11 +4156,16 @@ static enum MoveEndResult MoveEndMoveBlockRecoil(struct BattleCalcValues *cv)
             if (cv->moveEffect == EFFECT_CHLOROBLAST)
             {
                 s32 recoil = (GetNonDynamaxMaxHP(cv->battlerAtk) + 1) / 2; // Half of Max HP Rounded UP
+                if (cv->abilities[cv->battlerAtk] == ABILITY_THERMAL_WINGS)
+                    recoil = max(1, recoil / 2);
                 SetPassiveDamageAmount(cv->battlerAtk, recoil);
             }
             else
             {
-                SetPassiveDamageAmount(cv->battlerAtk, gBattleScripting.savedDmg * max(1, GetMoveRecoil(cv->move)) / 100);
+                s32 recoil = gBattleScripting.savedDmg * max(1, GetMoveRecoil(cv->move)) / 100;
+                if (cv->abilities[cv->battlerAtk] == ABILITY_THERMAL_WINGS)
+                    recoil = max(1, recoil / 2);
+                SetPassiveDamageAmount(cv->battlerAtk, recoil);
             }
             TryUpdateEvolutionTracker(IF_RECOIL_DAMAGE_GE, gBattleStruct->passiveHpUpdate[cv->battlerAtk], MOVE_NONE);
             BattleScriptCall(BattleScript_MoveEffectRecoil);
@@ -4207,6 +4212,21 @@ static enum MoveEndResult MoveEndMoveBlock(struct BattleCalcValues *cv)
 
         if (battlerDef == cv->battlerAtk)
             continue;
+
+        // PRL Step 10: Relic Wish heals 1/8 max HP after successfully dealing damage.
+        if (cv->move == MOVE_RELIC_WISH
+         && IsBattlerAlive(cv->battlerAtk)
+         && IsBattlerTurnDamaged(battlerDef, INCLUDING_SUBSTITUTES)
+         && !IsBattlerAtMaxHp(cv->battlerAtk)
+         && !gBattleMons[cv->battlerAtk].volatiles.healBlockTimer)
+        {
+            gBattlerAttacker = cv->battlerAtk;
+            SetHealAmount(cv->battlerAtk, GetNonDynamaxMaxHP(cv->battlerAtk) / 8);
+            BattleScriptCall(BattleScript_PRLRelicWishHeal);
+            gBattleStruct->eventState.moveEndBattler = 0;
+            gBattleScripting.moveendState++;
+            return MOVEEND_RESULT_RUN_SCRIPT;
+        }
 
         switch (cv->moveEffect)
         {

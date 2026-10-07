@@ -4593,6 +4593,15 @@ BattleScript_AbilityHpHeal::
 	datahpupdate BS_ATTACKER, ASSURANCE_DOUBLE
 	return
 
+BattleScript_PRLRelicWishHeal::
+	playanimation BS_ATTACKER, B_ANIM_SIMPLE_HEAL
+	waitanimation
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER, ASSURANCE_DOUBLE
+	printstring STRINGID_PKMNREGAINEDHEALTH
+	waitmessage B_WAIT_TIME_LONG
+	return
+
 BattleScript_CheekPouchActivates::
 	saveattacker
 	copybyte gBattlerAttacker, gBattlerAbility

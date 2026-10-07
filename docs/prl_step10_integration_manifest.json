@@ -22,7 +22,8 @@
     "Alphoracle",
     "Relic Ho-Oh"
   ],
-  "runtime_hooks_pending": [
+  "runtime_hooks_pending": [],
+  "runtime_hooks_completed": [
     "Ancient Grove",
     "Solar Discipline",
     "Tidal Bastion",
@@ -32,5 +33,6 @@
     "Thermal Wings",
     "Citadel Shell",
     "Relic Wish post-hit healing"
-  ]
+  ],
+  "runtime_hook_provenance": "Locked PRL Notion canon; exact tested PHR H008 donor mechanics ported unchanged where applicable"
 }

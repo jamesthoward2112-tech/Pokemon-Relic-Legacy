@@ -686,6 +686,44 @@ static bool32 IsAbilityBlocked(struct BattleCalcValues *cv, struct StatChange *s
     if (st->certain)
         return FALSE;
 
+    bool32 prlBlocksAllStats =
+        cv->abilities[cv->battlerDef] == ABILITY_WISHMAKER
+        && gBattleStruct->prlAbilityTimer[cv->battlerDef] > 0;
+    bool32 prlBlocksOffense =
+        (cv->abilities[cv->battlerDef] == ABILITY_SOLAR_DISCIPLINE
+         && gBattleStruct->prlAbilityTimer[cv->battlerDef] > 0)
+        || cv->abilities[cv->battlerDef] == ABILITY_ANCIENT_CORE;
+    bool32 prlBlocksDefense =
+        cv->abilities[cv->battlerDef] == ABILITY_CITADEL_SHELL;
+    bool32 prlBlocksThisStat =
+        prlBlocksAllStats
+        || (prlBlocksOffense && (st->stat == STAT_ATK || st->stat == STAT_SPATK))
+        || (prlBlocksDefense && st->stat == STAT_DEF);
+
+    if (prlBlocksThisStat && !IsBattlerAlly(cv->battlerAtk, cv->battlerDef))
+    {
+        if (!st->onlyChecking)
+        {
+            if (prlBlocksAllStats)
+            {
+                MarkStatsAsDone(st, NUM_BATTLE_STATS);
+                st->script = BattleScript_AbilityNoStatLoss;
+            }
+            else
+            {
+                MarkStatsAsDone(st, st->stat);
+                PREPARE_STAT_BUFFER(gBattleTextBuff1, st->stat);
+                st->script = BattleScript_AbilityNoSpecificStatLoss;
+            }
+
+            gBattleScripting.battler = cv->battlerDef;
+            gBattlerAbility = cv->battlerDef;
+            gLastUsedAbility = cv->abilities[cv->battlerDef];
+            RecordAbilityBattle(cv->battlerDef, gLastUsedAbility);
+        }
+        return TRUE;
+    }
+
     if (CanAbilityPreventStatLoss(cv->abilities[cv->battlerDef]))
     {
         if (!st->onlyChecking)

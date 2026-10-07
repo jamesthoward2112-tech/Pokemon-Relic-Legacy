@@ -170,6 +170,7 @@ extern const u8 BattleScript_OrichalcumPulseActivates[];
 extern const u8 BattleScript_OrichalcumPulseActivatesInSun[];
 extern const u8 BattleScript_TraceActivates[];
 extern const u8 BattleScript_AbilityHpHeal[];
+extern const u8 BattleScript_PRLRelicWishHeal[];
 extern const u8 BattleScript_ShedSkinActivates[];
 extern const u8 BattleScript_IntimidateActivates[];
 extern const u8 BattleScript_TookAttack[];
