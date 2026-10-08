@@ -10,6 +10,7 @@
 #include "main.h"
 #include "intro.h"
 #include "intro_frlg.h"
+#include "title_screen.h"
 #include "m4a.h"
 #include "expansion_intro.h"
 #include "constants/rgb.h"
@@ -276,6 +277,11 @@ void Task_HandleExpansionIntro(u8 taskId)
             ResetSpriteData();
             FreeAllSpritePalettes();
             DestroyTask(taskId);
+#if defined(FIRERED)
+            // PRL: Porygon splash -> approved title. Skip GF/Gengar movie.
+            SetVBlankCallback(NULL);
+            SetMainCallback2(CB2_InitTitleScreen);
+#else
             if (IS_FRLG)
             {
                 SetMainCallback2(CB2_SetUpIntroFrlg);
@@ -285,6 +291,7 @@ void Task_HandleExpansionIntro(u8 taskId)
                 CreateTask(Task_Scene1_Load, 0);
                 SetMainCallback2(MainCB2_Intro);
             }
+#endif
         }
         break;
     }
