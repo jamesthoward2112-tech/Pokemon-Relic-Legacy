@@ -13,6 +13,19 @@ SINGLE_BATTLE_TEST("Bleed deals one sixteenth of max HP at end of turn")
     }
 }
 
+SINGLE_BATTLE_TEST("Bleed deals one sixteenth of max HP to the opponent at end of turn")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Status1(STATUS1_BLEED); }
+    } WHEN {
+        TURN {}
+    } THEN {
+        EXPECT_EQ(opponent->hp, opponent->maxHP - max(1, opponent->maxHP / 16));
+        EXPECT(opponent->status1 & STATUS1_BLEED);
+    }
+}
+
 SINGLE_BATTLE_TEST("A healing move cures Bleed without restoring HP that turn")
 {
     GIVEN {
