@@ -122,6 +122,7 @@ enum __attribute__((packed)) MoveEffect
     MOVE_EFFECT_BLEED,
     MOVE_EFFECT_INFATUATION,
     MOVE_EFFECT_CURSE,
+    MOVE_EFFECT_FEAR,
 
     NUM_MOVE_EFFECTS
 };
