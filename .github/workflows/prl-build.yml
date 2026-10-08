@@ -59,7 +59,7 @@ jobs:
         env:
           GAME_VERSION: FIRERED
           TEST: 1
-        run: make -j$(nproc) check
+        run: make BUILD=firered -j$(nproc) check
 
       - name: Upload PRL ROM
         uses: actions/upload-artifact@v4
