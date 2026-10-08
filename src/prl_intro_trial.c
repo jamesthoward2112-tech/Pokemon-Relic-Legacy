@@ -200,7 +200,10 @@ void CB2_InitPRLIntroTrial(void)
     SetGpuReg(REG_OFFSET_BG0CNT, bgcnt);
     SetGpuReg(REG_OFFSET_BG0HOFS, 0);
     SetGpuReg(REG_OFFSET_BG0VOFS, 0);
-    LoadCompressedSpriteSheets(sSheets);
+    // Runtime exposes the singular loader; use the three allocated 0x2000 sheets.
+    LoadCompressedSpriteSheet(&sSheets[0]);
+    LoadCompressedSpriteSheet(&sSheets[1]);
+    LoadCompressedSpriteSheet(&sSheets[2]);
     LoadSpritePalettes(sPals);
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_0 | DISPCNT_BG0_ON | DISPCNT_OBJ_1D_MAP | DISPCNT_OBJ_ON);
     id = CreateTask(Task_PRLIntroTrial, 0);
