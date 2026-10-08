@@ -1741,6 +1741,10 @@ void SetNonVolatileStatus(enum BattlerId battlerAtk, enum BattlerId effectBattle
         gBattleMons[effectBattler].status1 |= STATUS1_FROSTBITE;
         gBattlescriptCurrInstr = BattleScript_MoveEffectFrostbite;
         break;
+    case MOVE_EFFECT_BLEED:
+        gBattleMons[effectBattler].status1 |= STATUS1_BLEED;
+        gBattlescriptCurrInstr = BattleScript_MoveEffectBleed;
+        break;
     default:
         break;
     }
@@ -1767,7 +1771,7 @@ static bool32 CanApplyAdditionalEffect(const struct AdditionalEffect *additional
         return FALSE;
 
     // If Toxic Chain will activate it blocks all other non volatile effects
-    if (gBattleStruct->toxicChainPriority && additionalEffect->moveEffect <= MOVE_EFFECT_FROSTBITE)
+    if (gBattleStruct->toxicChainPriority && (additionalEffect->moveEffect <= MOVE_EFFECT_FROSTBITE || additionalEffect->moveEffect == MOVE_EFFECT_BLEED))
         return FALSE;
 
     if (additionalEffect->self
@@ -8766,7 +8770,7 @@ static void Cmd_setnonvolatilestatus(void)
     switch (cmd->trigger)
     {
     case TRIGGER_ON_ABILITY:
-        if (gBattleScripting.moveEffect >= MOVE_EFFECT_CONFUSION)
+        if (gBattleScripting.moveEffect >= MOVE_EFFECT_CONFUSION && gBattleScripting.moveEffect != MOVE_EFFECT_BLEED)
             SetMoveEffectHelper(gBattleScripting.battler, gEffectBattler, gBattleScripting.moveEffect, cmd->nextInstr, EFFECT_PRIMARY);
         else
             SetNonVolatileStatus(gBattleScripting.battler, gEffectBattler, gBattleScripting.moveEffect, cmd->nextInstr, TRIGGER_ON_ABILITY);

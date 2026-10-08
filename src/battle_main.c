@@ -4463,6 +4463,11 @@ s32 GetBattleMovePriority(enum BattlerId battler, enum Ability ability, enum Mov
 
     priority = GetMovePriority(move);
 
+    if (ability == ABILITY_STYGIAN_RUSH
+     && GetMoveType(move) == TYPE_DARK
+     && IsBattlerAtMaxHp(battler))
+        priority++;
+
     // Max Guard check
     if (GetActiveGimmick(battler) == GIMMICK_DYNAMAX && GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
         return GetMovePriority(MOVE_MAX_GUARD);

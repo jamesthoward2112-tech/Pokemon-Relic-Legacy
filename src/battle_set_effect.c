@@ -54,6 +54,33 @@ static void HandleSetEffectNonVolatile(struct BattleCalcValues *cv, struct SetEf
     }
 }
 
+static void HandleSetEffectInfatuation(struct BattleCalcValues *cv, struct SetEffect *se)
+{
+    if (gBattleMons[se->effectBattler].volatiles.infatuation
+     || !AreBattlersOfOppositeGender(cv->battlerAtk, se->effectBattler)
+     || cv->abilities[se->effectBattler] == ABILITY_OBLIVIOUS
+     || IsAbilityOnSide(se->effectBattler, ABILITY_AROMA_VEIL))
+        gBattlescriptCurrInstr = se->script;
+    else
+    {
+        gBattleMons[se->effectBattler].volatiles.infatuation = INFATUATED_WITH(cv->battlerAtk);
+        BattleScriptPush(se->script);
+        gBattlescriptCurrInstr = BattleScript_MoveEffectInfatuation;
+    }
+}
+
+static void HandleSetEffectCurse(struct BattleCalcValues *cv, struct SetEffect *se)
+{
+    if (gBattleMons[se->effectBattler].volatiles.cursed)
+        gBattlescriptCurrInstr = se->script;
+    else
+    {
+        gBattleMons[se->effectBattler].volatiles.cursed = TRUE;
+        BattleScriptPush(se->script);
+        gBattlescriptCurrInstr = BattleScript_MoveEffectCurse;
+    }
+}
+
 static void HandleSetEffectConfusion(struct BattleCalcValues *cv, struct SetEffect *se)
 {
     if (!CanBeConfused(cv->battlerAtk, se->effectBattler))
@@ -1328,6 +1355,9 @@ static void (*const sSetEffectHandlers[])(struct BattleCalcValues *cv, struct Se
     [MOVE_EFFECT_PARALYSIS] = HandleSetEffectNonVolatile,
     [MOVE_EFFECT_TOXIC] = HandleSetEffectNonVolatile,
     [MOVE_EFFECT_FROSTBITE] = HandleSetEffectNonVolatile,
+    [MOVE_EFFECT_BLEED] = HandleSetEffectNonVolatile,
+    [MOVE_EFFECT_INFATUATION] = HandleSetEffectInfatuation,
+    [MOVE_EFFECT_CURSE] = HandleSetEffectCurse,
     [MOVE_EFFECT_CONFUSION] = HandleSetEffectConfusion,
     [MOVE_EFFECT_FLINCH] = HandleSetEffectFlinch,
     [MOVE_EFFECT_ABSORB] = HandleSetEffectAbsorb,

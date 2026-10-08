@@ -24237,5 +24237,41 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_STAT_PLUS, .defense = 1, .self = TRUE, .chance = 30, }),
     .battleAnimScript = gBattleAnimMove_FlashCannon,
 },
+
+[MOVE_LOVELY_BITE] =
+{
+    .name = COMPOUND_STRING("Lovely Bite"),
+    .description = COMPOUND_STRING("A charming bite that may infatuate the target."),
+    .effect = EFFECT_HIT, .power = 85, .type = TYPE_FAIRY, .accuracy = 100,
+    .pp = 15, .target = TARGET_SELECTED, .priority = 0,
+    .category = DAMAGE_CATEGORY_PHYSICAL, .makesContact = TRUE, .bitingMove = TRUE,
+    .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_INFATUATION, .chance = 10, }),
+    .battleAnimScript = gBattleAnimMove_Bite,
+},
+
+[MOVE_SHADOW_FANGS] =
+{
+    .name = COMPOUND_STRING("Shadow Fangs"),
+    .description = COMPOUND_STRING("A shadowy bite that may curse the target."),
+    .effect = EFFECT_HIT, .power = 80, .type = TYPE_GHOST, .accuracy = 100,
+    .pp = 15, .target = TARGET_SELECTED, .priority = 0,
+    .category = DAMAGE_CATEGORY_PHYSICAL, .makesContact = TRUE, .bitingMove = TRUE,
+    .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_CURSE, .chance = 10, }),
+    .battleAnimScript = gBattleAnimMove_Bite,
+},
+
+[MOVE_RIP_AND_TEAR] =
+{
+    .name = COMPOUND_STRING("Rip and Tear"),
+    .description = COMPOUND_STRING("Rips the target, lowering its Speed and possibly causing bleeding."),
+    .effect = EFFECT_HIT, .power = 110, .type = TYPE_DARK, .accuracy = 90,
+    .pp = 5, .target = TARGET_SELECTED, .priority = 0,
+    .category = DAMAGE_CATEGORY_PHYSICAL, .makesContact = TRUE, .bitingMove = TRUE,
+    .additionalEffects = ADDITIONAL_EFFECTS({
+        { .moveEffect = MOVE_EFFECT_STAT_MINUS, .speed = 1, .chance = 100 },
+        { .moveEffect = MOVE_EFFECT_BLEED, .chance = 50 },
+    }),
+    .battleAnimScript = gBattleAnimMove_Crunch,
+},
 // PRL STEP10 MOVE DATA END
 };

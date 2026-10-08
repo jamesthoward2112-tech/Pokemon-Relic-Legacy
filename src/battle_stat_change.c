@@ -241,6 +241,18 @@ bool32 CanAnyStatChange(struct BattleCalcValues *cv, struct StatChange *st)
 
 enum StatChangeResult TryStatChange(struct BattleCalcValues *cv, struct StatChange *st)
 {
+    if ((gBattleMons[cv->battlerDef].status1 & STATUS1_BLEED) && !st->onlyChecking)
+    {
+        for (u32 i = 0; i < st->statStageAmount; i++)
+        {
+            if (st->statStageQueue[i].stage > 0)
+            {
+                st->nextBattler = TRUE;
+                st->script = BattleScript_ButItFailed;
+                return STAT_CHANGE_BLOCKED_BY_TARGET;
+            }
+        }
+    }
     if (CheckSpecificMoveCondition(cv, st) || IsSubstituteBlocked(cv, st))
     {
         st->nextBattler = TRUE;
@@ -655,6 +667,9 @@ static bool32 IsIntimidateBlocked(struct BattleCalcValues *cv, struct StatChange
         break;
     case ABILITY_GUARD_DOG:
     {
+        if (cv->abilities[cv->battlerDef] != ABILITY_GUARD_DOG
+         && gBattleMons[cv->battlerDef].species != SPECIES_SKULBERUS)
+            return FALSE;
         enum BattlerId flowerVeilBattler = StatChange_IsFlowerVeilProtected(cv);
 
         if (flowerVeilBattler != MAX_BATTLERS_COUNT

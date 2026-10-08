@@ -702,6 +702,7 @@ static const u32 sCompressedStatuses[] =
     STATUS1_PARALYSIS,
     STATUS1_TOXIC_POISON,
     STATUS1_FROSTBITE,
+    STATUS1_BLEED,
 };
 
 // Attempt to detect situations where the BoxPokemon struct is unable to

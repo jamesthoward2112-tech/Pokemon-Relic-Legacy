@@ -252,7 +252,7 @@
     .catchRate = 127, .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 147 : 128,
     .genderRatio = PERCENT_FEMALE(50), .eggCycles = 15, .friendship = STANDARD_FRIENDSHIP,
     .growthRate = GROWTH_MEDIUM_FAST, .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
-    .abilities = { ABILITY_MOXIE, ABILITY_STRONG_JAW, ABILITY_STRONG_JAW }, .bodyColor = BODY_COLOR_GRAY,
+    .abilities = { ABILITY_MOXIE, ABILITY_STYGIAN_RUSH, ABILITY_STRONG_JAW }, .bodyColor = BODY_COLOR_GRAY,
     .speciesName = _("Skulberus"), .cryId = CRY_MIGHTYENA, .natDexNum = NATIONAL_DEX_MIGHTYENA,
     .categoryName = _("Relic"), .height = 10, .weight = 370,
     .description = COMPOUND_STRING("A Pokemon awakened by Relic Resonance.\nIts ancient power has taken a new form."),

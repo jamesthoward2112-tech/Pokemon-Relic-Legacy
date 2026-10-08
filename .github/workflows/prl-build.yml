@@ -1,4 +1,4 @@
-﻿name: PRL Hosted Build
+name: PRL Hosted Build
 
 on:
   push:
@@ -20,6 +20,9 @@ jobs:
 
       - name: Validate PRL canonical package
         run: python3 docs/prl-canonical/validate_canonical.py
+
+      - name: Validate Skulberus mechanics regressions
+        run: python3 -m unittest tests.test_skulberus_mechanics
 
       - name: Validate PRL Step 12 integration
         run: python3 -m unittest discover -s tests -p 'test_prl_step12_*.py'

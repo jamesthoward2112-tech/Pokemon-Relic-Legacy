@@ -1204,6 +1204,11 @@ static inline void SetPassiveDamageAmount(enum BattlerId battler, s32 value)
 
 static inline void SetHealAmount(enum BattlerId battler, s32 value)
 {
+    if ((gBattleMons[battler].status1 & STATUS1_BLEED) && CureBleedWithHealingMove(battler))
+    {
+        gBattleStruct->passiveHpUpdate[battler] = 0;
+        return;
+    }
     if (value == 0)
         value = 1;
     gBattleStruct->passiveHpUpdate[battler] = -1 * value;

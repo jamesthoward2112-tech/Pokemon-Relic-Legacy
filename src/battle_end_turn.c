@@ -601,6 +601,14 @@ static bool32 HandleEndTurnBurn(enum BattlerId battler)
         BattleScriptCall(BattleScript_BurnTurnDmg);
         effect = TRUE;
     }
+    else if (gBattleMons[battler].status1 & STATUS1_BLEED
+          && IsBattlerPresent(battler)
+          && !IsAbilityAndRecord(battler, ability, ABILITY_MAGIC_GUARD))
+    {
+        SetPassiveDamageAmount(battler, GetNonDynamaxMaxHP(battler) / 16);
+        BattleScriptCall(BattleScript_BleedTurnDmg);
+        effect = TRUE;
+    }
 
     return effect;
 }

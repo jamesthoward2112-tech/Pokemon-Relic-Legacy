@@ -5039,7 +5039,10 @@ u32 IsAbilityPreventingEscape(enum BattlerId battler)
 
         enum Ability ability = GetBattlerAbility(battlerDef);
 
-        if (ability == ABILITY_SHADOW_TAG && (B_SHADOW_TAG_ESCAPE <= GEN_3 || GetBattlerAbility(battler) != ABILITY_SHADOW_TAG))
+        if ((ability == ABILITY_SHADOW_TAG || gBattleMons[battlerDef].species == SPECIES_SKULBERUS)
+         && (gBattleMons[battlerDef].species == SPECIES_SKULBERUS
+          || B_SHADOW_TAG_ESCAPE <= GEN_3
+          || (GetBattlerAbility(battler) != ABILITY_SHADOW_TAG && gBattleMons[battler].species != SPECIES_SKULBERUS)))
             return battlerDef + 1;
 
         if (ability == ABILITY_ARENA_TRAP && isBattlerGrounded)
@@ -5407,6 +5410,12 @@ bool32 CanSetNonVolatileStatus(enum BattlerId battlerAtk, enum BattlerId battler
             battleScript = BattleScript_AbilityProtectsDoesntAffect;
         }
         break;
+    case MOVE_EFFECT_BLEED:
+        if (gBattleMons[battlerDef].status1 & STATUS1_BLEED)
+            battleScript = BattleScript_ButItFailed;
+        else if (IS_BATTLER_ANY_TYPE(battlerDef, TYPE_ROCK, TYPE_GHOST))
+            battleScript = BattleScript_NotAffected;
+        break;
     case MOVE_EFFECT_SLEEP:
         if (gBattleMons[battlerDef].status1 & STATUS1_SLEEP)
         {
@@ -5506,6 +5515,18 @@ bool32 CanSetNonVolatileStatus(enum BattlerId battlerAtk, enum BattlerId battler
     if (IsNonVolatileStatusBlocked(battlerDef, abilityDef, abilityAffected, battleScript, option))
         return FALSE;
 
+    return TRUE;
+}
+
+bool32 CureBleedWithHealingMove(enum BattlerId battler)
+{
+    if (!IsHealingMove(gCurrentMove) || !(gBattleMons[battler].status1 & STATUS1_BLEED))
+        return FALSE;
+
+    gBattleMons[battler].status1 &= ~STATUS1_BLEED;
+    BtlController_EmitSetMonData(battler, B_COMM_TO_CONTROLLER, REQUEST_STATUS_BATTLE, 0,
+                                 sizeof(gBattleMons[battler].status1), &gBattleMons[battler].status1);
+    MarkBattlerForControllerExec(battler);
     return TRUE;
 }
 
@@ -7565,24 +7586,28 @@ static inline uq4_12_t GetCollisionCourseElectroDriftModifier(enum Move move, uq
 
 static inline uq4_12_t GetAttackerAbilitiesModifier(enum BattlerId battlerAtk, uq4_12_t typeEffectivenessModifier, bool32 isCrit, enum Ability abilityAtk)
 {
+    uq4_12_t modifier = UQ_4_12(1.0);
     switch (abilityAtk)
     {
     case ABILITY_NEUROFORCE:
         if (typeEffectivenessModifier >= UQ_4_12(2.0))
-            return UQ_4_12(1.25);
+            modifier = UQ_4_12(1.25);
         break;
     case ABILITY_SNIPER:
         if (isCrit)
-            return UQ_4_12(1.5);
+            modifier = UQ_4_12(1.5);
         break;
     case ABILITY_TINTED_LENS:
         if (typeEffectivenessModifier <= UQ_4_12(0.5))
-            return UQ_4_12(2.0);
+            modifier = UQ_4_12(2.0);
         break;
     default:
         break;
     }
-    return UQ_4_12(1.0);
+    if (gBattleMons[battlerAtk].species == SPECIES_SKULBERUS
+     && GetMoveType(gCurrentMove) == TYPE_DARK)
+        modifier = uq4_12_multiply(modifier, UQ_4_12(1.25));
+    return modifier;
 }
 
 static inline uq4_12_t GetDefenderAbilitiesModifier(struct DamageContext *ctx)
@@ -7657,6 +7682,10 @@ static inline uq4_12_t GetDefenderAbilitiesModifier(struct DamageContext *ctx)
 
     if (recordAbility && ctx->updateFlags)
         RecordAbilityBattle(ctx->battlerDef, ctx->abilities[ctx->battlerDef]);
+
+    if (gBattleMons[ctx->battlerDef].species == SPECIES_SKULBERUS
+     && (ctx->moveType == TYPE_DARK || ctx->moveType == TYPE_FAIRY))
+        modifier = uq4_12_multiply(modifier, UQ_4_12(0.75));
 
     return modifier;
 }

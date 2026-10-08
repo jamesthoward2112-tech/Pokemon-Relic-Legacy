@@ -4367,7 +4367,8 @@ static enum MoveEndResult MoveEndMoveBlock(struct BattleCalcValues *cv)
              && IsBattlerAlive(cv->battlerAtk)
              && gBattleStruct->battlerState[battlerDef].commanderSpecies == SPECIES_NONE)
             {
-                if (cv->abilities[battlerDef] == ABILITY_GUARD_DOG)
+                if (cv->abilities[battlerDef] == ABILITY_GUARD_DOG
+                 || gBattleMons[battlerDef].species == SPECIES_SKULBERUS)
                 {
                     gBattleStruct->eventState.moveEndBattler = 0;
                     gBattleScripting.moveendState++;
@@ -4635,6 +4636,7 @@ static bool32 TryRedCard(enum BattlerId battlerAtk, enum BattlerId redCardBattle
     gEffectBattler = battlerAtk;
     if (gBattleStruct->battlerState[battlerAtk].commanderSpecies != SPECIES_NONE
      || GetBattlerAbility(battlerAtk) == ABILITY_GUARD_DOG
+     || gBattleMons[battlerAtk].species == SPECIES_SKULBERUS
      || GetActiveGimmick(battlerAtk) == GIMMICK_DYNAMAX)
         BattleScriptCall(BattleScript_RedCardActivationNoSwitch);
     else

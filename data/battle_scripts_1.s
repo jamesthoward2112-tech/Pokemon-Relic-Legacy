@@ -1624,9 +1624,10 @@ BattleScript_SetUpBide::
 
 BattleScript_EffectRoar::
 	attackcanceler
-	jumpifroarfails BattleScript_ButItFailed
+	jumpifspecies SPECIES_SKULBERUS, BattleScript_ButItFailed
 	jumpifcommanderactive BS_TARGET, BattleScript_ButItFailed
 	jumpifability BS_TARGET, ABILITY_GUARD_DOG, BattleScript_ButItFailed
+	jumpifroarfails BattleScript_ButItFailed
 	jumpifability BS_TARGET, ABILITY_SUCTION_CUPS, BattleScript_AbilityPreventsPhasingOut
 	jumpifvolatile BS_TARGET, VOLATILE_ROOT, BattleScript_PrintMonIsRooted
 	jumpiftargetdynamaxed BattleScript_RoarBlockedByDynamax
@@ -4152,6 +4153,11 @@ BattleScript_BurnTurnDmg::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_DoStatusTurnDmg
 
+BattleScript_BleedTurnDmg::
+	printstring STRINGID_PKMNHURTBYBLEED
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_DoStatusTurnDmg
+
 BattleScript_FrostbiteTurnDmg::
 	printstring STRINGID_PKMNHURTBYFROSTBITE
 	waitmessage B_WAIT_TIME_LONG
@@ -4397,6 +4403,24 @@ BattleScript_MoveEffectFrostbite::
 	printfromtable gGotFrostbiteStringIds
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_UpdateEffectStatusIconRet
+
+BattleScript_MoveEffectBleed::
+	statusanimation BS_EFFECT_BATTLER
+	printstring STRINGID_PKMNBLEED
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_UpdateEffectStatusIconRet
+
+BattleScript_MoveEffectInfatuation::
+	volatileanimation BS_EFFECT_BATTLER, VOLATILE_INFATUATION
+	printstring STRINGID_PKMNFELLINLOVE
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_MoveEffectCurse::
+	volatileanimation BS_EFFECT_BATTLER, VOLATILE_CURSED
+	printstring STRINGID_PKMNAFFLICTEDBYSHADOWFANGS
+	waitmessage B_WAIT_TIME_LONG
+	return
 
 BattleScript_MoveEffectFreeze::
 	statusanimation BS_EFFECT_BATTLER

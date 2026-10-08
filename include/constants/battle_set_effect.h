@@ -118,6 +118,11 @@ enum __attribute__((packed)) MoveEffect
     SECRET_POWER_SP_ATK_MINUS_1,
     SECRET_POWER_ACC_MINUS_1,
 
+    // PRL Skulberus donor move effects
+    MOVE_EFFECT_BLEED,
+    MOVE_EFFECT_INFATUATION,
+    MOVE_EFFECT_CURSE,
+
     NUM_MOVE_EFFECTS
 };
 

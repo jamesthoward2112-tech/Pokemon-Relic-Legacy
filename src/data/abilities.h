@@ -2641,5 +2641,12 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     .description = COMPOUND_STRING("Super-effective damage received is reduced by 20%. Fortotoise Defense cannot be lowered by oppo"),
     .aiRating = 3,
 },
+
+[ABILITY_STYGIAN_RUSH] =
+{
+    .name = _("Stygian Rush"),
+    .description = COMPOUND_STRING("Dark-type moves gain priority at full HP."),
+    .aiRating = 7,
+},
 // PRL STEP10 ABILITY DATA END
 };
