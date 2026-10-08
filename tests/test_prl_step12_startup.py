@@ -29,7 +29,7 @@ def function(source_text, name):
 
 
 class DirectToOakStartupTests(unittest.TestCase):
-    def test_firered_boot_skips_movies_but_initializes_save(self):
+    def test_firered_boot_restores_porygon_but_initializes_save(self):
         body = function(source("src/intro.c"), "CB2_InitCopyrightScreenAfterBootup")
         self.assertRegex(body, r"#if defined\(FIRERED\)\s*bool8 introFinished = TRUE;")
         self.assertRegex(body, r"#else\s*bool8 introFinished = !SetUpCopyrightScreen\(\);")
@@ -40,10 +40,30 @@ class DirectToOakStartupTests(unittest.TestCase):
             "LoadGameSave(SAVE_NORMAL)",
             "Sav2_ClearSetDefault()",
             "SetPokemonCryStereo(gSaveBlock2Ptr->optionsSound)",
-            "SetMainCallback2(CB2_InitTitleScreen)",
+            "InitHeap(gHeap, HEAP_SIZE)",
+            "ResetTasks()",
+            "ResetSpriteData()",
+            "ResetPaletteFade()",
+            "SetMainCallback2(CB2_ExpansionIntro)",
+            "CreateTask(Task_HandleExpansionIntro, 0)",
         ):
             with self.subTest(call=call):
                 self.assertIn(call, body)
+        self.assertIn("#if EXPANSION_INTRO == TRUE", body)
+        self.assertIn("SetMainCallback2(CB2_InitTitleScreen)", body)  # fallback only
+        self.assertLess(body.index("LoadGameSave(SAVE_NORMAL)"), body.index("CreateTask(Task_HandleExpansionIntro, 0)"))
+
+    def test_porygon_finishes_at_prl_title_not_stock_game_freak_movie(self):
+        splash = source("src/expansion_intro.c")
+        self.assertIn('graphics/expansion_intro/sprites/porygon.png', splash)
+        self.assertIn('graphics/expansion_intro/sprites/dizzy_egg.png', splash)
+        task = function(splash, "Task_HandleExpansionIntro")
+        self.assertIn("tFrameCounter == 208", task)
+        self.assertIn("gMain.newKeys != 0", task)  # player can still skip splash
+        self.assertRegex(task, r"#if defined\(FIRERED\)[\s\S]*?SetMainCallback2\(CB2_InitTitleScreen\);")
+        self.assertIn("CB2_SetUpIntroFrlg", task)  # other versions retain stock entry
+        self.assertLess(task.index("SetMainCallback2(CB2_InitTitleScreen)"),
+                        task.index("SetMainCallback2(CB2_SetUpIntroFrlg)"))
 
     def test_title_remains_approved_prl_entry_point(self):
         src = source("src/title_screen_frlg.c")
