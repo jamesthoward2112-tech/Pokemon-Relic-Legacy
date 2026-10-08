@@ -44,6 +44,23 @@ SINGLE_BATTLE_TEST("Frostbite deals 1/8th damage (Gen1-6) or 1/16th (Gen7+) per 
     }
 }
 
+SINGLE_BATTLE_TEST("Frostbite deals 1/16th max HP damage to the player under the PRL config")
+{
+    s16 frostbiteDamage;
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { Status1(STATUS1_FROSTBITE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN {}
+    } SCENE {
+        MESSAGE("Wobbuffet was hurt by its frostbite!");
+        ANIMATION(ANIM_TYPE_STATUS, B_ANIM_STATUS_FRB, player);
+        HP_BAR(player, captureDamage: &frostbiteDamage);
+    } THEN {
+        EXPECT_EQ(frostbiteDamage, player->maxHP / 16);
+    }
+}
+
 SINGLE_BATTLE_TEST("Frostbite is healed if hit with a thawing move")
 {
     enum Move move;

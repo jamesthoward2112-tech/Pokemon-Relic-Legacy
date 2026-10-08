@@ -26,6 +26,21 @@ SINGLE_BATTLE_TEST("Powder Snow inflicts freeze")
 }
 
 #if B_USE_FROSTBITE == TRUE
+SINGLE_BATTLE_TEST("Powder Snow frostbites the player when used by the opponent")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { MOVE(opponent, MOVE_POWDER_SNOW, hit: TRUE, WITH_RNG(RNG_SECONDARY_EFFECT, TRUE)); }
+    } THEN {
+        EXPECT(player->status1 & STATUS1_FROSTBITE);
+        EXPECT(!(player->status1 & STATUS1_FREEZE));
+    }
+}
+#endif
+
+#if B_USE_FROSTBITE == TRUE
 SINGLE_BATTLE_TEST("Powder Snow cannot frostbite an Ice-type Pokémon")
 #else
 SINGLE_BATTLE_TEST("Powder Snow cannot freeze an Ice-type Pokémon")
@@ -47,7 +62,11 @@ SINGLE_BATTLE_TEST("Powder Snow cannot freeze an Ice-type Pokémon")
     }
 }
 
+#if B_USE_FROSTBITE == TRUE
+SINGLE_BATTLE_TEST("Frostbite cannot be inflicted in Sunlight")
+#else
 SINGLE_BATTLE_TEST("Freeze cannot be inflicted in Sunlight")
+#endif
 {
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET);
@@ -55,7 +74,10 @@ SINGLE_BATTLE_TEST("Freeze cannot be inflicted in Sunlight")
     } WHEN {
         TURN { MOVE(opponent, MOVE_SUNNY_DAY); MOVE(player, MOVE_ICE_BEAM); }
     } SCENE {
-        NOT MESSAGE("Wobbuffet was frozen solid!");
+        NONE_OF {
+            ANIMATION(ANIM_TYPE_STATUS, (B_USE_FROSTBITE ? B_ANIM_STATUS_FRB : B_ANIM_STATUS_FRZ), opponent);
+            FREEZE_OR_FROSTBURN_STATUS(opponent, TRUE);
+        }
     }
 }
 
