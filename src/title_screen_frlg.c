@@ -27,6 +27,102 @@
 
 #if IS_FRLG
 
+#if defined(FIRERED)
+// PRL: approved 240x160 full-screen title artwork.
+// Mode 4 keeps the final artwork intact instead of forcing it through the
+// multi-layer 4bpp FireRed title composition.
+static const u16 sPRLTitlePalette[] = INCBIN_U16("graphics/title_screen_prl/prl_title.pal");
+static const u16 sPRLTitleBitmap[] = INCBIN_U16("graphics/title_screen_prl/prl_title_bitmap.bin");
+static const u16 sPRLTitlePressBase[] = INCBIN_U16("graphics/title_screen_prl/prl_title_press_base.bin");
+static const u16 sPRLTitlePressOn[] = INCBIN_U16("graphics/title_screen_prl/prl_title_press_on.bin");
+
+static void CB2_PRLTitleRun(void);
+static void VBlankCB_PRLTitle(void);
+static void Task_PRLTitle(u8 taskId);
+
+static void InitPRLTitleScreen(void)
+{
+    SetVBlankCallback(NULL);
+    StartTimer1();
+    InitHeap(gHeap, HEAP_SIZE);
+    ResetTasks();
+    ResetSpriteData();
+    FreeAllSpritePalettes();
+    ResetPaletteFade();
+
+    SetGpuReg(REG_OFFSET_DISPCNT, 0);
+    SetGpuReg(REG_OFFSET_BLDCNT, 0);
+    SetGpuReg(REG_OFFSET_BLDALPHA, 0);
+    SetGpuReg(REG_OFFSET_BLDY, 0);
+    SetGpuReg(REG_OFFSET_BG2CNT, 0);
+    SetGpuReg(REG_OFFSET_BG2PA, 1 << 8);
+    SetGpuReg(REG_OFFSET_BG2PB, 0);
+    SetGpuReg(REG_OFFSET_BG2PC, 0);
+    SetGpuReg(REG_OFFSET_BG2PD, 1 << 8);
+    SetGpuReg(REG_OFFSET_BG2X_L, 0);
+    SetGpuReg(REG_OFFSET_BG2X_H, 0);
+    SetGpuReg(REG_OFFSET_BG2Y_L, 0);
+    SetGpuReg(REG_OFFSET_BG2Y_H, 0);
+
+    DmaFill16(3, 0, (void *)VRAM, VRAM_SIZE);
+    DmaFill32(3, 0, (void *)OAM, OAM_SIZE);
+    DmaFill16(3, 0, (void *)PLTT, PLTT_SIZE);
+
+    LoadPalette(sPRLTitlePalette, 0, sizeof(sPRLTitlePalette));
+    CpuCopy16(sPRLTitleBitmap, (void *)VRAM, sizeof(sPRLTitleBitmap));
+    CpuCopy16(sPRLTitlePressOn, (u8 *)VRAM + (140 * DISPLAY_WIDTH), sizeof(sPRLTitlePressOn));
+
+    SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_4 | DISPCNT_BG2_ON);
+    CreateTask(Task_PRLTitle, 0);
+    SetVBlankCallback(VBlankCB_PRLTitle);
+    SetMainCallback2(CB2_PRLTitleRun);
+    m4aSongNumStart(MUS_TITLE);
+}
+
+static void CB2_PRLTitleRun(void)
+{
+    RunTasks();
+    UpdatePaletteFade();
+}
+
+static void VBlankCB_PRLTitle(void)
+{
+    TransferPlttBuffer();
+}
+
+static void Task_PRLTitle(u8 taskId)
+{
+    s16 *data = gTasks[taskId].data;
+
+    if (JOY_NEW(A_BUTTON | START_BUTTON))
+    {
+        SetVBlankCallback(NULL);
+        m4aMPlayAllStop();
+        gMain.state = 0;
+        DestroyTask(taskId);
+        SetMainCallback2(CB2_InitMainMenu);
+        return;
+    }
+
+    if (QUICKSTART && JOY_NEW(SELECT_BUTTON))
+    {
+        Quickstart();
+        return;
+    }
+
+    if (++data[0] >= 32)
+    {
+        data[0] = 0;
+        data[1] ^= 1;
+        if (data[1])
+            CpuCopy16(sPRLTitlePressOn, (u8 *)VRAM + (140 * DISPLAY_WIDTH), sizeof(sPRLTitlePressOn));
+        else
+            CpuCopy16(sPRLTitlePressBase, (u8 *)VRAM + (140 * DISPLAY_WIDTH), sizeof(sPRLTitlePressBase));
+    }
+}
+#endif
+
+
 enum TitleScreenScene
 {
     TITLESCREENSCENE_INIT = 0,
@@ -380,6 +476,10 @@ static const u32 *const sUnused_Tilemaps[] = {
 
 void CB2_InitTitleScreenFrlg(void)
 {
+#if defined(FIRERED)
+    InitPRLTitleScreen();
+    return;
+#endif
     switch (gMain.state)
     {
     default:
