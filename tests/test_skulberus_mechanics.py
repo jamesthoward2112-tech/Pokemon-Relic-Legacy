@@ -19,9 +19,18 @@ class SkulberusMechanicsTests(unittest.TestCase):
 
     def test_original_custom_moves_are_defined_and_biting(self):
         moves = self.source('src/data/moves_info.h')
-        for name in ('LOVELY_BITE', 'SHADOW_FANGS', 'RIP_AND_TEAR'):
-            self.assertIn(f'[MOVE_{name}]', moves)
-        self.assertIn('MOVE_EFFECT_BLEED', moves)
+        specs = {
+            'LOVELY_BITE': ('power = 85', 'TYPE_FAIRY', 'accuracy = 100', 'pp = 15', 'MOVE_EFFECT_INFATUATION', 'chance = 10'),
+            'SHADOW_FANGS': ('power = 80', 'TYPE_GHOST', 'accuracy = 100', 'pp = 15', 'MOVE_EFFECT_CURSE', 'chance = 10'),
+            'RIP_AND_TEAR': ('power = 110', 'TYPE_DARK', 'accuracy = 90', 'pp = 5', 'MOVE_EFFECT_STAT_MINUS', 'speed = 1', 'MOVE_EFFECT_BLEED', 'chance = 50', 'gBattleAnimMove_Crunch'),
+        }
+        for name, requirements in specs.items():
+            start = moves.index(f'[MOVE_{name}]')
+            end = moves.find('\n[MOVE_', start + 1)
+            entry = moves[start:end if end != -1 else None]
+            for requirement in requirements:
+                self.assertTrue(requirement in entry)
+            self.assertTrue('.makesContact = TRUE' in entry and '.bitingMove = TRUE' in entry)
 
     def test_early_catalyst_and_donor_progression_are_preserved(self):
         species = self.source('src/data/pokemon/species_info/gen_3_families.h')
@@ -33,6 +42,11 @@ class SkulberusMechanicsTests(unittest.TestCase):
         skulberus = learnset.split('sSkulberusLevelUpLearnset[]', 1)[1].split('sGemigoyleLevelUpLearnset[]', 1)[0]
         for move in ('MOVE_LOVELY_BITE', 'MOVE_SHADOW_FANGS', 'MOVE_RIP_AND_TEAR'):
             self.assertTrue(move in skulberus)
+
+    def test_runtime_battle_regressions_cover_all_three_innates_and_priority(self):
+        cases = self.source('test/battle/ability/skulberus.c')
+        for behavior in ('Stygian Rush gives Skulberus Dark moves priority', 'Guard Dog innate blocks Attack drops', 'Shadow Tag innate prevents escape'):
+            self.assertIn(behavior, cases)
 
     def test_runtime_battle_regressions_cover_bleed_turns_healing_and_boosts(self):
         cases = self.source('test/battle/status1/bleed.c')
