@@ -39,3 +39,14 @@ Title entrypoint must actually choose PRL; preserve the blank ornate prompt
 area and blink overlay; use ArchOak's own palette; keep Omanyte's picture and
 cry consistent; retain the existing main-menu transition and approved dialogue.
 Player gameplay QA remains deferred until the player confirms it.
+
+## Player QA correction — 8 Oct 2026
+
+- Player rejected ArchOak for PRL: the new-game intro now uses vanilla FireRed Oak.
+- Omanyte remains the intro Pokémon.
+- The approved PRL title composition remains, but its renderer is changed from raw
+  Mode 4 presentation to an RGB555 Mode 3 expansion with light edge-aware
+  smoothing so the detailed artwork reads less bitty when enlarged.
+- PRESS START remains in the ornate box and is drawn as a crisp RGB555 overlay.
+- This correction does not alter Step 10–12 gameplay mechanics, evolutions,
+  Donphalanx, runtime hooks, maps, balancing or progression.

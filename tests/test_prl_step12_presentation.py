@@ -7,6 +7,7 @@ not a claim that the player has completed gameplay QA.
 import hashlib
 import re
 import struct
+import subprocess
 import unittest
 import zlib
 from pathlib import Path
@@ -73,10 +74,13 @@ class PresentationIntegrationTests(unittest.TestCase):
         self.assertTrue(re.search(r"^\s*#if defined\(FIRERED\)\s*InitPRLTitleScreen\(\);\s*return;\s*#endif",
                                   body(source, "CB2_InitTitleScreenFrlg")), "FireRed entrypoint bypasses PRL title")
         init = body(source, "InitPRLTitleScreen")
-        self.contains("DISPCNT_MODE_4 | DISPCNT_BG2_ON", init)
-        self.contains("CpuCopy16(sPRLTitleBitmap, (void *)VRAM, sizeof(sPRLTitleBitmap))", init)
-        self.contains("LoadPalette(sPRLTitlePalette, 0, sizeof(sPRLTitlePalette))", init)
+        self.contains("DISPCNT_MODE_3 | DISPCNT_BG2_ON", init)
+        self.contains("PRLRenderTitleMode3()", init)
+        self.contains("PRLDrawPrompt(TRUE)", init)
         self.contains("SetMainCallback2(CB2_PRLTitleRun)", init)
+        render = body(source, "PRLRenderTitleMode3")
+        self.contains("PRLBlendTitlePixel", render)
+        self.contains("sPRLTitlePalette", render)
 
     def test_title_loader_consumes_exact_approved_art_and_palette(self):
         source = read("src/title_screen_frlg.c")
@@ -100,41 +104,30 @@ class PresentationIntegrationTests(unittest.TestCase):
         task = body(source, "Task_PRLTitle")
         self.contains("JOY_NEW(A_BUTTON | START_BUTTON)", task)
         self.contains("SetMainCallback2(CB2_InitMainMenu)", task)
-        self.contains("if (++data[0] >= 32)", task)
-        for symbol in ("sPRLTitlePressOn", "sPRLTitlePressBase"):
-            self.contains(f"CpuCopy16({symbol}, (u8 *)VRAM + (140 * DISPLAY_WIDTH), sizeof({symbol}))", task)
+        self.contains("if (++data[0] >= 40)", task)
+        self.contains("PRLDrawPrompt(data[1])", task)
+        prompt = body(source, "PRLDrawPrompt")
+        self.contains("sPRLTitlePressOn", prompt)
+        self.contains("sPRLTitlePressBase", prompt)
+        self.contains("140 * DISPLAY_WIDTH", prompt)
+        self.contains("sPRLTitlePalette[overlay[i]]", prompt)
         self.contains("RunTasks()", body(source, "CB2_PRLTitleRun"))
 
-    def test_oak_intro_loads_archoak_with_its_own_palette(self):
+    def test_oak_intro_uses_vanilla_firered_oak(self):
         source = read("src/oak_speech.c")
         self.contains('sOakSpeech_Oak_Pal[] = INCGFX_U16("graphics/oak_speech/oak/pal.pal", ".gbapal")', source)
         self.contains('sOakSpeech_Oak_Tiles[] = INCGFX_U32("graphics/oak_speech/oak/pic.png", ".8bpp.smol")', source)
-        oak_case = body(source, "LoadTrainerPic").split("case OAK_PIC:")[-1].split("break;")[0]
-        self.contains("LoadPalette(sOakSpeech_Oak_Pal", oak_case)
-        self.contains("DecompressDataWithHeaderVram(sOakSpeech_Oak_Tiles", oak_case)
-        self.contains("LoadTrainerPic(OAK_PIC", source)
-        approved = (ROOT / "graphics/oak_speech/oak/archoak_approved.png").read_bytes()
-        self.assertEqual(hashlib.sha256(approved).hexdigest(), "85cac888de41237252410c08d3db2e6f36e06f07f34485bb20706c10a2c6f9bf")
-        sw, sh, sp, sa, pixels = indexed_png(approved)
-        self.assertEqual((sw, sh), (64, 64))
-        width, height, _, _, actual = indexed_png((ROOT / "graphics/oak_speech/oak/pic.png").read_bytes())
-        self.assertEqual((width, height), (64, 96))
+        self.assertFalse((ROOT / "graphics/oak_speech/oak/archoak_approved.png").exists(),
+                         "ArchOak fixture must not return after the player reverted to vanilla Oak")
+        blob = subprocess.check_output(
+            ["git", "hash-object", "graphics/oak_speech/oak/pic.png"],
+            cwd=ROOT,
+            text=True,
+        ).strip()
+        self.assertEqual(blob, "2fb9cc863f487fb1e4fdc36f0310c6a3d0789785",
+                         "Oak intro picture is not the vanilla FireRed Oak asset")
         lines = read("graphics/oak_speech/oak/pal.pal").splitlines()
-        colors = [tuple(map(int, line.split())) for line in lines[3:]]
-        self.assertEqual(len(colors), int(lines[2]))
-        self.assertLessEqual(96 + len(colors), 240, "ArchOak palette must not overwrite text palette")
-        # Reconstruct BG2's 8bpp display using the palette actually loaded at 96.
-        for y in range(96):
-            for x in range(64):
-                idx = actual[y * 64 + x]
-                original = pixels[(y - 16) * 64 + x] if 16 <= y < 80 else 0
-                transparent = not (16 <= y < 80) or (original < len(sa) and sa[original] == 0)
-                if transparent:
-                    self.assertEqual(idx, 0, (x, y, "transparency"))
-                else:
-                    self.assertTrue(96 <= idx < 96 + len(colors), (x, y, "palette index", idx))
-                    self.assertEqual(tuple(v // 8 for v in colors[idx - 96]),
-                                     tuple(v // 8 for v in sp[original]), (x, y, "approved pixel"))
+        self.assertEqual(lines[:3], ["JASC-PAL", "0100", "32"])
 
     def test_omanyte_is_used_for_intro_picture_palette_release_and_cry(self):
         source = read("src/oak_speech.c")

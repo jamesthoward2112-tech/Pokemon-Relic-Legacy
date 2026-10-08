@@ -28,9 +28,14 @@
 #if IS_FRLG
 
 #if defined(FIRERED)
-// PRL: approved 240x160 full-screen title artwork.
-// Mode 4 keeps the final artwork intact instead of forcing it through the
-// multi-layer 4bpp FireRed title composition.
+// PRL: approved 240x160 title artwork.
+//
+// The source art is deliberately detailed for a GBA title. Rendering the
+// indexed bitmap directly in Mode 4 made the palette quantisation/dither read
+// as "bitty" when enlarged by modern emulators. For PRL we expand it once into
+// Mode 3 (RGB555) and apply a tiny edge-aware blend to similar neighbouring
+// colours. Sharp logo/character edges are preserved; only near-colour dither is
+// softened. The prompt remains crisp and is drawn from the approved overlay.
 static const u16 sPRLTitlePalette[] = INCBIN_U16("graphics/title_screen_prl/prl_title.pal");
 static const u16 sPRLTitleBitmap[] = INCBIN_U16("graphics/title_screen_prl/prl_title_bitmap.bin");
 static const u16 sPRLTitlePressBase[] = INCBIN_U16("graphics/title_screen_prl/prl_title_press_base.bin");
@@ -39,6 +44,82 @@ static const u16 sPRLTitlePressOn[] = INCBIN_U16("graphics/title_screen_prl/prl_
 static void CB2_PRLTitleRun(void);
 static void VBlankCB_PRLTitle(void);
 static void Task_PRLTitle(u8 taskId);
+static void PRLRenderTitleMode3(void);
+static void PRLDrawPrompt(bool32 visible);
+
+static u16 PRLBlendTitlePixel(const u8 *bitmap, s32 x, s32 y)
+{
+    const s32 pos = y * DISPLAY_WIDTH + x;
+    const u16 center = sPRLTitlePalette[bitmap[pos]];
+    u32 r = (center & 31) * 4;
+    u32 g = ((center >> 5) & 31) * 4;
+    u32 b = ((center >> 10) & 31) * 4;
+    u32 weight = 4;
+    static const s8 sDx[] = {-1, 1, 0, 0};
+    static const s8 sDy[] = {0, 0, -1, 1};
+    s32 i;
+
+    // Keep the prompt frame and its gold trim pixel-sharp.
+    if (y >= 136)
+        return center;
+
+    for (i = 0; i < 4; i++)
+    {
+        const s32 nx = x + sDx[i];
+        const s32 ny = y + sDy[i];
+        u16 other;
+        s32 cr, cg, cb, nr, ng, nb;
+        s32 diff;
+
+        if (nx < 0 || nx >= DISPLAY_WIDTH || ny < 0 || ny >= DISPLAY_HEIGHT)
+            continue;
+
+        other = sPRLTitlePalette[bitmap[ny * DISPLAY_WIDTH + nx]];
+        cr = center & 31;
+        cg = (center >> 5) & 31;
+        cb = (center >> 10) & 31;
+        nr = other & 31;
+        ng = (other >> 5) & 31;
+        nb = (other >> 10) & 31;
+        diff = ABS(cr - nr) + ABS(cg - ng) + ABS(cb - nb);
+
+        // Only blend near-colours. High-contrast outlines remain untouched.
+        if (diff <= 6)
+        {
+            r += nr;
+            g += ng;
+            b += nb;
+            weight++;
+        }
+    }
+
+    return (r / weight) | ((g / weight) << 5) | ((b / weight) << 10);
+}
+
+static void PRLRenderTitleMode3(void)
+{
+    const u8 *bitmap = (const u8 *)sPRLTitleBitmap;
+    u16 *dst = (u16 *)VRAM;
+    s32 x, y;
+
+    for (y = 0; y < DISPLAY_HEIGHT; y++)
+        for (x = 0; x < DISPLAY_WIDTH; x++)
+            dst[y * DISPLAY_WIDTH + x] = PRLBlendTitlePixel(bitmap, x, y);
+}
+
+static void PRLDrawPrompt(bool32 visible)
+{
+    const u8 *base = (const u8 *)sPRLTitlePressBase;
+    const u8 *overlay = visible ? (const u8 *)sPRLTitlePressOn : base;
+    u16 *dst = (u16 *)VRAM + (140 * DISPLAY_WIDTH);
+    s32 i;
+
+    // The prompt is converted to RGB555 one pixel at a time so it remains
+    // centred and crisp inside the ornate box instead of inheriting Mode 4
+    // palette artefacts.
+    for (i = 0; i < 20 * DISPLAY_WIDTH; i++)
+        dst[i] = sPRLTitlePalette[overlay[i]];
+}
 
 static void InitPRLTitleScreen(void)
 {
@@ -68,11 +149,10 @@ static void InitPRLTitleScreen(void)
     DmaFill32(3, 0, (void *)OAM, OAM_SIZE);
     DmaFill16(3, 0, (void *)PLTT, PLTT_SIZE);
 
-    LoadPalette(sPRLTitlePalette, 0, sizeof(sPRLTitlePalette));
-    CpuCopy16(sPRLTitleBitmap, (void *)VRAM, sizeof(sPRLTitleBitmap));
-    CpuCopy16(sPRLTitlePressOn, (u8 *)VRAM + (140 * DISPLAY_WIDTH), sizeof(sPRLTitlePressOn));
+    PRLRenderTitleMode3();
+    PRLDrawPrompt(TRUE);
 
-    SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_4 | DISPCNT_BG2_ON);
+    SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_3 | DISPCNT_BG2_ON);
     CreateTask(Task_PRLTitle, 0);
     SetVBlankCallback(VBlankCB_PRLTitle);
     SetMainCallback2(CB2_PRLTitleRun);
@@ -87,7 +167,6 @@ static void CB2_PRLTitleRun(void)
 
 static void VBlankCB_PRLTitle(void)
 {
-    TransferPlttBuffer();
 }
 
 static void Task_PRLTitle(u8 taskId)
@@ -110,14 +189,11 @@ static void Task_PRLTitle(u8 taskId)
         return;
     }
 
-    if (++data[0] >= 32)
+    if (++data[0] >= 40)
     {
         data[0] = 0;
         data[1] ^= 1;
-        if (data[1])
-            CpuCopy16(sPRLTitlePressOn, (u8 *)VRAM + (140 * DISPLAY_WIDTH), sizeof(sPRLTitlePressOn));
-        else
-            CpuCopy16(sPRLTitlePressBase, (u8 *)VRAM + (140 * DISPLAY_WIDTH), sizeof(sPRLTitlePressBase));
+        PRLDrawPrompt(data[1]);
     }
 }
 #endif
