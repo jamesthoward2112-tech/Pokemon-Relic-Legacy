@@ -64,9 +64,25 @@ class DirectToOakStartupTests(unittest.TestCase):
         self.assertRegex(task, r"#if defined\(FIRERED\)[\s\S]*?SetMainCallback2\((CB2_InitTitleScreen|CB2_InitPRLIntroTrial)\);")
         self.assertIn("CB2_SetUpIntroFrlg", task)
         if "SetMainCallback2(CB2_InitPRLIntroTrial)" in task:
-            trial = source("src/prl_intro_trial.c")
-            self.assertIn("SetMainCallback2(CB2_InitTitleScreen)", function(trial, "Task_PRLIntroTrial"))
-            self.assertIn("SetMainCallback2(CB2_PRLIntroTrial)", function(trial, "CB2_InitPRLIntroTrial"))
+            capture = source("src/prl_vanadium_capture.c")
+            forest = source("src/prl_intro_trial.c")
+            # Vanadium Kecleon role is now Noxichu, but preserves capture action.
+            self.assertIn("sIntroKecleon_Gfx", capture)
+            self.assertIn("noxichu_capture.png", capture)
+            self.assertIn("TIMER_KECLEON_CATCH", capture)
+            self.assertIn("TIMER_KECLEON_ESCAPE", capture)
+            self.assertIn("SetMainCallback2(CB2_PRLVanadiumIntro)", function(capture, "CB2_InitPRLIntroTrial"))
+            self.assertIn("CB2_InitPRLHwlScene0()", function(capture, "Task_EndIntroMovie"))
+            # Original forest retains both Celebi/Jirachi appearances.
+            self.assertIn("Scene0_LoadBgSet(0)", function(forest, "Task_Scene0_Load"))
+            self.assertIn("sScene0Comet_Gfx", forest)
+            self.assertIn("graphics/intro/prl_hwl/celebi.png", forest)
+            self.assertIn("graphics/intro/prl_hwl/jirachi.png", forest)
+            self.assertIn("graphics/intro/prl_hwl/celebi2.png", forest)
+            self.assertIn("graphics/intro/prl_hwl/jirachi2.png", forest)
+            self.assertNotIn("sSpriteTemplate_Scene0Nox", forest)
+            self.assertIn("SetMainCallback2(CB2_InitTitleScreen)", function(forest, "Task_Scene0_Main"))
+            self.assertIn("SetMainCallback2(CB2_PRLHwlScene0)", function(forest, "CB2_InitPRLHwlScene0"))
             self.assertLess(task.index("SetMainCallback2(CB2_InitPRLIntroTrial)"),
                             task.index("SetMainCallback2(CB2_SetUpIntroFrlg)"))
         else:
