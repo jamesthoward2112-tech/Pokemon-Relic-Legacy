@@ -13,6 +13,7 @@ assert len(keys) == len(set(keys)) == data['species_count'] == 50
 assert not set(keys) & {'SUDOWARDEN', 'TERATHWACK', 'RETIRED_UNUSED'}
 assert keys.count('TOXEON') == 1
 assert {'OSTEODIAN', 'MAROGHOST'} <= set(keys)
+assert 'SKULBERUS' in keys and 'HYENADON' not in keys
 assert all(s['numeric_id'] is None for s in species)
 assert all(s['ready_for_rom_build'] is False for s in species)
 assert not any(gates[k] for k in ('blanket_qol_import','blanket_global_balance_import','numeric_ids_frozen','build_ready'))
@@ -32,6 +33,12 @@ for s in species:
         assert len(stats)==6 and all(1<=v<=255 for v in stats), s['key']
         assert sum(stats)==int(f['BST']), s['key']
 
+sk=parsed['SKULBERUS']
+assert sk['Types'] == 'Dark' and sk['BaseStats_HP_Atk_Def_SpA_SpD_Spe'] == '100/135/90/60/80/115'
+assert sk['Abilities'] == 'Moxie / Stygian Rush / Strong Jaw'
+assert 'Nocturnal, Guard Dog and Shadow Tag' in sk['Mechanics']
+assert 'Hard Stone' in sk['Evolution'] and 'Hard Stone' in sk['HeldItemOrKeyNote']
+assert all(move in sk['MoveTuning'] for move in ('Lovely Bite', 'Shadow Fangs', 'Rip and Tear'))
 v=parsed['VALKYVOIR']
 for k, expected in {'BaseSpecies':'Gardevoir','Types':'Psychic/Fairy','EvolutionTrigger':'USE_ITEM',
                     'EvolutionItem':'Shiny Stone','MinimumLevel':'50','Abilities':'Pixilate',

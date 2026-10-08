@@ -10,7 +10,7 @@ NUMEW,nuMew,PKR,"None — unique postgame static encounter; Notion source-of-tru
 SCEPTITAN,Sceptitan,PHR,Lv40+ Sceptile + reusable Ancient Emblem + Forest Altar in the Route 120 Relic Sanctuary,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
 SOLAZIKEN,Solaziken,PHR,Lv40+ Blaziken + reusable Ancient Emblem + Sun Altar in the Route 120 Relic Sanctuary,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
 SWAMPLITH,Swamplith,PHR,Lv40+ Swampert + reusable Ancient Emblem + Tide Altar in the Route 120 Relic Sanctuary,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
-HYENADON,Hyenadon,PHR,Level up while holding Hard Stone; works anywhere; catalyst is consumed by the evolution,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
+SKULBERUS,Skulberus,PRL,Level up while holding Hard Stone; works anywhere; wild Poochyena can hold Hard Stone; catalyst is consumed on evolution,Route 101 / Hoenn early routes,IMPLEMENTED; Route 110 Trick House also has Hard Stone rewards
 GEMIGOYLE,Gemigoyle,PHR,Level up while holding Hard Stone; works anywhere; catalyst is consumed by the evolution,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending
 MAWYRM,Mawyrm,PHR,Mawile shrine evolution; exact shrine/catalyst conditions require final-source recovery,UNASSIGNED,BLOCKED_MECHANICS
 TORKALDERA,Torkaldera,PHR,Level up while holding Charcoal; works anywhere; catalyst is consumed by the evolution,UNASSIGNED,ROUTE_BASIS_RECORDED; PRL map/item placement pending

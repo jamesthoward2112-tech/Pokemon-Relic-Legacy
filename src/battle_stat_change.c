@@ -241,18 +241,6 @@ bool32 CanAnyStatChange(struct BattleCalcValues *cv, struct StatChange *st)
 
 enum StatChangeResult TryStatChange(struct BattleCalcValues *cv, struct StatChange *st)
 {
-    if ((gBattleMons[cv->battlerDef].status1 & STATUS1_BLEED) && !st->onlyChecking)
-    {
-        for (u32 i = 0; i < st->statStageAmount; i++)
-        {
-            if (st->statStageQueue[i].stage > 0)
-            {
-                st->nextBattler = TRUE;
-                st->script = BattleScript_ButItFailed;
-                return STAT_CHANGE_BLOCKED_BY_TARGET;
-            }
-        }
-    }
     if (CheckSpecificMoveCondition(cv, st) || IsSubstituteBlocked(cv, st))
     {
         st->nextBattler = TRUE;
@@ -378,6 +366,15 @@ static enum StatChangeResult DecreaseStat(struct BattleCalcValues *cv, struct St
 
 static enum StatChangeResult IncreaseStat(struct BattleCalcValues *cv, struct StatChange *st)
 {
+    if (gBattleMons[cv->battlerDef].status1 & STATUS1_BLEED)
+    {
+        if (!st->onlyChecking)
+        {
+            st->script = BattleScript_ButItFailed;
+            gBattleScripting.battler = cv->battlerDef;
+        }
+        return STAT_CHANGE_DIDNT_WORK;
+    }
     u32 currStage = gBattleMons[cv->battlerDef].statStages[st->stat];
     bool32 isMaxStage = st->stage >= 12;
 
@@ -755,6 +752,24 @@ static bool32 IsAbilityBlocked(struct BattleCalcValues *cv, struct StatChange *s
         return TRUE;
     }
 
+    if (st->stat == STAT_ATK
+     && (cv->abilities[cv->battlerDef] == ABILITY_GUARD_DOG
+      || gBattleMons[cv->battlerDef].species == SPECIES_SKULBERUS)
+     && !IsBattlerAlly(cv->battlerAtk, cv->battlerDef))
+    {
+        if (!st->onlyChecking)
+        {
+            MarkStatsAsDone(st, st->stat);
+            PREPARE_STAT_BUFFER(gBattleTextBuff1, st->stat);
+            st->script = BattleScript_AbilityNoSpecificStatLoss;
+            gBattleScripting.battler = cv->battlerDef;
+            gBattlerAbility = cv->battlerDef;
+            gLastUsedAbility = ABILITY_GUARD_DOG;
+            RecordAbilityBattle(cv->battlerDef, ABILITY_GUARD_DOG);
+        }
+        return TRUE;
+    }
+
     if (CanAbilityPreventStatLoss(cv->abilities[cv->battlerDef]))
     {
         if (!st->onlyChecking)
@@ -894,6 +909,7 @@ static bool32 AbilityPreventsSpecificStatDrop(enum Ability ability, enum Stat st
     case ABILITY_MINDS_EYE:
         return stat == STAT_ACC;
     case ABILITY_HYPER_CUTTER:
+    case ABILITY_GUARD_DOG:
         return stat == STAT_ATK;
     case ABILITY_BIG_PECKS:
         return stat == STAT_DEF;

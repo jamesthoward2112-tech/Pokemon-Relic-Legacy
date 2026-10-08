@@ -936,6 +936,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpDefense = 30,
         .types = MON_TYPES(TYPE_DARK),
         .catchRate = 255,
+        .itemCommon = ITEM_HARD_STONE, // Early Hoenn access to the Skulberus evolution catalyst.
     #if P_UPDATED_EXP_YIELDS >= GEN_6
         .expYield = 56,
     #elif P_UPDATED_EXP_YIELDS >= GEN_5

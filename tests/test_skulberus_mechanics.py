@@ -39,6 +39,8 @@ class SkulberusMechanicsTests(unittest.TestCase):
         self.assertIn('STATUS1_BLEED', self.source('src/battle_util.c'))
         self.assertIn('MOVE_EFFECT_BLEED', self.source('src/battle_script_commands.c'))
         self.assertIn('STATUS1_BLEED', self.source('src/battle_stat_change.c'))
+        self.assertIn('ABILITY_GUARD_DOG', self.source('src/battle_stat_change.c'))
+        self.assertIn('gBattleMons[cv->battlerDef].species == SPECIES_SKULBERUS', self.source('src/battle_stat_change.c'))
         self.assertIn('CureBleedWithHealingMove', self.source('include/battle.h'))
         self.assertIn('MOVE_RIP_AND_TEAR && gLastResultingMoves', self.source('src/battle_move_resolution.c'))
 
