@@ -60,41 +60,28 @@ class DirectToOakStartupTests(unittest.TestCase):
         task = function(splash, "Task_HandleExpansionIntro")
         self.assertIn("tFrameCounter == 208", task)
         self.assertIn("gMain.newKeys != 0", task)  # player can still skip splash
-        # Release: Porygon -> approved title. Trial: Porygon -> intro -> same title.
-        self.assertRegex(task, r"#if defined\(FIRERED\)[\s\S]*?SetMainCallback2\((CB2_InitTitleScreen|CB2_InitPRLIntroTrial)\);")
+        # Final intro: Porygon -> original Celebi/Jirachi forest -> approved title.
+        self.assertRegex(task, r"#if defined\(FIRERED\)[\s\S]*?SetMainCallback2\(CB2_InitPRLHwlScene0\);")
+        self.assertNotIn("SetMainCallback2(CB2_InitPRLIntroTrial);", task)
         self.assertIn("CB2_SetUpIntroFrlg", task)
-        if "SetMainCallback2(CB2_InitPRLIntroTrial)" in task:
-            capture = source("src/prl_vanadium_capture.c")
-            forest = source("src/prl_intro_trial.c")
-            # Vanadium Kecleon role is now Noxichu, but preserves capture action.
-            self.assertIn("sIntroKecleon_Gfx", capture)
-            self.assertIn("noxichu_capture.png", capture)
-            self.assertIn("TIMER_KECLEON_CATCH", capture)
-            self.assertIn("TIMER_KECLEON_ESCAPE", capture)
-            self.assertIn("SetMainCallback2(CB2_PRLVanadiumIntro)", function(capture, "CB2_InitPRLIntroTrial"))
-            self.assertIn("CB2_InitPRLHwlScene0()", function(capture, "Task_EndIntroMovie"))
-            # Original forest retains both Celebi/Jirachi appearances.
-            self.assertIn("Scene0_LoadBgSet(0)", function(forest, "Task_Scene0_Load"))
-            self.assertIn("sScene0Comet_Gfx", forest)
-            for mon in ("celebi", "jirachi", "celebi2", "jirachi2"):
-                self.assertIn('INCGFX_U32("graphics/intro/prl_hwl/' + mon + '.png"', forest)
-                self.assertIn('INCGFX_U16("graphics/intro/prl_hwl/' + mon + '.png"', forest)
-            # Reject the actual previous error: original palettes but donor graphics.
-            self.assertNotIn('graphics/intro/prl_trial/ho_oh_relic_fly.png', forest)
-            self.assertNotIn('graphics/intro/prl_trial/astrachi_fly.png', forest)
-            self.assertIn("if (++task->tTimer >= 70)", forest)
-            self.assertIn("if (++task->tTimer >= 65)", forest)
-            self.assertIn("if (++task->tTimer == 100)", forest)
-            self.assertIn("ST_OAM_AFFINE_DOUBLE", capture)
-            self.assertIn("SetOamMatrix(MATRIX_KECLEON, 0x90", capture)
-            self.assertNotIn("sSpriteTemplate_Scene0Nox", forest)
-            self.assertIn("SetMainCallback2(CB2_InitTitleScreen)", function(forest, "Task_Scene0_Main"))
-            self.assertIn("SetMainCallback2(CB2_PRLHwlScene0)", function(forest, "CB2_InitPRLHwlScene0"))
-            self.assertLess(task.index("SetMainCallback2(CB2_InitPRLIntroTrial)"),
-                            task.index("SetMainCallback2(CB2_SetUpIntroFrlg)"))
-        else:
-            self.assertLess(task.index("SetMainCallback2(CB2_InitTitleScreen)"),
-                            task.index("SetMainCallback2(CB2_SetUpIntroFrlg)"))
+        self.assertLess(task.index("SetMainCallback2(CB2_InitPRLHwlScene0)"),
+                        task.index("SetMainCallback2(CB2_SetUpIntroFrlg)"))
+        forest = source("src/prl_intro_trial.c")
+        capture = source("src/prl_vanadium_capture.c")
+        self.assertIn("Scene0_LoadBgSet(0)", function(forest, "Task_Scene0_Load"))
+        self.assertIn("sScene0Comet_Gfx", forest)
+        for mon in ("celebi", "jirachi", "celebi2", "jirachi2"):
+            self.assertIn('INCGFX_U32("graphics/intro/prl_hwl/' + mon + '.png"', forest)
+            self.assertIn('INCGFX_U16("graphics/intro/prl_hwl/' + mon + '.png"', forest)
+        self.assertNotIn('graphics/intro/prl_trial/ho_oh_relic_fly.png', forest)
+        self.assertNotIn('graphics/intro/prl_trial/astrachi_fly.png', forest)
+        self.assertIn("if (++task->tTimer >= 70)", forest)
+        self.assertIn("if (++task->tTimer >= 65)", forest)
+        self.assertIn("if (++task->tTimer == 100)", forest)
+        self.assertNotIn("sSpriteTemplate_Scene0Nox", forest)
+        self.assertNotIn("noxichu_capture.png", capture)
+        self.assertIn("SetMainCallback2(CB2_InitTitleScreen)", function(forest, "Task_Scene0_Main"))
+        self.assertIn("SetMainCallback2(CB2_PRLHwlScene0)", function(forest, "CB2_InitPRLHwlScene0"))
 
     def test_title_remains_approved_prl_entry_point(self):
         src = source("src/title_screen_frlg.c")
