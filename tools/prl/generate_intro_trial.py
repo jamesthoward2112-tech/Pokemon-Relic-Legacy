@@ -65,6 +65,51 @@ def animation(source, kind):
     assert len(set(sheet.getdata()))<=16
     return sheet
 
+
+def generate_noxichu_capture():
+    """Thirteen 32x32 indexed Noxichu frames for the exact Vanadium state machine."""
+    src = Image.open(io.BytesIO(base64.b64decode(NOX_APPROVED_PNG_BASE64)))
+    src.load()
+    assert src.mode == "P" and src.size == (64, 64)
+    animated64 = animation(src, "nox")
+    positions = [(0, 0), (1, -1), (0, 0), (-1, 1),
+                 (0, 0), (0, -2),
+                 (0, 0), (2, -1), (0, 0), (-2, -1),
+                 (1, 2), (4, 5), (0, 3)]
+    sheet = Image.new("P", (32, 32 * 13), 0)
+    sheet.putpalette(src.getpalette())
+    sheet.info["transparency"] = 0
+    for i, (dx, dy) in enumerate(positions):
+        frame64 = animated64.crop((0, (i % 4) * 64, 64, (i % 4 + 1) * 64))
+        box = frame64.getbbox()
+        if box is None:
+            raise RuntimeError("Empty Noxichu source frame")
+        frame = frame64.crop(box)
+        # Retain readable silhouette without blurring pixel outlines.
+        frame.thumbnail((30, 30), Image.Resampling.NEAREST)
+        layer = Image.new("P", (32, 32), 0)
+        layer.putpalette(src.getpalette())
+        cx = (32 - frame.width) // 2
+        cy = (32 - frame.height) // 2
+        layer.paste(frame, (cx, cy))
+        if i <= 9 and i != 4:
+            layer = layer.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+        if i in (10, 11):
+            layer = layer.rotate((-15 if i == 10 else -25), resample=Image.Resampling.NEAREST)
+        if i == 12:
+            layer = layer.transpose(Image.Transpose.ROTATE_90)
+        shifted = Image.new("P", (32, 32), 0)
+        shifted.putpalette(src.getpalette())
+        shifted.paste(layer, (dx, dy))
+        sheet.paste(shifted, (0, i * 32))
+    assert sheet.size == (32, 416)
+    assert len(set(sheet.getdata())) <= 16
+    out = Path("graphics/intro/prl_vanadium/noxichu_capture.png")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    sheet.save(out, transparency=0, optimize=False)
+    print("VANADIUM_NOX_CAPTURE_PASS", out, sheet.size, len(set(sheet.getdata())))
+
+
 def main():
     root=Path("graphics/intro/prl_trial")
     root.mkdir(parents=True,exist_ok=True)
@@ -80,5 +125,6 @@ def main():
         dst=animation(source,kind)
         dst.save(root/(name+".png"),transparency=0,optimize=False)
         print("INTRO_ASSET_PASS",name,dst.size,len(set(dst.getdata())))
+    generate_noxichu_capture()
 if __name__=="__main__":
     main()
