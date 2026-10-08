@@ -3,8 +3,8 @@
  * Source adapted from rafaelsanna/HOENN-S-LAST-WISH-project
  * pinned commit 8f9c28e5437d9e37ed3f6873bb8dd54dac78ccf3.
  * Uses real donor shrine/forest/cloud/moon/comet assets and replaces the
- * Celebi/Jirachi sprites with canonical Relic Ho-Oh/Astrachi animation sheets.
- * Adds Noxichu's approved running sprite during the forest transition.
+ * Celebi/Jirachi sprites with canonical the original Celebi/Jirachi animation sheets.
+ * Keeps the original forest visuals and timing unchanged.
  * Porygon splash and canonical title remain unchanged outside this branch.
  */
 #include "global.h"
@@ -67,16 +67,14 @@ static const u16 sScene0Moon_Pal[] = INCGFX_U16("graphics/intro/prl_hwl/moon.png
 static const u32 sScene0Moon_Gfx[] = INCGFX_U32("graphics/intro/prl_hwl/moon.png", ".4bpp.smol");
 static const u16 sScene0Comet_Pal[] = INCGFX_U16("graphics/intro/prl_hwl/comet.png", ".gbapal");
 static const u32 sScene0Comet_Gfx[] = INCGFX_U32("graphics/intro/prl_hwl/comet.png", ".4bpp.smol");
-static const u16 sScene0Celebi_Pal[] = INCGFX_U16("graphics/intro/prl_trial/ho_oh_relic_fly.png", ".gbapal");
+static const u16 sScene0Celebi_Pal[] = INCGFX_U16("graphics/intro/prl_hwl/celebi.png", ".gbapal");
 static const u32 sScene0Celebi_Gfx[] = INCGFX_U32("graphics/intro/prl_trial/ho_oh_relic_fly.png", ".4bpp.smol");
-static const u16 sScene0Jirachi_Pal[] = INCGFX_U16("graphics/intro/prl_trial/astrachi_fly.png", ".gbapal");
+static const u16 sScene0Jirachi_Pal[] = INCGFX_U16("graphics/intro/prl_hwl/jirachi.png", ".gbapal");
 static const u32 sScene0Jirachi_Gfx[] = INCGFX_U32("graphics/intro/prl_trial/astrachi_fly.png", ".4bpp.smol");
-static const u16 sScene0Nox_Pal[] = INCGFX_U16("graphics/intro/prl_trial/noxichu_run.png", ".gbapal");
-static const u32 sScene0Nox_Gfx[] = INCGFX_U32("graphics/intro/prl_trial/noxichu_run.png", ".4bpp.smol");
-#define sScene0Celebi2_Gfx sScene0Celebi_Gfx
-#define sScene0Celebi2_Pal sScene0Celebi_Pal
-#define sScene0Jirachi2_Gfx sScene0Jirachi_Gfx
-#define sScene0Jirachi2_Pal sScene0Jirachi_Pal
+static const u32 sScene0Celebi2_Gfx[] = INCGFX_U32("graphics/intro/prl_hwl/celebi2.png", ".4bpp.smol");
+static const u16 sScene0Celebi2_Pal[] = INCGFX_U16("graphics/intro/prl_hwl/celebi2.png", ".gbapal");
+static const u32 sScene0Jirachi2_Gfx[] = INCGFX_U32("graphics/intro/prl_hwl/jirachi2.png", ".4bpp.smol");
+static const u16 sScene0Jirachi2_Pal[] = INCGFX_U16("graphics/intro/prl_hwl/jirachi2.png", ".gbapal");
 
 static void CB2_PRLHwlScene0(void);
 static void PRL_Scene0ResetGpuRegs(void);
@@ -519,42 +517,6 @@ static const struct SpriteTemplate sSpriteTemplate_Scene0Sparkle =
     .callback    = SpriteCB_Scene0Sparkle,
 };
 
-#define TAG_SCENE0_NOX 1608
-static void SpriteCB_Scene0Nox(struct Sprite *sprite)
-{
-    sprite->x -= 3;
-    if (sprite->x < -64)
-        sprite->invisible = TRUE;
-}
-static const struct OamData sOamData_Scene0Nox = {
-    .affineMode = ST_OAM_AFFINE_OFF,
-    .objMode = ST_OAM_OBJ_NORMAL,
-    .bpp = ST_OAM_4BPP,
-    .shape = SPRITE_SHAPE(64x64),
-    .size = SPRITE_SIZE(64x64),
-    .priority = 0,
-};
-static const union AnimCmd sAnim_Scene0Nox[] = {
-    ANIMCMD_FRAME(0, 8), ANIMCMD_FRAME(64, 8),
-    ANIMCMD_FRAME(128, 8), ANIMCMD_FRAME(192, 8),
-    ANIMCMD_JUMP(0),
-};
-static const union AnimCmd *const sAnims_Scene0Nox[] = {sAnim_Scene0Nox};
-static const struct CompressedSpriteSheet sSpriteSheet_Scene0Nox = {
-    sScene0Nox_Gfx, 0x2000, TAG_SCENE0_NOX,
-};
-static const struct SpritePalette sSpritePalette_Scene0Nox = {
-    sScene0Nox_Pal, TAG_SCENE0_NOX,
-};
-static const struct SpriteTemplate sSpriteTemplate_Scene0Nox = {
-    .tileTag = TAG_SCENE0_NOX,
-    .paletteTag = TAG_SCENE0_NOX,
-    .oam = &sOamData_Scene0Nox,
-    .anims = sAnims_Scene0Nox,
-    .callback = SpriteCB_Scene0Nox,
-};
-
-// =========================================================================
 // Task data layout for Task_Scene0_Main:
 //   data[0] = tState
 //   data[1] = tTimer        — contador generico de frames
@@ -577,7 +539,6 @@ static const struct SpriteTemplate sSpriteTemplate_Scene0Nox = {
 #define tCometId      data[7]
 #define tCloudScroll  data[8]
 #define tSparkleTimer data[9]
-#define tNoxId data[10]
 
 enum {
     S0_FADE_IN_SET00 = 0,
@@ -849,13 +810,10 @@ void Task_Scene0_Load(u8 taskId)
     LoadSpritePalettes(sSpritePalette_Scene0Celebi);
     LoadCompressedSpriteSheet(sSpriteSheet_Scene0Jirachi);
     LoadSpritePalettes(sSpritePalette_Scene0Jirachi);
-    LoadCompressedSpriteSheet(&sSpriteSheet_Scene0Nox);
-    LoadSpritePalette(&sSpritePalette_Scene0Nox);
 
     gTasks[taskId].tShrineId    = CreateSprite(&sSpriteTemplate_Scene0Shrine,
                                                DISPLAY_WIDTH / 2,
                                                DISPLAY_HEIGHT - 40, 0);
-    gTasks[taskId].tNoxId = SPRITE_NONE;
     for (u8 i = 0; i < NUM_S0_STARS; ++i) sS0StarSpriteIds[i] = SPRITE_NONE;
     gTasks[taskId].tMoonId      = SPRITE_NONE;
     gTasks[taskId].tCelebiId    = SPRITE_NONE;
@@ -942,11 +900,7 @@ static void Task_Scene0_Main(u8 taskId)
         if (!gPaletteFade.active)
         {
             Scene0_LoadBgSet(2);
-            // The approved Noxichu runs at y=110 so every paw stays onscreen.
-            task->tNoxId = CreateSprite(&sSpriteTemplate_Scene0Nox,
-                                        DISPLAY_WIDTH + 32, 110, 0);
-            if (task->tNoxId == MAX_SPRITES)
-                task->tNoxId = SPRITE_NONE;
+
             task->tBgSet = 2;
             BeginNormalPaletteFade(PALETTES_BG, 8, 16, 0, RGB_BLACK);
             task->tTimer = 0;
@@ -1273,12 +1227,11 @@ static void Task_Scene0_Main(u8 taskId)
 #undef tCometId
 #undef tCloudScroll
 #undef tSparkleTimer
-#undef tNoxId
 
 // =========================================================================
 // CB2_Scene0Intro
 // =========================================================================
-void CB2_InitPRLIntroTrial(void)
+void CB2_InitPRLHwlScene0(void)
 {
     ResetTasks();
     ResetSpriteData();
