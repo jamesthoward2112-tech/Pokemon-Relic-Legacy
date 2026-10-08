@@ -50,9 +50,9 @@ static void Task_PRLTitle(u8 taskId);
 // Three restrained golden twinkles sweep across the Relic Legacy lettering.
 static const u8 sPRLTitleSparklePositions[][2] =
 {
-    {72, 99},
-    {122, 105},
-    {174, 98},
+    {83, 127},
+    {125, 126},
+    {174, 127},
 };
 
 static void PRLUpdateTitleSparkles(u16 frame)
