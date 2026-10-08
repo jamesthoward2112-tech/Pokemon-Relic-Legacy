@@ -34,6 +34,11 @@ class SkulberusMechanicsTests(unittest.TestCase):
         for move in ('MOVE_LOVELY_BITE', 'MOVE_SHADOW_FANGS', 'MOVE_RIP_AND_TEAR'):
             self.assertTrue(move in skulberus)
 
+    def test_runtime_battle_regressions_cover_bleed_turns_healing_and_boosts(self):
+        cases = self.source('test/battle/status1/bleed.c')
+        for behavior in ('Bleed deals one sixteenth', 'healing move cures Bleed', 'Bleed blocks positive stat changes'):
+            self.assertIn(behavior, cases)
+
     def test_bleed_engine_hooks_cover_damage_and_status_immunities(self):
         self.assertIn('STATUS1_BLEED', self.source('src/battle_end_turn.c'))
         self.assertIn('STATUS1_BLEED', self.source('src/battle_util.c'))

@@ -55,6 +55,12 @@ jobs:
       - name: Build PRL FireRed target
         run: make firered -j$(nproc) -O
 
+      - name: Run PRL FireRed battle regressions
+        env:
+          GAME_VERSION: FIRERED
+          TEST: 1
+        run: make -j$(nproc) check
+
       - name: Upload PRL ROM
         uses: actions/upload-artifact@v4
         with:
