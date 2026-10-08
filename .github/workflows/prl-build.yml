@@ -9,6 +9,7 @@ on:
       - prl/full-hoenn-last-wish-intro-trial-20261008
       - prl/noxichu-capture-original-forest-20261008
       - prl/noxichu-forest-polish-20261008
+      - prl/intro-forest-title-final-20261008
   pull_request:
     branches:
       - prl/intro-donors-20261008
@@ -25,23 +26,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate isolated PRL intro trial graphics
+      - name: Generate original Celebi/Jirachi forest graphics
         run: |
           python3 -m pip install Pillow
-          python3 tools/prl/generate_intro_trial.py
           python3 tools/prl/prepare_hwl_scene0.py
-          python3 tools/prl/prepare_vanadium_capture.py
           python3 - <<'PY'
           from PIL import Image
-          p = Image.open("graphics/intro/prl_vanadium/noxichu_capture.png")
-          assert p.mode == "P" and p.size == (32, 416)
-          assert len(set(p.getdata())) <= 16
-          print("NOX_CAPTURE_13_FRAME_PASS")
-          # The only new intro creature is Noxichu. HWL provides Celebi/Jirachi.
-          for name in ('celebi','jirachi','celebi2','jirachi2'):
-              im = Image.open('graphics/intro/prl_hwl/'+name+'.png')
+          for name in ('celebi', 'jirachi', 'celebi2', 'jirachi2'):
+              im = Image.open('graphics/intro/prl_hwl/' + name + '.png')
               assert im.mode == 'P' and len(set(im.getdata())) <= 16
-              print('ORIGINAL_HWL_VERIFIED',name)
+              print('ORIGINAL_HWL_VERIFIED', name)
           PY
 
       - name: Validate PRL canonical package
@@ -49,6 +43,9 @@ jobs:
 
       - name: Validate PRL Step 12 integration
         run: python3 -m unittest discover -s tests -p 'test_prl_step12_*.py'
+
+      - name: Validate final PRL intro and title transition
+        run: python3 -m unittest discover -s tests -p 'test_prl_intro_final.py'
 
       - name: Install ARM toolchain
         run: |
