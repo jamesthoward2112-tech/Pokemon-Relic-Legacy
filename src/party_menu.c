@@ -2242,6 +2242,8 @@ u8 GetAilmentFromStatus(u32 status)
         return AILMENT_BRN;
     if (status & STATUS1_FROSTBITE)
         return AILMENT_FRB;
+    if (status & STATUS1_BLEED)
+        return AILMENT_PSN;
     return AILMENT_NONE;
 }
 

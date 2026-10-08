@@ -1185,6 +1185,12 @@ static enum CancelerResult CancelerMoveFailure(struct BattleCalcValues *cv)
 {
     const u8 *battleScript = NULL;
 
+    if (cv->move == MOVE_RIP_AND_TEAR && gLastResultingMoves[cv->battlerAtk] == MOVE_RIP_AND_TEAR)
+    {
+        gBattlescriptCurrInstr = BattleScript_ButItFailed;
+        return CANCELER_RESULT_FAILURE;
+    }
+
     switch (cv->moveEffect)
     {
     case EFFECT_FLING:
