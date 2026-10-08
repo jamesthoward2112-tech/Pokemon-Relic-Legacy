@@ -21,7 +21,7 @@ BLOBS = {
     "bg00.bin": "6ba3e0531dfd571bbba2eb8a91eba38f99a8dbd3",
     "bg01.png": "0854fbbc809260aade6ff680c37b58b3db0eeab5",
     "bg01.bin": "bb053875446a2a9a7521502948f3168025befdd5",
-    "bg02.png": "5256ed42ef97be5570b56ba728851a537104e0a",
+    "bg02.png": "5256ed42ef97be5570b56ba728851a537104e0a3",
     "bg02.bin": "abad780751a2595494f57b1e6d4d638cbeb18f22",
     "bg03.png": "8689e10514369964b63b41a15e3b12623bc7b7c9",
     "bg03.bin": "b2434c47d1b97032bb5e642ad913adf1c0c09cb0",
