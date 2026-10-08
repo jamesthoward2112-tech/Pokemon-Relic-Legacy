@@ -1,0 +1,40 @@
+name: PRL Skulberus Source Audit
+
+on:
+  push:
+    branches:
+      - prl/skulberus-phantowl-donor-20261008
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  full-source-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+      - name: Inventory all tracked source references
+        shell: bash
+        run: |
+          set -eu
+          mkdir -p audit
+          echo 'PRL Skulberus full-source reference counts' > audit/summary.txt
+          echo 'Source dirs: src include constants data asm graphics tests' >> audit/summary.txt
+          for token in HYENADON SKULBERUS MIGHTYENA HARD_STONE BLEED NOCTURNAL GUARD_DOG SHADOW_TAG STYGIAN_RUSH DARK_GALE_WINGS LOVELY_BITE SHADOW_FANGS RIP_AND_TEAR INNATE; do
+            git grep -n -I -i -F "$token" -- src include constants data asm graphics tests > "audit/${token}.txt" || true
+            matches=$(wc -l < "audit/${token}.txt")
+            files=$(cut -d: -f1 "audit/${token}.txt" | sort -u | grep -c . || true)
+            printf '%-20s %6s matches in %4s files\n' "$token" "$matches" "$files" >> audit/summary.txt
+          done
+          git grep -l -I -i -F 'Hyenadon' -- . > audit/hyenadon_all_tracked_paths.txt || true
+          git grep -n -I -i -F 'Hyenadon' -- . > audit/hyenadon_all_tracked_lines.txt || true
+          cat audit/summary.txt
+          { echo '## Skulberus integration source audit'; echo '```'; cat audit/summary.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload source audit reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: prl-skulberus-source-audit
+          path: audit/
+          if-no-files-found: error
