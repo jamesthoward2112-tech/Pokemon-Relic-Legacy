@@ -47,6 +47,11 @@ static void Task_PRLTitle(u8 taskId);
 static void PRLRenderTitleMode3(void);
 static void PRLDrawPrompt(bool32 visible);
 
+static s32 PRLAbs(s32 value)
+{
+    return value < 0 ? -value : value;
+}
+
 static u16 PRLBlendTitlePixel(const u8 *bitmap, s32 x, s32 y)
 {
     const s32 pos = y * DISPLAY_WIDTH + x;
