@@ -59,7 +59,9 @@ jobs:
         env:
           GAME_VERSION: FIRERED
           TEST: 1
-        run: make BUILD=firered -j$(nproc) check
+        run: |
+          chmod +x tools/mgba/mgba-rom-test
+          make BUILD=firered -j$(nproc) check
 
       - name: Upload PRL ROM
         uses: actions/upload-artifact@v4
