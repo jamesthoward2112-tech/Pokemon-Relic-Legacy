@@ -654,6 +654,25 @@ static bool32 IsIntimidateBlocked(struct BattleCalcValues *cv, struct StatChange
     if (!st->intimidate)
         return FALSE;
 
+    if (gBattleMons[cv->battlerDef].species == SPECIES_SKULBERUS)
+    {
+        enum BattlerId flowerVeilBattler = StatChange_IsFlowerVeilProtected(cv);
+        if (flowerVeilBattler != MAX_BATTLERS_COUNT
+         && GetBattlerRawSpeedOrder(flowerVeilBattler) < GetBattlerRawSpeedOrder(cv->battlerDef))
+            return FALSE;
+        if (!CompareStat(cv->battlerDef, STAT_ATK, MIN_STAT_STAGE, CMP_GREATER_THAN, ABILITY_GUARD_DOG))
+            return FALSE;
+        SetStatChange2(cv->battlerDef, st->stat, -1 * st->stage);
+        st->script = BattleScript_DefiantActivates;
+        gEffectBattler = cv->battlerDef;
+        gLastUsedAbility = ABILITY_GUARD_DOG;
+        gBattlerAbility = cv->battlerDef;
+        gBattleScripting.battler = cv->battlerDef;
+        MarkStatsAsDone(st, st->stat);
+        RecordAbilityBattle(cv->battlerDef, ABILITY_GUARD_DOG);
+        return TRUE;
+    }
+
     switch (cv->abilities[cv->battlerDef])
     {
     case ABILITY_INNER_FOCUS:
@@ -667,9 +686,6 @@ static bool32 IsIntimidateBlocked(struct BattleCalcValues *cv, struct StatChange
         break;
     case ABILITY_GUARD_DOG:
     {
-        if (cv->abilities[cv->battlerDef] != ABILITY_GUARD_DOG
-         && gBattleMons[cv->battlerDef].species != SPECIES_SKULBERUS)
-            return FALSE;
         enum BattlerId flowerVeilBattler = StatChange_IsFlowerVeilProtected(cv);
 
         if (flowerVeilBattler != MAX_BATTLERS_COUNT

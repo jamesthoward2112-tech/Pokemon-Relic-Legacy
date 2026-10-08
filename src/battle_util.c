@@ -5039,10 +5039,9 @@ u32 IsAbilityPreventingEscape(enum BattlerId battler)
 
         enum Ability ability = GetBattlerAbility(battlerDef);
 
-        if ((ability == ABILITY_SHADOW_TAG || gBattleMons[battlerDef].species == SPECIES_SKULBERUS)
-         && (gBattleMons[battlerDef].species == SPECIES_SKULBERUS
-          || B_SHADOW_TAG_ESCAPE <= GEN_3
-          || (GetBattlerAbility(battler) != ABILITY_SHADOW_TAG && gBattleMons[battler].species != SPECIES_SKULBERUS)))
+        bool32 hasShadowTag = ability == ABILITY_SHADOW_TAG || gBattleMons[battlerDef].species == SPECIES_SKULBERUS;
+        bool32 targetHasShadowTag = GetBattlerAbility(battler) == ABILITY_SHADOW_TAG || gBattleMons[battler].species == SPECIES_SKULBERUS;
+        if (hasShadowTag && (B_SHADOW_TAG_ESCAPE <= GEN_3 || !targetHasShadowTag))
             return battlerDef + 1;
 
         if (ability == ABILITY_ARENA_TRAP && isBattlerGrounded)
