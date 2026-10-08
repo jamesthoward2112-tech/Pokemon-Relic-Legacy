@@ -1,0 +1,28 @@
+name: PRL Original Intro Donor Export
+
+on:
+  push:
+    branches:
+      - prl/intro-donors-20261008
+
+permissions:
+  contents: read
+
+jobs:
+  export-intro-donors:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout PRL asset exporter
+        uses: actions/checkout@v4
+      - name: Download and verify pinned original donor assets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 tools/prl/export_intro_donors.py
+      - name: Upload source and asset archives
+        uses: actions/upload-artifact@v4
+        with:
+          name: PRL-Original-Intro-Donors
+          path: prl_intro_donor_exports/*
+          if-no-files-found: error
+          retention-days: 30
