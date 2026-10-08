@@ -43,6 +43,32 @@ class SkulberusMechanicsTests(unittest.TestCase):
         for move in ('MOVE_LOVELY_BITE', 'MOVE_SHADOW_FANGS', 'MOVE_RIP_AND_TEAR'):
             self.assertTrue(move in skulberus)
 
+    def test_species_slot_stats_type_and_donor_graphics_are_integrated(self):
+        species = self.source('src/data/pokemon/species_info/prl_custom.h')
+        skulberus = species.split('[SPECIES_SKULBERUS]', 1)[1].split('[SPECIES_GEMIGOYLE]', 1)[0]
+        for field in (
+            '.baseHP = 100', '.baseAttack = 135', '.baseDefense = 90',
+            '.baseSpAttack = 60', '.baseSpDefense = 80', '.baseSpeed = 115',
+            '.types = MON_TYPES(TYPE_DARK)',
+            '.frontPic = gMonFrontPic_Skulberus',
+            '.backPic = gMonBackPic_Skulberus',
+            '.palette = gMonPalette_Skulberus',
+            '.shinyPalette = gMonShinyPalette_Skulberus',
+            '.iconSprite = gMonIcon_Skulberus',
+        ):
+            self.assertIn(field, skulberus)
+
+        graphics = self.source('src/data/graphics/pokemon.h')
+        for asset in ('front.png', 'back.png', 'normal.pal', 'shiny.pal', 'icon.png'):
+            self.assertIn(f'graphics/pokemon/skulberus/{asset}', graphics)
+            self.assertTrue((ROOT / f'graphics/pokemon/skulberus/{asset}').is_file())
+
+        canonical = self.source('docs/prl-canonical/PRL_Pokemon_Data.json')
+        ids = self.source('include/constants/prl_ids.h')
+        self.assertIn('"PRLNumericID": "PRL013"', canonical)
+        self.assertIn('#define PRL_SPECIES_SKULBERUS SPECIES_SKULBERUS // PRL013', ids)
+        self.assertNotIn('[SPECIES_HYENADON]', self.source('include/constants/species.h'))
+
     def test_runtime_battle_regressions_cover_all_three_innates_and_priority(self):
         cases = self.source('test/battle/ability/skulberus.c')
         for behavior in ('Stygian Rush gives Skulberus Dark moves priority', 'Guard Dog innate blocks Attack drops', 'Shadow Tag innate prevents escape'):
