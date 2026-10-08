@@ -774,23 +774,23 @@ static void Task_NewGameScene(u8 taskId)
         CopyBgTilemapBufferToVram(1);
         break;
     case 7:
-        HofPCTopBar_AddWindow(0, 30, 0, 13, 0x1C4);
-        FillBgTilemapBufferRect_Palette0(1, 0xD00F, 0,  0, 30, 2);
-        FillBgTilemapBufferRect_Palette0(1, 0xD002, 0,  2, 30, 1);
-        FillBgTilemapBufferRect_Palette0(1, 0xD00E, 0, 19, 30, 1);
-        ControlsGuide_LoadPage1();
+        // PRL: skip the blue controls guide and Pikachu information pages.
+        // Build the text window the Pikachu scene would normally create, then
+        // enter Oak's existing introduction and name-selection flow directly.
+        // Never bypass the earlier BG, sprite, or save initialization states.
+        gTasks[taskId].tTextboxWindowId = AddWindow(&sIntro_WindowTemplates[WIN_INTRO_TEXTBOX]);
+        PutWindowTilemap(gTasks[taskId].tTextboxWindowId);
+        FillWindowPixelBuffer(gTasks[taskId].tTextboxWindowId, PIXEL_FILL(0));
+        CopyWindowToVram(gTasks[taskId].tTextboxWindowId, COPYWIN_FULL);
         gPaletteFade.bufferTransferDisabled = FALSE;
-        gTasks[taskId].tTextCursorSpriteId = CreateTextCursorSprite(0, 230, 149, 0, 0);
         BlendPalettes(PALETTES_ALL, 16, RGB_BLACK);
-        break;
-    case 10:
-        BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
         SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_OBJ_ON);
         ShowBg(0);
         ShowBg(1);
+        EnableInterrupts(INTR_FLAG_VBLANK);
         SetVBlankCallback(VBlankCB_NewGameScene);
-        PlayBGM(MUS_RG_NEW_GAME_INSTRUCT);
-        gTasks[taskId].func = Task_ControlsGuide_HandleInput;
+        gTasks[taskId].tTimer = 0;
+        gTasks[taskId].func = Task_OakSpeech_Init;
         gMain.state = 0;
         return;
     }
