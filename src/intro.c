@@ -1138,9 +1138,9 @@ static u8 SetUpCopyrightScreen(void)
 
 void CB2_InitCopyrightScreenAfterBootup(void)
 {
-    // PRL FireRed: boot straight to the approved title instead of playing
-    // Game Freak Presents and the Gengar/Nidorino opening movie.
-    // Crucially, still load the save and player options before entering the menu.
+    // PRL FireRed: restore the original expansion Porygon/Dizzy Egg splash
+    // without returning to the Game Freak and Gengar/Nidorino movie.
+    // Preserve normal save initialization before changing the callback.
 #if defined(FIRERED)
     bool8 introFinished = TRUE;
 #else
@@ -1157,7 +1157,26 @@ void CB2_InitCopyrightScreenAfterBootup(void)
         SetPokemonCryStereo(gSaveBlock2Ptr->optionsSound);
         InitHeap(gHeap, HEAP_SIZE);
 #if defined(FIRERED)
+#if EXPANSION_INTRO == TRUE
+        // The copyright-screen path previously performed this reset.
+        // Perform it here so a cold boot or soft reset can start Porygon safely.
+        SetVBlankCallback(NULL);
+        SetHBlankCallback(NULL);
+        SetGpuReg(REG_OFFSET_DISPCNT, 0);
+        ResetTasks();
+        ResetSpriteData();
+        FreeAllSpritePalettes();
+        ResetPaletteFade();
+        ScanlineEffect_Stop();
+        DmaFill16(3, 0, (void *)VRAM, VRAM_SIZE);
+        DmaFill32(3, 0, (void *)OAM, OAM_SIZE);
+        DmaFill16(3, 0, (void *)PLTT, PLTT_SIZE);
+        SetMainCallback2(CB2_ExpansionIntro);
+        CreateTask(Task_HandleExpansionIntro, 0);
+#else
+        // If the expansion splash is disabled, still skip the stock intro.
         SetMainCallback2(CB2_InitTitleScreen);
+#endif
 #endif
     }
 }
