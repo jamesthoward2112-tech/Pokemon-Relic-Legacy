@@ -94,7 +94,9 @@ static const u16 sIntroFlash_Pal[]            = INCGFX_U16("graphics/intro/prl_v
 static const struct OamData sOamData_Kecleon =
 {
     .y = 0,
-    .affineMode = ST_OAM_AFFINE_OFF,
+    // Double-size OAM provides a 64x64 visible area for the 32x32 tiles,
+    // retaining all thirteen donor poses without exceeding GBA sprite VRAM.
+    .affineMode = ST_OAM_AFFINE_DOUBLE,
     .objMode = ST_OAM_OBJ_NORMAL,
     .mosaic = 0,
     .bpp = ST_OAM_4BPP,
@@ -553,6 +555,11 @@ static void Task_Scene1_Load(u8 taskId)
     LoadSpritePalette(&sSpritePalette_Flash);
 
     gTasks[taskId].sKecleonSpriteId = CreateSprite(&sSpriteTemplate_Kecleon, -16, 80, 1);
+    // Render Noxichu ~1.78x the prior size (32px source -> ~57px) while
+    // leaving capture effect sprite dimensions and tile offsets untouched.
+    // The donor's capture routine subsequently controls matrix 1 itself.
+    if (gTasks[taskId].sKecleonSpriteId != MAX_SPRITES)
+        SetOamMatrix(MATRIX_KECLEON, 0x90, 0, 0, 0x90);
     gTasks[taskId].func = Task_Scene1_FadeIn;
 }
 

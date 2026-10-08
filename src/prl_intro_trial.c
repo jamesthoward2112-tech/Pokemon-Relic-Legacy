@@ -3,7 +3,7 @@
  * Source adapted from rafaelsanna/HOENN-S-LAST-WISH-project
  * pinned commit 8f9c28e5437d9e37ed3f6873bb8dd54dac78ccf3.
  * Uses real donor shrine/forest/cloud/moon/comet assets and replaces the
- * Celebi/Jirachi sprites with canonical the original Celebi/Jirachi animation sheets.
+ * the original Celebi/Jirachi sprite sheets and palettes without substitutions.
  * Keeps the original forest visuals and timing unchanged.
  * Porygon splash and canonical title remain unchanged outside this branch.
  */
@@ -68,9 +68,9 @@ static const u32 sScene0Moon_Gfx[] = INCGFX_U32("graphics/intro/prl_hwl/moon.png
 static const u16 sScene0Comet_Pal[] = INCGFX_U16("graphics/intro/prl_hwl/comet.png", ".gbapal");
 static const u32 sScene0Comet_Gfx[] = INCGFX_U32("graphics/intro/prl_hwl/comet.png", ".4bpp.smol");
 static const u16 sScene0Celebi_Pal[] = INCGFX_U16("graphics/intro/prl_hwl/celebi.png", ".gbapal");
-static const u32 sScene0Celebi_Gfx[] = INCGFX_U32("graphics/intro/prl_trial/ho_oh_relic_fly.png", ".4bpp.smol");
+static const u32 sScene0Celebi_Gfx[] = INCGFX_U32("graphics/intro/prl_hwl/celebi.png", ".4bpp.smol");
 static const u16 sScene0Jirachi_Pal[] = INCGFX_U16("graphics/intro/prl_hwl/jirachi.png", ".gbapal");
-static const u32 sScene0Jirachi_Gfx[] = INCGFX_U32("graphics/intro/prl_trial/astrachi_fly.png", ".4bpp.smol");
+static const u32 sScene0Jirachi_Gfx[] = INCGFX_U32("graphics/intro/prl_hwl/jirachi.png", ".4bpp.smol");
 static const u32 sScene0Celebi2_Gfx[] = INCGFX_U32("graphics/intro/prl_hwl/celebi2.png", ".4bpp.smol");
 static const u16 sScene0Celebi2_Pal[] = INCGFX_U16("graphics/intro/prl_hwl/celebi2.png", ".gbapal");
 static const u32 sScene0Jirachi2_Gfx[] = INCGFX_U32("graphics/intro/prl_hwl/jirachi2.png", ".4bpp.smol");
@@ -863,7 +863,7 @@ static void Task_Scene0_Main(u8 taskId)
 
     // ------------------------------------------------------------------
     case S0_HOLD_SET00:
-        if (++task->tTimer >= 190)   // 1.5 s
+        if (++task->tTimer >= 70)   // ~1.2 s: faster forest opening
         {
             BeginNormalPaletteFade(PALETTES_BG, 8, 0, 16, RGB_BLACK);
             task->tTimer = 0;
@@ -887,7 +887,7 @@ static void Task_Scene0_Main(u8 taskId)
     case S0_HOLD_SET01:
         if (gPaletteFade.active)
             break;
-        if (++task->tTimer >= 150)   // ~2.5 s
+        if (++task->tTimer >= 65)   // ~1.1 s: faster transition
         {
             BeginNormalPaletteFade(PALETTES_BG, 8, 0, 16, RGB_BLACK);
             task->tTimer = 0;
@@ -912,7 +912,7 @@ static void Task_Scene0_Main(u8 taskId)
     case S0_HOLD_SET02:
         if (gPaletteFade.active)
             break;
-        if (++task->tTimer >= 150)   // ~2.5 s
+        if (++task->tTimer >= 70)   // ~1.2 s: preserve original fly-past
         {
             task->tTimer = 0;
             task->tState = S0_LAUNCH_SPRITES;
@@ -1058,7 +1058,7 @@ static void Task_Scene0_Main(u8 taskId)
         // Igual S0_HOLD_SET01/02: pausa até o fade-in terminar, depois conta
         if (gPaletteFade.active)
             break;
-        if (task->tTimer >= 180)   // ~3s depois que a tela abriu
+        if (task->tTimer >= 115)   // ~1.9 s for moon and clouds
         {
             task->tTimer = 0;
             task->tState = S0_LAUNCH_COMET;
@@ -1123,7 +1123,7 @@ static void Task_Scene0_Main(u8 taskId)
         task->tCloudScroll++;
         SetGpuReg(REG_OFFSET_BG1HOFS, (u16)(task->tCloudScroll >> 1));
         Scene0_UpdateStars();
-        if (++task->tTimer < 90)
+        if (++task->tTimer < 50)
             break;
         // Após o delay, cria os sprites
         {
@@ -1175,18 +1175,18 @@ static void Task_Scene0_Main(u8 taskId)
         Scene0_UpdateStars();
 
         // Sparkles aleatórios continuam por mais um tempo
-        if (++task->tSparkleTimer % 10 == 0 && task->tTimer < 120)
+        if (++task->tSparkleTimer % 10 == 0 && task->tTimer < 95)
         {
             u16 rx = (u16)((Random() % 220) + 10);
             u16 ry = (u16)((Random() % 120) + 10);
             CreateSprite(&sSpriteTemplate_Scene0Sparkle, (s16)rx, (s16)ry, 0);
         }
 
-        // Inicia o fade apenas após ~4s de delay (240 frames)
-        if (++task->tTimer == 240)
+        // Fade into the approved PRL title after ~1.7 seconds (100 frames).
+        if (++task->tTimer == 100)
             BeginNormalPaletteFade(PALETTES_ALL, 8, 0, 16, RGB_BLACK);
 
-        if (!gPaletteFade.active && task->tTimer > 240)
+        if (!gPaletteFade.active && task->tTimer > 100)
             task->tState = S0_DONE;
         break;
 

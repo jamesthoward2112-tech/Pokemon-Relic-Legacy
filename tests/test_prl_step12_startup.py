@@ -76,10 +76,17 @@ class DirectToOakStartupTests(unittest.TestCase):
             # Original forest retains both Celebi/Jirachi appearances.
             self.assertIn("Scene0_LoadBgSet(0)", function(forest, "Task_Scene0_Load"))
             self.assertIn("sScene0Comet_Gfx", forest)
-            self.assertIn("graphics/intro/prl_hwl/celebi.png", forest)
-            self.assertIn("graphics/intro/prl_hwl/jirachi.png", forest)
-            self.assertIn("graphics/intro/prl_hwl/celebi2.png", forest)
-            self.assertIn("graphics/intro/prl_hwl/jirachi2.png", forest)
+            for mon in ("celebi", "jirachi", "celebi2", "jirachi2"):
+                self.assertIn('INCGFX_U32("graphics/intro/prl_hwl/' + mon + '.png"', forest)
+                self.assertIn('INCGFX_U16("graphics/intro/prl_hwl/' + mon + '.png"', forest)
+            # Reject the actual previous error: original palettes but donor graphics.
+            self.assertNotIn('graphics/intro/prl_trial/ho_oh_relic_fly.png', forest)
+            self.assertNotIn('graphics/intro/prl_trial/astrachi_fly.png', forest)
+            self.assertIn("if (++task->tTimer >= 70)", forest)
+            self.assertIn("if (++task->tTimer >= 65)", forest)
+            self.assertIn("if (++task->tTimer == 100)", forest)
+            self.assertIn("ST_OAM_AFFINE_DOUBLE", capture)
+            self.assertIn("SetOamMatrix(MATRIX_KECLEON, 0x90", capture)
             self.assertNotIn("sSpriteTemplate_Scene0Nox", forest)
             self.assertIn("SetMainCallback2(CB2_InitTitleScreen)", function(forest, "Task_Scene0_Main"))
             self.assertIn("SetMainCallback2(CB2_PRLHwlScene0)", function(forest, "CB2_InitPRLHwlScene0"))

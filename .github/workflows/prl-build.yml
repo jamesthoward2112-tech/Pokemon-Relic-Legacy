@@ -7,8 +7,8 @@ on:
       - prl/step10-mass-integration
       - prl/intro-animation-trial-20261008
       - prl/full-hoenn-last-wish-intro-trial-20261008
-      - prl/full-hoenn-last-wish-intro-trial-20261008
       - prl/noxichu-capture-original-forest-20261008
+      - prl/noxichu-forest-polish-20261008
   pull_request:
     branches:
       - prl/intro-donors-20261008
@@ -37,11 +37,11 @@ jobs:
           assert p.mode == "P" and p.size == (32, 416)
           assert len(set(p.getdata())) <= 16
           print("NOX_CAPTURE_13_FRAME_PASS")
-          for name in ('noxichu_run','astrachi_fly','ho_oh_relic_fly'):
-              im=Image.open('graphics/intro/prl_trial/'+name+'.png')
-              assert im.size==(64,256) and im.mode=='P'
-              assert len(set(im.getdata()))<=16
-              print('GFX_VERIFIED',name)
+          # The only new intro creature is Noxichu. HWL provides Celebi/Jirachi.
+          for name in ('celebi','jirachi','celebi2','jirachi2'):
+              im = Image.open('graphics/intro/prl_hwl/'+name+'.png')
+              assert im.mode == 'P' and len(set(im.getdata())) <= 16
+              print('ORIGINAL_HWL_VERIFIED',name)
           PY
 
       - name: Validate PRL canonical package
