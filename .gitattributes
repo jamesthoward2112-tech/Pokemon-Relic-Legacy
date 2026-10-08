@@ -27,3 +27,6 @@ Makefile text eol=lf
 
 *.h linguist-language=C
 *.inc linguist-language=Assembly
+
+# PRL Mode 4 title palettes are raw 512-byte GBA data, not JASC text.
+graphics/title_screen_prl/*.pal binary
