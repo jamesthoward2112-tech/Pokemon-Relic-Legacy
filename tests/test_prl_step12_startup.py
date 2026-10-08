@@ -60,10 +60,18 @@ class DirectToOakStartupTests(unittest.TestCase):
         task = function(splash, "Task_HandleExpansionIntro")
         self.assertIn("tFrameCounter == 208", task)
         self.assertIn("gMain.newKeys != 0", task)  # player can still skip splash
-        self.assertRegex(task, r"#if defined\(FIRERED\)[\s\S]*?SetMainCallback2\(CB2_InitTitleScreen\);")
-        self.assertIn("CB2_SetUpIntroFrlg", task)  # other versions retain stock entry
-        self.assertLess(task.index("SetMainCallback2(CB2_InitTitleScreen)"),
-                        task.index("SetMainCallback2(CB2_SetUpIntroFrlg)"))
+        # Release: Porygon -> approved title. Trial: Porygon -> intro -> same title.
+        self.assertRegex(task, r"#if defined\(FIRERED\)[\s\S]*?SetMainCallback2\((CB2_InitTitleScreen|CB2_InitPRLIntroTrial)\);")
+        self.assertIn("CB2_SetUpIntroFrlg", task)
+        if "SetMainCallback2(CB2_InitPRLIntroTrial)" in task:
+            trial = source("src/prl_intro_trial.c")
+            self.assertIn("SetMainCallback2(CB2_InitTitleScreen)", function(trial, "Task_PRLIntroTrial"))
+            self.assertIn("SetMainCallback2(CB2_PRLIntroTrial)", function(trial, "CB2_InitPRLIntroTrial"))
+            self.assertLess(task.index("SetMainCallback2(CB2_InitPRLIntroTrial)"),
+                            task.index("SetMainCallback2(CB2_SetUpIntroFrlg)"))
+        else:
+            self.assertLess(task.index("SetMainCallback2(CB2_InitTitleScreen)"),
+                            task.index("SetMainCallback2(CB2_SetUpIntroFrlg)"))
 
     def test_title_remains_approved_prl_entry_point(self):
         src = source("src/title_screen_frlg.c")

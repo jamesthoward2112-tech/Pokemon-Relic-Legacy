@@ -5,6 +5,10 @@ on:
     branches:
       - prl-main
       - prl/step10-mass-integration
+      - prl/intro-animation-trial-20261008
+  pull_request:
+    branches:
+      - prl/intro-donors-20261008
   workflow_dispatch:
 
 env:
@@ -16,6 +20,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Generate isolated PRL intro trial graphics
+        run: |
+          python3 -m pip install Pillow
+          python3 tools/prl/generate_intro_trial.py
+          python3 - <<'PY'
+          from PIL import Image
+          for name in ('noxichu_run','astrachi_fly','ho_oh_relic_fly'):
+              im=Image.open('graphics/intro/prl_trial/'+name+'.png')
+              assert im.size==(64,256) and im.mode=='P'
+              assert len(set(im.getdata()))<=16
+              print('GFX_VERIFIED',name)
+          PY
 
       - name: Validate PRL canonical package
         run: python3 docs/prl-canonical/validate_canonical.py
