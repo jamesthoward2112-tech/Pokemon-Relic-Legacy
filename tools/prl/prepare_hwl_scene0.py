@@ -29,7 +29,11 @@ BLOBS = {
     "clouds.bin": "9a5fab9b4d4582fd5dd9445db8c3ade5e5a07c04",
     "shrine.png": "8322783b36041ef8982ddd526a829ad940ca2911",
     "moon.png": "ca89951f84986578aca5b43674e0d599e5e53ea9",
-    "comet.png": "c2719a0e8c9d85060b1733efdffb6a7ad5593e36"
+    "comet.png": "c2719a0e8c9d85060b1733efdffb6a7ad5593e36",
+    "celebi.png": "e0de2459dca6c16c8d0aa01c23b73065869bea8c",
+    "jirachi.png": "427bc5565899fe667b67a8be0c4ca027d5e4e9b6",
+    "celebi2.png": "4ecdd567a34285738566e29f261eb27f530f1a87",
+    "jirachi2.png": "d3c880a460620eb965e4629556703241d5ae7822"
 }
 DEST = Path("graphics/intro/prl_hwl")
 DEST.mkdir(parents=True, exist_ok=True)
