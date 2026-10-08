@@ -81,7 +81,9 @@ static u16 PRLBlendTitlePixel(const u8 *bitmap, s32 x, s32 y)
         nr = other & 31;
         ng = (other >> 5) & 31;
         nb = (other >> 10) & 31;
-        diff = ABS(cr - nr) + ABS(cg - ng) + ABS(cb - nb);
+        diff = (cr > nr ? cr - nr : nr - cr)
+             + (cg > ng ? cg - ng : ng - cg)
+             + (cb > nb ? cb - nb : nb - cb);
 
         // Only blend near-colours. High-contrast outlines remain untouched.
         if (diff <= 6)
