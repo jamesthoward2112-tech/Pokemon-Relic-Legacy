@@ -111,20 +111,10 @@ def generate_noxichu_capture():
 
 
 def main():
-    root=Path("graphics/intro/prl_trial")
-    root.mkdir(parents=True,exist_ok=True)
-    sources={
-        "noxichu_run":(Image.open(io.BytesIO(base64.b64decode(NOX_APPROVED_PNG_BASE64))),"nox"),
-        "astrachi_fly":(Image.open("graphics/pokemon/astrachi/front.png"),"astra"),
-        "ho_oh_relic_fly":(Image.open("graphics/pokemon/ho_oh_relic/front.png"),"hooh"),
-    }
-    for name,(source,kind) in sources.items():
-        source.load()
-        assert source.size==(64,64) and source.mode=="P", (name,source.mode,source.size)
-        source.info["transparency"]=0
-        dst=animation(source,kind)
-        dst.save(root/(name+".png"),transparency=0,optimize=False)
-        print("INTRO_ASSET_PASS",name,dst.size,len(set(dst.getdata())))
+    # Final trial has exactly one custom intro Pokemon: Noxichu.
+    # Celebi/Jirachi are fetched unmodified from Hoenn's Last Wish.
+    # Stop generating Ho-Oh and Astrachi donor assets altogether.
     generate_noxichu_capture()
-if __name__=="__main__":
+
+if __name__ == "__main__":
     main()
