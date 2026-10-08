@@ -80,7 +80,8 @@ class PresentationIntegrationTests(unittest.TestCase):
         self.contains("SetMainCallback2(CB2_PRLTitleRun)", init)
         render = body(source, "PRLRenderTitleMode3")
         self.contains("PRLBlendTitlePixel", render)
-        self.contains("sPRLTitlePalette", render)
+        blend = body(source, "PRLBlendTitlePixel")
+        self.contains("sPRLTitlePalette", blend)
 
     def test_title_loader_consumes_exact_approved_art_and_palette(self):
         source = read("src/title_screen_frlg.c")
