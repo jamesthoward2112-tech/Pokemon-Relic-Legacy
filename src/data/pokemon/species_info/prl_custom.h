@@ -244,26 +244,26 @@
     .levelUpLearnset = sSwamplithLevelUpLearnset, .teachableLearnset = sSwampertTeachableLearnset,
 },
 
-[SPECIES_HYENADON] =
+[SPECIES_SKULBERUS] =
 {
-    .baseHP = 90, .baseAttack = 135, .baseDefense = 85,
-    .baseSpAttack = 50, .baseSpDefense = 80, .baseSpeed = 110,
-    .types = MON_TYPES(TYPE_DARK, TYPE_GROUND),
+    .baseHP = 100, .baseAttack = 135, .baseDefense = 90,
+    .baseSpAttack = 60, .baseSpDefense = 80, .baseSpeed = 115,
+    .types = MON_TYPES(TYPE_DARK),
     .catchRate = 127, .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 147 : 128,
     .genderRatio = PERCENT_FEMALE(50), .eggCycles = 15, .friendship = STANDARD_FRIENDSHIP,
     .growthRate = GROWTH_MEDIUM_FAST, .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
-    .abilities = { ABILITY_MOXIE, ABILITY_NONE, ABILITY_NONE }, .bodyColor = BODY_COLOR_GRAY,
-    .speciesName = _("Hyenadon"), .cryId = CRY_MIGHTYENA, .natDexNum = NATIONAL_DEX_MIGHTYENA,
+    .abilities = { ABILITY_MOXIE, ABILITY_STRONG_JAW, ABILITY_STRONG_JAW }, .bodyColor = BODY_COLOR_GRAY,
+    .speciesName = _("Skulberus"), .cryId = CRY_MIGHTYENA, .natDexNum = NATIONAL_DEX_MIGHTYENA,
     .categoryName = _("Relic"), .height = 10, .weight = 370,
     .description = COMPOUND_STRING("A Pokemon awakened by Relic Resonance.\nIts ancient power has taken a new form."),
     .pokemonScale = 256, .pokemonOffset = 0, .trainerScale = 256, .trainerOffset = 0,
-    .frontPic = gMonFrontPic_Hyenadon, .frontPicSize = MON_COORDS_SIZE(64, 64), .frontPicYOffset = 0,
+    .frontPic = gMonFrontPic_Skulberus, .frontPicSize = MON_COORDS_SIZE(64, 64), .frontPicYOffset = 0,
     .frontAnimFrames = sAnims_SingleFramePlaceHolder, .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-    .backPic = gMonBackPic_Hyenadon, .backPicSize = MON_COORDS_SIZE(64, 64), .backPicYOffset = 0, .backAnimId = BACK_ANIM_NONE,
-    .palette = gMonPalette_Hyenadon, .shinyPalette = gMonShinyPalette_Hyenadon,
-    .iconSprite = gMonIcon_Hyenadon, .iconPalIndex = 2,
+    .backPic = gMonBackPic_Skulberus, .backPicSize = MON_COORDS_SIZE(64, 64), .backPicYOffset = 0, .backAnimId = BACK_ANIM_NONE,
+    .palette = gMonPalette_Skulberus, .shinyPalette = gMonShinyPalette_Skulberus,
+    .iconSprite = gMonIcon_Skulberus, .iconPalIndex = 2,
     .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-    .levelUpLearnset = sHyenadonLevelUpLearnset, .teachableLearnset = sMightyenaTeachableLearnset,
+    .levelUpLearnset = sSkulberusLevelUpLearnset, .teachableLearnset = sSkulberusTeachableLearnset,
 },
 
 [SPECIES_GEMIGOYLE] =

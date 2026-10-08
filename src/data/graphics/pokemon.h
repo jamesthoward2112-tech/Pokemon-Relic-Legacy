@@ -27578,11 +27578,11 @@ const u32 gMonBackPic_Swamplith[] = INCGFX_U32("graphics/pokemon/swamplith/back.
 const u16 gMonShinyPalette_Swamplith[] = INCGFX_U16("graphics/pokemon/swamplith/shiny.pal", ".gbapal");
 const u8 gMonIcon_Swamplith[] = INCGFX_U8("graphics/pokemon/swamplith/icon.png", ".4bpp");
 
-const u32 gMonFrontPic_Hyenadon[] = INCGFX_U32("graphics/pokemon/hyenadon/front.png", ".4bpp.smol");
-const u16 gMonPalette_Hyenadon[] = INCGFX_U16("graphics/pokemon/hyenadon/normal.pal", ".gbapal");
-const u32 gMonBackPic_Hyenadon[] = INCGFX_U32("graphics/pokemon/hyenadon/back.png", ".4bpp.smol");
-const u16 gMonShinyPalette_Hyenadon[] = INCGFX_U16("graphics/pokemon/hyenadon/shiny.pal", ".gbapal");
-const u8 gMonIcon_Hyenadon[] = INCGFX_U8("graphics/pokemon/hyenadon/icon.png", ".4bpp");
+const u32 gMonFrontPic_Skulberus[] = INCGFX_U32("graphics/pokemon/skulberus/front.png", ".4bpp.smol");
+const u16 gMonPalette_Skulberus[] = INCGFX_U16("graphics/pokemon/skulberus/normal.pal", ".gbapal");
+const u32 gMonBackPic_Skulberus[] = INCGFX_U32("graphics/pokemon/skulberus/back.png", ".4bpp.smol");
+const u16 gMonShinyPalette_Skulberus[] = INCGFX_U16("graphics/pokemon/skulberus/shiny.pal", ".gbapal");
+const u8 gMonIcon_Skulberus[] = INCGFX_U8("graphics/pokemon/skulberus/icon.png", ".4bpp");
 
 const u32 gMonFrontPic_Gemigoyle[] = INCGFX_U32("graphics/pokemon/gemigoyle/front.png", ".4bpp.smol");
 const u16 gMonPalette_Gemigoyle[] = INCGFX_U16("graphics/pokemon/gemigoyle/normal.pal", ".gbapal");

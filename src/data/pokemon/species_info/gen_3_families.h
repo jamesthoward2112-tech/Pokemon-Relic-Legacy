@@ -1077,7 +1077,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .levelUpLearnset = sMightyenaLevelUpLearnset,
         .teachableLearnset = sMightyenaTeachableLearnset,
     
-        .evolutions = EVOLUTION({EVO_LEVEL, 0, SPECIES_HYENADON, CONDITIONS({IF_HOLD_ITEM, ITEM_HARD_STONE})}),
+        .evolutions = EVOLUTION({EVO_LEVEL, 0, SPECIES_SKULBERUS, CONDITIONS({IF_HOLD_ITEM, ITEM_HARD_STONE})}),
 },
 #endif //P_FAMILY_POOCHYENA
 
