@@ -65,8 +65,12 @@ class DirectToOakStartupTests(unittest.TestCase):
         self.assertIn("CB2_SetUpIntroFrlg", task)
         if "SetMainCallback2(CB2_InitPRLIntroTrial)" in task:
             trial = source("src/prl_intro_trial.c")
-            self.assertIn("SetMainCallback2(CB2_InitTitleScreen)", function(trial, "Task_PRLIntroTrial"))
-            self.assertIn("SetMainCallback2(CB2_PRLIntroTrial)", function(trial, "CB2_InitPRLIntroTrial"))
+            self.assertIn("SetMainCallback2(CB2_InitTitleScreen)", function(trial, "Task_Scene0_Main"))
+            self.assertIn("SetMainCallback2(CB2_PRLHwlScene0)", function(trial, "CB2_InitPRLIntroTrial"))
+            self.assertIn("Scene0_LoadBgSet(0)", function(trial, "Task_Scene0_Load"))
+            self.assertIn("Scene0_CreateStars()", trial)
+            self.assertIn("sScene0Comet_Gfx", trial)
+            self.assertIn("sSpriteTemplate_Scene0Nox", trial)
             self.assertLess(task.index("SetMainCallback2(CB2_InitPRLIntroTrial)"),
                             task.index("SetMainCallback2(CB2_SetUpIntroFrlg)"))
         else:
