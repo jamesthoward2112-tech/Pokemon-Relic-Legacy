@@ -75,30 +75,40 @@ class PresentationIntegrationTests(unittest.TestCase):
                                   body(source, "CB2_InitTitleScreenFrlg")), "FireRed entrypoint bypasses PRL title")
         init = body(source, "InitPRLTitleScreen")
         self.contains("DISPCNT_MODE_3 | DISPCNT_BG2_ON", init)
-        self.contains("PRLRenderTitleMode3()", init)
+        self.contains("CpuCopy16(sPRLTitleMode3, (void *)VRAM, sizeof(sPRLTitleMode3))", init)
         self.contains("PRLDrawPrompt(TRUE)", init)
+        self.contains("gTasks[taskId].data[1] = TRUE", init)
         self.contains("SetMainCallback2(CB2_PRLTitleRun)", init)
-        render = body(source, "PRLRenderTitleMode3")
-        self.contains("PRLBlendTitlePixel", render)
-        blend = body(source, "PRLBlendTitlePixel")
-        self.contains("sPRLTitlePalette", blend)
+        self.assertNotIn("PRLBlendTitlePixel", source, "Do not reinstate palette smoothing")
 
-    def test_title_loader_consumes_exact_approved_art_and_palette(self):
+    def test_title_loader_consumes_final_option_b_rgb555_assets(self):
         source = read("src/title_screen_frlg.c")
         fixtures = {
-            "sPRLTitlePalette": ("prl_title.pal", 512, "84be24641ff4b5916908d9b3bd1041bc16d2805f9c28e2b9902828e0f58481f0"),
-            "sPRLTitleBitmap": ("prl_title_bitmap.bin", 38400, "088aa0cf45bc7138410f2d511a9101237935f6f2de7187e6455fb04c53f1b6b5"),
-            "sPRLTitlePressBase": ("prl_title_press_base.bin", 4800, "acc4757de4264e2288e26e3f60ae60a3632f2e771f103c55059e160cac779b41"),
-            "sPRLTitlePressOn": ("prl_title_press_on.bin", 4800, "c0c26fdf2b5bbbf3992a7b33a90b2a2851740640ea1c0baeef56b349b3f913ea"),
+            "sPRLTitleMode3": ("prl_option_b_title_mode3.bin", 76800,
+                              "61d225c91f0c9139a9c02720b2df20d1e7eb37f20ee924ae7e69c0061d25b744"),
+            "sPRLTitlePromptOff": ("prl_option_b_prompt_off_mode3.bin", 9600,
+                                  "3df3735b0a4e97424225045028bb2b455bd176fbb0465c65263ef8199d4fcf4c"),
         }
         for symbol, (filename, size, digest) in fixtures.items():
             with self.subTest(asset=filename):
                 path = "graphics/title_screen_prl/" + filename
                 self.contains(f'{symbol}[] = INCBIN_U16("{path}")', source)
-                self.assertTrue((ROOT / path).is_file(), "Missing approved title asset: " + path)
                 data = (ROOT / path).read_bytes()
                 self.assertEqual(len(data), size)
                 self.assertEqual(hashlib.sha256(data).hexdigest(), digest)
+
+    def test_prompt_pixel_bounds_are_inside_the_ornate_box(self):
+        full = (ROOT / "graphics/title_screen_prl/prl_option_b_title_mode3.bin").read_bytes()
+        off = (ROOT / "graphics/title_screen_prl/prl_option_b_prompt_off_mode3.bin").read_bytes()
+        on_pixels = struct.unpack("<4800H", full[140 * 240 * 2:])
+        off_pixels = struct.unpack("<4800H", off)
+        changed = [(i % 240, i // 240 + 140) for i, (a, b)
+                   in enumerate(zip(on_pixels, off_pixels)) if a != b]
+        self.assertTrue(changed, "PRESS START is missing")
+        self.assertGreaterEqual(min(x for x, y in changed), 85)
+        self.assertLessEqual(max(x for x, y in changed), 155)
+        self.assertGreaterEqual(min(y for x, y in changed), 144)
+        self.assertLessEqual(max(y for x, y in changed), 152)
 
     def test_title_prompt_blinks_and_start_reaches_existing_menu(self):
         source = read("src/title_screen_frlg.c")
@@ -108,10 +118,10 @@ class PresentationIntegrationTests(unittest.TestCase):
         self.contains("if (++data[0] >= 40)", task)
         self.contains("PRLDrawPrompt(data[1])", task)
         prompt = body(source, "PRLDrawPrompt")
-        self.contains("sPRLTitlePressOn", prompt)
-        self.contains("sPRLTitlePressBase", prompt)
-        self.contains("140 * DISPLAY_WIDTH", prompt)
-        self.contains("sPRLTitlePalette[overlay[i]]", prompt)
+        self.contains("sPRLTitleMode3", prompt)
+        self.contains("sPRLTitlePromptOff", prompt)
+        self.contains("PRL_TITLE_PROMPT_Y * DISPLAY_WIDTH", prompt)
+        self.contains("sizeof(sPRLTitlePromptOff)", prompt)
         self.contains("RunTasks()", body(source, "CB2_PRLTitleRun"))
 
     def test_oak_intro_uses_vanilla_firered_oak(self):
