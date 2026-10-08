@@ -71,7 +71,7 @@ class SkulberusMechanicsTests(unittest.TestCase):
 
     def test_runtime_battle_regressions_cover_all_three_innates_and_priority(self):
         cases = self.source('test/battle/ability/skulberus.c')
-        for behavior in ('Stygian Rush gives Skulberus Dark moves priority', 'Guard Dog innate blocks Attack drops', 'Shadow Tag innate prevents escape'):
+        for behavior in ('Stygian Rush gives Skulberus Dark moves priority', 'Guard Dog innate blocks Attack drops', 'Skulberus Shadow Tag innate prevents the opposing Pokemon from escaping'):
             self.assertIn(behavior, cases)
 
     def test_runtime_battle_regressions_cover_bleed_turns_healing_and_boosts(self):

@@ -24267,6 +24267,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     .effect = EFFECT_HIT, .power = 110, .type = TYPE_DARK, .accuracy = 90,
     .pp = 5, .target = TARGET_SELECTED, .priority = 0,
     .category = DAMAGE_CATEGORY_PHYSICAL, .makesContact = TRUE, .bitingMove = TRUE,
+    .cantUseTwice = TRUE,
     .additionalEffects = (const struct AdditionalEffect[]) {
         {
             .moveEffect = MOVE_EFFECT_STAT_MINUS,
