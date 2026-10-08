@@ -41,6 +41,67 @@ static void CB2_PRLTitleRun(void);
 static void VBlankCB_PRLTitle(void);
 static void Task_PRLTitle(u8 taskId);
 
+// Bitmap Mode 3 has no indexed palette to fade, so darken BG2 in hardware.
+// This keeps every pixel of the approved 240x160 title artwork intact.
+#define PRL_TITLE_SPARKLE_RADIUS 8
+#define PRL_TITLE_SPARKLE_DURATION 20
+#define PRL_TITLE_SPARKLE_GAP 24
+
+// Three restrained golden twinkles sweep across the Relic Legacy lettering.
+static const u8 sPRLTitleSparklePositions[][2] =
+{
+    {72, 99},
+    {122, 105},
+    {174, 98},
+};
+
+static void PRLUpdateTitleSparkles(u16 frame)
+{
+    u16 *const dst = (u16 *)VRAM;
+    u8 i;
+
+    for (i = 0; i < ARRAY_COUNT(sPRLTitleSparklePositions); i++)
+    {
+        const u16 start = i * PRL_TITLE_SPARKLE_GAP;
+        s16 x, y, d;
+        u16 age;
+        u8 length;
+
+        if (frame < start || frame > start + PRL_TITLE_SPARKLE_DURATION)
+            continue;
+
+        x = sPRLTitleSparklePositions[i][0];
+        y = sPRLTitleSparklePositions[i][1];
+        age = frame - start;
+
+        // Restore original Mode 3 pixels first: no permanent marks or ghosts.
+        for (d = -PRL_TITLE_SPARKLE_RADIUS; d <= PRL_TITLE_SPARKLE_RADIUS; d++)
+        {
+            u32 offset = (y + d) * DISPLAY_WIDTH + x - PRL_TITLE_SPARKLE_RADIUS;
+            CpuCopy16(sPRLTitleMode3 + offset, dst + offset,
+                      (PRL_TITLE_SPARKLE_RADIUS * 2 + 1) * sizeof(u16));
+        }
+
+        if (age == PRL_TITLE_SPARKLE_DURATION)
+            continue;
+
+        length = (age <= 9 ? age : 19 - age) / 2 + 1;
+        for (d = -length; d <= length; d++)
+        {
+            // White core and soft gold horizontal/vertical rays.
+            u16 color = ((d >= -1) && (d <= 1)) ? RGB(31, 31, 31) : RGB(31, 27, 11);
+            dst[y * DISPLAY_WIDTH + x + d] = color;
+            dst[(y + d) * DISPLAY_WIDTH + x] = color;
+        }
+        for (d = -2; d <= 2; d++)
+        {
+            dst[(y + d) * DISPLAY_WIDTH + x + d] = RGB(31, 28, 15);
+            dst[(y - d) * DISPLAY_WIDTH + x + d] = RGB(31, 28, 15);
+        }
+        dst[y * DISPLAY_WIDTH + x] = RGB(31, 31, 31);
+    }
+}
+
 static void PRLDrawPrompt(bool32 visible)
 {
     u16 *dst = (u16 *)VRAM + (PRL_TITLE_PROMPT_Y * DISPLAY_WIDTH);
@@ -84,9 +145,15 @@ static void InitPRLTitleScreen(void)
     CpuCopy16(sPRLTitleMode3, (void *)VRAM, sizeof(sPRLTitleMode3));
     PRLDrawPrompt(TRUE);
 
+    // The image starts completely black and smoothly appears over 32 frames.
+    SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG2 | BLDCNT_EFFECT_DARKEN);
+    SetGpuReg(REG_OFFSET_BLDY, 16);
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_3 | DISPCNT_BG2_ON);
     taskId = CreateTask(Task_PRLTitle, 0);
     gTasks[taskId].data[1] = TRUE; // Initial prompt is ON; first blink is OFF.
+    gTasks[taskId].data[2] = 16;   // Hardware brightness: 16 = black; 0 = full artwork.
+    gTasks[taskId].data[3] = 0;    // Sparkle clock after fade completes.
+    gTasks[taskId].data[4] = 0;    // Fade tick divider.
     SetVBlankCallback(VBlankCB_PRLTitle);
     SetMainCallback2(CB2_PRLTitleRun);
     m4aSongNumStart(MUS_TITLE);
@@ -105,6 +172,22 @@ static void VBlankCB_PRLTitle(void)
 static void Task_PRLTitle(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
+
+    // Mode 3 needs a BG2 brightness fade rather than palette fading.
+    if (data[2] > 0)
+    {
+        if (++data[4] >= 2)
+        {
+            data[4] = 0;
+            SetGpuReg(REG_OFFSET_BLDY, --data[2]);
+        }
+        return;
+    }
+
+    // A short, single-use flourish across the logo, then leave the title still.
+    if (data[3] <= (ARRAY_COUNT(sPRLTitleSparklePositions) - 1)
+                       * PRL_TITLE_SPARKLE_GAP + PRL_TITLE_SPARKLE_DURATION)
+        PRLUpdateTitleSparkles(data[3]++);
 
     if (JOY_NEW(A_BUTTON | START_BUTTON))
     {
