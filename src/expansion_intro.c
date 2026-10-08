@@ -278,10 +278,11 @@ void Task_HandleExpansionIntro(u8 taskId)
             FreeAllSpritePalettes();
             DestroyTask(taskId);
 #if defined(FIRERED)
-            // Optional three-Pokemon cinematic trial (no changes to active PRL main).
-            extern void CB2_InitPRLIntroTrial(void);
+            // Final intro: original Celebi/Jirachi forest directly after the
+            // Porygon splash. The Noxichu capture sequence is retired.
+            extern void CB2_InitPRLHwlScene0(void);
             SetVBlankCallback(NULL);
-            SetMainCallback2(CB2_InitPRLIntroTrial);
+            SetMainCallback2(CB2_InitPRLHwlScene0);
 #else
             if (IS_FRLG)
             {
