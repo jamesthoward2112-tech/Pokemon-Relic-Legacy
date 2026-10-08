@@ -1,0 +1,66 @@
+name: PRL Pre-Publication Scan
+
+on:
+  push:
+    branches:
+      - prl/skulberus-phantowl-donor-20261008
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check tracked sources and historic filenames for credentials
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import pathlib, re, subprocess
+          def call(*args):
+              return subprocess.check_output(args)
+          files = [s.decode('utf-8','replace') for s in call('git','ls-files','-z').split(b'\x00') if s]
+          history = call('git','log','--all','--name-only','--format=').decode('utf-8','replace').splitlines()
+          name_rule = re.compile(r'(^|/)(?:\.env(?:\..*)?|id_rsa|id_ed25519|credentials(?:\.[^/]*)?|.*\.(?:pem|p12|pfx)|private\.key|secrets?(?:\.[^/]*)?)$', re.I)
+          patterns = {
+           'GitHub token': rb'gh[pousr]_[a-zA-Z0-9]{30,}|github_pat_[a-zA-Z0-9_]{20,}',
+           'AWS access key': rb'AKIA[0-9A-Z]{16}',
+           'private key': rb'-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----',
+           'Google API key': rb'AIza[0-9A-Za-z_\\-]{35}',
+           'Slack token': rb'xox[baprs]-[0-9A-Za-z-]{15,}'
+          }
+          compiled = {name:re.compile(p) for name,p in patterns.items()}
+          flagged_paths = sorted(set(x for x in files if name_rule.search(x)))
+          historical_paths = sorted(set(x for x in history if name_rule.search(x)))
+          hits = []
+          scanned = 0
+          for path in files:
+              p=pathlib.Path(path)
+              if not p.is_file() or p.stat().st_size > 2_000_000:
+                  continue
+              data=p.read_bytes()
+              if b'\x00' in data[:1024]:
+                  continue
+              scanned+=1
+              for label,pat in compiled.items():
+                  if pat.search(data):
+                      hits.append((path,label))
+          print('Tracked files:',len(files))
+          print('Text files scanned:',scanned)
+          print('Potential sensitive paths in current tree:',len(flagged_paths))
+          for path in flagged_paths[:30]: print('CURRENT_PATH:',path)
+          print('Potential sensitive paths in commit history:',len(historical_paths))
+          for path in historical_paths[:30]: print('HISTORICAL_PATH:',path)
+          print('High-confidence current source pattern flags:',len(hits))
+          for path,label in hits[:30]: print('REVIEW:',path,label)
+          print('Note: This is a preliminary static scan, not an exhaustive secret or copyright audit.')
+          if flagged_paths or historical_paths or hits:
+              print('REVIEW REQUIRED BEFORE PUBLICATION')
+          else:
+              print('NO OBVIOUS CREDENTIAL SIGNALS FOUND')
+          
+          PY
