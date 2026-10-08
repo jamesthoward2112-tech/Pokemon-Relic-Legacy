@@ -10,6 +10,7 @@ on:
   pull_request:
     branches:
       - prl/intro-donors-20261008
+      - prl/intro-animation-trial-20261008
   workflow_dispatch:
 
 env:
