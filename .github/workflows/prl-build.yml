@@ -7,6 +7,7 @@ on:
       - prl/step10-mass-integration
       - prl/intro-animation-trial-20261008
       - prl/full-hoenn-last-wish-intro-trial-20261008
+      - prl/full-hoenn-last-wish-intro-trial-20261008
       - prl/noxichu-capture-original-forest-20261008
   pull_request:
     branches:
