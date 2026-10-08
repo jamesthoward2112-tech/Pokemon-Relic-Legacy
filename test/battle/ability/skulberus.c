@@ -58,6 +58,23 @@ SINGLE_BATTLE_TEST("Skulberus Nocturnal boosts Dark damage independently of its 
     }
 }
 
+SINGLE_BATTLE_TEST("Skulberus Nocturnal reduces incoming Dark damage by 25%", s16 damage)
+{
+    enum Species species;
+    PARAMETRIZE { species = SPECIES_MIGHTYENA; }
+    PARAMETRIZE { species = SPECIES_SKULBERUS; }
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { SpAttack(150); Moves(MOVE_DARK_PULSE); }
+        OPPONENT(species) { Ability(ABILITY_MOXIE); SpDefense(100); HP(500); MaxHP(500); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_DARK_PULSE, WITH_RNG(RNG_DAMAGE_MODIFIER, 0)); }
+    } SCENE {
+        HP_BAR(opponent, captureDamage: &results[i].damage);
+    } FINALLY {
+        EXPECT_MUL_EQ(results[0].damage, Q_4_12(0.75), results[1].damage);
+    }
+}
+
 SINGLE_BATTLE_TEST("Skulberus Strong Jaw boosts its custom biting moves", s16 damage)
 {
     enum Ability ability;
@@ -98,5 +115,17 @@ SINGLE_BATTLE_TEST("Lovely Bite can infatuate an opposing Pokemon")
         TURN { MOVE(player, MOVE_LOVELY_BITE, WITH_RNG(RNG_SECONDARY_EFFECT, TRUE)); }
     } THEN {
         EXPECT(opponent->volatiles.infatuation);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shadow Fangs can curse an opposing Pokemon")
+{
+    GIVEN {
+        PLAYER(SPECIES_SKULBERUS) { Ability(ABILITY_MOXIE); Moves(MOVE_SHADOW_FANGS); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { MOVE(player, MOVE_SHADOW_FANGS, WITH_RNG(RNG_SECONDARY_EFFECT, TRUE)); }
+    } THEN {
+        EXPECT(opponent->volatiles.cursed);
     }
 }
