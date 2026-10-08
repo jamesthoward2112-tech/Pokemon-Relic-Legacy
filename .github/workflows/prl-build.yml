@@ -6,6 +6,9 @@ on:
       - prl-main
       - prl/step10-mass-integration
       - prl/intro-animation-trial-20261008
+  pull_request:
+    branches:
+      - prl/intro-donors-20261008
   workflow_dispatch:
 
 env:
