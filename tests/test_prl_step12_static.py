@@ -27,18 +27,18 @@ class Step12StaticIntegrationTests(unittest.TestCase):
         self.assertRegex(pokemon, r"case IF_MAP_TYPE:\s*if \(gMapHeader\.mapType == params\[i\]\.arg1\)")
         families = read("src/data/pokemon/species_info/gen_1_families.h") + read("src/data/pokemon/species_info/gen_2_families.h")
         stone_rules = re.findall(r"EVO_ITEM, ITEM_ANCIENT_STONE, SPECIES_([A-Z0-9_]+), CONDITIONS\(\{IF_MIN_LEVEL, (\d+)\}\)", families)
-        self.assertEqual(len(stone_rules), 11)
+        self.assertEqual(len(stone_rules), 12)
         expected = {"EDENSAUR": "45", "CHARAXIS": "45", "FORTOTOISE": "45", "MYSTYNX": "40",
                     "FAERANIUM": "45", "PYROCLAST": "45", "FERALODON": "45", "SHUCKOLOSSE": "40",
-                    "HERACURION": "40", "SKARMADON": "40", "DONPHALANX": "40"}
+                    "HERACURION": "40", "SKARMADON": "40", "DONPHALANX": "40", "MILTITAN": "40"}
         self.assertEqual(dict(stone_rules), expected)
         self.assertRegex(families, r"SPECIES_GHOULBAT.*?EVO_LEVEL, 50, SPECIES_GHOULBAT, CONDITIONS\(\{IF_TIME, TIME_NIGHT\}, \{IF_MAP_TYPE, MAP_TYPE_UNDERGROUND\}\)")
 
     def test_donphalanx_uses_great_tusk_visual_and_learnset_tables(self):
         data = read("src/data/pokemon/species_info/prl_custom.h")
-        block = re.search(r"\[SPECIES_DONPHALANX\]\s*=\s*\{.*?\n    \},", data, re.S)
-        self.assertIsNotNone(block)
-        block = block.group()
+        start = data.index("[SPECIES_DONPHALANX]")
+        end = data.index("[SPECIES_MYSTYNX]", start)
+        block = data[start:end]
         for symbol in ("speciesName = _(\"Donphalanx\")", "gMonFrontPic_GreatTusk",
                        "gMonBackPic_GreatTusk", "gMonPalette_GreatTusk",
                        "gMonShinyPalette_GreatTusk", "gMonIcon_GreatTusk",
