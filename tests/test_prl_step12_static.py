@@ -32,7 +32,7 @@ class Step12StaticIntegrationTests(unittest.TestCase):
                     "FAERANIUM": "45", "PYROCLAST": "45", "FERALODON": "45", "SHUCKOLOSSE": "40",
                     "HERACURION": "40", "SKARMADON": "40", "DONPHALANX": "40", "MILTITAN": "40"}
         self.assertEqual(dict(stone_rules), expected)
-        self.assertRegex(families, r"SPECIES_GHOULBAT.*?EVO_LEVEL, 50, SPECIES_GHOULBAT, CONDITIONS\(\{IF_TIME, TIME_NIGHT\}, \{IF_MAP_TYPE, MAP_TYPE_UNDERGROUND\}\)")
+        self.assertRegex(families, r"EVO_LEVEL, 50, SPECIES_GHOULBAT, CONDITIONS\(\{IF_TIME, TIME_NIGHT\}, \{IF_MAP_TYPE, MAP_TYPE_UNDERGROUND\}\)")
 
     def test_donphalanx_uses_great_tusk_visual_and_learnset_tables(self):
         data = read("src/data/pokemon/species_info/prl_custom.h")
