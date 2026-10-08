@@ -1138,7 +1138,15 @@ static u8 SetUpCopyrightScreen(void)
 
 void CB2_InitCopyrightScreenAfterBootup(void)
 {
-    if (!SetUpCopyrightScreen())
+    // PRL FireRed: boot straight to the approved title instead of playing
+    // Game Freak Presents and the Gengar/Nidorino opening movie.
+    // Crucially, still load the save and player options before entering the menu.
+#if defined(FIRERED)
+    bool8 introFinished = TRUE;
+#else
+    bool8 introFinished = !SetUpCopyrightScreen();
+#endif
+    if (introFinished)
     {
         SetSaveBlocksPointers(GetSaveBlocksPointersBaseOffset());
         ResetMenuAndMonGlobals();
@@ -1148,6 +1156,9 @@ void CB2_InitCopyrightScreenAfterBootup(void)
             Sav2_ClearSetDefault();
         SetPokemonCryStereo(gSaveBlock2Ptr->optionsSound);
         InitHeap(gHeap, HEAP_SIZE);
+#if defined(FIRERED)
+        SetMainCallback2(CB2_InitTitleScreen);
+#endif
     }
 }
 
