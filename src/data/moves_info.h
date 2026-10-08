@@ -24267,7 +24267,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     .effect = EFFECT_HIT, .power = 110, .type = TYPE_DARK, .accuracy = 90,
     .pp = 5, .target = TARGET_SELECTED, .priority = 0,
     .category = DAMAGE_CATEGORY_PHYSICAL, .makesContact = TRUE, .bitingMove = TRUE,
-    .additionalEffects = ADDITIONAL_EFFECTS(
+    .additionalEffects = (const struct AdditionalEffect[]) {
         {
             .moveEffect = MOVE_EFFECT_STAT_MINUS,
             .speed = 1,
@@ -24277,7 +24277,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             .moveEffect = MOVE_EFFECT_BLEED,
             .chance = 50,
         }
-    }),
+    },
+    .numAdditionalEffects = 2,
     .battleAnimScript = gBattleAnimMove_Crunch,
 },
 // PRL STEP10 MOVE DATA END
