@@ -1,85 +1,98 @@
 #include "global.h"
 #include "test/battle.h"
 
-SINGLE_BATTLE_TEST("Confusion adds a 50/33% chance to hit self with 40 power")
+SINGLE_BATTLE_TEST("Confused Pokémon execute physical moves and take 33 percent of actual damage as recoil")
 {
-    s16 damage[2];
-    u32 genConfig, pctChance;
-
-    PARAMETRIZE { genConfig = GEN_6; pctChance = 50; }
-    PARAMETRIZE { genConfig = GEN_7; pctChance = 33; }
-    PASSES_RANDOMLY(pctChance, 100, RNG_CONFUSION);
+    s16 damage, recoil;
     GIVEN {
-        WITH_CONFIG(B_CONFUSION_SELF_DMG_CHANCE, genConfig);
-        ASSUME(GetMovePower(MOVE_SCRATCH) == 40);
-        PLAYER(SPECIES_WOBBUFFET) { Speed(1); }
-        OPPONENT(SPECIES_WOBBUFFET) { Speed(2); }
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_SCRATCH); Speed(2); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); Speed(1); }
     } WHEN {
-        TURN { MOVE(opponent, MOVE_SCRATCH, WITH_RNG(RNG_DAMAGE_MODIFIER, 0)); MOVE(player, MOVE_CONFUSE_RAY); }
-        TURN;
+        gBattleMons[B_BATTLER_0].volatiles.confusionTimer = 2;
+        TURN { MOVE(player, MOVE_SCRATCH); MOVE(opponent, MOVE_CELEBRATE); }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_SCRATCH, opponent);
-        HP_BAR(player, captureDamage: &damage[0]);
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_CONFUSE_RAY, player);
-        MESSAGE("The opposing Wobbuffet became confused!");
-        MESSAGE("The opposing Wobbuffet is confused!");
-        MESSAGE("It hurt itself in its confusion!");
-        HP_BAR(opponent, captureDamage: &damage[1]);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SCRATCH, player);
+        HP_BAR(opponent, captureDamage: &damage);
+        HP_BAR(player, captureDamage: &recoil);
     } THEN {
-        EXPECT_EQ(damage[0], damage[1]);
+        EXPECT_EQ(recoil, damage * 33 / 100);
     }
 }
 
-SINGLE_BATTLE_TEST("Confusion self hit does not consume Gems")
+SINGLE_BATTLE_TEST("Confused opponents execute special moves and take recoil")
 {
-    u32 genConfig, pctChance;
-
-    PARAMETRIZE { genConfig = GEN_6; pctChance = 50; }
-    PARAMETRIZE { genConfig = GEN_7; pctChance = 33; }
-    PASSES_RANDOMLY(pctChance, 100, RNG_CONFUSION);
+    s16 damage, recoil;
     GIVEN {
-        WITH_CONFIG(B_CONFUSION_SELF_DMG_CHANCE, genConfig);
-        PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_NORMAL_GEM); }
-        OPPONENT(SPECIES_WOBBUFFET);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); Speed(1); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_WATER_GUN); Speed(2); }
     } WHEN {
-        TURN { MOVE(opponent, MOVE_CONFUSE_RAY); MOVE(player, MOVE_SCRATCH); }
+        gBattleMons[B_BATTLER_1].volatiles.confusionTimer = 2;
+        TURN { MOVE(opponent, MOVE_WATER_GUN); MOVE(player, MOVE_CELEBRATE); }
     } SCENE {
-        NONE_OF {
-            ANIMATION(ANIM_TYPE_MOVE, MOVE_SCRATCH, player);
-            ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, player);
-            MESSAGE("Normal Gem strengthened Wobbuffet's power!");
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_WATER_GUN, opponent);
+        HP_BAR(player, captureDamage: &damage);
+        HP_BAR(opponent, captureDamage: &recoil);
+    } THEN {
+        EXPECT_EQ(recoil, damage * 33 / 100);
+    }
+}
+
+SINGLE_BATTLE_TEST("Confusion recoil uses the combined damage from all hits")
+{
+    s16 damage, recoil;
+    GIVEN {
+        ASSUME(GetMoveStrikeCount(MOVE_DOUBLE_HIT) == 2);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_DOUBLE_HIT); Speed(2); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); Speed(1); }
+    } WHEN {
+        gBattleMons[B_BATTLER_0].volatiles.confusionTimer = 2;
+        TURN { MOVE(player, MOVE_DOUBLE_HIT); MOVE(opponent, MOVE_CELEBRATE); }
+    } SCENE {
+        HP_BAR(opponent, captureDamage: &damage);
+        HP_BAR(player, captureDamage: &recoil);
+    } THEN {
+        EXPECT_EQ(recoil, damage * 33 / 100);
+    }
+}
+
+DOUBLE_BATTLE_TEST("Confusion recoil sums the damage dealt by a spread move")
+{
+    s16 allyDamage, leftDamage, rightDamage, recoil;
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_SURF); Speed(2); }
+        PLAYER(SPECIES_WYNAUT) { Moves(MOVE_CELEBRATE); Speed(1); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); Speed(1); }
+        OPPONENT(SPECIES_WYNAUT) { Moves(MOVE_CELEBRATE); Speed(1); }
+    } WHEN {
+        gBattleMons[B_BATTLER_0].volatiles.confusionTimer = 2;
+        TURN {
+            MOVE(playerLeft, MOVE_SURF);
+            MOVE(playerRight, MOVE_CELEBRATE);
+            MOVE(opponentLeft, MOVE_CELEBRATE);
+            MOVE(opponentRight, MOVE_CELEBRATE);
         }
-        MESSAGE("It hurt itself in its confusion!");
-    }
-}
-
-SINGLE_BATTLE_TEST("Confusion damage activates Focus Sash")
-{
-    GIVEN {
-        ASSUME(GetItemHoldEffect(ITEM_FOCUS_SASH) == HOLD_EFFECT_FOCUS_SASH);
-        PLAYER(SPECIES_WOBBUFFET) { HP(1); MaxHP(1); Item(ITEM_FOCUS_SASH); }
-        OPPONENT(SPECIES_WYNAUT);
-    } WHEN {
-        TURN { MOVE(opponent, MOVE_CONFUSE_RAY); MOVE(player, MOVE_POUND); }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_CONFUSE_RAY, opponent);
-        HP_BAR(player); // Confusion damage
-        MESSAGE("Wobbuffet hung on using its Focus Sash!");
-    }
-}
-
-SINGLE_BATTLE_TEST("Confusion damage Breaks Ice Face")
-{
-    GIVEN {
-        PLAYER(SPECIES_EISCUE) { Ability(ABILITY_ICE_FACE); }
-        OPPONENT(SPECIES_WYNAUT);
-    } WHEN {
-        TURN { MOVE(opponent, MOVE_CONFUSE_RAY); MOVE(player, MOVE_FAIRY_WIND); }
-    } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_CONFUSE_RAY, opponent);
-        NOT HP_BAR(player); // Confusion damage is blocked by Ice Face
-        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_FORM_CHANGE, player);
+        HP_BAR(playerRight, captureDamage: &allyDamage);
+        HP_BAR(opponentLeft, captureDamage: &leftDamage);
+        HP_BAR(opponentRight, captureDamage: &rightDamage);
+        HP_BAR(playerLeft, captureDamage: &recoil);
     } THEN {
-        EXPECT_EQ(player->species, SPECIES_EISCUE_NOICE);
+        EXPECT_EQ(recoil, (allyDamage + leftDamage + rightDamage) * 33 / 100);
+    }
+}
+
+SINGLE_BATTLE_TEST("A confused Pokémon does not take damage-based recoil for a status move")
+{
+    u16 hp;
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_SWORDS_DANCE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        hp = player->hp;
+        gBattleMons[B_BATTLER_0].volatiles.confusionTimer = 2;
+        TURN { MOVE(player, MOVE_SWORDS_DANCE); MOVE(opponent, MOVE_CELEBRATE); }
+    } THEN {
+        EXPECT_EQ(player->hp, hp);
+        EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE + 2);
     }
 }
