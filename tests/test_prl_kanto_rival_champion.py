@@ -14,6 +14,14 @@ def trainer_block(source, trainer):
     return match.group(1)
 
 
+def script_block(source, label):
+    match = re.search(rf"^{re.escape(label)}::\n", source, re.M)
+    assert match, f"missing script label {label}"
+    next_label = re.search(r"^[A-Za-z0-9_]+::\n", source[match.end():], re.M)
+    end = match.end() + next_label.start() if next_label else len(source)
+    return source[match.start():end]
+
+
 def species_levels(block):
     return [(name, int(level)) for name, level in re.findall(r"^([^\n]+)\nLevel: (\d+)", block, re.M)]
 
@@ -75,7 +83,7 @@ def test_first_champion_is_six_vs_six_double_and_protects_one_usable_pokemon():
     for trainer in ("TRAINER_CHAMPION_FIRST_SQUIRTLE", "TRAINER_CHAMPION_FIRST_BULBASAUR",
                     "TRAINER_CHAMPION_FIRST_CHARMANDER"):
         event = trainer.split("_")[-1].title()
-        block = trainer_block(scripts, f"PokemonLeague_ChampionsRoom_EventScript_Battle{event}")
+        block = script_block(scripts, f"PokemonLeague_ChampionsRoom_EventScript_Battle{event}")
         assert f"goto_if_defeated {trainer}" in block
         assert "setvar VAR_TEMP_1, 1" in block and "releaseall" in block and "end" in block
     assert "PokemonLeague_ChampionsRoom_OnTransition" in scripts
