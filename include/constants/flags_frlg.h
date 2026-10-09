@@ -20,18 +20,10 @@
 #define FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT          FLAG_0x8F5
 #define FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH            FLAG_0x8F6
 #define FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD     FLAG_0x8F7
-#define FLAG_HIDE_PRL_JESSIE_MT_MOON                     FLAG_0x8F8
-#define FLAG_HIDE_PRL_JAMES_MT_MOON                      FLAG_0x8F9
-#define FLAG_HIDE_PRL_MEOWTH_MT_MOON                     FLAG_0x8FA
-#define FLAG_HIDE_PRL_JESSIE_HIDEOUT                     FLAG_0x8FB
-#define FLAG_HIDE_PRL_JAMES_HIDEOUT                      FLAG_0x8FC
-#define FLAG_HIDE_PRL_MEOWTH_HIDEOUT                     FLAG_0x8FD
-#define FLAG_HIDE_PRL_JESSIE_SILPH                       FLAG_0x8FE
-#define FLAG_HIDE_PRL_JAMES_SILPH                        FLAG_0x8FF
-#define FLAG_HIDE_PRL_MEOWTH_SILPH                       FLAG_0x900
-#define FLAG_HIDE_PRL_JESSIE_VICTORY_ROAD                FLAG_0x901
-#define FLAG_HIDE_PRL_JAMES_VICTORY_ROAD                 FLAG_0x902
-#define FLAG_HIDE_PRL_MEOWTH_VICTORY_ROAD                FLAG_0x903
+#define FLAG_HIDE_PRL_ROCKET_MT_MOON                   FLAG_0x8F8
+#define FLAG_HIDE_PRL_ROCKET_HIDEOUT                   FLAG_0x8F9
+#define FLAG_HIDE_PRL_ROCKET_SILPH                     FLAG_0x8FA
+#define FLAG_HIDE_PRL_ROCKET_VICTORY_ROAD              FLAG_0x8FB
 
 
 // PRL persistent early-Kanto flags; native FRLG slots 0x020-0x026 were unused.

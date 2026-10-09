@@ -116,7 +116,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
-      "flag": "FLAG_HIDE_PRL_JESSIE_SILPH"
+      "flag": "FLAG_HIDE_PRL_ROCKET_SILPH"
     },
     {
       "local_id": "LOCALID_PRL_JAMES_SILPH",
@@ -131,7 +131,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
-      "flag": "FLAG_HIDE_PRL_JAMES_SILPH"
+      "flag": "FLAG_HIDE_PRL_ROCKET_SILPH"
     },
     {
       "local_id": "LOCALID_PRL_MEOWTH_SILPH",
@@ -146,7 +146,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
-      "flag": "FLAG_HIDE_PRL_MEOWTH_SILPH"
+      "flag": "FLAG_HIDE_PRL_ROCKET_SILPH"
     }
   ],
   "warp_events": [

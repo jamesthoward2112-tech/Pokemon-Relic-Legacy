@@ -3,9 +3,9 @@ MtMoon_B2F_Frlg_MapScripts::
 	.byte 0
 
 MtMoon_B2F_OnTransition::
-	setflag FLAG_HIDE_PRL_JESSIE_MT_MOON
-	setflag FLAG_HIDE_PRL_JAMES_MT_MOON
-	setflag FLAG_HIDE_PRL_MEOWTH_MT_MOON
+	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
 	call_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON, MtMoon_B2F_EventScript_ShowFossils
 	call_if_set FLAG_GOT_FOSSIL_FROM_MT_MOON, MtMoon_B2F_EventScript_PRL_RetryRocketBattle
 	end
@@ -238,9 +238,9 @@ MtMoon_B2F_Frlg_EventScript_PRL_JESSIE_JAMES_MT_MOON::
 	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON, MtMoon_B2F_Frlg_EventScript_PRL_JESSIE_JAMES_MT_MOONEnd
 	goto_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON, MtMoon_B2F_Frlg_EventScript_PRL_JESSIE_JAMES_MT_MOONEnd
 	goto_if_defeated TRAINER_JESSIE_JAMES_MT_MOON, MtMoon_B2F_Frlg_EventScript_PRL_JESSIE_JAMES_MT_MOONAlreadyWon
-	clearflag FLAG_HIDE_PRL_JESSIE_MT_MOON
-	clearflag FLAG_HIDE_PRL_JAMES_MT_MOON
-	clearflag FLAG_HIDE_PRL_MEOWTH_MT_MOON
+	clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+	clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+	clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON
 	addobject LOCALID_PRL_JESSIE_MT_MOON
 	addobject LOCALID_PRL_JAMES_MT_MOON
 	addobject LOCALID_PRL_MEOWTH_MT_MOON
@@ -266,9 +266,9 @@ MtMoon_B2F_Frlg_EventScript_PRL_JESSIE_JAMES_MT_MOONCleanup::
 	waitmovementall
 	applymovement LOCALID_PRL_MEOWTH_MT_MOON, MtMoon_B2F_Movement_PRL_RocketExit
 	waitmovementall
-	setflag FLAG_HIDE_PRL_JESSIE_MT_MOON
-	setflag FLAG_HIDE_PRL_JAMES_MT_MOON
-	setflag FLAG_HIDE_PRL_MEOWTH_MT_MOON
+	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
 	removeobject LOCALID_PRL_JESSIE_MT_MOON
 	removeobject LOCALID_PRL_JAMES_MT_MOON
 	removeobject LOCALID_PRL_MEOWTH_MT_MOON
