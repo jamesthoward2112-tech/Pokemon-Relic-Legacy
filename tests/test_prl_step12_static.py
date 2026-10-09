@@ -49,7 +49,7 @@ class Step12StaticIntegrationTests(unittest.TestCase):
         # donor level-up entries must survive in the exact same order.
         pattern = r"static const struct LevelUpMove s{}\[\]\s*=\s*\{([\s\S]*?)\n\};"
         def extract(contents, species):
-            match = re.search(pattern.format(species), contents)
+            match = re.search(pattern.replace("{}", species), contents)
             self.assertIsNotNone(match, "Missing donor/Relic learnset: " + species)
             return re.findall(
                 r"LEVEL_UP_MOVE\(\s*(\d+),\s*(MOVE_[A-Z0-9_]+)\)", match.group(1)
