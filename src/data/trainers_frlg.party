@@ -13821,29 +13821,50 @@ Music: Twins
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability
 
-Vaporeon
+Vaporeon @ Sitrus Berry
 Level: 52
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Surf
+- Aurora Beam
+- Bite
+- Acid Armor
 
-Jolteon
+Jolteon @ Sitrus Berry
 Level: 52
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Thunderbolt
+- Double Kick
+- Quick Attack
+- Thunder Wave
 
-Flareon
+Flareon @ Sitrus Berry
 Level: 55
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-
-Toxeon
-Level: 55
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Flamethrower
+- Fire Spin
+- Bite
+- Quick Attack
 
 Eevee
 Level: 51
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Bite
+- Baton Pass
+- Quick Attack
+- Sand Attack
 
-Eevee
+Toxeon
+Level: 55
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+
+Eevee @ Sitrus Berry
 Level: 53
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Take Down
+- Bite
+- Quick Attack
+- Helping Hand
+
 
 
 === TRAINER_JESSIE_JAMES_MT_MOON ===
