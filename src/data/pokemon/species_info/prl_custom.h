@@ -596,7 +596,7 @@
     .palette = gMonPalette_GreatTusk, .shinyPalette = gMonShinyPalette_GreatTusk,
     .iconSprite = gMonIcon_GreatTusk, .iconPalIndex = 0,
     .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-    .levelUpLearnset = sGreatTuskLevelUpLearnset, .teachableLearnset = sGreatTuskTeachableLearnset,
+    .levelUpLearnset = sDonphalanxLevelUpLearnset, .teachableLearnset = sGreatTuskTeachableLearnset,
 },
 
 [SPECIES_MYSTYNX] =
@@ -1036,7 +1036,7 @@
     .palette = gMonPalette_Osteodian, .shinyPalette = gMonShinyPalette_Osteodian,
     .iconSprite = gMonIcon_Osteodian, .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 1 : 2,
     .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-    .levelUpLearnset = sMarowakLevelUpLearnset, .teachableLearnset = sMarowakTeachableLearnset,
+    .levelUpLearnset = sOsteodianLevelUpLearnset, .teachableLearnset = sMarowakTeachableLearnset,
 },
 
 [SPECIES_MAROGHOST] =
