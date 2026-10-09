@@ -104,10 +104,11 @@ Route4_EventScript_PRLSquirtleAide::
 	setvar VAR_TEMP_1, SPECIES_SQUIRTLE
 	givemon SPECIES_SQUIRTLE, 10
 	goto_if_eq VAR_RESULT, 2, Common_EventScript_NoMoreRoomForPokemon
+	msgbox Route4_EventScript_PRLSquirtleAide_Text_Received
 	setflag FLAG_PRL_GOT_SQUIRTLE_GIFT
 	removeobject LOCALID_PRL_SQUIRTLE
-	giveitem ITEM_METAL_COAT
 	msgbox Route4_EventScript_PRLSquirtleAide_Text_After
+	giveitem ITEM_METAL_COAT
 	release
 	end
 
@@ -119,6 +120,10 @@ Route4_EventScript_PRLSquirtleAide_Repeat::
 Route4_EventScript_PRLSquirtleAide_Pokemon::
 	msgbox Route4_EventScript_PRLSquirtleAide_Text_Pokemon, MSGBOX_NPC
 	end
+
+Route4_EventScript_PRLSquirtleAide_Text_Received::
+	.string "{PLAYER} received SQUIRTLE\n"
+	.string "from PROF. OAK's AIDE!$"
 
 Route4_EventScript_PRLSquirtleAide_Text_Intro::
 	.string "PROF. OAK asked me to entrust this\n"

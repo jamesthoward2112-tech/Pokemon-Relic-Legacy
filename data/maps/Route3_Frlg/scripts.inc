@@ -121,10 +121,11 @@ Route3_EventScript_PRLCharmanderAide::
 	setvar VAR_TEMP_1, SPECIES_CHARMANDER
 	givemon SPECIES_CHARMANDER, 10
 	goto_if_eq VAR_RESULT, 2, Common_EventScript_NoMoreRoomForPokemon
+	msgbox Route3_EventScript_PRLCharmanderAide_Text_Received
 	setflag FLAG_PRL_GOT_CHARMANDER_GIFT
 	removeobject LOCALID_PRL_CHARMANDER
-	giveitem ITEM_SHARP_BEAK
 	msgbox Route3_EventScript_PRLCharmanderAide_Text_After
+	giveitem ITEM_SHARP_BEAK
 	release
 	end
 
@@ -136,6 +137,10 @@ Route3_EventScript_PRLCharmanderAide_Repeat::
 Route3_EventScript_PRLCharmanderAide_Pokemon::
 	msgbox Route3_EventScript_PRLCharmanderAide_Text_Pokemon, MSGBOX_NPC
 	end
+
+Route3_EventScript_PRLCharmanderAide_Text_Received::
+	.string "{PLAYER} received CHARMANDER\n"
+	.string "from PROF. OAK's AIDE!$"
 
 Route3_EventScript_PRLCharmanderAide_Text_Intro::
 	.string "PROF. OAK asked me to entrust this\n"

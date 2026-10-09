@@ -176,10 +176,11 @@ ViridianForest_EventScript_PRLBulbasaurAide::
 	setvar VAR_TEMP_1, SPECIES_BULBASAUR
 	givemon SPECIES_BULBASAUR, 10
 	goto_if_eq VAR_RESULT, 2, Common_EventScript_NoMoreRoomForPokemon
+	msgbox ViridianForest_EventScript_PRLBulbasaurAide_Text_Received
 	setflag FLAG_PRL_GOT_BULBASAUR_GIFT
 	removeobject LOCALID_PRL_BULBASAUR
-	giveitem ITEM_MIRACLE_SEED
 	msgbox ViridianForest_EventScript_PRLBulbasaurAide_Text_After
+	giveitem ITEM_MIRACLE_SEED
 	release
 	end
 
@@ -191,6 +192,10 @@ ViridianForest_EventScript_PRLBulbasaurAide_Repeat::
 ViridianForest_EventScript_PRLBulbasaurAide_Pokemon::
 	msgbox ViridianForest_EventScript_PRLBulbasaurAide_Text_Pokemon, MSGBOX_NPC
 	end
+
+ViridianForest_EventScript_PRLBulbasaurAide_Text_Received::
+	.string "{PLAYER} received BULBASAUR\n"
+	.string "from PROF. OAK's AIDE!$"
 
 ViridianForest_EventScript_PRLBulbasaurAide_Text_Intro::
 	.string "PROF. OAK asked me to entrust this\n"
