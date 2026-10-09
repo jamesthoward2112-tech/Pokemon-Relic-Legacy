@@ -87,6 +87,14 @@ jobs:
       - name: ROM (Firered)
         run: make firered -j$(nproc) -O
 
+      - name: Upload FireRed test ROM
+        uses: actions/upload-artifact@v4
+        with:
+          name: prl-kanto-test-rom
+          path: pokefirered.gba
+          if-no-files-found: error
+          retention-days: 7
+
   build-leafgreen:
     if: github.actor != 'allcontributors[bot]'
     runs-on: ubuntu-latest
