@@ -5928,7 +5928,7 @@ bool32 IsBattlerProtected(struct BattleCalcValues *cv)
      && gProtectStructs[GetPartnerBattler(cv->battlerDef)].protected == PROTECT_NONE)
         return FALSE;
 
-    if (GetMoveEffect(cv->move) == EFFECT_CURSE && !IS_BATTLER_OF_TYPE(cv->battlerAtk, TYPE_GHOST))
+    if (GetMoveEffect(cv->move) == EFFECT_CURSE && !IsCurseGhostStyle(cv->battlerAtk))
         return FALSE;
 
     if (gProtectStructs[cv->battlerDef].protected != PROTECT_MAX_GUARD && !MoveIgnoresProtect(cv->move))
@@ -9613,10 +9613,15 @@ static u32 CanBattlerHitBothFoesInTerrain(enum BattlerId battler, enum Move move
         && IsBattlerTerrainAffected(battler, GetBattlerAbility(battler), GetBattlerHoldEffect(battler), GetMoveTerrainBoost_Terrain(move), gFieldTimers.terrain);
 }
 
+bool32 IsCurseGhostStyle(enum BattlerId battler)
+{
+    return IS_BATTLER_OF_TYPE(battler, TYPE_GHOST) || (GetWeather() & B_WEATHER_FOG);
+}
+
 enum MoveTarget GetBattlerMoveSelectionTargetType(enum BattlerId battler, enum Move move)
 {
     enum BattleMoveEffects effect = GetMoveEffect(move);
-    if (effect == EFFECT_CURSE && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
+    if (effect == EFFECT_CURSE && !IsCurseGhostStyle(battler))
         return TARGET_USER;
     if (effect == EFFECT_TERA_STARSTORM && gBattleMons[battler].species == SPECIES_TERAPAGOS_STELLAR)
         return TARGET_BOTH;
@@ -10680,9 +10685,6 @@ u32 GetTotalAccuracy(struct BattleCalcValues *cv, u32 weather)
 
     if (B_AFFECTION_MECHANICS == TRUE && GetBattlerAffectionHearts(battlerDef) == AFFECTION_FIVE_HEARTS)
         calc = (calc * 90) / 100;
-
-    if (weather & B_WEATHER_FOG)
-        calc = (calc * 60) / 100; // modified by 3/5
 
     return calc;
 }

@@ -6537,7 +6537,7 @@ static void Cmd_cursetarget(void)
 {
     CMD_ARGS(const u8 *failInstr);
 
-    if (!IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GHOST))
+    if (!IsCurseGhostStyle(gBattlerAttacker))
     {
         gBattleScripting.animTurn = 1; // for move anim
         gBattlescriptCurrInstr = cmd->failInstr;
@@ -9933,6 +9933,12 @@ void BS_TryRevivalBlessing(void)
 {
     NATIVE_ARGS(const u8 *failInstr);
     u8 index = GetFirstFaintedPartyIndex(gBattlerAttacker);
+
+    if (GetWeather() & B_WEATHER_FOG)
+    {
+        gBattlescriptCurrInstr = cmd->failInstr;
+        return;
+    }
 
     // Move fails if there are no battlers to revive.
     if (index == PARTY_SIZE)

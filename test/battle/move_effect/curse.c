@@ -38,6 +38,43 @@ SINGLE_BATTLE_TEST("Curse cuts the user's HP in half when used by Ghost-types")
     }
 }
 
+SINGLE_BATTLE_TEST("Eerie Fog gives every type Ghost-style Curse")
+{
+    enum Species species;
+    PARAMETRIZE { species = SPECIES_MISDREAVUS; }
+    PARAMETRIZE { species = SPECIES_WOBBUFFET; }
+    GIVEN {
+        PLAYER(species) { Moves(MOVE_EERIE_FOG, MOVE_CURSE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { MOVE(player, MOVE_EERIE_FOG); }
+        TURN { MOVE(player, MOVE_CURSE, target: opponent); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_EERIE_FOG, player);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_CURSE, player);
+        HP_BAR(player);
+        HP_BAR(opponent);
+    } THEN {
+        EXPECT(opponent->volatiles.cursed);
+    }
+}
+
+SINGLE_BATTLE_TEST("Cloud Nine suppresses Fog's Ghost-style Curse")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_EERIE_FOG, MOVE_CURSE); }
+        OPPONENT(SPECIES_GOLDUCK) { Ability(ABILITY_CLOUD_NINE); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_EERIE_FOG); }
+        TURN { MOVE(player, MOVE_CURSE); }
+    } THEN {
+        EXPECT(gBattleWeather & B_WEATHER_FOG);
+        EXPECT(!player->volatiles.cursed);
+        EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE + 1);
+        EXPECT_EQ(player->statStages[STAT_DEF], DEFAULT_STAT_STAGE + 1);
+    }
+}
+
 SINGLE_BATTLE_TEST("Curse applies to the user if used with Protean/Libero")
 {
     enum Ability ability;

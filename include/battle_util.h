@@ -115,6 +115,7 @@ u32 IsAbilityOnSide(enum BattlerId battler, enum Ability ability);
 u32 IsAbilityOnField(enum Ability ability);
 u32 IsAbilityPreventingEscape(enum BattlerId battler);
 bool32 IsBattlerProtected(struct BattleCalcValues *cv);
+bool32 IsCurseGhostStyle(enum BattlerId battler);
 enum ProtectType GetProtectType(enum ProtectMethod method);
 bool32 CanBattlerEscape(enum BattlerId battler); // no ability check
 void BattleScriptExecute(const u8 *BS_ptr);

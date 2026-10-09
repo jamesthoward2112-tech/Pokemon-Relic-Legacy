@@ -49,6 +49,40 @@ SINGLE_BATTLE_TEST("Revival Blessing fails if no party members are fainted")
     }
 }
 
+SINGLE_BATTLE_TEST("Revival Blessing fails in effective Eerie Fog")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_EERIE_FOG, MOVE_REVIVAL_BLESSING); }
+        PLAYER(SPECIES_WYNAUT) { HP(0); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { MOVE(player, MOVE_EERIE_FOG); }
+        TURN { MOVE(player, MOVE_REVIVAL_BLESSING, partyIndex: 1); }
+    } SCENE {
+        MESSAGE("But it failed!");
+        NONE_OF { ANIMATION(ANIM_TYPE_MOVE, MOVE_REVIVAL_BLESSING, player); }
+    } THEN {
+        EXPECT_EQ(GetMonData(&PLAYER_PARTY[1], MON_DATA_HP), 0);
+    }
+}
+
+SINGLE_BATTLE_TEST("Revival Blessing works when Cloud Nine suppresses Eerie Fog")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_EERIE_FOG, MOVE_REVIVAL_BLESSING); }
+        PLAYER(SPECIES_WYNAUT) { HP(0); }
+        OPPONENT(SPECIES_GOLDUCK) { Ability(ABILITY_CLOUD_NINE); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_EERIE_FOG); }
+        TURN { MOVE(player, MOVE_REVIVAL_BLESSING, partyIndex: 1); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_REVIVAL_BLESSING, player);
+        MESSAGE("Wynaut was revived and is ready to fight again!");
+    } THEN {
+        EXPECT_GT(GetMonData(&PLAYER_PARTY[1], MON_DATA_HP), 0);
+    }
+}
+
 DOUBLE_BATTLE_TEST("Revival Blessing doesn't prevent revived battlers from losing their turn")
 {
     GIVEN {

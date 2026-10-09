@@ -97,6 +97,49 @@ SINGLE_BATTLE_TEST("Weather Ball doubles its power and turns to an Ice-type move
     }
 }
 
+SINGLE_BATTLE_TEST("Weather Ball becomes Ghost-type and doubles its power in Eerie Fog", s16 damage)
+{
+    enum Move setupMove;
+    PARAMETRIZE { setupMove = MOVE_CELEBRATE; }
+    PARAMETRIZE { setupMove = MOVE_EERIE_FOG; }
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { Moves(setupMove, MOVE_WEATHER_BALL); }
+        OPPONENT(SPECIES_MACHOP);
+    } WHEN {
+        TURN { MOVE(player, setupMove); }
+        TURN { MOVE(player, MOVE_WEATHER_BALL, WITH_RNG(RNG_DAMAGE_MODIFIER, 0)); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, setupMove, player);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_WEATHER_BALL, player);
+        HP_BAR(opponent, captureDamage: &results[i].damage);
+    } THEN {
+        EXPECT_EQ(GetDynamicMoveType(NULL, MOVE_WEATHER_BALL, player, GetBattlerAbility(player), GetBattlerHoldEffect(player), MON_IN_BATTLE),
+                  setupMove == MOVE_EERIE_FOG ? TYPE_GHOST : TYPE_NORMAL);
+    } FINALLY {
+        EXPECT_MUL_EQ(results[0].damage, UQ_4_12(2.0), results[1].damage);
+    }
+}
+
+SINGLE_BATTLE_TEST("Weather Ball remains Normal-type when Cloud Nine suppresses Eerie Fog")
+{
+    GIVEN {
+        PLAYER(SPECIES_GOLDUCK) { Ability(ABILITY_CLOUD_NINE); Moves(MOVE_EERIE_FOG, MOVE_WEATHER_BALL); }
+        OPPONENT(SPECIES_GENGAR);
+    } WHEN {
+        TURN { MOVE(player, MOVE_EERIE_FOG); }
+        TURN { MOVE(player, MOVE_WEATHER_BALL); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_EERIE_FOG, player);
+        NONE_OF {
+            ANIMATION(ANIM_TYPE_MOVE, MOVE_WEATHER_BALL, player);
+            HP_BAR(opponent);
+        }
+    } THEN {
+        EXPECT(gBattleWeather & B_WEATHER_FOG);
+        EXPECT_EQ(GetDynamicMoveType(NULL, MOVE_WEATHER_BALL, player, GetBattlerAbility(player), GetBattlerHoldEffect(player), MON_IN_BATTLE), TYPE_NORMAL);
+    }
+}
+
 DOUBLE_BATTLE_TEST("Weather Ball doesn't double its power and stays a Normal-type move in strong winds", s16 damage)
 {
     bool32 strongWinds;

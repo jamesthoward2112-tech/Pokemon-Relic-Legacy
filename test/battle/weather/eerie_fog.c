@@ -180,3 +180,56 @@ SINGLE_BATTLE_TEST("Eerie Fog does not reduce move accuracy")
         HP_BAR(opponent);
     }
 }
+
+SINGLE_BATTLE_TEST("Eerie Fog halves weather-based recovery for all three recovery moves")
+{
+    enum Move move;
+    enum Ability suppressingAbility;
+    s16 expectedHeal;
+
+    PARAMETRIZE { move = MOVE_SYNTHESIS;   suppressingAbility = ABILITY_NONE;        expectedHeal = 100; }
+    PARAMETRIZE { move = MOVE_MOONLIGHT;   suppressingAbility = ABILITY_NONE;        expectedHeal = 100; }
+    PARAMETRIZE { move = MOVE_MORNING_SUN; suppressingAbility = ABILITY_NONE;        expectedHeal = 100; }
+    PARAMETRIZE { move = MOVE_SYNTHESIS;   suppressingAbility = ABILITY_CLOUD_NINE;  expectedHeal = 200; }
+    PARAMETRIZE { move = MOVE_MOONLIGHT;   suppressingAbility = ABILITY_CLOUD_NINE;  expectedHeal = 200; }
+    PARAMETRIZE { move = MOVE_MORNING_SUN; suppressingAbility = ABILITY_CLOUD_NINE;  expectedHeal = 200; }
+    GIVEN {
+        WITH_CONFIG(B_TIME_OF_DAY_HEALING_MOVES, GEN_3);
+        PLAYER(SPECIES_WOBBUFFET) { HP(1); MaxHP(400); Moves(MOVE_EERIE_FOG, move); }
+        if (suppressingAbility == ABILITY_CLOUD_NINE)
+            OPPONENT(SPECIES_GOLDUCK) { Ability(suppressingAbility); Moves(MOVE_CELEBRATE); }
+        else
+            OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_EERIE_FOG); }
+        TURN { MOVE(player, move); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_EERIE_FOG, player);
+        HP_BAR(player, damage: -expectedHeal);
+    }
+}
+
+SINGLE_BATTLE_TEST("Ordinary Curse and Weather Ball behavior returns after Eerie Fog expires")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_EERIE_FOG, MOVE_CURSE, MOVE_WEATHER_BALL, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_GENGAR) { Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_EERIE_FOG); }
+        gBattleStruct->weatherDuration = 1;
+        TURN { MOVE(player, MOVE_CELEBRATE); }
+        TURN { MOVE(player, MOVE_CURSE); }
+        TURN { MOVE(player, MOVE_WEATHER_BALL); }
+    } SCENE {
+        NONE_OF {
+            ANIMATION(ANIM_TYPE_MOVE, MOVE_WEATHER_BALL, player);
+            HP_BAR(opponent);
+        }
+    } THEN {
+        EXPECT_EQ(gBattleWeather, B_WEATHER_NONE);
+        EXPECT_EQ(GetBattlerMoveTargetType(player, MOVE_CURSE), TARGET_USER);
+        EXPECT_EQ(GetDynamicMoveType(NULL, MOVE_WEATHER_BALL, player, GetBattlerAbility(player), GetBattlerHoldEffect(player), MON_IN_BATTLE), TYPE_NORMAL);
+        EXPECT(!opponent->volatiles.cursed);
+        EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE + 1);
+    }
+}
