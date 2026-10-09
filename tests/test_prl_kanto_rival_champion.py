@@ -52,6 +52,44 @@ def test_prl_starter_selection_and_rival_dispatch_cover_each_starter():
             ), f"{encounter} misroutes starter value {starter_value}"
 
 
+
+def test_oaks_lab_physical_balls_save_correct_starter_and_rival_choice():
+    """The ball's visible Pokémon, saved selection and early rival must agree."""
+    lab = read("data/maps/PalletTown_ProfessorOaksLab_Frlg/scripts.inc")
+    cases = {
+        # Actual ball script: (saved player index, player, rival, rival ball).
+        "BulbasaurBall": (1, "NIDORAN_M", "GROWLITHE", "SQUIRTLE"),
+        "SquirtleBall": (2, "GROWLITHE", "PIKACHU", "CHARMANDER"),
+        "CharmanderBall": (0, "PIKACHU", "NIDORAN_M", "BULBASAUR"),
+    }
+    for ball, (index, player, rival, rival_ball) in cases.items():
+        block = script_block(lab, f"PalletTown_ProfessorOaksLab_EventScript_{ball}")
+        assert f"setvar PLAYER_STARTER_NUM, {index}" in block
+        assert f"setvar PLAYER_STARTER_SPECIES, SPECIES_{player}" in block
+        assert f"setvar RIVAL_STARTER_SPECIES, SPECIES_{rival}" in block
+        assert f"setvar RIVAL_STARTER_ID, LOCALID_{rival_ball}_BALL" in block
+
+    rival_picks = script_block(lab, "PalletTown_ProfessorOaksLab_EventScript_RivalPicksStarter")
+    for index, rival_ball in ((0, "Bulbasaur"), (1, "Squirtle"), (2, "Charmander")):
+        assert (
+            f"goto_if_eq PLAYER_STARTER_NUM, {index}, "
+            f"PalletTown_ProfessorOaksLab_EventScript_RivalWalksTo{rival_ball}"
+        ) in rival_picks
+
+    early_party = read("src/data/trainers_frlg.party")
+    for suffix, expected_species in (
+        ("SQUIRTLE", "Nidoran M"),
+        ("BULBASAUR", "Growlithe"),
+        ("CHARMANDER", "Pikachu"),
+    ):
+        block = trainer_block(early_party, f"TRAINER_RIVAL_OAKS_LAB_{suffix}")
+        assert [species for species, _ in species_levels(block)] == [expected_species]
+
+    # The starter selection must be persisted before any rival battle begins.
+    chose_starter = script_block(lab, "PalletTown_ProfessorOaksLab_EventScript_ChoseStarter")
+    assert "copyvar VAR_STARTER_MON, PLAYER_STARTER_NUM" in chose_starter
+
+
 def test_late_route22_has_six_scaled_mon_and_only_the_two_unselected_starter_lines():
     party = read("src/data/trainers_frlg.party")
     expected = {
