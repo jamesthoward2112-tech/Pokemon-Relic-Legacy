@@ -47,8 +47,8 @@ def test_late_route22_has_six_scaled_mon_and_only_the_two_unselected_starter_lin
     party = read("src/data/trainers_frlg.party")
     expected = {
         "TRAINER_RIVAL_ROUTE22_LATE_SQUIRTLE": {"Nidoking", "Arcanine"},
-        "TRAINER_RIVAL_ROUTE22_LATE_BULBASAUR": {"Pikachu", "Arcanine"},
-        "TRAINER_RIVAL_ROUTE22_LATE_CHARMANDER": {"Pikachu", "Nidoking"},
+        "TRAINER_RIVAL_ROUTE22_LATE_BULBASAUR": {"Raichu", "Arcanine"},
+        "TRAINER_RIVAL_ROUTE22_LATE_CHARMANDER": {"Raichu", "Nidoking"},
     }
     for trainer, starter_lines in expected.items():
         block = trainer_block(party, trainer)
@@ -65,6 +65,7 @@ def test_first_champion_is_six_vs_six_double_and_protects_one_usable_pokemon():
         assert f"call_if_eq VAR_STARTER_MON, {starter_value}" in scripts
     assert "trainerbattle_double " in scripts
     assert "PokemonLeague_ChampionsRoom_Text_NotEnoughMons" in scripts
+    assert "goto_if_defeated TRAINER_CHAMPION_FIRST_" in scripts
 
     party = read("src/data/trainers_frlg.party")
     for trainer in (
