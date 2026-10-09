@@ -193,6 +193,9 @@ jobs:
             tools/mgba-rom-test-hydra/mgba-rom-test-hydra
           key: tools-check-${{ runner.os }}-${{ hashFiles('tools/*/Makefile', 'tools/**/*.c', 'tools/**/*.cpp', 'tools/**/*.h') }}
 
+      - name: Python tests
+        run: python3 -m unittest discover -s tests -v
+
       - name: Test
         env:
           GAME_VERSION: EMERALD
