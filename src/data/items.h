@@ -14178,7 +14178,7 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_POKEMON_BOX_LINK] =
     {
-        .name = ITEM_NAME("{PKMN} Box Link"),
+        .name = ITEM_NAME("Remote PC"),
         .price = 0,
         .description = COMPOUND_STRING(
             "Allows access to\n"
