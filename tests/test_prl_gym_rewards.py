@@ -11,7 +11,7 @@ class PRLGymRewards(unittest.TestCase):
     names=["KANTO_"+n for n,*_ in K]+["JOHTO_"+n for n in J]+["HOENN_"+n for n,*_ in H]
     vals=[]
     for n in names:
-        m=re.search(r"^#define FLAG_PRL_GYM_"+n+r"_EXTRA\s+(0x[0-9A-F]+)",flags,re.M)
+        m=re.search(r"^#define FLAG_PRL_GYM_"+n+r"_EXTRA\s+(0x[0-9A-Fa-f]+)",flags,re.M)
         self.assertIsNotNone(m,n)
         vals.append(int(m.group(1),16))
     self.assertEqual(len(set(vals)),24)
@@ -42,12 +42,12 @@ class PRLGymRewards(unittest.TestCase):
     names=["KANTO_"+n for n,*_ in K]+["JOHTO_"+n for n in J]+["HOENN_"+n for n,*_ in H]
     values=[]
     for name in names:
-        m=re.search(r"^#define FLAG_PRL_BADGE_"+name+r"\s+(0x[0-9A-F]+)",flags,re.M)
+        m=re.search(r"^#define FLAG_PRL_BADGE_"+name+r"\s+(0x[0-9A-Fa-f]+)",flags,re.M)
         self.assertIsNotNone(m,name)
         values.append(int(m.group(1),16))
     self.assertEqual(values,list(range(0x4BD,0x4D5)))
     self.assertEqual(len(set(values)),24)
-    rewards=[int(x,16) for x in re.findall(r"^#define FLAG_PRL_GYM_\w+_EXTRA\s+(0x[0-9A-F]+)",flags,re.M)]
+    rewards=[int(x,16) for x in re.findall(r"^#define FLAG_PRL_GYM_\w+_EXTRA\s+(0x[0-9A-Fa-f]+)",flags,re.M)]
     self.assertEqual(len(rewards),24)
     self.assertTrue(set(values).isdisjoint(rewards))
  def test_live_badges_are_recorded_and_statues_use_their_own_badge(self):
