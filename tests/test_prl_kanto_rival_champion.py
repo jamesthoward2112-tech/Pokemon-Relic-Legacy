@@ -37,10 +37,11 @@ def test_prl_starter_selection_and_rival_dispatch_cover_each_starter():
     ]
     for encounter in encounters:
         scripts = read(f"data/maps/{encounter}/scripts.inc")
-        for starter_value in range(3):
-            assert f"VAR_STARTER_MON, {starter_value}" in scripts, (
-                f"{encounter} has no explicit dispatch for starter value {starter_value}"
-            )
+        for starter_value, rival_branch in ((0, "Squirtle"), (1, "Bulbasaur"), (2, "Charmander")):
+            assert re.search(
+                rf"(?:call|goto)_if_eq VAR_STARTER_MON, {starter_value}, [A-Za-z0-9_]*{rival_branch}",
+                scripts,
+            ), f"{encounter} misroutes starter value {starter_value}"
 
 
 def test_late_route22_has_six_scaled_mon_and_only_the_two_unselected_starter_lines():
@@ -57,6 +58,12 @@ def test_late_route22_has_six_scaled_mon_and_only_the_two_unselected_starter_lin
         assert all(56 <= level <= 60 for _, level in entries)
         species = {name for name, _ in entries}
         assert starter_lines <= species
+        if trainer.endswith("_SQUIRTLE"):
+            assert not ({"Pikachu", "Raichu"} & species)
+        elif trainer.endswith("_BULBASAUR"):
+            assert not ({"Nidoran M", "Nidorino", "Nidoking"} & species)
+        else:
+            assert not ({"Growlithe", "Arcanine"} & species)
 
 
 def test_first_champion_is_six_vs_six_double_and_protects_one_usable_pokemon():
@@ -65,7 +72,14 @@ def test_first_champion_is_six_vs_six_double_and_protects_one_usable_pokemon():
         assert f"call_if_eq VAR_STARTER_MON, {starter_value}" in scripts
     assert "trainerbattle_double " in scripts
     assert "PokemonLeague_ChampionsRoom_Text_NotEnoughMons" in scripts
-    assert "goto_if_defeated TRAINER_CHAMPION_FIRST_" in scripts
+    for trainer in ("TRAINER_CHAMPION_FIRST_SQUIRTLE", "TRAINER_CHAMPION_FIRST_BULBASAUR",
+                    "TRAINER_CHAMPION_FIRST_CHARMANDER"):
+        event = trainer.split("_")[-1].title()
+        block = trainer_block(scripts, f"PokemonLeague_ChampionsRoom_EventScript_Battle{event}")
+        assert f"goto_if_defeated {trainer}" in block
+        assert "setvar VAR_TEMP_1, 1" in block and "releaseall" in block and "end" in block
+    assert "PokemonLeague_ChampionsRoom_OnTransition" in scripts
+    assert "PokemonLeague_ChampionsRoom_EventScript_ResetFirstChampionScene" in scripts
 
     party = read("src/data/trainers_frlg.party")
     for trainer in (
@@ -78,6 +92,16 @@ def test_first_champion_is_six_vs_six_double_and_protects_one_usable_pokemon():
         entries = species_levels(block)
         assert len(entries) == 6
         assert all(64 <= level <= 67 for _, level in entries)
+        species = {name for name, _ in entries}
+        if trainer.endswith("_SQUIRTLE"):
+            assert {"Nidoking", "Arcanine"} <= species
+            assert not ({"Pikachu", "Raichu"} & species)
+        elif trainer.endswith("_BULBASAUR"):
+            assert {"Raichu", "Arcanine"} <= species
+            assert not ({"Nidoran M", "Nidorino", "Nidoking"} & species)
+        else:
+            assert {"Raichu", "Nidoking"} <= species
+            assert not ({"Growlithe", "Arcanine"} & species)
 
 
 def test_first_champion_keeps_safe_hall_of_fame_and_elite_four_singles():
