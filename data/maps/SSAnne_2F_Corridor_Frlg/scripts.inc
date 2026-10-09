@@ -205,3 +205,37 @@ SSAnne_2F_Corridor_Text_RivalPostBattle::
 	.string "You should go see him, too.\n"
 	.string "Smell ya!$"
 
+
+SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger::
+	lockall
+	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerEnd
+	goto_if_unset FLAG_GOT_SS_TICKET, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerEnd
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeIntro, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeDefeat, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeNotEnoughMons
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerWon
+	releaseall
+	end
+SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE
+	msgbox SSAnne_2F_Corridor_Text_PRL_SteeveNeeveePostBattle
+SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE
+SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerEnd::
+	releaseall
+	end
+
+SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeIntro::
+	.string "STEEVE: Our EEVEE are ready!\p"
+	.string "NEEVEE: Let's battle together!$"
+
+SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeDefeat::
+	.string "STEEVE: Your team is amazing!\p"
+	.string "NEEVEE: We'll keep training!$"
+
+SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeNotEnoughMons::
+	.string "STEEVE: We need a fair double\n"
+	.string "battle. Bring two POKéMON!$"
+
+SSAnne_2F_Corridor_Text_PRL_SteeveNeeveePostBattle::
+	.string "NEEVEE: Our EEVEE will keep\n"
+	.string "growing with us. See you ahead!$"

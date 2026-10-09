@@ -421,6 +421,11 @@ const u16 gTrainerPalette_ChannelerFrlg[] = INCGFX_U16("graphics/trainers/palett
 const u32 gTrainerFrontPic_TwinsFrlg[] = INCGFX_U32("graphics/trainers/front_pics/twins_frlg.png", ".4bpp.smol");
 const u16 gTrainerPalette_TwinsFrlg[] = INCGFX_U16("graphics/trainers/palettes/twins_frlg.pal", ".gbapal");
 
+const u32 gTrainerFrontPic_PrlJessie[] = INCGFX_U32("graphics/trainers/front_pics/prl_jessie.png", ".4bpp.smol");
+const u16 gTrainerPalette_PrlJessie[] = INCGFX_U16("graphics/trainers/front_pics/prl_jessie.png", ".gbapal");
+const u32 gTrainerFrontPic_PrlJames[] = INCGFX_U32("graphics/trainers/front_pics/prl_james.png", ".4bpp.smol");
+const u16 gTrainerPalette_PrlJames[] = INCGFX_U16("graphics/trainers/front_pics/prl_james.png", ".gbapal");
+
 const u32 gTrainerFrontPic_CoolCoupleFrlg[] = INCGFX_U32("graphics/trainers/front_pics/cool_couple_frlg.png", ".4bpp.smol");
 const u16 gTrainerPalette_CoolCoupleFrlg[] = INCGFX_U16("graphics/trainers/palettes/cool_couple_frlg.pal", ".gbapal");
 
@@ -1161,6 +1166,14 @@ const struct TrainerPicInfo gTrainerPicInfo[TRAINER_PIC_COUNT] =
     [TRAINER_PIC_TWINS_FRLG] =
     {
         .frontPic = TRAINER_FRONT_PIC(gTrainerFrontPic_TwinsFrlg, gTrainerPalette_TwinsFrlg),
+    },
+    [TRAINER_PIC_PRL_JESSIE] =
+    {
+        .frontPic = TRAINER_FRONT_PIC(gTrainerFrontPic_PrlJessie, gTrainerPalette_PrlJessie),
+    },
+    [TRAINER_PIC_PRL_JAMES] =
+    {
+        .frontPic = TRAINER_FRONT_PIC(gTrainerFrontPic_PrlJames, gTrainerPalette_PrlJames),
     },
     [TRAINER_PIC_COOL_COUPLE_FRLG] =
     {

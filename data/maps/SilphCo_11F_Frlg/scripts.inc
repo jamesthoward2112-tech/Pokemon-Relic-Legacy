@@ -3,6 +3,9 @@ SilphCo_11F_Frlg_MapScripts::
 	.byte 0
 
 SilphCo_11F_OnLoad::
+	setflag FLAG_HIDE_PRL_JESSIE_SILPH
+	setflag FLAG_HIDE_PRL_JAMES_SILPH
+	setflag FLAG_HIDE_PRL_MEOWTH_SILPH
 	call_if_unset FLAG_SILPH_11F_DOOR, EventScript_Close11FDoor
 	end
 
@@ -56,6 +59,8 @@ SilphCo_11F_EventScript_GiovanniTriggerRight::
 	end
 
 SilphCo_11F_EventScript_BattleGiovanni::
+	call SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPH
+	goto_if_unset FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_GiovanniWaitForJessieJames
 	textcolor NPC_TEXT_COLOR_MALE
 	applymovement LOCALID_SILPH_CO_GIOVANNI, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
@@ -76,6 +81,10 @@ SilphCo_11F_EventScript_BattleGiovanni::
 	setvar VAR_MAP_SCENE_SILPH_CO_11F, 1
 	setflag FLAG_HIDE_SAFFRON_ROCKETS
 	clearflag FLAG_HIDE_SAFFRON_CIVILIANS
+	releaseall
+	end
+
+SilphCo_11F_EventScript_GiovanniWaitForJessieJames::
 	releaseall
 	end
 
@@ -226,3 +235,74 @@ SilphCo_11F_Text_FloorSign::
 	.string "SILPH CO. HEAD OFFICE\n"
 	.string "11F$"
 
+
+SilphCo_11F_Frlg_EventScript_PRL_JESSIE_JAMES_SILPH::
+	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH, SilphCo_11F_Frlg_EventScript_PRL_JESSIE_JAMES_SILPHEnd
+	goto_if_unset FLAG_GOT_SILPH_SCOPE, SilphCo_11F_Frlg_EventScript_PRL_JESSIE_JAMES_SILPHEnd
+	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_Frlg_EventScript_PRL_JESSIE_JAMES_SILPHAlreadyWon
+	clearflag FLAG_HIDE_PRL_JESSIE_SILPH
+	clearflag FLAG_HIDE_PRL_JAMES_SILPH
+	clearflag FLAG_HIDE_PRL_MEOWTH_SILPH
+	addobject LOCALID_PRL_JESSIE_SILPH
+	addobject LOCALID_PRL_JAMES_SILPH
+	addobject LOCALID_PRL_MEOWTH_SILPH
+	applymovement LOCALID_PRL_JESSIE_SILPH, SilphCo_11F_Movement_PRL_RocketApproach
+	waitmovementall
+	applymovement LOCALID_PRL_JAMES_SILPH, SilphCo_11F_Movement_PRL_RocketApproach
+	waitmovementall
+	applymovement LOCALID_PRL_MEOWTH_SILPH, SilphCo_11F_Movement_PRL_RocketApproach
+	waitmovementall
+	turnobject LOCALID_PRL_JESSIE_SILPH, DIR_SOUTH
+	turnobject LOCALID_PRL_JAMES_SILPH, DIR_SOUTH
+	turnobject LOCALID_PRL_MEOWTH_SILPH, DIR_SOUTH
+	trainerbattle_double TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_Text_PRL_RocketIntro, SilphCo_11F_Text_PRL_RocketDefeat, SilphCo_11F_Text_PRL_RocketNotEnoughMons
+	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_Frlg_EventScript_PRL_JESSIE_JAMES_SILPHWon
+	goto SilphCo_11F_Frlg_EventScript_PRL_JESSIE_JAMES_SILPHCleanup
+SilphCo_11F_Frlg_EventScript_PRL_JESSIE_JAMES_SILPHWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
+	msgbox SilphCo_11F_Text_PRL_RocketPostBattle
+SilphCo_11F_Frlg_EventScript_PRL_JESSIE_JAMES_SILPHCleanup::
+	applymovement LOCALID_PRL_JESSIE_SILPH, SilphCo_11F_Movement_PRL_RocketExit
+	waitmovementall
+	applymovement LOCALID_PRL_JAMES_SILPH, SilphCo_11F_Movement_PRL_RocketExit
+	waitmovementall
+	applymovement LOCALID_PRL_MEOWTH_SILPH, SilphCo_11F_Movement_PRL_RocketExit
+	waitmovementall
+	setflag FLAG_HIDE_PRL_JESSIE_SILPH
+	setflag FLAG_HIDE_PRL_JAMES_SILPH
+	setflag FLAG_HIDE_PRL_MEOWTH_SILPH
+	removeobject LOCALID_PRL_JESSIE_SILPH
+	removeobject LOCALID_PRL_JAMES_SILPH
+	removeobject LOCALID_PRL_MEOWTH_SILPH
+SilphCo_11F_Frlg_EventScript_PRL_JESSIE_JAMES_SILPHAlreadyWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
+SilphCo_11F_Frlg_EventScript_PRL_JESSIE_JAMES_SILPHEnd::
+	return
+
+SilphCo_11F_Movement_PRL_RocketApproach::
+	walk_up
+	step_end
+
+SilphCo_11F_Movement_PRL_RocketExit::
+	walk_down
+	step_end
+
+SilphCo_11F_Text_PRL_RocketIntro::
+	.string "JESSIE: Prepare for trouble!\p"
+	.string "JAMES: And make it double!\p"
+	.string "This Kanto operation is only one\n"
+	.string "piece of a much older mystery.$"
+
+SilphCo_11F_Text_PRL_RocketDefeat::
+	.string "JESSIE: This can't be!\p"
+	.string "JAMES: We'll report back to the\n"
+	.string "BOSS about the relic research!$"
+
+SilphCo_11F_Text_PRL_RocketNotEnoughMons::
+	.string "JESSIE: Bring at least two POKéMON\n"
+	.string "if you want to stop TEAM ROCKET!$"
+
+SilphCo_11F_Text_PRL_RocketPostBattle::
+	.string "JAMES: The fossils, the relics…\p"
+	.string "JESSIE: This Kanto project is just\n"
+	.string "the beginning!$"

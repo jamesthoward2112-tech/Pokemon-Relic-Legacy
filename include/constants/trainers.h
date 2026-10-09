@@ -177,8 +177,14 @@ enum __attribute__((packed)) TrainerPicID
     TRAINER_PIC_CRUSH_GIRL_FRLG,
     TRAINER_PIC_POKEMON_BREEDER_FRLG,
     TRAINER_PIC_PAINTER_FRLG,
+    TRAINER_PIC_PRL_JESSIE,
+    TRAINER_PIC_PRL_JAMES,
     TRAINER_PIC_COUNT,
 };
+
+// Explicit portrait labels accepted by trainerproc's `Pic:` field.
+#define PIC_PRL_JESSIE TRAINER_PIC_PRL_JESSIE
+#define PIC_PRL_JAMES  TRAINER_PIC_PRL_JAMES
 
 enum
 {

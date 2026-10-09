@@ -5,6 +5,9 @@ RocketHideout_B4F_Frlg_MapScripts::
 	.byte 0
 
 RocketHideout_B4F_OnLoad::
+	setflag FLAG_HIDE_PRL_JESSIE_HIDEOUT
+	setflag FLAG_HIDE_PRL_JAMES_HIDEOUT
+	setflag FLAG_HIDE_PRL_MEOWTH_HIDEOUT
 	setvar NUM_DOOR_GRUNTS_DEFEATED, 0
 	call_if_defeated TRAINER_TEAM_ROCKET_GRUNT_16, RocketHideout_B4F_EventScript_CountGruntDefeated
 	call_if_defeated TRAINER_TEAM_ROCKET_GRUNT_17, RocketHideout_B4F_EventScript_CountGruntDefeated
@@ -18,6 +21,8 @@ RocketHideout_B4F_EventScript_CountGruntDefeated::
 RocketHideout_B4F_EventScript_Giovanni::
 	lock
 	faceplayer
+	call RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUT
+	goto_if_unset FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_EventScript_GiovanniWaitForJessieJames
 	famechecker FAMECHECKER_GIOVANNI, 0
 	message RocketHideout_B4F_Text_GiovanniIntro
 	waitmessage
@@ -33,6 +38,10 @@ RocketHideout_B4F_EventScript_Giovanni::
 	setflag FLAG_HIDE_CELADON_ROCKETS
 	famechecker FAMECHECKER_GIOVANNI, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	fadescreen FADE_FROM_BLACK
+	release
+	end
+
+RocketHideout_B4F_EventScript_GiovanniWaitForJessieJames::
 	release
 	end
 
@@ -176,3 +185,74 @@ RocketHideout_B4F_Text_Grunt1PostBattle::
 	.string "Oh, no!\n"
 	.string "I dropped the LIFT KEY!$"
 
+
+RocketHideout_B4F_Frlg_EventScript_PRL_JESSIE_JAMES_HIDEOUT::
+	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_Frlg_EventScript_PRL_JESSIE_JAMES_HIDEOUTEnd
+	goto_if_unset FLAG_CAN_USE_ROCKET_HIDEOUT_LIFT, RocketHideout_B4F_Frlg_EventScript_PRL_JESSIE_JAMES_HIDEOUTEnd
+	goto_if_defeated TRAINER_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_Frlg_EventScript_PRL_JESSIE_JAMES_HIDEOUTAlreadyWon
+	clearflag FLAG_HIDE_PRL_JESSIE_HIDEOUT
+	clearflag FLAG_HIDE_PRL_JAMES_HIDEOUT
+	clearflag FLAG_HIDE_PRL_MEOWTH_HIDEOUT
+	addobject LOCALID_PRL_JESSIE_HIDEOUT
+	addobject LOCALID_PRL_JAMES_HIDEOUT
+	addobject LOCALID_PRL_MEOWTH_HIDEOUT
+	applymovement LOCALID_PRL_JESSIE_HIDEOUT, RocketHideout_B4F_Movement_PRL_RocketApproach
+	waitmovementall
+	applymovement LOCALID_PRL_JAMES_HIDEOUT, RocketHideout_B4F_Movement_PRL_RocketApproach
+	waitmovementall
+	applymovement LOCALID_PRL_MEOWTH_HIDEOUT, RocketHideout_B4F_Movement_PRL_RocketApproach
+	waitmovementall
+	turnobject LOCALID_PRL_JESSIE_HIDEOUT, DIR_SOUTH
+	turnobject LOCALID_PRL_JAMES_HIDEOUT, DIR_SOUTH
+	turnobject LOCALID_PRL_MEOWTH_HIDEOUT, DIR_SOUTH
+	trainerbattle_double TRAINER_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_Text_PRL_RocketIntro, RocketHideout_B4F_Text_PRL_RocketDefeat, RocketHideout_B4F_Text_PRL_RocketNotEnoughMons
+	goto_if_defeated TRAINER_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_Frlg_EventScript_PRL_JESSIE_JAMES_HIDEOUTWon
+	goto RocketHideout_B4F_Frlg_EventScript_PRL_JESSIE_JAMES_HIDEOUTCleanup
+RocketHideout_B4F_Frlg_EventScript_PRL_JESSIE_JAMES_HIDEOUTWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT
+	msgbox RocketHideout_B4F_Text_PRL_RocketPostBattle
+RocketHideout_B4F_Frlg_EventScript_PRL_JESSIE_JAMES_HIDEOUTCleanup::
+	applymovement LOCALID_PRL_JESSIE_HIDEOUT, RocketHideout_B4F_Movement_PRL_RocketExit
+	waitmovementall
+	applymovement LOCALID_PRL_JAMES_HIDEOUT, RocketHideout_B4F_Movement_PRL_RocketExit
+	waitmovementall
+	applymovement LOCALID_PRL_MEOWTH_HIDEOUT, RocketHideout_B4F_Movement_PRL_RocketExit
+	waitmovementall
+	setflag FLAG_HIDE_PRL_JESSIE_HIDEOUT
+	setflag FLAG_HIDE_PRL_JAMES_HIDEOUT
+	setflag FLAG_HIDE_PRL_MEOWTH_HIDEOUT
+	removeobject LOCALID_PRL_JESSIE_HIDEOUT
+	removeobject LOCALID_PRL_JAMES_HIDEOUT
+	removeobject LOCALID_PRL_MEOWTH_HIDEOUT
+RocketHideout_B4F_Frlg_EventScript_PRL_JESSIE_JAMES_HIDEOUTAlreadyWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT
+RocketHideout_B4F_Frlg_EventScript_PRL_JESSIE_JAMES_HIDEOUTEnd::
+	return
+
+RocketHideout_B4F_Movement_PRL_RocketApproach::
+	walk_up
+	step_end
+
+RocketHideout_B4F_Movement_PRL_RocketExit::
+	walk_down
+	step_end
+
+RocketHideout_B4F_Text_PRL_RocketIntro::
+	.string "JESSIE: Prepare for trouble!\p"
+	.string "JAMES: And make it double!\p"
+	.string "This Kanto operation is only one\n"
+	.string "piece of a much older mystery.$"
+
+RocketHideout_B4F_Text_PRL_RocketDefeat::
+	.string "JESSIE: This can't be!\p"
+	.string "JAMES: We'll report back to the\n"
+	.string "BOSS about the relic research!$"
+
+RocketHideout_B4F_Text_PRL_RocketNotEnoughMons::
+	.string "JESSIE: Bring at least two POKéMON\n"
+	.string "if you want to stop TEAM ROCKET!$"
+
+RocketHideout_B4F_Text_PRL_RocketPostBattle::
+	.string "JAMES: The fossils, the relics…\p"
+	.string "JESSIE: This Kanto project is just\n"
+	.string "the beginning!$"

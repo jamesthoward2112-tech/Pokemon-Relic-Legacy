@@ -5,7 +5,19 @@ VictoryRoad_2F_Frlg_MapScripts::
 VictoryRoad_2F_OnLoad::
 	call_if_ne VAR_MAP_SCENE_VICTORY_ROAD_2F_BOULDER1, 100, VictoryRoad_2F_EventScript_SetRockBarrier1
 	call_if_ne VAR_MAP_SCENE_VICTORY_ROAD_2F_BOULDER2, 100, VictoryRoad_2F_EventScript_SetRockBarrier2
+	call_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_2F_EventScript_PRL_RocketGateOpen
 	end
+
+VictoryRoad_2F_EventScript_PRL_RocketGate::
+	lockall
+	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_2F_EventScript_PRL_RocketGateOpen
+	msgbox VictoryRoad_2F_Text_PRL_RocketGateClosed
+	releaseall
+	end
+
+VictoryRoad_2F_EventScript_PRL_RocketGateOpen::
+	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 1
+	return
 
 VictoryRoad_2F_EventScript_SetRockBarrier1::
 	setmetatile 13, 10, METATILE_Cave_RockBarrier_Top, 1
@@ -129,6 +141,11 @@ VictoryRoad_2F_Text_GregoryDefeat::
 VictoryRoad_2F_Text_GregoryPostBattle::
 	.string "Many TRAINERS give up their\n"
 	.string "challenge here and go home.$"
+
+VictoryRoad_2F_Text_PRL_RocketGateClosed::
+	.string "A voice echoes from above…\p"
+	.string "TEAM ROCKET is waiting on the\n"
+	.string "upper floor. The path is blocked!$"
 
 @ Unused, old text for Moltres
 VictoryRoad_2F_Text_Gyaoo::

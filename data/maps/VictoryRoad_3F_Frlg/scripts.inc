@@ -1,8 +1,22 @@
 VictoryRoad_3F_Frlg_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, VictoryRoad_3F_OnLoad
+	map_script MAP_SCRIPT_ON_TRANSITION, VictoryRoad_3F_OnTransition
 	.byte 0
 
+VictoryRoad_3F_OnTransition::
+	call_if_set FLAG_BADGE08_GET, VictoryRoad_3F_EventScript_PRL_JESSIE_JAMES_VICTORY_ROAD_Trigger
+	end
+
+VictoryRoad_3F_EventScript_PRL_JESSIE_JAMES_VICTORY_ROAD_Trigger::
+	lockall
+	call VictoryRoad_3F_EventScript_PRL_JESSIE_JAMES_VICTORY_ROAD
+	releaseall
+	end
+
 VictoryRoad_3F_OnLoad::
+	setflag FLAG_HIDE_PRL_JESSIE_VICTORY_ROAD
+	setflag FLAG_HIDE_PRL_JAMES_VICTORY_ROAD
+	setflag FLAG_HIDE_PRL_MEOWTH_VICTORY_ROAD
 	call_if_ne VAR_MAP_SCENE_VICTORY_ROAD_3F, 100, VictoryRoad_3F_EventScript_SetRockBarrier
 	end
 
@@ -159,3 +173,76 @@ VictoryRoad_3F_Text_TyraNotEnoughMons::
 	.string "TYRA: You can't battle with us if\n"
 	.string "you have only one POKéMON.$"
 
+
+VictoryRoad_3F_Frlg_EventScript_PRL_JESSIE_JAMES_VICTORY_ROAD::
+	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_3F_Frlg_EventScript_PRL_JESSIE_JAMES_VICTORY_ROADEnd
+	goto_if_unset FLAG_BADGE08_GET, VictoryRoad_3F_Frlg_EventScript_PRL_JESSIE_JAMES_VICTORY_ROADEnd
+	goto_if_defeated TRAINER_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_3F_Frlg_EventScript_PRL_JESSIE_JAMES_VICTORY_ROADAlreadyWon
+	clearflag FLAG_HIDE_PRL_JESSIE_VICTORY_ROAD
+	clearflag FLAG_HIDE_PRL_JAMES_VICTORY_ROAD
+	clearflag FLAG_HIDE_PRL_MEOWTH_VICTORY_ROAD
+	addobject LOCALID_PRL_JESSIE_VICTORY_ROAD
+	addobject LOCALID_PRL_JAMES_VICTORY_ROAD
+	addobject LOCALID_PRL_MEOWTH_VICTORY_ROAD
+	applymovement LOCALID_PRL_JESSIE_VICTORY_ROAD, VictoryRoad_3F_Movement_PRL_RocketApproach
+	waitmovementall
+	applymovement LOCALID_PRL_JAMES_VICTORY_ROAD, VictoryRoad_3F_Movement_PRL_RocketApproach
+	waitmovementall
+	applymovement LOCALID_PRL_MEOWTH_VICTORY_ROAD, VictoryRoad_3F_Movement_PRL_RocketApproach
+	waitmovementall
+	turnobject LOCALID_PRL_JESSIE_VICTORY_ROAD, DIR_SOUTH
+	turnobject LOCALID_PRL_JAMES_VICTORY_ROAD, DIR_SOUTH
+	turnobject LOCALID_PRL_MEOWTH_VICTORY_ROAD, DIR_SOUTH
+	trainerbattle_double TRAINER_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_3F_Text_PRL_RocketIntro, VictoryRoad_3F_Text_PRL_RocketDefeat, VictoryRoad_3F_Text_PRL_RocketNotEnoughMons
+	goto_if_defeated TRAINER_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_3F_Frlg_EventScript_PRL_JESSIE_JAMES_VICTORY_ROADWon
+	goto VictoryRoad_3F_Frlg_EventScript_PRL_JESSIE_JAMES_VICTORY_ROADCleanup
+VictoryRoad_3F_Frlg_EventScript_PRL_JESSIE_JAMES_VICTORY_ROADWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD
+	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 1
+	msgbox VictoryRoad_3F_Text_PRL_RocketPostBattle
+VictoryRoad_3F_Frlg_EventScript_PRL_JESSIE_JAMES_VICTORY_ROADCleanup::
+	applymovement LOCALID_PRL_JESSIE_VICTORY_ROAD, VictoryRoad_3F_Movement_PRL_RocketExit
+	waitmovementall
+	applymovement LOCALID_PRL_JAMES_VICTORY_ROAD, VictoryRoad_3F_Movement_PRL_RocketExit
+	waitmovementall
+	applymovement LOCALID_PRL_MEOWTH_VICTORY_ROAD, VictoryRoad_3F_Movement_PRL_RocketExit
+	waitmovementall
+	setflag FLAG_HIDE_PRL_JESSIE_VICTORY_ROAD
+	setflag FLAG_HIDE_PRL_JAMES_VICTORY_ROAD
+	setflag FLAG_HIDE_PRL_MEOWTH_VICTORY_ROAD
+	removeobject LOCALID_PRL_JESSIE_VICTORY_ROAD
+	removeobject LOCALID_PRL_JAMES_VICTORY_ROAD
+	removeobject LOCALID_PRL_MEOWTH_VICTORY_ROAD
+VictoryRoad_3F_Frlg_EventScript_PRL_JESSIE_JAMES_VICTORY_ROADAlreadyWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD
+	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 1
+VictoryRoad_3F_Frlg_EventScript_PRL_JESSIE_JAMES_VICTORY_ROADEnd::
+	return
+
+VictoryRoad_3F_Movement_PRL_RocketApproach::
+	walk_up
+	step_end
+
+VictoryRoad_3F_Movement_PRL_RocketExit::
+	walk_down
+	step_end
+
+VictoryRoad_3F_Text_PRL_RocketIntro::
+	.string "JESSIE: Prepare for trouble!\p"
+	.string "JAMES: And make it double!\p"
+	.string "This Kanto operation is only one\n"
+	.string "piece of a much older mystery.$"
+
+VictoryRoad_3F_Text_PRL_RocketDefeat::
+	.string "JESSIE: This can't be!\p"
+	.string "JAMES: We'll report back to the\n"
+	.string "BOSS about the relic research!$"
+
+VictoryRoad_3F_Text_PRL_RocketNotEnoughMons::
+	.string "JESSIE: Bring at least two POKéMON\n"
+	.string "if you want to stop TEAM ROCKET!$"
+
+VictoryRoad_3F_Text_PRL_RocketPostBattle::
+	.string "JAMES: The fossils, the relics…\p"
+	.string "JESSIE: This Kanto project is just\n"
+	.string "the beginning!$"

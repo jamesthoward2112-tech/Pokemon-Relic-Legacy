@@ -11,6 +11,28 @@
 #define FLAG_0x026               0x026
 #define FLAG_0x027               0x027
 
+// PRL recurring Kanto duos; native FRLG slots 0x8F0-0x8F7 were unused.
+#define FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3          FLAG_0x8F0
+#define FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE         FLAG_0x8F1
+#define FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER           FLAG_0x8F2
+#define FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23         FLAG_0x8F3
+#define FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON          FLAG_0x8F4
+#define FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT          FLAG_0x8F5
+#define FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH            FLAG_0x8F6
+#define FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD     FLAG_0x8F7
+#define FLAG_HIDE_PRL_JESSIE_MT_MOON                     FLAG_0x8F8
+#define FLAG_HIDE_PRL_JAMES_MT_MOON                      FLAG_0x8F9
+#define FLAG_HIDE_PRL_MEOWTH_MT_MOON                     FLAG_0x8FA
+#define FLAG_HIDE_PRL_JESSIE_HIDEOUT                     FLAG_0x8FB
+#define FLAG_HIDE_PRL_JAMES_HIDEOUT                      FLAG_0x8FC
+#define FLAG_HIDE_PRL_MEOWTH_HIDEOUT                     FLAG_0x8FD
+#define FLAG_HIDE_PRL_JESSIE_SILPH                       FLAG_0x8FE
+#define FLAG_HIDE_PRL_JAMES_SILPH                        FLAG_0x8FF
+#define FLAG_HIDE_PRL_MEOWTH_SILPH                       FLAG_0x900
+#define FLAG_HIDE_PRL_JESSIE_VICTORY_ROAD                FLAG_0x901
+#define FLAG_HIDE_PRL_JAMES_VICTORY_ROAD                 FLAG_0x902
+#define FLAG_HIDE_PRL_MEOWTH_VICTORY_ROAD                FLAG_0x903
+
 
 // PRL persistent early-Kanto flags; native FRLG slots 0x020-0x026 were unused.
 #define FLAG_PRL_GOT_LAB_EXP_SHARE FLAG_0x020
