@@ -24300,5 +24300,153 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     .argument = { .weatherType = BATTLE_WEATHER_FOG },
     .battleAnimScript = gBattleAnimMove_Mist,
 },
+
+[MOVE_SEISMIC_SLAM] =
+{
+    .name = COMPOUND_STRING("Seismic Slam"),
+    .description = COMPOUND_STRING("Shatters the earth.\nThe user takes recoil."),
+    .effect = EFFECT_RECOIL,
+    .power = 120,
+    .type = TYPE_GROUND,
+    .accuracy = 100,
+    .pp = 10,
+    .target = TARGET_SELECTED,
+    .priority = 0,
+    .category = DAMAGE_CATEGORY_PHYSICAL,
+    .makesContact = TRUE,
+    .argument = { .recoilPercentage = 33 },
+    .battleAnimScript = gBattleAnimMove_DoubleEdge,
+},
+
+[MOVE_SOIL_DRAIN] =
+{
+    .name = COMPOUND_STRING("Soil Drain"),
+    .description = COMPOUND_STRING("Drains power through soil.\nHeals half damage dealt."),
+    .effect = EFFECT_HIT,
+    .power = 75,
+    .type = TYPE_GROUND,
+    .accuracy = 100,
+    .pp = 10,
+    .target = TARGET_SELECTED,
+    .priority = 0,
+    .category = DAMAGE_CATEGORY_SPECIAL,
+    .additionalEffects = ADDITIONAL_EFFECTS({
+        .moveEffect = MOVE_EFFECT_ABSORB,
+        .argument.absorbPercentage = 50,
+    }),
+    .battleAnimScript = gBattleAnimMove_GigaDrain,
+},
+
+[MOVE_BRAVADO] =
+{
+    .name = COMPOUND_STRING("Bravado"),
+    .description = COMPOUND_STRING("Boosted if burned,\npoisoned or paralyzed."),
+    .effect = EFFECT_FACADE,
+    .power = 70,
+    .type = TYPE_NORMAL,
+    .accuracy = 100,
+    .pp = 20,
+    .target = TARGET_SELECTED,
+    .priority = 0,
+    .category = DAMAGE_CATEGORY_SPECIAL,
+    .makesContact = TRUE,
+    .battleAnimScript = gBattleAnimMove_Facade,
+},
+
+[MOVE_RAGING_SOULS] =
+{
+    .name = COMPOUND_STRING("Raging Souls"),
+    .description = COMPOUND_STRING("Ghostly surge that\nsharply drops Sp. Atk."),
+    .effect = EFFECT_HIT,
+    .power = 130,
+    .type = TYPE_GHOST,
+    .accuracy = 100,
+    .pp = 5,
+    .target = TARGET_SELECTED,
+    .priority = 0,
+    .category = DAMAGE_CATEGORY_SPECIAL,
+    .additionalEffects = ADDITIONAL_EFFECTS({
+        .moveEffect = MOVE_EFFECT_STAT_MINUS,
+        .spAtk = 2,
+        .self = TRUE,
+    }),
+    .battleAnimScript = gBattleAnimMove_WillOWisp,
+},
+
+[MOVE_IRON_FANGS] =
+{
+    .name = COMPOUND_STRING("Iron Fangs"),
+    .description = COMPOUND_STRING("Steel fangs smash\nthrough barriers."),
+    .effect = EFFECT_HIT,
+    .power = 85,
+    .type = TYPE_STEEL,
+    .accuracy = 100,
+    .pp = 15,
+    .target = TARGET_SELECTED,
+    .priority = 0,
+    .category = DAMAGE_CATEGORY_PHYSICAL,
+    .makesContact = TRUE,
+    .bitingMove = TRUE,
+    .additionalEffects = ADDITIONAL_EFFECTS({
+        .moveEffect = MOVE_EFFECT_BREAK_SCREEN,
+        .preAttackEffect = TRUE,
+    }),
+    .battleAnimScript = gBattleAnimMove_BrickBreak,
+},
+
+[MOVE_BEATDOWN] =
+{
+    .name = COMPOUND_STRING("Beatdown"),
+    .description = COMPOUND_STRING("A dark flurry that\nhits two to five times."),
+    .effect = EFFECT_HIT,
+    .power = 25,
+    .type = TYPE_DARK,
+    .accuracy = 100,
+    .pp = 20,
+    .target = TARGET_SELECTED,
+    .priority = 0,
+    .category = DAMAGE_CATEGORY_PHYSICAL,
+    .makesContact = TRUE,
+    .multiHit = TRUE,
+    .battleAnimScript = gBattleAnimMove_BeatUp,
+},
+
+[MOVE_TAKE_FLIGHT] =
+{
+    .name = COMPOUND_STRING("Take Flight"),
+    .description = COMPOUND_STRING("Strikes with wind,\nthen switches user out."),
+    .effect = EFFECT_HIT_ESCAPE,
+    .power = 60,
+    .type = TYPE_FLYING,
+    .accuracy = 100,
+    .pp = 20,
+    .target = TARGET_SELECTED,
+    .priority = 0,
+    .category = DAMAGE_CATEGORY_SPECIAL,
+    .windMove = TRUE,
+    .battleAnimScript = gBattleAnimMove_UTurn,
+},
+
+[MOVE_INSECT_IMPACT] =
+{
+    .name = COMPOUND_STRING("Insect Impact"),
+    .description = COMPOUND_STRING("A hard bug punch that\nmay lower Defense."),
+    .effect = EFFECT_HIT,
+    .power = 80,
+    .type = TYPE_BUG,
+    .accuracy = 100,
+    .pp = 15,
+    .target = TARGET_SELECTED,
+    .priority = 0,
+    .category = DAMAGE_CATEGORY_PHYSICAL,
+    .makesContact = TRUE,
+    .punchingMove = TRUE,
+    .additionalEffects = ADDITIONAL_EFFECTS({
+        .moveEffect = MOVE_EFFECT_STAT_MINUS,
+        .defense = 1,
+        .chance = 30,
+    }),
+    .battleAnimScript = gBattleAnimMove_DoubleEdge,
+},
 // PRL STEP10 MOVE DATA END
 };

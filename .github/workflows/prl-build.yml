@@ -83,7 +83,8 @@ jobs:
             test/battle/weather/eerie_fog.c \
             test/battle/move_effect/weather_ball.c \
             test/battle/move_effect/curse.c \
-            test/battle/move_effect/revival_blessing.c; do
+            test/battle/move_effect/revival_blessing.c \
+            test/battle/move_effect/redux_first_batch.c; do
             echo "Running focused battle suite: $suite"
             if ! make BUILD=firered -j$(nproc) check TESTS="$suite"; then
               failed=1
