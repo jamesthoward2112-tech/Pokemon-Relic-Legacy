@@ -27,6 +27,9 @@ jobs:
       - name: Validate PRL Step 4C TM Tutor compatibility
         run: python3 -m unittest tests.test_prl_step4c_distribution
 
+      - name: Validate PRL 24-Gym first-clear rewards
+        run: python3 -m unittest tests.test_prl_gym_rewards
+
       - name: Validate Skulberus mechanics regressions
         run: python3 -m unittest tests.test_skulberus_mechanics
 

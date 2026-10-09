@@ -327,6 +327,7 @@ PetalburgCity_Gym_EventScript_NormanFaceDoorEast::
 	return
 
 PetalburgCity_Gym_EventScript_NormanPostBattle::
+	call_if_unset FLAG_PRL_GYM_HOENN_NORMAN_EXTRA, PRL_EventScript_GymExtra_HOENN_NORMAN
 	call PetalburgCity_Gym_EventScript_ShouldGiveEnigmaBerry
 	goto_if_eq VAR_RESULT, TRUE, PetalburgCity_Gym_EventScript_GiveEnigmaBerry
 	goto_if_unset FLAG_RECEIVED_TM_FACADE, PetalburgCity_Gym_EventScript_GiveFacade2
@@ -378,6 +379,7 @@ PetalburgCity_Gym_EventScript_NormanBattle::
 	setflag FLAG_DEFEATED_PETALBURG_GYM
 	setvar VAR_PETALBURG_GYM_STATE, 7
 	setflag FLAG_BADGE05_GET
+	call_if_unset FLAG_PRL_GYM_HOENN_NORMAN_EXTRA, PRL_EventScript_GymExtra_HOENN_NORMAN
 	special ResetHealLocationFromDewford
 	call EventScript_HideMrBriney
 	setflag FLAG_HIDE_MAUVILLE_GYM_WATTSON

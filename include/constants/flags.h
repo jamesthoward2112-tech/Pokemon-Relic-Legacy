@@ -6,6 +6,33 @@
 #include "constants/rematches.h"
 
 
+// PRL 24 per-Gym item+cash reward flags (region independent).
+// Reserve across save migrations; never clear these on region transfer.
+#define FLAG_PRL_GYM_KANTO_BROCK_EXTRA                    0x493
+#define FLAG_PRL_GYM_KANTO_MISTY_EXTRA                    0x494
+#define FLAG_PRL_GYM_KANTO_SURGE_EXTRA                    0x495
+#define FLAG_PRL_GYM_KANTO_ERIKA_EXTRA                    0x496
+#define FLAG_PRL_GYM_KANTO_KOGA_EXTRA                     0x497
+#define FLAG_PRL_GYM_KANTO_SABRINA_EXTRA                  0x498
+#define FLAG_PRL_GYM_KANTO_BLAINE_EXTRA                   0x499
+#define FLAG_PRL_GYM_KANTO_GIOVANNI_EXTRA                 0x49A
+#define FLAG_PRL_GYM_JOHTO_FALKNER_EXTRA                  0x49B
+#define FLAG_PRL_GYM_JOHTO_BUGSY_EXTRA                    0x49C
+#define FLAG_PRL_GYM_JOHTO_WHITNEY_EXTRA                  0x49D
+#define FLAG_PRL_GYM_JOHTO_MORTY_EXTRA                    0x49E
+#define FLAG_PRL_GYM_JOHTO_CHUCK_EXTRA                    0x49F
+#define FLAG_PRL_GYM_JOHTO_JASMINE_EXTRA                  0x4A0
+#define FLAG_PRL_GYM_JOHTO_PRYCE_EXTRA                    0x4A1
+#define FLAG_PRL_GYM_JOHTO_CLAIR_EXTRA                    0x4A2
+#define FLAG_PRL_GYM_HOENN_ROXANNE_EXTRA                  0x4A3
+#define FLAG_PRL_GYM_HOENN_BRAWLY_EXTRA                   0x4A4
+#define FLAG_PRL_GYM_HOENN_WATTSON_EXTRA                  0x4A5
+#define FLAG_PRL_GYM_HOENN_FLANNERY_EXTRA                 0x4A6
+#define FLAG_PRL_GYM_HOENN_NORMAN_EXTRA                   0x4A7
+#define FLAG_PRL_GYM_HOENN_WINONA_EXTRA                   0x4A8
+#define FLAG_PRL_GYM_HOENN_TATE_LIZA_EXTRA                0x4A9
+#define FLAG_PRL_GYM_HOENN_JUAN_EXTRA                     0x4AA
+
 // Temporary Flags
 // These temporary flags are are cleared every time a map is loaded. They are used
 // for things like shortening an NPCs introduction text if the player already spoke
