@@ -167,7 +167,7 @@ class PRLRecurringDuos(unittest.TestCase):
 
     def test_final_route23_preserves_existing_setup_for_returning_pokemon(self):
         party = read("src/data/trainers_frlg.party")
-        record = party_record(party, "STEEVE_NEEVEE_ROUTE23")
+        record = party.split("=== TRAINER_STEEVE_NEEVEE_ROUTE23 ===", 1)[1].split("\n=== ", 1)[0]
         retained_setups = [
             "Vaporeon @ Sitrus Berry\nLevel: 52\nIVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe\n- Surf\n- Aurora Beam\n- Bite\n- Acid Armor",
             "Jolteon @ Sitrus Berry\nLevel: 52\nIVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe\n- Thunderbolt\n- Double Kick\n- Quick Attack\n- Thunder Wave",
