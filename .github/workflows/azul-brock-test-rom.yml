@@ -1,0 +1,47 @@
+name: PRL Azul Agua Brock Gym - single test ROM
+
+on:
+  push:
+    branches:
+      - prl/azul-agua-brock-gym-test-20261009
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-single-firered-rom:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout isolated gym test
+        uses: actions/checkout@v4
+
+      - name: Install GBA build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends binutils-arm-none-eabi gcc-arm-none-eabi libnewlib-arm-none-eabi libpng-dev python3
+
+      - name: Build FireRed test ROM
+        run: make firered -j2 -O
+
+      - name: Verify and name the single ROM
+        run: |
+          test -s pokefirered.gba
+          python3 - <<'PY'
+          from pathlib import Path
+          rom = Path("pokefirered.gba").read_bytes()
+          assert rom[0xAC:0xB0] == b"BPRE", "Not a FireRed-based GBA ROM"
+          assert len(rom) >= 8_000_000, "ROM unexpectedly small"
+          print(f"Verified FireRed GBA header; size={len(rom):,} bytes")
+          Path("PRL_Azul_Agua_Brock_Gym_TEST.gba").write_bytes(rom)
+          PY
+          sha256sum PRL_Azul_Agua_Brock_Gym_TEST.gba
+
+      - name: Upload ONE GBA test ROM
+        uses: actions/upload-artifact@v4
+        with:
+          name: PRL_Azul_Agua_Brock_Gym_TEST
+          path: PRL_Azul_Agua_Brock_Gym_TEST.gba
+          if-no-files-found: error
+          retention-days: 30
