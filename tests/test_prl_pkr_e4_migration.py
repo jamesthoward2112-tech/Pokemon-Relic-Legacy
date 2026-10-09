@@ -48,7 +48,7 @@ class PRLPKRFirstRunEliteFour(unittest.TestCase):
         bruno = trainer_record(party, "BRUNO")
         agatha = trainer_record(party, "AGATHA")
         self.assertRegex(bruno, r"(?m)^Machamp @ Sitrus Berry\nLevel: 64\nIVs: [^\n]+\nAbility: No Guard$")
-        self.assertRegex(agatha, r"(?m)^Gengar @ Sitrus Berry\nLevel: 65\nIVs: [^\n]+\nShiny: true$")
+        self.assertRegex(agatha, r"(?m)^Gengar @ Sitrus Berry\nLevel: 65\nIVs: [^\n]+\nShiny: Yes$")
 
 
 if __name__ == "__main__":
