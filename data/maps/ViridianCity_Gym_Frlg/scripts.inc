@@ -4,6 +4,8 @@ ViridianCity_Gym_Frlg_MapScripts::
 ViridianCity_Gym_EventScript_Giovanni::
 	famechecker FAMECHECKER_GIOVANNI, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	trainerbattle_single TRAINER_LEADER_GIOVANNI, ViridianCity_Gym_Text_GiovanniIntro, ViridianCity_Gym_Text_GiovanniDefeat, ViridianCity_Gym_EventScript_DefeatedGiovanni, NO_MUSIC
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, ViridianCity_Gym_EventScript_GiovanniRematch
 	call_if_unset FLAG_PRL_GYM_KANTO_GIOVANNI_EXTRA, PRL_EventScript_GymExtra_KANTO_GIOVANNI
 	goto_if_unset FLAG_GOT_TM26_FROM_GIOVANNI, ViridianCity_Gym_EventScript_GiveTM26
 	msgbox ViridianCity_Gym_Text_GiovanniPostBattle
@@ -14,11 +16,18 @@ ViridianCity_Gym_EventScript_Giovanni::
 	release
 	end
 
+ViridianCity_Gym_EventScript_GiovanniRematch::
+	trainerbattle_rematch TRAINER_LEADER_GIOVANNI, ViridianCity_Gym_Text_GiovanniIntro, ViridianCity_Gym_Text_GiovanniDefeat
+	msgbox ViridianCity_Gym_Text_GiovanniPostBattle
+	release
+	end
+
 ViridianCity_Gym_EventScript_DefeatedGiovanni::
 	famechecker FAMECHECKER_GIOVANNI, 3
 	setflag FLAG_HIDE_MISC_KANTO_ROCKETS
 	setflag FLAG_DEFEATED_LEADER_GIOVANNI
 	setflag FLAG_BADGE08_GET
+	setflag FLAG_PRL_BADGE_KANTO_GIOVANNI
 	call_if_unset FLAG_PRL_GYM_KANTO_GIOVANNI_EXTRA, PRL_EventScript_GymExtra_KANTO_GIOVANNI
 	setvar VAR_MAP_SCENE_ROUTE22, 3
 	set_gym_trainers_frlg 8
@@ -96,13 +105,14 @@ ViridianCity_Gym_EventScript_GymGuyPostVictory::
 
 ViridianCity_Gym_EventScript_GymStatue::
 	lockall
-	goto_if_set FLAG_BADGE08_GET, ViridianCity_Gym_EventScript_GymStatuePostVictory
+	goto_if_set FLAG_PRL_BADGE_KANTO_GIOVANNI, ViridianCity_Gym_EventScript_GymStatuePostVictory
 	msgbox ViridianCity_Gym_Text_GymStatue
 	releaseall
 	end
 
 ViridianCity_Gym_EventScript_GymStatuePostVictory::
-	msgbox ViridianCity_Gym_Text_GymStatuePlayerWon
+	lockall
+	warpteleport MAP_VIRIDIAN_CITY_GYM, 2, 3
 	releaseall
 	end
 

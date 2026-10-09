@@ -4,9 +4,17 @@ CeladonCity_Gym_Frlg_MapScripts::
 CeladonCity_Gym_EventScript_Erika::
 	famechecker FAMECHECKER_ERIKA, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	trainerbattle_single TRAINER_LEADER_ERIKA, CeladonCity_Gym_Text_ErikaIntro, CeladonCity_Gym_Text_ErikaDefeat, CeladonCity_Gym_EventScript_DefeatedErika, NO_MUSIC
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, CeladonCity_Gym_EventScript_ErikaRematch
 	call_if_unset FLAG_PRL_GYM_KANTO_ERIKA_EXTRA, PRL_EventScript_GymExtra_KANTO_ERIKA
 	goto_if_unset FLAG_GOT_TM19_FROM_ERIKA, CeladonCity_Gym_EventScript_GiveTM19
 	famechecker FAMECHECKER_ERIKA, 4
+	msgbox CeladonCity_Gym_Text_ErikaPostBattle
+	release
+	end
+
+CeladonCity_Gym_EventScript_ErikaRematch::
+	trainerbattle_rematch TRAINER_LEADER_ERIKA, CeladonCity_Gym_Text_ErikaIntro, CeladonCity_Gym_Text_ErikaDefeat
 	msgbox CeladonCity_Gym_Text_ErikaPostBattle
 	release
 	end
@@ -16,6 +24,7 @@ CeladonCity_Gym_EventScript_DefeatedErika::
 	clearflag FLAG_HIDE_FAME_CHECKER_ERIKA_JOURNALS
 	setflag FLAG_DEFEATED_ERIKA
 	setflag FLAG_BADGE04_GET
+	setflag FLAG_PRL_BADGE_KANTO_ERIKA
 	call_if_unset FLAG_PRL_GYM_KANTO_ERIKA_EXTRA, PRL_EventScript_GymExtra_KANTO_ERIKA
 	set_gym_trainers_frlg 4
 	goto CeladonCity_Gym_EventScript_GiveTM19
@@ -75,13 +84,14 @@ CeladonCity_Gym_EventScript_Mary::
 
 CeladonCity_Gym_EventScript_GymStatue::
 	lockall
-	goto_if_set FLAG_BADGE04_GET, CeladonCity_Gym_EventScript_GymStatuePostVictory
+	goto_if_set FLAG_PRL_BADGE_KANTO_ERIKA, CeladonCity_Gym_EventScript_GymStatuePostVictory
 	msgbox CeladonCity_Gym_Text_GymStatue
 	releaseall
 	end
 
 CeladonCity_Gym_EventScript_GymStatuePostVictory::
-	msgbox CeladonCity_Gym_Text_GymStatuePlayerWon
+	lockall
+	warpteleport MAP_CELADON_CITY_GYM, 6, 5
 	releaseall
 	end
 

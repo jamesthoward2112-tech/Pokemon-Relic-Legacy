@@ -4,8 +4,16 @@ PewterCity_Gym_Frlg_MapScripts::
 PewterCity_Gym_EventScript_Brock::
 	famechecker FAMECHECKER_BROCK, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	trainerbattle_single TRAINER_LEADER_BROCK, PewterCity_Gym_Text_BrockIntro, PewterCity_Gym_Text_BrockDefeat, PewterCity_Gym_EventScript_DefeatedBrock, NO_MUSIC
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, PewterCity_Gym_EventScript_BrockRematch
 	call_if_unset FLAG_PRL_GYM_KANTO_BROCK_EXTRA, PRL_EventScript_GymExtra_KANTO_BROCK
 	goto_if_unset FLAG_GOT_TM39_FROM_BROCK, PewterCity_Gym_EventScript_GiveTM39
+	msgbox PewterCity_Gym_Text_BrockPostBattle
+	release
+	end
+
+PewterCity_Gym_EventScript_BrockRematch::
+	trainerbattle_rematch TRAINER_LEADER_BROCK, PewterCity_Gym_Text_BrockIntro, PewterCity_Gym_Text_BrockDefeat
 	msgbox PewterCity_Gym_Text_BrockPostBattle
 	release
 	end
@@ -14,6 +22,7 @@ PewterCity_Gym_EventScript_DefeatedBrock::
 	famechecker FAMECHECKER_BROCK, 1
 	setflag FLAG_DEFEATED_BROCK
 	setflag FLAG_BADGE01_GET
+	setflag FLAG_PRL_BADGE_KANTO_BROCK
 	call_if_unset FLAG_PRL_GYM_KANTO_BROCK_EXTRA, PRL_EventScript_GymExtra_KANTO_BROCK
 	setvar VAR_MAP_SCENE_PEWTER_CITY, 1
 	setflag FLAG_HIDE_PEWTER_CITY_GYM_GUIDE
@@ -73,13 +82,14 @@ PewterCity_Gym_EventScript_GymGuyAdvice::
 
 PewterCity_Gym_EventScript_GymStatue::
 	lockall
-	goto_if_set FLAG_BADGE01_GET, PewterCity_Gym_EventScript_GymStatuePostVictory
+	goto_if_set FLAG_PRL_BADGE_KANTO_BROCK, PewterCity_Gym_EventScript_GymStatuePostVictory
 	msgbox PewterCity_Gym_Text_GymStatue
 	releaseall
 	end
 
 PewterCity_Gym_EventScript_GymStatuePostVictory::
-	msgbox PewterCity_Gym_Text_GymStatuePlayerWon
+	lockall
+	warpteleport MAP_PEWTER_CITY_GYM, 6, 6
 	releaseall
 	end
 

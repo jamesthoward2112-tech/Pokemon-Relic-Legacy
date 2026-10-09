@@ -34,6 +34,7 @@ FortreeCity_Gym_EventScript_WinonaDefeated::
 	msgbox FortreeCity_Gym_Text_ExplainFeatherBadgeTakeThis, MSGBOX_DEFAULT
 	setflag FLAG_DEFEATED_FORTREE_GYM
 	setflag FLAG_BADGE06_GET
+	setflag FLAG_PRL_BADGE_HOENN_WINONA
 	call_if_unset FLAG_PRL_GYM_HOENN_WINONA_EXTRA, PRL_EventScript_GymExtra_HOENN_WINONA
 	setvar VAR_0x8008, 6
 	call Common_EventScript_SetGymTrainers
@@ -116,18 +117,19 @@ FortreeCity_Gym_EventScript_GymGuidePostVictory::
 
 FortreeCity_Gym_EventScript_LeftGymStatue::
 	lockall
-	goto_if_set FLAG_BADGE06_GET, FortreeCity_Gym_EventScript_GymStatueCertified
+	goto_if_set FLAG_PRL_BADGE_HOENN_WINONA, FortreeCity_Gym_EventScript_GymStatueCertified
 	goto FortreeCity_Gym_EventScript_GymStatue
 	end
 
 FortreeCity_Gym_EventScript_RightGymStatue::
 	lockall
-	goto_if_set FLAG_BADGE06_GET, FortreeCity_Gym_EventScript_GymStatueCertified
+	goto_if_set FLAG_PRL_BADGE_HOENN_WINONA, FortreeCity_Gym_EventScript_GymStatueCertified
 	goto FortreeCity_Gym_EventScript_GymStatue
 	end
 
 FortreeCity_Gym_EventScript_GymStatueCertified::
-	msgbox FortreeCity_Gym_Text_GymStatueCertified, MSGBOX_DEFAULT
+	lockall
+	warpteleport MAP_FORTREE_CITY_GYM, 15, 3
 	releaseall
 	end
 

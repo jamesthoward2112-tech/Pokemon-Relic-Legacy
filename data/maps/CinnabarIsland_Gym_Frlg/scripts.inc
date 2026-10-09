@@ -48,8 +48,16 @@ CinnabarIsland_Gym_OnLoadOpenDoor6::
 CinnabarIsland_Gym_EventScript_Blaine::
 	famechecker FAMECHECKER_BLAINE, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	trainerbattle_single TRAINER_LEADER_BLAINE, CinnabarIsland_Gym_Text_BlaineIntro, CinnabarIsland_Gym_Text_BlaineDefeat, CinnabarIsland_Gym_EventScript_DefeatedBlaine, NO_MUSIC
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, CinnabarIsland_Gym_EventScript_BlaineRematch
 	call_if_unset FLAG_PRL_GYM_KANTO_BLAINE_EXTRA, PRL_EventScript_GymExtra_KANTO_BLAINE
 	goto_if_unset FLAG_GOT_TM38_FROM_BLAINE, CinnabarIsland_Gym_EventScript_GiveTM38
+	msgbox CinnabarIsland_Gym_Text_BlainePostBattle
+	release
+	end
+
+CinnabarIsland_Gym_EventScript_BlaineRematch::
+	trainerbattle_rematch TRAINER_LEADER_BLAINE, CinnabarIsland_Gym_Text_BlaineIntro, CinnabarIsland_Gym_Text_BlaineDefeat
 	msgbox CinnabarIsland_Gym_Text_BlainePostBattle
 	release
 	end
@@ -58,6 +66,7 @@ CinnabarIsland_Gym_EventScript_DefeatedBlaine::
 	famechecker FAMECHECKER_BLAINE, 1
 	setflag FLAG_DEFEATED_BLAINE
 	setflag FLAG_BADGE07_GET
+	setflag FLAG_PRL_BADGE_KANTO_BLAINE
 	call_if_unset FLAG_PRL_GYM_KANTO_BLAINE_EXTRA, PRL_EventScript_GymExtra_KANTO_BLAINE
 	setrespawn HEAL_LOCATION_CINNABAR_ISLAND
 	setvar VAR_MAP_SCENE_CINNABAR_ISLAND, 1
@@ -186,13 +195,14 @@ CinnabarIsland_Gym_EventScript_GymGuyPostVictory::
 
 CinnabarIsland_Gym_EventScript_GymStatue::
 	lockall
-	goto_if_set FLAG_BADGE07_GET, CinnabarIsland_Gym_EventScript_GymStatuePostVictory
+	goto_if_set FLAG_PRL_BADGE_KANTO_BLAINE, CinnabarIsland_Gym_EventScript_GymStatuePostVictory
 	msgbox CinnabarIsland_Gym_Text_GymStatue
 	releaseall
 	end
 
 CinnabarIsland_Gym_EventScript_GymStatuePostVictory::
-	msgbox CinnabarIsland_Gym_Text_GymStatuePlayerWon
+	lockall
+	warpteleport MAP_CINNABAR_ISLAND_GYM, 5, 5
 	releaseall
 	end
 

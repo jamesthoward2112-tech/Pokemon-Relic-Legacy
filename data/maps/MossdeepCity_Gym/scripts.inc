@@ -70,6 +70,7 @@ MossdeepCity_Gym_EventScript_TateAndLizaDefeated::
 	msgbox MossdeepCity_Gym_Text_ExplainMindBadgeTakeThis, MSGBOX_DEFAULT
 	setflag FLAG_DEFEATED_MOSSDEEP_GYM
 	setflag FLAG_BADGE07_GET
+	setflag FLAG_PRL_BADGE_HOENN_TATE_LIZA
 	call_if_unset FLAG_PRL_GYM_HOENN_TATE_LIZA_EXTRA, PRL_EventScript_GymExtra_HOENN_TATE_LIZA
 	setflag FLAG_HIDE_AQUA_HIDEOUT_GRUNTS
 	clearflag FLAG_HIDE_SLATEPORT_CITY_STERNS_SHIPYARD_MR_BRINEY
@@ -291,18 +292,19 @@ MossdeepCity_Gym_Movement_WaitAfterSwitchUse:
 
 MossdeepCity_Gym_EventScript_LeftGymStatue::
 	lockall
-	goto_if_set FLAG_BADGE07_GET, MossdeepCity_Gym_EventScript_GymStatueCertified
+	goto_if_set FLAG_PRL_BADGE_HOENN_TATE_LIZA, MossdeepCity_Gym_EventScript_GymStatueCertified
 	goto MossdeepCity_Gym_EventScript_GymStatue
 	end
 
 MossdeepCity_Gym_EventScript_RightGymStatue::
 	lockall
-	goto_if_set FLAG_BADGE07_GET, MossdeepCity_Gym_EventScript_GymStatueCertified
+	goto_if_set FLAG_PRL_BADGE_HOENN_TATE_LIZA, MossdeepCity_Gym_EventScript_GymStatueCertified
 	goto MossdeepCity_Gym_EventScript_GymStatue
 	end
 
 MossdeepCity_Gym_EventScript_GymStatueCertified::
-	msgbox MossdeepCity_Gym_Text_GymStatueCertified, MSGBOX_DEFAULT
+	lockall
+	warpteleport MAP_MOSSDEEP_CITY_GYM, 23, 8
 	releaseall
 	end
 

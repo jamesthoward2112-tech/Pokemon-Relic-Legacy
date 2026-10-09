@@ -1,31 +1,31 @@
 # PRL Gym Rewards & Expanded Storage — 9 October 2026
 
 ## Gym rule approved
-Across 24 gyms, first-clear badge + original TM + a type-appropriate held item and 10,000 bonus in addition to battle winnings. After the first victory, only regular rematch money. Each extra item+money claim uses one region-unique flag. A full Bag prevents the extra item and bonus and is recoverable by returning to the leader. Existing badge and original TM flags are kept untouched. 24 reward flags are reserved at 0x493–0x4AA.
+Across 24 gyms, first-clear badge + approved TM + a type-appropriate held item and £10,000 bonus in addition to battle winnings. After the first victory, rematches award normal battle winnings only. The 24 extra item+money claims use persistent one-time flags at 0x493–0x4AA. The reward script gives the item before money and sets the claim flag last; a full Bag leaves the item and bonus outstanding for a later visit to the leader. Existing donor badge and TM flags remain in place for story logic.
 
-**Source implementation:** All eight Kanto Gym reward scripts and eight Hoenn Gym reward scripts now have first-clear and follow-up extra-claim hooks. Johto's eight reward flags are reserved for the future Johto map import; the checkout currently contains no Johto Gym map scripts. This does NOT itself implement 24 distinct badge flags; the old two donor regions still share vanilla badge symbols.
+**Current implementation:** All eight Kanto and eight Hoenn Gyms have first-clear reward hooks, distinct persistent region badge flags, and a post-victory Gym statue shortcut to the leader. Kanto rematch table entries reuse the donor leader teams; Hoenn keeps its existing rematch teams. Each statue retains its original informational behavior before the badge is earned. Johto's eight reward flags are reserved for a future map import; this checkout contains no Johto Gym maps, so Johto implementation is pending.
 
-| Kanto | Extra held item |
-|---|---|
-| BROCK | HARD_STONE |
-| MISTY | MYSTIC_WATER |
-| SURGE | MAGNET |
-| ERIKA | MIRACLE_SEED |
-| KOGA | POISON_BARB |
-| SABRINA | TWISTED_SPOON |
-| BLAINE | CHARCOAL |
-| GIOVANNI | SOFT_SAND |
+| Kanto | Approved TM | Extra held item |
+|---|---|---|
+| BROCK | TM39 | HARD_STONE |
+| MISTY | TM03 | MYSTIC_WATER |
+| SURGE | TM34 | MAGNET |
+| ERIKA | TM19 | MIRACLE_SEED |
+| KOGA | TM06 | POISON_BARB |
+| SABRINA | TM04 | TWISTED_SPOON |
+| BLAINE | TM38 | CHARCOAL |
+| GIOVANNI | TM26 | SOFT_SAND |
 
-| Hoenn | Extra held item |
-|---|---|
-| ROXANNE | HARD_STONE |
-| BRAWLY | BLACK_BELT |
-| WATTSON | MAGNET |
-| FLANNERY | CHARCOAL |
-| NORMAN | SILK_SCARF |
-| WINONA | SHARP_BEAK |
-| TATE_LIZA | TWISTED_SPOON |
-| JUAN | MYSTIC_WATER |
+| Hoenn | Approved TM | Extra held item |
+|---|---|---|
+| ROXANNE | ROCK_TOMB | HARD_STONE |
+| BRAWLY | BULK_UP | BLACK_BELT |
+| WATTSON | SHOCK_WAVE | MAGNET |
+| FLANNERY | OVERHEAT | CHARCOAL |
+| NORMAN | FACADE | SILK_SCARF |
+| WINONA | AERIAL_ACE | SHARP_BEAK |
+| TATE_LIZA | CALM_MIND | TWISTED_SPOON |
+| JUAN | WATER_PULSE | MYSTIC_WATER |
 
 | Johto (pending map port) | Extra held item | TM |
 |---|---|---|
@@ -40,11 +40,9 @@ Across 24 gyms, first-clear badge + original TM + a type-appropriate held item a
 
 **Johto caveat:** Whitney's updated donor Eviolite/Return selection replaces the older Silk Scarf; Clair's Dragon Pulse is awarded only after Dragon's Den shrine test, unlike the immediate held item and bonus.
 
-## Storage request — NOT IMPLEMENTED YET
+## Storage capacities — unchanged
 
-User explicitly demands expanded Bag slots, PC item storage, and Pokémon PC storage. The current compiled defaults are BAG_ITEMS_COUNT=30, BAG_KEYITEMS_COUNT=30, BAG_POKEBALLS_COUNT=16, BAG_TMHM_COUNT=64, BAG_BERRIES_COUNT=46 and PC_ITEMS_COUNT=50; stack limits already allow 999 items. The current Pokémon PC is 14 boxes ×30 = 420 Pokémon. The locked three-region canon requires 20 ordinary level-tier boxes (600) plus LEGENDS (30): **21 boxes / 630 Pokémon**.
-
-**Save safety blocker:** `src/save.c` allots nine 3968-byte flash sectors per save slot to `struct PokemonStorage`. Changing `TOTAL_BOXES_COUNT` from 14 to 21 overflows that allocation and its STATIC_ASSERT. Increasing Bag/PC item slots shifts SaveBlock1 offsets unless implemented with a deliberate migration. Plan as a separate save-format engineering task including versioning, back-compat, sector layout/capacity, full Bag and full 21-box stress saves, UI cycling, save/reload and cross-region transfer. Neither Pokémon boxes nor Bag/PC item capacities are expanded in this Gym commit. Do not call them done.
+This Gym work does not expand Bag or PC storage. Capacities remain BAG_ITEMS_COUNT=30, BAG_KEYITEMS_COUNT=30, BAG_POKEBALLS_COUNT=16, BAG_TMHM_COUNT=64, BAG_BERRIES_COUNT=46, PC_ITEMS_COUNT=50, and Pokémon storage at 14 boxes ×30 (420 Pokémon). The separate experimental storage expansion draft is not part of this implementation.
 
 ## Validation
-Static gym-script checks for unique 24 flag IDs, held item before cash flag, exact one-time hooks, and unchanged badges and TMs; FireRed compilation and focused battle regressions required. In-game full Bag, existing save migration, rematches, money cap and Johto integration remain pending.
+Static checks verify the 24 reward flags, 24 region-specific badge flags, item-before-cash ordering, first-clear hooks, rematch routes, and approved TMs/items. Save flags use the project's persistent event-flag storage, but emulator save/reload and live full-Bag recovery were not available in this environment. FireRed compilation was attempted but is blocked here because arm-none-eabi-gcc, pkg-config, and libpng headers are missing. Johto integration remains pending until its Gym maps are imported.

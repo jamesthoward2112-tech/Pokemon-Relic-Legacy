@@ -37,4 +37,40 @@ class PRLGymRewards(unittest.TestCase):
     self.assertEqual(read("data/event_scripts.s").count('.include "data/scripts/prl_gym_rewards.inc"'),1)
  def test_johto_not_present(self):
     self.assertFalse((R/"data/maps/VioletCity_Gym").exists())
+ def test_distinct_badge_flags_are_reserved_separately(self):
+    flags=read("include/constants/flags.h")
+    names=["KANTO_"+n for n,*_ in K]+["JOHTO_"+n for n in J]+["HOENN_"+n for n,*_ in H]
+    values=[]
+    for name in names:
+        m=re.search(r"^#define FLAG_PRL_BADGE_"+name+r"\s+(0x[0-9A-F]+)",flags,re.M)
+        self.assertIsNotNone(m,name)
+        values.append(int(m.group(1),16))
+    self.assertEqual(values,list(range(0x4BD,0x4D5)))
+    self.assertEqual(len(set(values)),24)
+    rewards=[int(x,16) for x in re.findall(r"^#define FLAG_PRL_GYM_\w+_EXTRA\s+(0x[0-9A-F]+)",flags,re.M)]
+    self.assertEqual(len(rewards),24)
+    self.assertTrue(set(values).isdisjoint(rewards))
+ def test_live_badges_are_recorded_and_statues_use_their_own_badge(self):
+    for region,gyms in (("KANTO",K),("HOENN",H)):
+        for name,path,*_ in gyms:
+            with self.subTest(region=region,leader=name):
+                script=read(f"data/maps/{path}/scripts.inc")
+                badge=f"FLAG_PRL_BADGE_{region}_{name}"
+                self.assertIn(f"setflag {badge}", script)
+                self.assertIn(f"goto_if_set {badge},", script)
+                self.assertIn("warpteleport", script, f"{region} {name} statue has no leader shortcut")
+ def test_kanto_leaders_have_save_persistent_rematch_battles(self):
+    battle=read("src/battle_setup.c")
+    ids=read("include/constants/rematches.h")
+    for name,path,*_ in K:
+        with self.subTest(leader=name):
+            script=read(f"data/maps/{path}/scripts.inc")
+            self.assertTrue("trainerbattle_rematch TRAINER_LEADER_" in script, f"{name} has no rematch battle")
+            self.assertTrue(f"REMATCH_KANTO_{name}" in ids, f"{name} has no rematch ID")
+            self.assertTrue(f"REMATCH_KANTO_{name}" in battle, f"{name} has no save-backed rematch record")
+            self.assertEqual(script.count("ShouldTryRematchBattle"),1, f"{name} rematch decision is duplicated")
+ def test_johto_reward_spec_remains_explicit(self):
+    spec=read("docs/prl_gym_rewards_and_storage_requirements.md")
+    for expected in ("WHITNEY", "EVIOLITE", "RETURN", "CLAIR", "DRAGON_FANG", "DRAGON_PULSE_AFTER_DEN", "future map import"):
+        self.assertTrue(expected in spec, f"Johto reward spec missing {expected}")
 if __name__=="__main__":unittest.main()
