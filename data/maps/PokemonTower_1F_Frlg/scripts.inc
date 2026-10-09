@@ -65,3 +65,38 @@ PokemonTower_1F_Text_SenseSpiritsUpToMischief::
 	.string "There are spirits up to mischief.\n"
 	.string "I sense them high in the TOWER.$"
 
+
+PokemonTower_1F_EventScript_PRLSteeveNeeveeTrigger::
+	lockall
+	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerEnd
+	checkitem ITEM_SILPH_SCOPE
+	goto_if_eq VAR_RESULT, FALSE, PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerEnd
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_TOWER, PokemonTower_1F_Text_PRL_SteeveNeeveeIntro, PokemonTower_1F_Text_PRL_SteeveNeeveeDefeat, PokemonTower_1F_Text_PRL_SteeveNeeveeNotEnoughMons
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerWon
+	releaseall
+	end
+PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER
+	msgbox PokemonTower_1F_Text_PRL_SteeveNeeveePostBattle
+PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER
+PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerEnd::
+	releaseall
+	end
+
+PokemonTower_1F_Text_PRL_SteeveNeeveeIntro::
+	.string "STEEVE: Remember us from the ship?\p"
+	.string "NEEVEE: Your team keeps growing!$"
+
+PokemonTower_1F_Text_PRL_SteeveNeeveeDefeat::
+	.string "STEEVE: Your team is amazing!\p"
+	.string "NEEVEE: We'll keep training!$"
+
+PokemonTower_1F_Text_PRL_SteeveNeeveeNotEnoughMons::
+	.string "STEEVE: We need a fair double\n"
+	.string "battle. Bring two POKéMON!$"
+
+PokemonTower_1F_Text_PRL_SteeveNeeveePostBattle::
+	.string "NEEVEE: Our EEVEE will keep\n"
+	.string "growing with us. See you ahead!$"

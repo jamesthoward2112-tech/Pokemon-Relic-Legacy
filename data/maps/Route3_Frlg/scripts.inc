@@ -156,3 +156,37 @@ Route3_EventScript_PRLCharmanderAide_Text_Repeat::
 
 Route3_EventScript_PRLCharmanderAide_Text_Pokemon::
 	.string "CHARMANDER looks ready to travel.$"
+
+Route3_EventScript_PRLSteeveNeeveeTrigger::
+	lockall
+	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeTriggerEnd
+	goto_if_unset FLAG_BADGE01_GET, Route3_EventScript_PRLSteeveNeeveeTriggerEnd
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE3, Route3_Text_PRL_SteeveNeeveeIntro, Route3_Text_PRL_SteeveNeeveeDefeat, Route3_Text_PRL_SteeveNeeveeNotEnoughMons
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeTriggerWon
+	releaseall
+	end
+Route3_EventScript_PRLSteeveNeeveeTriggerWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3
+	msgbox Route3_Text_PRL_SteeveNeeveePostBattle
+Route3_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3
+Route3_EventScript_PRLSteeveNeeveeTriggerEnd::
+	releaseall
+	end
+
+Route3_Text_PRL_SteeveNeeveeIntro::
+	.string "STEEVE: Our EEVEE are ready!\p"
+	.string "NEEVEE: Let's battle together!$"
+
+Route3_Text_PRL_SteeveNeeveeDefeat::
+	.string "STEEVE: Your team is amazing!\p"
+	.string "NEEVEE: We'll keep training!$"
+
+Route3_Text_PRL_SteeveNeeveeNotEnoughMons::
+	.string "STEEVE: We need a fair double\n"
+	.string "battle. Bring two POKéMON!$"
+
+Route3_Text_PRL_SteeveNeeveePostBattle::
+	.string "NEEVEE: Our EEVEE will keep\n"
+	.string "growing with us. See you ahead!$"

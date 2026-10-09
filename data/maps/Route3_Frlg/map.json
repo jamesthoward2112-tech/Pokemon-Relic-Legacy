@@ -170,7 +170,17 @@
     }
   ],
   "warp_events": [],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 60,
+      "y": 2,
+      "elevation": 3,
+      "var": "VAR_PRL_RECURRING_ROUTE3_TRIGGER",
+      "var_value": "0",
+      "script": "Route3_EventScript_PRLSteeveNeeveeTrigger"
+    }
+  ],
   "bg_events": [
     {
       "type": "sign",

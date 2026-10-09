@@ -13757,3 +13757,361 @@ IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 Muk
 Level: 39
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+
+=== TRAINER_STEEVE_NEEVEE_ROUTE3 ===
+Name: STEEVE&NEE
+Class: Twins Frlg
+Pic: Twins Frlg
+Gender: Male
+Music: Twins
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint
+
+Eevee
+Level: 16
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Tackle
+- Tail Whip
+- Sand Attack
+- Growl
+
+Eevee
+Level: 16
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Tackle
+- Helping Hand
+- Sand Attack
+- Growl
+
+=== TRAINER_STEEVE_NEEVEE_SS_ANNE ===
+Name: STEEVE&NEE
+Class: Twins Frlg
+Pic: Twins Frlg
+Gender: Male
+Music: Twins
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint
+
+Vaporeon @ Oran Berry
+Level: 26
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+- Water Gun
+- Quick Attack
+- Tail Whip
+- Sand Attack
+
+Jolteon @ Oran Berry
+Level: 26
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+- Thundershock
+- Quick Attack
+- Sand Attack
+- Tail Whip
+
+Eevee
+Level: 25
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+- Quick Attack
+- Helping Hand
+- Sand Attack
+- Growl
+
+Eevee
+Level: 25
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+- Tackle
+- Quick Attack
+- Tail Whip
+- Helping Hand
+
+=== TRAINER_STEEVE_NEEVEE_TOWER ===
+Name: STEEVE&NEE
+Class: Twins Frlg
+Pic: Twins Frlg
+Gender: Male
+Music: Twins
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability
+
+Flareon @ Oran Berry
+Level: 37
+IVs: 14 HP / 14 Atk / 14 Def / 14 SpA / 14 SpD / 14 Spe
+- Fire Spin
+- Ember
+- Quick Attack
+- Bite
+
+Vaporeon @ Oran Berry
+Level: 37
+IVs: 14 HP / 14 Atk / 14 Def / 14 SpA / 14 SpD / 14 Spe
+- Water Gun
+- Aurora Beam
+- Quick Attack
+- Bite
+
+Jolteon
+Level: 36
+IVs: 14 HP / 14 Atk / 14 Def / 14 SpA / 14 SpD / 14 Spe
+- Thundershock
+- Double Kick
+- Quick Attack
+- Pin Missile
+
+Eevee @ Sitrus Berry
+Level: 36
+IVs: 14 HP / 14 Atk / 14 Def / 14 SpA / 14 SpD / 14 Spe
+- Bite
+- Baton Pass
+- Quick Attack
+- Sand Attack
+
+=== TRAINER_STEEVE_NEEVEE_ROUTE23 ===
+Name: STEEVE&NEE
+Class: Twins Frlg
+Pic: Twins Frlg
+Gender: Male
+Music: Twins
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability
+
+Vaporeon @ Sitrus Berry
+Level: 52
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Surf
+- Aurora Beam
+- Bite
+- Acid Armor
+
+Jolteon @ Sitrus Berry
+Level: 52
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Thunderbolt
+- Double Kick
+- Quick Attack
+- Thunder Wave
+
+Flareon @ Sitrus Berry
+Level: 55
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Flamethrower
+- Fire Spin
+- Bite
+- Quick Attack
+
+Eevee
+Level: 51
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Bite
+- Baton Pass
+- Quick Attack
+- Sand Attack
+
+Eevee
+Level: 52
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Take Down
+- Shadow Ball
+- Quick Attack
+- Helping Hand
+
+Eevee @ Sitrus Berry
+Level: 53
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Take Down
+- Bite
+- Quick Attack
+- Helping Hand
+
+=== TRAINER_JESSIE_JAMES_MT_MOON ===
+Name: JESSIE
+Class: Team Rocket Frlg
+Pic: Prl Jessie
+Gender: Female
+Music: Suspicious
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint
+
+Ekans
+Level: 16
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Wrap
+- Poison Sting
+- Bite
+- Leer
+
+Koffing
+Level: 16
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Poison Gas
+- Tackle
+- Smog
+
+Bellsprout
+Level: 16
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Vine Whip
+- Wrap
+- Growth
+- Sleep Powder
+
+Meowth
+Level: 17
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Scratch
+- Bite
+- Growl
+
+=== TRAINER_JESSIE_JAMES_HIDEOUT ===
+Name: JAMES
+Class: Team Rocket Frlg
+Pic: Prl James
+Gender: Male
+Music: Suspicious
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint
+
+Arbok @ Oran Berry
+Level: 29
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Bite
+- Glare
+- Poison Sting
+- Screech
+
+Weezing @ Oran Berry
+Level: 29
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Smog
+- Smokescreen
+- Self-Destruct
+- Poison Gas
+
+Raticate
+Level: 30
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Quick Attack
+- Hyper Fang
+- Pursuit
+- Focus Energy
+
+Meowth
+Level: 30
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Scratch
+- Bite
+- Pay Day
+- Feint Attack
+
+=== TRAINER_JESSIE_JAMES_SILPH ===
+Name: JESSIE
+Class: Team Rocket Frlg
+Pic: Prl Jessie
+Gender: Female
+Music: Suspicious
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability
+
+Arbok @ Sitrus Berry
+Level: 39
+IVs: 16 HP / 16 Atk / 16 Def / 16 SpA / 16 SpD / 16 Spe
+- Sludge Bomb
+- Bite
+- Glare
+- Screech
+
+Weezing @ Sitrus Berry
+Level: 39
+IVs: 16 HP / 16 Atk / 16 Def / 16 SpA / 16 SpD / 16 Spe
+- Sludge
+- Smokescreen
+- Self-Destruct
+- Haze
+
+Drowzee
+Level: 40
+IVs: 16 HP / 16 Atk / 16 Def / 16 SpA / 16 SpD / 16 Spe
+- Psychic
+- Hypnosis
+- Headbutt
+- Disable
+
+Victreebel
+Level: 40
+IVs: 16 HP / 16 Atk / 16 Def / 16 SpA / 16 SpD / 16 Spe
+- Razor Leaf
+- Sleep Powder
+- Sludge Bomb
+- Sweet Scent
+
+Pikachu
+Level: 41
+IVs: 16 HP / 16 Atk / 16 Def / 16 SpA / 16 SpD / 16 Spe
+- Thunderbolt
+- Quick Attack
+- Thunder Wave
+- Double Team
+
+Meowth
+Level: 41
+IVs: 16 HP / 16 Atk / 16 Def / 16 SpA / 16 SpD / 16 Spe
+- Bite
+- Fury Swipes
+- Screech
+- Feint Attack
+
+=== TRAINER_JESSIE_JAMES_VICTORY_ROAD ===
+Name: JAMES
+Class: Team Rocket Frlg
+Pic: Prl James
+Gender: Male
+Music: Suspicious
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability
+
+Arbok @ Sitrus Berry
+Level: 54
+IVs: 22 HP / 22 Atk / 22 Def / 22 SpA / 22 SpD / 22 Spe
+- Sludge Bomb
+- Earthquake
+- Glare
+- Bite
+
+Weezing @ Sitrus Berry
+Level: 54
+IVs: 22 HP / 22 Atk / 22 Def / 22 SpA / 22 SpD / 22 Spe
+- Sludge
+- Thunderbolt
+- Self-Destruct
+- Haze
+
+Hypno
+Level: 55
+IVs: 22 HP / 22 Atk / 22 Def / 22 SpA / 22 SpD / 22 Spe
+- Psychic
+- Hypnosis
+- Shadow Ball
+- Calm Mind
+
+Victreebel
+Level: 55
+IVs: 22 HP / 22 Atk / 22 Def / 22 SpA / 22 SpD / 22 Spe
+- Razor Leaf
+- Sludge Bomb
+- Sleep Powder
+- Swords Dance
+
+Pikachu
+Level: 56
+IVs: 22 HP / 22 Atk / 22 Def / 22 SpA / 22 SpD / 22 Spe
+- Thunderbolt
+- Quick Attack
+- Iron Tail
+- Thunder Wave
+
+Meowth
+Level: 56
+IVs: 22 HP / 22 Atk / 22 Def / 22 SpA / 22 SpD / 22 Spe
+- Slash
+- Shadow Ball
+- Thunderbolt
+- Aerial Ace

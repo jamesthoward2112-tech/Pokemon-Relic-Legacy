@@ -284,6 +284,33 @@
       "var": "VAR_MAP_SCENE_VICTORY_ROAD_2F_BOULDER2",
       "var_value": "99",
       "script": "VictoryRoad_2F_EventScript_FloorSwitch2"
+    },
+    {
+      "type": "trigger",
+      "x": 47,
+      "y": 13,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
+    },
+    {
+      "type": "trigger",
+      "x": 48,
+      "y": 12,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
+    },
+    {
+      "type": "trigger",
+      "x": 49,
+      "y": 13,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
     }
   ],
   "bg_events": []

@@ -131,3 +131,37 @@ Route23_Text_VictoryRoadGateSign::
 	.string "VICTORY ROAD GATE -\n"
 	.string "POKéMON LEAGUE$"
 
+
+Route23_EventScript_PRLSteeveNeeveeTrigger::
+	lockall
+	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeTriggerEnd
+	goto_if_unset FLAG_BADGE08_GET, Route23_EventScript_PRLSteeveNeeveeTriggerEnd
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_Text_PRL_SteeveNeeveeIntro, Route23_Text_PRL_SteeveNeeveeDefeat, Route23_Text_PRL_SteeveNeeveeNotEnoughMons
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeTriggerWon
+	releaseall
+	end
+Route23_EventScript_PRLSteeveNeeveeTriggerWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
+	msgbox Route23_Text_PRL_SteeveNeeveePostBattle
+Route23_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
+Route23_EventScript_PRLSteeveNeeveeTriggerEnd::
+	releaseall
+	end
+
+Route23_Text_PRL_SteeveNeeveeIntro::
+	.string "STEEVE: From ROUTE 3 to the League!\p"
+	.string "NEEVEE: Let's give our best battle!$"
+
+Route23_Text_PRL_SteeveNeeveeDefeat::
+	.string "STEEVE: Your team is amazing!\p"
+	.string "NEEVEE: We'll keep training!$"
+
+Route23_Text_PRL_SteeveNeeveeNotEnoughMons::
+	.string "STEEVE: We need a fair double\n"
+	.string "battle. Bring two POKéMON!$"
+
+Route23_Text_PRL_SteeveNeeveePostBattle::
+	.string "NEEVEE: Our EEVEE will keep\n"
+	.string "growing with us. See you ahead!$"
