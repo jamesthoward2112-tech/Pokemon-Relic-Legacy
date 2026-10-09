@@ -50,7 +50,19 @@ jobs:
       - name: ROM (Emerald)
         env:
           GAME_VERSION: EMERALD
-        run: make -j$(nproc) -O all
+        run: |
+          log=/tmp/prl-emerald.log
+          set +e
+          make -j$(nproc) -O all > "$log" 2>&1
+          status=$?
+          if [ "$status" -eq 0 ]; then
+            tail -n 20 "$log"
+          elif grep -E -C 3 'error:|fatal|undefined reference|No rule to make target|make(\[[0-9]+\])?: \*\*\*' "$log" > /tmp/prl-emerald-errors.log; then
+            tail -n 100 /tmp/prl-emerald-errors.log
+          else
+            tail -n 100 "$log"
+          fi
+          exit "$status"
 
   build-firered:
     if: github.actor != 'allcontributors[bot]'
@@ -85,7 +97,19 @@ jobs:
           key: tools-${{ runner.os }}-${{ hashFiles('tools/*/Makefile', 'tools/**/*.c', 'tools/**/*.cpp', 'tools/**/*.h') }}
 
       - name: ROM (Firered)
-        run: make firered -j$(nproc) -O
+        run: |
+          log=/tmp/prl-firered.log
+          set +e
+          make firered -j$(nproc) -O > "$log" 2>&1
+          status=$?
+          if [ "$status" -eq 0 ]; then
+            tail -n 20 "$log"
+          elif grep -E -C 3 'error:|fatal|undefined reference|No rule to make target|make(\[[0-9]+\])?: \*\*\*' "$log" > /tmp/prl-firered-errors.log; then
+            tail -n 100 /tmp/prl-firered-errors.log
+          else
+            tail -n 100 "$log"
+          fi
+          exit "$status"
 
       - name: Upload FireRed test ROM
         uses: actions/upload-artifact@v4
@@ -128,7 +152,19 @@ jobs:
           key: tools-${{ runner.os }}-${{ hashFiles('tools/*/Makefile', 'tools/**/*.c', 'tools/**/*.cpp', 'tools/**/*.h') }}
 
       - name: ROM (Leafgreen)
-        run: make leafgreen -j$(nproc) -O
+        run: |
+          log=/tmp/prl-leafgreen.log
+          set +e
+          make leafgreen -j$(nproc) -O > "$log" 2>&1
+          status=$?
+          if [ "$status" -eq 0 ]; then
+            tail -n 20 "$log"
+          elif grep -E -C 3 'error:|fatal|undefined reference|No rule to make target|make(\[[0-9]+\])?: \*\*\*' "$log" > /tmp/prl-leafgreen-errors.log; then
+            tail -n 100 /tmp/prl-leafgreen-errors.log
+          else
+            tail -n 100 "$log"
+          fi
+          exit "$status"
 
   release:
     if: github.actor != 'allcontributors[bot]'
@@ -165,7 +201,19 @@ jobs:
       - name: Release
         env:
           GAME_VERSION: EMERALD
-        run: make -j$(nproc) release
+        run: |
+          log=/tmp/prl-release.log
+          set +e
+          make -j$(nproc) release > "$log" 2>&1
+          status=$?
+          if [ "$status" -eq 0 ]; then
+            tail -n 20 "$log"
+          elif grep -E -C 3 'error:|fatal|undefined reference|No rule to make target|make(\[[0-9]+\])?: \*\*\*' "$log" > /tmp/prl-release-errors.log; then
+            tail -n 100 /tmp/prl-release-errors.log
+          else
+            tail -n 100 "$log"
+          fi
+          exit "$status"
 
   test:
     if: github.actor != 'allcontributors[bot]'
@@ -208,7 +256,19 @@ jobs:
         env:
           GAME_VERSION: EMERALD
           TEST: 1
-        run: make -j$(nproc) check
+        run: |
+          log=/tmp/prl-check.log
+          set +e
+          make -j$(nproc) check > "$log" 2>&1
+          status=$?
+          if [ "$status" -eq 0 ]; then
+            tail -n 20 "$log"
+          elif grep -E -C 3 'error:|fatal|undefined reference|No rule to make target|make(\[[0-9]+\])?: \*\*\*' "$log" > /tmp/prl-check-errors.log; then
+            tail -n 100 /tmp/prl-check-errors.log
+          else
+            tail -n 100 "$log"
+          fi
+          exit "$status"
 
   # Gate job: satisfies the "build" branch protection rule.
   # Passes only when all parallel build/test jobs succeed.
