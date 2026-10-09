@@ -1,15 +1,24 @@
 PokemonLeague_ChampionsRoom_Frlg_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, PokemonLeague_ChampionsRoom_OnTransition
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, PokemonLeague_ChampionsRoom_OnWarp
 	map_script MAP_SCRIPT_ON_RESUME, PokemonLeague_ChampionsRoom_OnResume
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, PokemonLeague_ChampionsRoom_OnFrame
 	.byte 0
 
+PokemonLeague_ChampionsRoom_OnTransition::
+	call_if_unset FLAG_IS_CHAMPION, PokemonLeague_ChampionsRoom_EventScript_ResetFirstChampionScene
+	end
+
+PokemonLeague_ChampionsRoom_EventScript_ResetFirstChampionScene::
+	setvar VAR_TEMP_1, 0
+	return
+
 PokemonLeague_ChampionsRoom_OnResume::
 	setvar VAR_0x8004, 4
 	call PokemonLeague_EventScript_DoLightingEffect
-	call_if_eq VAR_STARTER_MON, 2, PokemonLeague_ChampionsRoom_EventScript_CheckStopTriggerSquirtle
+	call_if_eq VAR_STARTER_MON, 0, PokemonLeague_ChampionsRoom_EventScript_CheckStopTriggerSquirtle
 	call_if_eq VAR_STARTER_MON, 1, PokemonLeague_ChampionsRoom_EventScript_CheckStopTriggerBulbasaur
-	call_if_eq VAR_STARTER_MON, 0, PokemonLeague_ChampionsRoom_EventScript_CheckStopTriggerCharmander
+	call_if_eq VAR_STARTER_MON, 2, PokemonLeague_ChampionsRoom_EventScript_CheckStopTriggerCharmander
 	end
 
 PokemonLeague_ChampionsRoom_EventScript_CheckStopTriggerSquirtle::
@@ -100,15 +109,15 @@ PokemonLeague_ChampionsRoom_EventScript_QuestLogEnd::
 	end
 
 PokemonLeague_ChampionsRoom_EventScript_Battle::
-	call_if_eq VAR_STARTER_MON, 2, PokemonLeague_ChampionsRoom_EventScript_BattleSquirtle
+	call_if_eq VAR_STARTER_MON, 0, PokemonLeague_ChampionsRoom_EventScript_BattleSquirtle
 	call_if_eq VAR_STARTER_MON, 1, PokemonLeague_ChampionsRoom_EventScript_BattleBulbasaur
-	call_if_eq VAR_STARTER_MON, 0, PokemonLeague_ChampionsRoom_EventScript_BattleCharmander
+	call_if_eq VAR_STARTER_MON, 2, PokemonLeague_ChampionsRoom_EventScript_BattleCharmander
 	return
 
 PokemonLeague_ChampionsRoom_EventScript_Rematch::
-	call_if_eq VAR_STARTER_MON, 2, PokemonLeague_ChampionsRoom_EventScript_RematchSquirtle
+	call_if_eq VAR_STARTER_MON, 0, PokemonLeague_ChampionsRoom_EventScript_RematchSquirtle
 	call_if_eq VAR_STARTER_MON, 1, PokemonLeague_ChampionsRoom_EventScript_RematchBulbasaur
-	call_if_eq VAR_STARTER_MON, 0, PokemonLeague_ChampionsRoom_EventScript_RematchCharmander
+	call_if_eq VAR_STARTER_MON, 2, PokemonLeague_ChampionsRoom_EventScript_RematchCharmander
 	return
 
 PokemonLeague_ChampionsRoom_EventScript_Intro::
@@ -120,15 +129,30 @@ PokemonLeague_ChampionsRoom_EventScript_RematchIntro::
 	return
 
 PokemonLeague_ChampionsRoom_EventScript_BattleSquirtle::
-	trainerbattle_no_intro TRAINER_CHAMPION_FIRST_SQUIRTLE, PokemonLeague_ChampionsRoom_Text_Defeat
+	trainerbattle_double TRAINER_CHAMPION_FIRST_SQUIRTLE, PokemonLeague_ChampionsRoom_Text_FirstBattleIntro, PokemonLeague_ChampionsRoom_Text_Defeat, PokemonLeague_ChampionsRoom_Text_NotEnoughMons
+	goto_if_defeated TRAINER_CHAMPION_FIRST_SQUIRTLE, PokemonLeague_ChampionsRoom_EventScript_BattleComplete
+	setvar VAR_TEMP_1, 1
+	releaseall
+	end
 	return
 
 PokemonLeague_ChampionsRoom_EventScript_BattleBulbasaur::
-	trainerbattle_no_intro TRAINER_CHAMPION_FIRST_BULBASAUR, PokemonLeague_ChampionsRoom_Text_Defeat
+	trainerbattle_double TRAINER_CHAMPION_FIRST_BULBASAUR, PokemonLeague_ChampionsRoom_Text_FirstBattleIntro, PokemonLeague_ChampionsRoom_Text_Defeat, PokemonLeague_ChampionsRoom_Text_NotEnoughMons
+	goto_if_defeated TRAINER_CHAMPION_FIRST_BULBASAUR, PokemonLeague_ChampionsRoom_EventScript_BattleComplete
+	setvar VAR_TEMP_1, 1
+	releaseall
+	end
 	return
 
 PokemonLeague_ChampionsRoom_EventScript_BattleCharmander::
-	trainerbattle_no_intro TRAINER_CHAMPION_FIRST_CHARMANDER, PokemonLeague_ChampionsRoom_Text_Defeat
+	trainerbattle_double TRAINER_CHAMPION_FIRST_CHARMANDER, PokemonLeague_ChampionsRoom_Text_FirstBattleIntro, PokemonLeague_ChampionsRoom_Text_Defeat, PokemonLeague_ChampionsRoom_Text_NotEnoughMons
+	goto_if_defeated TRAINER_CHAMPION_FIRST_CHARMANDER, PokemonLeague_ChampionsRoom_EventScript_BattleComplete
+	setvar VAR_TEMP_1, 1
+	releaseall
+	end
+	return
+
+PokemonLeague_ChampionsRoom_EventScript_BattleComplete::
 	return
 
 PokemonLeague_ChampionsRoom_EventScript_RematchSquirtle::
@@ -259,6 +283,13 @@ PokemonLeague_ChampionsRoom_Text_RematchIntro::
 	.string "I'll tell you.\p"
 	.string "I am the most powerful TRAINER in\n"
 	.string "the world!$"
+
+PokemonLeague_ChampionsRoom_Text_FirstBattleIntro::
+	.string "The CHAMPION match will be a DOUBLE BATTLE!$"
+
+PokemonLeague_ChampionsRoom_Text_NotEnoughMons::
+	.string "You need at least two able POKéMON\n"
+	.string "to enter this DOUBLE BATTLE.$"
 
 PokemonLeague_ChampionsRoom_Text_Defeat::
 	.string "NO!\n"
