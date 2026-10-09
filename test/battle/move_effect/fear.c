@@ -31,6 +31,19 @@ SINGLE_BATTLE_TEST("Worry Seed inflicts Fear and gives the target Insomnia")
     }
 }
 
+SINGLE_BATTLE_TEST("Simple Beam does not inflict Fear")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_SIMPLE_BEAM); }
+        OPPONENT(SPECIES_CHARMANDER) { Ability(ABILITY_BLAZE); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_SIMPLE_BEAM); }
+    } THEN {
+        EXPECT_EQ(opponent->ability, ABILITY_SIMPLE);
+        EXPECT(opponent->volatiles.fearTimer == 0);
+    }
+}
+
 SINGLE_BATTLE_TEST("Fear increases damage to the opposing Pokémon by 50 percent", s16 damage)
 {
     bool32 fear;

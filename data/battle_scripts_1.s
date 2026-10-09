@@ -1177,7 +1177,9 @@ BattleScript_EffectOverwriteAbility::
 	flushtextbox
 	tryendneutralizinggas
 	switchinabilities BS_TARGET
+	jumpifnotmove MOVE_WORRY_SEED, BattleScript_EffectOverwriteAbilityEnd
 	seteffectprimary BS_ATTACKER, BS_TARGET, MOVE_EFFECT_FEAR
+BattleScript_EffectOverwriteAbilityEnd:
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectPowerSplit::
