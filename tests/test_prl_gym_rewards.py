@@ -4,7 +4,7 @@ R=pathlib.Path(__file__).resolve().parents[1]
 K=[("BROCK","PewterCity_Gym_Frlg","HARD_STONE","ITEM_TM39",1),("MISTY","CeruleanCity_Gym_Frlg","MYSTIC_WATER","ITEM_TM03",2),("SURGE","VermilionCity_Gym_Frlg","MAGNET","ITEM_TM34",3),("ERIKA","CeladonCity_Gym_Frlg","MIRACLE_SEED","ITEM_TM19",4),("KOGA","FuchsiaCity_Gym_Frlg","POISON_BARB","ITEM_TM06",5),("SABRINA","SaffronCity_Gym_Frlg","TWISTED_SPOON","ITEM_TM04",6),("BLAINE","CinnabarIsland_Gym_Frlg","CHARCOAL","ITEM_TM38",7),("GIOVANNI","ViridianCity_Gym_Frlg","SOFT_SAND","ITEM_TM26",8)]
 H=[("ROXANNE","RustboroCity_Gym","HARD_STONE","ITEM_TM_ROCK_TOMB",1),("BRAWLY","DewfordTown_Gym","BLACK_BELT","ITEM_TM_BULK_UP",2),("WATTSON","MauvilleCity_Gym","MAGNET","ITEM_TM_SHOCK_WAVE",3),("FLANNERY","LavaridgeTown_Gym_1F","CHARCOAL","ITEM_TM_OVERHEAT",4),("NORMAN","PetalburgCity_Gym","SILK_SCARF","ITEM_TM_FACADE",5),("WINONA","FortreeCity_Gym","SHARP_BEAK","ITEM_TM_AERIAL_ACE",6),("TATE_LIZA","MossdeepCity_Gym","TWISTED_SPOON","ITEM_TM_CALM_MIND",7),("JUAN","SootopolisCity_Gym_1F","MYSTIC_WATER","ITEM_TM_WATER_PULSE",8)]
 J=("FALKNER","BUGSY","WHITNEY","MORTY","CHUCK","JASMINE","PRYCE","CLAIR")
-def read(x): return (R/x).read_text(encoding="utf-8")
+def read(x): return (R/x).read_text(encoding="utf-8", errors="surrogateescape")
 class PRLGymRewards(unittest.TestCase):
  def test_distinct_flags(self):
     flags=read("include/constants/flags.h")
