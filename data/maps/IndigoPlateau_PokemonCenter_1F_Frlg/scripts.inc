@@ -57,6 +57,26 @@ IndigoPlateau_PokemonCenter_1F_Items::
 	.2byte ITEM_REVIVE
 	.2byte ITEM_FULL_HEAL
 	.2byte ITEM_MAX_REPEL
+	.2byte ITEM_MAX_REVIVE
+	.2byte ITEM_MAX_ETHER
+	.2byte ITEM_MAX_ELIXIR
+	.2byte ITEM_PP_UP
+	.2byte ITEM_PP_MAX
+	.2byte ITEM_POKE_BALL
+	.2byte ITEM_ULTRA_BALL
+	.2byte ITEM_X_ATTACK
+	.2byte ITEM_X_DEFENSE
+	.2byte ITEM_X_SP_ATK
+	.2byte ITEM_X_SP_DEF
+	.2byte ITEM_X_SPEED
+	.2byte ITEM_X_ACCURACY
+	.2byte ITEM_DIRE_HIT
+	.2byte ITEM_GUARD_SPEC
+	.2byte ITEM_BLACK_SLUDGE
+	.2byte ITEM_SILK_SCARF
+	.2byte ITEM_SCOPE_LENS
+	.2byte ITEM_LIFE_ORB
+	.2byte ITEM_RARE_CANDY
 	.2byte ITEM_NONE
 	release
 	end
