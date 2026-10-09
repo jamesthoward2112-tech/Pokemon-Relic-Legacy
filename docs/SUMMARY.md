@@ -1,5 +1,7 @@
 # Summary
 
+- [PRL — Storage expansion safety audit](./PRL_STORAGE_AUDIT_20261009.md)
+
 - [README](./README.md)
 - [FEATURES](./FEATURES.md)
 - [Installation](./INSTALL.md)
