@@ -15,6 +15,8 @@
 #include "menu.h"
 #include "new_game.h"
 #include "palette.h"
+#include "pokemon_icon.h"
+#include "constants/species.h"
 #include "quickstart.h"
 #include "random.h"
 #include "reset_rtc_screen.h"
@@ -40,6 +42,65 @@ static const u16 sPRLTitlePromptOff[] = INCBIN_U16("graphics/title_screen_prl/pr
 static void CB2_PRLTitleRun(void);
 static void VBlankCB_PRLTitle(void);
 static void Task_PRLTitle(u8 taskId);
+
+// PRL's approved Mode 3 picture stays intact. The small Jirachi and Celebi
+// battle-style icons are software composited, because Mode 3's framebuffer
+// overlaps regular OBJ tile memory and must not be corrupted by OBJ sprites.
+// Both frames and palettes come from the engine's existing Pokémon icon bank.
+#define PRL_TITLE_ICON_SIZE 32
+#define PRL_TITLE_LEFT_X 16
+#define PRL_TITLE_RIGHT_X 192
+#define PRL_TITLE_ICON_Y 92
+#define PRL_TITLE_ICON_REGION_X_PAD 3
+#define PRL_TITLE_ICON_REGION_Y_PAD 5
+#define PRL_TITLE_ICON_REGION_W 38
+#define PRL_TITLE_ICON_REGION_H 44
+
+static void PRLRestoreIconRegion(s16 left)
+{
+    s16 y;
+    const s16 startX = left - PRL_TITLE_ICON_REGION_X_PAD;
+    const s16 startY = PRL_TITLE_ICON_Y - PRL_TITLE_ICON_REGION_Y_PAD;
+    for (y = 0; y < PRL_TITLE_ICON_REGION_H; y++)
+    {
+        const u16 *source = sPRLTitleMode3 + (startY + y) * DISPLAY_WIDTH + startX;
+        u16 *dest = (u16 *)VRAM + (startY + y) * DISPLAY_WIDTH + startX;
+        CpuCopy16(source, dest, PRL_TITLE_ICON_REGION_W * sizeof(u16));
+    }
+}
+
+static void PRLDrawAnimatedMonIcon(u16 species, s16 left, s16 top, u8 frame)
+{
+    const u8 *src = GetMonIconTilesByIconType(species, NORMAL_ICON);
+    const u16 *pal = GetValidMonIconPalettePtr(species);
+    s16 row;
+    if (src == NULL || pal == NULL)
+        return;
+    src += frame * (PRL_TITLE_ICON_SIZE * PRL_TITLE_ICON_SIZE / 2);
+    for (row = 0; row < PRL_TITLE_ICON_SIZE; row++)
+    {
+        s16 col;
+        for (col = 0; col < PRL_TITLE_ICON_SIZE; col++)
+        {
+            u32 tile = (row / 8) * 4 + (col / 8);
+            u32 offset = tile * 32 + (row % 8) * 4 + (col % 8) / 2;
+            u8 packed = src[offset];
+            u8 color = (col & 1) ? (packed >> 4) : (packed & 0x0F);
+            if (color != 0)
+                ((u16 *)VRAM)[(top + row) * DISPLAY_WIDTH + left + col] = pal[color];
+        }
+    }
+}
+
+static void PRLUpdateCelebiJirachiTitleAnimation(u16 tick)
+{
+    u8 iconFrame = (tick / 10) & 1;
+    s16 hover = ((tick / 6) & 3);
+    PRLRestoreIconRegion(PRL_TITLE_LEFT_X);
+    PRLRestoreIconRegion(PRL_TITLE_RIGHT_X);
+    PRLDrawAnimatedMonIcon(SPECIES_JIRACHI, PRL_TITLE_LEFT_X, PRL_TITLE_ICON_Y - hover, iconFrame);
+    PRLDrawAnimatedMonIcon(SPECIES_CELEBI, PRL_TITLE_RIGHT_X, PRL_TITLE_ICON_Y + hover - 3, iconFrame);
+}
 
 static void PRLDrawPrompt(bool32 visible)
 {
@@ -83,6 +144,7 @@ static void InitPRLTitleScreen(void)
 
     CpuCopy16(sPRLTitleMode3, (void *)VRAM, sizeof(sPRLTitleMode3));
     PRLDrawPrompt(TRUE);
+    PRLUpdateCelebiJirachiTitleAnimation(0);
 
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_3 | DISPCNT_BG2_ON);
     taskId = CreateTask(Task_PRLTitle, 0);
@@ -121,6 +183,9 @@ static void Task_PRLTitle(u8 taskId)
         Quickstart();
         return;
     }
+
+    if ((++data[2] % 6) == 0)
+        PRLUpdateCelebiJirachiTitleAnimation(data[2]);
 
     if (++data[0] >= 40)
     {
