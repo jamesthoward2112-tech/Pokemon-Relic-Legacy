@@ -10,7 +10,7 @@ ENCOUNTERS = {
     "STEEVE_NEEVEE_ROUTE3": ("Route3_Frlg", [("Eevee", 16), ("Eevee", 16)]),
     "STEEVE_NEEVEE_SS_ANNE": ("SSAnne_2F_Corridor_Frlg", [("Vaporeon", 26), ("Jolteon", 26), ("Eevee", 25), ("Eevee", 25)]),
     "STEEVE_NEEVEE_TOWER": ("PokemonTower_1F_Frlg", [("Flareon", 37), ("Vaporeon", 37), ("Jolteon", 36), ("Eevee", 36)]),
-    "STEEVE_NEEVEE_ROUTE23": ("Route23_Frlg", [("Vaporeon", 52), ("Jolteon", 52), ("Flareon", 55), ("Eevee", 51), ("Eevee", 52), ("Eevee", 53)]),
+    "STEEVE_NEEVEE_ROUTE23": ("Route23_Frlg", [("Vaporeon", 52), ("Jolteon", 52), ("Flareon", 55), ("Toxeon", 55), ("Eevee", 51), ("Eevee", 53)]),
     "JESSIE_JAMES_MT_MOON": ("MtMoon_B2F_Frlg", [("Ekans", 16), ("Koffing", 16), ("Bellsprout", 16), ("Meowth", 17)]),
     "JESSIE_JAMES_HIDEOUT": ("RocketHideout_B4F_Frlg", [("Arbok", 29), ("Weezing", 29), ("Raticate", 30), ("Meowth", 30)]),
     "JESSIE_JAMES_SILPH": ("SilphCo_11F_Frlg", [("Arbok", 39), ("Weezing", 39), ("Drowzee", 40), ("Victreebel", 40), ("Pikachu", 41), ("Meowth", 41)]),
@@ -31,6 +31,11 @@ GATES = {
 def read(path):
     return (ROOT / path).read_text(encoding="utf-8", errors="surrogateescape")
 
+
+
+
+def zero_iv_for_test():
+    return "IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe"
 
 class PRLRecurringDuos(unittest.TestCase):
     def test_each_encounter_has_a_persistent_trainer_and_double_battle(self):
@@ -157,6 +162,23 @@ class PRLRecurringDuos(unittest.TestCase):
             self.assertNotIn(f"{prefix}_Frlg_EventScript_PRL_JESSIE_JAMES_", script)
             for ref in re.findall(r"\b(?:call|goto) (\w*PRL_JESSIE_JAMES_\w+)", script):
                 self.assertRegex(script, rf"(?m)^{re.escape(ref)}::", msg=ref)
+
+
+
+    def test_final_route23_preserves_existing_setup_for_returning_pokemon(self):
+        party = read("src/data/trainers_frlg.party")
+        record = party.split("=== TRAINER_STEEVE_NEEVEE_ROUTE23 ===", 1)[1].split("\n=== ", 1)[0]
+        retained_setups = [
+            "Vaporeon @ Sitrus Berry\nLevel: 52\nIVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe\n- Surf\n- Aurora Beam\n- Bite\n- Acid Armor",
+            "Jolteon @ Sitrus Berry\nLevel: 52\nIVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe\n- Thunderbolt\n- Double Kick\n- Quick Attack\n- Thunder Wave",
+            "Flareon @ Sitrus Berry\nLevel: 55\nIVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe\n- Flamethrower\n- Fire Spin\n- Bite\n- Quick Attack",
+            "Eevee\nLevel: 51\nIVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe\n- Bite\n- Baton Pass\n- Quick Attack\n- Sand Attack",
+            "Eevee @ Sitrus Berry\nLevel: 53\nIVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe\n- Take Down\n- Bite\n- Quick Attack\n- Helping Hand",
+        ]
+        for setup in retained_setups:
+            with self.subTest(setup=setup.splitlines()[0]):
+                self.assertIn(setup, record)
+        self.assertIn(f"Toxeon\nLevel: 55\n{zero_iv_for_test()}", record)
 
 
 if __name__ == "__main__":
