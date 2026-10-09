@@ -238,10 +238,8 @@ RocketHideout_B4F_Movement_PRL_RocketExit::
 	step_end
 
 RocketHideout_B4F_Text_PRL_RocketIntro::
-	.string "JESSIE: Prepare for trouble!\p"
-	.string "JAMES: And make it double!\p"
-	.string "This Kanto operation is only one\n"
-	.string "piece of a much older mystery.$"
+	.string "JESSIE: You foiled us at MT. MOON!\p"
+	.string "JAMES: The fossil was only a start!$"
 
 RocketHideout_B4F_Text_PRL_RocketDefeat::
 	.string "JESSIE: This can't be!\p"

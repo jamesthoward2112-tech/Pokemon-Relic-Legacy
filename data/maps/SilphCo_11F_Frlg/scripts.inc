@@ -289,10 +289,8 @@ SilphCo_11F_Movement_PRL_RocketExit::
 	step_end
 
 SilphCo_11F_Text_PRL_RocketIntro::
-	.string "JESSIE: Prepare for trouble!\p"
-	.string "JAMES: And make it double!\p"
-	.string "This Kanto operation is only one\n"
-	.string "piece of a much older mystery.$"
+	.string "JESSIE: Twice you've ruined our plans!\p"
+	.string "JAMES: SILPH's research will be ours!$"
 
 SilphCo_11F_Text_PRL_RocketDefeat::
 	.string "JESSIE: This can't be!\p"

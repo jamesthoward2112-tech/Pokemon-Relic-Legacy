@@ -151,8 +151,8 @@ Route23_EventScript_PRLSteeveNeeveeTriggerEnd::
 	end
 
 Route23_Text_PRL_SteeveNeeveeIntro::
-	.string "STEEVE: Our EEVEE are ready!\p"
-	.string "NEEVEE: Let's battle together!$"
+	.string "STEEVE: From ROUTE 3 to the League!\p"
+	.string "NEEVEE: Let's give our best battle!$"
 
 Route23_Text_PRL_SteeveNeeveeDefeat::
 	.string "STEEVE: Your team is amazing!\p"

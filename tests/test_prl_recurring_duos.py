@@ -131,6 +131,20 @@ class PRLRecurringDuos(unittest.TestCase):
                 self.assertLess(script.index("applymovement LOCALID_PRL_JAMES"), script.index("applymovement LOCALID_PRL_MEOWTH"))
 
 
+    def test_recurring_duos_acknowledge_prior_kanto_encounters(self):
+        expected = {
+            "SSAnne_2F_Corridor_Frlg": "We met on ROUTE 3",
+            "PokemonTower_1F_Frlg": "Remember us from the ship",
+            "Route23_Frlg": "From ROUTE 3 to the League",
+            "RocketHideout_B4F_Frlg": "You foiled us at MT. MOON",
+            "SilphCo_11F_Frlg": "Twice you've ruined our plans",
+            "VictoryRoad_3F_Frlg": "You keep chasing us",
+        }
+        for map_name, line in expected.items():
+            with self.subTest(map=map_name):
+                self.assertIn(line, read(f"data/maps/{map_name}/scripts.inc"))
+
+
     def test_rocket_event_labels_and_scene_flags_resolve_within_frlg_range(self):
         flags = read("include/constants/flags_frlg.h")
         self.assertNotRegex(flags, r"#define FLAG_HIDE_PRL_\w+\s+FLAG_0x90[0-9A-F]")

@@ -225,8 +225,8 @@ SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerEnd::
 	end
 
 SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeIntro::
-	.string "STEEVE: Our EEVEE are ready!\p"
-	.string "NEEVEE: Let's battle together!$"
+	.string "STEEVE: We met on ROUTE 3!\p"
+	.string "NEEVEE: Our partners grew too!$"
 
 SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeDefeat::
 	.string "STEEVE: Your team is amazing!\p"

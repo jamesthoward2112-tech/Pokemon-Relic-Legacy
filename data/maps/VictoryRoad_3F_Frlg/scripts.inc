@@ -228,10 +228,8 @@ VictoryRoad_3F_Movement_PRL_RocketExit::
 	step_end
 
 VictoryRoad_3F_Text_PRL_RocketIntro::
-	.string "JESSIE: Prepare for trouble!\p"
-	.string "JAMES: And make it double!\p"
-	.string "This Kanto operation is only one\n"
-	.string "piece of a much older mystery.$"
+	.string "JESSIE: You keep chasing us!\p"
+	.string "JAMES: KANTO's League won't stop us!$"
 
 VictoryRoad_3F_Text_PRL_RocketDefeat::
 	.string "JESSIE: This can't be!\p"

@@ -86,8 +86,8 @@ PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerEnd::
 	end
 
 PokemonTower_1F_Text_PRL_SteeveNeeveeIntro::
-	.string "STEEVE: Our EEVEE are ready!\p"
-	.string "NEEVEE: Let's battle together!$"
+	.string "STEEVE: Remember us from the ship?\p"
+	.string "NEEVEE: Your team keeps growing!$"
 
 PokemonTower_1F_Text_PRL_SteeveNeeveeDefeat::
 	.string "STEEVE: Your team is amazing!\p"
