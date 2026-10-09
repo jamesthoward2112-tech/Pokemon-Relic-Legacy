@@ -6797,45 +6797,28 @@ AI: Check Bad Move / Try To Faint / Check Viability
 Mugshot: Purple
 
 Dewgong
-Level: 52
+Level: 60
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Ice Beam
-- Surf
-- Hail
-- Safeguard
 
 Cloyster
-Level: 51
+Level: 60
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Spikes
-- Protect
-- Hail
-- Dive
 
 Slowbro
-Level: 52
+Level: 61
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Ice Beam
-- Surf
-- Amnesia
-- Yawn
 
 Jynx
-Level: 54
+Level: 61
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Ice Punch
-- Double Slap
-- Lovely Kiss
-- Attract
+
+Starmie
+Level: 62
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 
 Lapras @ Sitrus Berry
-Level: 54
+Level: 63
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Confuse Ray
-- Ice Beam
-- Surf
-- Body Slam
-
 === TRAINER_ELITE_FOUR_BRUNO ===
 Name: BRUNO
 Class: Elite Four Frlg
@@ -6847,46 +6830,30 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 Mugshot: Green
 
-Onix
-Level: 51
+Primeape
+Level: 61
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Earthquake
-- Rock Tomb
-- Iron Tail
-- Roar
-
-Hitmonchan
-Level: 53
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Sky Uppercut
-- Mach Punch
-- Rock Tomb
-- Counter
 
 Hitmonlee
-Level: 53
+Level: 61
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Mega Kick
-- Foresight
-- Brick Break
-- Facade
+
+Hitmonchan
+Level: 62
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+
+Poliwrath
+Level: 62
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 
 Onix
-Level: 54
+Level: 63
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Double Edge
-- Earthquake
-- Iron Tail
-- Sand Tomb
 
 Machamp @ Sitrus Berry
-Level: 56
+Level: 64
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Cross Chop
-- Bulk Up
-- Scary Face
-- Rock Tomb
-
+Ability: No Guard
 === TRAINER_ELITE_FOUR_AGATHA ===
 Name: AGATHA
 Class: Elite Four Frlg
@@ -6898,46 +6865,30 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 Mugshot: Pink
 
-Gengar
-Level: 54
+Arbok
+Level: 62
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Shadow Punch
-- Confuse Ray
-- Toxic
-- Double Team
 
 Golbat
-Level: 54
+Level: 62
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Confuse Ray
-- Poison Fang
-- Air Cutter
-- Bite
 
 Haunter
-Level: 53
+Level: 63
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Hypnosis
-- Dream Eater
-- Curse
-- Mean Look
 
-Arbok
-Level: 56
+Weezing
+Level: 63
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Sludge Bomb
-- Screech
-- Iron Tail
-- Bite
+
+Muk
+Level: 64
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 
 Gengar @ Sitrus Berry
-Level: 58
+Level: 65
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Shadow Ball
-- Sludge Bomb
-- Hypnosis
-- Nightmare
-
+Shiny: true
 === TRAINER_ELITE_FOUR_LANCE ===
 Name: LANCE
 Class: Elite Four Frlg
@@ -6950,45 +6901,28 @@ AI: Check Bad Move / Try To Faint / Check Viability
 Mugshot: Blue
 
 Gyarados
-Level: 56
+Level: 63
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Hyper Beam
-- Dragon Rage
-- Twister
-- Bite
+
+Seadra
+Level: 63
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 
 Dragonair
-Level: 54
+Level: 64
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Hyper Beam
-- Safeguard
-- Dragon Rage
-- Outrage
-
-Dragonair
-Level: 54
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Hyper Beam
-- Safeguard
-- Thunder Wave
-- Outrage
 
 Aerodactyl
-Level: 58
+Level: 64
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Hyper Beam
-- Ancient Power
-- Wing Attack
-- Scary Face
+
+Charizard
+Level: 65
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 
 Dragonite @ Sitrus Berry
-Level: 60
+Level: 66
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Hyper Beam
-- Safeguard
-- Outrage
-- Wing Attack
-
 === TRAINER_LEADER_BROCK ===
 Name: BROCK
 Class: Leader Frlg
