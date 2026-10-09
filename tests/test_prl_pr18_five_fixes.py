@@ -24,7 +24,19 @@ def test_immediate_r_to_run_no_intro_a_press():
         "sText_TwoWildPkmnAppeared",
         "sText_LegendaryPkmnAppeared",
     ):
-        assert f'static const u8 {key}[] = _("{{PAUSE 1}}")' in battle
+        line = next(line for line in battle.splitlines()
+                    if line.startswith(f"static const u8 {key}[] = "))
+        assert "{B_OPPONENT_MON1_NAME}" in line
+        assert "{PAUSE 45}" in line
+        assert r"\\p" not in line
+
+    escape = next(line for line in battle.splitlines()
+                  if line.startswith("static const u8 sText_GotAwaySafely[] = "))
+    assert "You got away safely!" in escape
+    assert "{PLAY_SE SE_FLEE}" in escape
+    assert "{PAUSE 50}" in escape
+    assert r"\\p" not in escape
+
     # The catch tutorial and trainer messages remain unaffected.
     assert "sText_WildPkmnAppearedPause" in battle
     controller = source("src/battle_controller_player.c")
