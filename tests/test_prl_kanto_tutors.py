@@ -11,9 +11,9 @@ def read(path):
 
 
 def block(source, label):
-    match = re.search(rf"^{re.escape(label)}::\\n", source, re.MULTILINE)
+    match = re.search(rf"^{re.escape(label)}::\n", source, re.MULTILINE)
     assert match, f"missing script label: {label}"
-    next_label = re.search(r"^[A-Za-z0-9_]+::\\n", source[match.end():], re.MULTILINE)
+    next_label = re.search(r"^[A-Za-z0-9_]+::\n", source[match.end():], re.MULTILINE)
     end = match.end() + next_label.start() if next_label else len(source)
     return source[match.start():end]
 
