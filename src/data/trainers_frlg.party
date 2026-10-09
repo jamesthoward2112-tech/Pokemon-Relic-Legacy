@@ -6819,6 +6819,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 Lapras @ Sitrus Berry
 Level: 63
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+
 === TRAINER_ELITE_FOUR_BRUNO ===
 Name: BRUNO
 Class: Elite Four Frlg
@@ -6854,6 +6855,7 @@ Machamp @ Sitrus Berry
 Level: 64
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 Ability: No Guard
+
 === TRAINER_ELITE_FOUR_AGATHA ===
 Name: AGATHA
 Class: Elite Four Frlg
@@ -6888,7 +6890,8 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 Gengar @ Sitrus Berry
 Level: 65
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-Shiny: true
+Shiny: Yes
+
 === TRAINER_ELITE_FOUR_LANCE ===
 Name: LANCE
 Class: Elite Four Frlg
@@ -6923,6 +6926,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 Dragonite @ Sitrus Berry
 Level: 66
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+
 === TRAINER_LEADER_BROCK ===
 Name: BROCK
 Class: Leader Frlg
