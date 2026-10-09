@@ -47,7 +47,7 @@ class Step12StaticIntegrationTests(unittest.TestCase):
         self.assertNotIn("IronTreads", block)
         # Step 4B requires a unique Donphalanx table, but all Great Tusk
         # donor level-up entries must survive in the exact same order.
-        pattern = r"static const struct LevelUpMove s{}\[\]\s*=\s*\{([\s\S]*?)\n\};"
+        pattern = r"static const struct LevelUpMove s{}LevelUpLearnset\[\]\s*=\s*\{([\s\S]*?)\n\};"
         def extract(contents, species):
             match = re.search(pattern.replace("{}", species), contents)
             self.assertIsNotNone(match, "Missing donor/Relic learnset: " + species)
