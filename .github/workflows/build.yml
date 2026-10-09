@@ -217,7 +217,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check that SUMMARY.md includes markdown doc files
-        run: .github/docs_validate/inclusive_summary.py
+        run: python3 .github/docs_validate/inclusive_summary.py
 
   allcontributors:
     if: github.actor == 'allcontributors[bot]'
