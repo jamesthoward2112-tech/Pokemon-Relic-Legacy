@@ -51,7 +51,10 @@
     F(STEEL_WING) \
     F(SKILL_SWAP) \
     F(SNATCH) \
-    F(OVERHEAT)
+    F(OVERHEAT) \
+    F(SOIL_DRAIN) \
+    F(TAKE_FLIGHT) \
+    F(IRON_FANGS)
 
 #define FOREACH_HM(F) \
     F(CUT) \

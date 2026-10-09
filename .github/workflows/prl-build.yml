@@ -24,6 +24,9 @@ jobs:
       - name: Validate PRL Step 4B Redux distribution
         run: python3 -m unittest tests.test_prl_step4b_first_batch
 
+      - name: Validate PRL Step 4C TM Tutor compatibility
+        run: python3 -m unittest tests.test_prl_step4c_distribution
+
       - name: Validate Skulberus mechanics regressions
         run: python3 -m unittest tests.test_skulberus_mechanics
 

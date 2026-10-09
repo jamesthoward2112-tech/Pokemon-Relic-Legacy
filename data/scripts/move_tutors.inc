@@ -182,3 +182,109 @@ MoveTutor_AfterChooseBoxMon::
 	special CanTeachMoveBoxMon
 	waitstate
 	return
+
+
+@ Step 4C: one Relic Move Master interface for two accessible region hubs.
+@ Johto/Ecruteak placement awaits importing the Johto overworld.
+PRL_EventScript_RelicMaster::
+	lock
+	faceplayer
+	msgbox PRL_Text_RelicMasterHello, MSGBOX_DEFAULT
+	multichoice 0, 0, MULTI_PRL_RELIC_SERVICES, FALSE
+	goto_if_eq VAR_RESULT, 0, PRL_EventScript_RelicTMs
+	goto_if_eq VAR_RESULT, 1, PRL_EventScript_RelicTutorMenu
+	goto_if_eq VAR_RESULT, 2, PRL_EventScript_RelicRitual
+	goto PRL_EventScript_RelicMasterExit
+
+PRL_EventScript_RelicTMs::
+	goto_if_unset FLAG_BADGE03_GET, PRL_EventScript_RelicNeedThreeBadges
+	message PRL_Text_RelicTMsUnlocked
+	waitmessage
+	pokemart PRL_RelicTMStock
+	goto PRL_EventScript_RelicMasterExit
+
+PRL_EventScript_RelicTutorMenu::
+	goto_if_unset FLAG_BADGE05_GET, PRL_EventScript_RelicNeedFiveBadges
+	msgbox PRL_Text_RelicTutorChoose, MSGBOX_DEFAULT
+	multichoice 0, 0, MULTI_PRL_RELIC_TUTOR_MOVES, FALSE
+	goto_if_eq VAR_RESULT, 0, PRL_EventScript_TeachSeismicSlam
+	goto_if_eq VAR_RESULT, 1, PRL_EventScript_TeachBravado
+	goto_if_eq VAR_RESULT, 2, PRL_EventScript_TeachBeatdown
+	goto_if_eq VAR_RESULT, 3, PRL_EventScript_TeachInsectImpact
+	goto PRL_EventScript_RelicMasterExit
+
+PRL_EventScript_TeachSeismicSlam::
+	setvar VAR_0x8005, MOVE_SEISMIC_SLAM
+	goto PRL_EventScript_RelicTutorSelect
+PRL_EventScript_TeachBravado::
+	setvar VAR_0x8005, MOVE_BRAVADO
+	goto PRL_EventScript_RelicTutorSelect
+PRL_EventScript_TeachBeatdown::
+	setvar VAR_0x8005, MOVE_BEATDOWN
+	goto PRL_EventScript_RelicTutorSelect
+PRL_EventScript_TeachInsectImpact::
+	setvar VAR_0x8005, MOVE_INSECT_IMPACT
+	goto PRL_EventScript_RelicTutorSelect
+
+PRL_EventScript_RelicRitual::
+	goto_if_unset FLAG_SYS_GAME_CLEAR, PRL_EventScript_RelicNeedLeague
+	msgbox PRL_Text_RelicRitualOffer, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, PRL_EventScript_RelicMasterExit
+	setvar VAR_0x8005, MOVE_RAGING_SOULS
+	goto PRL_EventScript_RelicTutorSelect
+
+PRL_EventScript_RelicTutorSelect::
+	special ChooseMonForMoveTutor
+	lock
+	faceplayer
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_RelicTutorNo
+	msgbox PRL_Text_RelicTutorSuccess, MSGBOX_DEFAULT
+	goto PRL_EventScript_RelicMasterExit
+PRL_EventScript_RelicTutorNo::
+	msgbox PRL_Text_RelicTutorDeclined, MSGBOX_DEFAULT
+	goto PRL_EventScript_RelicMasterExit
+
+PRL_EventScript_RelicNeedThreeBadges::
+	msgbox PRL_Text_RelicNeedThreeBadges, MSGBOX_DEFAULT
+	goto PRL_EventScript_RelicMasterExit
+PRL_EventScript_RelicNeedFiveBadges::
+	msgbox PRL_Text_RelicNeedFiveBadges, MSGBOX_DEFAULT
+	goto PRL_EventScript_RelicMasterExit
+PRL_EventScript_RelicNeedLeague::
+	msgbox PRL_Text_RelicNeedLeague, MSGBOX_DEFAULT
+	goto PRL_EventScript_RelicMasterExit
+PRL_EventScript_RelicMasterExit::
+	release
+	end
+
+	.align 2
+PRL_RelicTMStock:
+	.2byte ITEM_TM_SOIL_DRAIN
+	.2byte ITEM_TM_TAKE_FLIGHT
+	.2byte ITEM_TM_IRON_FANGS
+	pokemartlistend
+
+PRL_Text_RelicMasterHello:
+	.string "I study the ancient RELIC techniques.\p"
+	.string "Need a TM, a TUTOR, or a ritual?$"
+PRL_Text_RelicTMsUnlocked:
+	.string "These RELIC TMs can be reused.\p"
+	.string "Only compatible RELIC forms can learn them.$"
+PRL_Text_RelicTutorChoose:
+	.string "Pick a move, then choose an eligible\n"
+	.string "RELIC Pokémon from your party.$"
+PRL_Text_RelicRitualOffer:
+	.string "You cleared the LEAGUE!\p"
+	.string "Learn the forbidden RAGING SOULS?$"
+PRL_Text_RelicTutorSuccess:
+	.string "Its ancient power has awakened!$"
+PRL_Text_RelicTutorDeclined:
+	.string "Only certain RELIC forms can learn\n"
+	.string "this move. Come back anytime.$"
+PRL_Text_RelicNeedThreeBadges:
+	.string "Earn three BADGES to unlock RELIC TMs.$"
+PRL_Text_RelicNeedFiveBadges:
+	.string "Earn five BADGES before tutor training.$"
+PRL_Text_RelicNeedLeague:
+	.string "That ritual unlocks after the LEAGUE.$"
+

@@ -65,6 +65,7 @@
 #include "constants/battle_string_ids.h"
 #include "constants/cries.h"
 #include "constants/event_objects.h"
+#include "constants/flags.h"
 #include "constants/form_change_types.h"
 #include "constants/item_effects.h"
 #include "constants/items.h"
@@ -5038,6 +5039,44 @@ bool32 CanLearnTeachableMove(enum Species species, enum Move move)
     const u16 *teachableLearnset = GetSpeciesTeachableLearnset(species);
     if (species == SPECIES_EGG)
         return FALSE;
+    // Step 4C: an explicit Relic-only whitelist for the first Redux batch.
+    // Level-up moves do not automatically grant TM/Tutor compatibility.
+    switch (move)
+    {
+    case MOVE_SOIL_DRAIN:
+        return FlagGet(FLAG_BADGE03_GET)
+            && (species == SPECIES_EDENSAUR || species == SPECIES_FAERANIUM
+                || species == SPECIES_CACTOMB || species == SPECIES_SPHYNXEON);
+    case MOVE_TAKE_FLIGHT:
+        return FlagGet(FLAG_BADGE03_GET)
+            && (species == SPECIES_CHARAXIS || species == SPECIES_LEPIDEON
+                || species == SPECIES_SKARMET || species == SPECIES_GRIMFOWL
+                || species == SPECIES_GHOULBAT || species == SPECIES_TROPISAUR);
+    case MOVE_IRON_FANGS:
+        return FlagGet(FLAG_BADGE03_GET)
+            && (species == SPECIES_GUARDEON || species == SPECIES_MAWYRM);
+    case MOVE_SEISMIC_SLAM:
+        return FlagGet(FLAG_BADGE05_GET)
+            && (species == SPECIES_KHANG || species == SPECIES_HERACURION
+                || species == SPECIES_FERALODON || species == SPECIES_SWAMPLITH
+                || species == SPECIES_COELOSSUS);
+    case MOVE_BRAVADO:
+        return FlagGet(FLAG_BADGE05_GET)
+            && (species == SPECIES_KHANG || species == SPECIES_NOLAX
+                || species == SPECIES_MILTITAN || species == SPECIES_SKULBERUS);
+    case MOVE_BEATDOWN:
+        return FlagGet(FLAG_BADGE05_GET)
+            && (species == SPECIES_CHAMPEON || species == SPECIES_SKULBERUS);
+    case MOVE_INSECT_IMPACT:
+        return FlagGet(FLAG_BADGE05_GET) && species == SPECIES_SOLAZIKEN;
+    case MOVE_RAGING_SOULS:
+        return FlagGet(FLAG_SYS_GAME_CLEAR)
+            && (species == SPECIES_PYROCLAST || species == SPECIES_GHOULBAT
+                || species == SPECIES_OMEON);
+    default:
+        break;
+    }
+
     for (u32 i = 0; teachableLearnset[i] != MOVE_UNAVAILABLE; i++)
     {
         if (teachableLearnset[i] == move)

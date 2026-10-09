@@ -1127,6 +1127,24 @@ static const struct MenuAction MultichoiceList_Exit[] =
     {gText_Exit},
 };
 
+
+static const struct MenuAction sMultichoiceList_PRLRelicServices[] =
+{
+    {COMPOUND_STRING("RELIC TMs")},
+    {COMPOUND_STRING("RELIC TUTOR")},
+    {COMPOUND_STRING("RELIC RITUAL")},
+    {gText_Exit},
+};
+
+static const struct MenuAction sMultichoiceList_PRLRelicTutorMoves[] =
+{
+    {COMPOUND_STRING("SEISMIC SLAM")},
+    {COMPOUND_STRING("BRAVADO")},
+    {COMPOUND_STRING("BEATDOWN")},
+    {COMPOUND_STRING("INSECT IMPACT")},
+    {gText_Exit},
+};
+
 struct MultichoiceListStruct
 {
     const struct MenuAction *list;
@@ -1294,6 +1312,8 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_HOF_VICTORIES_QUIT]                         = MULTICHOICE(sMultichoiceList_HOF_Victories_Quit),
     [MULTI_EGGS_VICTORIES_QUIT]                        = MULTICHOICE(sMultichoiceList_Eggs_Victories_Quit),
     [MULTI_HOF_EGGS_VICTORIES_QUIT]                    = MULTICHOICE(sMultichoiceList_HOF_Eggs_Victories_Quit),
+    [MULTI_PRL_RELIC_SERVICES]                         = MULTICHOICE(sMultichoiceList_PRLRelicServices),
+    [MULTI_PRL_RELIC_TUTOR_MOVES]                      = MULTICHOICE(sMultichoiceList_PRLRelicTutorMoves),
 };
 
 const u8 *const gStdStrings[] =
