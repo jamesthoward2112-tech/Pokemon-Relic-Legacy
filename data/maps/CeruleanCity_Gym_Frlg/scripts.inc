@@ -113,9 +113,9 @@ CeruleanCity_Gym_Text_BetterMakeRoomForThis::
 	.string "You better make room for this!$"
 
 CeruleanCity_Gym_Text_MistyPostBattle::
-	.string "That was another great battle!\\p"
-	.string "You've earned your CASCADEBADGE,\\n"
-	.string "and I won't take it back.\\p"
+	.string "That was another great battle!\p"
+	.string "You've earned your CASCADEBADGE,\n"
+	.string "and I won't take it back.\p"
 	.string "Come challenge me again anytime!$"
 
 CeruleanCity_Gym_Text_MistyDefeat::
