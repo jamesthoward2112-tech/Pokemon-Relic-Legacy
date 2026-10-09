@@ -226,9 +226,10 @@ SINGLE_BATTLE_TEST("Ordinary Curse and Weather Ball behavior returns after Eerie
             HP_BAR(opponent);
         }
     } THEN {
+        enum BattlerId playerBattler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
         EXPECT_EQ(gBattleWeather, B_WEATHER_NONE);
-        EXPECT_EQ(GetBattlerMoveTargetType(player, MOVE_CURSE), TARGET_USER);
-        EXPECT_EQ(GetDynamicMoveType(NULL, MOVE_WEATHER_BALL, player, GetBattlerAbility(player), GetBattlerHoldEffect(player), MON_IN_BATTLE), TYPE_NORMAL);
+        EXPECT_EQ(GetBattlerMoveTargetType(playerBattler, MOVE_CURSE), TARGET_USER);
+        EXPECT_EQ(GetDynamicMoveType(NULL, MOVE_WEATHER_BALL, playerBattler, GetBattlerAbility(playerBattler), GetBattlerHoldEffect(playerBattler), MON_IN_BATTLE), TYPE_NORMAL);
         EXPECT(!opponent->volatiles.cursed);
         EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE + 1);
     }

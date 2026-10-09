@@ -113,7 +113,8 @@ SINGLE_BATTLE_TEST("Weather Ball becomes Ghost-type and doubles its power in Eer
         ANIMATION(ANIM_TYPE_MOVE, MOVE_WEATHER_BALL, player);
         HP_BAR(opponent, captureDamage: &results[i].damage);
     } THEN {
-        EXPECT_EQ(GetDynamicMoveType(NULL, MOVE_WEATHER_BALL, player, GetBattlerAbility(player), GetBattlerHoldEffect(player), MON_IN_BATTLE),
+        enum BattlerId playerBattler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
+        EXPECT_EQ(GetDynamicMoveType(NULL, MOVE_WEATHER_BALL, playerBattler, GetBattlerAbility(playerBattler), GetBattlerHoldEffect(playerBattler), MON_IN_BATTLE),
                   setupMove == MOVE_EERIE_FOG ? TYPE_GHOST : TYPE_NORMAL);
     } FINALLY {
         EXPECT_MUL_EQ(results[0].damage, UQ_4_12(2.0), results[1].damage);
@@ -135,8 +136,9 @@ SINGLE_BATTLE_TEST("Weather Ball remains Normal-type when Cloud Nine suppresses 
             HP_BAR(opponent);
         }
     } THEN {
+        enum BattlerId playerBattler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
         EXPECT(gBattleWeather & B_WEATHER_FOG);
-        EXPECT_EQ(GetDynamicMoveType(NULL, MOVE_WEATHER_BALL, player, GetBattlerAbility(player), GetBattlerHoldEffect(player), MON_IN_BATTLE), TYPE_NORMAL);
+        EXPECT_EQ(GetDynamicMoveType(NULL, MOVE_WEATHER_BALL, playerBattler, GetBattlerAbility(playerBattler), GetBattlerHoldEffect(playerBattler), MON_IN_BATTLE), TYPE_NORMAL);
     }
 }
 
