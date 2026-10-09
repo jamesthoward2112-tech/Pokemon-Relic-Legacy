@@ -9,18 +9,18 @@ def read(path):
 
 
 def trainer_block(source, trainer):
-    match = re.search(rf"^=== {re.escape(trainer)} ===\\n(.*?)(?=^=== TRAINER_|\\Z)", source, re.M | re.S)
+    match = re.search(rf"^=== {re.escape(trainer)} ===\n(.*?)(?=^=== TRAINER_|\Z)", source, re.M | re.S)
     assert match, f"missing trainer record {trainer}"
     return match.group(1)
 
 
 def species_levels(block):
-    return [(name, int(level)) for name, level in re.findall(r"^([^\\n]+)\\nLevel: (\\d+)", block, re.M)]
+    return [(name, int(level)) for name, level in re.findall(r"^([^\n]+)\nLevel: (\d+)", block, re.M)]
 
 
 def test_prl_starter_selection_and_rival_dispatch_cover_each_starter():
     starter = read("src/starter_choose.c")
-    selection = re.search(r"static const u16 sStarterMon\\[STARTER_MON_COUNT\\] =\\s*\\{([^}]+)\\}", starter, re.S)
+    selection = re.search(r"static const u16 sStarterMon\[STARTER_MON_COUNT\] =\s*\{([^}]+)\}", starter, re.S)
     assert selection, "starter species array must remain explicit"
     assert re.findall(r"SPECIES_[A-Z0-9_]+", selection.group(1)) == [
         "SPECIES_PIKACHU", "SPECIES_NIDORAN_M", "SPECIES_GROWLITHE"
@@ -31,7 +31,7 @@ def test_prl_starter_selection_and_rival_dispatch_cover_each_starter():
         "Route22_Frlg",
         "CeruleanCity_Frlg",
         "SSAnne_2F_Corridor_Frlg",
-        "PokemonTower_3F_Frlg",
+        "PokemonTower_2F_Frlg",
         "SilphCo_7F_Frlg",
         "PokemonLeague_ChampionsRoom_Frlg",
     ]
@@ -46,9 +46,9 @@ def test_prl_starter_selection_and_rival_dispatch_cover_each_starter():
 def test_late_route22_has_six_scaled_mon_and_only_the_two_unselected_starter_lines():
     party = read("src/data/trainers_frlg.party")
     expected = {
-        "TRAINER_RIVAL_ROUTE22_LATE_SQUIRTLE": {"Pikachu", "Nidoran M"},
-        "TRAINER_RIVAL_ROUTE22_LATE_BULBASAUR": {"Pikachu", "Growlithe"},
-        "TRAINER_RIVAL_ROUTE22_LATE_CHARMANDER": {"Nidoran M", "Growlithe"},
+        "TRAINER_RIVAL_ROUTE22_LATE_SQUIRTLE": {"Nidoking", "Arcanine"},
+        "TRAINER_RIVAL_ROUTE22_LATE_BULBASAUR": {"Pikachu", "Arcanine"},
+        "TRAINER_RIVAL_ROUTE22_LATE_CHARMANDER": {"Pikachu", "Nidoking"},
     }
     for trainer, starter_lines in expected.items():
         block = trainer_block(party, trainer)
@@ -57,14 +57,13 @@ def test_late_route22_has_six_scaled_mon_and_only_the_two_unselected_starter_lin
         assert all(56 <= level <= 60 for _, level in entries)
         species = {name for name, _ in entries}
         assert starter_lines <= species
-        assert len(starter_lines & species) == 2
 
 
 def test_first_champion_is_six_vs_six_double_and_protects_one_usable_pokemon():
     scripts = read("data/maps/PokemonLeague_ChampionsRoom_Frlg/scripts.inc")
     for starter_value in range(3):
         assert f"call_if_eq VAR_STARTER_MON, {starter_value}" in scripts
-    assert "trainerbattle_double_no_intro" in scripts or "trainerbattle_double " in scripts
+    assert "trainerbattle_double " in scripts
     assert "PokemonLeague_ChampionsRoom_Text_NotEnoughMons" in scripts
 
     party = read("src/data/trainers_frlg.party")
@@ -90,8 +89,8 @@ def test_first_champion_keeps_safe_hall_of_fame_and_elite_four_singles():
         assert required in hall
 
     party = read("src/data/trainers_frlg.party")
-    for trainer in ("TRAINER_ELITE_FOUR_LORELEI_1", "TRAINER_ELITE_FOUR_BRUNO_1",
-                    "TRAINER_ELITE_FOUR_AGATHA_1", "TRAINER_ELITE_FOUR_LANCE_1"):
+    for trainer in ("TRAINER_ELITE_FOUR_LORELEI", "TRAINER_ELITE_FOUR_BRUNO",
+                    "TRAINER_ELITE_FOUR_AGATHA", "TRAINER_ELITE_FOUR_LANCE"):
         block = trainer_block(party, trainer)
         assert "Double Battle: No" in block
         assert len(species_levels(block)) == 6
@@ -105,6 +104,5 @@ def test_previous_tutors_and_shop_stock_are_preserved():
         assert move in tutors
     celadon = read("data/maps/CeladonCity_DepartmentStore_2F_Frlg/scripts.inc")
     indigo = read("data/maps/IndigoPlateau_PokemonCenter_1F_Frlg/scripts.inc")
-    assert "TM50" in celadon or "TM50" in read("src/data/marts.json")
-    assert "PP Max" in celadon or "PP Max" in read("src/data/marts.json")
-    assert "Rare Candy" in indigo or "Rare Candy" in read("src/data/marts.json")
+    assert "ITEM_TM50" in celadon and "ITEM_PP_MAX" in celadon
+    assert "ITEM_RARE_CANDY" in indigo
