@@ -19,11 +19,11 @@ ENCOUNTERS = {
 GATES = {
     "STEEVE_NEEVEE_ROUTE3": "FLAG_BADGE01_GET",
     "STEEVE_NEEVEE_SS_ANNE": "FLAG_GOT_SS_TICKET",
-    "STEEVE_NEEVEE_TOWER": "FLAG_GOT_SILPH_SCOPE",
+    "STEEVE_NEEVEE_TOWER": "ITEM_SILPH_SCOPE",
     "STEEVE_NEEVEE_ROUTE23": "FLAG_BADGE08_GET",
     "JESSIE_JAMES_MT_MOON": "FLAG_GOT_FOSSIL_FROM_MT_MOON",
     "JESSIE_JAMES_HIDEOUT": "FLAG_CAN_USE_ROCKET_HIDEOUT_LIFT",
-    "JESSIE_JAMES_SILPH": "FLAG_GOT_SILPH_SCOPE",
+    "JESSIE_JAMES_SILPH": "ITEM_SILPH_SCOPE",
     "JESSIE_JAMES_VICTORY_ROAD": "FLAG_BADGE08_GET",
 }
 
@@ -55,6 +55,8 @@ class PRLRecurringDuos(unittest.TestCase):
                 self.assertTrue(re.search(rf"setflag FLAG_PRL_RECURRING_{name}\b", script), name)
                 self.assertTrue(re.search(rf"goto_if_set FLAG_PRL_RECURRING_{name}\b", script), name)
                 self.assertIn(GATES[name], script)
+                if GATES[name] == "ITEM_SILPH_SCOPE":
+                    self.assertIn("checkitem ITEM_SILPH_SCOPE", script)
                 map_data = json.loads(read(f"data/maps/{map_name}/map.json"))
                 if name == "JESSIE_JAMES_MT_MOON":
                     self.assertTrue("call MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOON" in script, name)
@@ -127,6 +129,20 @@ class PRLRecurringDuos(unittest.TestCase):
                 self.assertIn("removeobject LOCALID_PRL_MEOWTH", script)
                 self.assertLess(script.index("applymovement LOCALID_PRL_JESSIE"), script.index("applymovement LOCALID_PRL_JAMES"))
                 self.assertLess(script.index("applymovement LOCALID_PRL_JAMES"), script.index("applymovement LOCALID_PRL_MEOWTH"))
+
+
+    def test_rocket_event_labels_and_scene_flags_resolve_within_frlg_range(self):
+        flags = read("include/constants/flags_frlg.h")
+        self.assertNotRegex(flags, r"#define FLAG_HIDE_PRL_\w+\s+FLAG_0x90[0-9A-F]")
+        for map_name, prefix in (("MtMoon_B2F_Frlg", "MtMoon_B2F"),
+                                 ("RocketHideout_B4F_Frlg", "RocketHideout_B4F"),
+                                 ("SilphCo_11F_Frlg", "SilphCo_11F"),
+                                 ("VictoryRoad_3F_Frlg", "VictoryRoad_3F")):
+            script = read(f"data/maps/{map_name}/scripts.inc")
+            self.assertIn(f"{prefix}_EventScript_PRL_JESSIE_JAMES_", script)
+            self.assertNotIn(f"{prefix}_Frlg_EventScript_PRL_JESSIE_JAMES_", script)
+            for ref in re.findall(r"\b(?:call|goto) (\w*PRL_JESSIE_JAMES_\w+)", script):
+                self.assertRegex(script, rf"(?m)^{re.escape(ref)}::", msg=ref)
 
 
 if __name__ == "__main__":
