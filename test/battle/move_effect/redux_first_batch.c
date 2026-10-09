@@ -124,7 +124,7 @@ SINGLE_BATTLE_TEST("Redux Insect Impact can lower target Defense")
         PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_INSECT_IMPACT); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { MOVE(player, MOVE_INSECT_IMPACT, WITH_RNG(RNG_SECONDARY_EFFECT, 0)); }
+        TURN { MOVE(player, MOVE_INSECT_IMPACT, WITH_RNG(RNG_SECONDARY_EFFECT_2, TRUE)); }
     } SCENE {
         HP_BAR(opponent);
     } THEN {
