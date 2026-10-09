@@ -103,3 +103,32 @@ SINGLE_BATTLE_TEST("Attract fails when used on a genderless Pokémon")
         EXPECT(!(opponent->volatiles.infatuation));
     }
 }
+
+DOUBLE_BATTLE_TEST("Infatuated Pokémon still attack and deal half damage")
+{
+    s16 normalDamage, infatuatedDamage;
+    u16 move;
+
+    PARAMETRIZE { move = MOVE_SCRATCH; }
+    PARAMETRIZE { move = MOVE_WATER_GUN; }
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { Moves(move); Speed(2); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); Speed(1); }
+        PLAYER(SPECIES_WOBBUFFET) { Moves(move); Speed(2); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); Speed(1); }
+    } WHEN {
+        gBattleMons[B_BATTLER_2].volatiles.infatuation = B_BATTLER_1 + 1;
+        TURN {
+            MOVE(playerLeft, move, target: opponentLeft, WITH_RNG(RNG_DAMAGE_MODIFIER, 0));
+            MOVE(playerRight, move, target: opponentRight, WITH_RNG(RNG_DAMAGE_MODIFIER, 0));
+            MOVE(opponentLeft, MOVE_CELEBRATE);
+            MOVE(opponentRight, MOVE_CELEBRATE);
+        }
+    } SCENE {
+        HP_BAR(opponentLeft, captureDamage: &normalDamage);
+        HP_BAR(opponentRight, captureDamage: &infatuatedDamage);
+    } THEN {
+        EXPECT_MUL_EQ(normalDamage, UQ_4_12(0.5), infatuatedDamage);
+        EXPECT(playerRight->volatiles.infatuation);
+    }
+}
