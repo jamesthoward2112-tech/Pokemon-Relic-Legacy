@@ -379,6 +379,7 @@ PetalburgCity_Gym_EventScript_NormanBattle::
 	setflag FLAG_DEFEATED_PETALBURG_GYM
 	setvar VAR_PETALBURG_GYM_STATE, 7
 	setflag FLAG_BADGE05_GET
+	setflag FLAG_PRL_BADGE_HOENN_NORMAN
 	call_if_unset FLAG_PRL_GYM_HOENN_NORMAN_EXTRA, PRL_EventScript_GymExtra_HOENN_NORMAN
 	special ResetHealLocationFromDewford
 	call EventScript_HideMrBriney
@@ -1119,18 +1120,19 @@ PetalburgCity_Gym_EventScript_GymGuidePostVictory::
 
 PetalburgCity_Gym_EventScript_LeftGymStatue::
 	lockall
-	goto_if_set FLAG_BADGE05_GET, PetalburgCity_Gym_EventScript_GymStatueCertified
+	goto_if_set FLAG_PRL_BADGE_HOENN_NORMAN, PetalburgCity_Gym_EventScript_GymStatueCertified
 	goto PetalburgCity_Gym_EventScript_GymStatue
 	end
 
 PetalburgCity_Gym_EventScript_RightGymStatue::
 	lockall
-	goto_if_set FLAG_BADGE05_GET, PetalburgCity_Gym_EventScript_GymStatueCertified
+	goto_if_set FLAG_PRL_BADGE_HOENN_NORMAN, PetalburgCity_Gym_EventScript_GymStatueCertified
 	goto PetalburgCity_Gym_EventScript_GymStatue
 	end
 
 PetalburgCity_Gym_EventScript_GymStatueCertified::
-	msgbox PetalburgCity_Gym_Text_GymStatueCertified, MSGBOX_DEFAULT
+	lockall
+	warpteleport MAP_PETALBURG_CITY_GYM, 4, 3
 	releaseall
 	end
 

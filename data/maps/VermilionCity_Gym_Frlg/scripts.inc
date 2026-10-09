@@ -204,8 +204,16 @@ VermilionCity_Gym_EventScript_SetBeamsOn::
 VermilionCity_Gym_EventScript_LtSurge::
 	famechecker FAMECHECKER_LTSURGE, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	trainerbattle_single TRAINER_LEADER_LT_SURGE, VermilionCity_Gym_Text_LtSurgeIntro, VermilionCity_Gym_Text_LtSurgeDefeat, VermilionCity_Gym_EventScript_DefeatedLtSurge, NO_MUSIC
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, VermilionCity_Gym_EventScript_LtSurgeRematch
 	call_if_unset FLAG_PRL_GYM_KANTO_SURGE_EXTRA, PRL_EventScript_GymExtra_KANTO_SURGE
 	goto_if_unset FLAG_GOT_TM34_FROM_SURGE, VermilionCity_Gym_EventScript_GiveTM34
+	msgbox VermilionCity_Gym_Text_LtSurgePostBattle
+	release
+	end
+
+VermilionCity_Gym_EventScript_LtSurgeRematch::
+	trainerbattle_rematch TRAINER_LEADER_LT_SURGE, VermilionCity_Gym_Text_LtSurgeIntro, VermilionCity_Gym_Text_LtSurgeDefeat
 	msgbox VermilionCity_Gym_Text_LtSurgePostBattle
 	release
 	end
@@ -216,6 +224,7 @@ VermilionCity_Gym_EventScript_DefeatedLtSurge::
 	clearflag FLAG_HIDE_FAME_CHECKER_LT_SURGE_JOURNAL
 	setflag FLAG_DEFEATED_LT_SURGE
 	setflag FLAG_BADGE03_GET
+	setflag FLAG_PRL_BADGE_KANTO_SURGE
 	call_if_unset FLAG_PRL_GYM_KANTO_SURGE_EXTRA, PRL_EventScript_GymExtra_KANTO_SURGE
 	set_gym_trainers_frlg 3
 	goto VermilionCity_Gym_EventScript_GiveTM34
@@ -277,13 +286,14 @@ VermilionCity_Gym_EventScript_GymGuyPostVictory::
 
 VermilionCity_Gym_EventScript_GymStatue::
 	lockall
-	goto_if_set FLAG_BADGE03_GET, VermilionCity_Gym_EventScript_GymStatuePostVictory
+	goto_if_set FLAG_PRL_BADGE_KANTO_SURGE, VermilionCity_Gym_EventScript_GymStatuePostVictory
 	msgbox VermilionCity_Gym_Text_GymStatue
 	releaseall
 	end
 
 VermilionCity_Gym_EventScript_GymStatuePostVictory::
-	msgbox VermilionCity_Gym_Text_GymStatuePlayerWon
+	lockall
+	warpteleport MAP_VERMILION_CITY_GYM, 5, 3
 	releaseall
 	end
 

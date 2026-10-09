@@ -1300,30 +1300,30 @@
 #define FLAG_UNUSED_0x4BA                                           0x4BA // Unused Flag
 #define FLAG_UNUSED_0x4BB                                           0x4BB // Unused Flag
 #define FLAG_UNUSED_0x4BC                                           0x4BC // Unused Flag
-#define FLAG_UNUSED_0x4BD                                           0x4BD // Unused Flag
-#define FLAG_UNUSED_0x4BE                                           0x4BE // Unused Flag
-#define FLAG_UNUSED_0x4BF                                           0x4BF // Unused Flag
-#define FLAG_UNUSED_0x4C0                                           0x4C0 // Unused Flag
-#define FLAG_UNUSED_0x4C1                                           0x4C1 // Unused Flag
-#define FLAG_UNUSED_0x4C2                                           0x4C2 // Unused Flag
-#define FLAG_UNUSED_0x4C3                                           0x4C3 // Unused Flag
-#define FLAG_UNUSED_0x4C4                                           0x4C4 // Unused Flag
-#define FLAG_UNUSED_0x4C5                                           0x4C5 // Unused Flag
-#define FLAG_UNUSED_0x4C6                                           0x4C6 // Unused Flag
-#define FLAG_UNUSED_0x4C7                                           0x4C7 // Unused Flag
-#define FLAG_UNUSED_0x4C8                                           0x4C8 // Unused Flag
-#define FLAG_UNUSED_0x4C9                                           0x4C9 // Unused Flag
-#define FLAG_UNUSED_0x4CA                                           0x4CA // Unused Flag
-#define FLAG_UNUSED_0x4CB                                           0x4CB // Unused Flag
-#define FLAG_UNUSED_0x4CC                                           0x4CC // Unused Flag
-#define FLAG_UNUSED_0x4CD                                           0x4CD // Unused Flag
-#define FLAG_UNUSED_0x4CE                                           0x4CE // Unused Flag
-#define FLAG_UNUSED_0x4CF                                           0x4CF // Unused Flag
-#define FLAG_UNUSED_0x4D0                                           0x4D0 // Unused Flag
-#define FLAG_UNUSED_0x4D1                                           0x4D1 // Unused Flag
-#define FLAG_UNUSED_0x4D2                                           0x4D2 // Unused Flag
-#define FLAG_UNUSED_0x4D3                                           0x4D3 // Unused Flag
-#define FLAG_UNUSED_0x4D4                                           0x4D4 // Unused Flag
+#define FLAG_PRL_BADGE_KANTO_BROCK              0x4BD
+#define FLAG_PRL_BADGE_KANTO_MISTY              0x4BE
+#define FLAG_PRL_BADGE_KANTO_SURGE              0x4BF
+#define FLAG_PRL_BADGE_KANTO_ERIKA              0x4C0
+#define FLAG_PRL_BADGE_KANTO_KOGA               0x4C1
+#define FLAG_PRL_BADGE_KANTO_SABRINA            0x4C2
+#define FLAG_PRL_BADGE_KANTO_BLAINE             0x4C3
+#define FLAG_PRL_BADGE_KANTO_GIOVANNI           0x4C4
+#define FLAG_PRL_BADGE_JOHTO_FALKNER            0x4C5
+#define FLAG_PRL_BADGE_JOHTO_BUGSY              0x4C6
+#define FLAG_PRL_BADGE_JOHTO_WHITNEY            0x4C7
+#define FLAG_PRL_BADGE_JOHTO_MORTY              0x4C8
+#define FLAG_PRL_BADGE_JOHTO_CHUCK              0x4C9
+#define FLAG_PRL_BADGE_JOHTO_JASMINE            0x4CA
+#define FLAG_PRL_BADGE_JOHTO_PRYCE              0x4CB
+#define FLAG_PRL_BADGE_JOHTO_CLAIR              0x4CC
+#define FLAG_PRL_BADGE_HOENN_ROXANNE            0x4CD
+#define FLAG_PRL_BADGE_HOENN_BRAWLY             0x4CE
+#define FLAG_PRL_BADGE_HOENN_WATTSON            0x4CF
+#define FLAG_PRL_BADGE_HOENN_FLANNERY           0x4D0
+#define FLAG_PRL_BADGE_HOENN_NORMAN             0x4D1
+#define FLAG_PRL_BADGE_HOENN_WINONA             0x4D2
+#define FLAG_PRL_BADGE_HOENN_TATE_LIZA          0x4D3
+#define FLAG_PRL_BADGE_HOENN_JUAN               0x4D4
 #define FLAG_UNUSED_0x4D5                                           0x4D5 // Unused Flag
 #define FLAG_UNUSED_0x4D6                                           0x4D6 // Unused Flag
 #define FLAG_UNUSED_0x4D7                                           0x4D7 // Unused Flag

@@ -18,6 +18,7 @@ RustboroCity_Gym_EventScript_RoxanneDefeated::
 	msgbox RustboroCity_Gym_Text_StoneBadgeInfoTakeThis, MSGBOX_DEFAULT
 	setflag FLAG_DEFEATED_RUSTBORO_GYM
 	setflag FLAG_BADGE01_GET
+	setflag FLAG_PRL_BADGE_HOENN_ROXANNE
 	call_if_unset FLAG_PRL_GYM_HOENN_ROXANNE_EXTRA, PRL_EventScript_GymExtra_HOENN_ROXANNE
 	setvar VAR_RUSTBORO_CITY_STATE, 1
 	addvar VAR_PETALBURG_GYM_STATE, 1
@@ -70,18 +71,19 @@ RustboroCity_Gym_EventScript_GymGuidePostVictory::
 
 RustboroCity_Gym_EventScript_LeftGymStatue::
 	lockall
-	goto_if_set FLAG_BADGE01_GET, RustboroCity_Gym_EventScript_GymStatueCertified
+	goto_if_set FLAG_PRL_BADGE_HOENN_ROXANNE, RustboroCity_Gym_EventScript_GymStatueCertified
 	goto RustboroCity_Gym_EventScript_GymStatue
 	end
 
 RustboroCity_Gym_EventScript_RightGymStatue::
 	lockall
-	goto_if_set FLAG_BADGE01_GET, RustboroCity_Gym_EventScript_GymStatueCertified
+	goto_if_set FLAG_PRL_BADGE_HOENN_ROXANNE, RustboroCity_Gym_EventScript_GymStatueCertified
 	goto RustboroCity_Gym_EventScript_GymStatue
 	end
 
 RustboroCity_Gym_EventScript_GymStatueCertified::
-	msgbox RustboroCity_Gym_Text_GymStatueCertified, MSGBOX_DEFAULT
+	lockall
+	warpteleport MAP_RUSTBORO_CITY_GYM, 5, 3
 	releaseall
 	end
 

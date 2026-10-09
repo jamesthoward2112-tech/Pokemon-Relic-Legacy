@@ -4,9 +4,17 @@ SaffronCity_Gym_Frlg_MapScripts::
 SaffronCity_Gym_EventScript_Sabrina::
 	famechecker FAMECHECKER_SABRINA, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	trainerbattle_single TRAINER_LEADER_SABRINA, SaffronCity_Gym_Text_SabrinaIntro, SaffronCity_Gym_Text_SabrinaDefeat, SaffronCity_Gym_EventScript_DefeatedSabrina, NO_MUSIC
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, SaffronCity_Gym_EventScript_SabrinaRematch
 	call_if_unset FLAG_PRL_GYM_KANTO_SABRINA_EXTRA, PRL_EventScript_GymExtra_KANTO_SABRINA
 	goto_if_unset FLAG_GOT_TM04_FROM_SABRINA, SaffronCity_Gym_EventScript_GiveTM04
 	msgbox SaffronCity_Gym_Text_ExplainTM04
+	release
+	end
+
+SaffronCity_Gym_EventScript_SabrinaRematch::
+	trainerbattle_rematch TRAINER_LEADER_SABRINA, SaffronCity_Gym_Text_SabrinaIntro, SaffronCity_Gym_Text_SabrinaDefeat
+	msgbox SaffronCity_Gym_Text_SabrinaPostBattle
 	release
 	end
 
@@ -16,6 +24,7 @@ SaffronCity_Gym_EventScript_DefeatedSabrina::
 	clearflag FLAG_HIDE_SAFFRON_CITY_POKECENTER_SABRINA_JOURNALS
 	setflag FLAG_DEFEATED_SABRINA
 	setflag FLAG_BADGE06_GET
+	setflag FLAG_PRL_BADGE_KANTO_SABRINA
 	call_if_unset FLAG_PRL_GYM_KANTO_SABRINA_EXTRA, PRL_EventScript_GymExtra_KANTO_SABRINA
 	set_gym_trainers_frlg 6
 	goto SaffronCity_Gym_EventScript_GiveTM04
@@ -87,13 +96,14 @@ SaffronCity_Gym_EventScript_GymGuyPostVictory::
 
 SaffronCity_Gym_EventScript_GymStatue::
 	lockall
-	goto_if_set FLAG_BADGE06_GET, SaffronCity_Gym_EventScript_GymStatuePostVictory
+	goto_if_set FLAG_PRL_BADGE_KANTO_SABRINA, SaffronCity_Gym_EventScript_GymStatuePostVictory
 	msgbox SaffronCity_Gym_Text_GymStatue
 	releaseall
 	end
 
 SaffronCity_Gym_EventScript_GymStatuePostVictory::
-	msgbox SaffronCity_Gym_Text_GymStatuePlayerWon
+	lockall
+	warpteleport MAP_SAFFRON_CITY_GYM, 14, 12
 	releaseall
 	end
 

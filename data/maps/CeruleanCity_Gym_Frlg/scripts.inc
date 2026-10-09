@@ -4,9 +4,17 @@ CeruleanCity_Gym_Frlg_MapScripts::
 CeruleanCity_Gym_EventScript_Misty::
 	famechecker FAMECHECKER_MISTY, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	trainerbattle_single TRAINER_LEADER_MISTY, CeruleanCity_Gym_Text_MistyIntro, CeruleanCity_Gym_Text_MistyDefeat, CeruleanCity_Gym_EventScript_MistyDefeated, NO_MUSIC
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, CeruleanCity_Gym_EventScript_MistyRematch
 	call_if_unset FLAG_PRL_GYM_KANTO_MISTY_EXTRA, PRL_EventScript_GymExtra_KANTO_MISTY
 	goto_if_unset FLAG_GOT_TM03_FROM_MISTY, CeruleanCity_Gym_EventScript_GiveTM03
 	msgbox CeruleanCity_Gym_Text_ExplainTM03
+	release
+	end
+
+CeruleanCity_Gym_EventScript_MistyRematch::
+	trainerbattle_rematch TRAINER_LEADER_MISTY, CeruleanCity_Gym_Text_MistyIntro, CeruleanCity_Gym_Text_MistyDefeat
+	msgbox CeruleanCity_Gym_Text_MistyPostBattle
 	release
 	end
 
@@ -14,6 +22,7 @@ CeruleanCity_Gym_EventScript_MistyDefeated::
 	famechecker FAMECHECKER_MISTY, 1
 	setflag FLAG_DEFEATED_MISTY
 	setflag FLAG_BADGE02_GET
+	setflag FLAG_PRL_BADGE_KANTO_MISTY
 	call_if_unset FLAG_PRL_GYM_KANTO_MISTY_EXTRA, PRL_EventScript_GymExtra_KANTO_MISTY
 	setrespawn HEAL_LOCATION_CERULEAN_CITY
 	set_gym_trainers_frlg 2
@@ -61,13 +70,14 @@ CeruleanCity_Gym_EventScript_GymGuyPostVictory::
 
 CeruleanCity_Gym_EventScript_GymStatue::
 	lockall
-	goto_if_set FLAG_BADGE02_GET, CeruleanCity_Gym_EventScript_GymStatuePostVictory
+	goto_if_set FLAG_PRL_BADGE_KANTO_MISTY, CeruleanCity_Gym_EventScript_GymStatuePostVictory
 	msgbox CeruleanCity_Gym_Text_GymStatue
 	releaseall
 	end
 
 CeruleanCity_Gym_EventScript_GymStatuePostVictory::
-	msgbox CeruleanCity_Gym_Text_GymStatuePlayerWon
+	lockall
+	warpteleport MAP_CERULEAN_CITY_GYM, 8, 7
 	releaseall
 	end
 
@@ -101,6 +111,12 @@ CeruleanCity_Gym_Text_ReceivedTM03FromMisty::
 
 CeruleanCity_Gym_Text_BetterMakeRoomForThis::
 	.string "You better make room for this!$"
+
+CeruleanCity_Gym_Text_MistyPostBattle::
+	.string "That was another great battle!\p"
+	.string "You've earned your CASCADEBADGE,\n"
+	.string "and I won't take it back.\p"
+	.string "Come challenge me again anytime!$"
 
 CeruleanCity_Gym_Text_MistyDefeat::
 	.string "Wow!\n"

@@ -573,7 +573,7 @@ u16 GetRematchTrainerIdVSSeeker(u16 trainerId)
         return 0;
     if (tableId == -1)
         return 0;
-    if (tableId >= REMATCH_ELITE_FOUR_ENTRIES)
+    if (tableId >= REMATCH_ELITE_FOUR_ENTRIES && tableId < REMATCH_ELITE_FOUR_END)
         return 0;
     if (tableId >= REMATCH_SPECIAL_TRAINER_START)
         return GetCurrentGymLeaderRematchLevel();
