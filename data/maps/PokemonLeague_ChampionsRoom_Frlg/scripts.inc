@@ -1,8 +1,17 @@
 PokemonLeague_ChampionsRoom_Frlg_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, PokemonLeague_ChampionsRoom_OnTransition
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, PokemonLeague_ChampionsRoom_OnWarp
 	map_script MAP_SCRIPT_ON_RESUME, PokemonLeague_ChampionsRoom_OnResume
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, PokemonLeague_ChampionsRoom_OnFrame
 	.byte 0
+
+PokemonLeague_ChampionsRoom_OnTransition::
+	call_if_unset FLAG_IS_CHAMPION, PokemonLeague_ChampionsRoom_EventScript_ResetFirstChampionScene
+	end
+
+PokemonLeague_ChampionsRoom_EventScript_ResetFirstChampionScene::
+	setvar VAR_TEMP_1, 0
+	return
 
 PokemonLeague_ChampionsRoom_OnResume::
 	setvar VAR_0x8004, 4
@@ -122,6 +131,7 @@ PokemonLeague_ChampionsRoom_EventScript_RematchIntro::
 PokemonLeague_ChampionsRoom_EventScript_BattleSquirtle::
 	trainerbattle_double TRAINER_CHAMPION_FIRST_SQUIRTLE, PokemonLeague_ChampionsRoom_Text_FirstBattleIntro, PokemonLeague_ChampionsRoom_Text_Defeat, PokemonLeague_ChampionsRoom_Text_NotEnoughMons
 	goto_if_defeated TRAINER_CHAMPION_FIRST_SQUIRTLE, PokemonLeague_ChampionsRoom_EventScript_BattleComplete
+	setvar VAR_TEMP_1, 1
 	releaseall
 	end
 	return
@@ -129,6 +139,7 @@ PokemonLeague_ChampionsRoom_EventScript_BattleSquirtle::
 PokemonLeague_ChampionsRoom_EventScript_BattleBulbasaur::
 	trainerbattle_double TRAINER_CHAMPION_FIRST_BULBASAUR, PokemonLeague_ChampionsRoom_Text_FirstBattleIntro, PokemonLeague_ChampionsRoom_Text_Defeat, PokemonLeague_ChampionsRoom_Text_NotEnoughMons
 	goto_if_defeated TRAINER_CHAMPION_FIRST_BULBASAUR, PokemonLeague_ChampionsRoom_EventScript_BattleComplete
+	setvar VAR_TEMP_1, 1
 	releaseall
 	end
 	return
@@ -136,6 +147,7 @@ PokemonLeague_ChampionsRoom_EventScript_BattleBulbasaur::
 PokemonLeague_ChampionsRoom_EventScript_BattleCharmander::
 	trainerbattle_double TRAINER_CHAMPION_FIRST_CHARMANDER, PokemonLeague_ChampionsRoom_Text_FirstBattleIntro, PokemonLeague_ChampionsRoom_Text_Defeat, PokemonLeague_ChampionsRoom_Text_NotEnoughMons
 	goto_if_defeated TRAINER_CHAMPION_FIRST_CHARMANDER, PokemonLeague_ChampionsRoom_EventScript_BattleComplete
+	setvar VAR_TEMP_1, 1
 	releaseall
 	end
 	return
