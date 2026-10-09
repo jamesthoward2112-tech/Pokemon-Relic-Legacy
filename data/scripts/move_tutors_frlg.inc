@@ -569,3 +569,109 @@ Movement_JumpInPlaceRight:
 Text_MoveCanOnlyBeLearnedOnce::
 	.string "This move can be learned only\n"
 	.string "once. Is that okay?$"
+
+
+@ Reusable Kanto PRL tutors. The chooser enforces each species' teachable learnset.
+EventScript_PRL_TutorDrainPunch::
+	msgbox PRL_Text_TutorDrainPunch, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_PRL_TutorDeclined
+	goto EventScript_PRL_TutorSelectMon
+	end
+
+EventScript_PRL_TutorEarthPower::
+	msgbox PRL_Text_TutorEarthPower, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_PRL_TutorDeclined
+	goto EventScript_PRL_TutorSelectMonEarthPower
+	end
+
+EventScript_PRL_TutorPowerUpPunch::
+	msgbox PRL_Text_TutorPowerUpPunch, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_PRL_TutorDeclined
+	goto EventScript_PRL_TutorSelectMonPowerUpPunch
+	end
+
+EventScript_PRL_TutorIcePunch::
+	msgbox PRL_Text_TutorIcePunch, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_PRL_TutorDeclined
+	goto EventScript_PRL_TutorSelectMonIcePunch
+	end
+
+EventScript_PRL_TutorBlazeKick::
+	msgbox PRL_Text_TutorBlazeKick, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_PRL_TutorDeclined
+	goto EventScript_PRL_TutorSelectMonBlazeKick
+	end
+
+EventScript_PRL_TutorHighJumpKick::
+	msgbox PRL_Text_TutorHighJumpKick, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_PRL_TutorDeclined
+	goto EventScript_PRL_TutorSelectMonHighJumpKick
+	end
+
+EventScript_PRL_TutorHeatWave::
+	msgbox PRL_Text_TutorHeatWave, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_PRL_TutorDeclined
+	goto EventScript_PRL_TutorSelectMonHeatWave
+	end
+
+EventScript_PRL_TutorSelectMon::
+	setvar VAR_0x8005, MOVE_DRAIN_PUNCH
+	goto EventScript_PRL_TutorChooseMon
+EventScript_PRL_TutorSelectMonEarthPower::
+	setvar VAR_0x8005, MOVE_EARTH_POWER
+	goto EventScript_PRL_TutorChooseMon
+EventScript_PRL_TutorSelectMonPowerUpPunch::
+	setvar VAR_0x8005, MOVE_POWER_UP_PUNCH
+	goto EventScript_PRL_TutorChooseMon
+EventScript_PRL_TutorSelectMonIcePunch::
+	setvar VAR_0x8005, MOVE_ICE_PUNCH
+	goto EventScript_PRL_TutorChooseMon
+EventScript_PRL_TutorSelectMonBlazeKick::
+	setvar VAR_0x8005, MOVE_BLAZE_KICK
+	goto EventScript_PRL_TutorChooseMon
+EventScript_PRL_TutorSelectMonHighJumpKick::
+	setvar VAR_0x8005, MOVE_HIGH_JUMP_KICK
+	goto EventScript_PRL_TutorChooseMon
+EventScript_PRL_TutorSelectMonHeatWave::
+	setvar VAR_0x8005, MOVE_HEAT_WAVE
+
+EventScript_PRL_TutorChooseMon::
+	msgbox PRL_Text_TutorChooseMon
+	call EventScript_ChooseMoveTutorMon
+	goto_if_eq VAR_RESULT, FALSE, EventScript_PRL_TutorDeclined
+	msgbox PRL_Text_TutorSuccess
+	release
+	end
+
+EventScript_PRL_TutorDeclined::
+	msgbox PRL_Text_TutorDeclined
+	release
+	end
+
+PRL_Text_TutorDrainPunch::
+	.string "I can teach DRAIN PUNCH to one of\n"
+	.string "your POKéMON. Shall I?$"
+PRL_Text_TutorEarthPower::
+	.string "I can teach EARTH POWER to one of\n"
+	.string "your POKéMON. Shall I?$"
+PRL_Text_TutorPowerUpPunch::
+	.string "I can teach POWER-UP PUNCH to one\n"
+	.string "of your POKéMON. Shall I?$"
+PRL_Text_TutorIcePunch::
+	.string "I can teach ICE PUNCH to one of\n"
+	.string "your POKéMON. Shall I?$"
+PRL_Text_TutorBlazeKick::
+	.string "I can teach BLAZE KICK to one of\n"
+	.string "your POKéMON. Shall I?$"
+PRL_Text_TutorHighJumpKick::
+	.string "I can teach HIGH JUMP KICK to one\n"
+	.string "of your POKéMON. Shall I?$"
+PRL_Text_TutorHeatWave::
+	.string "I can teach HEAT WAVE to one of\n"
+	.string "your POKéMON. Shall I?$"
+PRL_Text_TutorChooseMon::
+	.string "Which POKéMON should learn it?$"
+PRL_Text_TutorSuccess::
+	.string "There! Your POKéMON learned it!$"
+PRL_Text_TutorDeclined::
+	.string "No worries. Come back anytime.$"
