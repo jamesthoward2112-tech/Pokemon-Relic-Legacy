@@ -6,7 +6,10 @@ CinnabarIsland_PokemonLab_ResearchRoom_EventScript_MetronomeTutor::
 	end
 
 CinnabarIsland_PokemonLab_ResearchRoom_EventScript_Scientist::
-	msgbox CinnabarIsland_PokemonLab_ResearchRoom_Text_EeveeCanEvolveIntroThreeMons, MSGBOX_NPC
+	lock
+	faceplayer
+	msgbox CinnabarIsland_PokemonLab_ResearchRoom_Text_EeveeCanEvolveIntroThreeMons
+	goto EventScript_PRL_TutorHeatWave
 	end
 
 CinnabarIsland_PokemonLab_ResearchRoom_EventScript_Computer::
