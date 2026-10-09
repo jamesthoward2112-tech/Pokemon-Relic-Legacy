@@ -83,7 +83,7 @@ DOUBLE_BATTLE_TEST("Confusion recoil sums the damage dealt by a spread move")
 
 SINGLE_BATTLE_TEST("A confused Pokémon does not take damage-based recoil for a status move")
 {
-    u16 hp;
+    u16 hp = 0;
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_SWORDS_DANCE); }
         OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
