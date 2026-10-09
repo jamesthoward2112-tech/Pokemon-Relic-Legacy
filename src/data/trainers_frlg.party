@@ -13845,6 +13845,10 @@ IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Bite
 - Quick Attack
 
+Toxeon
+Level: 55
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+
 Eevee
 Level: 51
 IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
@@ -13852,10 +13856,6 @@ IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Baton Pass
 - Quick Attack
 - Sand Attack
-
-Toxeon
-Level: 55
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 
 Eevee @ Sitrus Berry
 Level: 53
