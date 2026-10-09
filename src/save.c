@@ -9,6 +9,7 @@
 #include "overworld.h"
 #include "hall_of_fame.h"
 #include "pokemon_storage_system.h"
+#include "item.h"
 #include "trainer_hill.h"
 #include "link.h"
 #include "constants/game_stat.h"
@@ -716,6 +717,8 @@ u8 HandleSavingData(u8 saveType)
     u32 *backupVar = gTrainerHillVBlankCounter;
 
     gTrainerHillVBlankCounter = NULL;
+    if (saveType != SAVE_HALL_OF_FAME)
+        SyncPrlInventoryLegacyBackup();
     UpdateSaveAddresses();
     switch (saveType)
     {
@@ -892,6 +895,8 @@ u8 LoadGameSave(u8 saveType)
     case SAVE_NORMAL:
     default:
         status = TryLoadSaveSlot(FULL_SAVE_SLOT, gRamSaveSectorLocations);
+        if (status == SAVE_STATUS_OK)
+            EnsurePrlInventoryInitialized();
         CopyPartyAndObjectsFromSave();
         gSaveFileStatus = status;
         gGameContinueCallback = NULL;

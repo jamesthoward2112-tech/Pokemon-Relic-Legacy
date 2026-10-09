@@ -1,5 +1,16 @@
 # Summary
 
+- [PRL — Storage expansion safety audit](./PRL_STORAGE_AUDIT_20261009.md)
+- [PRL — Gym rewards and storage requirements](./prl_gym_rewards_and_storage_requirements.md)
+- [PRL — Step 10 map/event gates](./prl_step10_map_event_gates.md)
+- [PRL — Skulberus donor audit](./prl_skulberus_full_donor_20261008.md)
+- [PRL — Option B title](./prl-option-b-title-final-2026-10-08.md)
+- [PRL — NUC sync manifest](./PRL_NUC_SYNC_MANIFEST.md)
+- [PRL — First Redux move distribution](./prl_step4b_redux_first_batch_distribution.md)
+- [PRL — Relic move master](./prl_step4c_relic_move_master.md)
+- [PRL — Presentation repair plan](./superpowers/plans/2026-10-08-prl-presentation-repair.md)
+- [PRL — Canonical status](./prl-canonical/PRL_Canonical_Status.md)
+
 - [README](./README.md)
 - [FEATURES](./FEATURES.md)
 - [Installation](./INSTALL.md)

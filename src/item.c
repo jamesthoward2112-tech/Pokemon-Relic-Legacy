@@ -26,7 +26,7 @@
 {                                           \
     .id = POCKET_DUMMY,                     \
     .capacity = PC_ITEMS_COUNT,             \
-    .itemSlots = gSaveBlock1Ptr->pcItems,   \
+    .itemSlots = GetPrlPCItems(),   \
 }
 
 static bool32 CheckPyramidBagHasItem(enum Item itemId, u16 count);
@@ -38,6 +38,64 @@ static enum Item SanitizeItemId(enum Item itemId);
 static enum Item SanitizeBagItemId(enum Item itemId);
 
 EWRAM_DATA struct BagPocket gBagPockets[POCKETS_COUNT] = {0};
+
+#define PRL_INVENTORY_MAGIC 0x50524C49 // PRLI
+struct PrlInventory
+{
+    u32 magic;
+    struct Bag bag;
+    struct ItemSlot pcItems[PC_ITEMS_COUNT];
+};
+
+STATIC_ASSERT(sizeof(struct LegacyBag) == 0x2E8, PrlLegacyBagSize);
+STATIC_ASSERT(sizeof(struct PrlInventory) <= sizeof(gSaveBlock3Ptr->prlInventoryStorage), PrlInventoryFitsSaveBlock3);
+
+static struct PrlInventory *GetPrlInventory(void)
+{
+    return (struct PrlInventory *)gSaveBlock3Ptr->prlInventoryStorage;
+}
+
+struct Bag *GetPrlBag(void)
+{
+    return &GetPrlInventory()->bag;
+}
+
+struct ItemSlot *GetPrlPCItems(void)
+{
+    return GetPrlInventory()->pcItems;
+}
+
+void EnsurePrlInventoryInitialized(void)
+{
+    struct PrlInventory *inventory = GetPrlInventory();
+    if (inventory->magic == PRL_INVENTORY_MAGIC)
+        return;
+
+    // Copy original saved slots, including the existing quantity encryption.
+    memset(inventory, 0, sizeof(*inventory));
+    memcpy(inventory->bag.items, gSaveBlock1Ptr->bag.items, sizeof(gSaveBlock1Ptr->bag.items));
+    memcpy(inventory->bag.keyItems, gSaveBlock1Ptr->bag.keyItems, sizeof(gSaveBlock1Ptr->bag.keyItems));
+    memcpy(inventory->bag.pokeBalls, gSaveBlock1Ptr->bag.pokeBalls, sizeof(gSaveBlock1Ptr->bag.pokeBalls));
+    memcpy(inventory->bag.TMsHMs, gSaveBlock1Ptr->bag.TMsHMs, sizeof(gSaveBlock1Ptr->bag.TMsHMs));
+    memcpy(inventory->bag.berries, gSaveBlock1Ptr->bag.berries, sizeof(gSaveBlock1Ptr->bag.berries));
+    memcpy(inventory->pcItems, gSaveBlock1Ptr->pcItems, sizeof(gSaveBlock1Ptr->pcItems));
+    inventory->magic = PRL_INVENTORY_MAGIC;
+}
+
+void SyncPrlInventoryLegacyBackup(void)
+{
+    struct PrlInventory *inventory = GetPrlInventory();
+    if (inventory->magic != PRL_INVENTORY_MAGIC)
+        return;
+
+    // Preserve legacy-sized backups without changing SaveBlock1 offsets.
+    memcpy(gSaveBlock1Ptr->bag.items, inventory->bag.items, sizeof(gSaveBlock1Ptr->bag.items));
+    memcpy(gSaveBlock1Ptr->bag.keyItems, inventory->bag.keyItems, sizeof(gSaveBlock1Ptr->bag.keyItems));
+    memcpy(gSaveBlock1Ptr->bag.pokeBalls, inventory->bag.pokeBalls, sizeof(gSaveBlock1Ptr->bag.pokeBalls));
+    memcpy(gSaveBlock1Ptr->bag.TMsHMs, inventory->bag.TMsHMs, sizeof(gSaveBlock1Ptr->bag.TMsHMs));
+    memcpy(gSaveBlock1Ptr->bag.berries, inventory->bag.berries, sizeof(gSaveBlock1Ptr->bag.berries));
+    memcpy(gSaveBlock1Ptr->pcItems, inventory->pcItems, sizeof(gSaveBlock1Ptr->pcItems));
+}
 
 #include "data/pokemon/item_effects.h"
 #include "data/items.h"
@@ -144,23 +202,23 @@ void ApplyNewEncryptionKeyToBagItems(u32 newKey)
 
 void SetBagItemsPointers(void)
 {
-    gBagPockets[POCKET_ITEMS].itemSlots = gSaveBlock1Ptr->bag.items;
+    gBagPockets[POCKET_ITEMS].itemSlots = GetPrlBag()->items;
     gBagPockets[POCKET_ITEMS].capacity = BAG_ITEMS_COUNT;
     gBagPockets[POCKET_ITEMS].id = POCKET_ITEMS;
 
-    gBagPockets[POCKET_KEY_ITEMS].itemSlots = gSaveBlock1Ptr->bag.keyItems;
+    gBagPockets[POCKET_KEY_ITEMS].itemSlots = GetPrlBag()->keyItems;
     gBagPockets[POCKET_KEY_ITEMS].capacity = BAG_KEYITEMS_COUNT;
     gBagPockets[POCKET_KEY_ITEMS].id = POCKET_KEY_ITEMS;
 
-    gBagPockets[POCKET_POKE_BALLS].itemSlots = gSaveBlock1Ptr->bag.pokeBalls;
+    gBagPockets[POCKET_POKE_BALLS].itemSlots = GetPrlBag()->pokeBalls;
     gBagPockets[POCKET_POKE_BALLS].capacity = BAG_POKEBALLS_COUNT;
     gBagPockets[POCKET_POKE_BALLS].id = POCKET_POKE_BALLS;
 
-    gBagPockets[POCKET_TM_HM].itemSlots = gSaveBlock1Ptr->bag.TMsHMs;
+    gBagPockets[POCKET_TM_HM].itemSlots = GetPrlBag()->TMsHMs;
     gBagPockets[POCKET_TM_HM].capacity = BAG_TMHM_COUNT;
     gBagPockets[POCKET_TM_HM].id = POCKET_TM_HM;
 
-    gBagPockets[POCKET_BERRIES].itemSlots = gSaveBlock1Ptr->bag.berries;
+    gBagPockets[POCKET_BERRIES].itemSlots = GetPrlBag()->berries;
     gBagPockets[POCKET_BERRIES].capacity = BAG_BERRIES_COUNT;
     gBagPockets[POCKET_BERRIES].id = POCKET_BERRIES;
 }
@@ -559,7 +617,8 @@ void MoveItemSlotInPC(struct ItemSlot *itemSlots, u32 from, u32 to)
 
 void ClearBag(void)
 {
-    CpuFastFill(0, &gSaveBlock1Ptr->bag, sizeof(struct Bag));
+    CpuFastFill(0, GetPrlBag(), sizeof(struct Bag));
+    GetPrlInventory()->magic = PRL_INVENTORY_MAGIC;
 }
 
 static inline u16 NONNULL BagPocket_CountTotalItemQuantity(struct BagPocket *pocket, enum Item itemId)
