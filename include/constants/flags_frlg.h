@@ -1248,6 +1248,35 @@
 #define FLAG_0x4D2               0x4D2
 #define FLAG_0x4D3               0x4D3
 #define FLAG_0x4D4               0x4D4
+
+// PRL region-specific badge completion flags (same persistent slots as flags.h).
+// FRLG uses flags_frlg.h for these slots; the parallel definitions in flags.h
+// are in the Emerald-only branch and are not visible to FireRed/LeafGreen.
+#define FLAG_PRL_BADGE_KANTO_BROCK              FLAG_0x4BD
+#define FLAG_PRL_BADGE_KANTO_MISTY              FLAG_0x4BE
+#define FLAG_PRL_BADGE_KANTO_SURGE              FLAG_0x4BF
+#define FLAG_PRL_BADGE_KANTO_ERIKA              FLAG_0x4C0
+#define FLAG_PRL_BADGE_KANTO_KOGA               FLAG_0x4C1
+#define FLAG_PRL_BADGE_KANTO_SABRINA            FLAG_0x4C2
+#define FLAG_PRL_BADGE_KANTO_BLAINE             FLAG_0x4C3
+#define FLAG_PRL_BADGE_KANTO_GIOVANNI           FLAG_0x4C4
+#define FLAG_PRL_BADGE_JOHTO_FALKNER            FLAG_0x4C5
+#define FLAG_PRL_BADGE_JOHTO_BUGSY              FLAG_0x4C6
+#define FLAG_PRL_BADGE_JOHTO_WHITNEY            FLAG_0x4C7
+#define FLAG_PRL_BADGE_JOHTO_MORTY              FLAG_0x4C8
+#define FLAG_PRL_BADGE_JOHTO_CHUCK              FLAG_0x4C9
+#define FLAG_PRL_BADGE_JOHTO_JASMINE            FLAG_0x4CA
+#define FLAG_PRL_BADGE_JOHTO_PRYCE              FLAG_0x4CB
+#define FLAG_PRL_BADGE_JOHTO_CLAIR              FLAG_0x4CC
+#define FLAG_PRL_BADGE_HOENN_ROXANNE            FLAG_0x4CD
+#define FLAG_PRL_BADGE_HOENN_BRAWLY             FLAG_0x4CE
+#define FLAG_PRL_BADGE_HOENN_WATTSON            FLAG_0x4CF
+#define FLAG_PRL_BADGE_HOENN_FLANNERY           FLAG_0x4D0
+#define FLAG_PRL_BADGE_HOENN_NORMAN             FLAG_0x4D1
+#define FLAG_PRL_BADGE_HOENN_WINONA             FLAG_0x4D2
+#define FLAG_PRL_BADGE_HOENN_TATE_LIZA          FLAG_0x4D3
+#define FLAG_PRL_BADGE_HOENN_JUAN               FLAG_0x4D4
+
 #define FLAG_0x4D5               0x4D5
 #define FLAG_0x4D6               0x4D6
 #define FLAG_0x4D7               0x4D7
