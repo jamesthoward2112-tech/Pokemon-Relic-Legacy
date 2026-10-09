@@ -1111,6 +1111,29 @@ const struct Tileset gTileset_GameCorner =
     .callback = NULL,
 };
 
+// Azul Agua Brock interior — independent visual trial; no other maps use these.
+const struct Tileset gTileset_AzulAguaBrockTrialPrimary =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_AzulAguaBrockTrialPrimary,
+    .palettes = gTilesetPalettes_AzulAguaBrockTrialPrimary,
+    .metatiles = gMetatiles_AzulAguaBrockTrialPrimary,
+    .metatileAttributes = gMetatileAttributes_AzulAguaBrockTrialPrimary,
+    .callback = NULL,
+};
+const struct Tileset gTileset_AzulAguaBrockTrialSecondary =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_AzulAguaBrockTrialSecondary,
+    .palettes = gTilesetPalettes_AzulAguaBrockTrialSecondary,
+    // No secondary metatile IDs are used by this donor layout.
+    .metatiles = gMetatiles_PewterGym,
+    .metatileAttributes = gMetatileAttributes_PewterGym,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_PewterGym =
 {
     .isCompressed = TRUE,

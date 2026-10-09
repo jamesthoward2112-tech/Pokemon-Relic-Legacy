@@ -1627,6 +1627,30 @@ const u32 gTilesetTiles_UnionRoom[] = INCGFX_U32("data/tilesets/secondary/union_
 
 #else
 
+const u32 gTilesetTiles_AzulAguaBrockTrialPrimary[] = INCGFX_U32("data/tilesets/primary/azul_agua_brock_trial/tiles.png", ".4bpp.smol");
+const u16 gTilesetPalettes_AzulAguaBrockTrialPrimary[][16] =
+{
+    INCGFX_U16("data/tilesets/primary/azul_agua_brock_trial/palettes/00.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/azul_agua_brock_trial/palettes/01.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/azul_agua_brock_trial/palettes/02.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/azul_agua_brock_trial/palettes/03.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/azul_agua_brock_trial/palettes/04.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/azul_agua_brock_trial/palettes/05.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/azul_agua_brock_trial/palettes/06.pal", ".gbapal"),
+};
+
+const u32 gTilesetTiles_AzulAguaBrockTrialSecondary[] = INCGFX_U32("data/tilesets/secondary/azul_agua_brock_trial/tiles.png", ".4bpp.smol");
+const u16 gTilesetPalettes_AzulAguaBrockTrialSecondary[][16] =
+{
+    INCGFX_U16("data/tilesets/secondary/azul_agua_brock_trial/palettes/07.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/azul_agua_brock_trial/palettes/08.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/azul_agua_brock_trial/palettes/09.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/azul_agua_brock_trial/palettes/10.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/azul_agua_brock_trial/palettes/11.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/azul_agua_brock_trial/palettes/12.pal", ".gbapal"),
+};
+
+
 const u32 gTilesetTiles_Building_Frlg[] = INCGFX_U32("data/tilesets/primary/building_frlg/tiles.png", ".4bpp.smol");
 
 const u16 gTilesetPalettes_Building_Frlg[][16] =

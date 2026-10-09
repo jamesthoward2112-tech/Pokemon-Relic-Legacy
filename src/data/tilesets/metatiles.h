@@ -212,6 +212,11 @@ const u16 gMetatileAttributes_UnionRoom[] = INCBIN_U16("data/tilesets/secondary/
 
 #else
 
+const u16 gMetatiles_AzulAguaBrockTrialPrimary[] =
+    INCBIN_U16("data/tilesets/primary/azul_agua_brock_trial/metatiles.bin");
+const u16 gMetatileAttributes_AzulAguaBrockTrialPrimary[] =
+    INCBIN_U16("data/tilesets/primary/azul_agua_brock_trial/metatile_attributes.bin");
+
 const u16 gMetatiles_Building_Frlg[] = INCBIN_U16("data/tilesets/primary/building_frlg/metatiles.bin");
 const u16 gMetatileAttributes_Building_Frlg[] = INCBIN_U16("data/tilesets/primary/building_frlg/metatile_attributes.bin");
 
