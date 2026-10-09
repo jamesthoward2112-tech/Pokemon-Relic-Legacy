@@ -50,7 +50,7 @@ SINGLE_BATTLE_TEST("Redux Bravado is Special and gains the status power boost", 
         PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_BRAVADO); Status1(status); SpAttack(130); }
         OPPONENT(SPECIES_WOBBUFFET) { HP(500); MaxHP(500); SpDefense(120); }
     } WHEN {
-        TURN { MOVE(player, MOVE_BRAVADO, WITH_RNG(RNG_DAMAGE_MODIFIER, 0), WITH_RNG(RNG_PARALYSIS, FALSE)); }
+        TURN { MOVE(player, MOVE_BRAVADO, WITH_RNG(RNG_PARALYSIS, FALSE)); }
     } SCENE {
         HP_BAR(opponent, captureDamage: &results[i].damage);
     } FINALLY {
