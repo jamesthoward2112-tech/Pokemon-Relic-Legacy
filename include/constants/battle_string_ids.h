@@ -791,6 +791,7 @@ enum AbilityWeatherChangeStringID
     B_MSG_STARTED_DESOLATE_LAND,
     B_MSG_STARTED_PRIMORDIAL_SEA,
     B_MSG_STARTED_STRONG_WINDS,
+    B_MSG_STARTED_EERIE_FOG,
 };
 
 // gWeatherEndsStringIds

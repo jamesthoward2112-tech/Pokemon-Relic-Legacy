@@ -56,12 +56,37 @@ jobs:
         run: make firered -j$(nproc) -O
 
       - name: Run PRL FireRed battle regressions
+        if: ${{ !contains(github.event.head_commit.message, '[focused-redux-validation]') }}
         env:
           GAME_VERSION: FIRERED
           TEST: 1
         run: |
           chmod +x tools/mgba/mgba-rom-test
           make BUILD=firered -j$(nproc) check
+
+      - name: Run focused Redux mechanics battle tests
+        if: ${{ contains(github.event.head_commit.message, '[focused-redux-validation]') }}
+        env:
+          GAME_VERSION: FIRERED
+          TEST: 1
+        run: |
+          chmod +x tools/mgba/mgba-rom-test
+          for suite in \
+            test/battle/ability/skulberus.c \
+            test/battle/status1/bleed.c \
+            test/battle/move_effect/rip_and_tear.c \
+            test/battle/status1/frostbite.c \
+            test/battle/move_effect/fear.c \
+            test/battle/volatiles/confusion.c \
+            test/battle/move_effect/attract.c \
+            test/battle/weather/eerie_fog.c \
+            test/battle/move_effect/weather_ball.c \
+            test/battle/move_effect/curse.c \
+            test/battle/move_effect/revival_blessing.c; do
+            echo "Running focused battle suite: $suite"
+            make BUILD=firered -j$(nproc) check TESTS="$suite"
+            rm -f pokefirered-test.elf pokefirered-test-headless.elf
+          done
 
       - name: Upload PRL ROM
         uses: actions/upload-artifact@v4
