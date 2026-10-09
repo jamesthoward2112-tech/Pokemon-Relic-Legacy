@@ -12,14 +12,10 @@ EventScript_AfterWhiteOutHeal_Frlg::
 	end
 
 EventScript_PkmnCenterNurse_Frlg::
-	message Text_WelcomeWantToHealPkmn_Frlg
-	waitmessage
-	multichoice 19, 8, MULTI_YESNO, FALSE | (TRUE << 1)
-	switch VAR_RESULT
-	case 0, EventScript_PkmnCenterNurse_HealPkmn_Frlg
-	case 1 EventScript_PkmnCenterNurse_Goodbye_Frlg
-	case MULTI_B_PRESSED, EventScript_PkmnCenterNurse_Goodbye_Frlg
-	end
+	@ PRL: Nurse Joy heals immediately when spoken to: no questions or text.
+	incrementgamestat GAME_STAT_USED_POKECENTER
+	call EventScript_PkmnCenterNurse_TakeAndHealPkmn_Frlg
+	return
 
 EventScript_PkmnCenterNurse_HealPkmn_Frlg::
 	incrementgamestat GAME_STAT_USED_POKECENTER
