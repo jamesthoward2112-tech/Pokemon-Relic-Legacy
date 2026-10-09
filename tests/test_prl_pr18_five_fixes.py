@@ -24,7 +24,7 @@ def test_immediate_r_to_run_no_intro_a_press():
         "sText_TwoWildPkmnAppeared",
         "sText_LegendaryPkmnAppeared",
     ):
-        assert re.search(rf"static const u8 {key}\\[\\] = _\\(\\\"\\{{PAUSE 1\\}}\\\"\\)", battle)
+        assert f'static const u8 {key}[] = _("{{PAUSE 1}}")' in battle
     # The catch tutorial and trainer messages remain unaffected.
     assert "sText_WildPkmnAppearedPause" in battle
     controller = source("src/battle_controller_player.c")
