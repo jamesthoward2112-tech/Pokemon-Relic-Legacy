@@ -32,7 +32,7 @@ def party_record(party, trainer):
 
 def species_levels(record):
     return [(species.strip(), int(level)) for species, level in re.findall(
-        r"^([^\\n@]+?)(?: @ [^\\n]+)?\\nLevel: (\\d+)", record, re.M
+        r"^([^\n@]+?)(?: @ [^\n]+)?\nLevel: (\d+)", record, re.M
     )]
 
 
