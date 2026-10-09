@@ -112,12 +112,12 @@ DOUBLE_BATTLE_TEST("Infatuated Pokémon still attack and deal half damage")
     PARAMETRIZE { move = MOVE_SCRATCH; }
     PARAMETRIZE { move = MOVE_WATER_GUN; }
     GIVEN {
-        PLAYER(SPECIES_WOBBUFFET) { Moves(move); Speed(2); }
-        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); Speed(1); }
-        PLAYER(SPECIES_WOBBUFFET) { Moves(move); Speed(2); }
+        PLAYER(SPECIES_WOBBUFFET) { Moves(move); Speed(3); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_ATTRACT, MOVE_CELEBRATE); Speed(1); Gender(MON_MALE); }
+        PLAYER(SPECIES_WOBBUFFET) { Moves(move); Speed(2); Gender(MON_FEMALE); }
         OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); Speed(1); }
     } WHEN {
-        gBattleMons[B_BATTLER_2].volatiles.infatuation = B_BATTLER_1 + 1;
+        TURN { MOVE(opponentLeft, MOVE_ATTRACT, target: playerRight); }
         TURN {
             MOVE(playerLeft, move, target: opponentLeft, WITH_RNG(RNG_DAMAGE_MODIFIER, 0));
             MOVE(playerRight, move, target: opponentRight, WITH_RNG(RNG_DAMAGE_MODIFIER, 0));

@@ -94,19 +94,17 @@ SINGLE_BATTLE_TEST("Eerie Fog replaces existing weather")
 SINGLE_BATTLE_TEST("Eerie Fog lowers each positive stat stage once and preserves neutral and negative stages")
 {
     GIVEN {
-        PLAYER(SPECIES_WOBBUFFET);
-        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_SNORLAX) { Moves(MOVE_SWORDS_DANCE, MOVE_HARDEN, MOVE_EERIE_FOG); }
+        OPPONENT(SPECIES_SNORLAX) { Moves(MOVE_CONFIDE, MOVE_AGILITY, MOVE_CELEBRATE); }
     } WHEN {
-        gBattleMons[B_BATTLER_0].statStages[STAT_ATK] = DEFAULT_STAT_STAGE + 2;
-        gBattleMons[B_BATTLER_0].statStages[STAT_DEF] = DEFAULT_STAT_STAGE + 1;
-        gBattleMons[B_BATTLER_0].statStages[STAT_SPATK] = DEFAULT_STAT_STAGE - 1;
-        gBattleMons[B_BATTLER_1].statStages[STAT_SPEED] = DEFAULT_STAT_STAGE + 1;
+        TURN { MOVE(player, MOVE_SWORDS_DANCE); MOVE(opponent, MOVE_CONFIDE); }
+        TURN { MOVE(player, MOVE_HARDEN); MOVE(opponent, MOVE_AGILITY); }
         TURN { MOVE(player, MOVE_EERIE_FOG); MOVE(opponent, MOVE_CELEBRATE); }
     } THEN {
         EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE + 1);
         EXPECT_EQ(player->statStages[STAT_DEF], DEFAULT_STAT_STAGE);
         EXPECT_EQ(player->statStages[STAT_SPATK], DEFAULT_STAT_STAGE - 1);
-        EXPECT_EQ(opponent->statStages[STAT_SPEED], DEFAULT_STAT_STAGE);
+        EXPECT_EQ(opponent->statStages[STAT_SPEED], DEFAULT_STAT_STAGE + 1);
     }
 }
 
@@ -116,11 +114,10 @@ SINGLE_BATTLE_TEST("Ghost and Psychic Pokémon are exempt from Eerie Fog stat re
     PARAMETRIZE { species = SPECIES_GENGAR; }
     PARAMETRIZE { species = SPECIES_ABRA; }
     GIVEN {
-        PLAYER(species);
-        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(species) { Moves(MOVE_HOWL, MOVE_EERIE_FOG); }
+        OPPONENT(SPECIES_SNORLAX) { Moves(MOVE_HOWL, MOVE_CELEBRATE); }
     } WHEN {
-        gBattleMons[B_BATTLER_0].statStages[STAT_ATK] = DEFAULT_STAT_STAGE + 1;
-        gBattleMons[B_BATTLER_1].statStages[STAT_ATK] = DEFAULT_STAT_STAGE + 1;
+        TURN { MOVE(player, MOVE_HOWL); MOVE(opponent, MOVE_HOWL); }
         TURN { MOVE(player, MOVE_EERIE_FOG); MOVE(opponent, MOVE_CELEBRATE); }
     } THEN {
         EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE + 1);
@@ -139,7 +136,7 @@ SINGLE_BATTLE_TEST("Eerie Fog reduces incoming damage by twenty percent for Ghos
     PARAMETRIZE { species = SPECIES_ABRA; move = MOVE_FLAME_WHEEL; }
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET) { Moves(move, MOVE_EERIE_FOG); Speed(2); }
-        OPPONENT(species) { Moves(MOVE_CELEBRATE); Speed(1); }
+        OPPONENT(species) { HP(999); MaxHP(999); Ability(ABILITY_WATER_VEIL); Moves(MOVE_CELEBRATE); Speed(1); }
     } WHEN {
         TURN { MOVE(player, move, WITH_RNG(RNG_DAMAGE_MODIFIER, 0)); MOVE(opponent, MOVE_CELEBRATE); }
         TURN { MOVE(player, MOVE_EERIE_FOG); MOVE(opponent, MOVE_CELEBRATE); }
@@ -156,10 +153,10 @@ SINGLE_BATTLE_TEST("Eerie Fog reduces incoming damage by twenty percent for Ghos
 SINGLE_BATTLE_TEST("Cloud Nine suppresses Eerie Fog's stat effect")
 {
     GIVEN {
-        PLAYER(SPECIES_WOBBUFFET);
+        PLAYER(SPECIES_SNORLAX) { Moves(MOVE_HOWL, MOVE_EERIE_FOG); }
         OPPONENT(SPECIES_GOLDUCK) { Ability(ABILITY_CLOUD_NINE); Moves(MOVE_CELEBRATE); }
     } WHEN {
-        gBattleMons[B_BATTLER_0].statStages[STAT_ATK] = DEFAULT_STAT_STAGE + 1;
+        TURN { MOVE(player, MOVE_HOWL); MOVE(opponent, MOVE_CELEBRATE); }
         TURN { MOVE(player, MOVE_EERIE_FOG); MOVE(opponent, MOVE_CELEBRATE); }
     } THEN {
         EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE + 1);
@@ -216,7 +213,12 @@ SINGLE_BATTLE_TEST("Ordinary Curse and Weather Ball behavior returns after Eerie
         OPPONENT(SPECIES_GENGAR) { Moves(MOVE_CELEBRATE); }
     } WHEN {
         TURN { MOVE(player, MOVE_EERIE_FOG); }
-        gBattleStruct->weatherDuration = 1;
+        TURN { MOVE(player, MOVE_CELEBRATE); }
+        TURN { MOVE(player, MOVE_CELEBRATE); }
+        TURN { MOVE(player, MOVE_CELEBRATE); }
+        TURN { MOVE(player, MOVE_CELEBRATE); }
+        TURN { MOVE(player, MOVE_CELEBRATE); }
+        TURN { MOVE(player, MOVE_CELEBRATE); }
         TURN { MOVE(player, MOVE_CELEBRATE); }
         TURN { MOVE(player, MOVE_CURSE); }
         TURN { MOVE(player, MOVE_WEATHER_BALL); }

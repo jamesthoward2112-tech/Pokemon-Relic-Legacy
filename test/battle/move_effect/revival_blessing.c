@@ -17,7 +17,7 @@ SINGLE_BATTLE_TEST("Revival Blessing revives a chosen fainted party member for t
         TURN { MOVE(player, MOVE_REVIVAL_BLESSING, partyIndex:2); }
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, MOVE_REVIVAL_BLESSING, player);
-        MESSAGE("Wynaut was revived and is ready to fight again!");
+        MESSAGE("I-Unown was revived and is ready to fight again!");
     }
 }
 
@@ -49,20 +49,21 @@ SINGLE_BATTLE_TEST("Revival Blessing fails if no party members are fainted")
     }
 }
 
-SINGLE_BATTLE_TEST("Revival Blessing fails in effective Eerie Fog")
+DOUBLE_BATTLE_TEST("Revival Blessing fails in effective Eerie Fog")
 {
     GIVEN {
-        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_EERIE_FOG, MOVE_REVIVAL_BLESSING); }
-        PLAYER(SPECIES_WYNAUT) { HP(0); }
-        OPPONENT(SPECIES_WOBBUFFET);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_EERIE_FOG, MOVE_REVIVAL_BLESSING); Speed(2); }
+        PLAYER(SPECIES_WOBBUFFET) { HP(1); Speed(1); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_SCRATCH, MOVE_CELEBRATE); Speed(3); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); Speed(4); }
     } WHEN {
-        TURN { MOVE(player, MOVE_EERIE_FOG); }
-        TURN { MOVE(player, MOVE_REVIVAL_BLESSING, partyIndex: 1); }
+        TURN { MOVE(opponentLeft, MOVE_SCRATCH, target: playerRight); MOVE(playerLeft, MOVE_EERIE_FOG); }
+        TURN { MOVE(playerLeft, MOVE_REVIVAL_BLESSING); MOVE(opponentLeft, MOVE_CELEBRATE); }
     } SCENE {
         MESSAGE("But it failed!");
-        NONE_OF { ANIMATION(ANIM_TYPE_MOVE, MOVE_REVIVAL_BLESSING, player); }
+        NONE_OF { ANIMATION(ANIM_TYPE_MOVE, MOVE_REVIVAL_BLESSING, playerLeft); }
     } THEN {
-        EXPECT_EQ(GetMonData(&PLAYER_PARTY[1], MON_DATA_HP), 0);
+        EXPECT_EQ(GetMonData(&gParties[B_TRAINER_PLAYER][1], MON_DATA_HP), 0);
     }
 }
 
@@ -77,9 +78,9 @@ SINGLE_BATTLE_TEST("Revival Blessing works when Cloud Nine suppresses Eerie Fog"
         TURN { MOVE(player, MOVE_REVIVAL_BLESSING, partyIndex: 1); }
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, MOVE_REVIVAL_BLESSING, player);
-        MESSAGE("Wynaut was revived and is ready to fight again!");
+        MESSAGE("I-Unown was revived and is ready to fight again!");
     } THEN {
-        EXPECT_GT(GetMonData(&PLAYER_PARTY[1], MON_DATA_HP), 0);
+        EXPECT_GT(GetMonData(&gParties[B_TRAINER_PLAYER][1], MON_DATA_HP), 0);
     }
 }
 
@@ -89,15 +90,15 @@ DOUBLE_BATTLE_TEST("Revival Blessing doesn't prevent revived battlers from losin
         PLAYER(SPECIES_WOBBUFFET);
         PLAYER(SPECIES_WYNAUT);
         OPPONENT(SPECIES_WOBBUFFET);
-        OPPONENT(SPECIES_WYNAUT) { HP(1); }
+        OPPONENT(SPECIES_WOBBUFFET) { HP(1); }
     } WHEN {
         TURN { MOVE(playerLeft, MOVE_SCRATCH, target: opponentRight);
                MOVE(opponentLeft, MOVE_REVIVAL_BLESSING, partyIndex: 1); }
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, MOVE_SCRATCH, playerLeft);
-        MESSAGE("The opposing Wynaut fainted!");
+        MESSAGE("The opposing Wobbuffet fainted!");
         ANIMATION(ANIM_TYPE_MOVE, MOVE_REVIVAL_BLESSING, opponentLeft);
-        MESSAGE("Wynaut was revived and is ready to fight again!");
+        MESSAGE("Wobbuffet was revived and is ready to fight again!");
         NOT ANIMATION(ANIM_TYPE_MOVE, MOVE_CELEBRATE, opponentRight);
     }
 }

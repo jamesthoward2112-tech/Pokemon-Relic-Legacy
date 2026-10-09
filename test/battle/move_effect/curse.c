@@ -149,7 +149,7 @@ SINGLE_BATTLE_TEST("Baton Pass passes Cursed status")
         s32 playerMaxHP = GetMonData(&PLAYER_PARTY[1], MON_DATA_MAX_HP);
         ANIMATION(ANIM_TYPE_MOVE, MOVE_CURSE, opponent);
         ANIMATION(ANIM_TYPE_MOVE, MOVE_BATON_PASS, player);
-        SEND_IN_MESSAGE("Wynaut");
+        SEND_IN_MESSAGE("I-Unown");
         HP_BAR(player, damage: playerMaxHP / 4);
     }
 }
