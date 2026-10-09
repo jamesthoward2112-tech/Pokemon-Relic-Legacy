@@ -5,7 +5,18 @@ PewterCity_Frlg_MapScripts::
 PewterCity_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_PEWTER_CITY
 	setvar VAR_MAP_SCENE_PEWTER_CITY_MUSEUM_1F, 0
+	@ If the player already received Running Shoes in an older ROM,
+	@ deliver the Remote PC when they next enter Pewter City.
+	call_if_set FLAG_SYS_B_DASH, PewterCity_EventScript_PRLGrantMissedRemotePC
 	end
+
+PewterCity_EventScript_PRLGrantMissedRemotePC::
+	checkitem ITEM_POKEMON_BOX_LINK, 1
+	goto_if_eq VAR_RESULT, TRUE, Common_EventScript_NopReturn
+	checkitemspace ITEM_POKEMON_BOX_LINK, 1
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
+	additem ITEM_POKEMON_BOX_LINK, 1
+	return
 
 @ Impossible to speak to this NPC from a facing dir != DIR_EAST normally, so they arent checked
 @ Additionally, no movement script exists for facing DIR_SOUTH, which would necessitate walking out of bounds
@@ -703,6 +714,7 @@ PewterCity_EventScript_AideGiveRunningShoes::
 	waitmessage
 	waitfanfare
 	msgbox PewterCity_Text_SwitchedShoesWithRunningShoes
+	giveitem ITEM_POKEMON_BOX_LINK
 	special DisableMsgBoxWalkaway
 	signmsg
 	msgbox PewterCity_Text_ExplainRunningShoes
