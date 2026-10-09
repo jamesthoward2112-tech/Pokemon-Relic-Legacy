@@ -777,8 +777,9 @@ extern const struct TerrainInfo gBattleTerrainInfo[B_TERRAIN_COUNT];
 struct BattleWeatherInfo
 {
     u16 flag;
-    u8 rock;
-    u8 padding;
+    u8 extensionHoldEffect;
+    u8 duration;
+    u8 extendedDuration;
 
     u32 abilityStartMessage:5;
     u32 moveStartMessage:5;

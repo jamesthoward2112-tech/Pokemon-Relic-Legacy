@@ -165,7 +165,7 @@ const struct BattleWeatherInfo gBattleWeatherInfo[BATTLE_WEATHER_COUNT] = {
     [BATTLE_WEATHER_RAIN] =
     {
         .flag = B_WEATHER_RAIN_NORMAL,
-        .rock = HOLD_EFFECT_DAMP_ROCK,
+        .extensionHoldEffect = HOLD_EFFECT_DAMP_ROCK,
         .abilityStartMessage = B_MSG_STARTED_DRIZZLE,
         .moveStartMessage = B_MSG_STARTED_RAIN,
         .endMessage = B_MSG_WEATHER_END_RAIN,
@@ -177,7 +177,7 @@ const struct BattleWeatherInfo gBattleWeatherInfo[BATTLE_WEATHER_COUNT] = {
     [BATTLE_WEATHER_RAIN_PRIMAL] =
     {
         .flag = B_WEATHER_RAIN_PRIMAL,
-        .rock = HOLD_EFFECT_DAMP_ROCK,
+        .extensionHoldEffect = HOLD_EFFECT_DAMP_ROCK,
         .abilityStartMessage = B_MSG_STARTED_PRIMORDIAL_SEA,
         .moveStartMessage = B_MSG_STARTED_RAIN, // Placeholder
         .endMessage = B_MSG_WEATHER_END_RAIN,
@@ -189,7 +189,7 @@ const struct BattleWeatherInfo gBattleWeatherInfo[BATTLE_WEATHER_COUNT] = {
     [BATTLE_WEATHER_RAIN_DOWNPOUR] =
     {
         .flag = B_WEATHER_RAIN_NORMAL,
-        .rock = HOLD_EFFECT_DAMP_ROCK,
+        .extensionHoldEffect = HOLD_EFFECT_DAMP_ROCK,
         .abilityStartMessage = B_MSG_STARTED_DRIZZLE,
         .moveStartMessage = B_MSG_STARTED_RAIN,
         .endMessage = B_MSG_WEATHER_END_RAIN,
@@ -201,7 +201,7 @@ const struct BattleWeatherInfo gBattleWeatherInfo[BATTLE_WEATHER_COUNT] = {
     [BATTLE_WEATHER_SUN] =
     {
         .flag = B_WEATHER_SUN_NORMAL,
-        .rock = HOLD_EFFECT_HEAT_ROCK,
+        .extensionHoldEffect = HOLD_EFFECT_HEAT_ROCK,
         .abilityStartMessage = B_MSG_STARTED_DROUGHT,
         .moveStartMessage = B_MSG_STARTED_SUNLIGHT,
         .endMessage = B_MSG_WEATHER_END_SUN,
@@ -213,7 +213,7 @@ const struct BattleWeatherInfo gBattleWeatherInfo[BATTLE_WEATHER_COUNT] = {
     [BATTLE_WEATHER_SUN_PRIMAL] =
     {
         .flag = B_WEATHER_SUN_PRIMAL,
-        .rock = HOLD_EFFECT_HEAT_ROCK,
+        .extensionHoldEffect = HOLD_EFFECT_HEAT_ROCK,
         .abilityStartMessage = B_MSG_STARTED_DESOLATE_LAND,
         .moveStartMessage = B_MSG_STARTED_SUNLIGHT, // Placeholder
         .endMessage = B_MSG_WEATHER_END_SUN,
@@ -225,7 +225,7 @@ const struct BattleWeatherInfo gBattleWeatherInfo[BATTLE_WEATHER_COUNT] = {
     [BATTLE_WEATHER_SANDSTORM] =
     {
         .flag = B_WEATHER_SANDSTORM,
-        .rock = HOLD_EFFECT_SMOOTH_ROCK,
+        .extensionHoldEffect = HOLD_EFFECT_SMOOTH_ROCK,
         .abilityStartMessage = B_MSG_STARTED_SAND_STREAM,
         .moveStartMessage = B_MSG_STARTED_SANDSTORM,
         .endMessage = B_MSG_WEATHER_END_SANDSTORM,
@@ -237,7 +237,7 @@ const struct BattleWeatherInfo gBattleWeatherInfo[BATTLE_WEATHER_COUNT] = {
     [BATTLE_WEATHER_HAIL] =
     {
         .flag = B_WEATHER_HAIL,
-        .rock = HOLD_EFFECT_ICY_ROCK,
+        .extensionHoldEffect = HOLD_EFFECT_ICY_ROCK,
         .abilityStartMessage = B_MSG_STARTED_HAIL_WARNING,
         .moveStartMessage = B_MSG_STARTED_HAIL,
         .endMessage = B_MSG_WEATHER_END_HAIL,
@@ -249,7 +249,7 @@ const struct BattleWeatherInfo gBattleWeatherInfo[BATTLE_WEATHER_COUNT] = {
     [BATTLE_WEATHER_SNOW] =
     {
         .flag = B_WEATHER_SNOW,
-        .rock = HOLD_EFFECT_ICY_ROCK,
+        .extensionHoldEffect = HOLD_EFFECT_ICY_ROCK,
         .abilityStartMessage = B_MSG_STARTED_SNOW_WARNING,
         .moveStartMessage = B_MSG_STARTED_SNOW,
         .endMessage = B_MSG_WEATHER_END_SNOW,
@@ -261,9 +261,11 @@ const struct BattleWeatherInfo gBattleWeatherInfo[BATTLE_WEATHER_COUNT] = {
     [BATTLE_WEATHER_FOG] =
     {
         .flag = B_WEATHER_FOG,
-        .rock = HOLD_EFFECT_NONE,
-        .abilityStartMessage = B_MSG_STARTED_DRIZZLE, // Placeholder
-        .moveStartMessage = B_MSG_STARTED_FOG, // Placeholder
+        .extensionHoldEffect = HOLD_EFFECT_CAN_ALWAYS_RUN,
+        .duration = 8,
+        .extendedDuration = 12,
+        .abilityStartMessage = B_MSG_STARTED_FOG,
+        .moveStartMessage = B_MSG_STARTED_FOG,
         .endMessage = B_MSG_WEATHER_END_FOG,
         .continuesMessage = B_MSG_WEATHER_TURN_FOG,
         .animation = B_ANIM_FOG_CONTINUES,
@@ -273,7 +275,7 @@ const struct BattleWeatherInfo gBattleWeatherInfo[BATTLE_WEATHER_COUNT] = {
     [BATTLE_WEATHER_STRONG_WINDS] =
     {
         .flag = B_WEATHER_STRONG_WINDS,
-        .rock = HOLD_EFFECT_NONE,
+        .extensionHoldEffect = HOLD_EFFECT_NONE,
         .abilityStartMessage = B_MSG_STARTED_STRONG_WINDS,
         .moveStartMessage = B_MSG_STARTED_RAIN, // Placeholder
         .endMessage = B_MSG_WEATHER_END_STRONG_WINDS,
@@ -2080,15 +2082,16 @@ enum WeatherFailure TryChangeBattleWeather(enum BattlerId battler, u32 battleWea
     }
     else
     {
-        u32 rock = gBattleWeatherInfo[battleWeatherId].rock;
+        const struct BattleWeatherInfo *weatherInfo = &gBattleWeatherInfo[battleWeatherId];
         gBattleWeather = gBattleWeatherInfo[battleWeatherId].flag;
 
         if (gBattleWeather & B_WEATHER_PRIMAL_ANY)
             gBattleStruct->weatherDuration = 0;
-        else if (rock != 0 && GetBattlerHoldEffect(battler) == rock)
-            gBattleStruct->weatherDuration = 8;
+        else if (weatherInfo->extensionHoldEffect != HOLD_EFFECT_NONE
+              && GetBattlerHoldEffect(battler) == weatherInfo->extensionHoldEffect)
+            gBattleStruct->weatherDuration = weatherInfo->extendedDuration != 0 ? weatherInfo->extendedDuration : 8;
         else
-            gBattleStruct->weatherDuration = 5;
+            gBattleStruct->weatherDuration = weatherInfo->duration != 0 ? weatherInfo->duration : 5;
     }
 
     if (ability != ABILITY_NONE) // Weather started by Ability
@@ -2584,7 +2587,7 @@ static bool32 SetStartingWeatherStatus(enum BattleWeather weather, bool32 isPerm
     if (isPermanent)
         gBattleStruct->weatherDuration = 0;
     else
-        gBattleStruct->weatherDuration = 5;
+        gBattleStruct->weatherDuration = gBattleWeatherInfo[weather].duration != 0 ? gBattleWeatherInfo[weather].duration : 5;
 
     BattleScriptPushCursorAndCallback(BattleScript_OverworldSSWeatherStarts);
     return TRUE;
@@ -7786,6 +7789,9 @@ static inline uq4_12_t GetOtherModifiers(struct DamageContext *ctx)
         DAMAGE_MULTIPLY_MODIFIER(UQ_4_12(0.5));
     if (gBattleMons[ctx->battlerDef].volatiles.fearTimer > 0)
         DAMAGE_MULTIPLY_MODIFIER(UQ_4_12(1.5));
+    if (GetBattleWeather(ctx->weather) == BATTLE_WEATHER_FOG
+     && IS_BATTLER_ANY_TYPE(ctx->battlerDef, TYPE_GHOST, TYPE_PSYCHIC))
+        DAMAGE_MULTIPLY_MODIFIER(UQ_4_12(0.8));
 
     if (unmodifiedAttackerSpeed >= unmodifiedDefenderSpeed)
     {
@@ -7971,6 +7977,9 @@ static inline s32 DoMoveDamageCalc(struct DamageContext *ctx)
         if (gBattleMons[ctx->battlerAtk].volatiles.infatuation > 0
          && (IsBattleMovePhysical(ctx->move) || IsBattleMoveSpecial(ctx->move)))
             dmg = uq4_12_multiply_by_int_half_down(UQ_4_12(0.5), dmg);
+        if (GetBattleWeather(ctx->weather) == BATTLE_WEATHER_FOG
+         && IS_BATTLER_ANY_TYPE(ctx->battlerDef, TYPE_GHOST, TYPE_PSYCHIC))
+            dmg = uq4_12_multiply_by_int_half_down(UQ_4_12(0.8), dmg);
         return dmg;
     }
 

@@ -94,6 +94,36 @@ static bool32 HandleEndTurnVarious(enum BattlerId battler)
     return effect;
 }
 
+static bool32 HandleEndTurnFogStatDrop(enum BattlerId battler)
+{
+    bool32 effect = FALSE;
+
+    gBattleStruct->eventState.endTurnBattler++;
+
+    if (GetBattleWeather(GetWeather()) != BATTLE_WEATHER_FOG
+     || !IsBattlerAlive(battler)
+     || IS_BATTLER_ANY_TYPE(battler, TYPE_GHOST, TYPE_PSYCHIC))
+        return FALSE;
+
+    for (enum Stat stat = STAT_ATK; stat < NUM_BATTLE_STATS; stat++)
+    {
+        if (gBattleMons[battler].statStages[stat] > DEFAULT_STAT_STAGE)
+        {
+            SetStatChange(battler, stat, -1);
+            effect = TRUE;
+        }
+    }
+
+    if (effect)
+    {
+        gBattlerTarget = battler;
+        gBattlerAttacker = battler;
+        BattleScriptCall(BattleScript_EndTurnStatChange);
+    }
+
+    return effect;
+}
+
 static bool32 HandleEndTurnWeather(enum BattlerId battler)
 {
     gBattleStruct->eventState.endTurn++;
@@ -1573,6 +1603,7 @@ static bool32 (*const sEndTurnEffectHandlers[])(enum BattlerId battler) =
 {
     [ENDTURN_ORDER] = HandleEndTurnOrder,
     [ENDTURN_VARIOUS] = HandleEndTurnVarious,
+    [ENDTURN_FOG_STAT_DROP] = HandleEndTurnFogStatDrop,
     [ENDTURN_WEATHER] = HandleEndTurnWeather,
     [ENDTURN_WEATHER_DAMAGE] = HandleEndTurnWeatherDamage,
     [ENDTURN_SEND_OUT_REPLACEMENTS_1] = HandleEndTurnSendOutReplacements,

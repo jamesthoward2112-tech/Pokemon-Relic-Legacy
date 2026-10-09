@@ -7,6 +7,7 @@ enum EndTurnResolutionOrder
 {
     ENDTURN_ORDER,
     ENDTURN_VARIOUS,
+    ENDTURN_FOG_STAT_DROP,
     ENDTURN_WEATHER,
     ENDTURN_WEATHER_DAMAGE,
     ENDTURN_SEND_OUT_REPLACEMENTS_1, // For Emergency Exit/Wimp Out activations

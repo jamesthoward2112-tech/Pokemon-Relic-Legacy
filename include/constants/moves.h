@@ -935,6 +935,7 @@ enum __attribute__((packed)) Move
     MOVE_LOVELY_BITE,
     MOVE_SHADOW_FANGS,
     MOVE_RIP_AND_TEAR,
+    MOVE_EERIE_FOG,
     // PRL STEP10 MOVES END
     MOVES_COUNT,
 

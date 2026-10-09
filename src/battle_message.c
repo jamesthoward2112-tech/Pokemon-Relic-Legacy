@@ -1036,6 +1036,7 @@ const u16 gMoveWeatherChangeStringIds[] =
 
 const u16 gAbilityWeatherChangeStringId[] =
 {
+    [B_MSG_STARTED_FOG]             = STRINGID_FOGCREPTUP,
     [B_MSG_STARTED_DRIZZLE]        = STRINGID_STARTEDTORAIN,
     [B_MSG_STARTED_SAND_STREAM]    = STRINGID_SANDSTORMBREWED,
     [B_MSG_STARTED_DROUGHT]        = STRINGID_SUNLIGHTGOTBRIGHT,

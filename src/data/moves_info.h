@@ -24282,5 +24282,23 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     .numAdditionalEffects = 2,
     .battleAnimScript = gBattleAnimMove_Crunch,
 },
+
+[MOVE_EERIE_FOG] =
+{
+    .name = COMPOUND_STRING("Eerie Fog"),
+    .description = COMPOUND_STRING("Summons an eerie fog for eight turns."),
+    .effect = EFFECT_WEATHER,
+    .power = 0,
+    .type = TYPE_GHOST,
+    .accuracy = 0,
+    .pp = 5,
+    .target = TARGET_FIELD,
+    .priority = 0,
+    .category = DAMAGE_CATEGORY_STATUS,
+    .ignoresProtect = TRUE,
+    .mirrorMoveBanned = TRUE,
+    .argument = { .weatherType = BATTLE_WEATHER_FOG },
+    .battleAnimScript = gBattleAnimMove_Mist,
+},
 // PRL STEP10 MOVE DATA END
 };
