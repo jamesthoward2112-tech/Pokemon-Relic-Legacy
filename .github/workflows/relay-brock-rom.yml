@@ -1,0 +1,26 @@
+name: Relay compiled PRL Brock Gym ROM
+on:
+  push:
+    branches:
+      - prl/azul-agua-brock-gym-test-20261009
+    paths:
+      - .github/workflows/relay-brock-rom.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  relay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download verified compiled ROM
+        run: |
+          curl -fL --retry 3 -o PRL_Azul_Agua_Brock_Gym_TEST.gba "https://github.com/jamesthoward2112-tech/Pokemon-Relic-Legacy/releases/download/prl-azul-brock-test-transfer-20261009/PRL_Azul_Agua_Brock_Gym_TEST.gba"
+          test "$(stat -c %s PRL_Azul_Agua_Brock_Gym_TEST.gba)" = "33554432"
+          echo "f6218dcb14e7e31b68a7e3ba6f8ba0a1e9e375a14a296c9fdf9325f5e5a9f834  PRL_Azul_Agua_Brock_Gym_TEST.gba" | sha256sum -c
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PRL_Azul_Agua_Brock_Gym_TEST
+          path: PRL_Azul_Agua_Brock_Gym_TEST.gba
+          if-no-files-found: error
+          retention-days: 1
