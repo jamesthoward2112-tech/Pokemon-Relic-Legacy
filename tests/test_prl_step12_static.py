@@ -42,9 +42,25 @@ class Step12StaticIntegrationTests(unittest.TestCase):
         for symbol in ("speciesName = _(\"Donphalanx\")", "gMonFrontPic_GreatTusk",
                        "gMonBackPic_GreatTusk", "gMonPalette_GreatTusk",
                        "gMonShinyPalette_GreatTusk", "gMonIcon_GreatTusk",
-                       "sGreatTuskLevelUpLearnset", "sGreatTuskTeachableLearnset"):
+                       "sDonphalanxLevelUpLearnset", "sGreatTuskTeachableLearnset"):
             self.assertIn(symbol, block)
         self.assertNotIn("IronTreads", block)
+        # Step 4B requires a unique Donphalanx table, but all Great Tusk
+        # donor level-up entries must survive in the exact same order.
+        pattern = r"static const struct LevelUpMove s{}\[\]\s*=\s*\{([\s\S]*?)\n\};"
+        def extract(contents, species):
+            match = re.search(pattern.format(species), contents)
+            self.assertIsNotNone(match, "Missing donor/Relic learnset: " + species)
+            return re.findall(
+                r"LEVEL_UP_MOVE\(\s*(\d+),\s*(MOVE_[A-Z0-9_]+)\)", match.group(1)
+            )
+        originals = extract(read("src/data/pokemon/level_up_learnsets/gen_9.h"), "GreatTusk")
+        relic = extract(read("src/data/pokemon/level_up_learnsets/prl_custom.h"), "Donphalanx")
+        self.assertEqual(
+            [entry for entry in relic if entry != ("73", "MOVE_SEISMIC_SLAM")],
+            originals,
+        )
+        self.assertEqual(relic.count(("73", "MOVE_SEISMIC_SLAM")), 1)
 
     def test_runtime_hook_dispatch_and_effect_paths_remain_wired(self):
         manifest = json.loads(read("docs/prl_step10_integration_manifest.json"))
