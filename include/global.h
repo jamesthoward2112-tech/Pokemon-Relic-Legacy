@@ -272,6 +272,8 @@ struct SaveBlock3
 #if APRICORN_TREE_COUNT > 0
     u8 apricornTrees[NUM_APRICORN_TREE_BYTES];
 #endif
+    // Live expanded inventory; the original SaveBlock1 fields retain their sizes.
+    u32 prlInventoryStorage[399];
 }; /* max size 1624 bytes */
 
 extern struct SaveBlock3 *gSaveBlock3Ptr;
@@ -1083,6 +1085,17 @@ struct ExternalEventFlags
 
 } __attribute__((packed));/*size = 0x15*/
 
+// Fixed original layout; required to load older saved games safely.
+struct LegacyBag
+{
+    struct ItemSlot items[30];
+    struct ItemSlot keyItems[30];
+    struct ItemSlot pokeBalls[16];
+    struct ItemSlot TMsHMs[64];
+    struct ItemSlot berries[46];
+};
+
+// Expanded live inventory is serialized through SaveBlock3.
 struct Bag
 {
     struct ItemSlot items[BAG_ITEMS_COUNT];
@@ -1113,9 +1126,9 @@ struct SaveBlock1
     /*0x490*/ u32 money;
     /*0x494*/ u16 coins;
     /*0x496*/ u16 registeredItem; // registered for use with SELECT button
-    /*0x498*/ struct ItemSlot pcItems[PC_ITEMS_COUNT];
+    /*0x498*/ struct ItemSlot pcItems[50]; // Legacy save format: fixed size
     /*0x560 -> 0x848 is bag storage*/
-    /*0x560*/ struct Bag bag;
+    /*0x560*/ struct LegacyBag bag;
     /*0x848*/ struct Pokeblock pokeblocks[POKEBLOCKS_COUNT];
 #if FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK1 == FALSE
     /*0x988*/ u8 filler1[0x34]; // Previously Dex Flags, feel free to remove.
