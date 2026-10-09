@@ -71,6 +71,7 @@ jobs:
           TEST: 1
         run: |
           chmod +x tools/mgba/mgba-rom-test
+          failed=0
           for suite in \
             test/battle/ability/skulberus.c \
             test/battle/status1/bleed.c \
@@ -84,9 +85,12 @@ jobs:
             test/battle/move_effect/curse.c \
             test/battle/move_effect/revival_blessing.c; do
             echo "Running focused battle suite: $suite"
-            make BUILD=firered -j$(nproc) check TESTS="$suite"
+            if ! make BUILD=firered -j$(nproc) check TESTS="$suite"; then
+              failed=1
+            fi
             rm -f pokefirered-test.elf pokefirered-test-headless.elf
           done
+          exit "$failed"
 
       - name: Upload PRL ROM
         uses: actions/upload-artifact@v4
