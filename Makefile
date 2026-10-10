@@ -62,6 +62,14 @@ endif
 
 include config.mk
 
+# Decode the approved Pokémon Mercury GBA sprite bank before graphics scanning.
+# The tracked source is a deterministic, compact 4bpp + RGB555 archive. No
+# Gigantamax mechanics or species are enabled by this graphics-only import.
+PRL_MERCURY_ART_READY := $(shell python3 tools/prl_mercury_assets.py && echo yes)
+ifneq ($(PRL_MERCURY_ART_READY),yes)
+  $(error Could not unpack Pokémon Mercury approved donor art)
+endif
+
 # Default make rule
 all: rom
 

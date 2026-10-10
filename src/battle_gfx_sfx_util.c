@@ -1,5 +1,6 @@
 #include "global.h"
 #include "battle.h"
+#include "battle_setup.h"
 #include "battle_controllers.h"
 #include "battle_ai_main.h"
 #include "battle_anim.h"
@@ -30,6 +31,12 @@
 #include "constants/battle_palace.h"
 #include "constants/battle_move_effects.h"
 #include "constants/event_objects.h" // only for SHADOW_SIZE constants
+#include "constants/opponents_frlg.h"
+
+// Isolated Mercury Eevee graphics; ordinary Eevee sprite data is untouched.
+extern const u32 gPRLEeveeTwinsFrontPic[];
+extern const u16 gPRLEeveeTwinsNormalPalette[];
+extern const u16 gPRLEeveeTwinsShinyPalette[];
 
 // this file's functions
 static u8 GetBattlePalaceMoveGroup(enum BattlerId battler, enum Move move);
@@ -624,10 +631,32 @@ bool8 IsBattleSEPlaying(enum BattlerId battler)
     return TRUE;
 }
 
+// Four approved double battles have a unique *appearance* for Eevee. No
+// species/form substitution, ability, stats, Gigantamax or other mechanics.
+static bool32 PRLIsSteeveNeeveeSignatureEevee(enum BattlerId battler, enum Species species)
+{
+#if IS_FRLG
+    if (species != SPECIES_EEVEE || IsOnPlayerSide(battler)
+        || !(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
+        return FALSE;
+
+    switch (TRAINER_BATTLE_PARAM.opponentA)
+    {
+    case TRAINER_STEEVE_NEEVEE_ROUTE3:
+    case TRAINER_STEEVE_NEEVEE_SS_ANNE:
+    case TRAINER_STEEVE_NEEVEE_TOWER:
+    case TRAINER_STEEVE_NEEVEE_ROUTE23:
+        return TRUE;
+    }
+#endif
+    return FALSE;
+}
+
 void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
 {
     u32 personalityValue, paletteOffset;
     bool32 isShiny;
+    bool32 prlTwinsEevee;
     enum Species species;
     enum BattlerPosition position;
     const u16 *paletteData;
@@ -657,13 +686,20 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
     }
 
     position = GetBattlerPosition(battler);
-    HandleLoadSpecialPokePic(!IsOnPlayerSide(battler),
-                             gMonSpritesGfxPtr->spritesGfx[position],
-                             species, personalityValue);
+    prlTwinsEevee = PRLIsSteeveNeeveeSignatureEevee(battler, species)
+                   && gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE;
+    if (prlTwinsEevee)
+        DecompressDataWithHeaderWram(gPRLEeveeTwinsFrontPic, gMonSpritesGfxPtr->spritesGfx[position]);
+    else
+        HandleLoadSpecialPokePic(!IsOnPlayerSide(battler),
+                                 gMonSpritesGfxPtr->spritesGfx[position],
+                                 species, personalityValue);
 
     paletteOffset = OBJ_PLTT_ID(battler);
 
-    if (gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE)
+    if (prlTwinsEevee)
+        paletteData = isShiny ? gPRLEeveeTwinsShinyPalette : gPRLEeveeTwinsNormalPalette;
+    else if (gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE)
         paletteData = GetMonFrontSpritePal(mon);
     else
         paletteData = GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personalityValue);

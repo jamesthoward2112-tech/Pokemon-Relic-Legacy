@@ -2136,3 +2136,9 @@ const u16 gBattleIcons_Pal2[] = INCGFX_U16("graphics/types/battle_icons2.pal", "
 
 const u16 gGhostPalette[] = INCGFX_U16("graphics/pokemon/ghost/front.png", ".gbapal");
 const u32 gGhostFrontPic[] = INCGFX_U32("graphics/pokemon/ghost/front.png", ".4bpp.smol");
+
+// Mercury 1.3.3 — graphics-only Eevee Twins signature. This artwork is NOT
+// a species or Gigantamax form. Battle code selects it by trainer ID only.
+const u32 gPRLEeveeTwinsFrontPic[] = INCGFX_U32("graphics/pokemon/prl_eevee_twins/front.png", ".4bpp.smol");
+const u16 gPRLEeveeTwinsNormalPalette[] = INCGFX_U16("graphics/pokemon/prl_eevee_twins/normal.pal", ".gbapal");
+const u16 gPRLEeveeTwinsShinyPalette[] = INCGFX_U16("graphics/pokemon/prl_eevee_twins/shiny.pal", ".gbapal");
