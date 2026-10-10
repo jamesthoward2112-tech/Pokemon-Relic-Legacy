@@ -130,27 +130,23 @@ RocketHideout_B4F_EventScript_RemoveBarrier::
 	return
 
 RocketHideout_B4F_Text_GiovanniIntro::
-	.string "So! I must say, I am impressed you\n"
-	.string "got here.\p"
-	.string "TEAM ROCKET captures POKéMON from\n"
-	.string "around the world.\p"
-	.string "They're important tools for keeping\n"
-	.string "our criminal enterprise going.\p"
-	.string "I am the leader, GIOVANNI!\p"
-	.string "For your insolence, you will feel a\n"
-	.string "world of pain!$"
+	.string "GIOVANNI: So you found us.\p"
+	.string "MT. MOON was merely the first\n"
+	.string "of our excavation sites.\p"
+	.string "These ancient specimens may\n"
+	.string "conceal a power long dormant.\p"
+	.string "TEAM ROCKET will awaken it!$"
 
 RocketHideout_B4F_Text_GiovanniDefeat::
 	.string "WHAT!\n"
 	.string "This can't be!$"
 
 RocketHideout_B4F_Text_GiovanniPostBattle::
-	.string "I see that you raise POKéMON with\n"
-	.string "utmost care.\p"
-	.string "A child like you would never\n"
-	.string "understand what I hope to achieve.\p"
-	.string "I shall step aside this time!\p"
-	.string "I hope we meet again…$"
+	.string "You fight with conviction.\p"
+	.string "But our fossil records are\n"
+	.string "already on their way to SILPH.\p"
+	.string "You have delayed my research,\n"
+	.string "not ended it. Farewell!$"
 
 RocketHideout_B4F_Text_Grunt2Intro::
 	.string "I know you!\n"
@@ -160,12 +156,13 @@ RocketHideout_B4F_Text_Grunt2Defeat::
 	.string "Burned again!$"
 
 RocketHideout_B4F_Text_Grunt2PostBattle::
-	.string "Do you have something against TEAM\n"
-	.string "ROCKET?$"
+	.string "MT. MOON's fossils are only\n"
+	.string "one part of the operation!$"
 
 RocketHideout_B4F_Text_Grunt3Intro::
-	.string "How can you not see the beauty of\n"
-	.string "our evil?$"
+	.string "The BOSS has crates of\n"
+	.string "fossils from across KANTO.\p"
+	.string "You won't see his findings!$"
 
 RocketHideout_B4F_Text_Grunt3Defeat::
 	.string "Ayaya!$"
@@ -238,19 +235,21 @@ RocketHideout_B4F_Movement_PRL_RocketExit::
 	step_end
 
 RocketHideout_B4F_Text_PRL_RocketIntro::
-	.string "JESSIE: You foiled us at MT. MOON!\p"
-	.string "JAMES: The fossil was only a start!$"
+	.string "JESSIE: You again?!\p"
+	.string "JAMES: These fossil ledgers\n"
+	.string "are TOP SECRET!\p"
+	.string "JESSIE: You read nothing!$"
 
 RocketHideout_B4F_Text_PRL_RocketDefeat::
-	.string "JESSIE: This can't be!\p"
-	.string "JAMES: We'll report back to the\n"
-	.string "BOSS about the relic research!$"
+	.string "JAMES: The specimen ledger!\p"
+	.string "JESSIE: Don't let that brat\n"
+	.string "see the ancient diagrams!$"
 
 RocketHideout_B4F_Text_PRL_RocketNotEnoughMons::
 	.string "JESSIE: Bring at least two POKéMON\n"
 	.string "if you want to stop TEAM ROCKET!$"
 
 RocketHideout_B4F_Text_PRL_RocketPostBattle::
-	.string "JAMES: The fossils, the relics…\p"
-	.string "JESSIE: This Kanto project is just\n"
-	.string "the beginning!$"
+	.string "JAMES: SILPH has our samples.\p"
+	.string "JESSIE: The BOSS expects them\n"
+	.string "to wake an ancient power!$"
