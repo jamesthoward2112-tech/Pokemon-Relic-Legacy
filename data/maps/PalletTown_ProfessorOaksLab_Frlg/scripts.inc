@@ -1547,8 +1547,10 @@ PalletTown_ProfessorOaksLab_Text_OakAddedNothingToPokedex::
 
 PalletTown_ProfessorOaksLab_Text_OakComeSeeMeSometime::
 	.string "OAK: Come see me sometime.\p"
-	.string "After all, I want to know how your\n"
-	.string "POKéDEX is coming along.$"
+	.string "Bring any unusual fossils\n"
+	.string "or markings you discover.\p"
+	.string "The RELIC REPORTS suggest\n"
+	.string "KANTO's past is still alive!$"
 
 PalletTown_ProfessorOaksLab_Text_BlankEncyclopedia::
 	.string "It's like an encyclopedia, but the\n"
@@ -1704,5 +1706,7 @@ PalletTown_ProfessorOaksLab_Text_PRLAideSootheBell::
 	.string "This SOOTHE BELL should help.$"
 
 PalletTown_ProfessorOaksLab_Text_PRLAideResearch::
-	.string "Keep an eye out for unusual changes.\n"
-	.string "OAK's relic research is just starting.$"
+	.string "OAK's RELIC REPORTS keep\n"
+	.string "turning up strange parallels.\p"
+	.string "Compare fossils with the\n"
+	.string "living POKéMON you find!$"
