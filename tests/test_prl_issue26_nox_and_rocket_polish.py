@@ -27,7 +27,7 @@ class NoxAndRocket(unittest.TestCase):
         # Regression for 10 Oct 2026 emulator screenshot: Noxichu floated above the player's platform.
         species = (ROOT / "src/data/pokemon/species_info.h").read_text()
         noxichu = species.split("[SPECIES_NOXICHU] =", 1)[1].split('    #include "species_info/prl_custom.h"', 1)[0]
-        self.assertIn(".backPicYOffset = 15,", noxichu)
+        self.assertIn(".backPicYOffset = 16,", noxichu)
         self.assertIn(".frontPicYOffset = 0,", noxichu)
         # Positive offset moves the back sprite DOWN in this engine.
         renderer = (ROOT / "src/battle_anim_mons.c").read_text()
