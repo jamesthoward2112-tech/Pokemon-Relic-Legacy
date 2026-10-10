@@ -1,0 +1,46 @@
+name: PRL Eevee source integration inspection
+on:
+  push:
+    branches: [prl/eeveeon-nimbeon-twins-build-20261010]
+permissions:
+  contents: write
+jobs:
+  source-inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect templates for authentic source port
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          checks=[
+            ("src/data/graphics/pokemon.h", ["gMonFrontPic_Champeon", "gMonPalette_Champeon", "gMonIcon_Champeon"]),
+            ("src/data/pokemon/species_info.h", ["species_info/prl_custom.h"]),
+            ("src/data/pokemon/level_up_learnsets/gen_1.h", ["level_up_learnsets/prl_custom.h"]),
+            ("src/data/pokemon/teachable_learnsets/gen_1.h", ["teachable_learnsets/prl_custom.h"]),
+            ("src/data/pokemon/teachable_learnsets.h", ["teachable_learnsets/prl_custom.h"]),
+            ("src/data/pokemon/teachable_learnsets/prl_custom.h", ["sNuMewTeachableLearnset"]),
+            ("include/constants/moves.h", ["MOVE_EXTREME_EVOBOOST", "MOVE_CLANGOROUS_SOUL"]),
+            ("src/data/battle_moves.h", ["EXTREME_EVOBOOST", "CLANGOROUS_SOUL"]),
+            ("src/data/battle_moves/moves.h", ["EXTREME_EVOBOOST"]),
+          ]
+          for fname,markers in checks:
+            p=Path(fname)
+            if not p.exists():
+              print("MISSING",fname)
+              continue
+            lines=p.read_text(errors="replace").splitlines()
+            print("FILE",fname,"TOTAL",len(lines))
+            for marker in markers:
+              hits=[i for i,x in enumerate(lines) if marker in x]
+              print("MARKER",marker,"COUNT",len(hits))
+              for i in hits[:2]:
+                print("AT",i+1,"\n"+"\n".join(f"{j+1}: {lines[j]}" for j in range(max(0,i-3),min(len(lines),i+7))))
+          gfx=Path("src/data/graphics/pokemon.h")
+          if gfx.exists():
+            lines=gfx.read_text(errors="replace").splitlines()
+            print("GFX END","\n".join(lines[-35:]))
+          other=["graphics/pokemon/champeon/front.png","graphics/pokemon/champeon/icon.png","graphics/pokemon/champeon/normal.pal"]
+          for f in other:print("ART",f,Path(f).exists())
+          PY
