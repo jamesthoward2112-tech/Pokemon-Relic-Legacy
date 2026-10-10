@@ -202,17 +202,10 @@ PokemonLeague_LancesRoom_Text_Defeat::
 	.string "POKéMON master!$"
 
 PokemonLeague_LancesRoom_Text_PostBattle::
-	.string "I still can't believe my dragons\n"
-	.string "lost to you, {PLAYER}.\p"
-	.string "You are now the POKéMON LEAGUE\n"
-	.string "CHAMPION!\p"
-	.string "…Or, you would have been, but\n"
-	.string "you have one more challenge left.\p"
-	.string "There is one more TRAINER to face!\n"
-	.string "His name is…\p"
-	.string "{RIVAL}!\p"
-	.string "He beat the ELITE FOUR before\n"
-	.string "you.\p"
-	.string "He is the real POKéMON LEAGUE\n"
-	.string "CHAMPION.$"
+	.string "You have earned your place\n"
+	.string "before the CHAMPION.\p"
+	.string "Old tales describe a bird\n"
+	.string "with feathers of pure gold.\p"
+	.string "Even I cannot name it.\n"
+	.string "Remember that, TRAINER.$"
 
