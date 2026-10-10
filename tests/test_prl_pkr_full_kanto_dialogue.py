@@ -58,7 +58,7 @@ def source(map_name):
 
 def speech(map_name, suffix):
     src = source(map_name)
-    regex = r"^([A-Za-z0-9_]+_Text_" + re.escape(suffix) + r")::\n((?:[ \t]*\\.string[^\n]*\n)+)"
+    regex = r"^([A-Za-z0-9_]+_Text_" + re.escape(suffix) + r")::\n((?:[ \t]*\.string[^\n]*\n)+)"
     hit = re.search(regex, src, flags=re.MULTILINE)
     if hit is None:
         raise AssertionError("Missing story dialogue: " + map_name + "/" + suffix)
@@ -70,8 +70,8 @@ class PKRStoryMigrationTests(unittest.TestCase):
             for suffix in suffixes.split():
                 with self.subTest(map=name, dialogue=suffix):
                     block = speech(name, suffix)
-                    self.assertTrue(block.strip().endswith('"$'))
-                    for text in re.findall(r'^[ \t]*\\.string "([^"]*)"', block, re.MULTILINE):
+                    self.assertTrue(block.strip().endswith('$"'))
+                    for text in re.findall(r'^[ \t]*\.string "([^"]*)"', block, re.MULTILINE):
                         self.assertLessEqual(len(text.replace(r"\n", "").replace(r"\p", "").rstrip("$")), 34)
                         self.assertTrue(text.endswith((r"\n", r"\p", "$")))
 
@@ -98,7 +98,7 @@ class PKRStoryMigrationTests(unittest.TestCase):
         self.assertIn("golden bird", speech("SilphCo_11F_Frlg", "ThanksForSavingMeDearGirl"))
         self.assertIn("RELIC-01", speech("PokemonMansion_2F_Frlg", "ChristenedDiscoveredMonMew"))
         self.assertIn("RELIC-01", speech("PokemonMansion_B1F_Frlg", "MewtwoIsFarTooPowerful"))
-        self.assertIn("RELIC", speech("ViridianCity_Gym_Frlg", "GiovanniPostBattle"))
+        self.assertIn("fossil army", speech("ViridianCity_Gym_Frlg", "GiovanniPostBattle"))
         self.assertIn("RELIC REPORTS", speech("PokemonLeague_ChampionsRoom_Frlg", "PostBattle"))
 
 if __name__ == "__main__":
