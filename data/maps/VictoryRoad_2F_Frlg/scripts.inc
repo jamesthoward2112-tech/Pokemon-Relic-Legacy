@@ -139,8 +139,10 @@ VictoryRoad_2F_Text_GregoryDefeat::
 	.string "Well done!$"
 
 VictoryRoad_2F_Text_GregoryPostBattle::
-	.string "Many TRAINERS give up their\n"
-	.string "challenge here and go home.$"
+	.string "These old rocks predate\n"
+	.string "KANTO's earliest fossils.\p"
+	.string "The same pattern was found\n"
+	.string "in SILPH's RELIC files!$"
 
 VictoryRoad_2F_Text_PRL_RocketGateClosed::
 	.string "A voice echoes from above…\p"
