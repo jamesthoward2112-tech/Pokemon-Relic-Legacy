@@ -1,11 +1,26 @@
 MtMoon_B1F_Frlg_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, MtMoon_B1F_OnLoad_PRLJessieJames
 	map_script MAP_SCRIPT_ON_TRANSITION, MtMoon_B1F_OnTransition_PRLJessieJames
 	.byte 0
+
+@ Player's existing saves may have FLAG_HIDE_PRL_ROCKET_MT_MOON set
+@ while standing in B2F after collecting a fossil. Apply visibility
+@ before B1F object events spawn, not only after map transition.
+MtMoon_B1F_OnLoad_PRLJessieJames::
+	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+	goto_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON, MtMoon_B1F_OnLoad_PRLRocketDone
+	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON, MtMoon_B1F_OnLoad_PRLRocketDone
+	goto_if_defeated TRAINER_JESSIE_JAMES_MT_MOON, MtMoon_B1F_OnLoad_PRLRocketAlreadyWon
+	clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+MtMoon_B1F_OnLoad_PRLRocketDone::
+	return
+MtMoon_B1F_OnLoad_PRLRocketAlreadyWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON
+	return
 
 @ Give the player a visible unavoidable checkpoint after collecting either fossil.
 @ No battle is launched here; the corridor encounter fires only on approach.
 MtMoon_B1F_OnTransition_PRLJessieJames::
-	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
 	setvar VAR_TEMP_0, 0
 	goto_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON, MtMoon_B1F_PRL_RocketNotReady
 	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON, MtMoon_B1F_PRL_RocketNotReady

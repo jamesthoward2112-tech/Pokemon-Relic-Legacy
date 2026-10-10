@@ -7,3 +7,9 @@ Noxichu: the accepted front and back remain 64x64, without any enlargement or re
 Jessie and James: replaced both battle portrait slots with a joint 64x64 GBA 4bpp image derived from the approved white-uniform donor sprites. Teams/flags and the local NPC trainer binding remain intact. In Rocket Hideout, Silph 11F and Victory Road 3F, both trainers stage side by side with Meowth behind. Existing Mt Moon exit triggers and its side-by-side NPCs remain intact. Removed copy/paste triplicate flag commands.
 
 Runtime approval outstanding: player's 128 KiB SAV is preserved but gameplay testing in mGBA, collision approach, intro still running, portrait render, no blue assertion and all four postbattle departures need verification. Keep PR #25 draft and issue #26 open.
+
+## Reproduction-driven repair after user reported no visible change
+
+The supplied 128 KiB FRLG `.sav` has latest save slot index 9: group 35/map 3 = Mt Moon B2F, position (5,11). Flag 0x232 (fossil obtained) is **true**, flag 0x8F4 (Mt Moon Jessie/James completed) is **false**, and flag 0x8F8 (Mt Moon Jessie/James hidden) is **true**. This is a live reproduction of the hidden-NPC state we previously overlooked. Mt Moon B1F now has an `ON_LOAD` visibility re-sync before map actors instantiate, while `ON_TRANSITION` still adds actual NPCs. Meowth is behind James, not visually hiding Jessie.
+
+Noxichu's party icon has updated stronger amber eye/yellow markings, clearer graphite separation, and distinct second animation-frame blinking. Still 32x64 indexed/16-colour and maps to existing palette 6 (which matches Noxichu normal palette). No species or sprite dimension changes. Full emulator QA remains outstanding.

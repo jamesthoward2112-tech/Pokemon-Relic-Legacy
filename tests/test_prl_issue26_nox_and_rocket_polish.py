@@ -28,6 +28,22 @@ class NoxAndRocket(unittest.TestCase):
                 self.assertNotEqual((m["x"],m["y"]),(x["x"],x["y"]))
                 self.assertNotEqual((m["x"],m["y"]),(y["x"],y["y"]))
                 self.assertIn("localId=LOCALID_PRL_JESSIE_"+tag+", continueScript=TRUE",(ROOT/"data/maps"/name/"scripts.inc").read_text())
+    def test_mt_moon_revealed_before_object_spawn_for_existing_save(self):
+        scene=(ROOT/"data/maps/MtMoon_B1F_Frlg/scripts.inc").read_text()
+        self.assertIn("map_script MAP_SCRIPT_ON_LOAD, MtMoon_B1F_OnLoad_PRLJessieJames",scene)
+        load=scene.split("MtMoon_B1F_OnLoad_PRLJessieJames::",1)[1].split("MtMoon_B1F_OnTransition_PRLJessieJames::",1)[0]
+        self.assertIn("goto_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON",load)
+        self.assertIn("clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON",load)
+        self.assertIn("goto_if_defeated TRAINER_JESSIE_JAMES_MT_MOON",load)
+        self.assertIn("setflag FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON",load)
+        sceneMap=json.loads((ROOT/"data/maps/MtMoon_B1F_Frlg/map.json").read_text())
+        rocket={a.get("local_id"):a for a in sceneMap["object_events"]}
+        self.assertEqual((rocket["LOCALID_PRL_JESSIE_MT_MOON"]["x"],rocket["LOCALID_PRL_JESSIE_MT_MOON"]["y"]),(43,4))
+        self.assertEqual((rocket["LOCALID_PRL_JAMES_MT_MOON"]["x"],rocket["LOCALID_PRL_JAMES_MT_MOON"]["y"]),(44,4))
+        self.assertEqual((rocket["LOCALID_PRL_MEOWTH_MT_MOON"]["x"],rocket["LOCALID_PRL_MEOWTH_MT_MOON"]["y"]),(44,3))
+        triggers={(c["x"],c["y"]) for c in sceneMap["coord_events"] if c["script"]=="MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"}
+        self.assertTrue({(42,4),(42,5),(42,3),(43,2),(44,2),(44,5),(45,5),(46,5),(45,4)}.issubset(triggers))
+        self.assertIn("localId=LOCALID_PRL_JESSIE_MT_MOON, continueScript=TRUE",scene)
     def test_opening_untouched(self):
         self.assertIn("CB2_InitPRLHwlScene0",(ROOT/"src/expansion_intro.c").read_text())
 if __name__=="__main__": unittest.main()
