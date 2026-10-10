@@ -40,7 +40,7 @@ def test_rocket_visible_and_obstructs_exit_before_battle():
         e=pcs[f"LOCALID_PRL_{name}_MT_MOON"]
         assert e["flag"]=="FLAG_HIDE_PRL_ROCKET_MT_MOON"
         assert e["script"]=="MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-        assert e["x"] < exit_warp["x"] && e["y"] == 2
+        assert e["x"] < exit_warp["x"] and e["y"] == 2
     assert pcs["LOCALID_PRL_JESSIE_MT_MOON"]["y"] == pcs["LOCALID_PRL_JAMES_MT_MOON"]["y"]
     assert all(any(e["x"]==x and e["y"]==5 for e in j["coord_events"]) for x in range(38,47))
     sc=source("data/maps/MtMoon_B1F_Frlg/scripts.inc")
