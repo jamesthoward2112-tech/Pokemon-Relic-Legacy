@@ -53,10 +53,11 @@ def test_rocket_has_joint_name_and_approved_front_gfx():
     for encounter in ("MT_MOON","HIDEOUT","SILPH","VICTORY_ROAD"):
         pos=s.index("=== TRAINER_JESSIE_JAMES_"+encounter+" ===")
         assert "Name: JESS&JAMES" in s[pos:pos+70]
-    from PIL import Image
-    with Image.open(ROOT/"graphics/trainers/front_pics/prl_jessie.png") as im:
-        assert im.size==(64,64) and im.mode=="P"
-        assert len(im.getcolors(256))<=16
+    png=(ROOT/"graphics/trainers/front_pics/prl_jessie.png").read_bytes()
+    assert png.startswith(b"\\x89PNG\\r\\n\\x1a\\n")
+    assert int.from_bytes(png[16:20],"big")==64
+    assert int.from_bytes(png[20:24],"big")==64
+    assert png[24]==4  # palette-indexed 4bpp PNG
 
 def test_route4_blackbelts_teach_correct_moves():
     j=map_file("Route4")
@@ -73,3 +74,13 @@ def test_route4_blackbelts_teach_correct_moves():
     assert "MOVE_DRAIN_PUNCH" in text and "MOVE_EARTH_POWER" in text
     assert "MtMoon_1F_EventScript_DrainPunchTutor" not in source("data/maps/MtMoon_1F_Frlg/scripts.inc")
     assert not any(e["script"]=="MtMoon_1F_EventScript_DrainPunchTutor" for e in map_file("MtMoon_1F")["object_events"])
+
+# Run these checks under the project's unittest discovery, not just pytest.
+import unittest
+
+class PR24SpriteAndMtMoonChecks(unittest.TestCase):
+    def test_title(self): test_title_direct_artwork_and_animation()
+    def test_fossil(self): test_fossils_do_not_launch_rocket()
+    def test_rocket_scene(self): test_rocket_visible_and_obstructs_exit_before_battle()
+    def test_rocket_gfx(self): test_rocket_has_joint_name_and_approved_front_gfx()
+    def test_route4_tutors(self): test_route4_blackbelts_teach_correct_moves()

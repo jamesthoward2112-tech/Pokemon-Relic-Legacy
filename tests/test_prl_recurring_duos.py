@@ -11,7 +11,7 @@ ENCOUNTERS = {
     "STEEVE_NEEVEE_SS_ANNE": ("SSAnne_2F_Corridor_Frlg", [("Vaporeon", 26), ("Jolteon", 26), ("Eevee", 25), ("Eevee", 25)]),
     "STEEVE_NEEVEE_TOWER": ("PokemonTower_1F_Frlg", [("Flareon", 37), ("Vaporeon", 37), ("Jolteon", 36), ("Eevee", 36)]),
     "STEEVE_NEEVEE_ROUTE23": ("Route23_Frlg", [("Vaporeon", 52), ("Jolteon", 52), ("Flareon", 55), ("Toxeon", 55), ("Eevee", 51), ("Eevee", 53)]),
-    "JESSIE_JAMES_MT_MOON": ("MtMoon_B2F_Frlg", [("Ekans", 16), ("Koffing", 16), ("Bellsprout", 16), ("Meowth", 17)]),
+    "JESSIE_JAMES_MT_MOON": ("MtMoon_B1F_Frlg", [("Ekans", 16), ("Koffing", 16), ("Bellsprout", 16), ("Meowth", 17)]),
     "JESSIE_JAMES_HIDEOUT": ("RocketHideout_B4F_Frlg", [("Arbok", 29), ("Weezing", 29), ("Raticate", 30), ("Meowth", 30)]),
     "JESSIE_JAMES_SILPH": ("SilphCo_11F_Frlg", [("Arbok", 39), ("Weezing", 39), ("Drowzee", 40), ("Victreebel", 40), ("Pikachu", 41), ("Meowth", 41)]),
     "JESSIE_JAMES_VICTORY_ROAD": ("VictoryRoad_3F_Frlg", [("Arbok", 54), ("Weezing", 54), ("Hypno", 55), ("Victreebel", 55), ("Pikachu", 56), ("Meowth", 56)]),
@@ -64,7 +64,8 @@ class PRLRecurringDuos(unittest.TestCase):
                     self.assertIn("checkitem ITEM_SILPH_SCOPE", script)
                 map_data = json.loads(read(f"data/maps/{map_name}/map.json"))
                 if name == "JESSIE_JAMES_MT_MOON":
-                    self.assertTrue("call MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOON" in script, name)
+                    self.assertIn("MtMoon_B1F_EventScript_PRL_JessieJamesEncounter", script)
+                    self.assertNotIn("call MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOON", read("data/maps/MtMoon_B2F_Frlg/scripts.inc"))
                 elif name in ("JESSIE_JAMES_HIDEOUT", "JESSIE_JAMES_SILPH"):
                     self.assertTrue(re.search(rf"call .*EventScript_PRL_{name}", script), name)
                 elif name == "JESSIE_JAMES_VICTORY_ROAD":
@@ -76,9 +77,13 @@ class PRLRecurringDuos(unittest.TestCase):
         script = read("data/maps/MtMoon_B2F_Frlg/scripts.inc")
         for fossil_script in ("MtMoon_B2F_EventScript_DomeFossil", "MtMoon_B2F_EventScript_HelixFossil"):
             body = script.split(f"{fossil_script}::", 1)[1].split("\nMtMoon_B2F_", 1)[0]
-            self.assertTrue("call MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOON" in body, fossil_script)
+            self.assertIn("setflag FLAG_GOT_FOSSIL_FROM_MT_MOON", body, fossil_script)
+            self.assertNotIn("call MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOON", body, fossil_script)
         self.assertIn("MtMoon_B2F_EventScript_MiguelTrigger", script)
         self.assertIn("MtMoon_B2F_EventScript_Miguel::", script)
+        b1 = read("data/maps/MtMoon_B1F_Frlg/scripts.inc")
+        self.assertIn("trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON", b1)
+        self.assertIn("FLAG_GOT_FOSSIL_FROM_MT_MOON", b1)
 
     def test_victory_road_3f_duo_is_mandatory_before_route23_exit(self):
         floor2 = json.loads(read("data/maps/VictoryRoad_2F_Frlg/map.json"))
@@ -130,10 +135,17 @@ class PRLRecurringDuos(unittest.TestCase):
                     self.assertIn(actor, graphics, actor)
                 script = read(f"data/maps/{map_name}/scripts.inc")
                 self.assertIn("waitmovementall", script)
-                self.assertIn("addobject LOCALID_PRL_MEOWTH", script)
-                self.assertIn("removeobject LOCALID_PRL_MEOWTH", script)
-                self.assertLess(script.index("applymovement LOCALID_PRL_JESSIE"), script.index("applymovement LOCALID_PRL_JAMES"))
-                self.assertLess(script.index("applymovement LOCALID_PRL_JAMES"), script.index("applymovement LOCALID_PRL_MEOWTH"))
+                if name == "JESSIE_JAMES_MT_MOON":
+                    # In PR24 they must be visible *before* approaching the exit.
+                    self.assertIn("clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON", script)
+                    self.assertIn("removeobject LOCALID_PRL_MEOWTH_MT_MOON", script)
+                    self.assertLess(script.index("applymovement LOCALID_PRL_MEOWTH"), script.index("applymovement LOCALID_PRL_JESSIE"))
+                    self.assertLess(script.index("applymovement LOCALID_PRL_JESSIE"), script.index("applymovement LOCALID_PRL_JAMES"))
+                else:
+                    self.assertIn("addobject LOCALID_PRL_MEOWTH", script)
+                    self.assertIn("removeobject LOCALID_PRL_MEOWTH", script)
+                    self.assertLess(script.index("applymovement LOCALID_PRL_JESSIE"), script.index("applymovement LOCALID_PRL_JAMES"))
+                    self.assertLess(script.index("applymovement LOCALID_PRL_JAMES"), script.index("applymovement LOCALID_PRL_MEOWTH"))
 
 
     def test_recurring_duos_acknowledge_prior_kanto_encounters(self):
@@ -153,11 +165,14 @@ class PRLRecurringDuos(unittest.TestCase):
     def test_rocket_event_labels_and_scene_flags_resolve_within_frlg_range(self):
         flags = read("include/constants/flags_frlg.h")
         self.assertNotRegex(flags, r"#define FLAG_HIDE_PRL_\w+\s+FLAG_0x90[0-9A-F]")
-        for map_name, prefix in (("MtMoon_B2F_Frlg", "MtMoon_B2F"),
+        for map_name, prefix in (("MtMoon_B1F_Frlg", "MtMoon_B1F"),
                                  ("RocketHideout_B4F_Frlg", "RocketHideout_B4F"),
                                  ("SilphCo_11F_Frlg", "SilphCo_11F"),
                                  ("VictoryRoad_3F_Frlg", "VictoryRoad_3F")):
             script = read(f"data/maps/{map_name}/scripts.inc")
+            if prefix == "MtMoon_B1F":
+                self.assertIn("MtMoon_B1F_EventScript_PRL_JessieJamesEncounter", script)
+                continue
             self.assertIn(f"{prefix}_EventScript_PRL_JESSIE_JAMES_", script)
             self.assertNotIn(f"{prefix}_Frlg_EventScript_PRL_JESSIE_JAMES_", script)
             for ref in re.findall(r"\b(?:call|goto) (\w*PRL_JESSIE_JAMES_\w+)", script):
