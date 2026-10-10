@@ -1,0 +1,138 @@
+name: Eeveeon Nimbeon genuine source sprite review
+on:
+  push:
+    branches:
+      - prl/eeveeon-nimbeon-sprite-review-20261010
+permissions:
+  contents: write
+jobs:
+  sprite_review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check Pillow
+      - name: Convert original Infinity graphics (no generated art)
+        shell: bash
+        run: |
+          python - <<'PY'
+          from PIL import Image,ImageDraw,ImageFont
+          from urllib.request import urlopen,Request
+          from pathlib import Path
+          import io,json,time,hashlib,zipfile
+          root=Path("sprite-review/eeveeon-nimbeon")
+          root.mkdir(parents=True,exist_ok=True)
+          species={"eeveeon":"00zow8n8","nimbeon":"00a10tsc"}
+          data={}
+          def retrieve(mon,num,side):
+              url="https://pokengine.b-cdn.net/play/images/mons/"+side+"/"+num+".webp?t=55"
+              for attempt in range(3):
+                  try:
+                      req=Request(url,headers={"User-Agent":"Mozilla/5.0","Accept":"image/webp,image/*"})
+                      raw=urlopen(req,timeout=25).read()
+                      im=Image.open(io.BytesIO(raw)).convert("RGBA")
+                      assert im.size[0]>=16 and im.size[1]>=16 and im.getchannel("A").getbbox()
+                      p=root/"original";p.mkdir(exist_ok=True)
+                      (p/(mon+"_"+side+".webp")).write_bytes(raw)
+                      return im,{"source":url,"source_size":im.size,"source_sha256":hashlib.sha256(raw).hexdigest()}
+                  except Exception as ex:
+                      error=repr(ex);time.sleep(attempt+1)
+              raise RuntimeError(mon+" "+side+": "+error)
+          def fit(im,size):
+              rect=im.getchannel("A").point(lambda n:255 if n>=128 else 0).getbbox()
+              assert rect
+              im=im.crop(rect)
+              ratio=min(1,size[0]/im.width,size[1]/im.height)
+              w=max(1,round(im.width*ratio));h=max(1,round(im.height*ratio))
+              if (w,h)!=im.size:im=im.resize((w,h),Image.Resampling.NEAREST)
+              out=Image.new("RGBA",size,(0,0,0,0));out.alpha_composite(im,((size[0]-w)//2,size[1]-h))
+              return out
+          def colors(images):
+              pix=[p[:3] for im in images for p in im.getdata() if p[3]>=128]
+              assert pix
+              strip=Image.new("RGB",(len(pix),1));strip.putdata(pix)
+              q=strip.quantize(colors=15,method=Image.Quantize.MEDIANCUT)
+              pal=q.getpalette()
+              return [tuple(pal[i*3:i*3+3]) for i in sorted(set(q.getdata()))]
+          def convert(im,cols):
+              out=Image.new("P",im.size)
+              p=[0,0,0]+[n for c in cols for n in c]
+              out.putpalette(p+[0]*(768-len(p)))
+              lookup={}
+              seq=[]
+              for pixel in im.getdata():
+                  if pixel[3]<128: seq.append(0);continue
+                  color=pixel[:3]
+                  if color not in lookup:
+                      lookup[color]=1+min(range(len(cols)),key=lambda i:sum((color[j]-cols[i][j])**2 for j in range(3)))
+                  seq.append(lookup[color])
+              out.putdata(seq);out.info["transparency"]=0
+              assert len(set(seq))<=16
+              return out
+          def jasc(cols,path):
+              c=[(0,0,0)]+cols
+              c=c+[(0,0,0)]*(16-len(c))
+              path.write_text("JASC-PAL\n0100\n16\n"+"".join("%d %d %d\n"%p for p in c),encoding="ascii")
+          for mon,ident in species.items():
+              im={};prov={}
+              for side in ("fronts","backs","icons"):
+                  im[side],prov[side]=retrieve(mon,ident,side)
+              front=fit(im["fronts"],(64,64))
+              back=fit(im["backs"],(64,64))
+              icon=fit(im["icons"],(32,32))
+              icon2=Image.new("RGBA",(32,64));icon2.alpha_composite(icon,(0,0));icon2.alpha_composite(icon,(0,32))
+              normal=colors([front,back])
+              iconpal=colors([icon])
+              p=root/mon;p.mkdir(exist_ok=True)
+              for fname,src,pal in (("front.png",front,normal),("back.png",back,normal),("icon.png",icon2,iconpal)):
+                  convert(src,pal).save(p/fname)
+                  test=Image.open(p/fname)
+                  assert test.mode=="P" and test.size==src.size and len(set(test.getdata()))<=16 and test.info.get("transparency")==0
+              jasc(normal,p/"normal.pal");jasc(iconpal,p/"icon.pal")
+              data[mon]={"status":"NORMAL BATTLE AND ICON ASSETS GBA VERIFIED","source":prov,
+                   "dimensions":{"front":[64,64],"back":[64,64],"icon":[32,64]},
+                   "battle_palette_total_slots":16,"icon_palette_total_slots":16,
+                   "shiny":"MISSING: original Infinity shiny sprites not yet sourced; none fabricated",
+                   "icon_animation":"two identical original source frames"}
+              print(mon,"GBA indexed normal sprites validated",flush=True)
+          cell=340
+          sh=Image.new("RGB",(1440,900),"#f2f3f5")
+          d=ImageDraw.Draw(sh);font=ImageFont.load_default()
+          d.text((25,18),"ORIGINAL POKEMON INFINITY ARTWORK - PRL GBA REVIEW - NO AI",fill="#14283c",font=font)
+          d.text((25,40),"Indexed 64x64 front/back and 32x64 two-frame icon. Genuine shiny sprite files not yet sourced.",fill="#a13939",font=font)
+          for ri,mon in enumerate(species):
+              yy=85+ri*400
+              d.rectangle((12,yy,1420,yy+380),outline="#86929d",width=2)
+              d.text((30,yy+16),mon.upper(),fill="#193858",font=font,stroke_width=1)
+              for ci,file in enumerate(("front.png","back.png","icon.png")):
+                  x=25+ci*cell
+                  d.text((x,yy+50),file,fill="#193858",font=font)
+                  a=Image.open(root/mon/file).convert("RGBA")
+                  a=a.resize((a.width*4,a.height*4),Image.Resampling.NEAREST)
+                  layer=Image.new("RGBA",a.size,"#ffffff");layer.alpha_composite(a)
+                  sh.paste(layer.convert("RGB"),(x,yy+78))
+              x=25+3*cell
+              d.text((x,yy+50),"SHINY SPRITES",fill="#193858",font=font)
+              d.text((x,yy+98),"NOT VERIFIED",fill="#a13939",font=font)
+              d.text((x,yy+125),"No fabricated shiny replacements.",fill="#a13939",font=font)
+          sh.save(root/"REAL_INFINITY_GBA_REVIEW.png")
+          (root/"VALIDATION.json").write_text(json.dumps(data,indent=2),encoding="utf-8")
+          (root/"README.md").write_text(
+              "# Real Pokemon Infinity donor sprite review\n\nOnly original Pokemon Infinity artwork is used, from the Pokengine Infinity Collection.\n"
+              "Everything is in sprite-review/ and is NOT imported into the ROM.\n\n"
+              "Original sources and SHA256 are in VALIDATION.json. Normal fronts/backs are indexed 64x64 PNGs; icons are indexed 32x64 PNGs, "
+              "each with 16-slot JASC/PoryPal palette files. Two icon frames reuse the original source icon without inventing art.\n\n"
+              "SHINY IS NOT COMPLETE. The original shiny donor files have not been verified; no fake recolours have been inserted.\n"
+              "Approved PRL evolution: Eeveeon = Relic Stone, unchanged by this asset-only task.\n",encoding="utf-8")
+          with zipfile.ZipFile(root/"REAL_INFINITY_GBA_REVIEW.zip","w",zipfile.ZIP_DEFLATED) as z:
+              for p in root.rglob("*"):
+                  if p.is_file() and p.suffix!=".zip":z.write(p,p.relative_to(root))
+          PY
+      - name: Commit review files (never game graphics)
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sprite-review/eeveeon-nimbeon
+          git diff --cached --quiet || (git commit -m "GBA indexed original Infinity Eeveeon and Nimbeon normal sprites - review only" && git push origin HEAD:$GITHUB_REF_NAME)
