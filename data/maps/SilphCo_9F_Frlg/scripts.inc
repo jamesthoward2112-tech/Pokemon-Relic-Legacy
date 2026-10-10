@@ -62,8 +62,9 @@ SilphCo_9F_Text_Grunt1Defeat::
 	.string "Ghaaah!$"
 
 SilphCo_9F_Text_Grunt1PostBattle::
-	.string "If I had started as a TRAINER at\n"
-	.string "your age…$"
+	.string "Our researchers compared\n"
+	.string "fossils with living POKéMON.\p"
+	.string "Some traits have returned!$"
 
 SilphCo_9F_Text_EdIntro::
 	.string "Your POKéMON have weak points!\n"
