@@ -12,6 +12,11 @@ class NoxAndRocket(unittest.TestCase):
     def test_sprite_sizes_and_indexed_palette(self):
         for name,size in [("front",(64,64)),("back",(64,64)),("icon",(32,64))]:
             self.assertTrue(png("graphics/pokemon/noxichu/"+name+".png",*size))
+    def test_noxichu_front_and_icon_palettes_match(self):
+        normal=(ROOT/"graphics/pokemon/noxichu/normal.pal").read_text()
+        icon=(ROOT/"graphics/pokemon/icon_palettes/pal6.pal").read_text()
+        self.assertEqual(normal,icon)
+        self.assertIn("53 51 60",normal)
     def test_approved_rocket_two_person_picture(self):
         j=png("graphics/trainers/front_pics/prl_jessie.png",64,64)
         self.assertEqual(j,png("graphics/trainers/front_pics/prl_james.png",64,64))
