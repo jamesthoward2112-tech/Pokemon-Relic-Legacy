@@ -671,3 +671,15 @@ PlayersHouse_1F_Movement_PlayerApproachTVForLatiFemale:
 EventScript_RunningShoesManual::
 	msgbox PlayersHouse_1F_Text_RunningShoesManual, MSGBOX_SIGN
 	end
+
+
+@ PRL: interactable setting clock shared by all regional Pokemon Centres.
+@ Unlike the normal bedroom clock, this allows changing the time again.
+EventScript_PRL_PokemonCenterWallClock::
+	lockall
+	checkplayergender
+	copyvar VAR_0x8004, VAR_RESULT
+	fadescreen FADE_TO_BLACK
+	special StartWallClock
+	releaseall
+	end
