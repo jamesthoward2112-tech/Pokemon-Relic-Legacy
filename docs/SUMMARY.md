@@ -1,5 +1,7 @@
 # Summary
 
+- [PRL Kanto Golden-Bird Relic Story Canon](./PRL_KANTO_GOLDEN_BIRD_STORY_CANON_2026-10-10.md)
+
 - [PR24 Redux battle background donor mapping](./PR24_REDUX_BATTLE_BACKGROUNDS.md)
 
 - [PR23 approved Mercury artwork integration](./PR23_MERCURY_DONOR_INTEGRATION_PENDING.md)
