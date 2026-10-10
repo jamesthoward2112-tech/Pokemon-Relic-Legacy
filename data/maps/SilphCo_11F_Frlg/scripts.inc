@@ -291,7 +291,8 @@ SilphCo_11F_Movement_PRL_RocketExit::
 	step_end
 
 SilphCo_11F_Text_PRL_RocketIntro::
-	.string "JESSIE: Hand over the data!\p"
+	.string "JESSIE: After MT. MOON and\n"
+	.string "CELADON, you STILL follow us?!\p"
 	.string "JAMES: The golden-bird files\n"
 	.string "belong to TEAM ROCKET!$"
 
