@@ -510,15 +510,10 @@ void CompactPCItems(void)
 
 void SwapRegisteredBike(void)
 {
-    switch (gSaveBlock1Ptr->registeredItem)
-    {
-    case ITEM_MACH_BIKE:
-        gSaveBlock1Ptr->registeredItem = ITEM_ACRO_BIKE;
-        break;
-    case ITEM_ACRO_BIKE:
-        gSaveBlock1Ptr->registeredItem = ITEM_MACH_BIKE;
-        break;
-    }
+    if (IsItemRegistered(ITEM_MACH_BIKE))
+        ReplaceRegisteredItem(ITEM_MACH_BIKE, ITEM_ACRO_BIKE);
+    else if (IsItemRegistered(ITEM_ACRO_BIKE))
+        ReplaceRegisteredItem(ITEM_ACRO_BIKE, ITEM_MACH_BIKE);
 }
 
 void CompactItemsInBagPocket(enum Pocket pocketId)

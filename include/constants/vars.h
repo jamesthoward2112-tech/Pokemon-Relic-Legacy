@@ -276,6 +276,11 @@
 #define VAR_UNUSED_0x40FE                                0x40FE // Unused Var
 #define VAR_UNUSED_0x40FF                                0x40FF // Unused Var
 
+// Original PHR four registered Key Item slots. Slot 1 remains in SaveBlock1.
+#define VAR_PHR_REGISTERED_ITEM_2                        VAR_UNUSED_0x40FD
+#define VAR_PHR_REGISTERED_ITEM_3                        VAR_UNUSED_0x40FE
+#define VAR_PHR_REGISTERED_ITEM_4                        VAR_UNUSED_0x40FF
+
 #define VARS_END                                         0x40FF
 #define VARS_COUNT                                       (VARS_END - VARS_START + 1)
 
