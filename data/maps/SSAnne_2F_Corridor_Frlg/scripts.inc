@@ -266,15 +266,15 @@ SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeMovement_Approach::
 	step_end
 
 SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeIntro::
-	.string "STEEVE: We met on ROUTE 3!\p"
+	.string "STEEVEE: We met on ROUTE 3!\p"
 	.string "NEEVEE: Our partners grew too!$"
 
 SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeDefeat::
-	.string "STEEVE: Your team is amazing!\p"
+	.string "STEEVEE: Your team is amazing!\p"
 	.string "NEEVEE: We'll keep training!$"
 
 SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeNotEnoughMons::
-	.string "STEEVE: We need a fair double\n"
+	.string "STEEVEE: We need a fair double\n"
 	.string "battle. Bring two POKéMON!$"
 
 SSAnne_2F_Corridor_Text_PRL_SteeveNeeveePostBattle::
