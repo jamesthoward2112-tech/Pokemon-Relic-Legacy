@@ -228,19 +228,23 @@ VictoryRoad_3F_Movement_PRL_RocketExit::
 	step_end
 
 VictoryRoad_3F_Text_PRL_RocketIntro::
-	.string "JESSIE: You keep chasing us!\p"
-	.string "JAMES: KANTO's League won't stop us!$"
+	.string "JESSIE: Don't look so smug!\p"
+	.string "JAMES: GIOVANNI disbanded\n"
+	.string "TEAM ROCKET...\p"
+	.string "JESSIE: But we still have\n"
+	.string "unfinished business with YOU!$"
 
 VictoryRoad_3F_Text_PRL_RocketDefeat::
-	.string "JESSIE: This can't be!\p"
-	.string "JAMES: We'll report back to the\n"
-	.string "BOSS about the relic research!$"
+	.string "JAMES: Even our last plan!\p"
+	.string "JESSIE: This is NOT how our\n"
+	.string "grand finale should end!$"
 
 VictoryRoad_3F_Text_PRL_RocketNotEnoughMons::
 	.string "JESSIE: Bring at least two POKéMON\n"
 	.string "if you want to stop TEAM ROCKET!$"
 
 VictoryRoad_3F_Text_PRL_RocketPostBattle::
-	.string "JAMES: The fossils, the relics…\p"
-	.string "JESSIE: This Kanto project is just\n"
-	.string "the beginning!$"
+	.string "JAMES: The old clues point\n"
+	.string "far beyond this mountain.\p"
+	.string "JESSIE: Keep the gold-bird\n"
+	.string "rumour to yourself, twerp!$"
