@@ -4,17 +4,8 @@ MtMoon_B2F_Frlg_MapScripts::
 
 MtMoon_B2F_OnTransition::
 	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
-	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
-	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
 	call_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON, MtMoon_B2F_EventScript_ShowFossils
-	call_if_set FLAG_GOT_FOSSIL_FROM_MT_MOON, MtMoon_B2F_EventScript_PRL_RetryRocketBattle
 	end
-
-MtMoon_B2F_EventScript_PRL_RetryRocketBattle::
-	lockall
-	call MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOON
-	releaseall
-	return
 
 MtMoon_B2F_EventScript_ShowFossils::
 	clearflag FLAG_HIDE_DOME_FOSSIL
@@ -80,7 +71,6 @@ MtMoon_B2F_EventScript_DomeFossil::
 	removeobject LOCALID_HELIX_FOSSIL
 	setflag FLAG_GOT_DOME_FOSSIL
 	setflag FLAG_GOT_FOSSIL_FROM_MT_MOON
-	call MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOON
 	release
 	end
 
@@ -111,7 +101,6 @@ MtMoon_B2F_EventScript_HelixFossil::
 	removeobject LOCALID_DOME_FOSSIL
 	setflag FLAG_GOT_HELIX_FOSSIL
 	setflag FLAG_GOT_FOSSIL_FROM_MT_MOON
-	call MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOON
 	release
 	end
 
@@ -234,57 +223,8 @@ MtMoon_B2F_Text_ObtainedDomeFossil::
 	.string "Obtained the DOME FOSSIL!$"
 
 
-MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOON::
-	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON, MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOONEnd
-	goto_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON, MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOONEnd
-	goto_if_defeated TRAINER_JESSIE_JAMES_MT_MOON, MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOONAlreadyWon
-	clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON
-	clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON
-	clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON
-	addobject LOCALID_PRL_JESSIE_MT_MOON
-	addobject LOCALID_PRL_JAMES_MT_MOON
-	addobject LOCALID_PRL_MEOWTH_MT_MOON
-	applymovement LOCALID_PRL_JESSIE_MT_MOON, MtMoon_B2F_Movement_PRL_RocketApproach
-	waitmovementall
-	applymovement LOCALID_PRL_JAMES_MT_MOON, MtMoon_B2F_Movement_PRL_RocketApproach
-	waitmovementall
-	applymovement LOCALID_PRL_MEOWTH_MT_MOON, MtMoon_B2F_Movement_PRL_RocketApproach
-	waitmovementall
-	turnobject LOCALID_PRL_JESSIE_MT_MOON, DIR_SOUTH
-	turnobject LOCALID_PRL_JAMES_MT_MOON, DIR_SOUTH
-	turnobject LOCALID_PRL_MEOWTH_MT_MOON, DIR_SOUTH
-	trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON, MtMoon_B2F_Text_PRL_RocketIntro, MtMoon_B2F_Text_PRL_RocketDefeat, MtMoon_B2F_Text_PRL_RocketNotEnoughMons
-	goto_if_defeated TRAINER_JESSIE_JAMES_MT_MOON, MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOONWon
-	goto MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOONCleanup
-MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOONWon::
-	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON
-	msgbox MtMoon_B2F_Text_PRL_RocketPostBattle
-MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOONCleanup::
-	applymovement LOCALID_PRL_JESSIE_MT_MOON, MtMoon_B2F_Movement_PRL_RocketExit
-	waitmovementall
-	applymovement LOCALID_PRL_JAMES_MT_MOON, MtMoon_B2F_Movement_PRL_RocketExit
-	waitmovementall
-	applymovement LOCALID_PRL_MEOWTH_MT_MOON, MtMoon_B2F_Movement_PRL_RocketExit
-	waitmovementall
-	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
-	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
-	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
-	removeobject LOCALID_PRL_JESSIE_MT_MOON
-	removeobject LOCALID_PRL_JAMES_MT_MOON
-	removeobject LOCALID_PRL_MEOWTH_MT_MOON
-MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOONAlreadyWon::
-	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON
-MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOONEnd::
-	return
-
-MtMoon_B2F_Movement_PRL_RocketApproach::
-	walk_up
-	step_end
-
-MtMoon_B2F_Movement_PRL_RocketExit::
-	walk_down
-	step_end
-
+@ PR24: Jessie and James wait visibly in B1F on the exit path.
+@ Their battle no longer starts on fossil pickup in B2F.
 MtMoon_B2F_Text_PRL_RocketIntro::
 	.string "JESSIE: Prepare for trouble!\p"
 	.string "JAMES: And make it double!\p"
