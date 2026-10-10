@@ -11,7 +11,8 @@ STORY_SCENES = {
     "PalletTown_ProfessorOaksLab_Frlg": ["PalletTown_ProfessorOaksLab_Text_OakCustomBallIOrdered"],
     "PewterCity_Museum_1F_Frlg": ["PewterCity_Museum_1F_Text_AmberContainsGeneticMatter"],
     "MtMoon_B2F_Frlg": ["MtMoon_B2F_Text_PRL_RocketIntro"],
-    "CeruleanCity_House2_Frlg": ["CeruleanCity_House2_Text_RocketsStoleTMForDig"],
+    "CeruleanCity_Frlg": ["CeruleanCity_Text_GruntIntro", "CeruleanCity_Text_OkayIllReturnStolenTM", "CeruleanCity_Text_BetterGetMovingBye"],
+    "CeruleanCity_House2_Frlg": ["CeruleanCity_House2_Text_RocketsStoleTMForDig", "CeruleanCity_House2_Text_TeachDiglettDigWithoutTM"],
     "Route25_SeaCottage_Frlg": ["Route25_SeaCottage_Text_CheckOutRareMonsOnPC"],
     "RocketHideout_B4F_Frlg": ["RocketHideout_B4F_Text_GiovanniIntro", "RocketHideout_B4F_Text_PRL_RocketIntro"],
     "SilphCo_7F_Frlg": ["SilphCo_7F_Text_RocketsAfterMasterBall"],
@@ -75,6 +76,24 @@ class KantoRelicStoryTests(unittest.TestCase):
             self.assertIn("$", aftermath)
             intros.append(intro)
         self.assertEqual(len(intros), len(set(intros)))
+
+    def test_tm28_grunt_explains_relic_excavation_before_item_reward(self):
+        city = load("CeruleanCity_Frlg")
+        house = load("CeruleanCity_House2_Frlg")
+        # Same dialogue label must be reached by direct talks and both coordinate triggers.
+        self.assertRegex(
+            city,
+            r"CeruleanCity_EventScript_GruntDefeated::[\s\S]*?"
+            r"msgbox CeruleanCity_Text_OkayIllReturnStolenTM[\s\S]*?"
+            r"giveitem_msg CeruleanCity_Text_RecoveredTM28FromGrunt, ITEM_TM28",
+        )
+        for word in ("TM28 DIG", "TEAM ROCKET uses DIG", "fossil", "RELIC artifacts"):
+            self.assertIn(word, dialogue(city, "CeruleanCity_Text_OkayIllReturnStolenTM"))
+        self.assertIn(
+            "RELIC fragments",
+            dialogue(house, "CeruleanCity_House2_Text_TeachDiglettDigWithoutTM"),
+        )
+        self.assertIn("DIG", dialogue(house, "CeruleanCity_House2_Text_TeachDiglettDigWithoutTM"))
 
     def test_no_unsafe_text_line_overflow_in_changed_scenes(self):
         for map_name, labels in STORY_SCENES.items():
