@@ -4,6 +4,7 @@ on:
     branches: [prl/combined-eevee-qol-20261011]
     paths:
       - .github/workflows/prl-pjr-qol-test-rom.yml
+      - tests/test_prl_recurring_duos.py
   workflow_dispatch:
 permissions:
   contents: read
