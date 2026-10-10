@@ -32,7 +32,12 @@ class NoxAndRocket(unittest.TestCase):
                 self.assertEqual(x["y"],y["y"])
                 self.assertNotEqual((m["x"],m["y"]),(x["x"],x["y"]))
                 self.assertNotEqual((m["x"],m["y"]),(y["x"],y["y"]))
-                self.assertIn("localId=LOCALID_PRL_JESSIE_"+tag+", continueScript=TRUE",(ROOT/"data/maps"/name/"scripts.inc").read_text())
+                script=(ROOT/"data/maps"/name/"scripts.inc").read_text()
+                if tag == "MT_MOON":
+                    self.assertIn("localId=LOCALID_PRL_JESSIE_MT_MOON",script)
+                    self.assertIn("localId=LOCALID_PRL_JAMES_MT_MOON",script)
+                else:
+                    self.assertIn("localId=LOCALID_PRL_JESSIE_"+tag+", continueScript=TRUE",script)
     def test_mt_moon_revealed_before_object_spawn_for_existing_save(self):
         scene=(ROOT/"data/maps/MtMoon_B1F_Frlg/scripts.inc").read_text()
         self.assertIn("map_script MAP_SCRIPT_ON_LOAD, MtMoon_B1F_OnLoad_PRLJessieJames",scene)
