@@ -9,6 +9,11 @@ Route23_OnTransition::
 	setvar VAR_MAP_SCENE_VICTORY_ROAD_2F_BOULDER1, 0
 	setvar VAR_MAP_SCENE_VICTORY_ROAD_2F_BOULDER2, 0
 	setvar VAR_MAP_SCENE_VICTORY_ROAD_3F, 0
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeSaveSyncWon
+	end
+Route23_EventScript_PRLSteeveNeeveeSaveSyncWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
+	setvar VAR_MAP_SCENE_ROUTE23, 9
 	end
 
 Route23_EventScript_CascadeBadgeGuard::
@@ -132,23 +137,57 @@ Route23_Text_VictoryRoadGateSign::
 	.string "POKéMON LEAGUE$"
 
 
+@ Scripted, visible, NPC-associated double battle: never launch a trainer without an object context.
 Route23_EventScript_PRLSteeveNeeveeTrigger::
 	lockall
 	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeTriggerEnd
 	goto_if_unset FLAG_BADGE08_GET, Route23_EventScript_PRLSteeveNeeveeTriggerEnd
 	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
-	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_Text_PRL_SteeveNeeveeIntro, Route23_Text_PRL_SteeveNeeveeDefeat, Route23_Text_PRL_SteeveNeeveeNotEnoughMons
+	@ Keep actors stationary if the player cannot field a double battle.
+	special HasEnoughMonsForDoubleBattle
+	goto_if_ne VAR_RESULT, PLAYER_HAS_TWO_USABLE_MONS, Route23_EventScript_PRLSteeveNeeveeNeedTwo
+	applymovement LOCALID_PRL_STEEVE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeMovement_Approach
+	applymovement LOCALID_PRL_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeMovement_Approach
+	waitmovementall
+	@ Passing localId selects the actual sprite instead of the player object.
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_Text_PRL_SteeveNeeveeIntro, Route23_Text_PRL_SteeveNeeveeDefeat, Route23_Text_PRL_SteeveNeeveeNotEnoughMons, localId=LOCALID_PRL_STEEVE_ROUTE23, continueScript=TRUE
 	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeTriggerWon
 	releaseall
 	end
+
+Route23_EventScript_PRLSteeveNeeveeNeedTwo::
+	msgbox Route23_Text_PRL_SteeveNeeveeNotEnoughMons
+	releaseall
+	end
+
 Route23_EventScript_PRLSteeveNeeveeTriggerWon::
-	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
 	msgbox Route23_Text_PRL_SteeveNeeveePostBattle
+	applymovement LOCALID_PRL_STEEVE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeMovement_Leave
+	applymovement LOCALID_PRL_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeMovement_Leave
+	waitmovementall
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
+	setvar VAR_MAP_SCENE_ROUTE23, 9
+	removeobject LOCALID_PRL_STEEVE_ROUTE23
+	removeobject LOCALID_PRL_NEEVEE_ROUTE23
+	releaseall
+	end
+
 Route23_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
+	setvar VAR_MAP_SCENE_ROUTE23, 9
+	removeobject LOCALID_PRL_STEEVE_ROUTE23
+	removeobject LOCALID_PRL_NEEVEE_ROUTE23
 Route23_EventScript_PRLSteeveNeeveeTriggerEnd::
 	releaseall
 	end
+
+Route23_EventScript_PRLSteeveNeeveeMovement_Approach::
+	walk_down
+	step_end
+
+Route23_EventScript_PRLSteeveNeeveeMovement_Leave::
+	walk_up
+	step_end
 
 Route23_Text_PRL_SteeveNeeveeIntro::
 	.string "STEEVE: From ROUTE 3 to the League!\p"

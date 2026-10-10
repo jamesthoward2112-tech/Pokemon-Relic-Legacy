@@ -1,5 +1,14 @@
 SSAnne_2F_Corridor_Frlg_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeSaveSync
 	.byte 0
+
+SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeSaveSync::
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeSaveSyncWon
+	return
+SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeSaveSyncWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE
+	setvar VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR, 2
+	return
 
 SSAnne_2F_Corridor_EventScript_RivalTriggerLeft::
 	lockall
@@ -206,23 +215,57 @@ SSAnne_2F_Corridor_Text_RivalPostBattle::
 	.string "Smell ya!$"
 
 
+@ Scripted, visible, NPC-associated double battle: never launch a trainer without an object context.
 SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger::
 	lockall
 	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerEnd
 	goto_if_unset FLAG_GOT_SS_TICKET, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerEnd
 	goto_if_defeated TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
-	trainerbattle_double TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeIntro, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeDefeat, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeNotEnoughMons
+	@ Keep actors stationary if the player cannot field a double battle.
+	special HasEnoughMonsForDoubleBattle
+	goto_if_ne VAR_RESULT, PLAYER_HAS_TWO_USABLE_MONS, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeNeedTwo
+	applymovement LOCALID_PRL_STEEVE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeMovement_Approach
+	applymovement LOCALID_PRL_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeMovement_Approach
+	waitmovementall
+	@ Passing localId selects the actual sprite instead of the player object.
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeIntro, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeDefeat, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeNotEnoughMons, localId=LOCALID_PRL_STEEVE_SS_ANNE, continueScript=TRUE
 	goto_if_defeated TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerWon
 	releaseall
 	end
+
+SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeNeedTwo::
+	msgbox SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeNotEnoughMons
+	releaseall
+	end
+
 SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerWon::
-	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE
 	msgbox SSAnne_2F_Corridor_Text_PRL_SteeveNeeveePostBattle
+	applymovement LOCALID_PRL_STEEVE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeMovement_Leave
+	applymovement LOCALID_PRL_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeMovement_Leave
+	waitmovementall
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE
+	setvar VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR, 2
+	removeobject LOCALID_PRL_STEEVE_SS_ANNE
+	removeobject LOCALID_PRL_NEEVEE_SS_ANNE
+	releaseall
+	end
+
 SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE
+	setvar VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR, 2
+	removeobject LOCALID_PRL_STEEVE_SS_ANNE
+	removeobject LOCALID_PRL_NEEVEE_SS_ANNE
 SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerEnd::
 	releaseall
 	end
+
+SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeMovement_Approach::
+	walk_down
+	step_end
+
+SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeMovement_Leave::
+	walk_up
+	step_end
 
 SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeIntro::
 	.string "STEEVE: We met on ROUTE 3!\p"

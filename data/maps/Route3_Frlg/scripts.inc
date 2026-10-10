@@ -1,5 +1,14 @@
 Route3_Frlg_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, Route3_EventScript_PRLSteeveNeeveeSaveSync
 	.byte 0
+
+Route3_EventScript_PRLSteeveNeeveeSaveSync::
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeSaveSyncWon
+	return
+Route3_EventScript_PRLSteeveNeeveeSaveSyncWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3
+	setvar VAR_PRL_RECURRING_ROUTE3_TRIGGER, 1
+	return
 
 Route3_EventScript_Youngster::
 	msgbox Route3_Text_TunnelFromCeruleanTiring, MSGBOX_NPC
@@ -162,23 +171,57 @@ Route3_EventScript_PRLCharmanderAide_Text_Repeat::
 Route3_EventScript_PRLCharmanderAide_Text_Pokemon::
 	.string "CHARMANDER looks ready to travel.$"
 
+@ Scripted, visible, NPC-associated double battle: never launch a trainer without an object context.
 Route3_EventScript_PRLSteeveNeeveeTrigger::
 	lockall
 	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeTriggerEnd
 	goto_if_unset FLAG_BADGE01_GET, Route3_EventScript_PRLSteeveNeeveeTriggerEnd
 	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
-	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE3, Route3_Text_PRL_SteeveNeeveeIntro, Route3_Text_PRL_SteeveNeeveeDefeat, Route3_Text_PRL_SteeveNeeveeNotEnoughMons
+	@ Keep actors stationary if the player cannot field a double battle.
+	special HasEnoughMonsForDoubleBattle
+	goto_if_ne VAR_RESULT, PLAYER_HAS_TWO_USABLE_MONS, Route3_EventScript_PRLSteeveNeeveeNeedTwo
+	applymovement LOCALID_PRL_STEEVE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeMovement_Approach
+	applymovement LOCALID_PRL_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeMovement_Approach
+	waitmovementall
+	@ Passing localId selects the actual sprite instead of the player object.
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE3, Route3_Text_PRL_SteeveNeeveeIntro, Route3_Text_PRL_SteeveNeeveeDefeat, Route3_Text_PRL_SteeveNeeveeNotEnoughMons, localId=LOCALID_PRL_STEEVE_ROUTE3, continueScript=TRUE
 	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeTriggerWon
 	releaseall
 	end
+
+Route3_EventScript_PRLSteeveNeeveeNeedTwo::
+	msgbox Route3_Text_PRL_SteeveNeeveeNotEnoughMons
+	releaseall
+	end
+
 Route3_EventScript_PRLSteeveNeeveeTriggerWon::
-	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3
 	msgbox Route3_Text_PRL_SteeveNeeveePostBattle
+	applymovement LOCALID_PRL_STEEVE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeMovement_Leave
+	applymovement LOCALID_PRL_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeMovement_Leave
+	waitmovementall
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3
+	setvar VAR_PRL_RECURRING_ROUTE3_TRIGGER, 1
+	removeobject LOCALID_PRL_STEEVE_ROUTE3
+	removeobject LOCALID_PRL_NEEVEE_ROUTE3
+	releaseall
+	end
+
 Route3_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3
+	setvar VAR_PRL_RECURRING_ROUTE3_TRIGGER, 1
+	removeobject LOCALID_PRL_STEEVE_ROUTE3
+	removeobject LOCALID_PRL_NEEVEE_ROUTE3
 Route3_EventScript_PRLSteeveNeeveeTriggerEnd::
 	releaseall
 	end
+
+Route3_EventScript_PRLSteeveNeeveeMovement_Approach::
+	walk_down
+	step_end
+
+Route3_EventScript_PRLSteeveNeeveeMovement_Leave::
+	walk_up
+	step_end
 
 Route3_Text_PRL_SteeveNeeveeIntro::
 	.string "STEEVE: Our EEVEE are ready!\p"

@@ -147,6 +147,51 @@
       "var": "VAR_TEMP_0",
       "var_value": "0",
       "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
+    },
+    {
+      "type": "trigger",
+      "x": 42,
+      "y": 2,
+      "elevation": 3,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
+    },
+    {
+      "type": "trigger",
+      "x": 43,
+      "y": 2,
+      "elevation": 3,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
+    },
+    {
+      "type": "trigger",
+      "x": 44,
+      "y": 2,
+      "elevation": 3,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
+    },
+    {
+      "type": "trigger",
+      "x": 45,
+      "y": 2,
+      "elevation": 3,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
+    },
+    {
+      "type": "trigger",
+      "x": 45,
+      "y": 3,
+      "elevation": 3,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
     }
   ],
   "bg_events": [
