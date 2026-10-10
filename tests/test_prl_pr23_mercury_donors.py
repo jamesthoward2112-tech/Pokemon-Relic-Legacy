@@ -24,6 +24,7 @@ def test_complete_source_archive_and_palette_generation():
             png = (directory / (pose + ".png")).read_bytes()
             assert png[:8] == b"\x89PNG\r\n\x1a\n"
             assert struct.unpack_from(">II", png, 16) == (64, 64)
+            assert png[25] == 3  # Indexed PNG, required by gbagfx
             assert png.endswith(b"IEND\xaeB\x60\x82")
         for palette in ("normal", "shiny"):
             pal = (directory / (palette + ".pal")).read_text(encoding="ascii")
