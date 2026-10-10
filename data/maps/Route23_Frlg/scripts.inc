@@ -180,15 +180,15 @@ Route23_EventScript_PRLSteeveNeeveeMovement_Approach::
 	step_end
 
 Route23_Text_PRL_SteeveNeeveeIntro::
-	.string "STEEVE: From ROUTE 3 to the League!\p"
+	.string "STEEVEE: From ROUTE 3 to the League!\p"
 	.string "NEEVEE: Let's give our best battle!$"
 
 Route23_Text_PRL_SteeveNeeveeDefeat::
-	.string "STEEVE: Your team is amazing!\p"
+	.string "STEEVEE: Your team is amazing!\p"
 	.string "NEEVEE: We'll keep training!$"
 
 Route23_Text_PRL_SteeveNeeveeNotEnoughMons::
-	.string "STEEVE: We need a fair double\n"
+	.string "STEEVEE: We need a fair double\n"
 	.string "battle. Bring two POKéMON!$"
 
 Route23_Text_PRL_SteeveNeeveePostBattle::
