@@ -26,7 +26,11 @@ Route10_Text_MarkDefeat::
 	.string "I'm not angry!$"
 
 Route10_Text_MarkPostBattle::
-	.string "I have more rare POKéMON at home!$"
+	.string "I collect rare POKéMON.\p"
+	.string "But fossils reveal species\n"
+	.string "that no one can catch today.\p"
+	.string "Some contain marks nobody\n"
+	.string "has explained yet!$"
 
 Route10_Text_ClarkIntro::
 	.string "Ha-hahah-ah-ha!$"
@@ -63,10 +67,11 @@ Route10_Text_HeidiDefeat::
 	.string "After all my training!$"
 
 Route10_Text_HeidiPostBattle::
-	.string "I noticed some POKéMANIACS\n"
-	.string "prowling around.\p"
-	.string "Can you imagine? Them?\n"
-	.string "Up here in the mountains?$"
+	.string "I saw some POKéMANIACS\n"
+	.string "examining these mountains.\p"
+	.string "They said the old strata\n"
+	.string "show the same RELIC marks\n"
+	.string "found at MT. MOON!$"
 
 Route10_Text_TrentIntro::
 	.string "Ah!\n"

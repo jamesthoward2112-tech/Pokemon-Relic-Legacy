@@ -60,10 +60,13 @@ class DirectToOakStartupTests(unittest.TestCase):
         task = function(splash, "Task_HandleExpansionIntro")
         self.assertIn("tFrameCounter == 208", task)
         self.assertIn("gMain.newKeys != 0", task)  # player can still skip splash
-        self.assertRegex(task, r"#if defined\(FIRERED\)[\s\S]*?SetMainCallback2\(CB2_InitTitleScreen\);")
+        # Issue #26 restored the full pre-title Celebi/Jirachi forest, not title icons.
+        self.assertRegex(task, r"#if defined\(FIRERED\)[\s\S]*?SetMainCallback2\(CB2_InitPRLHwlScene0\);")
         self.assertIn("CB2_SetUpIntroFrlg", task)  # other versions retain stock entry
-        self.assertLess(task.index("SetMainCallback2(CB2_InitTitleScreen)"),
+        self.assertLess(task.index("SetMainCallback2(CB2_InitPRLHwlScene0)"),
                         task.index("SetMainCallback2(CB2_SetUpIntroFrlg)"))
+        forest = source("src/prl_intro_trial.c")
+        self.assertIn("SetMainCallback2(CB2_InitTitleScreen)", forest)
 
     def test_title_remains_approved_prl_entry_point(self):
         src = source("src/title_screen_frlg.c")

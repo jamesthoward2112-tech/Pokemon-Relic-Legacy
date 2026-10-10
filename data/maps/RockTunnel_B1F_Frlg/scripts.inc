@@ -75,8 +75,11 @@ RockTunnel_B1F_Text_CooperDefeat::
 	.string "I am so jealous!$"
 
 RockTunnel_B1F_Text_CooperPostBattle::
-	.string "When you finish your POKéDEX,\n"
-	.string "can I have it?$"
+	.string "PROF. OAK's POKéDEX can\n"
+	.string "record the living species.\p"
+	.string "I wonder who catalogues\n"
+	.string "the extinct ones and RELICS?\p"
+	.string "Scientists should compare both!$"
 
 RockTunnel_B1F_Text_SteveIntro::
 	.string "Um… Do you know about POKéMON\n"
@@ -86,9 +89,10 @@ RockTunnel_B1F_Text_SteveDefeat::
 	.string "Well, that's that.$"
 
 RockTunnel_B1F_Text_StevePostBattle::
-	.string "POKéMON cosplay is dressing up as\n"
-	.string "POKéMON for fun.\p"
-	.string "CLEFAIRY is a favorite.$"
+	.string "Someone has scraped ancient\n"
+	.string "marks from these stone walls.\p"
+	.string "I saw people in black\n"
+	.string "carrying samples away!$"
 
 RockTunnel_B1F_Text_AllenIntro::
 	.string "My POKéMON techniques will leave\n"
@@ -99,8 +103,10 @@ RockTunnel_B1F_Text_AllenDefeat::
 	.string "You're a better technician!$"
 
 RockTunnel_B1F_Text_AllenPostBattle::
-	.string "In mountains, you'll often find\n"
-	.string "ROCK-type POKéMON.$"
+	.string "Most POKéMON here are ROCK\n"
+	.string "types, but that's not all.\p"
+	.string "Some ancient layers carry\n"
+	.string "a pattern called a RELIC!$"
 
 RockTunnel_B1F_Text_MarthaIntro::
 	.string "I don't often come here, but I will\n"

@@ -45,14 +45,20 @@ SilphCo_8F_Text_ThanksForSavingUs::
 	.string "Thanks for saving us!$"
 
 SilphCo_8F_Text_Grunt1Intro::
-	.string "That's as far as you'll go!$"
+	.string "Stop! No visitors near\n"
+	.string "the archaeological data!\p"
+	.string "TEAM ROCKET owns it now!$"
 
 SilphCo_8F_Text_Grunt1Defeat::
 	.string "Not enough grit!$"
 
 SilphCo_8F_Text_Grunt1PostBattle::
-	.string "If you don't turn back…\n"
-	.string "I'll call for backup!$"
+	.string "Our team decoded an old\n"
+	.string "RELIC diagram.\p"
+	.string "It shows a birdlike shape\n"
+	.string "painted in gold.\p"
+	.string "But that doesn't mean\n"
+	.string "the thing really exists!$"
 
 SilphCo_8F_Text_ParkerIntro::
 	.string "You're causing us problems!$"
@@ -66,24 +72,26 @@ SilphCo_8F_Text_ParkerPostBattle::
 	.string "BUILDING's maze?$"
 
 SilphCo_8F_Text_Grunt2Intro::
-	.string "I am one of the four ROCKET\n"
-	.string "BROTHERS!$"
+	.string "I'm one of the four\n"
+	.string "ROCKET BROTHERS!\p"
+	.string "The BOSS's golden specimen\n"
+	.string "will make us unstoppable!$"
 
 SilphCo_8F_Text_Grunt2Defeat::
 	.string "Whoo!\n"
 	.string "Oh, Brothers!$"
 
 SilphCo_8F_Text_Grunt2PostBattle::
-	.string "I'll leave you up to my brothers.$"
+	.string "Even our experts haven't\n"
+	.string "identified that gold figure.\p"
+	.string "The BOSS calls it a prize!$"
 
 SilphCo_8F_Text_FloorSign::
 	.string "SILPH CO. HEAD OFFICE\n"
 	.string "8F$"
 
 SilphCo_8F_Text_ToRocketBossMonsAreTools::
-	.string "TEAM ROCKET's BOSS is terribly\n"
-	.string "cruel!\p"
-	.string "To him, POKéMON are just tools to\n"
-	.string "be used.\p"
-	.string "What will happen if that tyrant\n"
-	.string "takes over our company…$"
+	.string "To ROCKET's BOSS, POKéMON\n"
+	.string "are nothing but tools.\p"
+	.string "Now he wants to revive\n"
+	.string "ancient species as weapons!$"

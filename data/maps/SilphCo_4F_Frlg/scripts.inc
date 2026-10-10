@@ -48,15 +48,19 @@ SilphCo_4F_Text_TeamRocketIsGone::
 	.string "TEAM ROCKET is gone?$"
 
 SilphCo_4F_Text_Grunt1Intro::
-	.string "TEAM ROCKET has taken control\n"
-	.string "of SILPH CO.!$"
+	.string "This floor stores the old\n"
+	.string "excavation records.\p"
+	.string "No visitors!$"
 
 SilphCo_4F_Text_Grunt1Defeat::
 	.string "Arrgh!$"
 
 SilphCo_4F_Text_Grunt1PostBattle::
-	.string "Fwahahaha!\n"
-	.string "My BOSS has been after this place!$"
+	.string "This floor's excavation\n"
+	.string "records are priceless.\p"
+	.string "They're from MT. MOON,\n"
+	.string "ROCK TUNNEL and CINNABAR.\p"
+	.string "The same mark keeps turning up!$"
 
 SilphCo_4F_Text_RodneyIntro::
 	.string "My POKéMON is my loyal servant.$"
@@ -72,13 +76,17 @@ SilphCo_4F_Text_RodneyPostBattle::
 	.string "doors here.$"
 
 SilphCo_4F_Text_Grunt2Intro::
-	.string "Intruder spotted!$"
+	.string "Halt! Don't touch the\n"
+	.string "RELIC research notes!$"
 
 SilphCo_4F_Text_Grunt2Defeat::
 	.string "Who are you?$"
 
 SilphCo_4F_Text_Grunt2PostBattle::
-	.string "I better tell the BOSS on 11F!$"
+	.string "Those papers describe\n"
+	.string "dormant traits reawakening.\p"
+	.string "BOSS wants those abilities\n"
+	.string "in every fossil POKéMON!$"
 
 SilphCo_4F_Text_FloorSign::
 	.string "SILPH CO. HEAD OFFICE\n"

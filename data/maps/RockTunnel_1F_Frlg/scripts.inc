@@ -53,10 +53,12 @@ RockTunnel_1F_Text_LennyDefeat::
 	.string "You win!$"
 
 RockTunnel_1F_Text_LennyPostBattle::
-	.string "Watch for ONIX.\n"
-	.string "They appear only occasionally.\p"
-	.string "High-level ones can put the\n"
-	.string "squeeze on you!$"
+	.string "Watch out for ONIX.\n"
+	.string "They move through old strata.\p"
+	.string "Some rocks here show the\n"
+	.string "same mark found at MT. MOON.\p"
+	.string "A geologist called it a\n"
+	.string "RELIC pattern. Odd, huh?$"
 
 RockTunnel_1F_Text_OliverIntro::
 	.string "Hmm.\n"
@@ -68,8 +70,12 @@ RockTunnel_1F_Text_OliverDefeat::
 	.string "Which way is out?$"
 
 RockTunnel_1F_Text_OliverPostBattle::
-	.string "That sleeping POKéMON on ROUTE 12\n"
-	.string "forced me to take this detour.$"
+	.string "I'm lost in ROCK TUNNEL!\p"
+	.string "And there are little dig\n"
+	.string "marks on the old walls.\p"
+	.string "Could someone have taken\n"
+	.string "ancient RELIC samples?\p"
+	.string "SNORLAX blocked the other way!$"
 
 RockTunnel_1F_Text_LucasIntro::
 	.string "Outsiders like you need to show me\n"
@@ -79,7 +85,10 @@ RockTunnel_1F_Text_LucasDefeat::
 	.string "I give!$"
 
 RockTunnel_1F_Text_LucasPostBattle::
-	.string "You're talented enough to hike!$"
+	.string "The layers here are older\n"
+	.string "than any KANTO town.\p"
+	.string "Some rocks have the same\n"
+	.string "marks as MT. MOON fossils!$"
 
 RockTunnel_1F_Text_AshtonIntro::
 	.string "POKéMON fight!\n"

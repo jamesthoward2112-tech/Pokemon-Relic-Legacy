@@ -23,23 +23,26 @@ CeruleanCity_House2_EventScript_WallHole::
 	end
 
 CeruleanCity_House2_Text_RocketsStoleTMForDig::
-	.string "Those miserable ROCKETS!\p"
-	.string "Look what they've done to my\n"
-	.string "house!\p"
-	.string "They stole a TM for teaching\n"
-	.string "POKéMON how to DIG holes!\p"
-	.string "I was going to use it on a\n"
-	.string "MANKEY or a SANDSHREW…\p"
-	.string "That cost me a bundle, it did!$"
+	.string "Those wretched ROCKETS!\p"
+	.string "They smashed my wall and\n"
+	.string "stole TM28 DIG!\p"
+	.string "They said they'd use DIG to\n"
+	.string "reach ancient fossil beds.\p"
+	.string "What are they looking for\n"
+	.string "beneath CERULEAN?$"
 
 CeruleanCity_House2_Text_TeachDiglettDigWithoutTM::
-	.string "I figure what's lost is lost.\p"
-	.string "I decided to teach DIGLETT how to\n"
-	.string "DIG without a TM.$"
+	.string "You got TM28 DIG back?\n"
+	.string "You earned it, so keep it!\p"
+	.string "Those ROCKETS were hunting\n"
+	.string "fossil RELIC fragments.\p"
+	.string "I'll teach DIGLETT DIG myself.$"
 
 CeruleanCity_House2_Text_TeamRocketTryingToDigIntoNoGood::
-	.string "TEAM ROCKET must be trying to DIG\n"
-	.string "their way into no good!$"
+	.string "ROCKET's DIG plans weren't\n"
+	.string "about buried treasure.\p"
+	.string "I heard them mention\n"
+	.string "RELIC fragments!$"
 
 CeruleanCity_House2_Text_TeamRocketLeftWayOut::
 	.string "TEAM ROCKET left a way out!$"

@@ -54,8 +54,10 @@ Text_SeismicTossTaught::
 
 PewterCity_Museum_1F_Text_WhatsSpecialAboutMoonStone::
 	.string "MOON STONE, huh?\p"
-	.string "What's so special about it?\n"
-	.string "Looks like an ordinary rock to me.$"
+	.string "A meteorite from MT. MOON!\n"
+	.string "Some stones have odd marks.\p"
+	.string "The museum thinks they could\n"
+	.string "be linked to RELIC traits!$"
 
 PewterCity_Museum_1F_Text_BoughtColorTVForMoonLanding::
 	.string "July 20, 1969!\p"
@@ -80,6 +82,7 @@ PewterCity_Museum_1F_Text_SpaceShuttle::
 	.string "Space Shuttle$"
 
 PewterCity_Museum_1F_Text_MeteoriteThatFellOnMtMoon::
-	.string "A meteorite that fell on MT. MOON.\n"
-	.string "It is thought to be a MOON STONE.$"
+	.string "A meteorite from MT. MOON.\p"
+	.string "A faint mark on its surface\n"
+	.string "matches the RELIC REPORTS.$"
 

@@ -313,6 +313,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_TOUGH,
         .contestComboStarterId = COMBO_STARTER_VICE_GRIP,
         .contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .battleAnimScript = gBattleAnimMove_ViseGrip,
     },
 
@@ -373,6 +374,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 3, }),
         .battleAnimScript = gBattleAnimMove_RazorWind,
     },
 
@@ -427,6 +429,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .battleAnimScript = gBattleAnimMove_Cut,
     },
 
@@ -832,6 +835,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = COMBO_STARTER_HORN_ATTACK,
         .contestComboMoves = {COMBO_STARTER_LEER},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .battleAnimScript = gBattleAnimMove_HornAttack,
     },
 
@@ -855,6 +859,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_HORN_ATTACK, COMBO_STARTER_PECK},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 3, }),
         .battleAnimScript = gBattleAnimMove_FuryAttack,
     },
 
@@ -1141,6 +1146,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 3, }),
         .battleAnimScript = gBattleAnimMove_PinMissile,
     },
 
@@ -1190,7 +1196,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = B_UPDATED_MOVE_DATA >= GEN_2 ? 30 : 10,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .contestEffect = C_UPDATED_MOVE_EFFECTS >= GEN_6 ? CONTEST_EFFECT_STARTLE_PREV_MON : CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         .contestCategory = CONTEST_CATEGORY_TOUGH,
         .contestComboStarterId = 0,
@@ -1748,6 +1755,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = COMBO_STARTER_PECK,
         .contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 3, }),
         .battleAnimScript = gBattleAnimMove_Peck,
     },
 
@@ -1770,6 +1778,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_PECK},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_DrillPeck,
         .validApprenticeMove = TRUE,
     },
@@ -2046,6 +2055,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_GROWTH},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .battleAnimScript = gBattleAnimMove_RazorLeaf,
         .validApprenticeMove = TRUE,
     },
@@ -3581,6 +3591,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 3, }),
         .battleAnimScript = gBattleAnimMove_SpikeCannon,
     },
 
@@ -3865,7 +3876,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ABSORB,
             .argument.absorbPercentage = 50,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 3, }),
         .battleAnimScript = gBattleAnimMove_LeechLife,
     },
 
@@ -4179,6 +4191,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_TOUGH,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_RAIN_DANCE, COMBO_STARTER_SWORDS_DANCE},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_Crabhammer,
         .validApprenticeMove = TRUE,
     },
@@ -4228,6 +4241,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_TOUGH,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_SCRATCH},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 3, }),
         .battleAnimScript = gBattleAnimMove_FurySwipes,
     },
 
@@ -4332,7 +4346,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 10,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .contestEffect = C_UPDATED_MOVE_EFFECTS >= GEN_6 ? CONTEST_EFFECT_REPETITION_NOT_BORING : CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
@@ -4461,6 +4476,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_TOUGH,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_SCARY_FACE},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 3, }),
         .battleAnimScript = gBattleAnimMove_SuperFang,
         .validApprenticeMove = TRUE,
     },
@@ -4486,6 +4502,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_SCRATCH, COMBO_STARTER_SWORDS_DANCE},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_Slash,
         .validApprenticeMove = TRUE,
     },
@@ -4712,6 +4729,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_SMART,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_LOVELY_KISS, COMBO_STARTER_SPORE, COMBO_STARTER_SING, COMBO_STARTER_YAWN, COMBO_STARTER_HYPNOSIS, COMBO_STARTER_DARK_VOID, COMBO_STARTER_GRASS_WHISTLE, COMBO_STARTER_SLEEP_POWDER},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_FEAR, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_Nightmare,
         .validApprenticeMove = TRUE,
     },
@@ -5786,6 +5804,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 3, }),
         .battleAnimScript = gBattleAnimMove_FuryCutter,
         .validApprenticeMove = TRUE,
     },
@@ -6145,6 +6164,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 15, }),
         .battleAnimScript = gBattleAnimMove_Megahorn,
         .validApprenticeMove = TRUE,
     },
@@ -6376,7 +6396,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             .attack = 1,
             .self = TRUE,
             .chance = 10,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
@@ -6640,7 +6661,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             .defense = B_UPDATED_MOVE_DATA >= GEN_4 ? 1 : 0,
             .spDef = B_UPDATED_MOVE_DATA < GEN_4 ? 1 : 0,
             .chance = 20,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         .contestCategory = CONTEST_CATEGORY_TOUGH,
         .contestComboStarterId = 0,
@@ -6783,7 +6805,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             .moveEffect = MOVE_EFFECT_STAT_MINUS,
             .spDef = 1,
             .chance = 20,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_FEAR, .chance = 5, }),
         .contestEffect = C_UPDATED_MOVE_EFFECTS >= GEN_6 ? CONTEST_EFFECT_HIGHLY_APPEALING : CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
         .contestCategory = CONTEST_CATEGORY_SMART,
         .contestComboStarterId = 0,
@@ -8543,7 +8566,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 30,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_FEAR, .chance = 3, }),
         .contestEffect = CONTEST_EFFECT_STARTLE_PREV_MON,
         .contestCategory = C_UPDATED_MOVE_CATEGORIES >= GEN_6 ? CONTEST_CATEGORY_CUTE : CONTEST_CATEGORY_SMART,
         .contestComboStarterId = 0,
@@ -8652,6 +8676,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 3, }),
         .battleAnimScript = gBattleAnimMove_AirCutter,
         .validApprenticeMove = TRUE,
     },
@@ -9137,6 +9162,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .battleAnimScript = gBattleAnimMove_AerialAce,
         .validApprenticeMove = TRUE,
     },
@@ -9275,6 +9301,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_DRAGON_BREATH, COMBO_STARTER_DRAGON_DANCE, COMBO_STARTER_DRAGON_RAGE, COMBO_STARTER_DRAGON_RUSH, COMBO_STARTER_DRAGON_TAIL},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_DragonClaw,
         .validApprenticeMove = TRUE,
     },
@@ -9594,6 +9621,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_LeafBlade,
         .validApprenticeMove = TRUE,
     },
@@ -10868,7 +10896,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_FEAR, .chance = 5, }),
         .contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
@@ -10897,6 +10926,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = C_UPDATED_MOVE_CATEGORIES >= GEN_6 ? CONTEST_CATEGORY_COOL : CONTEST_CATEGORY_BEAUTY,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_NightSlash,
     },
 
@@ -10962,7 +10992,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 30,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 3, }),
         .contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
@@ -10990,6 +11021,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = C_UPDATED_MOVE_CATEGORIES >= GEN_6 ? CONTEST_CATEGORY_COOL : CONTEST_CATEGORY_BEAUTY,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_XScissor,
     },
 
@@ -11416,6 +11448,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = C_UPDATED_MOVE_CATEGORIES >= GEN_6 ? CONTEST_CATEGORY_COOL : CONTEST_CATEGORY_CUTE,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_ShadowClaw,
     },
 
@@ -11442,7 +11475,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         {
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 10,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         .contestCategory = C_UPDATED_MOVE_CATEGORIES >= GEN_6 ? CONTEST_CATEGORY_COOL : CONTEST_CATEGORY_SMART,
         .contestComboStarterId = COMBO_STARTER_THUNDER_FANG,
@@ -11477,7 +11511,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         {
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 10,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = COMBO_STARTER_ICE_FANG,
@@ -11508,7 +11543,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         {
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 10,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
         .contestCategory = C_UPDATED_MOVE_CATEGORIES >= GEN_6 ? CONTEST_CATEGORY_COOL : CONTEST_CATEGORY_BEAUTY,
         .contestComboStarterId = COMBO_STARTER_FIRE_FANG,
@@ -11585,6 +11621,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_PsychoCut,
     },
 
@@ -12018,6 +12055,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_TOUGH,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 15, }),
         .battleAnimScript = gBattleAnimMove_StoneEdge,
     },
 
@@ -12581,7 +12619,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             .speed = 1,
             .self = TRUE,
             .chance = 10,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_FEAR, .chance = 5, }),
         .contestEffect = CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS,
         .contestCategory = C_UPDATED_MOVE_CATEGORIES >= GEN_6 ? CONTEST_CATEGORY_BEAUTY : CONTEST_CATEGORY_SMART,
         .contestComboStarterId = 0,
@@ -13596,6 +13635,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_SMART,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_TOXIC, COMBO_STARTER_FORCE_PALM, COMBO_STARTER_THUNDER_WAVE, COMBO_STARTER_INFERNO, COMBO_STARTER_WILL_O_WISP, COMBO_STARTER_LOVELY_KISS, COMBO_STARTER_SPORE, COMBO_STARTER_SING, COMBO_STARTER_YAWN, COMBO_STARTER_HYPNOSIS, COMBO_STARTER_DARK_VOID, COMBO_STARTER_GRASS_WHISTLE, COMBO_STARTER_SLEEP_POWDER, COMBO_STARTER_POISON_GAS, COMBO_STARTER_POISON_POWDER, COMBO_STARTER_TOXIC_SPIKES, COMBO_STARTER_GLARE},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_FEAR, .chance = 5, }),
         .battleAnimScript = gBattleAnimMove_Hex,
     },
 
@@ -14185,6 +14225,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_TOUGH,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_DrillRun,
     },
 
@@ -14285,6 +14326,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_SacredSword,
     },
 
@@ -14308,7 +14350,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             .moveEffect = MOVE_EFFECT_STAT_MINUS,
             .defense = 1,
             .chance = 50,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .contestEffect = CONTEST_EFFECT_REPETITION_NOT_BORING,
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
@@ -14852,7 +14895,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             .moveEffect = MOVE_EFFECT_STAT_MINUS,
             .spAtk = 1,
             .chance = 100,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_FEAR, .chance = 5, }),
         .contestEffect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS, //CONTEST_EFFECT_QUICKLY_GROW_BORED
         .contestCategory = CONTEST_CATEGORY_TOUGH,
         .contestComboStarterId = 0,
@@ -16903,6 +16947,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_TOUGH,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_SolarBlade,
     },
 
@@ -17055,7 +17100,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_THROAT_CHOP,
             .chance = 100,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_FEAR, .chance = 5, }),
         .contestEffect = CONTEST_EFFECT_MAKE_FOLLOWING_MONS_NERVOUS,
         .contestCategory = CONTEST_CATEGORY_SMART,
         .contestComboStarterId = 0,
@@ -17282,6 +17328,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_SMART,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_SmartStrike,
     },
 
@@ -17616,7 +17663,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_BREAK_SCREEN,
             .preAttackEffect = TRUE,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .makesContact = TRUE,
         .bitingMove = TRUE,
         .contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
@@ -18407,7 +18455,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .bitingMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_TRAP_BOTH,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         .contestCategory = CONTEST_CATEGORY_TOUGH,
         .contestComboStarterId = 0,
@@ -18635,6 +18684,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_TOUGH,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .battleAnimScript = gBattleAnimMove_FishiousRend,
     },
 
@@ -18855,6 +18905,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_TOUGH,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_BehemothBlade,
     },
 
@@ -20083,7 +20134,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .slicingMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .sheerForceOverride = TRUE,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .battleAnimScript = gBattleAnimMove_StoneAxe,
     },
 
@@ -20436,7 +20488,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .slicingMove = TRUE,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .sheerForceOverride = TRUE,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 5, }),
         .battleAnimScript = gBattleAnimMove_CeaselessEdge,
     },
 
@@ -20969,6 +21022,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
         .slicingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_KowtowCleave,
     },
 
@@ -21437,7 +21491,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_ABSORB,
             .argument.absorbPercentage = 50,
-        }),
+        },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 3, }),
         .battleAnimScript = gBattleAnimMove_BitterBlade,
     },
 
@@ -21527,6 +21582,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .slicingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_AquaCutter,
     },
 
@@ -21927,6 +21983,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .makesContact = TRUE,
         .ignoresProtect = TRUE,
         .slicingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
         .battleAnimScript = gBattleAnimMove_MightyCleave,
     },
 
@@ -24245,7 +24302,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     .effect = EFFECT_HIT, .power = 85, .type = TYPE_FAIRY, .accuracy = 100,
     .pp = 15, .target = TARGET_SELECTED, .priority = 0,
     .category = DAMAGE_CATEGORY_PHYSICAL, .makesContact = TRUE, .bitingMove = TRUE,
-    .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_INFATUATION, .chance = 10, }),
+    .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_INFATUATION, .chance = 10, },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
     .battleAnimScript = gBattleAnimMove_Bite,
 },
 
@@ -24256,7 +24314,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     .effect = EFFECT_HIT, .power = 80, .type = TYPE_GHOST, .accuracy = 100,
     .pp = 15, .target = TARGET_SELECTED, .priority = 0,
     .category = DAMAGE_CATEGORY_PHYSICAL, .makesContact = TRUE, .bitingMove = TRUE,
-    .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_CURSE, .chance = 10, }),
+    .additionalEffects = ADDITIONAL_EFFECTS({ .moveEffect = MOVE_EFFECT_CURSE, .chance = 10, },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
     .battleAnimScript = gBattleAnimMove_Bite,
 },
 
@@ -24390,7 +24449,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     .additionalEffects = ADDITIONAL_EFFECTS({
         .moveEffect = MOVE_EFFECT_BREAK_SCREEN,
         .preAttackEffect = TRUE,
-    }),
+    },
+            { .moveEffect = MOVE_EFFECT_BLEED, .chance = 10, }),
     .battleAnimScript = gBattleAnimMove_BrickBreak,
 },
 

@@ -143,6 +143,9 @@ PokemonLeague_BrunosRoom_Text_Defeat::
 	.string "How could I lose?$"
 
 PokemonLeague_BrunosRoom_Text_PostBattle::
-	.string "My job is done.\n"
-	.string "Go face your next challenge.$"
+	.string "Your strength comes from\n"
+	.string "long training together.\p"
+	.string "Even ancient POKéMON\n"
+	.string "must learn that lesson.\p"
+	.string "The next member awaits!$"
 

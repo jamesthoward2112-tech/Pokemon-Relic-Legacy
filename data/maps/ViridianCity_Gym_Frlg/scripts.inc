@@ -117,15 +117,15 @@ ViridianCity_Gym_EventScript_GymStatuePostVictory::
 	end
 
 ViridianCity_Gym_Text_GiovanniIntro::
-	.string "Fwahahaha!\n"
-	.string "Welcome to my hideout!\p"
-	.string "It shall be so until I can restore\n"
-	.string "TEAM ROCKET to its former glory.\p"
-	.string "But, you have found me again.\n"
-	.string "So be it.\l"
-	.string "This time, I'm not holding back!\p"
-	.string "Once more, you shall face\n"
-	.string "GIOVANNI, the greatest TRAINER!{PLAY_BGM}{MUS_RG_ENCOUNTER_ROCKET}$"
+	.string "GIOVANNI: Here we meet again.\p"
+	.string "The fossils from MT. MOON,\n"
+	.string "the lab at SILPH, the relics...\p"
+	.string "All were steps toward an\n"
+	.string "ancient power I sought.\p"
+	.string "A bird of gold? A mere myth?\n"
+	.string "I still don't know.\p"
+	.string "But my fossil army is real.\n"
+	.string "Now face its full force!$"
 
 ViridianCity_Gym_Text_GiovanniDefeat::
 	.string "Ha!\n"
@@ -135,15 +135,14 @@ ViridianCity_Gym_Text_GiovanniDefeat::
 	.string "{PAUSE_MUSIC}{PLAY_BGM}{MUS_OBTAIN_BADGE}{PAUSE 0xFE}{PAUSE 0x56}{RESUME_MUSIC}$"
 
 ViridianCity_Gym_Text_GiovanniPostBattle::
-	.string "Having lost in this fashion, \n"
-	.string "I can't face my followers.\l"
-	.string "I have betrayed their trust.\p"
-	.string "As of today, TEAM ROCKET is\n"
-	.string "finished forever!\p"
-	.string "As for myself, I shall dedicate\n"
-	.string "my life to training again.\p"
-	.string "Let us meet again someday!\n"
-	.string "Farewell!$"
+	.string "My research. My fossil army.\n"
+	.string "All brought down by you.\p"
+	.string "I chased a legend, but lost\n"
+	.string "sight of my own POKéMON.\p"
+	.string "As of today, TEAM ROCKET\n"
+	.string "is disbanded.\p"
+	.string "The ancient mystery remains.\n"
+	.string "It is yours to uncover now.$"
 
 ViridianCity_Gym_Text_ExplainEarthBadgeTakeThis::
 	.string "The EARTHBADGE makes POKéMON of\n"
@@ -179,8 +178,10 @@ ViridianCity_Gym_Text_YujiDefeat::
 	.string "I ran out of gas!$"
 
 ViridianCity_Gym_Text_YujiPostBattle::
-	.string "You'll need power to keep up with\n"
-	.string "our GYM LEADER.$"
+	.string "The LEADER's fossil teams\n"
+	.string "are stronger than ever.\p"
+	.string "He says ancient strength\n"
+	.string "is there for the taking!$"
 
 ViridianCity_Gym_Text_AtsushiIntro::
 	.string "Rrrroar!\n"
@@ -221,8 +222,10 @@ ViridianCity_Gym_Text_WarrenDefeat::
 	.string "I lost my grip!$"
 
 ViridianCity_Gym_Text_WarrenPostBattle::
-	.string "The LEADER will scold me for\n"
-	.string "losing this way…$"
+	.string "The LEADER demanded\n"
+	.string "our fossil battle records.\p"
+	.string "His search for ancient\n"
+	.string "power has consumed him!$"
 
 ViridianCity_Gym_Text_TakashiIntro::
 	.string "I'm the KARATE KING!\n"
@@ -256,9 +259,10 @@ ViridianCity_Gym_Text_SamuelDefeat::
 	.string "I was beaten?$"
 
 ViridianCity_Gym_Text_SamuelPostBattle::
-	.string "You can go on to the POKéMON\n"
-	.string "LEAGUE only by defeating our GYM\l"
-	.string "LEADER!$"
+	.string "Our LEADER reopened the GYM\n"
+	.string "after his RELIC operation\n"
+	.string "at SILPH fell apart.\p"
+	.string "Can you beat him in battle?$"
 
 ViridianCity_Gym_Text_GymGuyAdvice::
 	.string "Yo!\n"

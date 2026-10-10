@@ -1474,10 +1474,13 @@ PalletTown_ProfessorOaksLab_Text_DeliveredOaksParcel::
 	.string "{PLAYER} delivered the RELIC REPORTS.$"
 
 PalletTown_ProfessorOaksLab_Text_OakCustomBallIOrdered::
-	.string "Ah! The archaeology reports!\p"
-	.string "Perfect timing. These findings may\n"
-	.string "explain KANTO's ancient RELICS.\p"
-	.string "Thank you, {PLAYER}!$"
+	.string "OAK: The RELIC REPORTS!\p"
+	.string "These ancient traits appear\n"
+	.string "in living POKéMON too.\p"
+	.string "I must compare the findings\n"
+	.string "with our KANTO field studies.\p"
+	.string "Take the POKéDEX with you.\n"
+	.string "Report any unusual changes!$"
 
 PalletTown_ProfessorOaksLab_Text_OakHaveRequestForYouTwo::
 	.string "OAK: Oh, right!\n"
@@ -1519,16 +1522,12 @@ PalletTown_ProfessorOaksLab_Text_OakExplainCatching::
 	.string "You have to be lucky!$"
 
 PalletTown_ProfessorOaksLab_Text_OakCompleteMonGuideWasMyDream::
-	.string "To make a complete guide on all\n"
-	.string "the POKéMON in the world…\p"
-	.string "That was my dream!\p"
-	.string "But, I'm too old.\n"
-	.string "I can't get the job done.\p"
-	.string "So, I want you two to fulfill my\n"
-	.string "dream for me.\p"
-	.string "Get moving, you two.\p"
-	.string "This is a great undertaking in\n"
-	.string "POKéMON history!$"
+	.string "OAK: Mapping every POKéMON\n"
+	.string "has always been my dream.\p"
+	.string "Now there are clues that\n"
+	.string "some ancient powers survived.\p"
+	.string "Help me record what changes\n"
+	.string "as your POKéMON grow!$"
 
 PalletTown_ProfessorOaksLab_Text_OakMonsAroundWorldWait::
 	.string "POKéMON around the world wait for\n"
@@ -1548,8 +1547,10 @@ PalletTown_ProfessorOaksLab_Text_OakAddedNothingToPokedex::
 
 PalletTown_ProfessorOaksLab_Text_OakComeSeeMeSometime::
 	.string "OAK: Come see me sometime.\p"
-	.string "After all, I want to know how your\n"
-	.string "POKéDEX is coming along.$"
+	.string "Bring any unusual fossils\n"
+	.string "or markings you discover.\p"
+	.string "The RELIC REPORTS suggest\n"
+	.string "KANTO's past is still alive!$"
 
 PalletTown_ProfessorOaksLab_Text_BlankEncyclopedia::
 	.string "It's like an encyclopedia, but the\n"
@@ -1705,5 +1706,7 @@ PalletTown_ProfessorOaksLab_Text_PRLAideSootheBell::
 	.string "This SOOTHE BELL should help.$"
 
 PalletTown_ProfessorOaksLab_Text_PRLAideResearch::
-	.string "Keep an eye out for unusual changes.\n"
-	.string "OAK's relic research is just starting.$"
+	.string "OAK's RELIC REPORTS keep\n"
+	.string "turning up strange parallels.\p"
+	.string "Compare fossils with the\n"
+	.string "living POKéMON you find!$"

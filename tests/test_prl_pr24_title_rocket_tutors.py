@@ -14,13 +14,16 @@ def map_file(name):
     return json.loads(source(f"data/maps/{name}_Frlg/map.json"))
 
 def test_title_direct_artwork_and_animation():
-    s=source("src/title_screen_frlg.c")
-    assert 'graphics/pokemon/jirachi/icon.png' in s
-    assert 'graphics/pokemon/celebi/icon.png' in s
-    assert 'INCGFX_U32("graphics/pokemon/jirachi/icon.png", ".4bpp")' in s
-    assert 'INCGFX_U32("graphics/pokemon/celebi/icon.png", ".4bpp")' in s
-    assert "PRLUpdateCelebiJirachiTitleAnimation(data[2])" in s
-    assert "PRLDrawPrompt(data[1])" in s
+    title = source("src/title_screen_frlg.c")
+    forest = source("src/prl_intro_trial.c")
+    expansion = source("src/expansion_intro.c")
+    assert "PRLDrawPrompt(data[1])" in title
+    assert "PRLUpdateTitleSparkles" in title
+    assert "PRLUpdateCelebiJirachiTitleAnimation" not in title
+    assert "CB2_InitPRLHwlScene0" in expansion
+    assert "sScene0Celebi_Gfx" in forest and "sScene0Jirachi_Gfx" in forest
+    assert "sAnims_Scene0Celebi" in forest and "sAnims_Scene0Jirachi" in forest
+
 
 def test_fossils_do_not_launch_rocket():
     s=source("data/maps/MtMoon_B2F_Frlg/scripts.inc")
@@ -29,24 +32,25 @@ def test_fossils_do_not_launch_rocket():
     assert "MtMoon_B2F_Text_PRL_RocketIntro::" in s
 
 def test_rocket_visible_and_obstructs_exit_before_battle():
-    j=map_file("MtMoon_B1F")
-    exit_warp=next(w for w in j["warp_events"] if w["dest_map"]=="MAP_ROUTE4")
-    assert (exit_warp["x"],exit_warp["y"])==(45,4)
-    pcs={x.get("local_id"):x for x in j["object_events"]}
-    for name in ("JESSIE","JAMES","MEOWTH"):
-        e=pcs[f"LOCALID_PRL_{name}_MT_MOON"]
-        assert e["flag"]=="FLAG_HIDE_PRL_ROCKET_MT_MOON"
-        assert e["script"]=="MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-        assert e["x"] < exit_warp["x"]
-    assert pcs["LOCALID_PRL_JESSIE_MT_MOON"]["y"] == pcs["LOCALID_PRL_JAMES_MT_MOON"]["y"]
-    assert any(e["x"]==42 and e["y"]==4 for e in j["coord_events"])
-    sc=source("data/maps/MtMoon_B1F_Frlg/scripts.inc")
-    assert "goto_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON" in sc
-    assert "trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON" in sc
-    assert "removeobject LOCALID_PRL_JESSIE_MT_MOON" in sc
-    assert "removeobject LOCALID_PRL_JAMES_MT_MOON" in sc
-    assert "removeobject LOCALID_PRL_MEOWTH_MT_MOON" in sc
-    assert "goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON" in sc
+    m=map_file("MtMoon_B1F")
+    warps={(w["x"],w["y"],w["dest_map"]) for w in m["warp_events"]}
+    assert (39,4,"MAP_MT_MOON_B2F") in warps
+    assert (45,4,"MAP_ROUTE4") in warps
+    assert not m["coord_events"], "Coordinate script triggers must not overlap ladders"
+    npc={a.get("local_id"):a for a in m["object_events"]}
+    for n in ("JESSIE","JAMES"):
+        a=npc["LOCALID_PRL_"+n+"_MT_MOON"]
+        assert a["y"]==2 and a["movement_type"]=="MOVEMENT_TYPE_FACE_DOWN"
+        assert a["trainer_type"]=="TRAINER_TYPE_NORMAL"
+        assert int(a["trainer_sight_or_berry_tree_id"])>=3
+        assert a["script"]=="MtMoon_B1F_EventScript_PRL_"+n.title()
+    s=source("data/maps/MtMoon_B1F_Frlg/scripts.inc")
+    for n in ("Jessie","James"):
+        assert "MtMoon_B1F_EventScript_PRL_"+n+"::" in s
+        assert "MtMoon_B1F_Text_PRL_"+n+"PostBattle::" in s
+    assert s.count("trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON")==2
+    assert "removeobject LOCALID_PRL_JESSIE_MT_MOON" not in s
+
 
 def test_rocket_has_joint_name_and_approved_front_gfx():
     s=source("src/data/trainers_frlg.party")
@@ -58,6 +62,13 @@ def test_rocket_has_joint_name_and_approved_front_gfx():
     assert int.from_bytes(png[16:20],"big")==64
     assert int.from_bytes(png[20:24],"big")==64
     assert png[24]==4  # palette-indexed 4bpp PNG
+    # Both trainer IDs must render the approved *two-person* white-uniform donor.
+    import hashlib
+    james=(ROOT/"graphics/trainers/front_pics/prl_james.png").read_bytes()
+    assert james == png
+    assert hashlib.sha256(png).hexdigest()=="37321dc53d66139cb466971b75b9d5764f6148ea45f589617fa7bb4f316006a2"
+    assert png[25]==3  # indexed colour PNG
+    assert b"tRNS" in png and png[png.index(b"tRNS")+4] == 0  # GBA OBJ colour zero is transparent
 
 def test_route4_blackbelts_teach_correct_moves():
     j=map_file("Route4")

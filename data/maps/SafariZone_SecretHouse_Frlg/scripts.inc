@@ -25,15 +25,13 @@ SafariZone_SecretHouse_EventScript_ExplainSurf::
 	end
 
 SafariZone_SecretHouse_Text_CongratsYouveWon::
-	.string "Ah! Finally!\p"
-	.string "You're the first person to reach\n"
-	.string "the SECRET HOUSE!\p"
-	.string "Although I made a campaign\n"
-	.string "for our grand opening,\p"
-	.string "I was getting worried that no one\n"
-	.string "would win our campaign prize.\p"
-	.string "Congratulations!\n"
-	.string "You have won!$"
+	.string "Ah! The first TRAINER to\n"
+	.string "reach the SECRET HOUSE!\p"
+	.string "SAFARI researchers have\n"
+	.string "tracked old RELIC traits\n"
+	.string "in our rare POKéMON.\p"
+	.string "But you came for a prize.\n"
+	.string "You certainly earned it!$"
 
 SafariZone_SecretHouse_Text_ReceivedHM03FromAttendant::
 	.string "{PLAYER} received HM03\n"

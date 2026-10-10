@@ -125,10 +125,13 @@ SaffronCity_Gym_Text_SabrinaDefeat::
 	.string "MARSHBADGE.$"
 
 SaffronCity_Gym_Text_SabrinaPostBattle::
-	.string "Psychic power isn't something that\n"
-	.string "only a few people have.\p"
-	.string "Everyone has psychic power.\n"
-	.string "People just don't realize it.$"
+	.string "You earned the MARSHBADGE.\n"
+	.string "Your spirit is strong.\p"
+	.string "I sense an ancient current\n"
+	.string "beneath KANTO.\p"
+	.string "Some say a golden bird\n"
+	.string "flies where none can follow.\p"
+	.string "A vision... not a name.$"
 
 SaffronCity_Gym_Text_ExplainMarshBadgeTakeThis::
 	.string "The MARSHBADGE makes POKéMON up\n"

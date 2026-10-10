@@ -121,11 +121,12 @@ FuchsiaCity_Gym_Text_KogaDefeat::
 	.string "Take the SOULBADGE!$"
 
 FuchsiaCity_Gym_Text_KogaPostBattle::
-	.string "When afflicted by TOXIC, a POKéMON\n"
-	.string "suffers more and more.\p"
-	.string "It suffers worsening damage as the\n"
-	.string "battle wears on!\p"
-	.string "It will surely terrorize foes!$"
+	.string "TOXIC grows stronger each\n"
+	.string "turn. Patience is power!\p"
+	.string "My scouts report ROCKET\n"
+	.string "is hunting ancient species.\p"
+	.string "Strength is not theirs to\n"
+	.string "claim from fossil RELICS!$"
 
 FuchsiaCity_Gym_Text_KogaExplainSoulBadge::
 	.string "Now that you have the SOULBADGE,\n"

@@ -348,24 +348,26 @@ Route25_SeaCottage_Text_NoPleaseBeautiful::
 	.string "All right!$"
 
 Route25_SeaCottage_Text_ThanksBudTakeThis::
-	.string "BILL: Yeehah!\n"
-	.string "Thanks, bud! I owe you one!\p"
-	.string "So, did you come to see my\n"
-	.string "POKéMON collection?\p"
-	.string "You didn't?\n"
-	.string "That's a bummer.\p"
-	.string "I've got to thank you…\n"
-	.string "Oh, here, maybe this'll do.$"
+	.string "BILL: Yeehah! Thanks, bud!\p"
+	.string "My transporter was tuned to\n"
+	.string "ancient RELIC energy.\p"
+	.string "I tried to study the old\n"
+	.string "POKéMON forms in KANTO...\p"
+	.string "And ended up as a POKéMON!\p"
+	.string "PROF. OAK's reports may\n"
+	.string "explain those strange forms.\p"
+	.string "Here, take this for helping!$"
 
 Route25_SeaCottage_Text_ThanksLadyTakeThis::
-	.string "BILL: Yeehah!\n"
-	.string "Thanks, lady! I owe you one!\p"
-	.string "So, did you come to see my\n"
-	.string "POKéMON collection?\p"
-	.string "You didn't?\n"
-	.string "That's a bummer.\p"
-	.string "I've got to thank you…\n"
-	.string "Oh, here, maybe this'll do.$"
+	.string "BILL: Yeehah! Thanks, lady!\p"
+	.string "My transporter was tuned to\n"
+	.string "ancient RELIC energy.\p"
+	.string "I tried to study the old\n"
+	.string "POKéMON forms in KANTO...\p"
+	.string "And ended up as a POKéMON!\p"
+	.string "PROF. OAK's reports may\n"
+	.string "explain those strange forms.\p"
+	.string "Here, take this for helping!$"
 
 Route25_SeaCottage_Text_ReceivedSSTicketFromBill::
 	.string "{PLAYER} received an S.S. TICKET\n"
@@ -385,9 +387,12 @@ Route25_SeaCottage_Text_SSAnnePartyYouGoInstead::
 	.string "Go on and have a good time.$"
 
 Route25_SeaCottage_Text_CheckOutRareMonsOnPC::
-	.string "BILL: Feel like checking out some\n"
-	.string "of my rare POKéMON on my PC?\p"
-	.string "Go on, check out my PC.$"
+	.string "BILL: Check my rare POKéMON\n"
+	.string "records on that PC!\p"
+	.string "The transporter detected\n"
+	.string "a strange RELIC signal.\p"
+	.string "It matches OAK's reports\n"
+	.string "from MT. MOON's fossils!$"
 
 Route25_SeaCottage_Text_TeleporterIsDisplayed::
 	.string "TELEPORTER is displayed on the PC\n"

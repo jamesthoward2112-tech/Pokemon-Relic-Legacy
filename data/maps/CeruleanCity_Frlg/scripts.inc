@@ -402,28 +402,33 @@ CeruleanCity_Text_ExplainFameCheckerSmellYa::
 	.string "gone. Smell ya!$"
 
 CeruleanCity_Text_GruntIntro::
-	.string "Hey! Stay out!\n"
-	.string "It's not your yard!\p"
-	.string "…Huh?\n"
-	.string "Me?\p"
-	.string "I'm an innocent bystander!\n"
-	.string "Don't you believe me?{PLAY_BGM}{MUS_RG_ENCOUNTER_ROCKET}$"
+	.string "Hey! This yard is off limits!\p"
+	.string "Our crew is digging into\n"
+	.string "ancient layers underground!\p"
+	.string "What? TEAM ROCKET?\n"
+	.string "You know too much, kid!$"
 
 CeruleanCity_Text_GruntDefeat::
-	.string "GRUNT: Stop! I give up!\n"
-	.string "I'll leave quietly!$"
+	.string "GRUNT: Not again!\n"
+	.string "Our excavation's ruined!$"
 
 CeruleanCity_Text_OkayIllReturnStolenTM::
-	.string "…Okay.\n"
-	.string "I'll return the TM I stole.$"
+	.string "Fine! I'll return TM28 DIG!\p"
+	.string "TEAM ROCKET uses DIG to reach\n"
+	.string "fossil beds underground.\p"
+	.string "That's how we recover ancient\n"
+	.string "RELIC artifacts for the BOSS!\p"
+	.string "Now, forget I said that!$"
 
 CeruleanCity_Text_RecoveredTM28FromGrunt::
 	.string "{PLAYER} recovered TM28 from\n"
 	.string "the TEAM ROCKET GRUNT.$"
 
 CeruleanCity_Text_BetterGetMovingBye::
-	.string "I better get moving!\n"
-	.string "Bye!$"
+	.string "The BOSS has crews searching\n"
+	.string "all over KANTO for RELICS.\p"
+	.string "Ah! I said too much!\n"
+	.string "I'm outta here!$"
 
 CeruleanCity_Text_MakeRoomForThisCantRun::
 	.string "Make room for this!\n"
@@ -456,10 +461,12 @@ CeruleanCity_Text_PokemonEncyclopediaAmusing::
 
 CeruleanCity_Text_PeopleHereWereRobbed::
 	.string "The people here were robbed.\p"
-	.string "It's obvious that TEAM ROCKET is\n"
-	.string "behind this most heinous crime!\p"
+	.string "ROCKETS broke through the wall\n"
+	.string "looking for ancient fossils.\p"
+	.string "They kept asking about RELICS.\n"
+	.string "What could they be after?\p"
 	.string "Even our POLICE FORCE has\n"
-	.string "trouble with the ROCKETS!$"
+	.string "trouble with those ROCKETS!$"
 
 CeruleanCity_Text_SlowbroUseSonicboom::
 	.string "Okay! SLOWBRO!\n"

@@ -52,13 +52,18 @@ PokemonMansion_1F_Text_ArniePostBattle::
 	.string "alternating sets of doors.$"
 
 PokemonMansion_1F_Text_NewMonDiscoveredInGuyanaJungle::
-	.string "Diary: July 5\n"
-	.string "Guyana, South America\p"
-	.string "A new POKéMON was discovered deep\n"
-	.string "in the jungle.$"
+	.string "Diary: July 5\p"
+	.string "A new POKéMON was found\n"
+	.string "deep in a distant jungle.\p"
+	.string "Its genes reacted to a\n"
+	.string "fossil specimen.\p"
+	.string "Signal designation: RELIC-01.$"
 
 PokemonMansion_1F_Text_ChristenedDiscoveredMonMew::
-	.string "Diary: July 10\n"
-	.string "We christened the newly discovered\l"
-	.string "POKéMON, MEW.$"
+	.string "Diary: July 10\p"
+	.string "We named the new POKéMON MEW.\p"
+	.string "RELIC-01 appears in fossils\n"
+	.string "and some modern genes.\p"
+	.string "Does ancient power lie\n"
+	.string "dormant in living species?$"
 

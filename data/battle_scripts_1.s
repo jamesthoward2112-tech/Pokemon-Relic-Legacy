@@ -2090,6 +2090,7 @@ BattleScript_NightmareWorked::
 	seteffectprimary BS_ATTACKER, BS_TARGET, MOVE_EFFECT_NIGHTMARE
 	printstring STRINGID_PKMNFELLINTONIGHTMARE
 	waitmessage B_WAIT_TIME_LONG
+	setadditionaleffects
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectCurse::

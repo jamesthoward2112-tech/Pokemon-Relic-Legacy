@@ -51,8 +51,11 @@ VictoryRoad_1F_Text_NaomiDefeat::
 	.string "I lost out…$"
 
 VictoryRoad_1F_Text_NaomiPostBattle::
-	.string "I never wanted to lose to anybody,\n"
-	.string "especially to a younger kid…$"
+	.string "I trained near old cliffs.\p"
+	.string "Some stones show marks\n"
+	.string "like those at MT. MOON.\p"
+	.string "Maybe KANTO's ancient\n"
+	.string "mystery isn't finished!$"
 
 VictoryRoad_1F_Text_RolandoIntro::
 	.string "I can see you're good.\n"

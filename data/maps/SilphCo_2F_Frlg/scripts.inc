@@ -44,8 +44,10 @@ SilphCo_2F_Text_ConnorDefeat::
 	.string "I was a ROCKET?$"
 
 SilphCo_2F_Text_ConnorPostBattle::
-	.string "I work for both SILPH and TEAM\n"
-	.string "ROCKET.$"
+	.string "I work for both SILPH and\n"
+	.string "TEAM ROCKET.\p"
+	.string "Their excavation data is\n"
+	.string "worth a fortune to us!$"
 
 SilphCo_2F_Text_JerryIntro::
 	.string "It's off-limits here!\n"
@@ -59,27 +61,33 @@ SilphCo_2F_Text_JerryPostBattle::
 	.string "It's not easy, I tell you!$"
 
 SilphCo_2F_Text_Grunt1Intro::
-	.string "No kids are allowed in here!$"
+	.string "Don't touch those files!\p"
+	.string "The ancient-DNA project\n"
+	.string "belongs to TEAM ROCKET!$"
 
 SilphCo_2F_Text_Grunt1Defeat::
 	.string "Tough!$"
 
 SilphCo_2F_Text_Grunt1PostBattle::
-	.string "Diamond-shaped tiles are teleport\n"
-	.string "blocks.\p"
-	.string "They're transporters for this\n"
-	.string "high-tech building.$"
+	.string "Those diamond tiles are\n"
+	.string "transporters.\p"
+	.string "We use them to move RELIC\n"
+	.string "samples between labs.\p"
+	.string "Now get out of here!$"
 
 SilphCo_2F_Text_Grunt2Intro::
-	.string "Hey, kid!\n"
-	.string "What are you wandering here for?$"
+	.string "We copied SILPH's fossil\n"
+	.string "and ancient-DNA records!\p"
+	.string "You won't take them back!$"
 
 SilphCo_2F_Text_Grunt2Defeat::
 	.string "I goofed!$"
 
 SilphCo_2F_Text_Grunt2PostBattle::
-	.string "SILPH CO. will be associated with\n"
-	.string "TEAM ROCKET!$"
+	.string "The BOSS already has\n"
+	.string "SILPH's fossil reports.\p"
+	.string "Even the scientists don't\n"
+	.string "know what the signal means!$"
 
 Text_ThunderWaveTeach::
 	.string "Eeek!\n"

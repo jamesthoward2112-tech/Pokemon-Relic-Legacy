@@ -12,8 +12,10 @@ RocketHideout_B3F_EventScript_Grunt2::
 	end
 
 RocketHideout_B3F_Text_Grunt1Intro::
-	.string "Stop meddling in TEAM ROCKET's\n"
-	.string "affairs or else!$"
+	.string "Stop! These archives contain\n"
+	.string "ancient fossil data!\p"
+	.string "We cannot let you reach\n"
+	.string "the BOSS's lab!$"
 
 RocketHideout_B3F_Text_Grunt1Defeat::
 	.string "Oof!\n"
@@ -25,15 +27,18 @@ RocketHideout_B3F_Text_Grunt1PostBattle::
 	.string "It's here somewhere.$"
 
 RocketHideout_B3F_Text_Grunt2Intro::
-	.string "We got word from upstairs that you\n"
-	.string "were coming!$"
+	.string "You again?! The BOSS has\n"
+	.string "ordered the old stone marks\n"
+	.string "sent for laboratory testing!\p"
+	.string "You're not stopping us!$"
 
 RocketHideout_B3F_Text_Grunt2Defeat::
 	.string "What?\n"
 	.string "I lost? No!$"
 
 RocketHideout_B3F_Text_Grunt2PostBattle::
-	.string "Go ahead and go!\p"
-	.string "But you can't run the elevator\n"
-	.string "without the LIFT KEY.$"
+	.string "The fossil shipments are\n"
+	.string "headed to SILPH CO.\p"
+	.string "They can revive specimens\n"
+	.string "and study dormant traits.$"
 

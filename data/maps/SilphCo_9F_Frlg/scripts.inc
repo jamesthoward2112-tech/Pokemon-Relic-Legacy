@@ -55,15 +55,18 @@ SilphCo_9F_Text_ThankYouSoMuch::
 	.string "Thank you so much.$"
 
 SilphCo_9F_Text_Grunt1Intro::
-	.string "Your POKéMON seem to adore you,\n"
-	.string "kid!$"
+	.string "Stay back, kid!\p"
+	.string "The scientists are testing\n"
+	.string "fossil and living DNA.\p"
+	.string "That RELIC signal is real!$"
 
 SilphCo_9F_Text_Grunt1Defeat::
 	.string "Ghaaah!$"
 
 SilphCo_9F_Text_Grunt1PostBattle::
-	.string "If I had started as a TRAINER at\n"
-	.string "your age…$"
+	.string "Our researchers compared\n"
+	.string "fossils with living POKéMON.\p"
+	.string "Some traits have returned!$"
 
 SilphCo_9F_Text_EdIntro::
 	.string "Your POKéMON have weak points!\n"
@@ -85,7 +88,10 @@ SilphCo_9F_Text_Grunt2Defeat::
 	.string "Brothers, I lost!$"
 
 SilphCo_9F_Text_Grunt2PostBattle::
-	.string "My brothers will avenge me!$"
+	.string "Even my brothers can't\n"
+	.string "protect these records...\p"
+	.string "The oldest samples came\n"
+	.string "from KANTO's ancient seas!$"
 
 SilphCo_9F_Text_FloorSign::
 	.string "SILPH CO. HEAD OFFICE\n"

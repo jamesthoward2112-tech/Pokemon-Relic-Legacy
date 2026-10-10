@@ -63,37 +63,48 @@ RocketHideout_B1F_EventScript_RemoveBarrier::
 	return
 
 RocketHideout_B1F_Text_Grunt1Intro::
-	.string "Who are you?\n"
-	.string "How did you get here?$"
+	.string "Hold it! This storage floor is\n"
+	.string "for TEAM ROCKET's dig crew!\p"
+	.string "Our RELIC crates aren't for\n"
+	.string "nosy kids to examine!$"
 
 RocketHideout_B1F_Text_Grunt1Defeat::
 	.string "Oww!\n"
 	.string "Beaten!$"
 
 RocketHideout_B1F_Text_Grunt1PostBattle::
-	.string "Blast it… You're dissing TEAM\n"
-	.string "ROCKET, aren't you?$"
+	.string "The fossils aren't treasure.\p"
+	.string "Some contain a strange mark.\n"
+	.string "The BOSS calls it a RELIC.\p"
+	.string "We catalogue every fragment!$"
 
 RocketHideout_B1F_Text_Grunt2Intro::
-	.string "You broke into TEAM ROCKET's\n"
-	.string "operation? What nerve!$"
+	.string "TEAM ROCKET's fossil cargo\n"
+	.string "is none of your business!\p"
+	.string "Turn around, kid!$"
 
 RocketHideout_B1F_Text_Grunt2Defeat::
 	.string "Boom!$"
 
 RocketHideout_B1F_Text_Grunt2PostBattle::
-	.string "You're not going to get away with\n"
-	.string "this, brat!$"
+	.string "Those crates came from\n"
+	.string "MT. MOON and beyond.\p"
+	.string "Even broken artifacts go\n"
+	.string "straight to the scientists.$"
 
 RocketHideout_B1F_Text_Grunt3Intro::
-	.string "Intruder alert!$"
+	.string "The excavation records\n"
+	.string "are confidential!\p"
+	.string "You won't find the specimen\n"
+	.string "manifest on this floor!$"
 
 RocketHideout_B1F_Text_Grunt3Defeat::
 	.string "I can't do it!$"
 
 RocketHideout_B1F_Text_Grunt3PostBattle::
-	.string "SILPH SCOPE? Humph!\n"
-	.string "I don't know where it is.$"
+	.string "The specimens went from\n"
+	.string "MT. MOON to a secret lab.\p"
+	.string "I don't know which lab!$"
 
 RocketHideout_B1F_Text_Grunt4Intro::
 	.string "Why did you come here?$"
@@ -102,8 +113,9 @@ RocketHideout_B1F_Text_Grunt4Defeat::
 	.string "This won't do!$"
 
 RocketHideout_B1F_Text_Grunt4PostBattle::
-	.string "Okay, I'll talk…\n"
-	.string "Take the elevator to see my BOSS.$"
+	.string "Okay, I'll talk...\p"
+	.string "Take the elevator to BOSS.\n"
+	.string "He has the RELIC ledgers!$"
 
 RocketHideout_B1F_Text_Grunt5Intro::
 	.string "Are you lost, you little mouse?$"

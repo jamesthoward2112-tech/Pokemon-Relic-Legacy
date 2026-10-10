@@ -226,21 +226,22 @@ MtMoon_B2F_Text_ObtainedDomeFossil::
 @ PR24: Jessie and James wait visibly in B1F on the exit path.
 @ Their battle no longer starts on fossil pickup in B2F.
 MtMoon_B2F_Text_PRL_RocketIntro::
-	.string "JESSIE: Prepare for trouble!\p"
-	.string "JAMES: And make it double!\p"
-	.string "This Kanto operation is only one\n"
-	.string "piece of a much older mystery.$"
+	.string "JESSIE: The fossils are ours!\p"
+	.string "JAMES: The BOSS ordered a full\n"
+	.string "inventory of ancient remains!\p"
+	.string "JESSIE: And no meddling kids!$"
 
 MtMoon_B2F_Text_PRL_RocketDefeat::
-	.string "JESSIE: This can't be!\p"
-	.string "JAMES: We'll report back to the\n"
-	.string "BOSS about the relic research!$"
+	.string "JAMES: The dig has failed!\p"
+	.string "JESSIE: Our BOSS will hear\n"
+	.string "about the missing specimens!$"
 
 MtMoon_B2F_Text_PRL_RocketNotEnoughMons::
 	.string "JESSIE: Bring at least two POKéMON\n"
 	.string "if you want to stop TEAM ROCKET!$"
 
 MtMoon_B2F_Text_PRL_RocketPostBattle::
-	.string "JAMES: The fossils, the relics…\p"
-	.string "JESSIE: This Kanto project is just\n"
-	.string "the beginning!$"
+	.string "JAMES: These old stones bear\n"
+	.string "a strange, repeated mark.\p"
+	.string "JESSIE: The BOSS calls it a\n"
+	.string "RELIC. This isn't over!$"

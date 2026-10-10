@@ -122,23 +122,30 @@ SilphCo_6F_Text_RocketsRanAwayBecauseOfYou::
 	.string "because of you!$"
 
 SilphCo_6F_Text_TargetedSilphForOurMonProducts::
-	.string "They must have targeted SILPH for\n"
-	.string "our POKéMON products.$"
+	.string "ROCKET wanted our POKéMON\n"
+	.string "technology, yes.\p"
+	.string "But they stole the archive\n"
+	.string "on ancient RELIC specimens!\p"
+	.string "Some samples came from\n"
+	.string "far beneath KANTO.$"
 
 SilphCo_6F_Text_ComeWorkForSilphWhenYoureOlder::
 	.string "Come work for SILPH when you\n"
 	.string "get older.$"
 
 SilphCo_6F_Text_Grunt1Intro::
-	.string "I am one of the four ROCKET\n"
-	.string "BROTHERS!$"
+	.string "I am one of the four\n"
+	.string "ROCKET BROTHERS!\p"
+	.string "Our family's guarding\n"
+	.string "the ancient-specimen data!$"
 
 SilphCo_6F_Text_Grunt1Defeat::
 	.string "Flame out!$"
 
 SilphCo_6F_Text_Grunt1PostBattle::
-	.string "No matter!\n"
-	.string "My brothers will avenge me!$"
+	.string "My brothers will avenge me!\p"
+	.string "They've sealed the RELIC\n"
+	.string "files on higher floors!$"
 
 SilphCo_6F_Text_TaylorIntro::
 	.string "That rotten PRESIDENT!\p"
@@ -155,14 +162,18 @@ SilphCo_6F_Text_TaylorPostBattle::
 	.string "It's in Russian no-man's-land!$"
 
 SilphCo_6F_Text_Grunt2Intro::
-	.string "You dare betray TEAM ROCKET?$"
+	.string "We've revived an entire\n"
+	.string "collection of fossil POKéMON!\p"
+	.string "You're not stopping us!$"
 
 SilphCo_6F_Text_Grunt2Defeat::
 	.string "You traitor!$"
 
 SilphCo_6F_Text_Grunt2PostBattle::
-	.string "If you stand for justice, you\n"
-	.string "betray us bad guys!$"
+	.string "SILPH revived our fossil\n"
+	.string "POKéMON as ordered.\p"
+	.string "BOSS wants living proof\n"
+	.string "those ancient traits return!$"
 
 SilphCo_6F_Text_FloorSign::
 	.string "SILPH CO. HEAD OFFICE\n"

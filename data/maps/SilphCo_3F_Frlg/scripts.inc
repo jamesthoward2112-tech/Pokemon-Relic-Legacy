@@ -43,14 +43,18 @@ SilphCo_3F_Text_YouAndYourMonsSavedUs::
 	.string "You and your POKéMON saved us!$"
 
 SilphCo_3F_Text_GruntIntro::
-	.string "Quit messing with us, kid!$"
+	.string "Keep away from the lab!\p"
+	.string "The revived fossils show\n"
+	.string "a hidden RELIC pattern!$"
 
 SilphCo_3F_Text_GruntDefeat::
 	.string "I give up!$"
 
 SilphCo_3F_Text_GruntPostBattle::
-	.string "A hint? You can open doors with\n"
-	.string "a CARD KEY!$"
+	.string "We found the same pattern\n"
+	.string "in ancient and living genes.\p"
+	.string "The BOSS wants to trigger\n"
+	.string "that power in his army!$"
 
 SilphCo_3F_Text_JoseIntro::
 	.string "I support TEAM ROCKET more than\n"
@@ -60,9 +64,10 @@ SilphCo_3F_Text_JoseDefeat::
 	.string "You really got me!$"
 
 SilphCo_3F_Text_JosePostBattle::
-	.string "Humph…\p"
-	.string "TEAM ROCKET said that if I helped\n"
-	.string "them, they'd let me study POKéMON.$"
+	.string "ROCKET promised I could\n"
+	.string "study ancient POKéMON.\p"
+	.string "I never agreed to turn\n"
+	.string "revived fossils into weapons!$"
 
 SilphCo_3F_Text_FloorSign::
 	.string "SILPH CO. HEAD OFFICE\n"

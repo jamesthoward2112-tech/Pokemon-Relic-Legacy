@@ -231,14 +231,19 @@ PokemonTower_7F_Movement_Grunt3ExitLeft::
 	step_end
 
 PokemonTower_7F_Text_Grunt1Intro::
-	.string "What do you want?\n"
-	.string "Why are you here?$"
+	.string "Stay out of here, kid!\p"
+	.string "BOSS wants rare POKéMON\n"
+	.string "and ancient specimens!\p"
+	.string "This place is off limits!$"
 
 PokemonTower_7F_Text_Grunt1Defeat::
 	.string "I give up!$"
 
 PokemonTower_7F_Text_Grunt1PostBattle::
-	.string "I'm not going to forget this!$"
+	.string "Our BOSS wants rare POKéMON\n"
+	.string "and ancient specimens alike.\p"
+	.string "But even I won't touch\n"
+	.string "the spirits on this floor!$"
 
 PokemonTower_7F_Text_Grunt2Intro::
 	.string "This old guy marched right up to\n"
@@ -253,9 +258,11 @@ PokemonTower_7F_Text_Grunt2Defeat::
 	.string "No more!$"
 
 PokemonTower_7F_Text_Grunt2PostBattle::
-	.string "POKéMON are only good for making\n"
-	.string "money. Why not use them?\p"
-	.string "You stay out of our business!$"
+	.string "ROCKET collects fossils\n"
+	.string "and living POKéMON alike.\p"
+	.string "But what we did to CUBONE's\n"
+	.string "mother was unforgivable.\p"
+	.string "I won't defend that!$"
 
 PokemonTower_7F_Text_Grunt3Intro::
 	.string "You're not saving anyone, kid!$"
@@ -264,7 +271,10 @@ PokemonTower_7F_Text_Grunt3Defeat::
 	.string "Don't fight us ROCKETS!$"
 
 PokemonTower_7F_Text_Grunt3PostBattle::
-	.string "You're not getting away with this!$"
+	.string "The fossils are one thing.\n"
+	.string "The ghosts here are another.\p"
+	.string "Don't tell the BOSS what\n"
+	.string "we've done to these POKéMON!$"
 
 PokemonTower_7F_Text_MrFujiThankYouFollowMe::
 	.string "MR. FUJI: Heh?\n"

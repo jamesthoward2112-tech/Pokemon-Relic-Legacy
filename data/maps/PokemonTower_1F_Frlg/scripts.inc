@@ -4,6 +4,11 @@ PokemonTower_1F_Frlg_MapScripts::
 
 PokemonTower_1F_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_POKEMON_TOWER_1F
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeSaveSyncWon
+	end
+PokemonTower_1F_EventScript_PRLSteeveNeeveeSaveSyncWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER
+	setvar VAR_PRL_RECURRING_TOWER_TRIGGER, 1
 	end
 
 PokemonTower_1F_EventScript_Channeler::
@@ -66,24 +71,58 @@ PokemonTower_1F_Text_SenseSpiritsUpToMischief::
 	.string "I sense them high in the TOWER.$"
 
 
+@ Scripted, visible, NPC-associated double battle: never launch a trainer without an object context.
 PokemonTower_1F_EventScript_PRLSteeveNeeveeTrigger::
 	lockall
 	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerEnd
 	checkitem ITEM_SILPH_SCOPE
 	goto_if_eq VAR_RESULT, FALSE, PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerEnd
 	goto_if_defeated TRAINER_STEEVE_NEEVEE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
-	trainerbattle_double TRAINER_STEEVE_NEEVEE_TOWER, PokemonTower_1F_Text_PRL_SteeveNeeveeIntro, PokemonTower_1F_Text_PRL_SteeveNeeveeDefeat, PokemonTower_1F_Text_PRL_SteeveNeeveeNotEnoughMons
+	@ Keep actors stationary if the player cannot field a double battle.
+	special HasEnoughMonsForDoubleBattle
+	goto_if_ne VAR_RESULT, PLAYER_HAS_TWO_USABLE_MONS, PokemonTower_1F_EventScript_PRLSteeveNeeveeNeedTwo
+	applymovement LOCALID_PRL_STEEVE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeMovement_Approach
+	applymovement LOCALID_PRL_NEEVEE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeMovement_Approach
+	waitmovementall
+	@ Passing localId selects the actual sprite instead of the player object.
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_TOWER, PokemonTower_1F_Text_PRL_SteeveNeeveeIntro, PokemonTower_1F_Text_PRL_SteeveNeeveeDefeat, PokemonTower_1F_Text_PRL_SteeveNeeveeNotEnoughMons, localId=LOCALID_PRL_STEEVE_TOWER, continueScript=TRUE
 	goto_if_defeated TRAINER_STEEVE_NEEVEE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerWon
 	releaseall
 	end
+
+PokemonTower_1F_EventScript_PRLSteeveNeeveeNeedTwo::
+	msgbox PokemonTower_1F_Text_PRL_SteeveNeeveeNotEnoughMons
+	releaseall
+	end
+
 PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerWon::
-	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER
 	msgbox PokemonTower_1F_Text_PRL_SteeveNeeveePostBattle
+	applymovement LOCALID_PRL_STEEVE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeMovement_Leave
+	applymovement LOCALID_PRL_NEEVEE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeMovement_Leave
+	waitmovementall
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER
+	setvar VAR_PRL_RECURRING_TOWER_TRIGGER, 1
+	removeobject LOCALID_PRL_STEEVE_TOWER
+	removeobject LOCALID_PRL_NEEVEE_TOWER
+	releaseall
+	end
+
 PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER
+	setvar VAR_PRL_RECURRING_TOWER_TRIGGER, 1
+	removeobject LOCALID_PRL_STEEVE_TOWER
+	removeobject LOCALID_PRL_NEEVEE_TOWER
 PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerEnd::
 	releaseall
 	end
+
+PokemonTower_1F_EventScript_PRLSteeveNeeveeMovement_Approach::
+	walk_down
+	step_end
+
+PokemonTower_1F_EventScript_PRLSteeveNeeveeMovement_Leave::
+	walk_up
+	step_end
 
 PokemonTower_1F_Text_PRL_SteeveNeeveeIntro::
 	.string "STEEVE: Remember us from the ship?\p"

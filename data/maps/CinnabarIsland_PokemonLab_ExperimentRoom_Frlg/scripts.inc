@@ -306,13 +306,12 @@ Text_MetronomeTaught::
 	.string "using moves it doesn't even know.$"
 
 CinnabarIsland_PokemonLab_ExperimentRoom_Text_HaveYouAFossilForMe::
-	.string "Hiya!\p"
-	.string "I am important doctor.\n"
-	.string "Yes, very much so, indeed.\p"
-	.string "Here, I study rare POKéMON fossils.\n"
-	.string "All the time, I study.\p"
-	.string "You!\n"
-	.string "Have you a fossil for me?$"
+	.string "Hiya! I study ancient\n"
+	.string "POKéMON fossils!\p"
+	.string "Some have the same dormant\n"
+	.string "trait as RELIC-01.\p"
+	.string "You! Do you have a fossil\n"
+	.string "for my Resurrection Machine?$"
 
 CinnabarIsland_PokemonLab_ExperimentRoom_Text_NoIsTooBad::
 	.string "No!\n"
@@ -325,10 +324,11 @@ CinnabarIsland_PokemonLab_ExperimentRoom_Text_TakesTimeGoForWalkJP::
 	.string "ブラブラ　してくると　よろしー！$"
 
 CinnabarIsland_PokemonLab_ExperimentRoom_Text_FossilMonBackToLife::
-	.string "You late.\n"
-	.string "Where were you?\p"
-	.string "Your fossil is back to life!\n"
-	.string "It was {STR_VAR_1} like I think!$"
+	.string "You late! Where were you?\p"
+	.string "Your fossil is alive again!\n"
+	.string "It was {STR_VAR_1}!\p"
+	.string "The RELIC-01 mark appears\n"
+	.string "in its ancient DNA too!$"
 
 CinnabarIsland_PokemonLab_ExperimentRoom_Text_ReceivedMonFromDoctor::
 	.string "{PLAYER} received the {STR_VAR_1}\n"
@@ -339,12 +339,13 @@ CinnabarIsland_PokemonLab_ExperimentRoom_Text_NoRoomForPokemon::
 	.string "ポケモン　いっぱいで　もてないね！$"
 
 CinnabarIsland_PokemonLab_ExperimentRoom_Text_ThatFossilIsOfMonMakeItLiveAgain::
-	.string "Oh!\n"
-	.string "That is {STR_VAR_2}, it is!\p"
-	.string "It is fossil of {STR_VAR_1},\n"
-	.string "a POKéMON that is already extinct!\p"
-	.string "My Resurrection Machine will make\n"
-	.string "that POKéMON live again!$"
+	.string "Oh! That is {STR_VAR_2}!\p"
+	.string "A fossil of {STR_VAR_1},\n"
+	.string "an extinct POKéMON!\p"
+	.string "My Resurrection Machine\n"
+	.string "can restore it to life!\p"
+	.string "Then we can compare its\n"
+	.string "DNA with RELIC-01!$"
 
 @ TODO: Resolve text dump error below?
 CinnabarIsland_PokemonLab_ExperimentRoom_Text_HandedFossilToWeirdDoctor::
@@ -354,10 +355,15 @@ CinnabarIsland_PokemonLab_ExperimentRoom_Text_HandedFossilToWeirdDoctor::
 	.string "{STR_VAR_2} to the weird doctor.$"
 
 CinnabarIsland_PokemonLab_ExperimentRoom_Text_TakesTimeGoForWalk::
-	.string "I take a little time!\n"
-	.string "You go for walk a little while!$"
+	.string "Ancient cells take time\n"
+	.string "to come alive again!\p"
+	.string "I compare the RELIC-01 notes\n"
+	.string "while you take a short walk.$"
 
 CinnabarIsland_PokemonLab_ExperimentRoom_Text_YouComeAgain::
-	.string "Aiyah!\n"
-	.string "You come again!$"
+	.string "Welcome back, TRAINER!\p"
+	.string "Fossils and living POKéMON\n"
+	.string "can share dormant traits.\p"
+	.string "There is much more for us\n"
+	.string "to learn about RELIC-01!$"
 

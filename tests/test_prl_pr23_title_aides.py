@@ -1,7 +1,4 @@
-"""PR23 test: retain exact PRL Mode-3 title while animating Jirachi/Celebi,
-and place both stationary starter aides correctly. Mercury donor binary
-graphics are not part of this source-only change until packs are available.
-"""
+"""Retain PR23 aide positions and replace title icons with Issue 26's forest intro."""
 import json
 from pathlib import Path
 
@@ -13,20 +10,26 @@ def load(path):
 
 
 def test_title_keeps_artwork_and_animates_both_mythicals():
+    # Issue 26 supersedes title-screen icon animation with full forest intro.
     title = load("src/title_screen_frlg.c")
+    expansion = load("src/expansion_intro.c")
+    forest = load("src/prl_intro_trial.c")
+    build = load(".github/workflows/build.yml")
     assert 'graphics/title_screen_prl/prl_option_b_title_mode3.bin' in title
     assert "CpuCopy16(sPRLTitleMode3" in title
-    assert "PRLUpdateCelebiJirachiTitleAnimation" in title
-    assert 'INCGFX_U32("graphics/pokemon/jirachi/icon.png", ".4bpp")' in title
-    assert 'INCGFX_U32("graphics/pokemon/celebi/icon.png", ".4bpp")' in title
-    assert "sPRLJirachiIconPalette" in title
-    assert "sPRLCelebiIconPalette" in title
-    assert "PRLRestoreIconRegion(PRL_TITLE_LEFT_X)" in title
-    assert "PRLRestoreIconRegion(PRL_TITLE_RIGHT_X)" in title
-    # Ensure prompt flashing and A/Start both remain available.
+    assert "PRLUpdateTitleSparkles" in title
     assert "PRLDrawPrompt(TRUE)" in title
     assert "JOY_NEW(A_BUTTON | START_BUTTON)" in title
     assert "PRLDrawPrompt(data[1])" in title
+    assert "PRLUpdateCelebiJirachiTitleAnimation" not in title
+    assert "SetMainCallback2(CB2_InitPRLHwlScene0)" in expansion
+    assert "void CB2_InitPRLHwlScene0(void)" in forest
+    assert 'graphics/intro/prl_hwl/celebi.png' in forest
+    assert 'graphics/intro/prl_hwl/jirachi.png' in forest
+    assert "TAG_SCENE0_CELEBI" in forest
+    assert "TAG_SCENE0_JIRACHI" in forest
+    assert "Restore SHA-pinned original Celebi/Jirachi forest artwork" in build
+    assert "python3 tools/prl/prepare_hwl_scene0.py" in build
 
 
 def test_charmander_aide_is_stationary_on_route_3():

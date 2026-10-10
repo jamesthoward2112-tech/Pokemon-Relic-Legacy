@@ -244,24 +244,23 @@ SilphCo_7F_Text_ObtainedLaprasFromEmployee::
 	.string "the SILPH employee!$"
 
 SilphCo_7F_Text_ExplainLapras::
-	.string "It's a LAPRAS.\n"
-	.string "It's a very intelligent POKéMON.\p"
-	.string "We kept it in our lab, but it will\n"
-	.string "be much better off with you.\p"
-	.string "I think you will be a good TRAINER\n"
-	.string "for LAPRAS!\p"
-	.string "It's a good swimmer.\n"
-	.string "It'll give you a lift across water!$"
+	.string "This LAPRAS carries memories\n"
+	.string "of the ancient seas.\p"
+	.string "ROCKET tested it for traces\n"
+	.string "of a mysterious RELIC signal.\p"
+	.string "Please give it a good home!$"
 
 SilphCo_7F_Text_RocketBossWentToBoardroom::
-	.string "TEAM ROCKET's BOSS went to the\n"
-	.string "boardroom!\p"
-	.string "Is our PRESIDENT okay?\n"
-	.string "I'm worried.$"
+	.string "GIOVANNI took the fossil\n"
+	.string "records to the boardroom!\p"
+	.string "Please save our PRESIDENT!$"
 
 SilphCo_7F_Text_RocketsAfterMasterBall::
-	.string "TEAM ROCKET was after the MASTER\n"
-	.string "BALL, which catches any POKéMON.$"
+	.string "ROCKET wants our MASTER BALL\n"
+	.string "for an ancient POKéMON.\p"
+	.string "One file mentions a bird\n"
+	.string "shining like gold.\p"
+	.string "But that's only a legend!$"
 
 SilphCo_7F_Text_CanceledMasterBallProject::
 	.string "We canceled the MASTER BALL\n"
@@ -316,8 +315,10 @@ SilphCo_7F_Text_Grunt1Defeat::
 	.string "Brothers, I lost!$"
 
 SilphCo_7F_Text_Grunt1PostBattle::
-	.string "Doesn't matter.\n"
-	.string "My brothers will repay the favor!$"
+	.string "The ROCKET BROTHERS will\n"
+	.string "avenge each other!\p"
+	.string "One of us guards the\n"
+	.string "ancient-sea research!$"
 
 SilphCo_7F_Text_Grunt2Intro::
 	.string "A child intruder?\n"
@@ -328,8 +329,10 @@ SilphCo_7F_Text_Grunt2Defeat::
 	.string "I lost!$"
 
 SilphCo_7F_Text_Grunt2PostBattle::
-	.string "Go on home before my BOSS gets\n"
-	.string "ticked off!$"
+	.string "BOSS needs the MASTER BALL.\p"
+	.string "Some golden shape appears\n"
+	.string "in an ancient sketch.\p"
+	.string "No one even knows its name!$"
 
 SilphCo_7F_Text_RivalWhatKeptYou::
 	.string "{RIVAL}: What kept you, {PLAYER}?$"

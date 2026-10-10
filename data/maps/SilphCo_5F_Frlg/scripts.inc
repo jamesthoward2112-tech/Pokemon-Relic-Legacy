@@ -67,15 +67,20 @@ SilphCo_5F_Text_YoureOurHeroThankYou::
 	.string "You're our hero! Thank you!$"
 
 SilphCo_5F_Text_Grunt1Intro::
-	.string "I heard a kid was wandering\n"
-	.string "around.$"
+	.string "No further, kid!\p"
+	.string "This floor develops the\n"
+	.string "ultimate capture device.\p"
+	.string "The BOSS needs it for an\n"
+	.string "unidentified ancient target!$"
 
 SilphCo_5F_Text_Grunt1Defeat::
 	.string "Boom!$"
 
 SilphCo_5F_Text_Grunt1PostBattle::
-	.string "It's not smart to pick a fight with\n"
-	.string "TEAM ROCKET!$"
+	.string "The prototype can capture\n"
+	.string "almost anything.\p"
+	.string "No one knows what kind of\n"
+	.string "creature BOSS is hunting!$"
 
 SilphCo_5F_Text_BeauIntro::
 	.string "We study POKé BALL technology on\n"
@@ -86,8 +91,10 @@ SilphCo_5F_Text_BeauDefeat::
 	.string "Blast it!$"
 
 SilphCo_5F_Text_BeauPostBattle::
-	.string "We worked on the ultimate POKé\n"
-	.string "BALL which would catch anything.$"
+	.string "We worked on an ultimate\n"
+	.string "POKé BALL: the MASTER BALL.\p"
+	.string "ROCKET demanded our prototype\n"
+	.string "after seeing RELIC data!$"
 
 SilphCo_5F_Text_DaltonIntro::
 	.string "Whaaat?\p"
@@ -109,8 +116,10 @@ SilphCo_5F_Text_Grunt2Defeat::
 	.string "Cough…$"
 
 SilphCo_5F_Text_Grunt2PostBattle::
-	.string "Which reminds me.\p"
-	.string "KOFFING evolves into WEEZING!$"
+	.string "The RELIC signal came from\n"
+	.string "a very old fossil sample.\p"
+	.string "The researchers were scared.\n"
+	.string "I wasn't allowed to ask why!$"
 
 SilphCo_5F_Text_PorygonFirstVRMon::
 	.string "It's a POKéMON REPORT!\p"
@@ -132,9 +141,8 @@ SilphCo_5F_Text_FloorSign::
 	.string "5F$"
 
 SilphCo_5F_Text_RocketBossLookingForStrongMons::
-	.string "Those thugs that took over our\n"
-	.string "building…\p"
-	.string "Their BOSS said he was looking for\n"
-	.string "strong POKéMON.\p"
-	.string "I hope our PRESIDENT managed to\n"
-	.string "avoid trouble…$"
+	.string "Those thugs seized our lab!\p"
+	.string "Their BOSS wants revived\n"
+	.string "FOSSIL POKéMON for his army.\p"
+	.string "He's hunting an even rarer\n"
+	.string "ancient creature, they say.$"

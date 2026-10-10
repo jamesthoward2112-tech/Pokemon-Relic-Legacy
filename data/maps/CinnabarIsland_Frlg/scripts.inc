@@ -361,10 +361,11 @@ CinnabarIsland_Text_BlaineLivedHereSinceBeforeLab::
 	.string "before the LAB was built.$"
 
 CinnabarIsland_Text_ScientistsExperimentInMansion::
-	.string "Scientists conduct experiments \n"
-	.string "in the burned-out building.\p"
-	.string "You know, the one they call the\n"
-	.string "POKéMON MANSION.$"
+	.string "Scientists once studied\n"
+	.string "fossils in the old MANSION.\p"
+	.string "Some burned notes mention\n"
+	.string "a strange signal: RELIC-01.\p"
+	.string "The LAB still researches it!$"
 
 CinnabarIsland_Text_IslandSign::
 	.string "CINNABAR ISLAND\n"

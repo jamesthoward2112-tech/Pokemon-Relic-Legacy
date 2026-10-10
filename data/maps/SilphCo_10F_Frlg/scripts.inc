@@ -34,15 +34,20 @@ SilphCo_10F_EventScript_Grunt::
 	end
 
 SilphCo_10F_Text_GruntIntro::
-	.string "Welcome to 10F!\n"
-	.string "So good of you to join me!$"
+	.string "Welcome to 10F!\p"
+	.string "The MASTER BALL research\n"
+	.string "is nearly complete.\p"
+	.string "You won't reach the BOSS\n"
+	.string "or his ancient prize!$"
 
 SilphCo_10F_Text_GruntDefeat::
 	.string "I'm stunned!$"
 
 SilphCo_10F_Text_GruntPostBattle::
-	.string "Nice try, but the boardroom is up\n"
-	.string "one more floor.$"
+	.string "The MASTER BALL records\n"
+	.string "went to the top floor.\p"
+	.string "A golden bird? That's just\n"
+	.string "an unproven old legend!$"
 
 SilphCo_10F_Text_TravisIntro::
 	.string "Enough of your silly games!$"
