@@ -19,7 +19,7 @@ class ApprovedEeveelutions(unittest.TestCase):
         specs=(R/"src/data/pokemon/species_info/prl_custom.h").read_text()
         block=specs.split("[SPECIES_EEVEEON] =",1)[1].split("[SPECIES_NIMBEON] =",1)[0]
         for k,v in {"baseHP":100,"baseAttack":110,"baseDefense":85,"baseSpAttack":110,"baseSpDefense":85,"baseSpeed":110}.items():
-            self.assertRegex(block,r"\."+k+r"\s*=\\s*"+str(v)+r"\b")
+            self.assertRegex(block,r"\."+k+r"\s*=\s*"+str(v)+r"\b")
         self.assertIn("ABILITY_ADAPTABILITY",block)
         self.assertIn("ABILITY_NORMALIZE",block)
     def test_elevated_eeveeon_move(self):
