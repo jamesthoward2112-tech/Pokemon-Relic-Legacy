@@ -13,3 +13,5 @@ Source bank: `PRL_Team_Rocket_COMPLETE_Donor_Bank_2026-10-09.zip`, `01_Trio_Appr
 Emulator checks remain mandatory. This update does not certify the larger Noxichu sprite overhaul, completed PKR-story fidelity or flawless full-game battle progression.
 
 All CI compilation targets (FireRed, Emerald, LeafGreen and release / test) must prefetch the pinned forest assets because the engine's INCGFX dependency scanner reads the source even for a non-FireRed conditional compilation target. This does not mean the intro runs in other versions. All four Rocket pair encounters now use the actual local Jessie actor for safe double battle setup and continue after victory; team data is unchanged.
+
+Palette safety: the 16-colour Rocket duo PNG has *transparent palette index 0* (not merely an arbitrary indexed PNG tRNS entry); both trainer image slots share this corrected binary. Regression checks exact SHA-256, size, indexed 4bpp and palette index 0.

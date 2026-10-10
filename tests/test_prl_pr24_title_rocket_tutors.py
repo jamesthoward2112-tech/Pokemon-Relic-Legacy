@@ -65,8 +65,9 @@ def test_rocket_has_joint_name_and_approved_front_gfx():
     import hashlib
     james=(ROOT/"graphics/trainers/front_pics/prl_james.png").read_bytes()
     assert james == png
-    assert hashlib.sha256(png).hexdigest()=="98d92caed630f2d9e3143db68b87d2f284ef25df80d7431bc2deb840e74726cd"
+    assert hashlib.sha256(png).hexdigest()=="5c85bcef4d96bc20908c5a13476b16491048e9e1dc52ff7ec550461c9cf612e8"
     assert png[25]==3  # indexed colour PNG
+    assert b"tRNS" in png and png[png.index(b"tRNS")+4] == 0  # GBA OBJ colour zero is transparent
 
 def test_route4_blackbelts_teach_correct_moves():
     j=map_file("Route4")
