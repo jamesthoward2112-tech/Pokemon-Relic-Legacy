@@ -50,7 +50,7 @@ class Issue26VisibleDuos(unittest.TestCase):
         map_data = json.loads((ROOT / "data/maps/MtMoon_B1F_Frlg/map.json").read_text())
         gates={(e["x"],e["y"]) for e in map_data["coord_events"]
                if e["script"] == "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"}
-        self.assertTrue({(42,2),(42,3),(42,4),(42,5),(43,2),(44,2),(45,2),(45,3)} <= gates)
+        self.assertTrue({(42,2),(42,3),(42,4),(42,5),(43,2),(44,2),(45,2),(45,3),(44,5),(45,5),(46,5),(46,4),(45,4)} <= gates)
         s=(ROOT/"data/maps/MtMoon_B1F_Frlg/scripts.inc").read_text()
         self.assertRegex(s, r"trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON[^\n]*localId=LOCALID_PRL_JESSIE_MT_MOON, continueScript=TRUE")
         macro=(ROOT/"asm/macros/event.inc").read_text()

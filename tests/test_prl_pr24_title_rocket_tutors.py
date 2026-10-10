@@ -61,6 +61,12 @@ def test_rocket_has_joint_name_and_approved_front_gfx():
     assert int.from_bytes(png[16:20],"big")==64
     assert int.from_bytes(png[20:24],"big")==64
     assert png[24]==4  # palette-indexed 4bpp PNG
+    # Both trainer IDs must render the approved *two-person* white-uniform donor.
+    import hashlib
+    james=(ROOT/"graphics/trainers/front_pics/prl_james.png").read_bytes()
+    assert james == png
+    assert hashlib.sha256(png).hexdigest()=="98d92caed630f2d9e3143db68b87d2f284ef25df80d7431bc2deb840e74726cd"
+    assert png[25]==3  # indexed colour PNG
 
 def test_route4_blackbelts_teach_correct_moves():
     j=map_file("Route4")

@@ -47,6 +47,9 @@ jobs:
             tools/wav2agb/wav2agb
           key: tools-${{ runner.os }}-${{ hashFiles('tools/*/Makefile', 'tools/**/*.c', 'tools/**/*.cpp', 'tools/**/*.h') }}
 
+      - name: Restore SHA-pinned original Celebi/Jirachi forest artwork
+        run: python3 tools/prl/prepare_hwl_scene0.py
+
       - name: ROM (Emerald)
         env:
           GAME_VERSION: EMERALD
@@ -154,6 +157,9 @@ jobs:
             tools/wav2agb/wav2agb
           key: tools-${{ runner.os }}-${{ hashFiles('tools/*/Makefile', 'tools/**/*.c', 'tools/**/*.cpp', 'tools/**/*.h') }}
 
+      - name: Restore SHA-pinned original Celebi/Jirachi forest artwork
+        run: python3 tools/prl/prepare_hwl_scene0.py
+
       - name: ROM (Leafgreen)
         run: |
           log=/tmp/prl-leafgreen.log
@@ -200,6 +206,9 @@ jobs:
             tools/compresSmol/compresSmolTilemap
             tools/wav2agb/wav2agb
           key: tools-${{ runner.os }}-${{ hashFiles('tools/*/Makefile', 'tools/**/*.c', 'tools/**/*.cpp', 'tools/**/*.h') }}
+
+      - name: Restore SHA-pinned original Celebi/Jirachi forest artwork
+        run: python3 tools/prl/prepare_hwl_scene0.py
 
       - name: Release
         env:
@@ -254,6 +263,9 @@ jobs:
 
       - name: Python tests
         run: python3 -m unittest discover -s tests -v
+
+      - name: Restore SHA-pinned original Celebi/Jirachi forest artwork
+        run: python3 tools/prl/prepare_hwl_scene0.py
 
       - name: Test
         env:

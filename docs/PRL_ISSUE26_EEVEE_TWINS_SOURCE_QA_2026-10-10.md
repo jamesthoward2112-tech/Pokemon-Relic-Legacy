@@ -28,3 +28,5 @@ Static tests: `python -m unittest discover -s tests -p "test_prl_issue26_visible
 - Jessie/James trainer fronts use a 64x64, 16-colour, two-character composite derived from the approved white uniform Jessie and James donor pack; both existing trainer pic slots use the identical duo image so neither appears alone
 - Battle team records, approved overworld actors, Mercury Eevee special battle art and all save flags are unchanged
 - Not a gameplay acceptance claim: verify exact pre-title timings, individual versus composite art, encounter approach and save compatibility in mGBA before release
+
+Additional anti-bypass gates added around Mt Moon's eastern Route 4 exit warp (45,4) and its lower/right approach tiles (44,5),(45,5),(46,5),(46,4). Coordinate and warp precedence remains an emulator acceptance point.
