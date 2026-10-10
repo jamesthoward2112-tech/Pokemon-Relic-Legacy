@@ -59,7 +59,9 @@ SilphCo_2F_Text_JerryPostBattle::
 	.string "It's not easy, I tell you!$"
 
 SilphCo_2F_Text_Grunt1Intro::
-	.string "No kids are allowed in here!$"
+	.string "Don't touch those files!\p"
+	.string "The ancient-DNA project\n"
+	.string "belongs to TEAM ROCKET!$"
 
 SilphCo_2F_Text_Grunt1Defeat::
 	.string "Tough!$"
@@ -78,8 +80,8 @@ SilphCo_2F_Text_Grunt2Defeat::
 	.string "I goofed!$"
 
 SilphCo_2F_Text_Grunt2PostBattle::
-	.string "SILPH CO. will be associated with\n"
-	.string "TEAM ROCKET!$"
+	.string "The BOSS already received\n"
+	.string "SILPH's fossil reports!$"
 
 Text_ThunderWaveTeach::
 	.string "Eeek!\n"
