@@ -8910,7 +8910,14 @@ static void Cmd_trymovestatchanges(void)
     enum MoveResult result = DoStatChange();
 
     if (result == MOVE_RESULT_DONE)
-        gBattlescriptCurrInstr = cmd->nextInstr;
+    {
+        // PRL Noble Roar has a separate 10% Fear roll, without replaying
+        // its normal Attack/Sp. Atk drops through setadditionaleffects.
+        if (gCurrentMove == MOVE_NOBLE_ROAR && RandomPercentage(RNG_SECONDARY_EFFECT, 10))
+            SetMoveEffectHelper(gBattlerAttacker, gBattlerTarget, MOVE_EFFECT_FEAR, cmd->nextInstr, EFFECT_PRIMARY);
+        else
+            gBattlescriptCurrInstr = cmd->nextInstr;
+    }
 }
 
 #define SET_FLAG(statChangeFlag) (flags & statChangeFlag) ? TRUE : FALSE
