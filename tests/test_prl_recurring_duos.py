@@ -58,10 +58,7 @@ class PRLRecurringDuos(unittest.TestCase):
                 script = read(f"data/maps/{map_name}/scripts.inc")
                 self.assertTrue(re.search(rf"trainerbattle_double TRAINER_{name}\b", script), name)
                 self.assertTrue(re.search(rf"setflag FLAG_PRL_RECURRING_{name}\b", script), name)
-                if name == "JESSIE_JAMES_MT_MOON":
-                    self.assertIn("goto_if_defeated TRAINER_JESSIE_JAMES_MT_MOON",script)
-                else:
-                    if name.startswith("JESSIE_JAMES_"):
+                if name.startswith("JESSIE_JAMES_"):
                     self.assertIn(f"goto_if_defeated TRAINER_{name}", script)
                 else:
                     self.assertTrue(re.search(rf"goto_if_set FLAG_PRL_RECURRING_{name}\b", script), name)
