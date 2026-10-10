@@ -23,6 +23,16 @@ class NoxAndRocket(unittest.TestCase):
         self.assertEqual(hashlib.sha256(data).hexdigest(),
                          "6b173ed1cd8b528565fc33dba9542ea8c670e8b00d8f9b39b4e64469c4c127bf")
 
+    def test_noxichu_battle_back_sprite_is_lowered_not_moved_in_png(self):
+        # Regression for 10 Oct 2026 emulator screenshot: Noxichu floated above the player's platform.
+        species = (ROOT / "src/data/pokemon/species_info.h").read_text()
+        noxichu = species.split("[SPECIES_NOXICHU] =", 1)[1].split('    #include "species_info/prl_custom.h"', 1)[0]
+        self.assertIn(".backPicYOffset = 8,", noxichu)
+        self.assertIn(".frontPicYOffset = 0,", noxichu)
+        # Positive offset moves the back sprite DOWN in this engine.
+        renderer = (ROOT / "src/battle_anim_mons.c").read_text()
+        self.assertIn("y = offset + sBattlerCoords", renderer)
+
     def test_approved_rocket_two_person_picture(self):
         j=png("graphics/trainers/front_pics/prl_jessie.png",64,64)
         self.assertEqual(j,png("graphics/trainers/front_pics/prl_james.png",64,64))
