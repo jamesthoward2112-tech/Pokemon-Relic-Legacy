@@ -169,3 +169,4 @@
 
 - [PRL Issue 26 Eevee Twins and Rocket Scene Source QA](./PRL_ISSUE26_EEVEE_TWINS_SOURCE_QA_2026-10-10.md)
 - [PRL Issue 26 Forest Intro and Rocket Portrait Donors](./PRL_ISSUE26_FOREST_AND_ROCKET_DONORS_2026-10-10.md)
+- [PRL Issue 26 Player Visual Polish](./PRL_ISSUE26_PLAYER_VISUAL_POLISH_2026-10-10.md)
