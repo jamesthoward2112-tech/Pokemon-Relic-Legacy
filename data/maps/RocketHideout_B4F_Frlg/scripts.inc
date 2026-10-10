@@ -235,7 +235,7 @@ RocketHideout_B4F_Movement_PRL_RocketExit::
 	step_end
 
 RocketHideout_B4F_Text_PRL_RocketIntro::
-	.string "JESSIE: You again?!\p"
+	.string "JESSIE: You ruined MT. MOON!\p"
 	.string "JAMES: These fossil ledgers\n"
 	.string "are TOP SECRET!\p"
 	.string "JESSIE: You read nothing!$"
