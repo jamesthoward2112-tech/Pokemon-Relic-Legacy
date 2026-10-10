@@ -153,9 +153,9 @@ class PRLRecurringDuos(unittest.TestCase):
             "SSAnne_2F_Corridor_Frlg": "We met on ROUTE 3",
             "PokemonTower_1F_Frlg": "Remember us from the ship",
             "Route23_Frlg": "From ROUTE 3 to the League",
-            "RocketHideout_B4F_Frlg": "You foiled us at MT. MOON",
-            "SilphCo_11F_Frlg": "Twice you've ruined our plans",
-            "VictoryRoad_3F_Frlg": "You keep chasing us",
+            "RocketHideout_B4F_Frlg": "You ruined MT. MOON",
+            "SilphCo_11F_Frlg": "After MT. MOON and",
+            "VictoryRoad_3F_Frlg": "From SILPH to here",
         }
         for map_name, line in expected.items():
             with self.subTest(map=map_name):
