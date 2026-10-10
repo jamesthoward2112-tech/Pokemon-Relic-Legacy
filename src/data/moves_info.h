@@ -24513,7 +24513,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     {
         .name = COMPOUND_STRING("Eevoboost"),
         .description = COMPOUND_STRING(
-            "Gathers inner potential\\n"
+            "Gathers inner potential\n"
             "to raise all five stats."),
         .effect = EFFECT_EXTREME_EVOBOOST,
         .power = 0,
