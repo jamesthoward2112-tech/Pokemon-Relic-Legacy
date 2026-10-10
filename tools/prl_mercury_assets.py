@@ -35,8 +35,9 @@ def png_chunk(tag, data):
     return struct.pack(">I", len(data)) + tag + data + struct.pack(">I", zlib.crc32(tag + data) & 0xFFFFFFFF)
 
 
-def make_rgba_png(tiled_4bpp, colors):
-    # GBA 4bpp sprites are 8x8-tile-major. Palette 0 is transparent.
+def make_indexed_png(tiled_4bpp, colors):
+    # gbagfx requires 8-bit indexed PNG (colour type 3), not RGBA (type 6).
+    # Each source nibble is an *exact* index into the accompanying RGB555 pal.
     assert len(tiled_4bpp) == RAW_SPRITE_BYTES and len(colors) == 16
     scanlines = bytearray()
     for y in range(SIZE):
@@ -45,10 +46,13 @@ def make_rgba_png(tiled_4bpp, colors):
             tile = (y // 8) * (SIZE // 8) + x // 8
             n = tile * 32 + (y % 8) * 4 + (x % 8) // 2
             index = (tiled_4bpp[n] >> 4) if (x & 1) else (tiled_4bpp[n] & 15)
-            scanlines.extend((*colors[index], 0 if index == 0 else 255))
-    header = struct.pack(">IIBBBBB", SIZE, SIZE, 8, 6, 0, 0, 0)
+            scanlines.append(index)
+    header = struct.pack(">IIBBBBB", SIZE, SIZE, 8, 3, 0, 0, 0)
+    palette = b"".join(bytes(rgb) for rgb in colors)
     return (b"\x89PNG\r\n\x1a\n"
             + png_chunk(b"IHDR", header)
+            + png_chunk(b"PLTE", palette)
+            + png_chunk(b"tRNS", bytes((0,)) + bytes((255,)) * 15)
             + png_chunk(b"IDAT", zlib.compress(scanlines, level=9))
             + png_chunk(b"IEND", b""))
 
@@ -84,7 +88,7 @@ def materialize():
 
         out = ROOT / destination
         for part, pixels in zip(("front", "back"), fronts):
-            write_changed(out / (part + ".png"), make_rgba_png(pixels, palettes[0]))
+            write_changed(out / (part + ".png"), make_indexed_png(pixels, palettes[0]))
         write_changed(out / "normal.pal", jasc_palette(palettes[0]))
         write_changed(out / "shiny.pal", jasc_palette(palettes[1]))
 
