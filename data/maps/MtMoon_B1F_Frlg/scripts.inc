@@ -11,6 +11,11 @@ MtMoon_B1F_OnTransition_PRLJessieJames::
 	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON, MtMoon_B1F_PRL_RocketNotReady
 	goto_if_defeated TRAINER_JESSIE_JAMES_MT_MOON, MtMoon_B1F_PRL_RocketAlreadyWon
 	clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+	@ Overworld NPCs are instantiated before some transition scripts run:
+	@ actively spawn the two characters and Meowth after un-hiding them.
+	addobject LOCALID_PRL_JESSIE_MT_MOON
+	addobject LOCALID_PRL_JAMES_MT_MOON
+	addobject LOCALID_PRL_MEOWTH_MT_MOON
 MtMoon_B1F_PRL_RocketNotReady::
 	return
 
