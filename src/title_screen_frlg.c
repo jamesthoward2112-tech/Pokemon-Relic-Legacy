@@ -15,8 +15,6 @@
 #include "menu.h"
 #include "new_game.h"
 #include "palette.h"
-#include "pokemon_icon.h"
-#include "constants/species.h"
 #include "quickstart.h"
 #include "random.h"
 #include "reset_rtc_screen.h"
@@ -43,67 +41,65 @@ static void CB2_PRLTitleRun(void);
 static void VBlankCB_PRLTitle(void);
 static void Task_PRLTitle(u8 taskId);
 
-// PR24: use directly decoded 4bpp assets, not runtime icon pointers.
-static const u32 sPRLJirachiIconTiles[] = INCGFX_U32("graphics/pokemon/jirachi/icon.png", ".4bpp");
-static const u16 sPRLJirachiIconPalette[] = INCGFX_U16("graphics/pokemon/jirachi/icon.png", ".gbapal");
-static const u32 sPRLCelebiIconTiles[] = INCGFX_U32("graphics/pokemon/celebi/icon.png", ".4bpp");
-static const u16 sPRLCelebiIconPalette[] = INCGFX_U16("graphics/pokemon/celebi/icon.png", ".gbapal");
+// Bitmap Mode 3 has no indexed palette to fade, so darken BG2 in hardware.
+// This keeps every pixel of the approved 240x160 title artwork intact.
+#define PRL_TITLE_SPARKLE_RADIUS 8
+#define PRL_TITLE_SPARKLE_DURATION 20
+#define PRL_TITLE_SPARKLE_GAP 24
 
-// PRL's approved Mode 3 picture stays intact. The small Jirachi and Celebi
-// battle-style icons are software composited, because Mode 3's framebuffer
-// overlaps regular OBJ tile memory and must not be corrupted by OBJ sprites.
-// Both frames and palettes come from the engine's existing Pokémon icon bank.
-#define PRL_TITLE_ICON_SIZE 32
-#define PRL_TITLE_LEFT_X 16
-#define PRL_TITLE_RIGHT_X 192
-#define PRL_TITLE_ICON_Y 92
-#define PRL_TITLE_ICON_REGION_X_PAD 3
-#define PRL_TITLE_ICON_REGION_Y_PAD 5
-#define PRL_TITLE_ICON_REGION_W 38
-#define PRL_TITLE_ICON_REGION_H 44
-
-static void PRLRestoreIconRegion(s16 left)
+// Three restrained golden twinkles sweep across the Relic Legacy lettering.
+static const u8 sPRLTitleSparklePositions[][2] =
 {
-    s16 y;
-    const s16 startX = left - PRL_TITLE_ICON_REGION_X_PAD;
-    const s16 startY = PRL_TITLE_ICON_Y - PRL_TITLE_ICON_REGION_Y_PAD;
-    for (y = 0; y < PRL_TITLE_ICON_REGION_H; y++)
-    {
-        const u16 *source = sPRLTitleMode3 + (startY + y) * DISPLAY_WIDTH + startX;
-        u16 *dest = (u16 *)VRAM + (startY + y) * DISPLAY_WIDTH + startX;
-        CpuCopy16(source, dest, PRL_TITLE_ICON_REGION_W * sizeof(u16));
-    }
-}
+    {83, 127},
+    {125, 126},
+    {174, 127},
+};
 
-static void PRLDrawAnimatedMonIcon(const u8 *src, const u16 *pal, s16 left, s16 top, u8 frame)
+static void PRLUpdateTitleSparkles(u16 frame)
 {
-    s16 row;
-    if (src == NULL || pal == NULL)
-        return;
-    src += frame * (PRL_TITLE_ICON_SIZE * PRL_TITLE_ICON_SIZE / 2);
-    for (row = 0; row < PRL_TITLE_ICON_SIZE; row++)
+    u16 *const dst = (u16 *)VRAM;
+    u8 i;
+
+    for (i = 0; i < ARRAY_COUNT(sPRLTitleSparklePositions); i++)
     {
-        s16 col;
-        for (col = 0; col < PRL_TITLE_ICON_SIZE; col++)
+        const u16 start = i * PRL_TITLE_SPARKLE_GAP;
+        s16 x, y, d;
+        u16 age;
+        u8 length;
+
+        if (frame < start || frame > start + PRL_TITLE_SPARKLE_DURATION)
+            continue;
+
+        x = sPRLTitleSparklePositions[i][0];
+        y = sPRLTitleSparklePositions[i][1];
+        age = frame - start;
+
+        // Restore original Mode 3 pixels first: no permanent marks or ghosts.
+        for (d = -PRL_TITLE_SPARKLE_RADIUS; d <= PRL_TITLE_SPARKLE_RADIUS; d++)
         {
-            u32 tile = (row / 8) * 4 + (col / 8);
-            u32 offset = tile * 32 + (row % 8) * 4 + (col % 8) / 2;
-            u8 packed = src[offset];
-            u8 color = (col & 1) ? (packed >> 4) : (packed & 0x0F);
-            if (color != 0)
-                ((u16 *)VRAM)[(top + row) * DISPLAY_WIDTH + left + col] = pal[color];
+            u32 offset = (y + d) * DISPLAY_WIDTH + x - PRL_TITLE_SPARKLE_RADIUS;
+            CpuCopy16(sPRLTitleMode3 + offset, dst + offset,
+                      (PRL_TITLE_SPARKLE_RADIUS * 2 + 1) * sizeof(u16));
         }
-    }
-}
 
-static void PRLUpdateCelebiJirachiTitleAnimation(u16 tick)
-{
-    u8 iconFrame = (tick / 10) & 1;
-    s16 hover = ((tick / 6) & 3);
-    PRLRestoreIconRegion(PRL_TITLE_LEFT_X);
-    PRLRestoreIconRegion(PRL_TITLE_RIGHT_X);
-    PRLDrawAnimatedMonIcon((const u8 *)sPRLJirachiIconTiles, sPRLJirachiIconPalette, PRL_TITLE_LEFT_X, PRL_TITLE_ICON_Y - hover, iconFrame);
-    PRLDrawAnimatedMonIcon((const u8 *)sPRLCelebiIconTiles, sPRLCelebiIconPalette, PRL_TITLE_RIGHT_X, PRL_TITLE_ICON_Y + hover - 3, iconFrame);
+        if (age == PRL_TITLE_SPARKLE_DURATION)
+            continue;
+
+        length = (age <= 9 ? age : 19 - age) / 2 + 1;
+        for (d = -length; d <= length; d++)
+        {
+            // White core and soft gold horizontal/vertical rays.
+            u16 color = ((d >= -1) && (d <= 1)) ? RGB(31, 31, 31) : RGB(31, 27, 11);
+            dst[y * DISPLAY_WIDTH + x + d] = color;
+            dst[(y + d) * DISPLAY_WIDTH + x] = color;
+        }
+        for (d = -2; d <= 2; d++)
+        {
+            dst[(y + d) * DISPLAY_WIDTH + x + d] = RGB(31, 28, 15);
+            dst[(y - d) * DISPLAY_WIDTH + x + d] = RGB(31, 28, 15);
+        }
+        dst[y * DISPLAY_WIDTH + x] = RGB(31, 31, 31);
+    }
 }
 
 static void PRLDrawPrompt(bool32 visible)
@@ -148,11 +144,16 @@ static void InitPRLTitleScreen(void)
 
     CpuCopy16(sPRLTitleMode3, (void *)VRAM, sizeof(sPRLTitleMode3));
     PRLDrawPrompt(TRUE);
-    PRLUpdateCelebiJirachiTitleAnimation(0);
 
+    // The image starts completely black and smoothly appears over 32 frames.
+    SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG2 | BLDCNT_EFFECT_DARKEN);
+    SetGpuReg(REG_OFFSET_BLDY, 16);
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_3 | DISPCNT_BG2_ON);
     taskId = CreateTask(Task_PRLTitle, 0);
     gTasks[taskId].data[1] = TRUE; // Initial prompt is ON; first blink is OFF.
+    gTasks[taskId].data[2] = 16;   // Hardware brightness: 16 = black; 0 = full artwork.
+    gTasks[taskId].data[3] = 0;    // Sparkle clock after fade completes.
+    gTasks[taskId].data[4] = 0;    // Fade tick divider.
     SetVBlankCallback(VBlankCB_PRLTitle);
     SetMainCallback2(CB2_PRLTitleRun);
     m4aSongNumStart(MUS_TITLE);
@@ -172,6 +173,22 @@ static void Task_PRLTitle(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
 
+    // Mode 3 needs a BG2 brightness fade rather than palette fading.
+    if (data[2] > 0)
+    {
+        if (++data[4] >= 2)
+        {
+            data[4] = 0;
+            SetGpuReg(REG_OFFSET_BLDY, --data[2]);
+        }
+        return;
+    }
+
+    // A short, single-use flourish across the logo, then leave the title still.
+    if (data[3] <= (ARRAY_COUNT(sPRLTitleSparklePositions) - 1)
+                       * PRL_TITLE_SPARKLE_GAP + PRL_TITLE_SPARKLE_DURATION)
+        PRLUpdateTitleSparkles(data[3]++);
+
     if (JOY_NEW(A_BUTTON | START_BUTTON))
     {
         SetVBlankCallback(NULL);
@@ -187,9 +204,6 @@ static void Task_PRLTitle(u8 taskId)
         Quickstart();
         return;
     }
-
-    if ((++data[2] % 6) == 0)
-        PRLUpdateCelebiJirachiTitleAnimation(data[2]);
 
     if (++data[0] >= 40)
     {

@@ -21,3 +21,10 @@ The double-battle macro now has optional NPC `localId` and `continueScript` para
 - Cold-boot Celebi/Jirachi donor animation, corrected Jessie/James **trainer portraits**, updated exact Noxichu donor and full PKR-style dialogue remain separate acceptance points in the **same** issue #26, not declared complete by this source patch
 
 Static tests: `python -m unittest discover -s tests -p "test_prl_issue26_visible_duos.py"`; they check source wiring, not collision, video, save replay or actual ROM behaviour.
+
+## Issue 26 subsequent source integration
+- Original Hoenn's Last Wish shrine/forest/cloud/moon/comet **Celebi and Jirachi** scene restored from pinned Oct 8 working trial source, called after Porygon before Mode 3 title
+- Vendor sprite backgrounds restored at FireRed CI build time with SHA-pinned donor script (21 original PNG/BIN files); deliberately no title-only mini icons
+- Jessie/James trainer fronts use a 64x64, 16-colour, two-character composite derived from the approved white uniform Jessie and James donor pack; both existing trainer pic slots use the identical duo image so neither appears alone
+- Battle team records, approved overworld actors, Mercury Eevee special battle art and all save flags are unchanged
+- Not a gameplay acceptance claim: verify exact pre-title timings, individual versus composite art, encounter approach and save compatibility in mGBA before release

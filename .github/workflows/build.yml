@@ -96,6 +96,9 @@ jobs:
             tools/wav2agb/wav2agb
           key: tools-${{ runner.os }}-${{ hashFiles('tools/*/Makefile', 'tools/**/*.c', 'tools/**/*.cpp', 'tools/**/*.h') }}
 
+      - name: Restore SHA-pinned original Celebi/Jirachi forest artwork
+        run: python3 tools/prl/prepare_hwl_scene0.py
+
       - name: ROM (Firered)
         run: |
           log=/tmp/prl-firered.log

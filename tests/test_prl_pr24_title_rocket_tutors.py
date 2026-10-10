@@ -14,13 +14,16 @@ def map_file(name):
     return json.loads(source(f"data/maps/{name}_Frlg/map.json"))
 
 def test_title_direct_artwork_and_animation():
-    s=source("src/title_screen_frlg.c")
-    assert 'graphics/pokemon/jirachi/icon.png' in s
-    assert 'graphics/pokemon/celebi/icon.png' in s
-    assert 'INCGFX_U32("graphics/pokemon/jirachi/icon.png", ".4bpp")' in s
-    assert 'INCGFX_U32("graphics/pokemon/celebi/icon.png", ".4bpp")' in s
-    assert "PRLUpdateCelebiJirachiTitleAnimation(data[2])" in s
-    assert "PRLDrawPrompt(data[1])" in s
+    title = source("src/title_screen_frlg.c")
+    forest = source("src/prl_intro_trial.c")
+    expansion = source("src/expansion_intro.c")
+    assert "PRLDrawPrompt(data[1])" in title
+    assert "PRLUpdateTitleSparkles" in title
+    assert "PRLUpdateCelebiJirachiTitleAnimation" not in title
+    assert "CB2_InitPRLHwlScene0" in expansion
+    assert "sScene0Celebi_Gfx" in forest and "sScene0Jirachi_Gfx" in forest
+    assert "sAnims_Scene0Celebi" in forest and "sAnims_Scene0Jirachi" in forest
+
 
 def test_fossils_do_not_launch_rocket():
     s=source("data/maps/MtMoon_B2F_Frlg/scripts.inc")
