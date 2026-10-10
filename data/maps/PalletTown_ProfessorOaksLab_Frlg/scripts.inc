@@ -1474,10 +1474,13 @@ PalletTown_ProfessorOaksLab_Text_DeliveredOaksParcel::
 	.string "{PLAYER} delivered the RELIC REPORTS.$"
 
 PalletTown_ProfessorOaksLab_Text_OakCustomBallIOrdered::
-	.string "Ah! The archaeology reports!\p"
-	.string "Perfect timing. These findings may\n"
-	.string "explain KANTO's ancient RELICS.\p"
-	.string "Thank you, {PLAYER}!$"
+	.string "OAK: The RELIC REPORTS!\p"
+	.string "These ancient traits appear\n"
+	.string "in living POKéMON too.\p"
+	.string "I must compare the findings\n"
+	.string "with our KANTO field studies.\p"
+	.string "Take the POKéDEX with you.\n"
+	.string "Report any unusual changes!$"
 
 PalletTown_ProfessorOaksLab_Text_OakHaveRequestForYouTwo::
 	.string "OAK: Oh, right!\n"
@@ -1519,16 +1522,12 @@ PalletTown_ProfessorOaksLab_Text_OakExplainCatching::
 	.string "You have to be lucky!$"
 
 PalletTown_ProfessorOaksLab_Text_OakCompleteMonGuideWasMyDream::
-	.string "To make a complete guide on all\n"
-	.string "the POKéMON in the world…\p"
-	.string "That was my dream!\p"
-	.string "But, I'm too old.\n"
-	.string "I can't get the job done.\p"
-	.string "So, I want you two to fulfill my\n"
-	.string "dream for me.\p"
-	.string "Get moving, you two.\p"
-	.string "This is a great undertaking in\n"
-	.string "POKéMON history!$"
+	.string "OAK: Mapping every POKéMON\n"
+	.string "has always been my dream.\p"
+	.string "Now there are clues that\n"
+	.string "some ancient powers survived.\p"
+	.string "Help me record what changes\n"
+	.string "as your POKéMON grow!$"
 
 PalletTown_ProfessorOaksLab_Text_OakMonsAroundWorldWait::
 	.string "POKéMON around the world wait for\n"
