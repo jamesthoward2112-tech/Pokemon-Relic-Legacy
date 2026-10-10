@@ -12,8 +12,10 @@ RocketHideout_B3F_EventScript_Grunt2::
 	end
 
 RocketHideout_B3F_Text_Grunt1Intro::
-	.string "Stop meddling in TEAM ROCKET's\n"
-	.string "affairs or else!$"
+	.string "Stop! These archives contain\n"
+	.string "ancient fossil data!\p"
+	.string "We cannot let you reach\n"
+	.string "the BOSS's lab!$"
 
 RocketHideout_B3F_Text_Grunt1Defeat::
 	.string "Oof!\n"
@@ -33,7 +35,7 @@ RocketHideout_B3F_Text_Grunt2Defeat::
 	.string "I lost? No!$"
 
 RocketHideout_B3F_Text_Grunt2PostBattle::
-	.string "Go ahead and go!\p"
-	.string "But you can't run the elevator\n"
-	.string "without the LIFT KEY.$"
+	.string "The fossil shipments are\n"
+	.string "headed to SILPH CO.\p"
+	.string "You heard nothing!$"
 
