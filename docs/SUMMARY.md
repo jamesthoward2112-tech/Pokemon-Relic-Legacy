@@ -160,3 +160,4 @@
 - [PRL Step 4C Relic Move Master](./prl_step4c_relic_move_master.md)
 - [PRL Presentation Repair Plan](./superpowers/plans/2026-10-08-prl-presentation-repair.md)
 - [PRL Canonical Status](./prl-canonical/PRL_Canonical_Status.md)
+- [PRL Skarmadon Chrome-Only Sprite Lock](./prl_skarmadon_chrome_sprite_lock.md)
