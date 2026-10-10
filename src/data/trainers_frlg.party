@@ -13704,7 +13704,7 @@ Level: 39
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 
 === TRAINER_STEEVE_NEEVEE_ROUTE3 ===
-Name: STEEVE&NEE
+Name: STEEVEE
 Class: Twins Frlg
 Pic: Twins Frlg
 Gender: Male
@@ -13729,7 +13729,7 @@ IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 - Growl
 
 === TRAINER_STEEVE_NEEVEE_SS_ANNE ===
-Name: STEEVE&NEE
+Name: STEEVEE
 Class: Twins Frlg
 Pic: Twins Frlg
 Gender: Male
@@ -13770,7 +13770,7 @@ IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
 - Helping Hand
 
 === TRAINER_STEEVE_NEEVEE_TOWER ===
-Name: STEEVE&NEE
+Name: STEEVEE
 Class: Twins Frlg
 Pic: Twins Frlg
 Gender: Male
@@ -13811,7 +13811,7 @@ IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Moonlight
 
 === TRAINER_STEEVE_NEEVEE_ROUTE23 ===
-Name: STEEVE&NEE
+Name: STEEVEE
 Class: Twins Frlg
 Pic: Twins Frlg
 Gender: Male

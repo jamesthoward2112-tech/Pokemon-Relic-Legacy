@@ -1,12 +1,12 @@
-name: PRL PJR QoL integration candidate ROM
+name: PRL Combined Eevee Twins and PJR PHR QoL FireRed ROM
 on:
   push:
-    branches: [prl/pjr-phr-qol-migration-20261010]
+    branches: [prl/combined-eevee-qol-20261011]
     paths:
       - .github/workflows/prl-pjr-qol-test-rom.yml
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,19 +16,12 @@ jobs:
       GAME_REVISION: 0
       GAME_LANGUAGE: ENGLISH
     steps:
-      - name: Checkout approved PR25-derived Kanto checkpoint
+      - name: Checkout combined Eevee and QoL Kanto source
         uses: actions/checkout@v4
         with:
           persist-credentials: true
-      - name: Port real Infinity Eeveelutions and four Kanto Twins teams
-        run: if [ ! -f graphics/pokemon/eeveeon/front.png ]; then python3 tools/prl/build_eeveeon_nimbeon.py; fi
-      - name: Commit source change without modifying existing stable checkpoint
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/data include/constants/species.h include/constants/moves.h include/graphics.h graphics/pokemon/eeveeon graphics/pokemon/nimbeon tests/test_prl_recurring_duos.py tests/test_prl_eeveeon_nimbeon.py docs/prl-eeveeon-nimbeon-build-status.md
-          git diff --cached --quiet || (git commit -m "Kanto ROM: source-ported Eeveeon Nimbeon and balanced Eevee Twins" && git push origin HEAD:$GITHUB_REF_NAME)
+      - name: Confirm authentic Eeveelution sprite assets are present
+        run: test -f graphics/pokemon/eeveeon/front.png && test -f graphics/pokemon/nimbeon/front.png
       - name: Validate Kanto Eevee Twins and new species
         run: python3 -m unittest tests.test_prl_recurring_duos tests.test_prl_eeveeon_nimbeon tests.test_prl_pjr_qol_dexnav tests.test_prl_pjr_qol_center_clocks tests.test_prl_phr_four_registered_items
       - name: Install GBA ARM toolchain
@@ -37,7 +30,7 @@ jobs:
           sudo apt-get install -y --no-install-recommends binutils-arm-none-eabi gcc-arm-none-eabi libnewlib-arm-none-eabi libpng-dev python3
       - name: Preserve donor Celebi and Jirachi opening assets
         run: python3 tools/prl/prepare_hwl_scene0.py
-      - name: Compile GBA-compatible Eeveeon Nimbeon FireRed ROM
+      - name: Compile combined FireRed ROM once
         shell: bash
         run: |
           set +e
@@ -52,7 +45,7 @@ jobs:
       - name: Upload FireRed playable ROM
         uses: actions/upload-artifact@v4
         with:
-          name: PRL_PJR_PHR_QoL_Clock_DexNav_4Items_20261010
+          name: PRL_Combined_Steevee_Neevee_Eeveeon_Nimbeon_QoL_20261011
           path: pokefirered.gba
           if-no-files-found: error
           retention-days: 2

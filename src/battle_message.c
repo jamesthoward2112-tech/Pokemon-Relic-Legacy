@@ -2428,6 +2428,25 @@ static const struct BattleWindowText *const sBattleTextOnWindowsInfo[] =
 
 static const u8 sRecordedBattleTextSpeeds[] = {8, 4, 1, 0};
 
+// Keep the existing ten-character trainer data limit intact. This recurring
+// duo's full display name is handled only through battle text placeholders.
+static const u8 sText_PRLSteeveeNeeveeName[] = _("STEEVEE & NEEVEE");
+static const u8 sText_PRLSteeveeNeeveeNameWithClass[] = _("TWINS STEEVEE & NEEVEE");
+
+static bool32 IsPRLSteeveeNeeveeTrainer(u16 trainerId)
+{
+    switch (trainerId)
+    {
+    case TRAINER_STEEVE_NEEVEE_ROUTE3:
+    case TRAINER_STEEVE_NEEVEE_SS_ANNE:
+    case TRAINER_STEEVE_NEEVEE_TOWER:
+    case TRAINER_STEEVE_NEEVEE_ROUTE23:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
 void BufferStringBattle(enum StringID stringID, enum BattlerId battler)
 {
     s32 i;
@@ -3297,9 +3316,17 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize)
                 toCpy = BattleStringGetOpponentClassByTrainerId(TRAINER_BATTLE_PARAM.opponentA);
                 break;
             case B_TXT_TRAINER1_NAME: // trainer1 name
-                toCpy = BattleStringGetOpponentNameByTrainerId(TRAINER_BATTLE_PARAM.opponentA, text, multiplayerId, GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT));
+                if (IsPRLSteeveeNeeveeTrainer(TRAINER_BATTLE_PARAM.opponentA))
+                    toCpy = sText_PRLSteeveeNeeveeName;
+                else
+                    toCpy = BattleStringGetOpponentNameByTrainerId(TRAINER_BATTLE_PARAM.opponentA, text, multiplayerId, GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT));
                 break;
             case B_TXT_TRAINER1_NAME_WITH_CLASS: // trainer1 name with trainer class
+                if (IsPRLSteeveeNeeveeTrainer(TRAINER_BATTLE_PARAM.opponentA))
+                {
+                    toCpy = sText_PRLSteeveeNeeveeNameWithClass;
+                    break;
+                }
                 toCpy = textStart;
                 classString = BattleStringGetOpponentClassByTrainerId(TRAINER_BATTLE_PARAM.opponentA);
                 while (classString[classLength] != EOS)
