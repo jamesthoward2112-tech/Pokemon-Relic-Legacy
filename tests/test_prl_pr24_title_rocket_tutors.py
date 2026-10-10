@@ -52,7 +52,7 @@ def test_rocket_has_joint_name_and_approved_front_gfx():
     s=source("src/data/trainers_frlg.party")
     for encounter in ("MT_MOON","HIDEOUT","SILPH","VICTORY_ROAD"):
         pos=s.index("=== TRAINER_JESSIE_JAMES_"+encounter+" ===")
-        assert "Name: JESSIE&JAMES" in s[pos:pos+70]
+        assert "Name: JESS&JAMES" in s[pos:pos+70]
     from PIL import Image
     with Image.open(ROOT/"graphics/trainers/front_pics/prl_jessie.png") as im:
         assert im.size==(64,64) and im.mode=="P"
