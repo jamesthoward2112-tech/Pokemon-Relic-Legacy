@@ -1,5 +1,6 @@
 # Summary
 
+- [PRL Bleeding and Fear Move Distribution (10 Oct 2026)](./prl_bleed_fear_distribution_20261010.md)
 - [PRL Noxichu Approved Sprite Integration (10 Oct 2026)](./PRL_NOXICHU_APPROVED_SPRITE_INTEGRATION_2026-10-10.md)
 
 - [PRL Kanto Golden-Bird Relic Story Canon](./PRL_KANTO_GOLDEN_BIRD_STORY_CANON_2026-10-10.md)
