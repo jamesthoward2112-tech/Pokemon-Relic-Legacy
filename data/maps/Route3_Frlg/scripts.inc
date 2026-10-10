@@ -214,15 +214,15 @@ Route3_EventScript_PRLSteeveNeeveeMovement_Approach::
 	step_end
 
 Route3_Text_PRL_SteeveNeeveeIntro::
-	.string "STEEVE: Our EEVEE are ready!\p"
+	.string "STEEVEE: Our EEVEE are ready!\p"
 	.string "NEEVEE: Let's battle together!$"
 
 Route3_Text_PRL_SteeveNeeveeDefeat::
-	.string "STEEVE: Your team is amazing!\p"
+	.string "STEEVEE: Your team is amazing!\p"
 	.string "NEEVEE: We'll keep training!$"
 
 Route3_Text_PRL_SteeveNeeveeNotEnoughMons::
-	.string "STEEVE: We need a fair double\n"
+	.string "STEEVEE: We need a fair double\n"
 	.string "battle. Bring two POKéMON!$"
 
 Route3_Text_PRL_SteeveNeeveePostBattle::
