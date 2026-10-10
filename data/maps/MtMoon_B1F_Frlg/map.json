@@ -26,9 +26,9 @@
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
       "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter",
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "4",
+      "script": "MtMoon_B1F_EventScript_PRL_Jessie",
       "flag": "FLAG_HIDE_PRL_ROCKET_MT_MOON"
     },
     {
@@ -41,9 +41,9 @@
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
       "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter",
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "4",
+      "script": "MtMoon_B1F_EventScript_PRL_James",
       "flag": "FLAG_HIDE_PRL_ROCKET_MT_MOON"
     },
     {
@@ -58,7 +58,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter",
+      "script": "MtMoon_B1F_EventScript_PRL_Meowth",
       "flag": "FLAG_HIDE_PRL_ROCKET_MT_MOON"
     }
   ],
@@ -120,242 +120,7 @@
       "dest_warp_id": "1"
     }
   ],
-  "coord_events": [
-    {
-      "type": "trigger",
-      "x": 42,
-      "y": 3,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 42,
-      "y": 4,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 42,
-      "y": 5,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 42,
-      "y": 2,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 43,
-      "y": 2,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 44,
-      "y": 2,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 45,
-      "y": 2,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 45,
-      "y": 3,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 44,
-      "y": 5,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 45,
-      "y": 5,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 46,
-      "y": 5,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 46,
-      "y": 4,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 45,
-      "y": 4,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 38,
-      "y": 5,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 39,
-      "y": 5,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 40,
-      "y": 5,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 41,
-      "y": 5,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 43,
-      "y": 5,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 40,
-      "y": 4,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 41,
-      "y": 4,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 43,
-      "y": 4,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 44,
-      "y": 4,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 41,
-      "y": 3,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 43,
-      "y": 3,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 44,
-      "y": 3,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    },
-    {
-      "type": "trigger",
-      "x": 41,
-      "y": 2,
-      "elevation": 3,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-    }
-  ],
+  "coord_events": [],
   "bg_events": [
     {
       "type": "hidden_item",

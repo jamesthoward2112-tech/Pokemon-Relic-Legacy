@@ -32,24 +32,25 @@ def test_fossils_do_not_launch_rocket():
     assert "MtMoon_B2F_Text_PRL_RocketIntro::" in s
 
 def test_rocket_visible_and_obstructs_exit_before_battle():
-    j=map_file("MtMoon_B1F")
-    exit_warp=next(w for w in j["warp_events"] if w["dest_map"]=="MAP_ROUTE4")
-    assert (exit_warp["x"],exit_warp["y"])==(45,4)
-    pcs={x.get("local_id"):x for x in j["object_events"]}
-    for name in ("JESSIE","JAMES","MEOWTH"):
-        e=pcs[f"LOCALID_PRL_{name}_MT_MOON"]
-        assert e["flag"]=="FLAG_HIDE_PRL_ROCKET_MT_MOON"
-        assert e["script"]=="MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-        assert e["x"] < exit_warp["x"] and e["y"] == 2
-    assert pcs["LOCALID_PRL_JESSIE_MT_MOON"]["y"] == pcs["LOCALID_PRL_JAMES_MT_MOON"]["y"]
-    assert all(any(e["x"]==x and e["y"]==5 for e in j["coord_events"]) for x in range(38,47))
-    sc=source("data/maps/MtMoon_B1F_Frlg/scripts.inc")
-    assert "goto_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON" in sc
-    assert "trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON" in sc
-    assert "removeobject LOCALID_PRL_JESSIE_MT_MOON" in sc
-    assert "removeobject LOCALID_PRL_JAMES_MT_MOON" in sc
-    assert "removeobject LOCALID_PRL_MEOWTH_MT_MOON" in sc
-    assert "goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON" in sc
+    m=map_file("MtMoon_B1F")
+    warps={(w["x"],w["y"],w["dest_map"]) for w in m["warp_events"]}
+    assert (39,4,"MAP_MT_MOON_B2F") in warps
+    assert (45,4,"MAP_ROUTE4") in warps
+    assert not m["coord_events"], "Coordinate script triggers must not overlap ladders"
+    npc={a.get("local_id"):a for a in m["object_events"]}
+    for n in ("JESSIE","JAMES"):
+        a=npc["LOCALID_PRL_"+n+"_MT_MOON"]
+        assert a["y"]==2 and a["movement_type"]=="MOVEMENT_TYPE_FACE_DOWN"
+        assert a["trainer_type"]=="TRAINER_TYPE_NORMAL"
+        assert int(a["trainer_sight_or_berry_tree_id"])>=3
+        assert a["script"]=="MtMoon_B1F_EventScript_PRL_"+n.title()
+    s=source("data/maps/MtMoon_B1F_Frlg/scripts.inc")
+    for n in ("Jessie","James"):
+        assert "MtMoon_B1F_EventScript_PRL_"+n+"::" in s
+        assert "MtMoon_B1F_Text_PRL_"+n+"PostBattle::" in s
+    assert s.count("trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON")==2
+    assert "removeobject LOCALID_PRL_JESSIE_MT_MOON" not in s
+
 
 def test_rocket_has_joint_name_and_approved_front_gfx():
     s=source("src/data/trainers_frlg.party")

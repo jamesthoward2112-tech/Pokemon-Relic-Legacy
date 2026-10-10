@@ -46,16 +46,20 @@ class Issue26VisibleDuos(unittest.TestCase):
                 self.assertIn(f"setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_{tag}", s)
                 self.assertIn("SaveSync", s)
 
-    def test_mt_moon_blue_assertion_and_upper_bypass_source_gates(self):
-        map_data = json.loads((ROOT / "data/maps/MtMoon_B1F_Frlg/map.json").read_text())
-        gates={(e["x"],e["y"]) for e in map_data["coord_events"]
-               if e["script"] == "MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"}
-        self.assertTrue({(42,2),(42,3),(42,4),(42,5),(43,2),(44,2),(45,2),(45,3),(44,5),(45,5),(46,5),(46,4),(45,4)} <= gates)
+    def test_mt_moon_native_trainer_vision_and_warps(self):
+        m=json.loads((ROOT/"data/maps/MtMoon_B1F_Frlg/map.json").read_text())
+        self.assertEqual(m["coord_events"],[])
+        for name in ("JESSIE","JAMES"):
+            a=next(x for x in m["object_events"] if x.get("local_id")==f"LOCALID_PRL_{name}_MT_MOON")
+            self.assertEqual(a["trainer_type"],"TRAINER_TYPE_NORMAL")
+            self.assertEqual(a["movement_type"],"MOVEMENT_TYPE_FACE_DOWN")
+        self.assertTrue(any(w["x"]==39 and w["y"]==4 and w["dest_map"]=="MAP_MT_MOON_B2F" for w in m["warp_events"]))
         s=(ROOT/"data/maps/MtMoon_B1F_Frlg/scripts.inc").read_text()
-        self.assertRegex(s, r"trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON[^\n]*localId=LOCALID_PRL_JESSIE_MT_MOON, continueScript=TRUE")
-        macro=(ROOT/"asm/macros/event.inc").read_text()
-        self.assertIn("localId=LOCALID_NONE, continueScript=FALSE", macro)
-        self.assertIn("trainerbattle \\localId, \\trainer", macro)
+        for name in ("JESSIE","JAMES"):
+            self.assertRegex(s,rf"trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON[^\n]*localId=LOCALID_PRL_{name}_MT_MOON")
+        self.assertIn("MtMoon_B1F_Text_PRL_JessiePostBattle::",s)
+        self.assertIn("MtMoon_B1F_Text_PRL_JamesPostBattle::",s)
+
 
 if __name__ == "__main__":
     unittest.main()

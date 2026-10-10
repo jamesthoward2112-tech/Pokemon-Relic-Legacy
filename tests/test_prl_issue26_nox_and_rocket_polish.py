@@ -36,21 +36,23 @@ class NoxAndRocket(unittest.TestCase):
     def test_mt_moon_revealed_before_object_spawn_for_existing_save(self):
         scene=(ROOT/"data/maps/MtMoon_B1F_Frlg/scripts.inc").read_text()
         self.assertIn("map_script MAP_SCRIPT_ON_LOAD, MtMoon_B1F_OnLoad_PRLJessieJames",scene)
-        load=scene.split("MtMoon_B1F_OnLoad_PRLJessieJames::",1)[1].split("MtMoon_B1F_OnTransition_PRLJessieJames::",1)[0]
-        self.assertIn("goto_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON",load)
-        self.assertIn("clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON",load)
-        self.assertIn("goto_if_defeated TRAINER_JESSIE_JAMES_MT_MOON",load)
-        self.assertIn("setflag FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON",load)
-        sceneMap=json.loads((ROOT/"data/maps/MtMoon_B1F_Frlg/map.json").read_text())
-        rocket={a.get("local_id"):a for a in sceneMap["object_events"]}
+        self.assertIn("goto_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON",scene)
+        self.assertIn("goto_if_defeated TRAINER_JESSIE_JAMES_MT_MOON",scene)
+        self.assertIn("clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON",scene)
+        self.assertIn("setflag FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON",scene)
+        m=json.loads((ROOT/"data/maps/MtMoon_B1F_Frlg/map.json").read_text())
+        rocket={a.get("local_id"):a for a in m["object_events"]}
         self.assertEqual((rocket["LOCALID_PRL_JESSIE_MT_MOON"]["x"],rocket["LOCALID_PRL_JESSIE_MT_MOON"]["y"]),(42,2))
         self.assertEqual((rocket["LOCALID_PRL_JAMES_MT_MOON"]["x"],rocket["LOCALID_PRL_JAMES_MT_MOON"]["y"]),(43,2))
         self.assertEqual((rocket["LOCALID_PRL_MEOWTH_MT_MOON"]["x"],rocket["LOCALID_PRL_MEOWTH_MT_MOON"]["y"]),(44,2))
-        triggers={(c["x"],c["y"]) for c in sceneMap["coord_events"] if c["script"]=="MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"}
-        self.assertTrue({(x,5) for x in range(38,47)}.issubset(triggers))
-        self.assertTrue({(x,4) for x in range(40,46)}.issubset(triggers))
-        self.assertTrue({(x,3) for x in range(41,45)}.issubset(triggers))
-        self.assertIn("localId=LOCALID_PRL_JESSIE_MT_MOON, continueScript=TRUE",scene)
+        self.assertEqual(m["coord_events"],[])
+        for who in ("JESSIE","JAMES"):
+            self.assertEqual(rocket["LOCALID_PRL_"+who+"_MT_MOON"]["trainer_type"],"TRAINER_TYPE_NORMAL")
+        for who in ("Jessie","James"):
+            self.assertIn("MtMoon_B1F_EventScript_PRL_"+who+"::",scene)
+            self.assertIn("MtMoon_B1F_Text_PRL_"+who+"PostBattle::",scene)
+        self.assertNotIn("removeobject LOCALID_PRL_JESSIE_MT_MOON",scene)
+
     def test_opening_untouched(self):
         self.assertIn("CB2_InitPRLHwlScene0",(ROOT/"src/expansion_intro.c").read_text())
 if __name__=="__main__": unittest.main()
