@@ -22,12 +22,12 @@ def test_complete_source_archive_and_palette_generation():
         directory = ROOT / "graphics/pokemon" / species
         for pose in ("front", "back"):
             png = (directory / (pose + ".png")).read_bytes()
-            assert png[:8] == b"\\x89PNG\\r\\n\\x1a\\n"
+            assert png[:8] == b"\x89PNG\r\n\x1a\n"
             assert struct.unpack_from(">II", png, 16) == (64, 64)
-            assert png.endswith(b"IEND\\xaeB\\x60\\x82")
+            assert png.endswith(b"IEND\xaeB\x60\x82")
         for palette in ("normal", "shiny"):
             pal = (directory / (palette + ".pal")).read_text(encoding="ascii")
-            assert pal.startswith("JASC-PAL\\n0100\\n16\\n")
+            assert pal.startswith("JASC-PAL\n0100\n16\n")
             assert len(pal.splitlines()) == 19
 
 
