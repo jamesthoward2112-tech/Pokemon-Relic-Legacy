@@ -1046,7 +1046,9 @@ enum __attribute__((packed)) Move
     MOVE_G_MAX_RAPID_FLOW,
     LAST_MAX_MOVE = MOVE_G_MAX_RAPID_FLOW,
     MOVES_COUNT_DYNAMAX,
-    MOVES_COUNT_ALL = MOVES_COUNT_DYNAMAX,
+    MOVE_EEVOBOOST = MOVES_COUNT_DYNAMAX,
+    MOVES_COUNT_ALL,
+
 };
 
 #define MOVE_DEFAULT     0x3FFF // Used when creating a mon to be replaced by a level-up move (needs to be less than that 0x4000 because of VarGet)

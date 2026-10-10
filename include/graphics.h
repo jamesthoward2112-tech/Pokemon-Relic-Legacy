@@ -3446,4 +3446,17 @@ extern const u16 gBattleIcons_Pal2[];
 extern const u32 gGhostFrontPic[];
 extern const u16 gGhostPalette[];
 
+
+extern const u32 gMonFrontPic_Eeveeon[];
+extern const u32 gMonBackPic_Eeveeon[];
+extern const u16 gMonPalette_Eeveeon[];
+extern const u16 gMonShinyPalette_Eeveeon[];
+extern const u8 gMonIcon_Eeveeon[];
+
+extern const u32 gMonFrontPic_Nimbeon[];
+extern const u32 gMonBackPic_Nimbeon[];
+extern const u16 gMonPalette_Nimbeon[];
+extern const u16 gMonShinyPalette_Nimbeon[];
+extern const u8 gMonIcon_Nimbeon[];
+
 #endif //GUARD_GRAPHICS_H

@@ -27811,3 +27811,17 @@ const u16 gMonPalette_IUnownRelic[] = INCBIN_U16("graphics/pokemon/unown_eye/nor
 const u32 gMonBackPic_IUnownRelic[] = INCGFX_U32("graphics/pokemon/unown_eye/back.png", ".4bpp.smol");
 const u16 gMonShinyPalette_IUnownRelic[] = INCBIN_U16("graphics/pokemon/unown_eye/shiny.gbapal");
 const u8 gMonIcon_IUnownRelic[] = INCGFX_U8("graphics/pokemon/unown_eye/icon.png", ".4bpp");
+
+const u32 gMonFrontPic_Eeveeon[] = INCGFX_U32("graphics/pokemon/eeveeon/front.png", ".4bpp.smol");
+const u16 gMonPalette_Eeveeon[] = INCGFX_U16("graphics/pokemon/eeveeon/normal.pal", ".gbapal");
+const u32 gMonBackPic_Eeveeon[] = INCGFX_U32("graphics/pokemon/eeveeon/back.png", ".4bpp.smol");
+const u16 gMonShinyPalette_Eeveeon[] = INCGFX_U16("graphics/pokemon/eeveeon/shiny.pal", ".gbapal");
+const u8 gMonIcon_Eeveeon[] = INCGFX_U8("graphics/pokemon/eeveeon/icon.png", ".4bpp");
+
+
+const u32 gMonFrontPic_Nimbeon[] = INCGFX_U32("graphics/pokemon/nimbeon/front.png", ".4bpp.smol");
+const u16 gMonPalette_Nimbeon[] = INCGFX_U16("graphics/pokemon/nimbeon/normal.pal", ".gbapal");
+const u32 gMonBackPic_Nimbeon[] = INCGFX_U32("graphics/pokemon/nimbeon/back.png", ".4bpp.smol");
+const u16 gMonShinyPalette_Nimbeon[] = INCGFX_U16("graphics/pokemon/nimbeon/shiny.pal", ".gbapal");
+const u8 gMonIcon_Nimbeon[] = INCGFX_U8("graphics/pokemon/nimbeon/icon.png", ".4bpp");
+

@@ -24509,4 +24509,32 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     .battleAnimScript = gBattleAnimMove_DoubleEdge,
 },
 // PRL STEP10 MOVE DATA END
+    [MOVE_EEVOBOOST] =
+    {
+        .name = COMPOUND_STRING("Eevoboost"),
+        .description = COMPOUND_STRING(
+            "Gathers inner potential\\n"
+            "to raise all five stats."),
+        .effect = EFFECT_EXTREME_EVOBOOST,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 0,
+        .pp = 2,
+        .target = TARGET_USER,
+        .priority = -2,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .snatchAffected = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = STAT_CHANGE_EFFECT_PLUS,
+            .attack = 1,
+            .defense = 1,
+            .speed = 1,
+            .spAtk = 1,
+            .spDef = 1,
+        }),
+        .battleAnimScript = gBattleAnimMove_ExtremeEvoboost,
+    },
+
 };

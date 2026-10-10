@@ -13778,37 +13778,37 @@ Music: Twins
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability
 
-Flareon @ Oran Berry
+Flareon @ Sitrus Berry
 Level: 37
-IVs: 14 HP / 14 Atk / 14 Def / 14 SpA / 14 SpD / 14 Spe
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Fire Spin
 - Ember
 - Quick Attack
 - Bite
 
-Vaporeon @ Oran Berry
+Omeon @ Sitrus Berry
 Level: 37
-IVs: 14 HP / 14 Atk / 14 Def / 14 SpA / 14 SpD / 14 Spe
-- Water Gun
-- Aurora Beam
-- Quick Attack
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Shadow Ball
 - Bite
-
-Jolteon
-Level: 36
-IVs: 14 HP / 14 Atk / 14 Def / 14 SpA / 14 SpD / 14 Spe
-- Thundershock
-- Double Kick
+- Confuse Ray
 - Quick Attack
-- Pin Missile
 
-Eevee @ Sitrus Berry
+Espeon @ Sitrus Berry
+Level: 37
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Psybeam
+- Quick Attack
+- Swift
+- Reflect
+
+Umbreon @ Sitrus Berry
 Level: 36
-IVs: 14 HP / 14 Atk / 14 Def / 14 SpA / 14 SpD / 14 Spe
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Bite
-- Baton Pass
 - Quick Attack
-- Sand Attack
+- Confuse Ray
+- Moonlight
 
 === TRAINER_STEEVE_NEEVEE_ROUTE23 ===
 Name: STEEVE&NEE
@@ -13843,27 +13843,29 @@ IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Bite
 - Quick Attack
 
-Toxeon
+Toxeon @ Sitrus Berry
 Level: 55
 IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-
-Eevee
-Level: 51
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Poison Jab
 - Bite
+- Toxic
+- Quick Attack
+
+Nimbeon @ Sitrus Berry
+Level: 54
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Air Slash
+- Roost
+- Tailwind
+- Icy Wind
+
+Eeveeon @ Sitrus Berry
+Level: 55
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Eevoboost
+- Hyper Voice
+- Double-Edge
 - Baton Pass
-- Quick Attack
-- Sand Attack
-
-Eevee @ Sitrus Berry
-Level: 53
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-- Take Down
-- Bite
-- Quick Attack
-- Helping Hand
-
-
 
 === TRAINER_JESSIE_JAMES_MT_MOON ===
 Name: JESS&JAMES
