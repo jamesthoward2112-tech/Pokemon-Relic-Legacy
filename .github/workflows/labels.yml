@@ -1,17 +1,21 @@
 name: Labels
 
+# Only check labels when a reviewer submits a review; ordinary pushes/PR
+# synchronizations no longer create misleading 'skipped' notifications.
 on:
-  pull_request:
-    types: [opened, synchronize, labeled, unlabeled]
   pull_request_review:
     types: [submitted]
 
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
   label:
-    if: ${{ github.actor != 'allcontributors[bot]' && github.event.review.state == 'approved' }}
+    if: ${{ github.event.review.state == 'approved' && github.actor != 'allcontributors[bot]' }}
     runs-on: ubuntu-latest
     steps:
-      - name: check labels
+      - name: Check approved PR labels
         uses: mheap/github-action-required-labels@v5
         with:
           mode: minimum
@@ -30,11 +34,3 @@ jobs:
             category: pokemon
             category: sprite-issue
             type: documentation
-  allcontributors:
-    if: github.actor == 'allcontributors[bot]'
-    runs-on: ubuntu-latest
-    needs: []
-    steps:
-      - name: Automatically pass for allcontributors
-        run: echo "CI automatically passes for allcontributors" && exit 0
-
