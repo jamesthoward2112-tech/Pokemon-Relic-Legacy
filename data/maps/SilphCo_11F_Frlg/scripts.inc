@@ -4,8 +4,6 @@ SilphCo_11F_Frlg_MapScripts::
 
 SilphCo_11F_OnLoad::
 	setflag FLAG_HIDE_PRL_ROCKET_SILPH
-	setflag FLAG_HIDE_PRL_ROCKET_SILPH
-	setflag FLAG_HIDE_PRL_ROCKET_SILPH
 	call_if_unset FLAG_SILPH_11F_DOOR, EventScript_Close11FDoor
 	end
 
@@ -244,8 +242,6 @@ SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPH::
 	goto_if_eq VAR_RESULT, FALSE, SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHEnd
 	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHAlreadyWon
 	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
-	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
-	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
 	addobject LOCALID_PRL_JESSIE_SILPH
 	addobject LOCALID_PRL_JAMES_SILPH
 	addobject LOCALID_PRL_MEOWTH_SILPH
@@ -271,8 +267,6 @@ SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHCleanup::
 	waitmovementall
 	applymovement LOCALID_PRL_MEOWTH_SILPH, SilphCo_11F_Movement_PRL_RocketExit
 	waitmovementall
-	setflag FLAG_HIDE_PRL_ROCKET_SILPH
-	setflag FLAG_HIDE_PRL_ROCKET_SILPH
 	setflag FLAG_HIDE_PRL_ROCKET_SILPH
 	removeobject LOCALID_PRL_JESSIE_SILPH
 	removeobject LOCALID_PRL_JAMES_SILPH

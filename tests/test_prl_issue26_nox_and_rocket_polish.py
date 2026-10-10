@@ -1,0 +1,33 @@
+"""Regression checks: PRL Noxichu polish and side-by-side Rocket staging."""
+from pathlib import Path
+import json, struct, hashlib, unittest
+ROOT=Path(__file__).resolve().parents[1]
+def png(path,w,h):
+    data=(ROOT/path).read_bytes()
+    assert data[:8]==b"\x89PNG\r\n\x1a\n"
+    assert struct.unpack(">IIBB",data[16:26])==(w,h,4,3)
+    assert b"tRNS" in data and data[data.index(b"tRNS")+4]==0
+    return data
+class NoxAndRocket(unittest.TestCase):
+    def test_sprite_sizes_and_indexed_palette(self):
+        for name,size in [("front",(64,64)),("back",(64,64)),("icon",(32,64))]:
+            self.assertTrue(png("graphics/pokemon/noxichu/"+name+".png",*size))
+    def test_approved_rocket_two_person_picture(self):
+        j=png("graphics/trainers/front_pics/prl_jessie.png",64,64)
+        self.assertEqual(j,png("graphics/trainers/front_pics/prl_james.png",64,64))
+        self.assertEqual(hashlib.sha256(j).hexdigest(),"d59d0073f77c55b571166f0e13dc622470f498e6aa3ad61ad6441cbf8103895a")
+    def test_rocket_actor_staging(self):
+        for name,tag in [("MtMoon_B1F_Frlg","MT_MOON"),("RocketHideout_B4F_Frlg","HIDEOUT"),("SilphCo_11F_Frlg","SILPH"),("VictoryRoad_3F_Frlg","VICTORY_ROAD")]:
+            with self.subTest(name=name):
+                j=json.loads((ROOT/"data/maps"/name/"map.json").read_text())
+                actors={o.get('local_id'):o for o in j['object_events']}
+                x=actors['LOCALID_PRL_JESSIE_'+tag]
+                y=actors['LOCALID_PRL_JAMES_'+tag]
+                m=actors['LOCALID_PRL_MEOWTH_'+tag]
+                self.assertEqual(x["y"],y["y"])
+                self.assertNotEqual((m["x"],m["y"]),(x["x"],x["y"]))
+                self.assertNotEqual((m["x"],m["y"]),(y["x"],y["y"]))
+                self.assertIn("localId=LOCALID_PRL_JESSIE_"+tag+", continueScript=TRUE",(ROOT/"data/maps"/name/"scripts.inc").read_text())
+    def test_opening_untouched(self):
+        self.assertIn("CB2_InitPRLHwlScene0",(ROOT/"src/expansion_intro.c").read_text())
+if __name__=="__main__": unittest.main()

@@ -6,8 +6,6 @@ RocketHideout_B4F_Frlg_MapScripts::
 
 RocketHideout_B4F_OnLoad::
 	setflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
-	setflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
-	setflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
 	setvar NUM_DOOR_GRUNTS_DEFEATED, 0
 	call_if_defeated TRAINER_TEAM_ROCKET_GRUNT_16, RocketHideout_B4F_EventScript_CountGruntDefeated
 	call_if_defeated TRAINER_TEAM_ROCKET_GRUNT_17, RocketHideout_B4F_EventScript_CountGruntDefeated
@@ -188,8 +186,6 @@ RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUT::
 	goto_if_unset FLAG_CAN_USE_ROCKET_HIDEOUT_LIFT, RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUTEnd
 	goto_if_defeated TRAINER_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUTAlreadyWon
 	clearflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
-	clearflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
-	clearflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
 	addobject LOCALID_PRL_JESSIE_HIDEOUT
 	addobject LOCALID_PRL_JAMES_HIDEOUT
 	addobject LOCALID_PRL_MEOWTH_HIDEOUT
@@ -215,8 +211,6 @@ RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUTCleanup::
 	waitmovementall
 	applymovement LOCALID_PRL_MEOWTH_HIDEOUT, RocketHideout_B4F_Movement_PRL_RocketExit
 	waitmovementall
-	setflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
-	setflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
 	setflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
 	removeobject LOCALID_PRL_JESSIE_HIDEOUT
 	removeobject LOCALID_PRL_JAMES_HIDEOUT
