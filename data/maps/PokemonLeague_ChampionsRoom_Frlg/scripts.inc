@@ -324,14 +324,14 @@ PokemonLeague_ChampionsRoom_Text_OakPlayer::
 	.string "OAK: {PLAYER}!$"
 
 PokemonLeague_ChampionsRoom_Text_OakCongratulations::
-	.string "OAK: So, you've won!\n"
-	.string "Sincerely, congratulations!\p"
-	.string "You're the new POKéMON LEAGUE\n"
-	.string "CHAMPION!\p"
-	.string "You've grown up so much since you\n"
-	.string "first left with {STR_VAR_1} to work\l"
-	.string "on the POKéDEX.\p"
-	.string "{PLAYER}, you have come of age!$"
+	.string "OAK: You've done it, {PLAYER}!\p"
+	.string "You are KANTO's new CHAMPION!\p"
+	.string "Remember those RELIC REPORTS\n"
+	.string "we studied at the beginning?\p"
+	.string "You found evidence even the\n"
+	.string "researchers couldn't explain.\p"
+	.string "You've earned this victory.\n"
+	.string "The mystery isn't over yet!$"
 
 PokemonLeague_ChampionsRoom_Text_OakImDisappointedRival::
 	.string "OAK: {RIVAL}…\n"
@@ -348,11 +348,9 @@ PokemonLeague_ChampionsRoom_Text_OakImDisappointedRival::
 	.string "become a CHAMP again!$"
 
 PokemonLeague_ChampionsRoom_Text_OakPlayerComeWithMe::
-	.string "OAK: {PLAYER}.\p"
-	.string "You understand that your victory\n"
-	.string "was not just your own doing.\p"
-	.string "The bond you share with your\n"
-	.string "POKéMON is marvelous.\p"
-	.string "{PLAYER}!\n"
-	.string "Come with me!$"
+	.string "OAK: {PLAYER}, come with me.\p"
+	.string "Your bond with your POKéMON\n"
+	.string "is stronger than any RELIC.\p"
+	.string "Let us record your team\n"
+	.string "in the HALL OF FAME!$"
 

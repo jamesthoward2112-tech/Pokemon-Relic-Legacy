@@ -26,16 +26,18 @@ CinnabarIsland_PokemonLab_ResearchRoom_Text_EeveeCanEvolveIntroThreeMons::
 
 CinnabarIsland_PokemonLab_ResearchRoom_Text_LegendaryBirdEmail::
 	.string "There's an e-mail message.\p"
-	.string "… … …\p"
-	.string "There are three legendary bird\n"
-	.string "POKéMON.\p"
-	.string "They are ARTICUNO, ZAPDOS, and\n"
-	.string "MOLTRES.\p"
-	.string "Their whereabouts are unknown.\p"
-	.string "We plan to explore the cavern\n"
-	.string "close to CERULEAN.\p"
-	.string "From: POKéMON RESEARCH TEAM…$"
+	.string "KANTO's known legendary\n"
+	.string "birds are ARTICUNO, ZAPDOS\n"
+	.string "and MOLTRES.\p"
+	.string "A separate old sketch shows\n"
+	.string "a fourth bird, coloured gold.\p"
+	.string "No species matches it.\n"
+	.string "Identity: UNKNOWN.\p"
+	.string "File reference: RELIC-01.$"
 
 CinnabarIsland_PokemonLab_ResearchRoom_Text_AnAmberPipe::
-	.string "An amber pipe!$"
+	.string "An old AMBER specimen.\n"
+	.string "Its label reads RELIC-01.\p"
+	.string "FOSSIL DNA and modern genes\n"
+	.string "show a curious shared trait.$"
 

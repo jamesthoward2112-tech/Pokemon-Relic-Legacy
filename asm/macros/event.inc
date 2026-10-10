@@ -798,13 +798,16 @@
 
 	@ Starts a double trainer battle. Takes a trainer, intro text, loss text, text for when you have too few pokemon
 	@ and an optional event script. When used with an event script you can pass in an optional flag to disable music
-	.macro trainerbattle_double trainer:req, intro_text:req, lose_text:req, not_enough_pkmn_text:req, event_script=FALSE, music=TRUE
+	@ The localId parameter binds coordinate-driven story battles to a real visible NPC.
+	@ continueScript keeps departure and post-battle dialogue reachable after victory.
+	@ Both default to the old trainerbattle_double behaviour for existing trainers.
+	.macro trainerbattle_double trainer:req, intro_text:req, lose_text:req, not_enough_pkmn_text:req, event_script=FALSE, music=TRUE, localId=LOCALID_NONE, continueScript=FALSE
 	.if \event_script == FALSE
-	trainerbattle LOCALID_NONE, \trainer, \intro_text, \lose_text, NULL, LOCALID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, \not_enough_pkmn_text, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE
+	trainerbattle \localId, \trainer, \intro_text, \lose_text, NULL, LOCALID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, \not_enough_pkmn_text, TRUE, TRUE, FALSE, FALSE, \continueScript, TRUE, FALSE, FALSE
 	.elseif \music == TRUE
-	trainerbattle LOCALID_NONE, \trainer, \intro_text, \lose_text, \event_script, LOCALID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, \not_enough_pkmn_text, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE
+	trainerbattle \localId, \trainer, \intro_text, \lose_text, \event_script, LOCALID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, \not_enough_pkmn_text, TRUE, TRUE, FALSE, FALSE, \continueScript, TRUE, FALSE, FALSE
 	.else
-	trainerbattle LOCALID_NONE, \trainer, \intro_text, \lose_text, \event_script, LOCALID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, \not_enough_pkmn_text, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE
+	trainerbattle \localId, \trainer, \intro_text, \lose_text, \event_script, LOCALID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, \not_enough_pkmn_text, TRUE, FALSE, FALSE, FALSE, \continueScript, TRUE, FALSE, FALSE
 	.endif
 	.endm
 

@@ -117,15 +117,15 @@ ViridianCity_Gym_EventScript_GymStatuePostVictory::
 	end
 
 ViridianCity_Gym_Text_GiovanniIntro::
-	.string "Fwahahaha!\n"
-	.string "Welcome to my hideout!\p"
-	.string "It shall be so until I can restore\n"
-	.string "TEAM ROCKET to its former glory.\p"
-	.string "But, you have found me again.\n"
-	.string "So be it.\l"
-	.string "This time, I'm not holding back!\p"
-	.string "Once more, you shall face\n"
-	.string "GIOVANNI, the greatest TRAINER!{PLAY_BGM}{MUS_RG_ENCOUNTER_ROCKET}$"
+	.string "GIOVANNI: Here we meet again.\p"
+	.string "The fossils from MT. MOON,\n"
+	.string "the lab at SILPH, the relics...\p"
+	.string "All were steps toward an\n"
+	.string "ancient power I sought.\p"
+	.string "A bird of gold? A mere myth?\n"
+	.string "I still don't know.\p"
+	.string "But my fossil army is real.\n"
+	.string "Now face its full force!$"
 
 ViridianCity_Gym_Text_GiovanniDefeat::
 	.string "Ha!\n"
@@ -135,15 +135,14 @@ ViridianCity_Gym_Text_GiovanniDefeat::
 	.string "{PAUSE_MUSIC}{PLAY_BGM}{MUS_OBTAIN_BADGE}{PAUSE 0xFE}{PAUSE 0x56}{RESUME_MUSIC}$"
 
 ViridianCity_Gym_Text_GiovanniPostBattle::
-	.string "Having lost in this fashion, \n"
-	.string "I can't face my followers.\l"
-	.string "I have betrayed their trust.\p"
-	.string "As of today, TEAM ROCKET is\n"
-	.string "finished forever!\p"
-	.string "As for myself, I shall dedicate\n"
-	.string "my life to training again.\p"
-	.string "Let us meet again someday!\n"
-	.string "Farewell!$"
+	.string "My research. My fossil army.\n"
+	.string "All brought down by you.\p"
+	.string "I chased a legend, but lost\n"
+	.string "sight of my own POKéMON.\p"
+	.string "As of today, TEAM ROCKET\n"
+	.string "is disbanded.\p"
+	.string "The ancient mystery remains.\n"
+	.string "It is yours to uncover now.$"
 
 ViridianCity_Gym_Text_ExplainEarthBadgeTakeThis::
 	.string "The EARTHBADGE makes POKéMON of\n"

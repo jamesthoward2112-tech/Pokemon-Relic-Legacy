@@ -167,6 +167,36 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Route3_EventScript_PRLCharmanderAide_Pokemon",
       "flag": "FLAG_PRL_GOT_CHARMANDER_GIFT"
+    },
+    {
+      "local_id": "LOCALID_PRL_STEEVE_ROUTE3",
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_TWIN",
+      "x": 59,
+      "y": 1,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Route3_EventScript_PRLSteeveNeeveeTrigger",
+      "flag": "FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3"
+    },
+    {
+      "local_id": "LOCALID_PRL_NEEVEE_ROUTE3",
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_TWIN",
+      "x": 61,
+      "y": 1,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Route3_EventScript_PRLSteeveNeeveeTrigger",
+      "flag": "FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3"
     }
   ],
   "warp_events": [],
@@ -174,7 +204,25 @@
     {
       "type": "trigger",
       "x": 60,
+      "y": 1,
+      "elevation": 3,
+      "var": "VAR_PRL_RECURRING_ROUTE3_TRIGGER",
+      "var_value": "0",
+      "script": "Route3_EventScript_PRLSteeveNeeveeTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 60,
       "y": 2,
+      "elevation": 3,
+      "var": "VAR_PRL_RECURRING_ROUTE3_TRIGGER",
+      "var_value": "0",
+      "script": "Route3_EventScript_PRLSteeveNeeveeTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 60,
+      "y": 3,
       "elevation": 3,
       "var": "VAR_PRL_RECURRING_ROUTE3_TRIGGER",
       "var_value": "0",

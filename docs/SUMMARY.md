@@ -1,5 +1,7 @@
 # Summary
 
+- [PRL Kanto Golden-Bird Relic Story Canon](./PRL_KANTO_GOLDEN_BIRD_STORY_CANON_2026-10-10.md)
+
 - [PR24 Redux battle background donor mapping](./PR24_REDUX_BATTLE_BACKGROUNDS.md)
 
 - [PR23 approved Mercury artwork integration](./PR23_MERCURY_DONOR_INTEGRATION_PENDING.md)
@@ -164,3 +166,7 @@
 - [PRL Step 4C Relic Move Master](./prl_step4c_relic_move_master.md)
 - [PRL Presentation Repair Plan](./superpowers/plans/2026-10-08-prl-presentation-repair.md)
 - [PRL Canonical Status](./prl-canonical/PRL_Canonical_Status.md)
+
+- [PRL Issue 26 Eevee Twins and Rocket Scene Source QA](./PRL_ISSUE26_EEVEE_TWINS_SOURCE_QA_2026-10-10.md)
+- [PRL Issue 26 Forest Intro and Rocket Portrait Donors](./PRL_ISSUE26_FOREST_AND_ROCKET_DONORS_2026-10-10.md)
+- [PRL Issue 26 Player Visual Polish](./PRL_ISSUE26_PLAYER_VISUAL_POLISH_2026-10-10.md)

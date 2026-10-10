@@ -41,8 +41,10 @@ SilphCo_10F_Text_GruntDefeat::
 	.string "I'm stunned!$"
 
 SilphCo_10F_Text_GruntPostBattle::
-	.string "Nice try, but the boardroom is up\n"
-	.string "one more floor.$"
+	.string "The MASTER BALL records went\n"
+	.string "straight to the top floor.\p"
+	.string "A golden bird? Nobody has\n"
+	.string "even proved that it exists!$"
 
 SilphCo_10F_Text_TravisIntro::
 	.string "Enough of your silly games!$"

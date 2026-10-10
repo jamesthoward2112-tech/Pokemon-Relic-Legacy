@@ -213,10 +213,12 @@ PewterCity_Museum_1F_Text_DoYouKnowWhatAmberIs::
 	.string "Do you know what AMBER is?$"
 
 PewterCity_Museum_1F_Text_AmberContainsGeneticMatter::
-	.string "AMBER contains the genetic matter\n"
-	.string "of ancient POKéMON.\p"
-	.string "There's a LAB somewhere trying to\n"
-	.string "resurrect POKéMON from AMBER.$"
+	.string "AMBER traps ancient POKéMON\n"
+	.string "DNA inside hardened sap.\p"
+	.string "But recent samples show\n"
+	.string "signs of an unknown change.\p"
+	.string "KANTO's past is not as quiet\n"
+	.string "as we once believed!$"
 
 PewterCity_Museum_1F_Text_AmberIsFossilizedSap::
 	.string "AMBER is actually sap, that gooey\n"
@@ -253,15 +255,19 @@ PewterCity_Museum_1F_Text_ReceivedOldAmberFromMan::
 	.string "from the man.$"
 
 PewterCity_Museum_1F_Text_GetOldAmberChecked::
-	.string "Ssh!\n"
-	.string "Get the OLD AMBER checked!$"
+	.string "Ssh! Take OLD AMBER to the\n"
+	.string "CINNABAR research lab.\p"
+	.string "Ask whether the strange\n"
+	.string "ancient pattern appears there.$"
 
 PewterCity_Museum_1F_Text_DontHaveSpaceForThis::
 	.string "You don't have space for this.$"
 
 PewterCity_Museum_1F_Text_WeHaveTwoFossilsOnExhibit::
-	.string "We have two fossils of rare,\n"
-	.string "prehistoric POKéMON on exhibit.$"
+	.string "These FOSSILS are millions\n"
+	.string "of years old.\p"
+	.string "Look closely at the markings.\n"
+	.string "They're like the RELIC REPORTS!$"
 
 PewterCity_Museum_1F_Text_BeautifulPieceOfAmber::
 	.string "There is a beautiful piece of\n"

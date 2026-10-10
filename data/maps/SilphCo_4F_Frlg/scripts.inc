@@ -48,8 +48,9 @@ SilphCo_4F_Text_TeamRocketIsGone::
 	.string "TEAM ROCKET is gone?$"
 
 SilphCo_4F_Text_Grunt1Intro::
-	.string "TEAM ROCKET has taken control\n"
-	.string "of SILPH CO.!$"
+	.string "This floor stores the old\n"
+	.string "excavation records.\p"
+	.string "No visitors!$"
 
 SilphCo_4F_Text_Grunt1Defeat::
 	.string "Arrgh!$"
@@ -78,7 +79,9 @@ SilphCo_4F_Text_Grunt2Defeat::
 	.string "Who are you?$"
 
 SilphCo_4F_Text_Grunt2PostBattle::
-	.string "I better tell the BOSS on 11F!$"
+	.string "Those documents describe\n"
+	.string "ancient traits reawakening.\p"
+	.string "The BOSS must see them!$"
 
 SilphCo_4F_Text_FloorSign::
 	.string "SILPH CO. HEAD OFFICE\n"

@@ -58,16 +58,21 @@ class PRLRecurringDuos(unittest.TestCase):
                 script = read(f"data/maps/{map_name}/scripts.inc")
                 self.assertTrue(re.search(rf"trainerbattle_double TRAINER_{name}\b", script), name)
                 self.assertTrue(re.search(rf"setflag FLAG_PRL_RECURRING_{name}\b", script), name)
-                self.assertTrue(re.search(rf"goto_if_set FLAG_PRL_RECURRING_{name}\b", script), name)
+                if name.startswith("JESSIE_JAMES_"):
+                    self.assertIn(f"goto_if_defeated TRAINER_{name}", script)
+                else:
+                    self.assertTrue(re.search(rf"goto_if_set FLAG_PRL_RECURRING_{name}\b", script), name)
                 self.assertIn(GATES[name], script)
                 if GATES[name] == "ITEM_SILPH_SCOPE":
                     self.assertIn("checkitem ITEM_SILPH_SCOPE", script)
                 map_data = json.loads(read(f"data/maps/{map_name}/map.json"))
                 if name == "JESSIE_JAMES_MT_MOON":
-                    self.assertIn("MtMoon_B1F_EventScript_PRL_JessieJamesEncounter", script)
+                    self.assertIn("MtMoon_B1F_EventScript_PRL_Jessie", script)
                     self.assertNotIn("call MtMoon_B2F_EventScript_PRL_JESSIE_JAMES_MT_MOON", read("data/maps/MtMoon_B2F_Frlg/scripts.inc"))
                 elif name in ("JESSIE_JAMES_HIDEOUT", "JESSIE_JAMES_SILPH"):
-                    self.assertTrue(re.search(rf"call .*EventScript_PRL_{name}", script), name)
+                    self.assertIn("OnLoad_PRLRocketVisibility", script)
+                    self.assertIn("EventScript_PRL_Jessie", script)
+                    self.assertIn("EventScript_PRL_James", script)
                 elif name == "JESSIE_JAMES_VICTORY_ROAD":
                     self.assertIn("MAP_SCRIPT_ON_TRANSITION", script)
                 else:
@@ -134,18 +139,18 @@ class PRLRecurringDuos(unittest.TestCase):
                 for actor in ("OBJ_EVENT_GFX_PRL_JESSIE", "OBJ_EVENT_GFX_PRL_JAMES", "OBJ_EVENT_GFX_MEOWTH"):
                     self.assertIn(actor, graphics, actor)
                 script = read(f"data/maps/{map_name}/scripts.inc")
-                self.assertIn("waitmovementall", script)
-                if name == "JESSIE_JAMES_MT_MOON":
-                    # In PR24 they must be visible *before* approaching the exit.
-                    self.assertIn("clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON", script)
-                    self.assertIn("removeobject LOCALID_PRL_MEOWTH_MT_MOON", script)
-                    self.assertLess(script.index("applymovement LOCALID_PRL_MEOWTH"), script.index("applymovement LOCALID_PRL_JESSIE"))
-                    self.assertLess(script.index("applymovement LOCALID_PRL_JESSIE"), script.index("applymovement LOCALID_PRL_JAMES"))
-                else:
+                self.assertIn("trainerbattle_double", script)
+                self.assertIn("EventScript_PRL_Jessie::", script)
+                self.assertIn("EventScript_PRL_James::", script)
+                self.assertIn("Text_PRL_JessiePostBattle::", script)
+                self.assertIn("Text_PRL_JamesPostBattle::", script)
+                self.assertNotIn("removeobject LOCALID_PRL_JESSIE", script)
+                self.assertNotIn("removeobject LOCALID_PRL_JAMES", script)
+                if name != "JESSIE_JAMES_MT_MOON":
                     self.assertIn("addobject LOCALID_PRL_MEOWTH", script)
-                    self.assertIn("removeobject LOCALID_PRL_MEOWTH", script)
-                    self.assertLess(script.index("applymovement LOCALID_PRL_JESSIE"), script.index("applymovement LOCALID_PRL_JAMES"))
-                    self.assertLess(script.index("applymovement LOCALID_PRL_JAMES"), script.index("applymovement LOCALID_PRL_MEOWTH"))
+                    for actor in ("JESSIE","JAMES"):
+                        npc=next(x for x in map_data["object_events"] if x.get("local_id","").startswith("LOCALID_PRL_"+actor+"_"))
+                        self.assertEqual(npc["trainer_type"],"TRAINER_TYPE_NORMAL")
 
 
     def test_recurring_duos_acknowledge_prior_kanto_encounters(self):
@@ -153,9 +158,9 @@ class PRLRecurringDuos(unittest.TestCase):
             "SSAnne_2F_Corridor_Frlg": "We met on ROUTE 3",
             "PokemonTower_1F_Frlg": "Remember us from the ship",
             "Route23_Frlg": "From ROUTE 3 to the League",
-            "RocketHideout_B4F_Frlg": "You foiled us at MT. MOON",
-            "SilphCo_11F_Frlg": "Twice you've ruined our plans",
-            "VictoryRoad_3F_Frlg": "You keep chasing us",
+            "RocketHideout_B4F_Frlg": "You ruined MT. MOON",
+            "SilphCo_11F_Frlg": "After MT. MOON and",
+            "VictoryRoad_3F_Frlg": "From SILPH to here",
         }
         for map_name, line in expected.items():
             with self.subTest(map=map_name):
@@ -171,10 +176,11 @@ class PRLRecurringDuos(unittest.TestCase):
                                  ("VictoryRoad_3F_Frlg", "VictoryRoad_3F")):
             script = read(f"data/maps/{map_name}/scripts.inc")
             if prefix == "MtMoon_B1F":
-                self.assertIn("MtMoon_B1F_EventScript_PRL_JessieJamesEncounter", script)
+                self.assertIn("MtMoon_B1F_EventScript_PRL_Jessie", script)
                 continue
-            self.assertIn(f"{prefix}_EventScript_PRL_JESSIE_JAMES_", script)
-            self.assertNotIn(f"{prefix}_Frlg_EventScript_PRL_JESSIE_JAMES_", script)
+            self.assertIn(f"{prefix}_EventScript_PRL_Jessie::", script)
+            self.assertIn(f"{prefix}_EventScript_PRL_James::", script)
+            self.assertNotIn(f"{prefix}_EventScript_PRL_JESSIE_JAMES_", script)
             for ref in re.findall(r"\b(?:call|goto) (\w*PRL_JESSIE_JAMES_\w+)", script):
                 self.assertRegex(script, rf"(?m)^{re.escape(ref)}::", msg=ref)
 

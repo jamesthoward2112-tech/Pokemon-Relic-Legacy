@@ -278,9 +278,11 @@ void Task_HandleExpansionIntro(u8 taskId)
             FreeAllSpritePalettes();
             DestroyTask(taskId);
 #if defined(FIRERED)
-            // PRL: Porygon splash -> approved title. Skip GF/Gengar movie.
+            // PRL: Porygon -> original forest / Celebi & Jirachi / title.
+            // Never route directly to title: that skipped the entire donor scene.
+            extern void CB2_InitPRLHwlScene0(void);
             SetVBlankCallback(NULL);
-            SetMainCallback2(CB2_InitTitleScreen);
+            SetMainCallback2(CB2_InitPRLHwlScene0);
 #else
             if (IS_FRLG)
             {

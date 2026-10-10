@@ -49,8 +49,9 @@ SilphCo_3F_Text_GruntDefeat::
 	.string "I give up!$"
 
 SilphCo_3F_Text_GruntPostBattle::
-	.string "A hint? You can open doors with\n"
-	.string "a CARD KEY!$"
+	.string "We found a strange pattern\n"
+	.string "in the revived fossils.\p"
+	.string "You won't learn what it means!$"
 
 SilphCo_3F_Text_JoseIntro::
 	.string "I support TEAM ROCKET more than\n"

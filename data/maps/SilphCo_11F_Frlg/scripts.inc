@@ -1,12 +1,12 @@
 SilphCo_11F_Frlg_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, SilphCo_11F_OnLoad
+	map_script MAP_SCRIPT_ON_TRANSITION, SilphCo_11F_OnTransition_PRLRocket
 	.byte 0
 
 SilphCo_11F_OnLoad::
 	setflag FLAG_HIDE_PRL_ROCKET_SILPH
-	setflag FLAG_HIDE_PRL_ROCKET_SILPH
-	setflag FLAG_HIDE_PRL_ROCKET_SILPH
 	call_if_unset FLAG_SILPH_11F_DOOR, EventScript_Close11FDoor
+	call SilphCo_11F_OnLoad_PRLRocketVisibility
 	end
 
 SilphCo_11F_EventScript_President::
@@ -59,7 +59,6 @@ SilphCo_11F_EventScript_GiovanniTriggerRight::
 	end
 
 SilphCo_11F_EventScript_BattleGiovanni::
-	call SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPH
 	goto_if_unset FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_GiovanniWaitForJessieJames
 	textcolor NPC_TEXT_COLOR_MALE
 	applymovement LOCALID_SILPH_CO_GIOVANNI, Common_Movement_WalkInPlaceFasterDown
@@ -85,8 +84,13 @@ SilphCo_11F_EventScript_BattleGiovanni::
 	end
 
 SilphCo_11F_EventScript_GiovanniWaitForJessieJames::
+	msgbox SilphCo_11F_Text_PRL_StillGuarded
 	releaseall
 	end
+
+SilphCo_11F_Text_PRL_StillGuarded::
+	.string "GIOVANNI: Face JESSIE and JAMES\n"
+	.string "before you challenge me!$"
 
 SilphCo_11F_EventScript_GiovanniApproachLeft::
 	applymovement LOCALID_SILPH_CO_GIOVANNI, SilphCo_11F_Movement_GiovanniApproachLeft
@@ -166,14 +170,13 @@ SilphCo_11F_Text_ObtainedMasterBallFromPresident::
 	.string "from the PRESIDENT!$"
 
 SilphCo_11F_Text_ThatsOurSecretPrototype::
-	.string "PRESIDENT: You can't buy that\n"
-	.string "anywhere.\p"
-	.string "It's our secret prototype MASTER\n"
-	.string "BALL.\p"
-	.string "It will catch any POKéMON without\n"
-	.string "fail!\p"
-	.string "You should be quiet about using it,\n"
-	.string "though.$"
+	.string "PRESIDENT: This prototype\n"
+	.string "is our MASTER BALL.\p"
+	.string "ROCKET wanted it for an\n"
+	.string "unknown ancient POKéMON.\p"
+	.string "Old drawings show a golden\n"
+	.string "bird. No one knows its name.\p"
+	.string "Keep the ball safe from them!$"
 
 SilphCo_11F_Text_YouHaveNoRoomForThis::
 	.string "You have no room for this.$"
@@ -185,25 +188,25 @@ SilphCo_11F_Text_ThanksForRescuingUs::
 	.string "are indebted to you.$"
 
 SilphCo_11F_Text_GiovanniIntro::
-	.string "Ah, {PLAYER}!\n"
-	.string "So we meet again!\p"
-	.string "The PRESIDENT and I are discussing\n"
-	.string "a vital business proposition.\p"
-	.string "Keep your nose out of grown-up\n"
-	.string "matters…\p"
-	.string "Or, experience a world of pain!$"
+	.string "GIOVANNI: You persist, child.\p"
+	.string "SILPH has restored my ancient\n"
+	.string "specimens to living strength.\p"
+	.string "Their records tell of a bird\n"
+	.string "whose feathers gleam like gold.\p"
+	.string "Perhaps the ultimate RELIC...\p"
+	.string "With the MASTER BALL, I will\n"
+	.string "seize it if it truly exists!$"
 
 SilphCo_11F_Text_GiovanniDefeat::
 	.string "Arrgh!!\n"
 	.string "I lost again!?$"
 
 SilphCo_11F_Text_GiovanniPostBattle::
-	.string "Blast it all!\n"
-	.string "You ruined our plans for SILPH!\p"
-	.string "But, TEAM ROCKET will never fall!\p"
-	.string "{PLAYER}! Never forget that all\n"
-	.string "POKéMON exist for TEAM ROCKET!\p"
-	.string "I must go, but I shall return!$"
+	.string "My fossil army... defeated?\p"
+	.string "You have ruined this phase\n"
+	.string "of TEAM ROCKET's operation.\p"
+	.string "But ancient legends remain.\n"
+	.string "I have another plan!$"
 
 SilphCo_11F_Text_Grunt2Intro::
 	.string "Stop right there!\n"
@@ -229,79 +232,111 @@ SilphCo_11F_Text_Grunt1PostBattle::
 	.string "My BOSS likes his POKéMON tough!$"
 
 SilphCo_11F_Text_MonitorHasMonsOnIt::
-	.string "The monitor has POKéMON on it!$"
+	.string "The screen lists revived\n"
+	.string "FOSSIL POKéMON specimens.\p"
+	.string "A file reads: RELIC SIGNAL -\n"
+	.string "ORIGIN UNKNOWN.$"
 
 SilphCo_11F_Text_FloorSign::
 	.string "SILPH CO. HEAD OFFICE\n"
 	.string "11F$"
 
 
-SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPH::
-	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHEnd
-	checkitem ITEM_SILPH_SCOPE
-	goto_if_eq VAR_RESULT, FALSE, SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHEnd
-	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHAlreadyWon
-	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
-	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
-	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
-	addobject LOCALID_PRL_JESSIE_SILPH
-	addobject LOCALID_PRL_JAMES_SILPH
-	addobject LOCALID_PRL_MEOWTH_SILPH
-	applymovement LOCALID_PRL_JESSIE_SILPH, SilphCo_11F_Movement_PRL_RocketApproach
-	waitmovementall
-	applymovement LOCALID_PRL_JAMES_SILPH, SilphCo_11F_Movement_PRL_RocketApproach
-	waitmovementall
-	applymovement LOCALID_PRL_MEOWTH_SILPH, SilphCo_11F_Movement_PRL_RocketApproach
-	waitmovementall
-	turnobject LOCALID_PRL_JESSIE_SILPH, DIR_SOUTH
-	turnobject LOCALID_PRL_JAMES_SILPH, DIR_SOUTH
-	turnobject LOCALID_PRL_MEOWTH_SILPH, DIR_SOUTH
-	trainerbattle_double TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_Text_PRL_RocketIntro, SilphCo_11F_Text_PRL_RocketDefeat, SilphCo_11F_Text_PRL_RocketNotEnoughMons
-	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHWon
-	goto SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHCleanup
-SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHWon::
+
+@ Jessie and James behave as ordinary trainers, using native ! / walk-up.
+@ One shared opponent ID makes the first alignment a single double battle.
+@ Neither character is removed: each has separate post-battle dialogue.
+SilphCo_11F_EventScript_PRL_Jessie::
+	trainerbattle_double TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_Text_PRL_RocketIntro, SilphCo_11F_Text_PRL_RocketDefeat, SilphCo_11F_Text_PRL_RocketNotEnoughMons, SilphCo_11F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_JESSIE_SILPH
+	msgbox SilphCo_11F_Text_PRL_JessiePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SilphCo_11F_EventScript_PRL_James::
+	trainerbattle_double TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_Text_PRL_RocketIntro, SilphCo_11F_Text_PRL_RocketDefeat, SilphCo_11F_Text_PRL_RocketNotEnoughMons, SilphCo_11F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_JAMES_SILPH
+	msgbox SilphCo_11F_Text_PRL_JamesPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SilphCo_11F_EventScript_PRL_Meowth::
+	lock
+	faceplayer
+	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_PRL_MeowthAfter
+	msgbox SilphCo_11F_Text_PRL_MeowthBefore
+	release
+	end
+SilphCo_11F_EventScript_PRL_MeowthAfter::
+	msgbox SilphCo_11F_Text_PRL_MeowthAfter
+	release
+	end
+
+SilphCo_11F_EventScript_PRL_RocketWon::
 	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
 	msgbox SilphCo_11F_Text_PRL_RocketPostBattle
-SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHCleanup::
-	applymovement LOCALID_PRL_JESSIE_SILPH, SilphCo_11F_Movement_PRL_RocketExit
-	waitmovementall
-	applymovement LOCALID_PRL_JAMES_SILPH, SilphCo_11F_Movement_PRL_RocketExit
-	waitmovementall
-	applymovement LOCALID_PRL_MEOWTH_SILPH, SilphCo_11F_Movement_PRL_RocketExit
-	waitmovementall
-	setflag FLAG_HIDE_PRL_ROCKET_SILPH
-	setflag FLAG_HIDE_PRL_ROCKET_SILPH
-	setflag FLAG_HIDE_PRL_ROCKET_SILPH
-	removeobject LOCALID_PRL_JESSIE_SILPH
-	removeobject LOCALID_PRL_JAMES_SILPH
-	removeobject LOCALID_PRL_MEOWTH_SILPH
-SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHAlreadyWon::
-	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
-SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHEnd::
-	return
+	release
+	end
 
-SilphCo_11F_Movement_PRL_RocketApproach::
-	walk_up
-	step_end
+SilphCo_11F_Text_PRL_JessiePostBattle::
+	.string "JESSIE: Don't celebrate yet!\p"
+	.string "TEAM ROCKET will still find\n"
+	.string "the ultimate ancient RELIC!$"
 
-SilphCo_11F_Movement_PRL_RocketExit::
-	walk_down
-	step_end
+SilphCo_11F_Text_PRL_JamesPostBattle::
+	.string "JAMES: Every ancient specimen\n"
+	.string "leads to another mystery.\p"
+	.string "BOSS has a lot to learn!$"
+
+SilphCo_11F_Text_PRL_MeowthBefore::
+	.string "MEOWTH: Mrowr! Not another kid!$"
+
+SilphCo_11F_Text_PRL_MeowthAfter::
+	.string "MEOWTH: They lost AGAIN?!$"
 
 SilphCo_11F_Text_PRL_RocketIntro::
-	.string "JESSIE: Twice you've ruined our plans!\p"
-	.string "JAMES: SILPH's research will be ours!$"
+	.string "JESSIE: After MT. MOON and\n"
+	.string "CELADON, you STILL follow us?!\p"
+	.string "JAMES: The golden-bird files\n"
+	.string "belong to TEAM ROCKET!$"
 
 SilphCo_11F_Text_PRL_RocketDefeat::
-	.string "JESSIE: This can't be!\p"
-	.string "JAMES: We'll report back to the\n"
-	.string "BOSS about the relic research!$"
+	.string "JAMES: The MASTER BALL!\p"
+	.string "JESSIE: We were so close to\n"
+	.string "seizing the ancient prize!$"
 
 SilphCo_11F_Text_PRL_RocketNotEnoughMons::
 	.string "JESSIE: Bring at least two POKéMON\n"
 	.string "if you want to stop TEAM ROCKET!$"
 
 SilphCo_11F_Text_PRL_RocketPostBattle::
-	.string "JAMES: The fossils, the relics…\p"
-	.string "JESSIE: This Kanto project is just\n"
-	.string "the beginning!$"
+	.string "JAMES: A golden bird...\p"
+	.string "JESSIE: Just an old rumour!\n"
+	.string "The BOSS will be furious.$"
+
+
+@ Visibility is set before spawning map objects and refreshed on transition.
+@ Neither function starts a battle or changes the native map's warp tiles.
+SilphCo_11F_OnLoad_PRLRocketVisibility::
+	checkitem ITEM_SILPH_SCOPE
+	goto_if_eq VAR_RESULT, FALSE, SilphCo_11F_PRLRocketVisibilityDone
+	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_PRLRocketAlreadyWon
+	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
+SilphCo_11F_PRLRocketVisibilityDone::
+	return
+SilphCo_11F_PRLRocketAlreadyWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
+	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
+	return
+
+SilphCo_11F_OnTransition_PRLRocket::
+	checkitem ITEM_SILPH_SCOPE
+	goto_if_eq VAR_RESULT, FALSE, SilphCo_11F_PRLRocketTransitionDone
+	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_PRLRocketTransitionAlreadyWon
+	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
+	goto SilphCo_11F_PRLRocketTransitionAdd
+SilphCo_11F_PRLRocketTransitionAlreadyWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
+	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
+SilphCo_11F_PRLRocketTransitionAdd::
+	addobject LOCALID_PRL_JESSIE_SILPH
+	addobject LOCALID_PRL_JAMES_SILPH
+	addobject LOCALID_PRL_MEOWTH_SILPH
+SilphCo_11F_PRLRocketTransitionDone::
+	return

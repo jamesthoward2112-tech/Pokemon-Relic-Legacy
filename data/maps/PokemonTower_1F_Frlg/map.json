@@ -85,6 +85,36 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "PokemonTower_1F_EventScript_BaldingMan",
       "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_PRL_STEEVE_TOWER",
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_TWIN",
+      "x": 17,
+      "y": 8,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "PokemonTower_1F_EventScript_PRLSteeveNeeveeTrigger",
+      "flag": "FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER"
+    },
+    {
+      "local_id": "LOCALID_PRL_NEEVEE_TOWER",
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_TWIN",
+      "x": 19,
+      "y": 8,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "PokemonTower_1F_EventScript_PRLSteeveNeeveeTrigger",
+      "flag": "FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER"
     }
   ],
   "warp_events": [
@@ -120,7 +150,25 @@
   "coord_events": [
     {
       "type": "trigger",
+      "x": 17,
+      "y": 10,
+      "elevation": 3,
+      "var": "VAR_PRL_RECURRING_TOWER_TRIGGER",
+      "var_value": "0",
+      "script": "PokemonTower_1F_EventScript_PRLSteeveNeeveeTrigger"
+    },
+    {
+      "type": "trigger",
       "x": 18,
+      "y": 10,
+      "elevation": 3,
+      "var": "VAR_PRL_RECURRING_TOWER_TRIGGER",
+      "var_value": "0",
+      "script": "PokemonTower_1F_EventScript_PRLSteeveNeeveeTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 19,
       "y": 10,
       "elevation": 3,
       "var": "VAR_PRL_RECURRING_TOWER_TRIGGER",

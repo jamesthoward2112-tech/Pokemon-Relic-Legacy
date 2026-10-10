@@ -86,9 +86,10 @@ RockTunnel_B1F_Text_SteveDefeat::
 	.string "Well, that's that.$"
 
 RockTunnel_B1F_Text_StevePostBattle::
-	.string "POKéMON cosplay is dressing up as\n"
-	.string "POKéMON for fun.\p"
-	.string "CLEFAIRY is a favorite.$"
+	.string "Someone has scraped ancient\n"
+	.string "marks from these stone walls.\p"
+	.string "I saw people in black\n"
+	.string "carrying samples away!$"
 
 RockTunnel_B1F_Text_AllenIntro::
 	.string "My POKéMON techniques will leave\n"

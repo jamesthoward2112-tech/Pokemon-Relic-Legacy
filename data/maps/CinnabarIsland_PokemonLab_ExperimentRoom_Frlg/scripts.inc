@@ -354,10 +354,13 @@ CinnabarIsland_PokemonLab_ExperimentRoom_Text_HandedFossilToWeirdDoctor::
 	.string "{STR_VAR_2} to the weird doctor.$"
 
 CinnabarIsland_PokemonLab_ExperimentRoom_Text_TakesTimeGoForWalk::
-	.string "I take a little time!\n"
-	.string "You go for walk a little while!$"
+	.string "Ancient cells take time\n"
+	.string "to come alive again!\p"
+	.string "I compare the RELIC-01 notes\n"
+	.string "while you take a short walk.$"
 
 CinnabarIsland_PokemonLab_ExperimentRoom_Text_YouComeAgain::
-	.string "Aiyah!\n"
-	.string "You come again!$"
+	.string "Welcome back, young TRAINER!\p"
+	.string "Old fossils are full of\n"
+	.string "secrets that still live!$"
 

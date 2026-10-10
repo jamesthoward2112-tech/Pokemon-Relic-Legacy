@@ -122,8 +122,10 @@ SilphCo_6F_Text_RocketsRanAwayBecauseOfYou::
 	.string "because of you!$"
 
 SilphCo_6F_Text_TargetedSilphForOurMonProducts::
-	.string "They must have targeted SILPH for\n"
-	.string "our POKéMON products.$"
+	.string "ROCKET wanted our POKéMON\n"
+	.string "technology, that's true.\p"
+	.string "But they also took the\n"
+	.string "ancient-specimen archive!$"
 
 SilphCo_6F_Text_ComeWorkForSilphWhenYoureOlder::
 	.string "Come work for SILPH when you\n"
@@ -155,7 +157,9 @@ SilphCo_6F_Text_TaylorPostBattle::
 	.string "It's in Russian no-man's-land!$"
 
 SilphCo_6F_Text_Grunt2Intro::
-	.string "You dare betray TEAM ROCKET?$"
+	.string "We've revived an entire\n"
+	.string "collection of fossil POKéMON!\p"
+	.string "You're not stopping us!$"
 
 SilphCo_6F_Text_Grunt2Defeat::
 	.string "You traitor!$"

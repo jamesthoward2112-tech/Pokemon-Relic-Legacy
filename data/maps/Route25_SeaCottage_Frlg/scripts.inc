@@ -385,9 +385,12 @@ Route25_SeaCottage_Text_SSAnnePartyYouGoInstead::
 	.string "Go on and have a good time.$"
 
 Route25_SeaCottage_Text_CheckOutRareMonsOnPC::
-	.string "BILL: Feel like checking out some\n"
-	.string "of my rare POKéMON on my PC?\p"
-	.string "Go on, check out my PC.$"
+	.string "BILL: Check my rare POKéMON\n"
+	.string "records on that PC!\p"
+	.string "The transporter registered\n"
+	.string "a peculiar ancient signal.\p"
+	.string "It matches the reports\n"
+	.string "PROF. OAK sent over!$"
 
 Route25_SeaCottage_Text_TeleporterIsDisplayed::
 	.string "TELEPORTER is displayed on the PC\n"

@@ -74,16 +74,16 @@ SilphCo_8F_Text_Grunt2Defeat::
 	.string "Oh, Brothers!$"
 
 SilphCo_8F_Text_Grunt2PostBattle::
-	.string "I'll leave you up to my brothers.$"
+	.string "Even our experts haven't\n"
+	.string "identified that gold figure.\p"
+	.string "The BOSS calls it a prize!$"
 
 SilphCo_8F_Text_FloorSign::
 	.string "SILPH CO. HEAD OFFICE\n"
 	.string "8F$"
 
 SilphCo_8F_Text_ToRocketBossMonsAreTools::
-	.string "TEAM ROCKET's BOSS is terribly\n"
-	.string "cruel!\p"
-	.string "To him, POKéMON are just tools to\n"
-	.string "be used.\p"
-	.string "What will happen if that tyrant\n"
-	.string "takes over our company…$"
+	.string "To ROCKET's BOSS, POKéMON\n"
+	.string "are nothing but tools.\p"
+	.string "Now he wants to revive\n"
+	.string "ancient species as weapons!$"
