@@ -130,7 +130,10 @@ class PRLRecurringDuos(unittest.TestCase):
                 for obj in twins:
                     self.assertEqual(obj["flag"], "0", "defeat flags must not hide the NPC")
                     self.assertEqual(obj["graphics_id"], "OBJ_EVENT_GFX_TWIN")
-                    self.assertEqual(obj["movement_type"], "MOVEMENT_TYPE_FACE_DOWN")
+                    expected_facing = "MOVEMENT_TYPE_FACE_LEFT" if name.endswith("_SS_ANNE") else "MOVEMENT_TYPE_FACE_DOWN"
+                    self.assertEqual(obj["movement_type"], expected_facing)
+                if name.endswith("_SS_ANNE"):
+                    self.assertEqual([(obj["x"], obj["y"]) for obj in twins], [(32, 8), (32, 10)])
                 script = read(f"data/maps/{map_name}/scripts.inc")
                 suffix = name.split("STEEVE_NEEVEE_", 1)[1]
                 prefix = {"ROUTE3": "Route3", "SS_ANNE": "SSAnne_2F_Corridor",
