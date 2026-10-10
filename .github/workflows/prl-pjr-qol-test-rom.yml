@@ -1,0 +1,58 @@
+name: PRL PJR QoL integration candidate ROM
+on:
+  push:
+    branches: [prl/pjr-phr-qol-migration-20261010]
+    paths:
+      - .github/workflows/prl-pjr-qol-test-rom.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      COMPARE: 0
+      GAME_REVISION: 0
+      GAME_LANGUAGE: ENGLISH
+    steps:
+      - name: Checkout approved PR25-derived Kanto checkpoint
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Port real Infinity Eeveelutions and four Kanto Twins teams
+        run: if [ ! -f graphics/pokemon/eeveeon/front.png ]; then python3 tools/prl/build_eeveeon_nimbeon.py; fi
+      - name: Commit source change without modifying existing stable checkpoint
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data include/constants/species.h include/constants/moves.h include/graphics.h graphics/pokemon/eeveeon graphics/pokemon/nimbeon tests/test_prl_recurring_duos.py tests/test_prl_eeveeon_nimbeon.py docs/prl-eeveeon-nimbeon-build-status.md
+          git diff --cached --quiet || (git commit -m "Kanto ROM: source-ported Eeveeon Nimbeon and balanced Eevee Twins" && git push origin HEAD:$GITHUB_REF_NAME)
+      - name: Validate Kanto Eevee Twins and new species
+        run: python3 -m unittest tests.test_prl_recurring_duos tests.test_prl_eeveeon_nimbeon tests.test_prl_pjr_qol_dexnav
+      - name: Install GBA ARM toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends binutils-arm-none-eabi gcc-arm-none-eabi libnewlib-arm-none-eabi libpng-dev python3
+      - name: Preserve donor Celebi and Jirachi opening assets
+        run: python3 tools/prl/prepare_hwl_scene0.py
+      - name: Compile GBA-compatible Eeveeon Nimbeon FireRed ROM
+        shell: bash
+        run: |
+          set +e
+          make firered -j$(nproc) -O > /tmp/prl-eevee-build.log 2>&1
+          status=$?
+          if [ "$status" -eq 0 ]; then
+            tail -n 35 /tmp/prl-eevee-build.log
+          else
+            grep -E -C 3 'error:|fatal|undefined reference|No rule to make target|make(\\[[0-9]+\\])?: \\*\\*\\*' /tmp/prl-eevee-build.log | tail -n 150 || tail -n 120 /tmp/prl-eevee-build.log
+          fi
+          exit "$status"
+      - name: Upload FireRed playable ROM
+        uses: actions/upload-artifact@v4
+        with:
+          name: PRL_PJR_QoL_DexNav_Test_20261010
+          path: pokefirered.gba
+          if-no-files-found: error
+          retention-days: 2
