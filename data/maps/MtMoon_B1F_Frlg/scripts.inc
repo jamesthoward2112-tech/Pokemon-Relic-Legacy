@@ -1,2 +1,51 @@
 MtMoon_B1F_Frlg_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, MtMoon_B1F_OnTransition_PRLJessieJames
 	.byte 0
+
+@ Give the player a visible unavoidable checkpoint after collecting either fossil.
+@ No battle is launched here; the corridor encounter fires only on approach.
+MtMoon_B1F_OnTransition_PRLJessieJames::
+	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+	setvar VAR_TEMP_0, 0
+	goto_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON, MtMoon_B1F_PRL_RocketNotReady
+	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON, MtMoon_B1F_PRL_RocketNotReady
+	goto_if_defeated TRAINER_JESSIE_JAMES_MT_MOON, MtMoon_B1F_PRL_RocketAlreadyWon
+	clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+MtMoon_B1F_PRL_RocketNotReady::
+	return
+
+MtMoon_B1F_PRL_RocketAlreadyWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON
+	return
+
+@ Jessie and James physically block the single exit corridor before Route 4.
+MtMoon_B1F_EventScript_PRL_JessieJamesEncounter::
+	lockall
+	goto_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON, MtMoon_B1F_EventScript_PRL_RocketRelease
+	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON, MtMoon_B1F_EventScript_PRL_RocketRelease
+	goto_if_defeated TRAINER_JESSIE_JAMES_MT_MOON, MtMoon_B1F_EventScript_PRL_RocketWin
+	trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON, MtMoon_B2F_Text_PRL_RocketIntro, MtMoon_B2F_Text_PRL_RocketDefeat, MtMoon_B2F_Text_PRL_RocketNotEnoughMons
+	goto_if_defeated TRAINER_JESSIE_JAMES_MT_MOON, MtMoon_B1F_EventScript_PRL_RocketWin
+	goto MtMoon_B1F_EventScript_PRL_RocketRelease
+
+MtMoon_B1F_EventScript_PRL_RocketWin::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON
+	msgbox MtMoon_B2F_Text_PRL_RocketPostBattle
+	applymovement LOCALID_PRL_MEOWTH_MT_MOON, MtMoon_B1F_Movement_PRL_RocketExit
+	waitmovementall
+	applymovement LOCALID_PRL_JESSIE_MT_MOON, MtMoon_B1F_Movement_PRL_RocketExit
+	waitmovementall
+	applymovement LOCALID_PRL_JAMES_MT_MOON, MtMoon_B1F_Movement_PRL_RocketExit
+	waitmovementall
+	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+	removeobject LOCALID_PRL_JESSIE_MT_MOON
+	removeobject LOCALID_PRL_JAMES_MT_MOON
+	removeobject LOCALID_PRL_MEOWTH_MT_MOON
+
+MtMoon_B1F_EventScript_PRL_RocketRelease::
+	releaseall
+	end
+
+MtMoon_B1F_Movement_PRL_RocketExit::
+	walk_up
+	step_end
