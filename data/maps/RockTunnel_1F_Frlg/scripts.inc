@@ -53,10 +53,12 @@ RockTunnel_1F_Text_LennyDefeat::
 	.string "You win!$"
 
 RockTunnel_1F_Text_LennyPostBattle::
-	.string "Watch for ONIX.\n"
-	.string "They appear only occasionally.\p"
-	.string "High-level ones can put the\n"
-	.string "squeeze on you!$"
+	.string "Watch out for ONIX.\n"
+	.string "They move through old strata.\p"
+	.string "Some rocks here show the\n"
+	.string "same mark found at MT. MOON.\p"
+	.string "A geologist called it a\n"
+	.string "RELIC pattern. Odd, huh?$"
 
 RockTunnel_1F_Text_OliverIntro::
 	.string "Hmm.\n"
