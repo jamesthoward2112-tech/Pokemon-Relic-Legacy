@@ -123,9 +123,9 @@ PokemonLeague_AgathasRoom_Text_Defeat::
 	.string "You're something special, child!$"
 
 PokemonLeague_AgathasRoom_Text_PostBattle::
-	.string "You win!\p"
-	.string "I see what the old duff sees in\n"
-	.string "you now.\p"
-	.string "I have nothing else to say.\n"
-	.string "Run along now, child!$"
+	.string "You're tougher than I thought!\p"
+	.string "OAK chases his old RELIC\n"
+	.string "reports like a youngster.\p"
+	.string "But you've seen what those\n"
+	.string "old records mean. Go on!$"
 
