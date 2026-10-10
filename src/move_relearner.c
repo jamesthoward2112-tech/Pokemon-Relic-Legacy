@@ -911,11 +911,55 @@ static bool32 IsTmAvailable(enum Item item)
     return CheckBagHasItem(item, 1);
 }
 
+// PRL Relic evolutions keep access to the whole pre-evolution move pool.
+// Keep the normal game's P_PRE_EVO_MOVES setting unchanged for non-Relic Pokemon.
+static const u8 sPRLRelicCategoryName[] = _("Relic");
+
+static bool32 ShouldInheritRelicPreEvolutionMoves(enum Species species)
+{
+    return species == SPECIES_NOXICHU
+        || StringCompare(gSpeciesInfo[SanitizeSpeciesId(species)].categoryName, sPRLRelicCategoryName) == 0;
+}
+
+// The Hoenn Relic starter final forms exist in PRL's species data, but their
+// base-form evolution targets are not yet wired into the standard evolution table.
+// Supply their direct pre-evolutions for Move Relearner inheritance.
+static enum Species GetRelearnerPreEvolution(enum Species species)
+{
+    switch (species)
+    {
+    case SPECIES_SCEPTITAN:
+        return SPECIES_SCEPTILE;
+    case SPECIES_SOLAZIKEN:
+        return SPECIES_BLAZIKEN;
+    case SPECIES_SWAMPLITH:
+        return SPECIES_SWAMPERT;
+    default:
+        return GetSpeciesPreEvolution(species);
+    }
+}
+
+static bool32 CanRelearnRelicTeachableMove(enum Species species, enum Move move)
+{
+    bool32 includePreEvolutions = P_PRE_EVO_MOVES || ShouldInheritRelicPreEvolutionMoves(species);
+
+    do
+    {
+        if (CanLearnTeachableMove(species, move))
+            return TRUE;
+
+        species = includePreEvolutions ? GetRelearnerPreEvolution(species) : SPECIES_NONE;
+    } while (species != SPECIES_NONE);
+
+    return FALSE;
+}
+
 static u32 GetRelearnerLevelUpMoves(struct BoxPokemon *mon, u16 *moves)
 {
     enum Species species = GetBoxMonData(mon, MON_DATA_SPECIES);
     u32 level = (P_ENABLE_ALL_LEVEL_UP_MOVES ? MAX_LEVEL : GetLevelFromBoxMonExp(mon));
     u32 numMoves = 0;
+    bool32 includePreEvolutions = P_PRE_EVO_MOVES || ShouldInheritRelicPreEvolutionMoves(species);
     do
     {
         const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
@@ -934,11 +978,11 @@ static u32 GetRelearnerLevelUpMoves(struct BoxPokemon *mon, u16 *moves)
                 if (learnset[i].move == moves[j])
                     alreadyInList = TRUE;
             }
-            if (!alreadyInList)
+            if (!alreadyInList && numMoves < MAX_RELEARNER_MOVES)
                 moves[numMoves++] = learnset[i].move;
         }
 
-        species = (P_PRE_EVO_MOVES ? GetSpeciesPreEvolution(species) : SPECIES_NONE);
+        species = includePreEvolutions ? GetRelearnerPreEvolution(species) : SPECIES_NONE;
     } while (species != SPECIES_NONE);
 
     return numMoves;
@@ -948,8 +992,8 @@ static u32 GetRelearnerEggMoves(struct BoxPokemon *mon, u16 *moves)
 {
     enum Species species = GetBoxMonData(mon, MON_DATA_SPECIES);
     u32 numMoves = 0;
-    while (GetSpeciesPreEvolution(species) != SPECIES_NONE)
-        species = GetSpeciesPreEvolution(species);
+    while (GetRelearnerPreEvolution(species) != SPECIES_NONE)
+        species = GetRelearnerPreEvolution(species);
 
     const u16 *eggMoves = GetSpeciesEggMoves(species);
 
@@ -958,7 +1002,7 @@ static u32 GetRelearnerEggMoves(struct BoxPokemon *mon, u16 *moves)
 
     for (u32 i = 0; eggMoves[i] != MOVE_UNAVAILABLE; i++)
     {
-        if (!BoxMonKnowsMove(mon, eggMoves[i]))
+        if (!BoxMonKnowsMove(mon, eggMoves[i]) && numMoves < MAX_RELEARNER_MOVES)
             moves[numMoves++] = eggMoves[i];
     }
 
@@ -981,11 +1025,12 @@ static u32 GetRelearnerTMMoves(struct BoxPokemon *mon, u16 *moves)
         if (!IsTmAvailable(item))
             continue;
 
-        if (!CanLearnTeachableMove(species, move))
+        if (!CanRelearnRelicTeachableMove(species, move))
             continue;
 
         if (!BoxMonKnowsMove(mon, move))
-            moves[numMoves++] = move;
+            if (numMoves < MAX_RELEARNER_MOVES)
+                moves[numMoves++] = move;
     }
 
     return numMoves;
@@ -1000,11 +1045,12 @@ static u32 GetRelearnerTutorMoves(struct BoxPokemon *mon, u16 *moves)
     {
         enum Move move = gTutorMoves[i];
 
-        if (!CanLearnTeachableMove(species, move))
+        if (!CanRelearnRelicTeachableMove(species, move))
             continue;
 
         if (!BoxMonKnowsMove(mon, move))
-            moves[numMoves++] = move;
+            if (numMoves < MAX_RELEARNER_MOVES)
+                moves[numMoves++] = move;
     }
 
     return numMoves;
@@ -1037,6 +1083,7 @@ static bool32 HasRelearnerLevelUpMoves(struct BoxPokemon *boxMon)
 {
     enum Species species = GetBoxMonData(boxMon, MON_DATA_SPECIES);
     u32 level = (P_ENABLE_ALL_LEVEL_UP_MOVES == TRUE) ? MAX_LEVEL : GetLevelFromBoxMonExp(boxMon);
+    bool32 includePreEvolutions = P_PRE_EVO_MOVES || ShouldInheritRelicPreEvolutionMoves(species);
 
     do
     {
@@ -1051,7 +1098,7 @@ static bool32 HasRelearnerLevelUpMoves(struct BoxPokemon *boxMon)
                 return TRUE;
         }
 
-        species = (P_PRE_EVO_MOVES ? GetSpeciesPreEvolution(species) : SPECIES_NONE);
+        species = includePreEvolutions ? GetRelearnerPreEvolution(species) : SPECIES_NONE;
 
     } while (species != SPECIES_NONE);
 
@@ -1061,8 +1108,8 @@ static bool32 HasRelearnerLevelUpMoves(struct BoxPokemon *boxMon)
 static bool32 HasRelearnerEggMoves(struct BoxPokemon *boxMon)
 {
     enum Species species = GetBoxMonData(boxMon, MON_DATA_SPECIES);
-    while (GetSpeciesPreEvolution(species) != SPECIES_NONE)
-        species = GetSpeciesPreEvolution(species);
+    while (GetRelearnerPreEvolution(species) != SPECIES_NONE)
+        species = GetRelearnerPreEvolution(species);
 
     const u16 *eggMoves = GetSpeciesEggMoves(species);
 
@@ -1093,7 +1140,7 @@ static bool32 HasRelearnerTMMoves(struct BoxPokemon *boxMon)
         if (!tmAvailable)
             continue;
 
-        if (!CanLearnTeachableMove(species, move))
+        if (!CanRelearnRelicTeachableMove(species, move))
             continue;
 
         if (!BoxMonKnowsMove(boxMon, move))
@@ -1110,7 +1157,7 @@ static bool32 HasRelearnerTutorMoves(struct BoxPokemon *boxMon)
     {
         enum Move move = gTutorMoves[i];
 
-        if (!CanLearnTeachableMove(species, move))
+        if (!CanRelearnRelicTeachableMove(species, move))
             continue;
 
         if (!BoxMonKnowsMove(boxMon, move))
