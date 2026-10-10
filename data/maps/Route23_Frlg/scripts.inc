@@ -140,7 +140,7 @@ Route23_Text_VictoryRoadGateSign::
 @ Scripted, visible, NPC-associated double battle: never launch a trainer without an object context.
 Route23_EventScript_PRLSteeveNeeveeTrigger::
 	lockall
-	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeTriggerEnd
+	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
 	goto_if_unset FLAG_BADGE08_GET, Route23_EventScript_PRLSteeveNeeveeTriggerEnd
 	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
 	@ Keep actors stationary if the player cannot field a double battle.
@@ -162,31 +162,21 @@ Route23_EventScript_PRLSteeveNeeveeNeedTwo::
 
 Route23_EventScript_PRLSteeveNeeveeTriggerWon::
 	msgbox Route23_Text_PRL_SteeveNeeveePostBattle
-	applymovement LOCALID_PRL_STEEVE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeMovement_Leave
-	applymovement LOCALID_PRL_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeMovement_Leave
-	waitmovementall
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
 	setvar VAR_MAP_SCENE_ROUTE23, 9
-	removeobject LOCALID_PRL_STEEVE_ROUTE23
-	removeobject LOCALID_PRL_NEEVEE_ROUTE23
 	releaseall
 	end
 
 Route23_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
 	setvar VAR_MAP_SCENE_ROUTE23, 9
-	removeobject LOCALID_PRL_STEEVE_ROUTE23
-	removeobject LOCALID_PRL_NEEVEE_ROUTE23
+	msgbox Route23_Text_PRL_SteeveNeeveePostBattle
 Route23_EventScript_PRLSteeveNeeveeTriggerEnd::
 	releaseall
 	end
 
 Route23_EventScript_PRLSteeveNeeveeMovement_Approach::
 	walk_down
-	step_end
-
-Route23_EventScript_PRLSteeveNeeveeMovement_Leave::
-	walk_up
 	step_end
 
 Route23_Text_PRL_SteeveNeeveeIntro::

@@ -145,7 +145,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Route23_EventScript_PRLSteeveNeeveeTrigger",
-      "flag": "FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23"
+      "flag": "0"
     },
     {
       "local_id": "LOCALID_PRL_NEEVEE_ROUTE23",
@@ -160,7 +160,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Route23_EventScript_PRLSteeveNeeveeTrigger",
-      "flag": "FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23"
+      "flag": "0"
     }
   ],
   "warp_events": [

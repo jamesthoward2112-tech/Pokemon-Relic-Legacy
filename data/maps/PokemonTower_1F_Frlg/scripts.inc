@@ -74,7 +74,7 @@ PokemonTower_1F_Text_SenseSpiritsUpToMischief::
 @ Scripted, visible, NPC-associated double battle: never launch a trainer without an object context.
 PokemonTower_1F_EventScript_PRLSteeveNeeveeTrigger::
 	lockall
-	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerEnd
+	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
 	checkitem ITEM_SILPH_SCOPE
 	goto_if_eq VAR_RESULT, FALSE, PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerEnd
 	goto_if_defeated TRAINER_STEEVE_NEEVEE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
@@ -97,31 +97,21 @@ PokemonTower_1F_EventScript_PRLSteeveNeeveeNeedTwo::
 
 PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerWon::
 	msgbox PokemonTower_1F_Text_PRL_SteeveNeeveePostBattle
-	applymovement LOCALID_PRL_STEEVE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeMovement_Leave
-	applymovement LOCALID_PRL_NEEVEE_TOWER, PokemonTower_1F_EventScript_PRLSteeveNeeveeMovement_Leave
-	waitmovementall
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER
 	setvar VAR_PRL_RECURRING_TOWER_TRIGGER, 1
-	removeobject LOCALID_PRL_STEEVE_TOWER
-	removeobject LOCALID_PRL_NEEVEE_TOWER
 	releaseall
 	end
 
 PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_TOWER
 	setvar VAR_PRL_RECURRING_TOWER_TRIGGER, 1
-	removeobject LOCALID_PRL_STEEVE_TOWER
-	removeobject LOCALID_PRL_NEEVEE_TOWER
+	msgbox PokemonTower_1F_Text_PRL_SteeveNeeveePostBattle
 PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerEnd::
 	releaseall
 	end
 
 PokemonTower_1F_EventScript_PRLSteeveNeeveeMovement_Approach::
 	walk_down
-	step_end
-
-PokemonTower_1F_EventScript_PRLSteeveNeeveeMovement_Leave::
-	walk_up
 	step_end
 
 PokemonTower_1F_Text_PRL_SteeveNeeveeIntro::

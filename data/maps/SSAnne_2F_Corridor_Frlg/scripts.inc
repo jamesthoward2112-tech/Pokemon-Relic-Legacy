@@ -218,7 +218,7 @@ SSAnne_2F_Corridor_Text_RivalPostBattle::
 @ Scripted, visible, NPC-associated double battle: never launch a trainer without an object context.
 SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger::
 	lockall
-	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerEnd
+	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
 	goto_if_unset FLAG_GOT_SS_TICKET, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerEnd
 	goto_if_defeated TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
 	@ Keep actors stationary if the player cannot field a double battle.
@@ -240,31 +240,21 @@ SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeNeedTwo::
 
 SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerWon::
 	msgbox SSAnne_2F_Corridor_Text_PRL_SteeveNeeveePostBattle
-	applymovement LOCALID_PRL_STEEVE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeMovement_Leave
-	applymovement LOCALID_PRL_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeMovement_Leave
-	waitmovementall
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE
 	setvar VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR, 2
-	removeobject LOCALID_PRL_STEEVE_SS_ANNE
-	removeobject LOCALID_PRL_NEEVEE_SS_ANNE
 	releaseall
 	end
 
 SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE
 	setvar VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR, 2
-	removeobject LOCALID_PRL_STEEVE_SS_ANNE
-	removeobject LOCALID_PRL_NEEVEE_SS_ANNE
+	msgbox SSAnne_2F_Corridor_Text_PRL_SteeveNeeveePostBattle
 SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerEnd::
 	releaseall
 	end
 
 SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeMovement_Approach::
 	walk_down
-	step_end
-
-SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeMovement_Leave::
-	walk_up
 	step_end
 
 SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeIntro::

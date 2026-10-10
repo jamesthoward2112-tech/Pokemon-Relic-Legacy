@@ -115,6 +115,35 @@ class PRLRecurringDuos(unittest.TestCase):
             record = party.split(f"=== TRAINER_{name} ===", 1)[1].split("===", 1)[0]
             self.assertFalse(banned.intersection(re.findall(r"^([A-Za-z][A-Za-z -]+)$", record, re.M)))
 
+
+    def test_eevee_twins_remain_on_map_after_victory_and_can_be_spoken_to(self):
+        """A defeated pair behaves like ordinary trainers: visible, friendly and never rematched."""
+        for name, (map_name, _) in ENCOUNTERS.items():
+            if not name.startswith("STEEVE_NEEVEE_"):
+                continue
+            with self.subTest(encounter=name):
+                map_data = json.loads(read(f"data/maps/{map_name}/map.json"))
+                twins = [obj for obj in map_data["object_events"]
+                         if obj.get("local_id") in (f"LOCALID_PRL_STEEVE_{name.split('STEEVE_NEEVEE_', 1)[1]}",
+                                                    f"LOCALID_PRL_NEEVEE_{name.split('STEEVE_NEEVEE_', 1)[1]}")]
+                self.assertEqual(len(twins), 2, "both twins must be visible")
+                for obj in twins:
+                    self.assertEqual(obj["flag"], "0", "defeat flags must not hide the NPC")
+                    self.assertEqual(obj["graphics_id"], "OBJ_EVENT_GFX_TWIN")
+                    self.assertEqual(obj["movement_type"], "MOVEMENT_TYPE_FACE_DOWN")
+                script = read(f"data/maps/{map_name}/scripts.inc")
+                suffix = name.split("STEEVE_NEEVEE_", 1)[1]
+                prefix = {"ROUTE3": "Route3", "SS_ANNE": "SSAnne_2F_Corridor",
+                          "TOWER": "PokemonTower_1F", "ROUTE23": "Route23"}[suffix]
+                trigger = f"{prefix}_EventScript_PRLSteeveNeeveeTrigger"
+                self.assertIn(f"goto_if_set FLAG_PRL_RECURRING_{name}, {trigger}AlreadyWon", script)
+                defeated = script.split(f"{trigger}AlreadyWon::", 1)[1].split(f"{trigger}End::", 1)[0]
+                self.assertIn(f"msgbox {prefix}_Text_PRL_SteeveNeeveePostBattle", defeated)
+                self.assertNotIn("trainerbattle_double", defeated)
+                for actor in ("STEEVE", "NEEVEE"):
+                    self.assertNotIn(f"removeobject LOCALID_PRL_{actor}_{suffix}", script)
+                self.assertNotIn(f"{prefix}_EventScript_PRLSteeveNeeveeMovement_Leave::", script)
+
     def test_route3_eevee_moves_are_available_by_level_16_in_gen3(self):
         party = read("src/data/trainers_frlg.party")
         record = party.split("=== TRAINER_STEEVE_NEEVEE_ROUTE3 ===", 1)[1].split("===", 1)[0]

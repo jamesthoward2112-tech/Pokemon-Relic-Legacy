@@ -174,7 +174,7 @@ Route3_EventScript_PRLCharmanderAide_Text_Pokemon::
 @ Scripted, visible, NPC-associated double battle: never launch a trainer without an object context.
 Route3_EventScript_PRLSteeveNeeveeTrigger::
 	lockall
-	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeTriggerEnd
+	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
 	goto_if_unset FLAG_BADGE01_GET, Route3_EventScript_PRLSteeveNeeveeTriggerEnd
 	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
 	@ Keep actors stationary if the player cannot field a double battle.
@@ -196,31 +196,21 @@ Route3_EventScript_PRLSteeveNeeveeNeedTwo::
 
 Route3_EventScript_PRLSteeveNeeveeTriggerWon::
 	msgbox Route3_Text_PRL_SteeveNeeveePostBattle
-	applymovement LOCALID_PRL_STEEVE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeMovement_Leave
-	applymovement LOCALID_PRL_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeMovement_Leave
-	waitmovementall
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3
 	setvar VAR_PRL_RECURRING_ROUTE3_TRIGGER, 1
-	removeobject LOCALID_PRL_STEEVE_ROUTE3
-	removeobject LOCALID_PRL_NEEVEE_ROUTE3
 	releaseall
 	end
 
 Route3_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3
 	setvar VAR_PRL_RECURRING_ROUTE3_TRIGGER, 1
-	removeobject LOCALID_PRL_STEEVE_ROUTE3
-	removeobject LOCALID_PRL_NEEVEE_ROUTE3
+	msgbox Route3_Text_PRL_SteeveNeeveePostBattle
 Route3_EventScript_PRLSteeveNeeveeTriggerEnd::
 	releaseall
 	end
 
 Route3_EventScript_PRLSteeveNeeveeMovement_Approach::
 	walk_down
-	step_end
-
-Route3_EventScript_PRLSteeveNeeveeMovement_Leave::
-	walk_up
 	step_end
 
 Route3_Text_PRL_SteeveNeeveeIntro::

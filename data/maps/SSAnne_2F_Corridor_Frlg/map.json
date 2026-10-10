@@ -58,7 +58,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger",
-      "flag": "FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE"
+      "flag": "0"
     },
     {
       "local_id": "LOCALID_PRL_NEEVEE_SS_ANNE",
@@ -73,7 +73,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger",
-      "flag": "FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE"
+      "flag": "0"
     }
   ],
   "warp_events": [
