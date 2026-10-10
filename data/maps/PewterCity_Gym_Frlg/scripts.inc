@@ -143,13 +143,11 @@ PewterCity_Gym_Text_ExplainTM39::
 	.string "lowers its SPEED.$"
 
 PewterCity_Gym_Text_BrockPostBattle::
-	.string "There are all kinds of TRAINERS in\n"
-	.string "this huge world of ours.\p"
-	.string "You appear to be very gifted as a\n"
-	.string "POKéMON TRAINER.\p"
-	.string "So let me make a suggestion.\p"
-	.string "Go to the GYM in CERULEAN and test\n"
-	.string "your abilities.$"
+	.string "Your training is rock solid!\p"
+	.string "I also study old stone layers\n"
+	.string "with PEWTER's museum staff.\p"
+	.string "MT. MOON's fossils show odd\n"
+	.string "traits. Look carefully there!$"
 
 PewterCity_Gym_Text_DontHaveRoomForThis::
 	.string "You don't have room for this.$"
