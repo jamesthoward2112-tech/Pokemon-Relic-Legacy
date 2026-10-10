@@ -43,6 +43,12 @@ static void CB2_PRLTitleRun(void);
 static void VBlankCB_PRLTitle(void);
 static void Task_PRLTitle(u8 taskId);
 
+// PR24: use directly decoded 4bpp assets, not runtime icon pointers.
+static const u32 sPRLJirachiIconTiles[] = INCGFX_U32("graphics/pokemon/jirachi/icon.png", ".4bpp");
+static const u16 sPRLJirachiIconPalette[] = INCGFX_U16("graphics/pokemon/jirachi/icon.png", ".gbapal");
+static const u32 sPRLCelebiIconTiles[] = INCGFX_U32("graphics/pokemon/celebi/icon.png", ".4bpp");
+static const u16 sPRLCelebiIconPalette[] = INCGFX_U16("graphics/pokemon/celebi/icon.png", ".gbapal");
+
 // PRL's approved Mode 3 picture stays intact. The small Jirachi and Celebi
 // battle-style icons are software composited, because Mode 3's framebuffer
 // overlaps regular OBJ tile memory and must not be corrupted by OBJ sprites.
@@ -69,10 +75,8 @@ static void PRLRestoreIconRegion(s16 left)
     }
 }
 
-static void PRLDrawAnimatedMonIcon(u16 species, s16 left, s16 top, u8 frame)
+static void PRLDrawAnimatedMonIcon(const u8 *src, const u16 *pal, s16 left, s16 top, u8 frame)
 {
-    const u8 *src = GetMonIconTilesByIconType(species, NORMAL_ICON);
-    const u16 *pal = GetValidMonIconPalettePtr(species);
     s16 row;
     if (src == NULL || pal == NULL)
         return;
@@ -98,8 +102,8 @@ static void PRLUpdateCelebiJirachiTitleAnimation(u16 tick)
     s16 hover = ((tick / 6) & 3);
     PRLRestoreIconRegion(PRL_TITLE_LEFT_X);
     PRLRestoreIconRegion(PRL_TITLE_RIGHT_X);
-    PRLDrawAnimatedMonIcon(SPECIES_JIRACHI, PRL_TITLE_LEFT_X, PRL_TITLE_ICON_Y - hover, iconFrame);
-    PRLDrawAnimatedMonIcon(SPECIES_CELEBI, PRL_TITLE_RIGHT_X, PRL_TITLE_ICON_Y + hover - 3, iconFrame);
+    PRLDrawAnimatedMonIcon((const u8 *)sPRLJirachiIconTiles, sPRLJirachiIconPalette, PRL_TITLE_LEFT_X, PRL_TITLE_ICON_Y - hover, iconFrame);
+    PRLDrawAnimatedMonIcon((const u8 *)sPRLCelebiIconTiles, sPRLCelebiIconPalette, PRL_TITLE_RIGHT_X, PRL_TITLE_ICON_Y + hover - 3, iconFrame);
 }
 
 static void PRLDrawPrompt(bool32 visible)
