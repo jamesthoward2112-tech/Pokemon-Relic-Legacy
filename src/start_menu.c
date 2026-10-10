@@ -327,7 +327,9 @@ static void BuildNormalStartMenu(void)
     if (FlagGet(FLAG_SYS_POKEDEX_GET) == TRUE)
         AddStartMenuAction(MENU_ACTION_POKEDEX);
 
-    if (DN_FLAG_DEXNAV_GET != 0 && FlagGet(DN_FLAG_DEXNAV_GET))
+    // PRL: Start-menu DexNav is available to existing saves as soon as the Pokédex is obtained.
+    // Do not gate it solely on a new flag that old saves have never set.
+    if (DEXNAV_ENABLED && FlagGet(FLAG_SYS_POKEDEX_GET))
         AddStartMenuAction(MENU_ACTION_DEXNAV);
 
     if (FlagGet(FLAG_SYS_POKEMON_GET) == TRUE)
