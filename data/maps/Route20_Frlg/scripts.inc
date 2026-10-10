@@ -50,8 +50,10 @@ Route20_Text_ShirleyDefeat::
 	.string "Quit it!$"
 
 Route20_Text_ShirleyPostBattle::
-	.string "There's a huge cavern underneath\n"
-	.string "this island.$"
+	.string "There are dark mineral\n"
+	.string "bands below SEAFOAM.\p"
+	.string "They began as seabed\n"
+	.string "long before KANTO's towns!$"
 
 Route20_Text_TiffanyIntro::
 	.string "I love floating with the fishes\n"
@@ -70,8 +72,10 @@ Route20_Text_IreneDefeat::
 	.string "No mercy at all!$"
 
 Route20_Text_IrenePostBattle::
-	.string "SEAFOAM used to be a single island\n"
-	.string "in the distant past.$"
+	.string "SEAFOAM used to be one\n"
+	.string "island in the distant past.\p"
+	.string "Some rocks there are older\n"
+	.string "than the fossils at CINNABAR!$"
 
 Route20_Text_DeanIntro::
 	.string "Check out my buff physique!$"
@@ -139,9 +143,11 @@ Route20_Text_MelissaDefeat::
 	.string "You're supposed to wait!$"
 
 Route20_Text_MelissaPostBattle::
-	.string "CINNABAR is a volcanic island.\p"
-	.string "I heard it rose out of the sea\n"
-	.string "when a volcano erupted.$"
+	.string "My dad works in CINNABAR's\n"
+	.string "POKéMON LAB.\p"
+	.string "He says SEAFOAM's seabed\n"
+	.string "samples match RELIC-01.\p"
+	.string "I wonder what it means!$"
 
 Route20_Text_SeafoamIslands::
 	.string "SEAFOAM ISLANDS$"

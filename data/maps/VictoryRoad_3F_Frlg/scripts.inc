@@ -96,8 +96,11 @@ VictoryRoad_3F_Text_GeorgeDefeat::
 	.string "The rumors were true!$"
 
 VictoryRoad_3F_Text_GeorgePostBattle::
-	.string "So, it was you who beat GIOVANNI\n"
-	.string "of TEAM ROCKET?$"
+	.string "So YOU defeated GIOVANNI\n"
+	.string "and TEAM ROCKET?\p"
+	.string "They hunted RELICS from\n"
+	.string "MT. MOON to CINNABAR.\p"
+	.string "But their mystery lives on!$"
 
 VictoryRoad_3F_Text_AlexaIntro::
 	.string "TRAINERS live to seek stronger\n"
@@ -129,9 +132,11 @@ VictoryRoad_3F_Text_ColbyDefeat::
 	.string "I don't believe it!$"
 
 VictoryRoad_3F_Text_ColbyPostBattle::
-	.string "All TRAINERS here are headed to\n"
-	.string "the POKéMON LEAGUE.\p"
-	.string "Don't let down your guard.$"
+	.string "Every LEAGUE challenger\n"
+	.string "passed ancient stone here.\p"
+	.string "The RELIC marks predate\n"
+	.string "all eight KANTO GYMS!\p"
+	.string "Keep your guard up ahead!$"
 
 VictoryRoad_3F_Text_RayIntro::
 	.string "RAY: Together, the two of us are\n"

@@ -178,8 +178,10 @@ ViridianCity_Gym_Text_YujiDefeat::
 	.string "I ran out of gas!$"
 
 ViridianCity_Gym_Text_YujiPostBattle::
-	.string "You'll need power to keep up with\n"
-	.string "our GYM LEADER.$"
+	.string "The LEADER's fossil teams\n"
+	.string "are stronger than ever.\p"
+	.string "He says ancient strength\n"
+	.string "is there for the taking!$"
 
 ViridianCity_Gym_Text_AtsushiIntro::
 	.string "Rrrroar!\n"
@@ -220,8 +222,10 @@ ViridianCity_Gym_Text_WarrenDefeat::
 	.string "I lost my grip!$"
 
 ViridianCity_Gym_Text_WarrenPostBattle::
-	.string "The LEADER will scold me for\n"
-	.string "losing this way…$"
+	.string "The LEADER demanded\n"
+	.string "our fossil battle records.\p"
+	.string "His search for ancient\n"
+	.string "power has consumed him!$"
 
 ViridianCity_Gym_Text_TakashiIntro::
 	.string "I'm the KARATE KING!\n"
@@ -255,9 +259,10 @@ ViridianCity_Gym_Text_SamuelDefeat::
 	.string "I was beaten?$"
 
 ViridianCity_Gym_Text_SamuelPostBattle::
-	.string "You can go on to the POKéMON\n"
-	.string "LEAGUE only by defeating our GYM\l"
-	.string "LEADER!$"
+	.string "Our LEADER reopened the GYM\n"
+	.string "after his RELIC operation\n"
+	.string "at SILPH fell apart.\p"
+	.string "Can you beat him in battle?$"
 
 ViridianCity_Gym_Text_GymGuyAdvice::
 	.string "Yo!\n"

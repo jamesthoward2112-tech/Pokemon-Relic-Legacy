@@ -312,13 +312,14 @@ PokemonLeague_ChampionsRoom_Text_Victory::
 	.string "はーッ！　はーはッはッ！$"
 
 PokemonLeague_ChampionsRoom_Text_PostBattle::
-	.string "Why?\n"
-	.string "Why did I lose?\p"
-	.string "I never made any mistakes raising\n"
-	.string "my POKéMON…\p"
-	.string "Darn it! You're the new POKéMON\n"
-	.string "LEAGUE CHAMPION!\p"
-	.string "Although I don't like to admit it…$"
+	.string "Why? Why did I lose?\p"
+	.string "I trained for the LEAGUE\n"
+	.string "and became CHAMPION!\p"
+	.string "But you beat me fairly.\n"
+	.string "You're KANTO's new CHAMP!\p"
+	.string "And those RELIC REPORTS...\n"
+	.string "You saw a mystery I missed.\p"
+	.string "I'll catch up next time!$"
 
 PokemonLeague_ChampionsRoom_Text_OakPlayer::
 	.string "OAK: {PLAYER}!$"

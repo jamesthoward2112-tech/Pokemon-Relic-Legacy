@@ -97,8 +97,11 @@ VictoryRoad_2F_Text_DawsonDefeat::
 	.string "Unbelievable!$"
 
 VictoryRoad_2F_Text_DawsonPostBattle::
-	.string "I can beat you when it comes to\n"
-	.string "knowledge about POKéMON!$"
+	.string "I study POKéMON history.\p"
+	.string "MT. MOON, SILPH and\n"
+	.string "CINNABAR shared records.\p"
+	.string "That RELIC signal remains\n"
+	.string "unexplained even now!$"
 
 VictoryRoad_2F_Text_DaisukeIntro::
 	.string "This here is VICTORY ROAD.\n"
@@ -119,7 +122,10 @@ VictoryRoad_2F_Text_NelsonDefeat::
 	.string "You got me!$"
 
 VictoryRoad_2F_Text_NelsonPostBattle::
-	.string "{RIVAL} also came through here.$"
+	.string "Your RIVAL came through.\p"
+	.string "And I heard you defeated\n"
+	.string "GIOVANNI's fossil army!\p"
+	.string "The LEAGUE is waiting!$"
 
 VictoryRoad_2F_Text_VincentIntro::
 	.string "Come on!\n"

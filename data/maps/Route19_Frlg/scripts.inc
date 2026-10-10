@@ -115,10 +115,11 @@ Route19_Text_ConnieDefeat::
 	.string "I'm exhausted…$"
 
 Route19_Text_ConniePostBattle::
-	.string "If I were to ride a POKéMON on\n"
-	.string "the sea, I'd like a LAPRAS.\p"
-	.string "LAPRAS is so big, I bet it\n"
-	.string "would keep me dry on water.$"
+	.string "I'd like to ride LAPRAS\n"
+	.string "over the ancient sea.\p"
+	.string "SILPH researchers say\n"
+	.string "it remembers old ocean life.\p"
+	.string "Maybe the sea hides RELICS!$"
 
 Route19_Text_RouteSign::
 	.string "SEA ROUTE 19\n"
