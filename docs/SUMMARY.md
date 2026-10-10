@@ -1,6 +1,6 @@
 # Summary
 
-- [PR23 approved Mercury donor migration (awaiting archives)](./PR23_MERCURY_DONOR_INTEGRATION_PENDING.md)
+- [PR23 approved Mercury artwork integration](./PR23_MERCURY_DONOR_INTEGRATION_PENDING.md)
 
 - [README](./README.md)
 - [FEATURES](./FEATURES.md)
