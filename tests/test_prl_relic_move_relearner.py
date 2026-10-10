@@ -19,11 +19,12 @@ class RelicMoveRelearnerTests(unittest.TestCase):
 
     def test_relic_evolutions_inherit_prior_stages_without_changing_global_setting(self):
         self.assertIn("ShouldInheritRelicPreEvolutionMoves(enum Species species)", self.code)
-        self.assertIn('categoryName, _("Relic")', self.code)
+        self.assertIn('static const u8 sPRLRelicCategoryName[] = _("Relic");', self.code)
+        self.assertIn("categoryName, sPRLRelicCategoryName", self.code)
         self.assertIn("species == SPECIES_NOXICHU", self.code)
         self.assertIn("P_PRE_EVO_MOVES || ShouldInheritRelicPreEvolutionMoves(species)", self.code)
         self.assertIn("species = includePreEvolutions ? GetRelearnerPreEvolution(species) : SPECIES_NONE;", self.code)
-        self.assertEqual(self.code.count("species = includePreEvolutions ? GetRelearnerPreEvolution(species) : SPECIES_NONE;"), 2)
+        self.assertEqual(self.code.count("species = includePreEvolutions ? GetRelearnerPreEvolution(species) : SPECIES_NONE;"), 3)
 
     def test_hoenn_relic_starter_links_without_changing_evolution_mechanics(self):
         for evolution, previous in [

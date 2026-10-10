@@ -913,10 +913,12 @@ static bool32 IsTmAvailable(enum Item item)
 
 // PRL Relic evolutions keep access to the whole pre-evolution move pool.
 // Keep the normal game's P_PRE_EVO_MOVES setting unchanged for non-Relic Pokemon.
+static const u8 sPRLRelicCategoryName[] = _("Relic");
+
 static bool32 ShouldInheritRelicPreEvolutionMoves(enum Species species)
 {
     return species == SPECIES_NOXICHU
-        || StringCompare(gSpeciesInfo[SanitizeSpeciesId(species)].categoryName, _("Relic")) == 0;
+        || StringCompare(gSpeciesInfo[SanitizeSpeciesId(species)].categoryName, sPRLRelicCategoryName) == 0;
 }
 
 // The Hoenn Relic starter final forms exist in PRL's species data, but their
