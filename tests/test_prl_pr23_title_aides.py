@@ -17,10 +17,10 @@ def test_title_keeps_artwork_and_animates_both_mythicals():
     assert 'graphics/title_screen_prl/prl_option_b_title_mode3.bin' in title
     assert "CpuCopy16(sPRLTitleMode3" in title
     assert "PRLUpdateCelebiJirachiTitleAnimation" in title
-    assert "PRLDrawAnimatedMonIcon(SPECIES_JIRACHI" in title
-    assert "PRLDrawAnimatedMonIcon(SPECIES_CELEBI" in title
-    assert "GetMonIconTilesByIconType(species, NORMAL_ICON)" in title
-    assert "GetValidMonIconPalettePtr(species)" in title
+    assert 'INCGFX_U32("graphics/pokemon/jirachi/icon.png", ".4bpp")' in title
+    assert 'INCGFX_U32("graphics/pokemon/celebi/icon.png", ".4bpp")' in title
+    assert "sPRLJirachiIconPalette" in title
+    assert "sPRLCelebiIconPalette" in title
     assert "PRLRestoreIconRegion(PRL_TITLE_LEFT_X)" in title
     assert "PRLRestoreIconRegion(PRL_TITLE_RIGHT_X)" in title
     # Ensure prompt flashing and A/Start both remain available.
