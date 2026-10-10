@@ -146,24 +146,24 @@ SilphCo_11F_EventScript_Grunt2::
 	end
 
 SilphCo_11F_Text_ThanksForSavingMeDearBoy::
-	.string "PRESIDENT: Oh, dear boy!\n"
-	.string "Thank you for saving SILPH.\p"
-	.string "I will never forget you saved us in\n"
-	.string "our moment of peril.\p"
-	.string "I have to thank you in some way.\p"
-	.string "Because I am rich, I can give you\n"
-	.string "anything.\p"
-	.string "Here, maybe this will do.$"
+	.string "PRESIDENT: Dear boy!\n"
+	.string "Thank you for saving SILPH!\p"
+	.string "ROCKET forced our scientists\n"
+	.string "to revive ancient fossils.\p"
+	.string "They wanted our MASTER BALL\n"
+	.string "for a legendary golden bird.\p"
+	.string "We do not know its name.\n"
+	.string "Please accept my thanks!$"
 
 SilphCo_11F_Text_ThanksForSavingMeDearGirl::
-	.string "PRESIDENT: Oh, dear girl!\n"
-	.string "Thank you for saving SILPH.\p"
-	.string "I will never forget you saved us in\n"
-	.string "our moment of peril.\p"
-	.string "I have to thank you in some way.\p"
-	.string "Because I am rich, I can give you\n"
-	.string "anything.\p"
-	.string "Here, maybe this will do.$"
+	.string "PRESIDENT: Dear girl!\n"
+	.string "Thank you for saving SILPH!\p"
+	.string "ROCKET forced our scientists\n"
+	.string "to revive ancient fossils.\p"
+	.string "They wanted our MASTER BALL\n"
+	.string "for a legendary golden bird.\p"
+	.string "We do not know its name.\n"
+	.string "Please accept my thanks!$"
 
 SilphCo_11F_Text_ObtainedMasterBallFromPresident::
 	.string "{PLAYER} obtained a MASTER BALL\n"
@@ -217,19 +217,25 @@ SilphCo_11F_Text_Grunt2Defeat::
 	.string "Please!$"
 
 SilphCo_11F_Text_Grunt2PostBattle::
-	.string "So, you want to see my BOSS?$"
+	.string "You defeated me, but\n"
+	.string "BOSS already has the files!\p"
+	.string "The MASTER BALL is for an\n"
+	.string "unknown ancient POKéMON!$"
 
 SilphCo_11F_Text_Grunt1Intro::
-	.string "Halt! Do you have an appointment\n"
-	.string "with my BOSS?$"
+	.string "Halt! Do you have an\n"
+	.string "appointment with the BOSS?\p"
+	.string "He is reviewing the\n"
+	.string "RELIC research with SILPH!$"
 
 SilphCo_11F_Text_Grunt1Defeat::
 	.string "Gaah!\n"
 	.string "Demolished!$"
 
 SilphCo_11F_Text_Grunt1PostBattle::
-	.string "Watch your step…\n"
-	.string "My BOSS likes his POKéMON tough!$"
+	.string "The fossil army is real.\p"
+	.string "SILPH revived those species.\n"
+	.string "BOSS wants the final prize!$"
 
 SilphCo_11F_Text_MonitorHasMonsOnIt::
 	.string "The screen lists revived\n"

@@ -55,8 +55,10 @@ SilphCo_9F_Text_ThankYouSoMuch::
 	.string "Thank you so much.$"
 
 SilphCo_9F_Text_Grunt1Intro::
-	.string "Your POKéMON seem to adore you,\n"
-	.string "kid!$"
+	.string "Stay back, kid!\p"
+	.string "The scientists are testing\n"
+	.string "fossil and living DNA.\p"
+	.string "That RELIC signal is real!$"
 
 SilphCo_9F_Text_Grunt1Defeat::
 	.string "Ghaaah!$"
@@ -86,7 +88,10 @@ SilphCo_9F_Text_Grunt2Defeat::
 	.string "Brothers, I lost!$"
 
 SilphCo_9F_Text_Grunt2PostBattle::
-	.string "My brothers will avenge me!$"
+	.string "Even my brothers can't\n"
+	.string "protect these records...\p"
+	.string "The oldest samples came\n"
+	.string "from KANTO's ancient seas!$"
 
 SilphCo_9F_Text_FloorSign::
 	.string "SILPH CO. HEAD OFFICE\n"

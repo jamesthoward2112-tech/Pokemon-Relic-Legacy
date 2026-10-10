@@ -135,11 +135,15 @@ RocketHideout_B4F_EventScript_RemoveBarrier::
 
 RocketHideout_B4F_Text_GiovanniIntro::
 	.string "GIOVANNI: So you found us.\p"
-	.string "MT. MOON was merely the first\n"
+	.string "MT. MOON was just the first\n"
 	.string "of our excavation sites.\p"
-	.string "These ancient specimens may\n"
-	.string "conceal a power long dormant.\p"
-	.string "TEAM ROCKET will awaken it!$"
+	.string "Fossil specimens contain\n"
+	.string "dormant powers - RELICS.\p"
+	.string "SILPH will bring those\n"
+	.string "ancient traits to life.\p"
+	.string "One fragment hints at a\n"
+	.string "creature lost to history...\p"
+	.string "TEAM ROCKET will claim it!$"
 
 RocketHideout_B4F_Text_GiovanniDefeat::
 	.string "WHAT!\n"
@@ -147,10 +151,11 @@ RocketHideout_B4F_Text_GiovanniDefeat::
 
 RocketHideout_B4F_Text_GiovanniPostBattle::
 	.string "You fight with conviction.\p"
-	.string "But our fossil records are\n"
-	.string "already on their way to SILPH.\p"
-	.string "You have delayed my research,\n"
-	.string "not ended it. Farewell!$"
+	.string "But my excavation records\n"
+	.string "are already at SILPH.\p"
+	.string "We shall revive the fossils\n"
+	.string "and trace that RELIC signal.\p"
+	.string "You delayed me. Farewell!$"
 
 RocketHideout_B4F_Text_Grunt2Intro::
 	.string "I know you!\n"
@@ -160,8 +165,9 @@ RocketHideout_B4F_Text_Grunt2Defeat::
 	.string "Burned again!$"
 
 RocketHideout_B4F_Text_Grunt2PostBattle::
-	.string "MT. MOON's fossils are only\n"
-	.string "one part of the operation!$"
+	.string "MT. MOON was only one site!\p"
+	.string "The BOSS has dig crews\n"
+	.string "searching all of KANTO!$"
 
 RocketHideout_B4F_Text_Grunt3Intro::
 	.string "The BOSS has crates of\n"
@@ -172,8 +178,8 @@ RocketHideout_B4F_Text_Grunt3Defeat::
 	.string "Ayaya!$"
 
 RocketHideout_B4F_Text_Grunt3PostBattle::
-	.string "BOSS!\n"
-	.string "I'm sorry I failed you!$"
+	.string "The RELIC crates are gone!\n"
+	.string "BOSS, I'm sorry I failed!$"
 
 RocketHideout_B4F_Text_Grunt1Intro::
 	.string "The elevator doesn't work?\n"

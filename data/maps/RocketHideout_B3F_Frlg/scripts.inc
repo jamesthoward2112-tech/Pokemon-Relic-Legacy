@@ -27,8 +27,10 @@ RocketHideout_B3F_Text_Grunt1PostBattle::
 	.string "It's here somewhere.$"
 
 RocketHideout_B3F_Text_Grunt2Intro::
-	.string "We got word from upstairs that you\n"
-	.string "were coming!$"
+	.string "You again?! The BOSS has\n"
+	.string "ordered the old stone marks\n"
+	.string "sent for laboratory testing!\p"
+	.string "You're not stopping us!$"
 
 RocketHideout_B3F_Text_Grunt2Defeat::
 	.string "What?\n"
@@ -37,5 +39,6 @@ RocketHideout_B3F_Text_Grunt2Defeat::
 RocketHideout_B3F_Text_Grunt2PostBattle::
 	.string "The fossil shipments are\n"
 	.string "headed to SILPH CO.\p"
-	.string "You heard nothing!$"
+	.string "They can revive specimens\n"
+	.string "and study dormant traits.$"
 

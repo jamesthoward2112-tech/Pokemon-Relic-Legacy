@@ -7,14 +7,17 @@ RocketHideout_B2F_EventScript_Grunt::
 	end
 
 RocketHideout_B2F_Text_GruntIntro::
-	.string "BOSS said you can see ghosts with\n"
-	.string "the SILPH SCOPE.$"
+	.string "No one enters this archive!\p"
+	.string "BOSS needs the SILPH SCOPE\n"
+	.string "to examine unseen energy.\p"
+	.string "Not even ghosts can hide\n"
+	.string "ancient traces from us!$"
 
 RocketHideout_B2F_Text_GruntDefeat::
 	.string "I surrender!$"
 
 RocketHideout_B2F_Text_GruntPostBattle::
 	.string "Four floors underground...\p"
-	.string "And still not enough room\n"
-	.string "for the fossil catalogues!$"
+	.string "Still no room for all the\n"
+	.string "fossil and RELIC catalogues!$"
 

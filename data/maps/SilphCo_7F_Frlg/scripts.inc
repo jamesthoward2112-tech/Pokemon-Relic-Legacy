@@ -315,8 +315,10 @@ SilphCo_7F_Text_Grunt1Defeat::
 	.string "Brothers, I lost!$"
 
 SilphCo_7F_Text_Grunt1PostBattle::
-	.string "Doesn't matter.\n"
-	.string "My brothers will repay the favor!$"
+	.string "The ROCKET BROTHERS will\n"
+	.string "avenge each other!\p"
+	.string "One of us guards the\n"
+	.string "ancient-sea research!$"
 
 SilphCo_7F_Text_Grunt2Intro::
 	.string "A child intruder?\n"
@@ -327,8 +329,10 @@ SilphCo_7F_Text_Grunt2Defeat::
 	.string "I lost!$"
 
 SilphCo_7F_Text_Grunt2PostBattle::
-	.string "Go on home before my BOSS gets\n"
-	.string "ticked off!$"
+	.string "BOSS needs the MASTER BALL.\p"
+	.string "Some golden shape appears\n"
+	.string "in an ancient sketch.\p"
+	.string "No one even knows its name!$"
 
 SilphCo_7F_Text_RivalWhatKeptYou::
 	.string "{RIVAL}: What kept you, {PLAYER}?$"
