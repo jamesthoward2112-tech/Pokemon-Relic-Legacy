@@ -18,3 +18,11 @@ Branch: `prl/pjr-phr-qol-migration-20261010` (derived from playable Eeveeon/Nimb
 5. Build and package test ROM with all completed features; do not replace the previously playable ROM until tested.
 
 No PJR Key Item selector shall be introduced; the selected donor is the PHR four-slot selector.
+
+## Pokémon Centre clock source integration — 10 Oct 2026
+
+- Existing PJR donor uses a background wall sign at (3,1) with a global wall-clock script. PRL has the same clock-setting UI, and we have added a shared script that opens `special StartWallClock` rather than a one-time bedroom viewer.
+- Added one background wall-clock interaction to all **35 currently defined** `PokemonCenter_1F` maps (Kanto, Sevii, Hoenn/Battle Frontier). Positions are (3,1) where free, else (4,1) to avoid colliding with another map event.
+- Confirmed gender palette input is initialized from the player before the setting screen; existing clock initialization saves local RTC offset. Nurse Joy interaction unchanged.
+- **Visual/collision emulator verification not yet done**: donor PJR uses a different HnS tileset; the new coordinates need an actual in-game pass for reachability and whether the wall visibly reads as a clock. If not, adjust wall art/coordinates before calling it complete.
+- Johto Pokémon Centre maps do not yet exist in PRL, so this must also be applied to future Johto interiors when introduced.
