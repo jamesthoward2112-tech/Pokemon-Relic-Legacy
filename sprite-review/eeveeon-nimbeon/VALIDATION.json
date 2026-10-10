@@ -1,0 +1,96 @@
+{
+  "eeveeon": {
+    "status": "NORMAL BATTLE AND ICON ASSETS GBA VERIFIED",
+    "source": {
+      "fronts": {
+        "source": "https://pokengine.b-cdn.net/play/images/mons/fronts/00zow8n8.webp?t=55",
+        "source_size": [
+          61,
+          63
+        ],
+        "source_sha256": "ea261ca13298a9ac5b7b2e68b3b12f6c81fc6bff21162053c6b0b93bd1b63c2b"
+      },
+      "backs": {
+        "source": "https://pokengine.b-cdn.net/play/images/mons/backs/00zow8n8.webp?t=55",
+        "source_size": [
+          73,
+          72
+        ],
+        "source_sha256": "3c8f3d25060d9547e4f14c0e075bed5c517071563d18aef7fa49f052c9cf995d"
+      },
+      "icons": {
+        "source": "https://pokengine.b-cdn.net/play/images/mons/icons/00zow8n8.webp?t=55",
+        "source_size": [
+          25,
+          19
+        ],
+        "source_sha256": "77d112f80b8966a4b74099ef8f44debd9fad522f41db645f491327a1e79f8305"
+      }
+    },
+    "dimensions": {
+      "front": [
+        64,
+        64
+      ],
+      "back": [
+        64,
+        64
+      ],
+      "icon": [
+        32,
+        64
+      ]
+    },
+    "battle_palette_total_slots": 16,
+    "icon_palette_total_slots": 16,
+    "shiny": "MISSING: original Infinity shiny sprites not yet sourced; none fabricated",
+    "icon_animation": "two identical original source frames"
+  },
+  "nimbeon": {
+    "status": "NORMAL BATTLE AND ICON ASSETS GBA VERIFIED",
+    "source": {
+      "fronts": {
+        "source": "https://pokengine.b-cdn.net/play/images/mons/fronts/00a10tsc.webp?t=55",
+        "source_size": [
+          60,
+          63
+        ],
+        "source_sha256": "68abc64ba9d17f14a3e8fb09a1032fada058095878e0fbf562330546a9ad54a7"
+      },
+      "backs": {
+        "source": "https://pokengine.b-cdn.net/play/images/mons/backs/00a10tsc.webp?t=55",
+        "source_size": [
+          80,
+          53
+        ],
+        "source_sha256": "5b79470416539f3ee1ef27e19b294340eb0474b7ec10f57362ae6ae65ba44719"
+      },
+      "icons": {
+        "source": "https://pokengine.b-cdn.net/play/images/mons/icons/00a10tsc.webp?t=55",
+        "source_size": [
+          27,
+          27
+        ],
+        "source_sha256": "48df18d00818fa668547d925d26fd34bfd3483c276d1f97a4c759343e02c524b"
+      }
+    },
+    "dimensions": {
+      "front": [
+        64,
+        64
+      ],
+      "back": [
+        64,
+        64
+      ],
+      "icon": [
+        32,
+        64
+      ]
+    },
+    "battle_palette_total_slots": 16,
+    "icon_palette_total_slots": 16,
+    "shiny": "MISSING: original Infinity shiny sprites not yet sourced; none fabricated",
+    "icon_animation": "two identical original source frames"
+  }
+}
