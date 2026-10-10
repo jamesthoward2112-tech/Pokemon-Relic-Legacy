@@ -90,8 +90,11 @@ LavenderTown_VolunteerPokemonHouse_Text_WhereDidMrFujiGo::
 	.string "Where'd he go?$"
 
 LavenderTown_VolunteerPokemonHouse_Text_MrFujiWasPrayingForCubonesMother::
-	.string "MR. FUJI had been praying alone\n"
-	.string "for CUBONE's mother.$"
+	.string "MR. FUJI went to the TOWER\n"
+	.string "to calm CUBONE's mother.\p"
+	.string "He says POKéMON are living\n"
+	.string "beings, not fossil specimens\n"
+	.string "for TEAM ROCKET to exploit!$"
 
 LavenderTown_VolunteerPokemonHouse_Text_MrFujiLooksAfterOrphanedMons::
 	.string "This is really MR. FUJI's house.\p"
@@ -133,7 +136,10 @@ LavenderTown_VolunteerPokemonHouse_Text_MustMakeRoomForThis::
 
 LavenderTown_VolunteerPokemonHouse_Text_HasPokeFluteHelpedYou::
 	.string "MR. FUJI: Has my POKé FLUTE\n"
-	.string "helped you?$"
+	.string "helped you?\p"
+	.string "Old fossils have secrets,\n"
+	.string "but living POKéMON matter\n"
+	.string "more than any RELIC!$"
 
 LavenderTown_VolunteerPokemonHouse_Text_GrandPrizeDrawingClipped::
 	.string "POKéMON FAN MAGAZINE\n"

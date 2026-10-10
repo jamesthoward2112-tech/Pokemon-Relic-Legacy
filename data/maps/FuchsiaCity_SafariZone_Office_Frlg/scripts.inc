@@ -24,10 +24,12 @@ FuchsiaCity_SafariZone_Office_Text_NicknamedWardenSlowpoke::
 	.string "like a SLOWPOKE.$"
 
 FuchsiaCity_SafariZone_Office_Text_WardenIsVeryKnowledgeable::
-	.string "WARDEN SLOWPOKE is very\n"
-	.string "knowledgeable about POKéMON.\p"
-	.string "He even has some fossils of rare,\n"
-	.string "extinct POKéMON.$"
+	.string "WARDEN SLOWPOKE knows\n"
+	.string "many rare POKéMON.\p"
+	.string "He has fossils that show\n"
+	.string "ancient RELIC markings!\p"
+	.string "Even the SAFARI ZONE's\n"
+	.string "living species are studied.$"
 
 FuchsiaCity_SafariZone_Office_Text_CouldntUnderstandWarden::
 	.string "WARDEN SLOWPOKE came in, but\n"

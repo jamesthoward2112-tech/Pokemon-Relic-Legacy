@@ -207,14 +207,18 @@ FuchsiaCity_Text_LaprasSign::
 	.string "AKA the king of the seas.$"
 
 FuchsiaCity_Text_OmanyteSign::
-	.string "Name: OMANYTE\n"
-	.string "An extremely rare POKéMON that was\l"
-	.string "regenerated from a fossil.$"
+	.string "Name: OMANYTE\p"
+	.string "An ancient marine POKéMON\n"
+	.string "revived from a fossil.\p"
+	.string "Some specimens bear unusual\n"
+	.string "RELIC-like markings.$"
 
 FuchsiaCity_Text_KabutoSign::
-	.string "Name: KABUTO\n"
-	.string "An extremely rare POKéMON that was\l"
-	.string "regenerated from a fossil.$"
+	.string "Name: KABUTO\p"
+	.string "A prehistoric POKéMON\n"
+	.string "restored from a fossil.\p"
+	.string "Its ancient shell can help\n"
+	.string "scientists study RELICS.$"
 
 @ Unused. May have been meant to be the placeholder text for the zoo mons, similar to RB's "!" text
 FuchsiaCity_Text_Ellipsis::
