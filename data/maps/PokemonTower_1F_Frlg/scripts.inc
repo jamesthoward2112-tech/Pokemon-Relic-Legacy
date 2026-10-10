@@ -115,15 +115,15 @@ PokemonTower_1F_EventScript_PRLSteeveNeeveeMovement_Approach::
 	step_end
 
 PokemonTower_1F_Text_PRL_SteeveNeeveeIntro::
-	.string "STEEVE: Remember us from the ship?\p"
+	.string "STEEVEE: Remember us from the ship?\p"
 	.string "NEEVEE: Your team keeps growing!$"
 
 PokemonTower_1F_Text_PRL_SteeveNeeveeDefeat::
-	.string "STEEVE: Your team is amazing!\p"
+	.string "STEEVEE: Your team is amazing!\p"
 	.string "NEEVEE: We'll keep training!$"
 
 PokemonTower_1F_Text_PRL_SteeveNeeveeNotEnoughMons::
-	.string "STEEVE: We need a fair double\n"
+	.string "STEEVEE: We need a fair double\n"
 	.string "battle. Bring two POKéMON!$"
 
 PokemonTower_1F_Text_PRL_SteeveNeeveePostBattle::
