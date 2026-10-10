@@ -21,7 +21,7 @@ jobs:
         with:
           persist-credentials: true
       - name: Port real Infinity Eeveelutions and four Kanto Twins teams
-        run: python3 tools/prl/build_eeveeon_nimbeon.py
+        run: if [ ! -f graphics/pokemon/eeveeon/front.png ]; then python3 tools/prl/build_eeveeon_nimbeon.py; fi
       - name: Commit source change without modifying existing stable checkpoint
         shell: bash
         run: |
