@@ -54,7 +54,7 @@ def test_rocket_has_joint_name_and_approved_front_gfx():
         pos=s.index("=== TRAINER_JESSIE_JAMES_"+encounter+" ===")
         assert "Name: JESS&JAMES" in s[pos:pos+70]
     png=(ROOT/"graphics/trainers/front_pics/prl_jessie.png").read_bytes()
-    assert png.startswith(b"\\x89PNG\\r\\n\\x1a\\n")
+    assert png.startswith(bytes.fromhex("89504e470d0a1a0a"))
     assert int.from_bytes(png[16:20],"big")==64
     assert int.from_bytes(png[20:24],"big")==64
     assert png[24]==4  # palette-indexed 4bpp PNG
