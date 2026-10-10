@@ -51,7 +51,11 @@ PokemonMansion_1F_Text_BraydonPostBattle::
 	.string "Try jumping off over there!$"
 
 PokemonMansion_1F_Text_MewGaveBirthToMewtwo::
-	.string "Diary: Feb. 6\n"
-	.string "MEW gave birth.\p"
-	.string "We named the newborn MEWTWO.$"
+	.string "Diary: Feb. 6\p"
+	.string "MEW gave birth.\n"
+	.string "We named the newborn MEWTWO.\p"
+	.string "Its cells respond sharply\n"
+	.string "to the RELIC-01 signal.\p"
+	.string "We must study this link\n"
+	.string "with extreme caution.$"
 

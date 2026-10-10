@@ -37,14 +37,18 @@ CinnabarIsland_Gym_Text_PhotoOfBlaineAndFuji::
 	.string "shoulder with big grins.$"
 
 CinnabarIsland_PokemonLab_Entrance_Text_StudyMonsExtensively::
-	.string "We study POKéMON extensively\n"
-	.string "every day.\p"
-	.string "People often bring us rare POKéMON\n"
-	.string "for examination.$"
+	.string "We examine POKéMON and\n"
+	.string "ancient fossils every day.\p"
+	.string "Some of their genes have\n"
+	.string "the same dormant RELIC mark.\p"
+	.string "Our CINNABAR research calls\n"
+	.string "the signal RELIC-01.$"
 
 CinnabarIsland_PokemonLab_Entrance_Text_PhotoOfLabFounderDrFuji::
-	.string "A photo of the LAB's founder…\n"
-	.string "DR. FUJI?!$"
+	.string "A photo of the LAB's\n"
+	.string "founder, DR. FUJI.\p"
+	.string "A faded note mentions\n"
+	.string "BLAINE and RELIC-01 research.$"
 
 CinnabarIsland_PokemonLab_Entrance_Text_MeetingRoomSign::
 	.string "POKéMON LAB\n"

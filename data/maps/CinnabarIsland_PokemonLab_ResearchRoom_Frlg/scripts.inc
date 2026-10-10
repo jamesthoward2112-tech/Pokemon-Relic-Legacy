@@ -21,8 +21,12 @@ CinnabarIsland_PokemonLab_ResearchRoom_EventScript_AmberPipe::
 	end
 
 CinnabarIsland_PokemonLab_ResearchRoom_Text_EeveeCanEvolveIntroThreeMons::
-	.string "EEVEE can evolve into one of three\n"
-	.string "kinds of POKéMON.$"
+	.string "EEVEE responds to many\n"
+	.string "different evolution triggers.\p"
+	.string "Stones and environments\n"
+	.string "can awaken hidden traits.\p"
+	.string "Our RELIC-01 research may\n"
+	.string "explain some ancient forms!$"
 
 CinnabarIsland_PokemonLab_ResearchRoom_Text_LegendaryBirdEmail::
 	.string "There's an e-mail message.\p"

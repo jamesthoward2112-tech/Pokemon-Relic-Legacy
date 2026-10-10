@@ -55,13 +55,15 @@ PokemonMansion_1F_Text_NewMonDiscoveredInGuyanaJungle::
 	.string "Diary: July 5\p"
 	.string "A new POKéMON was found\n"
 	.string "deep in a distant jungle.\p"
-	.string "The specimen may share a\n"
-	.string "gene pattern with fossils.$"
+	.string "Its genes reacted to a\n"
+	.string "fossil specimen.\p"
+	.string "Signal designation: RELIC-01.$"
 
 PokemonMansion_1F_Text_ChristenedDiscoveredMonMew::
 	.string "Diary: July 10\p"
-	.string "We named the newly found\n"
-	.string "POKéMON MEW.\p"
-	.string "A separate sample, RELIC-01,\n"
-	.string "remains unidentified.$"
+	.string "We named the new POKéMON MEW.\p"
+	.string "RELIC-01 appears in fossils\n"
+	.string "and some modern genes.\p"
+	.string "Does ancient power lie\n"
+	.string "dormant in living species?$"
 

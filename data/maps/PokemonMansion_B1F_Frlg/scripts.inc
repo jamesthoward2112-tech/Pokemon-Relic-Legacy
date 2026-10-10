@@ -49,12 +49,16 @@ PokemonMansion_B1F_Text_IvanDefeat::
 	.string "What was that for?$"
 
 PokemonMansion_B1F_Text_IvanPostBattle::
-	.string "I like it here.\n"
-	.string "It's conducive to my studies.$"
+	.string "This MANSION was a lab.\p"
+	.string "The notebooks compare\n"
+	.string "old fossils with MEW DNA.\p"
+	.string "What exactly was RELIC-01?$"
 
 PokemonMansion_B1F_Text_MewtwoIsFarTooPowerful::
-	.string "Diary: Sept. 1\n"
+	.string "Diary: Sept. 1\p"
 	.string "MEWTWO is far too powerful.\p"
-	.string "We have failed to curb its vicious\n"
-	.string "tendencies…$"
+	.string "Its RELIC-01 response\n"
+	.string "has risen beyond control.\p"
+	.string "We failed to restrain\n"
+	.string "its violent tendencies...$"
 
