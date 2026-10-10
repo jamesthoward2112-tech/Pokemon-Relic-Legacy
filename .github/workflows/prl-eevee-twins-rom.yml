@@ -52,7 +52,7 @@ jobs:
       - name: Upload FireRed playable ROM
         uses: actions/upload-artifact@v4
         with:
-          name: PRL_Eeveeon_Nimbeon_Twins_Kanto_20261010
+          name: PRL_Eeveeon_Nimbeon_Twins_StayPut_Kanto_20261010
           path: pokefirered.gba
           if-no-files-found: error
           retention-days: 2
