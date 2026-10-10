@@ -16,11 +16,11 @@ class NoxAndRocket(unittest.TestCase):
         normal=(ROOT/"graphics/pokemon/noxichu/normal.pal").read_text()
         icon=(ROOT/"graphics/pokemon/icon_palettes/pal6.pal").read_text()
         self.assertEqual(normal,icon)
-        self.assertIn("53 51 60",normal)
+        self.assertIn("49 47 55",normal)
     def test_approved_rocket_two_person_picture(self):
         j=png("graphics/trainers/front_pics/prl_jessie.png",64,64)
         self.assertEqual(j,png("graphics/trainers/front_pics/prl_james.png",64,64))
-        self.assertEqual(hashlib.sha256(j).hexdigest(),"d59d0073f77c55b571166f0e13dc622470f498e6aa3ad61ad6441cbf8103895a")
+        self.assertEqual(hashlib.sha256(j).hexdigest(),"37321dc53d66139cb466971b75b9d5764f6148ea45f589617fa7bb4f316006a2")
     def test_rocket_actor_staging(self):
         for name,tag in [("MtMoon_B1F_Frlg","MT_MOON"),("RocketHideout_B4F_Frlg","HIDEOUT"),("SilphCo_11F_Frlg","SILPH"),("VictoryRoad_3F_Frlg","VICTORY_ROAD")]:
             with self.subTest(name=name):
@@ -43,11 +43,13 @@ class NoxAndRocket(unittest.TestCase):
         self.assertIn("setflag FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON",load)
         sceneMap=json.loads((ROOT/"data/maps/MtMoon_B1F_Frlg/map.json").read_text())
         rocket={a.get("local_id"):a for a in sceneMap["object_events"]}
-        self.assertEqual((rocket["LOCALID_PRL_JESSIE_MT_MOON"]["x"],rocket["LOCALID_PRL_JESSIE_MT_MOON"]["y"]),(43,4))
-        self.assertEqual((rocket["LOCALID_PRL_JAMES_MT_MOON"]["x"],rocket["LOCALID_PRL_JAMES_MT_MOON"]["y"]),(44,4))
-        self.assertEqual((rocket["LOCALID_PRL_MEOWTH_MT_MOON"]["x"],rocket["LOCALID_PRL_MEOWTH_MT_MOON"]["y"]),(44,3))
+        self.assertEqual((rocket["LOCALID_PRL_JESSIE_MT_MOON"]["x"],rocket["LOCALID_PRL_JESSIE_MT_MOON"]["y"]),(42,2))
+        self.assertEqual((rocket["LOCALID_PRL_JAMES_MT_MOON"]["x"],rocket["LOCALID_PRL_JAMES_MT_MOON"]["y"]),(43,2))
+        self.assertEqual((rocket["LOCALID_PRL_MEOWTH_MT_MOON"]["x"],rocket["LOCALID_PRL_MEOWTH_MT_MOON"]["y"]),(44,2))
         triggers={(c["x"],c["y"]) for c in sceneMap["coord_events"] if c["script"]=="MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"}
-        self.assertTrue({(42,4),(42,5),(42,3),(43,2),(44,2),(44,5),(45,5),(46,5),(45,4)}.issubset(triggers))
+        self.assertTrue({(x,5) for x in range(38,47)}.issubset(triggers))
+        self.assertTrue({(x,4) for x in range(40,46)}.issubset(triggers))
+        self.assertTrue({(x,3) for x in range(41,45)}.issubset(triggers))
         self.assertIn("localId=LOCALID_PRL_JESSIE_MT_MOON, continueScript=TRUE",scene)
     def test_opening_untouched(self):
         self.assertIn("CB2_InitPRLHwlScene0",(ROOT/"src/expansion_intro.c").read_text())

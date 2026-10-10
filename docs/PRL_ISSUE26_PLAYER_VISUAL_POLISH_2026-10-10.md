@@ -15,3 +15,9 @@ The supplied 128 KiB FRLG `.sav` has latest save slot index 9: group 35/map 3 = 
 Noxichu's party icon has updated stronger amber eye/yellow markings, clearer graphite separation, and distinct second animation-frame blinking. Still 32x64 indexed/16-colour and maps to existing palette 6 (which matches Noxichu normal palette). No species or sprite dimension changes. Full emulator QA remains outstanding.
 
 Noxichu's shared front/back and dedicated icon palette slot 6 have been refined together for improved shadow separation and stronger gold/amber contrast, without changing the 64x64 sprite canvases or 32x64 icon canvas. This affects appearance visibly while retaining the approved black-and-gold concept.
+
+## 10 October follow-up: full-width Mt Moon detection and reference artwork
+- Player reference explicitly requires **James LEFT, Jessie RIGHT** in one shared white-uniform trainer portrait. The new 64×64 indexed portrait is adapted from the player's supplied screenshot of the actual duo pose, rather than combining two unrelated solo trainer pictures.
+- Noxichu front/back/icon artwork has been rebuilt from the archived approved PKR Noxichu reference poster. All size limits remain 64×64/64×64/32×64, and the icon palette slot 6 matches the new normal sprite palette. This is a substantial redraw, not a 1-pixel recolour.
+- Mt Moon B1F places Jessie at (42,2), James at (43,2), Meowth at (44,2), along the **top wall** of the exit room. All face down. Automatically triggers the conversation from the **full bottom walking row x38–46 y5**, the approach corridor x40–45 y4, and top approach x41–44 y3. The saved fossil and victory flags, trainer parties, duo battle, and exit warp are unchanged.
+- Automated source/build checks do not replace emulator QA. Verify with the submitted Mt Moon B2F .sav before closing issue #26; keep the existing Celebi/Jirachi opening unchanged.

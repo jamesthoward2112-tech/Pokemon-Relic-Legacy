@@ -40,9 +40,9 @@ def test_rocket_visible_and_obstructs_exit_before_battle():
         e=pcs[f"LOCALID_PRL_{name}_MT_MOON"]
         assert e["flag"]=="FLAG_HIDE_PRL_ROCKET_MT_MOON"
         assert e["script"]=="MtMoon_B1F_EventScript_PRL_JessieJamesEncounter"
-        assert e["x"] < exit_warp["x"]
+        assert e["x"] < exit_warp["x"] && e["y"] == 2
     assert pcs["LOCALID_PRL_JESSIE_MT_MOON"]["y"] == pcs["LOCALID_PRL_JAMES_MT_MOON"]["y"]
-    assert any(e["x"]==42 and e["y"]==4 for e in j["coord_events"])
+    assert all(any(e["x"]==x and e["y"]==5 for e in j["coord_events"]) for x in range(38,47))
     sc=source("data/maps/MtMoon_B1F_Frlg/scripts.inc")
     assert "goto_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON" in sc
     assert "trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON" in sc
@@ -65,7 +65,7 @@ def test_rocket_has_joint_name_and_approved_front_gfx():
     import hashlib
     james=(ROOT/"graphics/trainers/front_pics/prl_james.png").read_bytes()
     assert james == png
-    assert hashlib.sha256(png).hexdigest()=="d59d0073f77c55b571166f0e13dc622470f498e6aa3ad61ad6441cbf8103895a"
+    assert hashlib.sha256(png).hexdigest()=="37321dc53d66139cb466971b75b9d5764f6148ea45f589617fa7bb4f316006a2"
     assert png[25]==3  # indexed colour PNG
     assert b"tRNS" in png and png[png.index(b"tRNS")+4] == 0  # GBA OBJ colour zero is transparent
 
