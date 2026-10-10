@@ -144,3 +144,14 @@ Route4_EventScript_PRLSquirtleAide_Text_Repeat::
 
 Route4_EventScript_PRLSquirtleAide_Text_Pokemon::
 	.string "SQUIRTLE looks ready to travel.$"
+
+@ PRL: The two existing Black Belts outside Mt. Moon teach Relic-era moves.
+Route4_EventScript_PRL_DrainPunchTutor::
+	lock
+	faceplayer
+	goto EventScript_PRL_TutorDrainPunch
+
+Route4_EventScript_PRL_EarthPowerTutor::
+	lock
+	faceplayer
+	goto EventScript_PRL_TutorEarthPower
