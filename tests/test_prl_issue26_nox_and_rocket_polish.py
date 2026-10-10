@@ -16,7 +16,13 @@ class NoxAndRocket(unittest.TestCase):
         normal=(ROOT/"graphics/pokemon/noxichu/normal.pal").read_text()
         icon=(ROOT/"graphics/pokemon/icon_palettes/pal6.pal").read_text()
         self.assertEqual(normal,icon)
-        self.assertIn("49 47 55",normal)
+        self.assertIn("45 44 53",normal)
+    def test_approved_noxichu_bottom_quarter_cut(self):
+        # Approved 10 Oct 2026: remove pixels, do NOT shift back sprite upwards.
+        data = png("graphics/pokemon/noxichu/back.png", 64, 64)
+        self.assertEqual(hashlib.sha256(data).hexdigest(),
+                         "6b173ed1cd8b528565fc33dba9542ea8c670e8b00d8f9b39b4e64469c4c127bf")
+
     def test_approved_rocket_two_person_picture(self):
         j=png("graphics/trainers/front_pics/prl_jessie.png",64,64)
         self.assertEqual(j,png("graphics/trainers/front_pics/prl_james.png",64,64))
