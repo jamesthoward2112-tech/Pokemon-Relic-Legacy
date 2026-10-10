@@ -71,12 +71,15 @@ RocketHideout_B1F_Text_Grunt1Defeat::
 	.string "Beaten!$"
 
 RocketHideout_B1F_Text_Grunt1PostBattle::
-	.string "Blast it… You're dissing TEAM\n"
-	.string "ROCKET, aren't you?$"
+	.string "The old dig sites yield more\n"
+	.string "than precious stones.\p"
+	.string "Our BOSS wants the ancient\n"
+	.string "specimens catalogued.$"
 
 RocketHideout_B1F_Text_Grunt2Intro::
-	.string "You broke into TEAM ROCKET's\n"
-	.string "operation? What nerve!$"
+	.string "TEAM ROCKET's fossil cargo\n"
+	.string "is none of your business!\p"
+	.string "Turn around, kid!$"
 
 RocketHideout_B1F_Text_Grunt2Defeat::
 	.string "Boom!$"
@@ -92,8 +95,9 @@ RocketHideout_B1F_Text_Grunt3Defeat::
 	.string "I can't do it!$"
 
 RocketHideout_B1F_Text_Grunt3PostBattle::
-	.string "SILPH SCOPE? Humph!\n"
-	.string "I don't know where it is.$"
+	.string "The specimens went from\n"
+	.string "MT. MOON to a secret lab.\p"
+	.string "I don't know which lab!$"
 
 RocketHideout_B1F_Text_Grunt4Intro::
 	.string "Why did you come here?$"
