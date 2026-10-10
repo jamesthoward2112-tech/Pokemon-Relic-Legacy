@@ -26,3 +26,15 @@ No PJR Key Item selector shall be introduced; the selected donor is the PHR four
 - Confirmed gender palette input is initialized from the player before the setting screen; existing clock initialization saves local RTC offset. Nurse Joy interaction unchanged.
 - **Visual/collision emulator verification not yet done**: donor PJR uses a different HnS tileset; the new coordinates need an actual in-game pass for reachability and whether the wall visibly reads as a clock. If not, adjust wall art/coordinates before calling it complete.
 - Johto Pokémon Centre maps do not yet exist in PRL, so this must also be applied to future Johto interiors when introduced.
+
+## PHR four-slot SELECT selector — source integrated 10 Oct 2026
+
+- Exact donor: `Pokemon-Hoenn-Relics` branch `develop`, `tools/apply_h009_key_items.py` — the *four registered Key Items* patch, NOT that file's separate PHR Key Item DexNav/Remote PC setup.
+- Ported the four-slot menu helpers to `src/item_menu.c`, item registration/deselection markers and SELECT opening, bike registration update in `src/item.c`, header prototypes and persistent extra slots `VAR_PHR_REGISTERED_ITEM_2..4` (unused FRLG/Emerald vars `0x40FD..0x40FF`).
+- The first registration remains the original `gSaveBlock1Ptr->registeredItem`, preserving the SaveBlock layout. Nothing from PJR's own Key Item wheel is ported.
+- Regression source tests included. Runtime QA needed on all four slots, item-use tasks, bag UI return, SELECT conflicts, save/reload, early and late player saves, and bike swapping.
+
+## Current candidate workflow
+
+- Dedicated workflow `.github/workflows/prl-pjr-qol-test-rom.yml` targets only `prl/pjr-phr-qol-migration-20261010` and builds its own test artifact.
+- Separate existing playable Eeveeon/Nimbeon branch remains unchanged. Never treat this new candidate as gameplay-verified based only on a CI success.
