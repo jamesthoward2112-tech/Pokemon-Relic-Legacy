@@ -120,8 +120,8 @@ PokemonLeague_LoreleisRoom_Text_Defeat::
 	.string "…Things shouldn't be this way!$"
 
 PokemonLeague_LoreleisRoom_Text_PostBattle::
-	.string "You're better than I thought.\n"
-	.string "Go on ahead.\p"
-	.string "You only got a taste of the\n"
-	.string "POKéMON LEAGUE's power.$"
+	.string "Your bond overcame my ICE.\p"
+	.string "The old seas beneath KANTO\n"
+	.string "still hold many mysteries.\p"
+	.string "Go on. The next battle awaits!$"
 
