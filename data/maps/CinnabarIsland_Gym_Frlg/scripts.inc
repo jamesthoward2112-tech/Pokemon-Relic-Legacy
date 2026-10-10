@@ -722,14 +722,13 @@ CinnabarIsland_Gym_EventScript_OpenDoor6::
 	return
 
 CinnabarIsland_Gym_Text_BlaineIntro::
-	.string "Hah!\p"
-	.string "I am BLAINE, the red-hot LEADER\n"
-	.string "of CINNABAR GYM!\p"
-	.string "My fiery POKéMON are all rough\n"
-	.string "and ready with intense heat!\p"
-	.string "They incinerate all challengers!\p"
-	.string "Hah!\n"
-	.string "You better have BURN HEAL!{PLAY_BGM}{MUS_RG_ENCOUNTER_GYM_LEADER}$"
+	.string "Hah! I'm BLAINE, the red-hot\n"
+	.string "LEADER of CINNABAR GYM!\p"
+	.string "MR. FUJI and I once examined\n"
+	.string "some curious old fossils.\p"
+	.string "The same powers may lie\n"
+	.string "sleeping in living POKéMON.\p"
+	.string "But first, feel my FIRE!$"
 
 CinnabarIsland_Gym_Text_BlaineDefeat::
 	.string "I have burned down to nothing!\n"
@@ -753,9 +752,11 @@ CinnabarIsland_Gym_Text_ReceivedTM38FromBlaine::
 
 CinnabarIsland_Gym_Text_BlainePostBattle::
 	.string "TM38 contains FIRE BLAST.\n"
-	.string "Teach it to FIRE-type POKéMON.\p"
-	.string "VULPIX or CHARMELEON would be\n"
-	.string "ideal for that move.$"
+	.string "Use it wisely!\p"
+	.string "Long ago I worked with FUJI\n"
+	.string "on an ancient DNA study.\p"
+	.string "Some traits are not lost.\n"
+	.string "They are merely sleeping!$"
 
 CinnabarIsland_Gym_Text_MakeSpaceForThis::
 	.string "Make space for this, child!$"
