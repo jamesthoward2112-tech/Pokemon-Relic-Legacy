@@ -228,7 +228,7 @@ VictoryRoad_3F_Movement_PRL_RocketExit::
 	step_end
 
 VictoryRoad_3F_Text_PRL_RocketIntro::
-	.string "JESSIE: Don't look so smug!\p"
+	.string "JESSIE: From SILPH to here?!\p"
 	.string "JAMES: GIOVANNI disbanded\n"
 	.string "TEAM ROCKET...\p"
 	.string "JESSIE: But we still have\n"
