@@ -2,6 +2,7 @@
 
 RocketHideout_B4F_Frlg_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, RocketHideout_B4F_OnLoad
+	map_script MAP_SCRIPT_ON_TRANSITION, RocketHideout_B4F_OnTransition_PRLRocket
 	.byte 0
 
 RocketHideout_B4F_OnLoad::
@@ -10,6 +11,7 @@ RocketHideout_B4F_OnLoad::
 	call_if_defeated TRAINER_TEAM_ROCKET_GRUNT_16, RocketHideout_B4F_EventScript_CountGruntDefeated
 	call_if_defeated TRAINER_TEAM_ROCKET_GRUNT_17, RocketHideout_B4F_EventScript_CountGruntDefeated
 	call_if_ne NUM_DOOR_GRUNTS_DEFEATED, 2, RocketHideout_B4F_EventScript_SetBarrier
+	call RocketHideout_B4F_OnLoad_PRLRocketVisibility
 	end
 
 RocketHideout_B4F_EventScript_CountGruntDefeated::
@@ -19,7 +21,6 @@ RocketHideout_B4F_EventScript_CountGruntDefeated::
 RocketHideout_B4F_EventScript_Giovanni::
 	lock
 	faceplayer
-	call RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUT
 	goto_if_unset FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_EventScript_GiovanniWaitForJessieJames
 	famechecker FAMECHECKER_GIOVANNI, 0
 	message RocketHideout_B4F_Text_GiovanniIntro
@@ -40,8 +41,13 @@ RocketHideout_B4F_EventScript_Giovanni::
 	end
 
 RocketHideout_B4F_EventScript_GiovanniWaitForJessieJames::
+	msgbox RocketHideout_B4F_Text_PRL_StillGuarded
 	release
 	end
+
+RocketHideout_B4F_Text_PRL_StillGuarded::
+	.string "GIOVANNI: Defeat JESSIE and JAMES\n"
+	.string "before approaching me!$"
 
 RocketHideout_B4F_EventScript_SilphScope::
 	lock
@@ -181,52 +187,53 @@ RocketHideout_B4F_Text_Grunt1PostBattle::
 	.string "I dropped the LIFT KEY!$"
 
 
-RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUT::
-	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUTEnd
-	goto_if_unset FLAG_CAN_USE_ROCKET_HIDEOUT_LIFT, RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUTEnd
-	goto_if_defeated TRAINER_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUTAlreadyWon
-	clearflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
-	addobject LOCALID_PRL_JESSIE_HIDEOUT
-	addobject LOCALID_PRL_JAMES_HIDEOUT
-	addobject LOCALID_PRL_MEOWTH_HIDEOUT
-	applymovement LOCALID_PRL_JESSIE_HIDEOUT, RocketHideout_B4F_Movement_PRL_RocketApproach
-	waitmovementall
-	applymovement LOCALID_PRL_JAMES_HIDEOUT, RocketHideout_B4F_Movement_PRL_RocketApproach
-	waitmovementall
-	applymovement LOCALID_PRL_MEOWTH_HIDEOUT, RocketHideout_B4F_Movement_PRL_RocketApproach
-	waitmovementall
-	turnobject LOCALID_PRL_JESSIE_HIDEOUT, DIR_SOUTH
-	turnobject LOCALID_PRL_JAMES_HIDEOUT, DIR_SOUTH
-	turnobject LOCALID_PRL_MEOWTH_HIDEOUT, DIR_SOUTH
-	trainerbattle_double TRAINER_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_Text_PRL_RocketIntro, RocketHideout_B4F_Text_PRL_RocketDefeat, RocketHideout_B4F_Text_PRL_RocketNotEnoughMons, localId=LOCALID_PRL_JESSIE_HIDEOUT, continueScript=TRUE
-	goto_if_defeated TRAINER_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUTWon
-	goto RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUTCleanup
-RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUTWon::
+
+@ Jessie and James behave as ordinary trainers, using native ! / walk-up.
+@ One shared opponent ID makes the first alignment a single double battle.
+@ Neither character is removed: each has separate post-battle dialogue.
+RocketHideout_B4F_EventScript_PRL_Jessie::
+	trainerbattle_double TRAINER_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_Text_PRL_RocketIntro, RocketHideout_B4F_Text_PRL_RocketDefeat, RocketHideout_B4F_Text_PRL_RocketNotEnoughMons, RocketHideout_B4F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_JESSIE_HIDEOUT
+	msgbox RocketHideout_B4F_Text_PRL_JessiePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+RocketHideout_B4F_EventScript_PRL_James::
+	trainerbattle_double TRAINER_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_Text_PRL_RocketIntro, RocketHideout_B4F_Text_PRL_RocketDefeat, RocketHideout_B4F_Text_PRL_RocketNotEnoughMons, RocketHideout_B4F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_JAMES_HIDEOUT
+	msgbox RocketHideout_B4F_Text_PRL_JamesPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+RocketHideout_B4F_EventScript_PRL_Meowth::
+	lock
+	faceplayer
+	goto_if_defeated TRAINER_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_EventScript_PRL_MeowthAfter
+	msgbox RocketHideout_B4F_Text_PRL_MeowthBefore
+	release
+	end
+RocketHideout_B4F_EventScript_PRL_MeowthAfter::
+	msgbox RocketHideout_B4F_Text_PRL_MeowthAfter
+	release
+	end
+
+RocketHideout_B4F_EventScript_PRL_RocketWon::
 	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT
 	msgbox RocketHideout_B4F_Text_PRL_RocketPostBattle
-RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUTCleanup::
-	applymovement LOCALID_PRL_JESSIE_HIDEOUT, RocketHideout_B4F_Movement_PRL_RocketExit
-	waitmovementall
-	applymovement LOCALID_PRL_JAMES_HIDEOUT, RocketHideout_B4F_Movement_PRL_RocketExit
-	waitmovementall
-	applymovement LOCALID_PRL_MEOWTH_HIDEOUT, RocketHideout_B4F_Movement_PRL_RocketExit
-	waitmovementall
-	setflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
-	removeobject LOCALID_PRL_JESSIE_HIDEOUT
-	removeobject LOCALID_PRL_JAMES_HIDEOUT
-	removeobject LOCALID_PRL_MEOWTH_HIDEOUT
-RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUTAlreadyWon::
-	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT
-RocketHideout_B4F_EventScript_PRL_JESSIE_JAMES_HIDEOUTEnd::
-	return
+	release
+	end
 
-RocketHideout_B4F_Movement_PRL_RocketApproach::
-	walk_up
-	step_end
+RocketHideout_B4F_Text_PRL_JessiePostBattle::
+	.string "JESSIE: Don't celebrate yet!\p"
+	.string "TEAM ROCKET will still find\n"
+	.string "the ultimate ancient RELIC!$"
 
-RocketHideout_B4F_Movement_PRL_RocketExit::
-	walk_down
-	step_end
+RocketHideout_B4F_Text_PRL_JamesPostBattle::
+	.string "JAMES: Every ancient specimen\n"
+	.string "leads to another mystery.\p"
+	.string "BOSS has a lot to learn!$"
+
+RocketHideout_B4F_Text_PRL_MeowthBefore::
+	.string "MEOWTH: Mrowr! Not another kid!$"
+
+RocketHideout_B4F_Text_PRL_MeowthAfter::
+	.string "MEOWTH: They lost AGAIN?!$"
 
 RocketHideout_B4F_Text_PRL_RocketIntro::
 	.string "JESSIE: You ruined MT. MOON!\p"
@@ -247,3 +254,32 @@ RocketHideout_B4F_Text_PRL_RocketPostBattle::
 	.string "JAMES: SILPH has our samples.\p"
 	.string "JESSIE: The BOSS expects them\n"
 	.string "to wake an ancient power!$"
+
+
+@ Visibility is set before spawning map objects and refreshed on transition.
+@ Neither function starts a battle or changes the native map's warp tiles.
+RocketHideout_B4F_OnLoad_PRLRocketVisibility::
+	goto_if_unset FLAG_CAN_USE_ROCKET_HIDEOUT_LIFT, RocketHideout_B4F_PRLRocketVisibilityDone
+	goto_if_defeated TRAINER_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_PRLRocketAlreadyWon
+	clearflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
+RocketHideout_B4F_PRLRocketVisibilityDone::
+	return
+RocketHideout_B4F_PRLRocketAlreadyWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT
+	clearflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
+	return
+
+RocketHideout_B4F_OnTransition_PRLRocket::
+	goto_if_unset FLAG_CAN_USE_ROCKET_HIDEOUT_LIFT, RocketHideout_B4F_PRLRocketTransitionDone
+	goto_if_defeated TRAINER_JESSIE_JAMES_HIDEOUT, RocketHideout_B4F_PRLRocketTransitionAlreadyWon
+	clearflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
+	goto RocketHideout_B4F_PRLRocketTransitionAdd
+RocketHideout_B4F_PRLRocketTransitionAlreadyWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT
+	clearflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
+RocketHideout_B4F_PRLRocketTransitionAdd::
+	addobject LOCALID_PRL_JESSIE_HIDEOUT
+	addobject LOCALID_PRL_JAMES_HIDEOUT
+	addobject LOCALID_PRL_MEOWTH_HIDEOUT
+RocketHideout_B4F_PRLRocketTransitionDone::
+	return

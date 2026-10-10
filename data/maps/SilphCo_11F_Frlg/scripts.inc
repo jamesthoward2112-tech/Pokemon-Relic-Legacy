@@ -1,10 +1,12 @@
 SilphCo_11F_Frlg_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, SilphCo_11F_OnLoad
+	map_script MAP_SCRIPT_ON_TRANSITION, SilphCo_11F_OnTransition_PRLRocket
 	.byte 0
 
 SilphCo_11F_OnLoad::
 	setflag FLAG_HIDE_PRL_ROCKET_SILPH
 	call_if_unset FLAG_SILPH_11F_DOOR, EventScript_Close11FDoor
+	call SilphCo_11F_OnLoad_PRLRocketVisibility
 	end
 
 SilphCo_11F_EventScript_President::
@@ -57,7 +59,6 @@ SilphCo_11F_EventScript_GiovanniTriggerRight::
 	end
 
 SilphCo_11F_EventScript_BattleGiovanni::
-	call SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPH
 	goto_if_unset FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_GiovanniWaitForJessieJames
 	textcolor NPC_TEXT_COLOR_MALE
 	applymovement LOCALID_SILPH_CO_GIOVANNI, Common_Movement_WalkInPlaceFasterDown
@@ -83,8 +84,13 @@ SilphCo_11F_EventScript_BattleGiovanni::
 	end
 
 SilphCo_11F_EventScript_GiovanniWaitForJessieJames::
+	msgbox SilphCo_11F_Text_PRL_StillGuarded
 	releaseall
 	end
+
+SilphCo_11F_Text_PRL_StillGuarded::
+	.string "GIOVANNI: Face JESSIE and JAMES\n"
+	.string "before you challenge me!$"
 
 SilphCo_11F_EventScript_GiovanniApproachLeft::
 	applymovement LOCALID_SILPH_CO_GIOVANNI, SilphCo_11F_Movement_GiovanniApproachLeft
@@ -236,53 +242,53 @@ SilphCo_11F_Text_FloorSign::
 	.string "11F$"
 
 
-SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPH::
-	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHEnd
-	checkitem ITEM_SILPH_SCOPE
-	goto_if_eq VAR_RESULT, FALSE, SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHEnd
-	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHAlreadyWon
-	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
-	addobject LOCALID_PRL_JESSIE_SILPH
-	addobject LOCALID_PRL_JAMES_SILPH
-	addobject LOCALID_PRL_MEOWTH_SILPH
-	applymovement LOCALID_PRL_JESSIE_SILPH, SilphCo_11F_Movement_PRL_RocketApproach
-	waitmovementall
-	applymovement LOCALID_PRL_JAMES_SILPH, SilphCo_11F_Movement_PRL_RocketApproach
-	waitmovementall
-	applymovement LOCALID_PRL_MEOWTH_SILPH, SilphCo_11F_Movement_PRL_RocketApproach
-	waitmovementall
-	turnobject LOCALID_PRL_JESSIE_SILPH, DIR_SOUTH
-	turnobject LOCALID_PRL_JAMES_SILPH, DIR_SOUTH
-	turnobject LOCALID_PRL_MEOWTH_SILPH, DIR_SOUTH
-	trainerbattle_double TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_Text_PRL_RocketIntro, SilphCo_11F_Text_PRL_RocketDefeat, SilphCo_11F_Text_PRL_RocketNotEnoughMons, localId=LOCALID_PRL_JESSIE_SILPH, continueScript=TRUE
-	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHWon
-	goto SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHCleanup
-SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHWon::
+
+@ Jessie and James behave as ordinary trainers, using native ! / walk-up.
+@ One shared opponent ID makes the first alignment a single double battle.
+@ Neither character is removed: each has separate post-battle dialogue.
+SilphCo_11F_EventScript_PRL_Jessie::
+	trainerbattle_double TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_Text_PRL_RocketIntro, SilphCo_11F_Text_PRL_RocketDefeat, SilphCo_11F_Text_PRL_RocketNotEnoughMons, SilphCo_11F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_JESSIE_SILPH
+	msgbox SilphCo_11F_Text_PRL_JessiePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SilphCo_11F_EventScript_PRL_James::
+	trainerbattle_double TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_Text_PRL_RocketIntro, SilphCo_11F_Text_PRL_RocketDefeat, SilphCo_11F_Text_PRL_RocketNotEnoughMons, SilphCo_11F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_JAMES_SILPH
+	msgbox SilphCo_11F_Text_PRL_JamesPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SilphCo_11F_EventScript_PRL_Meowth::
+	lock
+	faceplayer
+	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_PRL_MeowthAfter
+	msgbox SilphCo_11F_Text_PRL_MeowthBefore
+	release
+	end
+SilphCo_11F_EventScript_PRL_MeowthAfter::
+	msgbox SilphCo_11F_Text_PRL_MeowthAfter
+	release
+	end
+
+SilphCo_11F_EventScript_PRL_RocketWon::
 	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
 	msgbox SilphCo_11F_Text_PRL_RocketPostBattle
-SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHCleanup::
-	applymovement LOCALID_PRL_JESSIE_SILPH, SilphCo_11F_Movement_PRL_RocketExit
-	waitmovementall
-	applymovement LOCALID_PRL_JAMES_SILPH, SilphCo_11F_Movement_PRL_RocketExit
-	waitmovementall
-	applymovement LOCALID_PRL_MEOWTH_SILPH, SilphCo_11F_Movement_PRL_RocketExit
-	waitmovementall
-	setflag FLAG_HIDE_PRL_ROCKET_SILPH
-	removeobject LOCALID_PRL_JESSIE_SILPH
-	removeobject LOCALID_PRL_JAMES_SILPH
-	removeobject LOCALID_PRL_MEOWTH_SILPH
-SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHAlreadyWon::
-	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
-SilphCo_11F_EventScript_PRL_JESSIE_JAMES_SILPHEnd::
-	return
+	release
+	end
 
-SilphCo_11F_Movement_PRL_RocketApproach::
-	walk_up
-	step_end
+SilphCo_11F_Text_PRL_JessiePostBattle::
+	.string "JESSIE: Don't celebrate yet!\p"
+	.string "TEAM ROCKET will still find\n"
+	.string "the ultimate ancient RELIC!$"
 
-SilphCo_11F_Movement_PRL_RocketExit::
-	walk_down
-	step_end
+SilphCo_11F_Text_PRL_JamesPostBattle::
+	.string "JAMES: Every ancient specimen\n"
+	.string "leads to another mystery.\p"
+	.string "BOSS has a lot to learn!$"
+
+SilphCo_11F_Text_PRL_MeowthBefore::
+	.string "MEOWTH: Mrowr! Not another kid!$"
+
+SilphCo_11F_Text_PRL_MeowthAfter::
+	.string "MEOWTH: They lost AGAIN?!$"
 
 SilphCo_11F_Text_PRL_RocketIntro::
 	.string "JESSIE: After MT. MOON and\n"
@@ -303,3 +309,34 @@ SilphCo_11F_Text_PRL_RocketPostBattle::
 	.string "JAMES: A golden bird...\p"
 	.string "JESSIE: Just an old rumour!\n"
 	.string "The BOSS will be furious.$"
+
+
+@ Visibility is set before spawning map objects and refreshed on transition.
+@ Neither function starts a battle or changes the native map's warp tiles.
+SilphCo_11F_OnLoad_PRLRocketVisibility::
+	checkitem ITEM_SILPH_SCOPE
+	goto_if_eq VAR_RESULT, FALSE, SilphCo_11F_PRLRocketVisibilityDone
+	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_PRLRocketAlreadyWon
+	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
+SilphCo_11F_PRLRocketVisibilityDone::
+	return
+SilphCo_11F_PRLRocketAlreadyWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
+	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
+	return
+
+SilphCo_11F_OnTransition_PRLRocket::
+	checkitem ITEM_SILPH_SCOPE
+	goto_if_eq VAR_RESULT, FALSE, SilphCo_11F_PRLRocketTransitionDone
+	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_PRLRocketTransitionAlreadyWon
+	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
+	goto SilphCo_11F_PRLRocketTransitionAdd
+SilphCo_11F_PRLRocketTransitionAlreadyWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
+	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
+SilphCo_11F_PRLRocketTransitionAdd::
+	addobject LOCALID_PRL_JESSIE_SILPH
+	addobject LOCALID_PRL_JAMES_SILPH
+	addobject LOCALID_PRL_MEOWTH_SILPH
+SilphCo_11F_PRLRocketTransitionDone::
+	return

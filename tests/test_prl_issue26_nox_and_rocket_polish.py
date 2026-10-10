@@ -37,7 +37,10 @@ class NoxAndRocket(unittest.TestCase):
                     self.assertIn("localId=LOCALID_PRL_JESSIE_MT_MOON",script)
                     self.assertIn("localId=LOCALID_PRL_JAMES_MT_MOON",script)
                 else:
-                    self.assertIn("localId=LOCALID_PRL_JESSIE_"+tag+", continueScript=TRUE",script)
+                    self.assertIn("localId=LOCALID_PRL_JESSIE_"+tag,script)
+                    self.assertIn("localId=LOCALID_PRL_JAMES_"+tag,script)
+                    self.assertIn("Text_PRL_JessiePostBattle::",script)
+                    self.assertIn("Text_PRL_JamesPostBattle::",script)
     def test_mt_moon_revealed_before_object_spawn_for_existing_save(self):
         scene=(ROOT/"data/maps/MtMoon_B1F_Frlg/scripts.inc").read_text()
         self.assertIn("map_script MAP_SCRIPT_ON_LOAD, MtMoon_B1F_OnLoad_PRLJessieJames",scene)
