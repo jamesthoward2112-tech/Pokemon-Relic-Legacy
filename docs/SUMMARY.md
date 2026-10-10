@@ -1,5 +1,7 @@
 # Summary
 
+- [PR24 Redux battle background donor mapping](./PR24_REDUX_BATTLE_BACKGROUNDS.md)
+
 - [PR23 approved Mercury artwork integration](./PR23_MERCURY_DONOR_INTEGRATION_PENDING.md)
 
 - [README](./README.md)

@@ -138,8 +138,4 @@ MtMoon_1F_Text_BrockHelpsExcavateFossils::
 	.string "Sometimes, BROCK of PEWTER GYM\n"
 	.string "lends me a hand.$"
 
-MtMoon_1F_EventScript_DrainPunchTutor::
-	lock
-	faceplayer
-	goto EventScript_PRL_TutorDrainPunch
-	end
+
