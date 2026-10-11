@@ -45,7 +45,7 @@ class NoxAndRocket(unittest.TestCase):
                 x=actors['LOCALID_PRL_JESSIE_'+tag]
                 y=actors['LOCALID_PRL_JAMES_'+tag]
                 m=actors['LOCALID_PRL_MEOWTH_'+tag]
-                if tag == "HIDEOUT":
+                if tag in ("HIDEOUT", "SILPH"):
                     self.assertEqual(x["x"], y["x"])
                     self.assertEqual(abs(x["y"] - y["y"]), 1)
                     self.assertEqual(x["movement_type"], "MOVEMENT_TYPE_FACE_RIGHT")
