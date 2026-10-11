@@ -102,12 +102,16 @@ RocketHideout_B1F_Text_Grunt3Defeat::
 	.string "I can't do it!$"
 
 RocketHideout_B1F_Text_Grunt3PostBattle::
-	.string "The specimens went from\n"
-	.string "MT. MOON to a secret lab.\p"
-	.string "I don't know which lab!$"
+	.string "A sealed specimen manifest...\p"
+	.string "It lists MT. MOON,\n"
+	.string "CERULEAN and other dig sites.\p"
+	.string "All the marked fragments\n"
+	.string "were sent to SILPH CO.$"
 
 RocketHideout_B1F_Text_Grunt4Intro::
-	.string "Why did you come here?$"
+	.string "This floor stores every\n"
+	.string "RELIC dig-site ledger!\p"
+	.string "You can't reach the BOSS!$"
 
 RocketHideout_B1F_Text_Grunt4Defeat::
 	.string "This won't do!$"
@@ -118,12 +122,15 @@ RocketHideout_B1F_Text_Grunt4PostBattle::
 	.string "He has the RELIC ledgers!$"
 
 RocketHideout_B1F_Text_Grunt5Intro::
-	.string "Are you lost, you little mouse?$"
+	.string "Are you lost, little mouse?\p"
+	.string "One more guard and those\n"
+	.string "RELIC vault doors open...$"
 
 RocketHideout_B1F_Text_Grunt5Defeat::
 	.string "Why…?$"
 
 RocketHideout_B1F_Text_Grunt5PostBattle::
-	.string "Uh-oh, that ruckus somehow opened\n"
-	.string "the door!$"
+	.string "Uh-oh! You broke the guard!\p"
+	.string "The vault's barrier has\n"
+	.string "opened! BOSS will be furious!$"
 
