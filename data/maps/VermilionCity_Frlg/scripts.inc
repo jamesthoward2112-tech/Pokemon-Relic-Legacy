@@ -207,7 +207,7 @@ VermilionCity_EventScript_PRLPierAccess::
 	end
 
 VermilionCity_Text_PRLPierAccess:
-	.string "The pier is open to Trainers now.\\p"
+	.string "The pier is open to Trainers now.\p"
 	.string "Ask me about ferry routes any time.$"
 
 VermilionCity_EventScript_DontHaveSSTicket::

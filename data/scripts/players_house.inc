@@ -708,9 +708,9 @@ EventScript_PRL_CenterMoveDeleter::
 	end
 
 PRL_Center_Text_ChooseDaypart:
-	.string "Choose the time of day for your\\n"
+	.string "Choose the time of day for your\n"
 	.string "adventure. You can change it again.$"
 
 PRL_Center_Text_DaypartUpdated:
-	.string "All set! The time has changed.\\p"
+	.string "All set! The time has changed.\p"
 	.string "Come back whenever you like.$"
