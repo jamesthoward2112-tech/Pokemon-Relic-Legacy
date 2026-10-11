@@ -1328,9 +1328,9 @@
 #define FLAG_PRL_BADGE_HOENN_WINONA             0x4D2
 #define FLAG_PRL_BADGE_HOENN_TATE_LIZA          0x4D3
 #define FLAG_PRL_BADGE_HOENN_JUAN               0x4D4
-#define FLAG_UNUSED_0x4D5                                           0x4D5 // Unused Flag
-#define FLAG_UNUSED_0x4D6                                           0x4D6 // Unused Flag
-#define FLAG_UNUSED_0x4D7                                           0x4D7 // Unused Flag
+#define FLAG_PRL_DOJO_HITMONLEE_CLAIMED                  0x4D5 // Persistent Fighting Dojo gift
+#define FLAG_PRL_DOJO_HITMONCHAN_CLAIMED                 0x4D6 // Persistent Fighting Dojo gift
+#define FLAG_PRL_DOJO_GIFT_MIGRATED                     0x4D7 // Existing-save legacy gift reconciliation
 #define FLAG_UNUSED_0x4D8                                           0x4D8 // Unused Flag
 #define FLAG_UNUSED_0x4D9                                           0x4D9 // Unused Flag
 #define FLAG_UNUSED_0x4DA                                           0x4DA // Unused Flag

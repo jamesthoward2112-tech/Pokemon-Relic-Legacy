@@ -82,7 +82,9 @@ def test_dojo_tutors_require_their_own_black_belt_defeat():
         assert f"goto EventScript_PRL_Tutor{tutor}" in unlock
 
     koichi = block(scripts, "SaffronCity_Dojo_EventScript_MasterKoichi")
-    assert "FLAG_GOT_HITMON_FROM_DOJO" in koichi
+    assert "FLAG_PRL_DOJO_HITMONLEE_CLAIMED" in koichi
+    assert "FLAG_PRL_DOJO_HITMONCHAN_CLAIMED" in koichi
+    assert "SaffronCity_Dojo_EventScript_EnsureGiftFlags" in koichi
 
 
 def test_cinnabar_scientist_keeps_research_dialogue_and_offers_heat_wave():
