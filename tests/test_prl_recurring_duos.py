@@ -245,6 +245,19 @@ class PRLRecurringDuos(unittest.TestCase):
         self.assertIn("- Eevoboost", rec)
         self.assertEqual(rec.count("Level:"), 6)
 
+    def test_prl_hm_and_harbour_source_regressions(self):
+        script = read("data/maps/VermilionCity_Frlg/scripts.inc")
+        self.assertIn("VermilionCity_EventScript_PRLPierAccess::", script)
+        self.assertIn("setvar VAR_VERMILION_CITY_TICKET_CHECK_TRIGGER, 1", script)
+        self.assertIn("VermilionCity_Text_PRLPierAccess:", script)
+        self.assertIn("The pier is open to Trainers now.", script)
+        hm = read("src/scrcmd.c")
+        self.assertIn("CanLearnTeachableMove(species, move)", hm)
+        self.assertIn("CheckBagHasItem(hmItem, 1)", hm)
+        fly = read("src/field_region_map.c")
+        self.assertIn("PRL_CanFlyDirectlyFromMap()", fly)
+        self.assertIn("CanLearnTeachableMove(species, MOVE_FLY)", fly)
+
 
 if __name__ == "__main__":
     unittest.main()
