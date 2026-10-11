@@ -50,14 +50,18 @@ SilphCo_10F_Text_GruntPostBattle::
 	.string "an unproven old legend!$"
 
 SilphCo_10F_Text_TravisIntro::
-	.string "Enough of your silly games!$"
+	.string "No one gets to the BOSS!\p"
+	.string "Especially not a kid who\n"
+	.string "knows about the RELIC files!$"
 
 SilphCo_10F_Text_TravisDefeat::
 	.string "No continues left!$"
 
 SilphCo_10F_Text_TravisPostBattle::
-	.string "Are you satisfied with beating me?\n"
-	.string "Then go on home!$"
+	.string "You're nearing the boardroom.\p"
+	.string "The MASTER BALL prototype\n"
+	.string "and golden-sketch reports\n"
+	.string "are on the top floor.$"
 
 SilphCo_10F_Text_WaaaImScared::
 	.string "Waaaaa!\n"
