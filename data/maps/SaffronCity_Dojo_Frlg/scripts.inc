@@ -17,13 +17,13 @@ SaffronCity_Dojo_EventScript_TriggerMasterBattleRight::
 	releaseall
 	end
 
-@ The old FLAG_GOT_HITMON_FROM_DOJO was 0, so older ROMs never saved
-@ which Hitmon was chosen. Reconcile once from caught records for
-@ existing saves (including Pokémon deposited in the PC), after Koichi.
+@ Original FireRed Dojo gifts set FLAG_GOT_HITMON_FROM_DOJO (0x278)
+@ but did not track which species. On old saves with that flag, use
+@ caught Pokédex records (including Pokémon deposited in PC) once.
 SaffronCity_Dojo_EventScript_EnsureGiftFlags::
 	goto_if_set FLAG_PRL_DOJO_GIFT_MIGRATED, SaffronCity_Dojo_EventScript_EnsureGiftFlagsDone
-	goto_if_defeated TRAINER_BLACK_BELT_KOICHI, SaffronCity_Dojo_EventScript_MigrateGiftFlags
-	return
+	goto_if_set FLAG_GOT_HITMON_FROM_DOJO, SaffronCity_Dojo_EventScript_MigrateGiftFlags
+	goto SaffronCity_Dojo_EventScript_MigrationDone
 
 SaffronCity_Dojo_EventScript_MigrateGiftFlags::
 	getcaughtmon SPECIES_HITMONLEE
@@ -114,6 +114,7 @@ SaffronCity_Dojo_EventScript_GiveHitmon::
 	end
 
 SaffronCity_Dojo_EventScript_RecordHitmonGift::
+	setflag FLAG_GOT_HITMON_FROM_DOJO
 	goto_if_eq VAR_TEMP_1, SPECIES_HITMONLEE, SaffronCity_Dojo_EventScript_RecordHitmonlee
 	setflag FLAG_PRL_DOJO_HITMONCHAN_CLAIMED
 	return

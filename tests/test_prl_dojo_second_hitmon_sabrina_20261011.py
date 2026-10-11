@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 def read(p): return (ROOT / p).read_text(encoding="utf-8")
 script = read("data/maps/SaffronCity_Dojo_Frlg/scripts.inc")
-flags = read("include/constants/flags.h")
+flags = read("include/constants/flags_frlg.h")
 map_data = json.loads(read("data/maps/SaffronCity_Dojo_Frlg/map.json"))
 
 def block(label):
@@ -29,7 +29,7 @@ def test_sabrina_required_only_for_second():
 def test_each_gift_is_remembered_and_ball_disappears():
     for mon in ("LEE", "CHAN"):
         name = f"FLAG_PRL_DOJO_HITMON{mon}_CLAIMED"
-        assert re.search(rf"#define {name}\s+0x4D[56]", flags)
+        assert re.search(rf"#define {name}\s+FLAG_0x4D[56]", flags)
         thing = next(x for x in map_data["object_events"] if
                      x["script"] == f"SaffronCity_Dojo_EventScript_Hitmon{mon.lower()}Ball")
         assert thing["flag"] == name
@@ -50,8 +50,9 @@ def test_legacy_save_migration_uses_caught_dex_flags():
     assert "getcaughtmon SPECIES_HITMONLEE" in migrant
     assert "getcaughtmon SPECIES_HITMONCHAN" in script
     assert "setflag FLAG_PRL_DOJO_GIFT_MIGRATED" in script
-    assert "goto_if_defeated TRAINER_BLACK_BELT_KOICHI" in block(
+    assert "goto_if_set FLAG_GOT_HITMON_FROM_DOJO" in block(
         "SaffronCity_Dojo_EventScript_EnsureGiftFlags")
+    assert "setflag FLAG_GOT_HITMON_FROM_DOJO" in script
     assert "FLAG_PRL_DOJO_GIFT_MIGRATED" in flags
 
 def test_gifts_require_dojo_master_and_can_be_declined():
