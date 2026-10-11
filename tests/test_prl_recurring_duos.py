@@ -258,6 +258,22 @@ class PRLRecurringDuos(unittest.TestCase):
         self.assertIn("PRL_CanFlyDirectlyFromMap()", fly)
         self.assertIn("CanLearnTeachableMove(species, MOVE_FLY)", fly)
 
+    def test_select_relearner_and_field_hm_text_regression(self):
+        field = read("src/field_control_avatar.c")
+        self.assertIn("sPRLSelectConsumed", field)
+        self.assertIn("heldKeys & SELECT_BUTTON", field)
+        self.assertIn("input->pressedSelectButton = TRUE", field)
+        item = read("src/item_menu.c")
+        self.assertIn("OpenRegisteredItemQuickMenu(count);", item)
+        relearner = read("src/move_relearner.c")
+        self.assertIn("PRL_IsExtraRelearnerMoveUnlocked", relearner)
+        self.assertIn("gMovesInfo[move].power > maxPower", relearner)
+        for category in ("EggMoves", "TMMoves", "TutorMoves"):
+            self.assertIn("GetRelearner" + category, relearner)
+        text = read("data/scripts/field_move_scripts.inc")
+        self.assertIn("{PLAYER} used {STR_VAR_2}!", text)
+        self.assertIn("{PLAYER} used STRENGTH!", text)
+
 
 if __name__ == "__main__":
     unittest.main()
