@@ -76,7 +76,17 @@ class PRLRecurringDuos(unittest.TestCase):
                 elif name == "JESSIE_JAMES_VICTORY_ROAD":
                     self.assertIn("MAP_SCRIPT_ON_TRANSITION", script)
                 else:
-                    self.assertTrue(any("PRLSteeveNeeveeTrigger" in event["script"] for event in map_data["coord_events"]), name)
+                    # All four twin encounters use native object-event sight (and its !).
+                    self.assertFalse(any("PRLSteeveNeeveeTrigger" in event["script"] for event in map_data["coord_events"]), name)
+                    actor_suffix = name.split("STEEVE_NEEVEE_", 1)[1]
+                    actors = [o for o in map_data["object_events"] if o.get("local_id") in
+                              (f"LOCALID_PRL_STEEVE_{actor_suffix}", f"LOCALID_PRL_NEEVEE_{actor_suffix}")]
+                    self.assertEqual(len(actors), 2)
+                    self.assertEqual(actors[0]["y"], actors[1]["y"])
+                    self.assertEqual(abs(actors[0]["x"] - actors[1]["x"]), 1)
+                    for o in actors:
+                        self.assertEqual(o["trainer_type"], "TRAINER_TYPE_NORMAL")
+                        self.assertGreaterEqual(int(o["trainer_sight_or_berry_tree_id"]), 3)
 
     def test_mt_moon_battle_follows_both_fossil_choices_without_replacing_miguel(self):
         script = read("data/maps/MtMoon_B2F_Frlg/scripts.inc")
@@ -133,16 +143,19 @@ class PRLRecurringDuos(unittest.TestCase):
                     expected_facing = "MOVEMENT_TYPE_FACE_LEFT" if name.endswith("_SS_ANNE") else "MOVEMENT_TYPE_FACE_DOWN"
                     self.assertEqual(obj["movement_type"], expected_facing)
                 if name.endswith("_SS_ANNE"):
-                    self.assertEqual([(obj["x"], obj["y"]) for obj in twins], [(32, 8), (32, 10)])
+                    self.assertEqual([(obj["x"], obj["y"]) for obj in twins], [(31, 9), (32, 9)])
                 script = read(f"data/maps/{map_name}/scripts.inc")
                 suffix = name.split("STEEVE_NEEVEE_", 1)[1]
                 prefix = {"ROUTE3": "Route3", "SS_ANNE": "SSAnne_2F_Corridor",
                           "TOWER": "PokemonTower_1F", "ROUTE23": "Route23"}[suffix]
-                trigger = f"{prefix}_EventScript_PRLSteeveNeeveeTrigger"
-                self.assertIn(f"goto_if_set FLAG_PRL_RECURRING_{name}, {trigger}AlreadyWon", script)
-                defeated = script.split(f"{trigger}AlreadyWon::", 1)[1].split(f"{trigger}End::", 1)[0]
-                self.assertIn(f"msgbox {prefix}_Text_PRL_SteeveNeeveePostBattle", defeated)
-                self.assertNotIn("trainerbattle_double", defeated)
+                self.assertIn(f"{prefix}_EventScript_PRLSteeveNeeveeSteevee::", script)
+                self.assertIn(f"{prefix}_EventScript_PRLSteeveNeeveeNeevee::", script)
+                self.assertIn(f"{prefix}_EventScript_PRLSteeveNeeveeTriggerWon::", script)
+                self.assertEqual(script.count(f"trainerbattle_double TRAINER_{name}"), 2)
+                for actor in ("STEEVE", "NEEVEE"):
+                    self.assertIn(f"localId=LOCALID_PRL_{actor}_{suffix}", script)
+                self.assertIn(f"msgbox {prefix}_Text_PRL_SteeveNeeveePostBattle", script)
+                self.assertNotIn("continueScript=TRUE", script.split(f"{prefix}_EventScript_PRLSteeveNeeveeSteevee::",1)[1].split(f"{prefix}_Text_PRL_SteeveNeeveeIntro::",1)[0])
                 for actor in ("STEEVE", "NEEVEE"):
                     self.assertNotIn(f"removeobject LOCALID_PRL_{actor}_{suffix}", script)
                 self.assertNotIn(f"{prefix}_EventScript_PRLSteeveNeeveeMovement_Leave::", script)

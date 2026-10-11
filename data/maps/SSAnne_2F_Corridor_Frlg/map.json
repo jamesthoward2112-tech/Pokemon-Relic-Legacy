@@ -49,15 +49,15 @@
       "local_id": "LOCALID_PRL_STEEVE_SS_ANNE",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_TWIN",
-      "x": 32,
-      "y": 8,
+      "x": 31,
+      "y": 9,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 0,
       "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTalk",
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "5",
+      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeSteevee",
       "flag": "0"
     },
     {
@@ -65,14 +65,14 @@
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_TWIN",
       "x": 32,
-      "y": 10,
+      "y": 9,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 0,
       "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTalk",
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "5",
+      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeNeevee",
       "flag": "0"
     }
   ],
@@ -168,132 +168,6 @@
       "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
       "var_value": "0",
       "script": "SSAnne_2F_Corridor_EventScript_RivalTriggerRight"
-    },
-    {
-      "type": "trigger",
-      "x": 29,
-      "y": 8,
-      "elevation": 3,
-      "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
-      "var_value": "0",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 29,
-      "y": 8,
-      "elevation": 3,
-      "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
-      "var_value": "1",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 30,
-      "y": 8,
-      "elevation": 3,
-      "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
-      "var_value": "0",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 30,
-      "y": 8,
-      "elevation": 3,
-      "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
-      "var_value": "1",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 31,
-      "y": 8,
-      "elevation": 3,
-      "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
-      "var_value": "0",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 31,
-      "y": 8,
-      "elevation": 3,
-      "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
-      "var_value": "1",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 29,
-      "y": 9,
-      "elevation": 3,
-      "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
-      "var_value": "0",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 29,
-      "y": 9,
-      "elevation": 3,
-      "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
-      "var_value": "1",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 30,
-      "y": 9,
-      "elevation": 3,
-      "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
-      "var_value": "0",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 30,
-      "y": 9,
-      "elevation": 3,
-      "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
-      "var_value": "1",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 31,
-      "y": 9,
-      "elevation": 3,
-      "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
-      "var_value": "0",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 31,
-      "y": 9,
-      "elevation": 3,
-      "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
-      "var_value": "1",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 32,
-      "y": 9,
-      "elevation": 3,
-      "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
-      "var_value": "0",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 32,
-      "y": 9,
-      "elevation": 3,
-      "var": "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR",
-      "var_value": "1",
-      "script": "SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger"
     }
   ],
   "bg_events": []

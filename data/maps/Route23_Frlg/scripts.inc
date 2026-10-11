@@ -137,47 +137,29 @@ Route23_Text_VictoryRoadGateSign::
 	.string "POKéMON LEAGUE$"
 
 
-@ Scripted, visible, NPC-associated double battle: never launch a trainer without an object context.
-Route23_EventScript_PRLSteeveNeeveeTrigger::
-	lockall
-	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
-	goto_if_unset FLAG_BADGE08_GET, Route23_EventScript_PRLSteeveNeeveeTriggerEnd
-	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
-	@ Keep actors stationary if the player cannot field a double battle.
-	special HasEnoughMonsForDoubleBattle
-	goto_if_ne VAR_RESULT, PLAYER_HAS_TWO_USABLE_MONS, Route23_EventScript_PRLSteeveNeeveeNeedTwo
-	applymovement LOCALID_PRL_STEEVE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeMovement_Approach
-	applymovement LOCALID_PRL_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeMovement_Approach
-	waitmovementall
-	@ Passing localId selects the actual sprite instead of the player object.
-	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_Text_PRL_SteeveNeeveeIntro, Route23_Text_PRL_SteeveNeeveeDefeat, Route23_Text_PRL_SteeveNeeveeNotEnoughMons, localId=LOCALID_PRL_STEEVE_ROUTE23, continueScript=TRUE
-	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeTriggerWon
-	releaseall
+@ Ordinary sight-based twin trainers. The engine owns the ! and approach.
+@ Both share a trainer ID: a single double battle, then permanent postbattle dialogue.
+Route23_EventScript_PRLSteeveNeeveeSteevee::
+	goto_if_unset FLAG_BADGE08_GET, Route23_EventScript_PRLSteeveNeeveeNotReady
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_Text_PRL_SteeveNeeveeIntro, Route23_Text_PRL_SteeveNeeveeDefeat, Route23_Text_PRL_SteeveNeeveeNotEnoughMons, Route23_EventScript_PRLSteeveNeeveeTriggerWon, localId=LOCALID_PRL_STEEVE_ROUTE23
+	msgbox Route23_Text_PRL_SteeveNeeveePostBattle, MSGBOX_AUTOCLOSE
 	end
 
-Route23_EventScript_PRLSteeveNeeveeNeedTwo::
-	msgbox Route23_Text_PRL_SteeveNeeveeNotEnoughMons
-	releaseall
+Route23_EventScript_PRLSteeveNeeveeNeevee::
+	goto_if_unset FLAG_BADGE08_GET, Route23_EventScript_PRLSteeveNeeveeNotReady
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_Text_PRL_SteeveNeeveeIntro, Route23_Text_PRL_SteeveNeeveeDefeat, Route23_Text_PRL_SteeveNeeveeNotEnoughMons, Route23_EventScript_PRLSteeveNeeveeTriggerWon, localId=LOCALID_PRL_NEEVEE_ROUTE23
+	msgbox Route23_Text_PRL_SteeveNeeveePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route23_EventScript_PRLSteeveNeeveeNotReady::
 	end
 
 Route23_EventScript_PRLSteeveNeeveeTriggerWon::
-	msgbox Route23_Text_PRL_SteeveNeeveePostBattle
-	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
-	setvar VAR_MAP_SCENE_ROUTE23, 9
-	releaseall
-	end
-
-Route23_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
 	setvar VAR_MAP_SCENE_ROUTE23, 9
 	msgbox Route23_Text_PRL_SteeveNeeveePostBattle
-Route23_EventScript_PRLSteeveNeeveeTriggerEnd::
-	releaseall
+	release
 	end
-
-Route23_EventScript_PRLSteeveNeeveeMovement_Approach::
-	walk_down
-	step_end
 
 Route23_Text_PRL_SteeveNeeveeIntro::
 	.string "STEEVEE: From ROUTE 3 to the League!\p"

@@ -171,47 +171,29 @@ Route3_EventScript_PRLCharmanderAide_Text_Repeat::
 Route3_EventScript_PRLCharmanderAide_Text_Pokemon::
 	.string "CHARMANDER looks ready to travel.$"
 
-@ Scripted, visible, NPC-associated double battle: never launch a trainer without an object context.
-Route3_EventScript_PRLSteeveNeeveeTrigger::
-	lockall
-	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
-	goto_if_unset FLAG_BADGE01_GET, Route3_EventScript_PRLSteeveNeeveeTriggerEnd
-	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
-	@ Keep actors stationary if the player cannot field a double battle.
-	special HasEnoughMonsForDoubleBattle
-	goto_if_ne VAR_RESULT, PLAYER_HAS_TWO_USABLE_MONS, Route3_EventScript_PRLSteeveNeeveeNeedTwo
-	applymovement LOCALID_PRL_STEEVE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeMovement_Approach
-	applymovement LOCALID_PRL_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeMovement_Approach
-	waitmovementall
-	@ Passing localId selects the actual sprite instead of the player object.
-	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE3, Route3_Text_PRL_SteeveNeeveeIntro, Route3_Text_PRL_SteeveNeeveeDefeat, Route3_Text_PRL_SteeveNeeveeNotEnoughMons, localId=LOCALID_PRL_STEEVE_ROUTE3, continueScript=TRUE
-	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE3, Route3_EventScript_PRLSteeveNeeveeTriggerWon
-	releaseall
+@ Ordinary sight-based twin trainers. The engine owns the ! and approach.
+@ Both share a trainer ID: a single double battle, then permanent postbattle dialogue.
+Route3_EventScript_PRLSteeveNeeveeSteevee::
+	goto_if_unset FLAG_BADGE01_GET, Route3_EventScript_PRLSteeveNeeveeNotReady
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE3, Route3_Text_PRL_SteeveNeeveeIntro, Route3_Text_PRL_SteeveNeeveeDefeat, Route3_Text_PRL_SteeveNeeveeNotEnoughMons, Route3_EventScript_PRLSteeveNeeveeTriggerWon, localId=LOCALID_PRL_STEEVE_ROUTE3
+	msgbox Route3_Text_PRL_SteeveNeeveePostBattle, MSGBOX_AUTOCLOSE
 	end
 
-Route3_EventScript_PRLSteeveNeeveeNeedTwo::
-	msgbox Route3_Text_PRL_SteeveNeeveeNotEnoughMons
-	releaseall
+Route3_EventScript_PRLSteeveNeeveeNeevee::
+	goto_if_unset FLAG_BADGE01_GET, Route3_EventScript_PRLSteeveNeeveeNotReady
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE3, Route3_Text_PRL_SteeveNeeveeIntro, Route3_Text_PRL_SteeveNeeveeDefeat, Route3_Text_PRL_SteeveNeeveeNotEnoughMons, Route3_EventScript_PRLSteeveNeeveeTriggerWon, localId=LOCALID_PRL_NEEVEE_ROUTE3
+	msgbox Route3_Text_PRL_SteeveNeeveePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route3_EventScript_PRLSteeveNeeveeNotReady::
 	end
 
 Route3_EventScript_PRLSteeveNeeveeTriggerWon::
-	msgbox Route3_Text_PRL_SteeveNeeveePostBattle
-	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3
-	setvar VAR_PRL_RECURRING_ROUTE3_TRIGGER, 1
-	releaseall
-	end
-
-Route3_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE3
 	setvar VAR_PRL_RECURRING_ROUTE3_TRIGGER, 1
 	msgbox Route3_Text_PRL_SteeveNeeveePostBattle
-Route3_EventScript_PRLSteeveNeeveeTriggerEnd::
-	releaseall
+	release
 	end
-
-Route3_EventScript_PRLSteeveNeeveeMovement_Approach::
-	walk_down
-	step_end
 
 Route3_Text_PRL_SteeveNeeveeIntro::
 	.string "STEEVEE: Our EEVEE are ready!\p"

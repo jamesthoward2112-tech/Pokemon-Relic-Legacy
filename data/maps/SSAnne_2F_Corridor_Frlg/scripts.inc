@@ -215,55 +215,28 @@ SSAnne_2F_Corridor_Text_RivalPostBattle::
 	.string "Smell ya!$"
 
 
-@ Scripted, visible, NPC-associated double battle: never launch a trainer without an object context.
-@ Talk to either twin after winning without a rematch. The path trigger instead
-@ silently ignores already-cleared battles, so crossing the bend stays normal.
-SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTalk::
-	lockall
-	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
-	goto_if_defeated TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerAlreadyWon
-	goto SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeBattle
-
-SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTrigger::
-	lockall
-	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerEnd
-	goto_if_defeated TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerEnd
-SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeBattle::
-	goto_if_unset FLAG_GOT_SS_TICKET, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerEnd
-	@ Keep actors stationary if the player cannot field a double battle.
-	special HasEnoughMonsForDoubleBattle
-	goto_if_ne VAR_RESULT, PLAYER_HAS_TWO_USABLE_MONS, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeNeedTwo
-	applymovement LOCALID_PRL_STEEVE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeMovement_Approach
-	applymovement LOCALID_PRL_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeMovement_Approach
-	waitmovementall
-	@ Passing localId selects the actual sprite instead of the player object.
-	trainerbattle_double TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeIntro, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeDefeat, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeNotEnoughMons, localId=LOCALID_PRL_STEEVE_SS_ANNE, continueScript=TRUE
-	goto_if_defeated TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerWon
-	releaseall
+@ Ordinary sight-based twin trainers. The engine owns the ! and approach.
+@ Both share a trainer ID: a single double battle, then permanent postbattle dialogue.
+SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeSteevee::
+	goto_if_unset FLAG_GOT_SS_TICKET, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeNotReady
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeIntro, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeDefeat, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeNotEnoughMons, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerWon, localId=LOCALID_PRL_STEEVE_SS_ANNE
+	msgbox SSAnne_2F_Corridor_Text_PRL_SteeveNeeveePostBattle, MSGBOX_AUTOCLOSE
 	end
 
-SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeNeedTwo::
-	msgbox SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeNotEnoughMons
-	releaseall
+SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeNeevee::
+	goto_if_unset FLAG_GOT_SS_TICKET, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeNotReady
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_SS_ANNE, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeIntro, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeDefeat, SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeNotEnoughMons, SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerWon, localId=LOCALID_PRL_NEEVEE_SS_ANNE
+	msgbox SSAnne_2F_Corridor_Text_PRL_SteeveNeeveePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeNotReady::
 	end
 
 SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerWon::
-	msgbox SSAnne_2F_Corridor_Text_PRL_SteeveNeeveePostBattle
-	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE
-	releaseall
-	end
-
-SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerAlreadyWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_SS_ANNE
 	msgbox SSAnne_2F_Corridor_Text_PRL_SteeveNeeveePostBattle
-SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeTriggerEnd::
-	releaseall
+	release
 	end
-
-SSAnne_2F_Corridor_EventScript_PRLSteeveNeeveeMovement_Approach::
-	@ Face the player without shifting into a passage tile or another actor.
-	walk_in_place_faster_left
-	step_end
 
 SSAnne_2F_Corridor_Text_PRL_SteeveNeeveeIntro::
 	.string "STEEVEE: We met on ROUTE 3!\p"
