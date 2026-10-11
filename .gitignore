@@ -66,3 +66,7 @@ tools/aif2pcm/aif2pcm
 *.smolTM
 __pycache__
 .map_version
+
+# Recreated exactly from assets/prl_crystal_presentation.json.
+/graphics/battle_environment/crystal_redux/
+/graphics/battle_transitions/prl/

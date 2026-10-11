@@ -921,6 +921,25 @@ enum BattleTransition GetTrainerBattleTransition(void)
     u32 trainerId = SanitizeTrainerId(TRAINER_BATTLE_PARAM.opponentA);
     enum TrainerClassID trainerClass = GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA);
 
+    if (IS_FRLG && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK | BATTLE_TYPE_FRONTIER)))
+    {
+        switch (trainerId)
+        {
+        case TRAINER_JESSIE_JAMES_MT_MOON:
+        case TRAINER_JESSIE_JAMES_HIDEOUT:
+        case TRAINER_JESSIE_JAMES_SILPH:
+        case TRAINER_JESSIE_JAMES_VICTORY_ROAD:
+            return B_TRANSITION_JESSIE_JAMES;
+        case TRAINER_STEEVE_NEEVEE_ROUTE3:
+        case TRAINER_STEEVE_NEEVEE_SS_ANNE:
+        case TRAINER_STEEVE_NEEVEE_TOWER:
+        case TRAINER_STEEVE_NEEVEE_ROUTE23:
+            return B_TRANSITION_EEVEE_TWINS;
+        }
+        if (trainerClass == TRAINER_CLASS_TEAM_ROCKET_FRLG || trainerClass == TRAINER_CLASS_BOSS_FRLG)
+            return B_TRANSITION_ROCKET;
+    }
+
     if (DoesTrainerHaveMugshot(trainerId))
         return B_TRANSITION_MUGSHOT;
 
@@ -933,6 +952,9 @@ enum BattleTransition GetTrainerBattleTransition(void)
         || trainerClass == TRAINER_CLASS_AQUA_LEADER
         || trainerClass == TRAINER_CLASS_AQUA_ADMIN)
         return B_TRANSITION_AQUA;
+
+    if (IS_FRLG && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK | BATTLE_TYPE_FRONTIER)))
+        return B_TRANSITION_BIG_POKEBALL;
 
     switch (GetTrainerBattleType(trainerId))
     {

@@ -70,6 +70,12 @@ ifneq ($(PRL_MERCURY_ART_READY),yes)
   $(error Could not unpack Pokémon Mercury approved donor art)
 endif
 
+# Decode the pinned, approved Crystal Redux presentation bank.
+PRL_CRYSTAL_ART_READY := $(shell python3 tools/prl_crystal_presentation_assets.py && echo yes)
+ifneq ($(PRL_CRYSTAL_ART_READY),yes)
+  $(error Could not unpack approved Crystal Redux art)
+endif
+
 # Default make rule
 all: rom
 

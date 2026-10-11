@@ -18,7 +18,7 @@ GYM_TEAMS = {
 }
 ROUTE23_TEAM = [
     ("Vaporeon", 52), ("Jolteon", 52), ("Flareon", 55),
-    ("Toxeon", 55), ("Eevee", 51), ("Eevee", 53),
+    ("Toxeon", 55), ("Nimbeon", 54), ("Eeveeon", 55),
 ]
 
 

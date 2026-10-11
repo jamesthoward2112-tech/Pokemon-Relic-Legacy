@@ -24,24 +24,26 @@ class Issue26VisibleDuos(unittest.TestCase):
                     f"LOCALID_PRL_STEEVE_{tag}", f"LOCALID_PRL_NEEVEE_{tag}")]
                 self.assertEqual(len(actors), 2)
                 self.assertEqual({actor["graphics_id"] for actor in actors}, {"OBJ_EVENT_GFX_TWIN"})
-                self.assertEqual({actor["flag"] for actor in actors}, {f"FLAG_PRL_RECURRING_STEEVE_NEEVEE_{tag}"})
-                self.assertEqual(len({actor["y"] for actor in actors}), 1)
-                self.assertLessEqual(abs(actors[0]["x"] - actors[1]["x"]), 2)
-                self.assertTrue(all(actor["trainer_type"] == "TRAINER_TYPE_NONE" for actor in actors))
+                # Native trainers remain visible; defeated/sync scripts gate repeat battles.
+                self.assertEqual({actor["flag"] for actor in actors}, {"0"})
+                axis = "x" if map_name == "SSAnne_2F_Corridor_Frlg" else "y"
+                self.assertEqual(len({actor[axis] for actor in actors}), 1)
+                gap = abs(actors[0]["x"] - actors[1]["x"]) + abs(actors[0]["y"] - actors[1]["y"])
+                self.assertIn(gap, (1, 2))
+                self.assertTrue(all(actor["trainer_type"] == "TRAINER_TYPE_NORMAL" for actor in actors))
 
-    def test_coordinate_triggers_have_actual_npc_context_and_departure(self):
-        for map_name, tag, scene_var, scene_val in CASES:
+    def test_native_trainer_sight_has_both_npc_contexts_and_save_sync(self):
+        # The approved native sight handlers replaced the earlier coordinate/departure prototype.
+        for map_name, tag, _, _ in CASES:
             with self.subTest(map=map_name):
                 map_data = json.loads((ROOT / f"data/maps/{map_name}/map.json").read_text())
-                triggered = [e for e in map_data["coord_events"] if e["script"].endswith("PRLSteeveNeeveeTrigger")]
-                self.assertGreaterEqual(len(triggered), 1)
-                self.assertTrue(all(e["var"] == scene_var and e["var_value"] == scene_val for e in triggered))
+                self.assertFalse(any(e["script"].endswith("PRLSteeveNeeveeTrigger") for e in map_data["coord_events"]))
+                actors = [o for o in map_data["object_events"] if o.get("local_id") in
+                          (f"LOCALID_PRL_STEEVE_{tag}", f"LOCALID_PRL_NEEVEE_{tag}")]
+                self.assertTrue(all(int(o["trainer_sight_or_berry_tree_id"]) > 0 for o in actors))
                 s = (ROOT / f"data/maps/{map_name}/scripts.inc").read_text()
-                self.assertRegex(s, rf"trainerbattle_double TRAINER_STEEVE_NEEVEE_{tag}[^\n]*localId=LOCALID_PRL_STEEVE_{tag}, continueScript=TRUE")
                 for actor in (f"LOCALID_PRL_STEEVE_{tag}", f"LOCALID_PRL_NEEVEE_{tag}"):
-                    self.assertIn(f"applymovement {actor}", s)
-                    self.assertIn(f"removeobject {actor}", s)
-                self.assertIn("special HasEnoughMonsForDoubleBattle", s)
+                    self.assertRegex(s, rf"trainerbattle_double TRAINER_STEEVE_NEEVEE_{tag}[^\n]*localId={actor}")
                 self.assertIn(f"goto_if_defeated TRAINER_STEEVE_NEEVEE_{tag}", s)
                 self.assertIn(f"setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_{tag}", s)
                 self.assertIn("SaveSync", s)

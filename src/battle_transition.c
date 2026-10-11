@@ -90,6 +90,11 @@ typedef bool8 (*TransitionStateFunc)(struct Task *task);
 typedef bool8 (*TransitionSpriteCallback)(struct Sprite *sprite);
 typedef bool8 (*TransitionSpriteCallbackPartner)(struct Sprite *sprite);
 
+static void Task_PRL_Rocket(u8 taskId);
+static void Task_PRL_JessieJames(u8 taskId);
+static void Task_PRL_EeveeTwins(u8 taskId);
+static bool8 PRL_Emblem_Init(struct Task *task);
+static bool8 PRL_Emblem_SetGfx(struct Task *task);
 static bool8 Transition_StartIntro(struct Task *);
 static bool8 Transition_WaitForIntro(struct Task *);
 static bool8 Transition_StartMain(struct Task *);
@@ -301,6 +306,16 @@ static const u32 sEliteFour_Tileset[] = INCGFX_U32("graphics/battle_transitions/
 static const u8 sUnusedBrendan_Gfx[] = INCGFX_U8("graphics/battle_transitions/unused_brendan.png", ".4bpp");
 static const u8 sUnusedLass_Gfx[] = INCGFX_U8("graphics/battle_transitions/unused_lass.png", ".4bpp");
 static const u32 sShrinkingBoxTileset[] = INCGFX_U32("graphics/battle_transitions/shrinking_box.png", ".4bpp");
+static const u32 sPRL_rocket_Tiles[] = INCBIN_U32("graphics/battle_transitions/prl/rocket.4bpp");
+static const u16 sPRL_rocket_Map[] = INCBIN_U16("graphics/battle_transitions/prl/rocket.bin");
+static const u16 sPRL_rocket_Palette[] = INCBIN_U16("graphics/battle_transitions/prl/rocket.gbapal");
+static const u32 sPRL_jessie_james_Tiles[] = INCBIN_U32("graphics/battle_transitions/prl/jessie_james.4bpp");
+static const u16 sPRL_jessie_james_Map[] = INCBIN_U16("graphics/battle_transitions/prl/jessie_james.bin");
+static const u16 sPRL_jessie_james_Palette[] = INCBIN_U16("graphics/battle_transitions/prl/jessie_james.gbapal");
+static const u32 sPRL_eevee_twins_Tiles[] = INCBIN_U32("graphics/battle_transitions/prl/eevee_twins.4bpp");
+static const u16 sPRL_eevee_twins_Map[] = INCBIN_U16("graphics/battle_transitions/prl/eevee_twins.bin");
+static const u16 sPRL_eevee_twins_Palette[] = INCBIN_U16("graphics/battle_transitions/prl/eevee_twins.gbapal");
+
 static const u16 sEvilTeam_Palette[] = INCGFX_U16("graphics/battle_transitions/evil_team.pal", ".gbapal");
 static const u32 sTeamAqua_Tileset[] = INCGFX_U32("graphics/battle_transitions/team_aqua.png", ".4bpp.smol");
 static const u32 sTeamAqua_Tilemap[] = INCGFX_U32("graphics/battle_transitions/team_aqua.bin", ".smolTM");
@@ -358,6 +373,9 @@ static const TaskFunc sTasks_Main[B_TRANSITION_COUNT] =
     [B_TRANSITION_GRID_SQUARES] = Task_GridSquares,
     [B_TRANSITION_ANGLED_WIPES] = Task_AngledWipes,
     [B_TRANSITION_MUGSHOT] = Task_Mugshot,
+    [B_TRANSITION_ROCKET] = Task_PRL_Rocket,
+    [B_TRANSITION_JESSIE_JAMES] = Task_PRL_JessieJames,
+    [B_TRANSITION_EEVEE_TWINS] = Task_PRL_EeveeTwins,
     [B_TRANSITION_AQUA] = Task_Aqua,
     [B_TRANSITION_MAGMA] = Task_Magma,
     [B_TRANSITION_REGICE] = Task_Regice,
@@ -427,6 +445,17 @@ static const TransitionStateFunc sMagma_Funcs[] =
 {
     Magma_Init,
     Magma_SetGfx,
+    PatternWeave_Blend1,
+    PatternWeave_Blend2,
+    PatternWeave_FinishAppear,
+    FramesCountdown,
+    PatternWeave_CircularMask
+};
+
+static const TransitionStateFunc sPRL_EmblemFuncs[] =
+{
+    PRL_Emblem_Init,
+    PRL_Emblem_SetGfx,
     PatternWeave_Blend1,
     PatternWeave_Blend2,
     PatternWeave_FinishAppear,
@@ -1376,6 +1405,65 @@ static void InitPatternWeaveTransition(struct Task *task)
         gScanlineEffectRegBuffers[1][i] = DISPLAY_WIDTH;
 
     SetVBlankCallback(VBlankCB_PatternWeave);
+}
+
+// Reuse the native shimmer, hold and circular wipe with authentic donor/sprite art.
+static void Task_PRL_Rocket(u8 taskId)
+{
+    while (sPRL_EmblemFuncs[gTasks[taskId].tState](&gTasks[taskId]));
+}
+
+static void Task_PRL_JessieJames(u8 taskId)
+{
+    while (sPRL_EmblemFuncs[gTasks[taskId].tState](&gTasks[taskId]));
+}
+
+static void Task_PRL_EeveeTwins(u8 taskId)
+{
+    while (sPRL_EmblemFuncs[gTasks[taskId].tState](&gTasks[taskId]));
+}
+
+static bool8 PRL_Emblem_Init(struct Task *task)
+{
+    u16 *tilemap, *tileset;
+
+    task->tEndDelay = 60;
+    InitPatternWeaveTransition(task);
+    GetBg0TilesDst(&tilemap, &tileset);
+    CpuFill16(13 << 12, tilemap, BG_SCREEN_SIZE);
+    if (task->func == Task_PRL_Rocket)
+    {
+        CpuCopy16(sPRL_rocket_Tiles, tileset, sizeof(sPRL_rocket_Tiles));
+        LoadPalette(sPRL_rocket_Palette, BG_PLTT_ID(13), sizeof(sPRL_rocket_Palette));
+    }
+    else if (task->func == Task_PRL_JessieJames)
+    {
+        CpuCopy16(sPRL_jessie_james_Tiles, tileset, sizeof(sPRL_jessie_james_Tiles));
+        LoadPalette(sPRL_jessie_james_Palette, BG_PLTT_ID(13), sizeof(sPRL_jessie_james_Palette));
+    }
+    else
+    {
+        CpuCopy16(sPRL_eevee_twins_Tiles, tileset, sizeof(sPRL_eevee_twins_Tiles));
+        LoadPalette(sPRL_eevee_twins_Palette, BG_PLTT_ID(13), sizeof(sPRL_eevee_twins_Palette));
+    }
+    task->tState++;
+    return FALSE;
+}
+
+static bool8 PRL_Emblem_SetGfx(struct Task *task)
+{
+    u16 *tilemap, *tileset;
+
+    GetBg0TilesDst(&tilemap, &tileset);
+    if (task->func == Task_PRL_Rocket)
+        CpuCopy16(sPRL_rocket_Map, tilemap, sizeof(sPRL_rocket_Map));
+    else if (task->func == Task_PRL_JessieJames)
+        CpuCopy16(sPRL_jessie_james_Map, tilemap, sizeof(sPRL_jessie_james_Map));
+    else
+        CpuCopy16(sPRL_eevee_twins_Map, tilemap, sizeof(sPRL_eevee_twins_Map));
+    SetSinWave((s16*)gScanlineEffectRegBuffers[0], 0, task->tSinIndex, 132, task->tAmplitude, DISPLAY_HEIGHT);
+    task->tState++;
+    return FALSE;
 }
 
 static bool8 Aqua_Init(struct Task *task)

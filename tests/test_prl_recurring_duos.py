@@ -260,11 +260,12 @@ class PRLRecurringDuos(unittest.TestCase):
 
     def test_select_relearner_and_field_hm_text_regression(self):
         field = read("src/field_control_avatar.c")
-        self.assertIn("sPRLSelectConsumed", field)
+        self.assertIn("sPlayerSelectHoldFrames", field)
         self.assertIn("heldKeys & SELECT_BUTTON", field)
-        self.assertIn("input->pressedSelectButton = TRUE", field)
+        self.assertIn("sPlayerSelectHoldFrames == 60", field)
         item = read("src/item_menu.c")
-        self.assertIn("OpenRegisteredItemQuickMenu(count);", item)
+        self.assertNotIn("OpenRegisteredItemQuickMenu", item)
+        self.assertIn("GetRegisteredItemHold()", item)
         relearner = read("src/move_relearner.c")
         self.assertIn("PRL_IsExtraRelearnerMoveUnlocked", relearner)
         self.assertIn("gMovesInfo[move].power > maxPower", relearner)
