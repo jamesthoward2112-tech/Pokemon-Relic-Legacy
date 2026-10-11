@@ -954,10 +954,48 @@ static bool32 CanRelearnRelicTeachableMove(enum Species species, enum Move move)
     return FALSE;
 }
 
+// PRL: all original categories remain; extra egg/TM/tutor moves scale with
+// both the Pokemon's present level and the number of Kanto badges earned.
+static bool32 PRL_IsExtraRelearnerMoveUnlocked(enum Move move, u32 monLevel)
+{
+    u32 badges = 0;
+    for (u32 i = 0; i < 8; i++)
+        badges += FlagGet(FLAG_BADGE01_GET + i) ? 1 : 0;
+
+    if (badges == 8 && monLevel >= 50)
+        return TRUE;
+
+    u32 maxPower = 30 + monLevel + (5 * badges);
+    if (gMovesInfo[move].power > maxPower)
+        return FALSE;
+
+    // Zero-power setup and one-hit-KO moves need extra progression rules.
+    switch (move)
+    {
+    case MOVE_FISSURE:
+    case MOVE_GUILLOTINE:
+    case MOVE_HORN_DRILL:
+    case MOVE_SHEER_COLD:
+        return badges >= 7 && monLevel >= 50;
+    case MOVE_SHELL_SMASH:
+    case MOVE_QUIVER_DANCE:
+    case MOVE_GEOMANCY:
+    case MOVE_TAIL_GLOW:
+    case MOVE_SPORE:
+        return badges >= 5 && monLevel >= 40;
+    case MOVE_SWORDS_DANCE:
+    case MOVE_DRAGON_DANCE:
+    case MOVE_NASTY_PLOT:
+        return badges >= 3 && monLevel >= 30;
+    default:
+        return TRUE;
+    }
+}
+
 static u32 GetRelearnerLevelUpMoves(struct BoxPokemon *mon, u16 *moves)
 {
     enum Species species = GetBoxMonData(mon, MON_DATA_SPECIES);
-    u32 level = (P_ENABLE_ALL_LEVEL_UP_MOVES ? MAX_LEVEL : GetLevelFromBoxMonExp(mon));
+    u32 level = GetLevelFromBoxMonExp(mon);
     u32 numMoves = 0;
     bool32 includePreEvolutions = P_PRE_EVO_MOVES || ShouldInheritRelicPreEvolutionMoves(species);
     do
@@ -1002,7 +1040,7 @@ static u32 GetRelearnerEggMoves(struct BoxPokemon *mon, u16 *moves)
 
     for (u32 i = 0; eggMoves[i] != MOVE_UNAVAILABLE; i++)
     {
-        if (!BoxMonKnowsMove(mon, eggMoves[i]) && numMoves < MAX_RELEARNER_MOVES)
+        if (!BoxMonKnowsMove(mon, eggMoves[i]) && PRL_IsExtraRelearnerMoveUnlocked(eggMoves[i], GetLevelFromBoxMonExp(mon)) && numMoves < MAX_RELEARNER_MOVES)
             moves[numMoves++] = eggMoves[i];
     }
 
@@ -1028,7 +1066,7 @@ static u32 GetRelearnerTMMoves(struct BoxPokemon *mon, u16 *moves)
         if (!CanRelearnRelicTeachableMove(species, move))
             continue;
 
-        if (!BoxMonKnowsMove(mon, move))
+        if (!BoxMonKnowsMove(mon, move) && PRL_IsExtraRelearnerMoveUnlocked(move, GetLevelFromBoxMonExp(mon)))
             if (numMoves < MAX_RELEARNER_MOVES)
                 moves[numMoves++] = move;
     }
@@ -1048,7 +1086,7 @@ static u32 GetRelearnerTutorMoves(struct BoxPokemon *mon, u16 *moves)
         if (!CanRelearnRelicTeachableMove(species, move))
             continue;
 
-        if (!BoxMonKnowsMove(mon, move))
+        if (!BoxMonKnowsMove(mon, move) && PRL_IsExtraRelearnerMoveUnlocked(move, GetLevelFromBoxMonExp(mon)))
             if (numMoves < MAX_RELEARNER_MOVES)
                 moves[numMoves++] = move;
     }
@@ -1082,7 +1120,7 @@ bool32 HasMoveToRelearn(struct BoxPokemon *boxMon, enum MoveRelearnerStates stat
 static bool32 HasRelearnerLevelUpMoves(struct BoxPokemon *boxMon)
 {
     enum Species species = GetBoxMonData(boxMon, MON_DATA_SPECIES);
-    u32 level = (P_ENABLE_ALL_LEVEL_UP_MOVES == TRUE) ? MAX_LEVEL : GetLevelFromBoxMonExp(boxMon);
+    u32 level = GetLevelFromBoxMonExp(boxMon);
     bool32 includePreEvolutions = P_PRE_EVO_MOVES || ShouldInheritRelicPreEvolutionMoves(species);
 
     do
@@ -1118,7 +1156,7 @@ static bool32 HasRelearnerEggMoves(struct BoxPokemon *boxMon)
 
     for (u32 i = 0; eggMoves[i] != MOVE_UNAVAILABLE; i++)
     {
-        if (!BoxMonKnowsMove(boxMon, eggMoves[i]))
+        if (!BoxMonKnowsMove(boxMon, eggMoves[i]) && PRL_IsExtraRelearnerMoveUnlocked(eggMoves[i], GetLevelFromBoxMonExp(boxMon)))
             return TRUE;
     }
 
@@ -1143,7 +1181,7 @@ static bool32 HasRelearnerTMMoves(struct BoxPokemon *boxMon)
         if (!CanRelearnRelicTeachableMove(species, move))
             continue;
 
-        if (!BoxMonKnowsMove(boxMon, move))
+        if (!BoxMonKnowsMove(boxMon, move) && PRL_IsExtraRelearnerMoveUnlocked(move, GetLevelFromBoxMonExp(boxMon)))
             return TRUE;
     }
 
@@ -1160,7 +1198,7 @@ static bool32 HasRelearnerTutorMoves(struct BoxPokemon *boxMon)
         if (!CanRelearnRelicTeachableMove(species, move))
             continue;
 
-        if (!BoxMonKnowsMove(boxMon, move))
+        if (!BoxMonKnowsMove(boxMon, move) && PRL_IsExtraRelearnerMoveUnlocked(move, GetLevelFromBoxMonExp(boxMon)))
             return TRUE;
     }
 

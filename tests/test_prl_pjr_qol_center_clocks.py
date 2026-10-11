@@ -23,6 +23,17 @@ class TestPjrCenterTrainerServices(unittest.TestCase):
                     self.assertEqual(len(npc), 1)
                     self.assertEqual(npc[0]["script"], script)
 
+    def test_four_relearner_categories_use_level_and_badge_gates(self):
+        src = (ROOT / "data/scripts/move_relearner.inc").read_text()
+        for name in ("MoveRelearner_Text_LevelUpMoves", "MoveRelearner_Text_EggMoves",
+                     "MoveRelearner_Text_TMMoves", "MoveRelearner_Text_TutormoveMoves"):
+            self.assertIn(name, src)
+        code = (ROOT / "src/move_relearner.c").read_text()
+        self.assertIn("PRL_IsExtraRelearnerMoveUnlocked", code)
+        self.assertIn("gMovesInfo[move].power > maxPower", code)
+        self.assertIn("u32 level = GetLevelFromBoxMonExp(mon);", code)
+        self.assertIn("u32 level = GetLevelFromBoxMonExp(boxMon);", code)
+
     def test_daypart_is_persistent_and_repeatable(self):
         clock = (ROOT / "src/clock.c").read_text()
         self.assertIn("void PRL_SetDaypart(void)", clock)

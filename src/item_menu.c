@@ -2374,6 +2374,7 @@ bool8 UseRegisteredKeyItemOnField(void)
     FreezeObjectEvents();
     PlayerFreeze();
     StopPlayerAvatar();
+    PlaySE(SE_WIN_OPEN);
     OpenRegisteredItemQuickMenu(count);
     return TRUE;
 }

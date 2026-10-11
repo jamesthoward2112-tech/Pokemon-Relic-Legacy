@@ -102,20 +102,30 @@ void FieldClearPlayerInput(struct FieldInput *input)
     input->dpadDirection = 0;
 }
 
+// Keep a held SELECT press until the player reaches a tile centre and
+// require button release before a second menu activation.
+static bool8 sPRLSelectConsumed;
+
 void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
 {
     u8 tileTransitionState = gPlayerAvatar.tileTransitionState;
     u8 runningState = gPlayerAvatar.runningState;
     bool8 forcedMove = MetatileBehavior_IsForcedMovementTile(GetPlayerCurMetatileBehavior(runningState));
 
+    if (!(heldKeys & SELECT_BUTTON))
+        sPRLSelectConsumed = FALSE;
+
     if ((tileTransitionState == T_TILE_CENTER && forcedMove == FALSE) || tileTransitionState == T_NOT_MOVING)
     {
+        if ((heldKeys & SELECT_BUTTON) && !sPRLSelectConsumed)
+        {
+            input->pressedSelectButton = TRUE;
+            sPRLSelectConsumed = TRUE;
+        }
         if (GetPlayerSpeed() != PLAYER_SPEED_FASTEST)
         {
             if (newKeys & START_BUTTON)
                 input->pressedStartButton = TRUE;
-            if (newKeys & SELECT_BUTTON)
-                input->pressedSelectButton = TRUE;
             if (newKeys & A_BUTTON)
                 input->pressedAButton = TRUE;
             if (newKeys & B_BUTTON)

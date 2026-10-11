@@ -19,6 +19,16 @@ class TestPhrFourRegisteredKeyItems(unittest.TestCase):
         self.assertIn("if (!ToggleRegisteredItem(gSpecialVar_ItemId))", s)
         self.assertNotIn("gSaveBlock1Ptr->registeredItem = gSpecialVar_ItemId;", s)
 
+    def test_select_input_survives_movement_and_menu_launches(self):
+        field = (ROOT / "src/field_control_avatar.c").read_text()
+        self.assertIn("sPRLSelectConsumed", field)
+        self.assertIn("heldKeys & SELECT_BUTTON", field)
+        self.assertIn("input->pressedSelectButton = TRUE", field)
+        self.assertIn("UseRegisteredKeyItemOnField() == TRUE", field)
+        item = (ROOT / "src/item_menu.c").read_text()
+        self.assertIn("PlaySE(SE_WIN_OPEN);", item)
+        self.assertIn("OpenRegisteredItemQuickMenu(count);", item)
+
     def test_registered_bike_swap_updates_whichever_slot(self):
         s = (ROOT / "src/item.c").read_text()
         self.assertIn("if (IsItemRegistered(ITEM_MACH_BIKE))", s)

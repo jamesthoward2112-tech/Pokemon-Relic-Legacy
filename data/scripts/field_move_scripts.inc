@@ -49,7 +49,7 @@ Text_WantToCut:
 	.string "Would you like to CUT it?$"
 
 Text_MonUsedFieldMove:
-	.string "{STR_VAR_1} used {STR_VAR_2}!$"
+	.string "{PLAYER} used {STR_VAR_2}!$"
 
 Text_CantCut:
 	.string "This tree looks like it can be\n"
@@ -269,8 +269,8 @@ Text_WantToStrength:
 	.string "Would you like to use STRENGTH?$"
 
 Text_MonUsedStrength:
-	.string "{STR_VAR_1} used STRENGTH!\p"
-	.string "{STR_VAR_1}'s STRENGTH made it\n"
+	.string "{PLAYER} used STRENGTH!\p"
+	.string "STRENGTH made it\n"
 	.string "possible to move boulders around!$"
 
 Text_CantStrength:
@@ -314,7 +314,7 @@ Text_WantToWaterfall:
 	.string "Would you like to use WATERFALL?$"
 
 Text_MonUsedWaterfall:
-	.string "{STR_VAR_1} used WATERFALL.$"
+	.string "{PLAYER} used WATERFALL.$"
 
 EventScript_UseDive::
 	lockall
@@ -408,7 +408,7 @@ Text_WantToDive:
 	.string "Would you like to use DIVE?$"
 
 Text_MonUsedDive:
-	.string "{STR_VAR_1} used DIVE.$"
+	.string "{PLAYER} used DIVE.$"
 
 Text_CantSurface:
 	.string "Light is filtering down from above.\n"
@@ -469,7 +469,7 @@ Text_WantToRockClimb:
 	.string "Would you like to use Rock Climb?$"
 
 Text_MonUsedRockClimb:
-	.string "{STR_VAR_1} used Rock Climb!$"
+	.string "{PLAYER} used Rock Climb!$"
 
 Text_CantRockClimb:
 	.string "The cliff is steep.\n"
