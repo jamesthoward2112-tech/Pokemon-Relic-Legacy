@@ -135,15 +135,18 @@ RocketHideout_B4F_EventScript_RemoveBarrier::
 
 RocketHideout_B4F_Text_GiovanniIntro::
 	.string "GIOVANNI: So you found us.\p"
-	.string "MT. MOON was just the first\n"
-	.string "of our excavation sites.\p"
-	.string "Fossil specimens contain\n"
-	.string "dormant powers - RELICS.\p"
-	.string "SILPH will bring those\n"
-	.string "ancient traits to life.\p"
-	.string "One fragment hints at a\n"
-	.string "creature lost to history...\p"
-	.string "TEAM ROCKET will claim it!$"
+	.string "At MT. MOON we unearthed\n"
+	.string "more than ancient fossils.\p"
+	.string "Some bear the same mark,\n"
+	.string "a dormant power: RELICS.\p"
+	.string "SILPH can revive specimens\n"
+	.string "and awaken their old traits.\p"
+	.string "One damaged ledger shows\n"
+	.string "a bird outlined in gold.\p"
+	.string "No scientist knows its name.\n"
+	.string "Perhaps it never existed.\p"
+	.string "But if that power is real,\n"
+	.string "TEAM ROCKET will seize it!$"
 
 RocketHideout_B4F_Text_GiovanniDefeat::
 	.string "WHAT!\n"
@@ -151,10 +154,12 @@ RocketHideout_B4F_Text_GiovanniDefeat::
 
 RocketHideout_B4F_Text_GiovanniPostBattle::
 	.string "You fight with conviction.\p"
-	.string "But my excavation records\n"
-	.string "are already at SILPH.\p"
-	.string "We shall revive the fossils\n"
-	.string "and trace that RELIC signal.\p"
+	.string "But the excavation ledgers\n"
+	.string "have already reached SILPH.\p"
+	.string "There, my fossil army will\n"
+	.string "rise from the ancient past.\p"
+	.string "And we shall trace the mark\n"
+	.string "to its forgotten source.\p"
 	.string "You delayed me. Farewell!$"
 
 RocketHideout_B4F_Text_Grunt2Intro::
@@ -165,9 +170,11 @@ RocketHideout_B4F_Text_Grunt2Defeat::
 	.string "Burned again!$"
 
 RocketHideout_B4F_Text_Grunt2PostBattle::
-	.string "MT. MOON was only one site!\p"
-	.string "The BOSS has dig crews\n"
-	.string "searching all of KANTO!$"
+	.string "MT. MOON was just one dig!\p"
+	.string "We have fragments from\n"
+	.string "CERULEAN and ROCK TUNNEL.\p"
+	.string "BOSS wants them all compared\n"
+	.string "for the same ancient mark.$"
 
 RocketHideout_B4F_Text_Grunt3Intro::
 	.string "The BOSS has crates of\n"
@@ -178,8 +185,10 @@ RocketHideout_B4F_Text_Grunt3Defeat::
 	.string "Ayaya!$"
 
 RocketHideout_B4F_Text_Grunt3PostBattle::
-	.string "The RELIC crates are gone!\n"
-	.string "BOSS, I'm sorry I failed!$"
+	.string "The RELIC crates are gone!\p"
+	.string "BOSS sent the best fossils\n"
+	.string "ahead to SILPH CO.\p"
+	.string "Now our whole plan's exposed!$"
 
 RocketHideout_B4F_Text_Grunt1Intro::
 	.string "The elevator doesn't work?\n"
@@ -226,14 +235,15 @@ RocketHideout_B4F_EventScript_PRL_RocketWon::
 	end
 
 RocketHideout_B4F_Text_PRL_JessiePostBattle::
-	.string "JESSIE: Don't celebrate yet!\p"
-	.string "TEAM ROCKET will still find\n"
-	.string "the ultimate ancient RELIC!$"
+	.string "JESSIE: Enjoy your victory!\p"
+	.string "The GOLDEN BIRD sketch is\n"
+	.string "ours to find, not yours!$"
 
 RocketHideout_B4F_Text_PRL_JamesPostBattle::
-	.string "JAMES: Every ancient specimen\n"
-	.string "leads to another mystery.\p"
-	.string "BOSS has a lot to learn!$"
+	.string "JAMES: Those old drawings...\p"
+	.string "Some show ancient POKéMON\n"
+	.string "changing into new forms.\p"
+	.string "But no one knows the cause!$"
 
 RocketHideout_B4F_Text_PRL_MeowthBefore::
 	.string "MEOWTH: Mrowr! Not another kid!$"
@@ -242,10 +252,11 @@ RocketHideout_B4F_Text_PRL_MeowthAfter::
 	.string "MEOWTH: They lost AGAIN?!$"
 
 RocketHideout_B4F_Text_PRL_RocketIntro::
-	.string "JESSIE: You ruined MT. MOON!\p"
-	.string "JAMES: These fossil ledgers\n"
-	.string "are TOP SECRET!\p"
-	.string "JESSIE: You read nothing!$"
+	.string "JESSIE: You again?!\p"
+	.string "JAMES: These RELIC ledgers\n"
+	.string "came from ancient KANTO.\p"
+	.string "JESSIE: You will NOT get\n"
+	.string "your hands on the files!$"
 
 RocketHideout_B4F_Text_PRL_RocketDefeat::
 	.string "JAMES: The specimen ledger!\p"
@@ -257,9 +268,10 @@ RocketHideout_B4F_Text_PRL_RocketNotEnoughMons::
 	.string "if you want to stop TEAM ROCKET!$"
 
 RocketHideout_B4F_Text_PRL_RocketPostBattle::
-	.string "JAMES: SILPH has our samples.\p"
-	.string "JESSIE: The BOSS expects them\n"
-	.string "to wake an ancient power!$"
+	.string "JAMES: SILPH has our fossils\n"
+	.string "and the strange specimens.\p"
+	.string "JESSIE: The BOSS will wake\n"
+	.string "the power inside them!$"
 
 
 @ Visibility is set before spawning map objects and refreshed on transition.
