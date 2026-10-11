@@ -1,5 +1,10 @@
 # Summary
 
+- [PRL PJR registered items](./PRL_PJR_REGISTERED_ITEMS_20261011.md)
+- [PRL PJR and PHR QoL migration](./PRL_PJR_PHR_QOL_MIGRATION.md)
+- [PRL Eeveeon and Nimbeon build status](./prl-eeveeon-nimbeon-build-status.md)
+- [PRL move order and Crystal Redux QA](./qa/restore-move-order-crystal-20261011.md)
+
 - [PKR-derived Kanto Relic dialogue migration (10 October 2026)](./PRL_PKR_FULL_KANTO_DIALOGUE_MIGRATION_2026-10-10.md)
 
 - [PRL Bleeding and Fear Move Distribution (10 Oct 2026)](./prl_bleed_fear_distribution_20261010.md)

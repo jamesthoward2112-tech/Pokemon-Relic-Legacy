@@ -1261,6 +1261,16 @@ void InitLinkBattleVsScreen(u8 taskId)
 
 void DrawBattleEntryBackground(void)
 {
+    // Approved seamless Crystal entry: the scenery already contains the ground
+    // and platforms. Do not scroll a duplicate entry layer over the scene.
+    // Link and partner battles retain their dedicated presentation.
+    if (IS_FRLG && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_INGAME_PARTNER)))
+    {
+        CpuFill32(0, (void *)BG_SCREEN_ADDR(28), BG_SCREEN_SIZE);
+        CpuFill32(0, (void *)BG_SCREEN_ADDR(30), BG_SCREEN_SIZE);
+        return;
+    }
+
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)
     {
         DecompressDataWithHeaderVram(gBattleVSFrame_Gfx, (void *)(BG_CHAR_ADDR(1)));

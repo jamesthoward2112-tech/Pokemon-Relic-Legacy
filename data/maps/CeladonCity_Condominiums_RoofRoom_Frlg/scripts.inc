@@ -5,6 +5,122 @@ CeladonCity_Condominiums_RoofRoom_EventScript_BlackBelt::
 	msgbox CeladonCity_Condominiums_RoofRoom_Text_TheresNothingIDontKnow, MSGBOX_NPC
 	end
 
+// PRL Celadon Eeveelutions Expert, accessible beside the rooftop Eevee gift.
+// Canonical methods verified against gen_1_families.h Eevee evolution table.
+CeladonCity_Condominiums_RoofRoom_EventScript_PRLEeveelutionsExpert::
+	lock
+	faceplayer
+	msgbox CeladonCity_Condominiums_RoofRoom_Text_PRLExpertGreeting
+	goto CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertMenu
+
+CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertMenu::
+	message CeladonCity_Condominiums_RoofRoom_Text_PRLExpertChoice
+	waitmessage
+	multichoice 0, 0, MULTI_PRL_EEVEE_EXPERT, FALSE
+	switch VAR_RESULT
+	case 0, CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertStones
+	case 1, CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertHeldItems
+	case 2, CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertStoneGuide
+	case 3, CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertOtherGuide
+	case 4, CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertExit
+	case 127, CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertExit
+	end
+
+CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertStones::
+	pokemart CeladonCity_Condominiums_RoofRoom_PRLEeveeStones
+	goto CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertMenu
+
+CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertHeldItems::
+	pokemart CeladonCity_Condominiums_RoofRoom_PRLEeveeHeldItems
+	goto CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertMenu
+
+CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertStoneGuide::
+	msgbox CeladonCity_Condominiums_RoofRoom_Text_PRLExpertStoneGuide
+	goto CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertMenu
+
+CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertOtherGuide::
+	msgbox CeladonCity_Condominiums_RoofRoom_Text_PRLExpertOtherGuide
+	goto CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertMenu
+
+CeladonCity_Condominiums_RoofRoom_EventScript_PRLExpertExit::
+	msgbox CeladonCity_Condominiums_RoofRoom_Text_PRLExpertGoodbye
+	release
+	end
+
+	.align 2
+CeladonCity_Condominiums_RoofRoom_PRLEeveeStones::
+	.2byte ITEM_WATER_STONE
+	.2byte ITEM_THUNDER_STONE
+	.2byte ITEM_FIRE_STONE
+	.2byte ITEM_LEAF_STONE
+	.2byte ITEM_ICE_STONE
+	.2byte ITEM_DUSK_STONE
+	.2byte ITEM_ANCIENT_STONE
+	.2byte ITEM_NONE
+
+	.align 2
+CeladonCity_Condominiums_RoofRoom_PRLEeveeHeldItems::
+	.2byte ITEM_SHARP_BEAK
+	.2byte ITEM_EXPERT_BELT
+	.2byte ITEM_SILVER_POWDER
+	.2byte ITEM_SOFT_SAND
+	.2byte ITEM_METAL_COAT
+	.2byte ITEM_HARD_STONE
+	.2byte ITEM_POISON_BARB
+	.2byte ITEM_DRAGON_FANG
+	.2byte ITEM_NONE
+
+CeladonCity_Condominiums_RoofRoom_Text_PRLExpertGreeting::
+	.string "I'm the EEVEELUTIONS EXPERT!\n"
+	.string "Even EEVEE's rare RELIC forms\n"
+	.string "have their own methods.\p"
+	.string "I sell useful catalysts and\n"
+	.string "explain all eighteen forms.$"
+
+CeladonCity_Condominiums_RoofRoom_Text_PRLExpertChoice::
+	.string "What would you like to know?$"
+
+CeladonCity_Condominiums_RoofRoom_Text_PRLExpertStoneGuide::
+	.string "Water Stone: VAPOREON.\n"
+	.string "Thunder Stone: JOLTEON.\n"
+	.string "Fire Stone: FLAREON.\p"
+	.string "Leaf Stone: LEAFEON.\n"
+	.string "Ice Stone: GLACEON.\n"
+	.string "Dusk Stone: OMEON.\p"
+	.string "ANCIENT STONE: EEVEEON!\n"
+	.string "Use the stone from your BAG\n"
+	.string "on EEVEE to evolve it.$"
+
+CeladonCity_Condominiums_RoofRoom_Text_PRLExpertOtherGuide::
+	.string "Hold SHARP BEAK and level up\n"
+	.string "by day for NIMBEON.\p"
+	.string "Hold EXPERT BELT by day:\n"
+	.string "CHAMPEON.\p"
+	.string "Hold SILVER POWDER by day:\n"
+	.string "LEPIDEON.\p"
+	.string "Hold SOFT SAND by day:\n"
+	.string "SPHYNXEON.\p"
+	.string "Hold METAL COAT at night:\n"
+	.string "GUARDEON.\p"
+	.string "Hold HARD STONE at night:\n"
+	.string "OBSIDEON.\p"
+	.string "Hold POISON BARB at night:\n"
+	.string "TOXEON.\p"
+	.string "Hold DRAGON FANG and reach\n"
+	.string "Lv. 25: DRAKEON.\p"
+	.string "High friendship by day:\n"
+	.string "ESPEON; at night: UMBREON.\p"
+	.string "High friendship and a FAIRY\n"
+	.string "move: SYLVEON.\p"
+	.string "LEAFEON can also evolve in\n"
+	.string "PETALBURG WOODS; GLACEON in\n"
+	.string "SHOAL CAVE's icy room.$"
+
+CeladonCity_Condominiums_RoofRoom_Text_PRLExpertGoodbye::
+	.string "Treat your EEVEE well!\n"
+	.string "Every form has potential.$"
+
+
 CeladonCity_Condominiums_RoofRoom_EventScript_EeveeBall::
 	lock
 	faceplayer

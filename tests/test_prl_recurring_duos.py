@@ -14,12 +14,11 @@ ENCOUNTERS = {
     "JESSIE_JAMES_MT_MOON": ("MtMoon_B1F_Frlg", [("Ekans", 16), ("Koffing", 16), ("Bellsprout", 16), ("Meowth", 17)]),
     "JESSIE_JAMES_HIDEOUT": ("RocketHideout_B4F_Frlg", [("Arbok", 29), ("Weezing", 29), ("Raticate", 30), ("Meowth", 30)]),
     "JESSIE_JAMES_SILPH": ("SilphCo_11F_Frlg", [("Arbok", 39), ("Weezing", 39), ("Drowzee", 40), ("Victreebel", 40), ("Pikachu", 41), ("Meowth", 41)]),
-    "JESSIE_JAMES_VICTORY_ROAD": ("VictoryRoad_3F_Frlg", [("Arbok", 54), ("Weezing", 54), ("Hypno", 55), ("Victreebel", 55), ("Pikachu", 56), ("Meowth", 56)]),
+    "JESSIE_JAMES_VICTORY_ROAD": ("VictoryRoad_3F_Frlg", [("Arbok", 58), ("Weezing", 58), ("Victreebel", 59), ("Gyarados", 59), ("Pikachu", 60), ("Meowth", 60)]),
 }
 GATES = {
     "STEEVE_NEEVEE_ROUTE3": "FLAG_BADGE01_GET",
     "STEEVE_NEEVEE_SS_ANNE": "FLAG_GOT_SS_TICKET",
-    "STEEVE_NEEVEE_TOWER": "ITEM_SILPH_SCOPE",
     "STEEVE_NEEVEE_ROUTE23": "FLAG_BADGE08_GET",
     "JESSIE_JAMES_MT_MOON": "FLAG_GOT_FOSSIL_FROM_MT_MOON",
     "JESSIE_JAMES_HIDEOUT": "FLAG_CAN_USE_ROCKET_HIDEOUT_LIFT",
@@ -62,9 +61,15 @@ class PRLRecurringDuos(unittest.TestCase):
                     self.assertIn(f"goto_if_defeated TRAINER_{name}", script)
                 else:
                     self.assertIn(f"trainerbattle_double TRAINER_{name}", script)  # native trainer flag detection
-                self.assertIn(GATES[name], script)
-                if GATES[name] == "ITEM_SILPH_SCOPE":
-                    self.assertIn("checkitem ITEM_SILPH_SCOPE", script)
+                if name in GATES:
+                    self.assertIn(GATES[name], script)
+                if name == "STEEVE_NEEVEE_TOWER":
+                    for actor in ("Steevee", "Neevee"):
+                        label = f"PokemonTower_1F_EventScript_PRLSteeveNeevee{actor}::"
+                        body = script.split(label, 1)[1]
+                        self.assertTrue(body.lstrip().startswith("trainerbattle_double"),
+                                        f"Tower {actor} must start with trainerbattle for native trainer sight")
+                    self.assertNotIn("PokemonTower_1F_EventScript_PRLSteeveNeeveeNotReady", script)
                 map_data = json.loads(read(f"data/maps/{map_name}/map.json"))
                 if name == "JESSIE_JAMES_MT_MOON":
                     self.assertIn("MtMoon_B1F_EventScript_PRL_Jessie", script)
@@ -91,7 +96,9 @@ class PRLRecurringDuos(unittest.TestCase):
                         self.assertEqual(actors[0]["y"], actors[1]["y"])
                         self.assertEqual(abs(actors[0]["x"] - actors[1]["x"]), 1)
                     for o in actors:
-                        self.assertEqual(o["trainer_type"], "TRAINER_TYPE_NORMAL")
+                        expected_type = ("TRAINER_TYPE_SEE_ALL_DIRECTIONS"
+                                         if name == "STEEVE_NEEVEE_TOWER" else "TRAINER_TYPE_NORMAL")
+                        self.assertEqual(o["trainer_type"], expected_type)
                         self.assertGreaterEqual(int(o["trainer_sight_or_berry_tree_id"]), 3)
 
     def test_mt_moon_battle_follows_both_fossil_choices_without_replacing_miguel(self):

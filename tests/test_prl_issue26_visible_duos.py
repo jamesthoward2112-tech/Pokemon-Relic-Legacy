@@ -30,7 +30,8 @@ class Issue26VisibleDuos(unittest.TestCase):
                 self.assertEqual(len({actor[axis] for actor in actors}), 1)
                 gap = abs(actors[0]["x"] - actors[1]["x"]) + abs(actors[0]["y"] - actors[1]["y"])
                 self.assertIn(gap, (1, 2))
-                self.assertTrue(all(actor["trainer_type"] == "TRAINER_TYPE_NORMAL" for actor in actors))
+                expected_type = ("TRAINER_TYPE_SEE_ALL_DIRECTIONS" if tag == "TOWER" else "TRAINER_TYPE_NORMAL")
+                self.assertTrue(all(actor["trainer_type"] == expected_type for actor in actors))
 
     def test_native_trainer_sight_has_both_npc_contexts_and_save_sync(self):
         # The approved native sight handlers replaced the earlier coordinate/departure prototype.

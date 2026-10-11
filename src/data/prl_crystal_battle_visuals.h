@@ -264,11 +264,16 @@ static const struct CrystalMapVisual sCrystalMapVisuals[] =
     { 35, 85, 36 },
     { 35, 86, 6 },
     { 35, 87, 36 },
-    { 35, 89, 19 },
-    { 35, 90, 19 },
-    { 35, 91, 19 },
-    { 35, 92, 30 },
-    { 35, 93, 30 },
+    // Pokémon Tower 1F-7F: always use the same grey interior as the
+    // ground-floor Steevee & Neevee battle (building default, donor 8).
+    // Previous upper-floor donors 19 and 30 showed outdoor scenery.
+    { 35, 88, 8 },
+    { 35, 89, 8 },
+    { 35, 90, 8 },
+    { 35, 91, 8 },
+    { 35, 92, 8 },
+    { 35, 93, 8 },
+    { 35, 94, 8 },
     { 35, 97, 33 },
     { 35, 101, 33 },
     { 35, 110, 25 },

@@ -38,6 +38,19 @@ extern const u32 gPRLEeveeTwinsFrontPic[];
 extern const u16 gPRLEeveeTwinsNormalPalette[];
 extern const u16 gPRLEeveeTwinsShinyPalette[];
 
+ 
+// Original, indexed GBA donor battle art, shown ONLY on Jessie & James's
+// opponents. Do not replace species, alter Pokémon mechanics, or reskin wild mons.
+static const u32 sPRL_RocketArbokFront[] = INCBIN_U32("graphics/battle_transitions/prl/dark_arbok.4bpp.lz");
+static const u16 sPRL_RocketArbokPalette[] = INCBIN_U16("graphics/battle_transitions/prl/dark_arbok.gbapal");
+static const u32 sPRL_RocketRaticateFront[] = INCBIN_U32("graphics/battle_transitions/prl/dark_raticate.4bpp.lz");
+static const u16 sPRL_RocketRaticatePalette[] = INCBIN_U16("graphics/battle_transitions/prl/dark_raticate.gbapal");
+static const u32 sPRL_RocketVictreebelFront[] = INCBIN_U32("graphics/battle_transitions/prl/dark_victreebel.4bpp.lz");
+static const u16 sPRL_RocketVictreebelPalette[] = INCBIN_U16("graphics/battle_transitions/prl/dark_victreebel.gbapal");
+static const u32 sPRL_RocketGyaradosFront[] = INCBIN_U32("graphics/battle_transitions/prl/dark_gyarados.4bpp.lz");
+static const u16 sPRL_RocketGyaradosPalette[] = INCBIN_U16("graphics/battle_transitions/prl/dark_gyarados.gbapal");
+
+
 // this file's functions
 static u8 GetBattlePalaceMoveGroup(enum BattlerId battler, enum Move move);
 static u16 GetBattlePalaceTarget(enum BattlerId battler);
@@ -652,11 +665,98 @@ static bool32 PRLIsSteeveNeeveeSignatureEevee(enum BattlerId battler, enum Speci
     return FALSE;
 }
 
+
+// Jessie & James are the only trainers that display Galarian Weezing art.
+// The underlying mon remains SPECIES_WEEZING: moves, typing, stats, ability,
+// party/save identity and damage calculation all remain unchanged.
+static bool32 PRLIsJessieJamesWeezingVisual(enum BattlerId battler, enum Species species)
+{
+#if IS_FRLG
+    if (species != SPECIES_WEEZING || IsOnPlayerSide(battler)
+        || !(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
+        return FALSE;
+
+    switch (TRAINER_BATTLE_PARAM.opponentA)
+    {
+    case TRAINER_JESSIE_JAMES_MT_MOON:
+    case TRAINER_JESSIE_JAMES_HIDEOUT:
+    case TRAINER_JESSIE_JAMES_SILPH:
+    case TRAINER_JESSIE_JAMES_VICTORY_ROAD:
+        return TRUE;
+    }
+#endif
+    return FALSE;
+}
+
+
+enum PRLRocketDarkGfx
+{
+    PRL_ROCKET_DARK_NONE,
+    PRL_ROCKET_DARK_ARBOK,
+    PRL_ROCKET_DARK_RATICATE,
+    PRL_ROCKET_DARK_VICTREEBEL,
+    PRL_ROCKET_DARK_GYARADOS,
+};
+
+// Trainer-only appearances. Ordinary species remain fully vanilla mechanically.
+static u8 PRLGetRocketDarkGfx(enum BattlerId battler, enum Species species)
+{
+#if IS_FRLG
+    if (IsOnPlayerSide(battler) || !(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
+        return PRL_ROCKET_DARK_NONE;
+    switch (TRAINER_BATTLE_PARAM.opponentA)
+    {
+    case TRAINER_JESSIE_JAMES_MT_MOON:
+    case TRAINER_JESSIE_JAMES_HIDEOUT:
+    case TRAINER_JESSIE_JAMES_SILPH:
+    case TRAINER_JESSIE_JAMES_VICTORY_ROAD:
+        break;
+    default:
+        return PRL_ROCKET_DARK_NONE;
+    }
+    switch (species)
+    {
+    case SPECIES_ARBOK: return PRL_ROCKET_DARK_ARBOK;
+    case SPECIES_RATICATE: return PRL_ROCKET_DARK_RATICATE;
+    case SPECIES_VICTREEBEL: return PRL_ROCKET_DARK_VICTREEBEL;
+    case SPECIES_GYARADOS: return PRL_ROCKET_DARK_GYARADOS;
+    default: break;
+    }
+#endif
+    return PRL_ROCKET_DARK_NONE;
+}
+
+static const u32 *PRLGetRocketDarkFront(u8 id)
+{
+    switch (id)
+    {
+    case PRL_ROCKET_DARK_ARBOK: return sPRL_RocketArbokFront;
+    case PRL_ROCKET_DARK_RATICATE: return sPRL_RocketRaticateFront;
+    case PRL_ROCKET_DARK_VICTREEBEL: return sPRL_RocketVictreebelFront;
+    case PRL_ROCKET_DARK_GYARADOS: return sPRL_RocketGyaradosFront;
+    }
+    return NULL;
+}
+
+static const u16 *PRLGetRocketDarkPalette(u8 id)
+{
+    switch (id)
+    {
+    case PRL_ROCKET_DARK_ARBOK: return sPRL_RocketArbokPalette;
+    case PRL_ROCKET_DARK_RATICATE: return sPRL_RocketRaticatePalette;
+    case PRL_ROCKET_DARK_VICTREEBEL: return sPRL_RocketVictreebelPalette;
+    case PRL_ROCKET_DARK_GYARADOS: return sPRL_RocketGyaradosPalette;
+    }
+    return NULL;
+}
+
 void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
 {
     u32 personalityValue, paletteOffset;
     bool32 isShiny;
     bool32 prlTwinsEevee;
+    bool32 prlRocketWeezing;
+    u8 prlRocketDarkGfx;
     enum Species species;
     enum BattlerPosition position;
     const u16 *paletteData;
@@ -688,17 +788,28 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
     position = GetBattlerPosition(battler);
     prlTwinsEevee = PRLIsSteeveNeeveeSignatureEevee(battler, species)
                    && gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE;
+    prlRocketWeezing = PRLIsJessieJamesWeezingVisual(battler, species)
+                       && gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE;
+    prlRocketDarkGfx = gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE
+                       ? PRLGetRocketDarkGfx(battler, species) : PRL_ROCKET_DARK_NONE;
     if (prlTwinsEevee)
         DecompressDataWithHeaderWram(gPRLEeveeTwinsFrontPic, gMonSpritesGfxPtr->spritesGfx[position]);
+    else if (prlRocketDarkGfx != PRL_ROCKET_DARK_NONE)
+        DecompressDataWithHeaderWram(PRLGetRocketDarkFront(prlRocketDarkGfx),
+                                     gMonSpritesGfxPtr->spritesGfx[position]);
     else
         HandleLoadSpecialPokePic(!IsOnPlayerSide(battler),
                                  gMonSpritesGfxPtr->spritesGfx[position],
-                                 species, personalityValue);
+                                 prlRocketWeezing ? SPECIES_WEEZING_GALAR : species, personalityValue);
 
     paletteOffset = OBJ_PLTT_ID(battler);
 
     if (prlTwinsEevee)
         paletteData = isShiny ? gPRLEeveeTwinsShinyPalette : gPRLEeveeTwinsNormalPalette;
+    else if (prlRocketDarkGfx != PRL_ROCKET_DARK_NONE)
+        paletteData = PRLGetRocketDarkPalette(prlRocketDarkGfx);
+    else if (prlRocketWeezing)
+        paletteData = GetMonSpritePalFromSpeciesAndPersonality(SPECIES_WEEZING_GALAR, isShiny, personalityValue);
     else if (gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE)
         paletteData = GetMonFrontSpritePal(mon);
     else

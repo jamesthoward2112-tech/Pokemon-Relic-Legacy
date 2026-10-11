@@ -854,7 +854,7 @@
     .categoryName = _("Relic"), .height = 3, .weight = 65,
     .description = COMPOUND_STRING("A Pokemon awakened by Relic Resonance.\nIts ancient power has taken a new form."),
     .pokemonScale = 256, .pokemonOffset = 0, .trainerScale = 256, .trainerOffset = 0,
-    .frontPic = gMonFrontPic_Omeon, .frontPicSize = MON_COORDS_SIZE(64, 64), .frontPicYOffset = 0,
+    .frontPic = gMonFrontPic_Omeon, .frontPicSize = MON_COORDS_SIZE(64, 64), .frontPicYOffset = 7,
     .frontAnimFrames = sAnims_SingleFramePlaceHolder, .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
     .backPic = gMonBackPic_Omeon, .backPicSize = MON_COORDS_SIZE(64, 64), .backPicYOffset = 0, .backAnimId = BACK_ANIM_NONE,
     .palette = gMonPalette_Omeon, .shinyPalette = gMonShinyPalette_Omeon,

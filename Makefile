@@ -71,7 +71,7 @@ ifneq ($(PRL_MERCURY_ART_READY),yes)
 endif
 
 # Decode the pinned, approved Crystal Redux presentation bank.
-PRL_CRYSTAL_ART_READY := $(shell python3 tools/prl_crystal_presentation_assets.py && echo yes)
+PRL_CRYSTAL_ART_READY := $(shell python3 tools/prl_crystal_presentation_assets.py && python3 tools/prl_duo_20261011_assets.py && python3 tools/prl_rocket_dark_20261011_assets.py && echo yes)
 ifneq ($(PRL_CRYSTAL_ART_READY),yes)
   $(error Could not unpack approved Crystal Redux art)
 endif
