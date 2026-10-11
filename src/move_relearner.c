@@ -72,6 +72,8 @@ static EWRAM_DATA struct
     u8 moveDisplayArrowTask;
     u16 scrollOffset;
     u8 categoryIconSpriteId;
+    u16 savedListOffset;
+    u16 savedListRow;
 } *sMoveRelearnerStruct = {0};
 
 static EWRAM_DATA struct {
@@ -271,6 +273,7 @@ static u32 GetRelearnerTutorMoves(struct BoxPokemon *mon, u16 *moves);
 
 static void Task_MoveRelearner_HandleInput(u8 taskId);
 static void Task_MoveRelearner_LearnMove(u8 taskId);
+static void Task_MoveRelearner_SelectMoveToForget(u8 taskId);
 static void Task_MoveRelearner_Quit(u8 taskId);
 static void SortMovesAlphabetically(u16 *moves, u32 numMoves);
 static void QuickSortMoves(u16 *moves, s32 left, s32 right);
@@ -506,21 +509,77 @@ static void UIPlayFanfare(u32 songId)
     PlayFanfare(songId);
 }
 
+// Keep the four-move replacement picker within the same UI task. Returning
+// from the Pokémon summary screen crashes this FireRed build on *both* accept
+// and cancel. The relearner already has a move list and the current BoxMon,
+// so no callback / scene teardown is necessary for selecting the old slot.
 static void UIShowMoveList(u8 taskId)
 {
-    // Snapshot the choice before releasing the task. The summary allocates a
-    // sizeable UI context; opening it while the relearner still owns its list,
-    // windows and sprites can exhaust the GBA heap and leave a black screen.
-    u8 partyIndex = gTasks[taskId].tPartyIndex;
-    u16 move = gTasks[taskId].tMove;
+    struct BoxPokemon *boxMon = GetSelectedBoxMonFromPcOrParty();
+    u32 i;
 
-    gSpecialVar_0x8008 = partyIndex;
-    gSpecialVar_0x8009 = move;
-    gSpecialVar_0x800A = gTasks[taskId].tCategory;
+    sMoveRelearnerStruct->savedListOffset = sMoveRelearnerScrollState.listOffset;
+    sMoveRelearnerStruct->savedListRow = sMoveRelearnerScrollState.listRow;
+    DestroyListMenuTask(sMoveRelearnerStruct->moveListMenuTask, NULL, NULL);
 
-    DestroyTask(taskId);
-    FreeMoveRelearnerResources();
-    ShowSelectMovePokemonSummaryScreen(gParties[B_TRAINER_PLAYER], partyIndex, CB2_InitLearnMoveReturnFromSelectMove, move);
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        enum Move oldMove = GetBoxMonData(boxMon, MON_DATA_MOVE1 + i);
+        sMoveRelearnerStruct->menuItems[i].name = GetMoveName(oldMove);
+        sMoveRelearnerStruct->menuItems[i].id = oldMove;
+    }
+    sMoveRelearnerStruct->menuItems[MAX_MON_MOVES].name = gText_Cancel;
+    sMoveRelearnerStruct->menuItems[MAX_MON_MOVES].id = LIST_CANCEL;
+    sMoveRelearnerStruct->numMenuChoices = MAX_MON_MOVES + 1;
+    sMoveRelearnerStruct->numToShowAtOnce =
+        LoadMoveRelearnerMovesList(sMoveRelearnerStruct->menuItems, MAX_MON_MOVES + 1);
+    sMoveRelearnerStruct->moveListMenuTask =
+        ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
+    gTasks[taskId].func = Task_MoveRelearner_SelectMoveToForget;
+}
+
+// A selected entry is a move ID for the existing description renderer;
+// resolve that move back to the party/boxed Pokémon's actual slot before
+// running the ordinary LearnMove(WANT_REPLACE_3) branch.
+static void Task_MoveRelearner_SelectMoveToForget(u8 taskId)
+{
+    struct BoxPokemon *boxMon = GetSelectedBoxMonFromPcOrParty();
+    s32 choice = ListMenu_ProcessInput(sMoveRelearnerStruct->moveListMenuTask);
+    u8 chosenSlot = MAX_MON_MOVES;
+    u8 i;
+
+    if (choice == LIST_NOTHING_CHOSEN)
+        return;
+
+    if (choice != LIST_CANCEL)
+    {
+        for (i = 0; i < MAX_MON_MOVES; i++)
+        {
+            if (GetBoxMonData(boxMon, MON_DATA_MOVE1 + i) == (enum Move)choice)
+            {
+                chosenSlot = i;
+                break;
+            }
+        }
+    }
+
+    PlaySE(SE_SELECT);
+    SetMoveSlotToReplace(chosenSlot);
+    gSpecialVar_0x8005 = chosenSlot;
+    gSpecialVar_Result = (chosenSlot != MAX_MON_MOVES);
+
+    DestroyListMenuTask(sMoveRelearnerStruct->moveListMenuTask, NULL, NULL);
+    sMoveRelearnerScrollState.listOffset = sMoveRelearnerStruct->savedListOffset;
+    sMoveRelearnerScrollState.listRow = sMoveRelearnerStruct->savedListRow;
+    CreateLearnableMovesList();
+    if (sMoveRelearnerScrollState.listOffset > sMoveRelearnerStruct->numMenuChoices - sMoveRelearnerStruct->numToShowAtOnce)
+        sMoveRelearnerScrollState.listOffset = sMoveRelearnerStruct->numMenuChoices - sMoveRelearnerStruct->numToShowAtOnce;
+    sMoveRelearnerStruct->moveListMenuTask =
+        ListMenuInit(&gMultiuseListMenuTemplate, sMoveRelearnerScrollState.listOffset, sMoveRelearnerScrollState.listRow);
+
+    // LearnMove set WANT_REPLACE_3 after the UI callback. Resume its normal
+    // success or cancellation path without ever leaving the relearner.
+    gTasks[taskId].func = Task_MoveRelearner_LearnMove;
 }
 
 static void RedrawMoveList(void)
