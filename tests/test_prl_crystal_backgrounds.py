@@ -36,15 +36,15 @@ class CrystalBackgroundTests(unittest.TestCase):
 
         header = (ROOT / "src/data/prl_crystal_battle_visuals.h").read_text()
         defaults = re.search(
-            r"static const u8 sCrystalDefaultVisuals\\[BATTLE_ENVIRONMENT_COUNT\\]\\s*=\\s*\\{([^}]*)\\}",
+            r"static const u8 sCrystalDefaultVisuals\[BATTLE_ENVIRONMENT_COUNT\]\s*=\s*\{([^}]*)\}",
             header, re.S)
         self.assertIsNotNone(defaults)
-        default_donors = [int(value) for value in re.findall(r"\\d+", defaults.group(1))]
+        default_donors = [int(value) for value in re.findall(r"\d+", defaults.group(1))]
         self.assertEqual(default_donors[8], 8, "Tower 1F uses the normal indoor building backdrop")
 
         start = header.index("static const struct CrystalMapVisual sCrystalMapVisuals[]")
         table = header[start:header.index("\n};", start)]
-        entries = re.findall(r"^\\s*\\{\\s*(\\d+),\\s*(\\d+),\\s*(\\d+)\\s*\\},", table, re.M)
+        entries = re.findall(r"^\s*\{\s*(\d+),\s*(\d+),\s*(\d+)\s*\},", table, re.M)
         self.assertEqual(len(entries), len(set((g, n) for g, n, _ in entries)),
                          "Battle-map donor overrides cannot have duplicate locations")
         mappings = {(int(g), int(n)): int(d) for g, n, d in entries}
