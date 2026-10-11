@@ -62,6 +62,11 @@ endif
 
 include config.mk
 
+PRL_CRYSTAL_ART_READY := $(shell python3 tools/prepare_prl_crystal_assets.py && echo yes)
+ifneq ($(PRL_CRYSTAL_ART_READY),yes)
+  $(error Could not unpack approved Crystal Redux battle art)
+endif
+
 # Decode the approved Pokémon Mercury GBA sprite bank before graphics scanning.
 # The tracked source is a deterministic, compact 4bpp + RGB555 archive. No
 # Gigantamax mechanics or species are enabled by this graphics-only import.

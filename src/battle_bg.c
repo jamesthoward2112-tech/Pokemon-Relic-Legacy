@@ -29,6 +29,13 @@
 #include "constants/battle_anim.h"
 #include "constants/battle_partner.h"
 #include "data/battle_environment.h"
+#include "data/prl_crystal_visuals.h"
+#include "data/prl_crystal_assets.h"
+
+static const struct PrlCrystalVisual *GetPrlCrystalVisual(u16 environment)
+{
+    return &sPrlCrystalVisuals[PrlCrystalVisualSlot(environment, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum)];
+}
 
 // .rodata
 
@@ -876,9 +883,9 @@ static void LoadBattleEnvironmentGfx(u16 environment)
     if (environment >= NELEMS(gBattleEnvironmentInfo))
         environment = BATTLE_ENVIRONMENT_PLAIN;  // If higher than the number of entries in gBattleEnvironmentInfo, use the default.
     // Copy to bg3
-    DecompressDataWithHeaderVram(gBattleEnvironmentInfo[environment].background.tileset, (void *)(BG_CHAR_ADDR(2)));
-    DecompressDataWithHeaderVram(gBattleEnvironmentInfo[environment].background.tilemap, (void *)(BG_SCREEN_ADDR(26)));
-    LoadPalette(gBattleEnvironmentInfo[environment].palette, BG_PLTT_ID(2), 3 * PLTT_SIZE_4BPP);
+    DecompressDataWithHeaderVram(GetPrlCrystalVisual(environment)->tiles, (void *)(BG_CHAR_ADDR(2)));
+    DecompressDataWithHeaderVram(GetPrlCrystalVisual(environment)->map, (void *)(BG_SCREEN_ADDR(26)));
+    LoadPalette(GetPrlCrystalVisual(environment)->palette, BG_PLTT_ID(2), 3 * PLTT_SIZE_4BPP);
 }
 
 // Loads the entry associated with the battle environment.
@@ -888,8 +895,8 @@ static void LoadBattleEnvironmentEntryGfx(u16 environment)
     if (environment >= NELEMS(gBattleEnvironmentInfo))
         environment = BATTLE_ENVIRONMENT_PLAIN;
     // Copy to bg1
-    DecompressDataWithHeaderVram(gBattleEnvironmentInfo[environment].entry.tileset, (void *)BG_CHAR_ADDR(1));
-    DecompressDataWithHeaderVram(gBattleEnvironmentInfo[environment].entry.tilemap, (void *)BG_SCREEN_ADDR(28));
+    DecompressDataWithHeaderVram(GetPrlCrystalVisual(environment)->entryTiles, (void *)BG_CHAR_ADDR(1));
+    DecompressDataWithHeaderVram(GetPrlCrystalVisual(environment)->entryMap, (void *)BG_SCREEN_ADDR(28));
 }
 
 static u8 GetBattleEnvironmentOverride(void)
@@ -1338,13 +1345,13 @@ bool8 LoadChosenBattleElement(u8 caseId)
         LoadPalette(gBattleTextboxPalette, BG_PLTT_ID(0), 2 * PLTT_SIZE_4BPP);
         break;
     case 3:
-        DecompressDataWithHeaderVram(gBattleEnvironmentInfo[GetBattleEnvironmentOverride()].background.tileset, (void *)(BG_CHAR_ADDR(2)));
+        DecompressDataWithHeaderVram(GetPrlCrystalVisual(GetBattleEnvironmentOverride())->tiles, (void *)(BG_CHAR_ADDR(2)));
         break;
     case 4:
-        DecompressDataWithHeaderVram(gBattleEnvironmentInfo[GetBattleEnvironmentOverride()].background.tilemap, (void *)(BG_SCREEN_ADDR(26)));
+        DecompressDataWithHeaderVram(GetPrlCrystalVisual(GetBattleEnvironmentOverride())->map, (void *)(BG_SCREEN_ADDR(26)));
         break;
     case 5:
-        LoadPalette(gBattleEnvironmentInfo[GetBattleEnvironmentOverride()].palette, BG_PLTT_ID(2), 3 * PLTT_SIZE_4BPP);
+        LoadPalette(GetPrlCrystalVisual(GetBattleEnvironmentOverride())->palette, BG_PLTT_ID(2), 3 * PLTT_SIZE_4BPP);
         break;
     case 6:
         LoadBattleMenuWindowGfx();

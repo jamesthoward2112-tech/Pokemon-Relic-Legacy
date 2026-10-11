@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 20099)
+Total output lines: 2297
+
 #include "global.h"
 #include "data.h"
 #include "main.h"
@@ -934,6 +937,9 @@ enum BattleTransition GetTrainerBattleTransition(void)
         || trainerClass == TRAINER_CLASS_AQUA_ADMIN)
         return B_TRANSITION_AQUA;
 
+    if (IS_FRLG)
+        return B_TRANSITION_BIG_POKEBALL;
+
     switch (GetTrainerBattleType(trainerId))
     {
     case TRAINER_BATTLE_TYPE_SINGLES:
@@ -954,19 +960,7 @@ enum BattleTransition GetTrainerBattleTransition(void)
         return sBattleTransitionTable_Trainer[transitionType][1];
 }
 
-#define RANDOM_TRANSITION(table) (table[Random() % ARRAY_COUNT(table)])
-enum BattleTransition GetSpecialBattleTransition(enum BattleTransitionGroup id)
-{
-    u16 var;
-    u8 enemyLevel = GetMonData(&gParties[B_TRAINER_OPPONENT_A][0], MON_DATA_LEVEL);
-    u8 playerLevel = GetSumOfPlayerPartyLevel(1);
-
-    if (enemyLevel < playerLevel)
-    {
-        switch (id)
-        {
-        case B_TRANSITION_GROUP_TRAINER_HILL:
-        case B_TRANSITION_GROUP_SECRET_BASE:
+#define RANDOM_TRANSITION(table) (table[Random() % ARR…99 tokens truncated…SECRET_BASE:
         case B_TRANSITION_GROUP_E_READER:
             return B_TRANSITION_POKEBALLS_TRAIL;
         case B_TRANSITION_GROUP_B_PYRAMID:
