@@ -62,7 +62,7 @@ class PRLDuoApprovedArt(unittest.TestCase):
             if path.endswith(".gbapal"):
                 self.assertEqual(len(payload), 32)
             else:
-                self.assertTrue(payload.startswith(b"\\x10\\x00\\x08\\x00"))
+                self.assertEqual(payload[:4], bytes((0x10, 0, 8, 0)))
                 self.assertEqual(len(payload) % 4, 0)
 
     def test_rocket_dark_visuals_are_scoped_without_species_replacement(self):
