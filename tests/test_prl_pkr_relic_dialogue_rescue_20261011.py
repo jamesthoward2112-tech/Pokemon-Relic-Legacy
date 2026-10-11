@@ -61,17 +61,17 @@ class PRLRelicStoryRescue(unittest.TestCase):
             for suffix in labels:
                 with self.subTest(map=name, label=suffix):
                     label = name.removesuffix("_Frlg") + "_Text_" + suffix
-                    pattern = rf"^{re.escape(label)}::\\n((?:[ \\t]*\\.string[^\\n]*\\n)+)"
+                    pattern = rf"^{re.escape(label)}::\n((?:[ \t]*\.string[^\n]*\n)+)"
                     match = re.search(pattern, source, re.MULTILINE)
                     self.assertIsNotNone(match, label)
                     if match is None:
                         continue
-                    strings = re.findall(r'^\\s*\\.string "([^"]*)"', match.group(1), re.MULTILINE)
+                    strings = re.findall(r'^\s*\.string "([^"]*)"', match.group(1), re.MULTILINE)
                     self.assertTrue(strings)
                     self.assertTrue(strings[-1].endswith("$"), label)
                     for sentence in strings:
-                        self.assertTrue(sentence.endswith((r"\\n", r"\\p", "$")), label)
-                        self.assertLessEqual(len(sentence.replace(r"\\n", "").replace(r"\\p", "").rstrip("$")), 34, label)
+                        self.assertTrue(sentence.endswith((r"\n", r"\p", "$")), label)
+                        self.assertLessEqual(len(sentence.replace(r"\n", "").replace(r"\p", "").rstrip("$")), 34, label)
                     story = match.group(1).upper()
                     self.assertNotIn("RELICANTH", story)
                     self.assertNotIn("HO-OH", story)
