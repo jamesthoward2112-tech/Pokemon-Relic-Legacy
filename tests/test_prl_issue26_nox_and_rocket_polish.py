@@ -24,10 +24,10 @@ class NoxAndRocket(unittest.TestCase):
                          "6b173ed1cd8b528565fc33dba9542ea8c670e8b00d8f9b39b4e64469c4c127bf")
 
     def test_noxichu_battle_back_sprite_is_lowered_not_moved_in_png(self):
-        # Regression for 10 Oct 2026 emulator screenshot: Noxichu floated above the player's platform.
+        # 11 Oct visual tune: keep approved cropped PNG unchanged and lower via metadata (16 -> 20).
         species = (ROOT / "src/data/pokemon/species_info.h").read_text()
         noxichu = species.split("[SPECIES_NOXICHU] =", 1)[1].split('    #include "species_info/prl_custom.h"', 1)[0]
-        self.assertIn(".backPicYOffset = 16,", noxichu)
+        self.assertIn(".backPicYOffset = 20,", noxichu)
         self.assertIn(".frontPicYOffset = 0,", noxichu)
         # Positive offset moves the back sprite DOWN in this engine.
         renderer = (ROOT / "src/battle_anim_mons.c").read_text()
