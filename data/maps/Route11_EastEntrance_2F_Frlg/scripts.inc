@@ -76,9 +76,10 @@ Route11_EastEntrance_2F_EventScript_GetAideRequestInfo::
 	return
 
 Route11_EastEntrance_2F_Text_GiveItemfinderIfCaught30::
-	.string "PROF. OAK is tracking relics
-hidden across Kanto.pThis ITEMFINDER will help you
-search for his discoveries.$"
+\t.string "PROF. OAK is tracking relics\n"
+\t.string "hidden across Kanto.\p"
+\t.string "This ITEMFINDER will help you\n"
+\t.string "search for his discoveries.$"
 
 Route11_EastEntrance_2F_Text_GreatHereYouGo::
 	.string "PROF. OAK sent this for you.\n"
