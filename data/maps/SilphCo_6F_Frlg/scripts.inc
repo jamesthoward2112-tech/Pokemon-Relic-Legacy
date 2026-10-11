@@ -91,8 +91,9 @@ SilphCo_6F_EventScript_Grunt2::
 	end
 
 SilphCo_6F_Text_RocketsTookOverBuilding::
-	.string "The ROCKETS came and took over\n"
-	.string "the building!$"
+	.string "The ROCKETS seized SILPH!\p"
+	.string "They searched every floor\n"
+	.string "for RELIC and fossil data.$"
 
 SilphCo_6F_Text_BetterGetBackToWork::
 	.string "Well, better get back to work.$"
@@ -114,8 +115,10 @@ SilphCo_6F_Text_NeedsMeToLookAfterHim::
 	.string "someone like me to look after him.$"
 
 SilphCo_6F_Text_RocketsTryingToConquerWorld::
-	.string "TEAM ROCKET is trying to conquer\n"
-	.string "the world with POKéMON.$"
+	.string "ROCKET plans to control KANTO\n"
+	.string "with revived fossil POKéMON.\p"
+	.string "They're looking for an\n"
+	.string "older power behind them!$"
 
 SilphCo_6F_Text_RocketsRanAwayBecauseOfYou::
 	.string "TEAM ROCKET ran away, and it's all\n"
@@ -130,8 +133,10 @@ SilphCo_6F_Text_TargetedSilphForOurMonProducts::
 	.string "far beneath KANTO.$"
 
 SilphCo_6F_Text_ComeWorkForSilphWhenYoureOlder::
-	.string "Come work for SILPH when you\n"
-	.string "get older.$"
+	.string "When you're older, perhaps\n"
+	.string "you could work for SILPH.\p"
+	.string "We need someone who studies\n"
+	.string "RELICS without exploiting them.$"
 
 SilphCo_6F_Text_Grunt1Intro::
 	.string "I am one of the four\n"
