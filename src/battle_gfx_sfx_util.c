@@ -676,14 +676,9 @@ static bool32 PRLIsJessieJamesWeezingVisual(enum BattlerId battler, enum Species
         || !(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
         return FALSE;
 
-    switch (TRAINER_BATTLE_PARAM.opponentA)
-    {
-    case TRAINER_JESSIE_JAMES_MT_MOON:
-    case TRAINER_JESSIE_JAMES_HIDEOUT:
-    case TRAINER_JESSIE_JAMES_SILPH:
-    case TRAINER_JESSIE_JAMES_VICTORY_ROAD:
-        return TRUE;
-    }
+    // The special Galarian Weezing appearance is reserved for the
+    // FINAL Kanto Jessie & James fight. Earlier encounters use normal Weezing.
+    return TRAINER_BATTLE_PARAM.opponentA == TRAINER_JESSIE_JAMES_VICTORY_ROAD;
 #endif
     return FALSE;
 }
@@ -704,16 +699,10 @@ static u8 PRLGetRocketDarkGfx(enum BattlerId battler, enum Species species)
 #if IS_FRLG
     if (IsOnPlayerSide(battler) || !(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
         return PRL_ROCKET_DARK_NONE;
-    switch (TRAINER_BATTLE_PARAM.opponentA)
-    {
-    case TRAINER_JESSIE_JAMES_MT_MOON:
-    case TRAINER_JESSIE_JAMES_HIDEOUT:
-    case TRAINER_JESSIE_JAMES_SILPH:
-    case TRAINER_JESSIE_JAMES_VICTORY_ROAD:
-        break;
-    default:
+    // Preserve the dramatic Rocket-only forms for Victory Road; use
+    // ordinary species artwork at Mt Moon, Celadon and Silph Co.
+    if (TRAINER_BATTLE_PARAM.opponentA != TRAINER_JESSIE_JAMES_VICTORY_ROAD)
         return PRL_ROCKET_DARK_NONE;
-    }
     switch (species)
     {
     case SPECIES_ARBOK: return PRL_ROCKET_DARK_ARBOK;
