@@ -61,7 +61,7 @@ class PRLRecurringDuos(unittest.TestCase):
                 if name.startswith("JESSIE_JAMES_"):
                     self.assertIn(f"goto_if_defeated TRAINER_{name}", script)
                 else:
-                    self.assertTrue(re.search(rf"goto_if_set FLAG_PRL_RECURRING_{name}\b", script), name)
+                    self.assertIn(f"trainerbattle_double TRAINER_{name}", script)  # native trainer flag detection
                 self.assertIn(GATES[name], script)
                 if GATES[name] == "ITEM_SILPH_SCOPE":
                     self.assertIn("checkitem ITEM_SILPH_SCOPE", script)
