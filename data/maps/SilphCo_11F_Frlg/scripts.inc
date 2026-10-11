@@ -165,14 +165,14 @@ SilphCo_11F_EventScript_Grunt2::
 	end
 
 SilphCo_11F_Text_PresidentRocketOccupied::
-	.string "PRESIDENT: TEAM ROCKET is still\\n"
-	.string "holding SILPH hostage!\\p"
-	.string "Defeat GIOVANNI before I can\\n"
+	.string "PRESIDENT: TEAM ROCKET is still\n"
+	.string "holding SILPH hostage!\p"
+	.string "Defeat GIOVANNI before I can\n"
 	.string "entrust you with our MASTER BALL!$"
 
 SilphCo_11F_Text_SecretaryRocketOccupied::
-	.string "SECRETARY: Please stop\\n"
-	.string "GIOVANNI! The PRESIDENT and\\n"
+	.string "SECRETARY: Please stop\n"
+	.string "GIOVANNI! The PRESIDENT and\n"
 	.string "our research are in danger!$"
 
 SilphCo_11F_Text_ThanksForSavingMeDearBoy::
