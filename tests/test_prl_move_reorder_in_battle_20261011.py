@@ -55,8 +55,10 @@ class MoveReorderingRegression(unittest.TestCase):
         self.assertIn("if (sMonSummaryScreen->lockMovesFlag == TRUE",s)
 
     def test_overworld_pjr_select_is_not_replaced(self):
-        pjr = (ROOT / "tests/test_prl_pjr_registered_items.py").read_text()
-        self.assertIn("SELECT", pjr)
+        field = (ROOT / "src/field_control_avatar.c").read_text()
+        self.assertIn("sPlayerSelectHoldFrames == 60", field)
+        self.assertIn("UseRegisteredKeyItemOnField(FALSE)", field)
+        self.assertIn("UseRegisteredKeyItemOnField(TRUE)", field)
         cfg = CONFIG.read_text()
         self.assertIn("#define B_MOVE_REARRANGEMENT_IN_BATTLE", cfg)
 
