@@ -11,9 +11,9 @@ ROOT = Path(__file__).resolve().parents[1]
 MAP = ROOT / "data/maps/RocketHideout_B4F_Frlg/map.json"
 SCRIPT = ROOT / "data/maps/RocketHideout_B4F_Frlg/scripts.inc"
 LOCATIONS = {
-    "LOCALID_PRL_JESSIE_HIDEOUT": (15, 19),
-    "LOCALID_PRL_JAMES_HIDEOUT": (15, 20),
-    "LOCALID_PRL_MEOWTH_HIDEOUT": (14, 20),
+    "LOCALID_PRL_JESSIE_HIDEOUT": (15, 20),
+    "LOCALID_PRL_JAMES_HIDEOUT": (15, 21),
+    "LOCALID_PRL_MEOWTH_HIDEOUT": (14, 21),
 }
 
 class HideoutApproachTests(unittest.TestCase):
