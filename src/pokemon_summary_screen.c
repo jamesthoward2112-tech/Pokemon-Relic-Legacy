@@ -1756,7 +1756,10 @@ static void Task_HandleInput(u8 taskId)
         {
             ChangePage(taskId, 1);
         }
-        else if (JOY_NEW(A_BUTTON))
+        // A remains the standard summary action; SELECT also opens the
+        // move-order picker on a move page. Overworld tap/hold SELECT is
+        // handled elsewhere and is unaffected.
+        else if (JOY_NEW(A_BUTTON) || (JOY_NEW(SELECT_BUTTON) && IS_MOVE_PAGE(sMonSummaryScreen->currPageIndex)))
         {
             if (sMonSummaryScreen->currPageIndex != PSS_PAGE_SKILLS)
             {
@@ -2335,7 +2338,7 @@ static void Task_HandleInput_MoveSelect(u8 taskId)
             data[0] = 4;
             ChangeSelectedMove(data, 1, &sMonSummaryScreen->firstMoveIndex);
         }
-        else if (JOY_NEW(A_BUTTON))
+        else if (JOY_NEW(A_BUTTON | SELECT_BUTTON))
         {
             if (sMonSummaryScreen->lockMovesFlag == TRUE
                 || (sMonSummaryScreen->newMove == MOVE_NONE && sMonSummaryScreen->firstMoveIndex == MAX_MON_MOVES))
