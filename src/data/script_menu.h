@@ -1145,6 +1145,15 @@ static const struct MenuAction sMultichoiceList_PRLRelicTutorMoves[] =
     {gText_Exit},
 };
 
+static const struct MenuAction sMultichoiceList_PRLDaypart[] =
+{
+    {COMPOUND_STRING("MORNING")},
+    {COMPOUND_STRING("DAY")},
+    {COMPOUND_STRING("EVENING")},
+    {COMPOUND_STRING("NIGHT")},
+    {gText_Exit},
+};
+
 struct MultichoiceListStruct
 {
     const struct MenuAction *list;
@@ -1314,6 +1323,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_HOF_EGGS_VICTORIES_QUIT]                    = MULTICHOICE(sMultichoiceList_HOF_Eggs_Victories_Quit),
     [MULTI_PRL_RELIC_SERVICES]                         = MULTICHOICE(sMultichoiceList_PRLRelicServices),
     [MULTI_PRL_RELIC_TUTOR_MOVES]                      = MULTICHOICE(sMultichoiceList_PRLRelicTutorMoves),
+    [MULTI_PRL_DAYPART]                                = MULTICHOICE(sMultichoiceList_PRLDaypart),
 };
 
 const u8 *const gStdStrings[] =

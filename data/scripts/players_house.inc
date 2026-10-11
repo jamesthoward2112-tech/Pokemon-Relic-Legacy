@@ -683,3 +683,34 @@ EventScript_PRL_PokemonCenterWallClock::
 	special StartWallClock
 	releaseall
 	end
+
+@ PRL: upstairs Trainer Services, replacing the inaccessible first-floor clock.
+EventScript_PRL_CenterDaypart::
+	lockall
+	faceplayer
+	msgbox PRL_Center_Text_ChooseDaypart, MSGBOX_DEFAULT
+	multichoice 0, 0, MULTI_PRL_DAYPART, FALSE
+	goto_if_ge VAR_RESULT, 4, EventScript_PRL_CenterDaypartCancel
+	copyvar VAR_0x8004, VAR_RESULT
+	special PRL_SetDaypart
+	msgbox PRL_Center_Text_DaypartUpdated, MSGBOX_DEFAULT
+EventScript_PRL_CenterDaypartCancel::
+	releaseall
+	end
+
+EventScript_PRL_CenterMoveDeleter::
+	lockall
+	faceplayer
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ICanMakeMonForgetMove, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LilycoveCity_MoveDeletersHouse_EventScript_ChooseMonAndMoveToForget
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain, MSGBOX_DEFAULT
+	releaseall
+	end
+
+PRL_Center_Text_ChooseDaypart:
+	.string "Choose the time of day for your\\n"
+	.string "adventure. You can change it again.$"
+
+PRL_Center_Text_DaypartUpdated:
+	.string "All set! The time has changed.\\p"
+	.string "Come back whenever you like.$"

@@ -172,6 +172,7 @@ gSpecials::
 	def_special CableCarWarp
 	def_special CableCar, waitstate=1
 	def_special Overworld_PlaySpecialMapMusic
+	def_special PRL_SetDaypart
 	def_special StartWallClock, waitstate=1
 	def_special Special_ViewWallClock, waitstate=1
 	def_special ChooseStarter, waitstate=1

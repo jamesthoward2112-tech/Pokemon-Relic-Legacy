@@ -82,8 +82,14 @@ class PRLRecurringDuos(unittest.TestCase):
                     actors = [o for o in map_data["object_events"] if o.get("local_id") in
                               (f"LOCALID_PRL_STEEVE_{actor_suffix}", f"LOCALID_PRL_NEEVEE_{actor_suffix}")]
                     self.assertEqual(len(actors), 2)
-                    self.assertEqual(actors[0]["y"], actors[1]["y"])
-                    self.assertEqual(abs(actors[0]["x"] - actors[1]["x"]), 1)
+                    if actor_suffix == "SS_ANNE":
+                        self.assertEqual(actors[0]["x"], actors[1]["x"])
+                        self.assertEqual(abs(actors[0]["y"] - actors[1]["y"]), 1)
+                        self.assertEqual(actors[0]["movement_type"], "MOVEMENT_TYPE_FACE_LEFT")
+                        self.assertEqual(actors[1]["movement_type"], "MOVEMENT_TYPE_FACE_LEFT")
+                    else:
+                        self.assertEqual(actors[0]["y"], actors[1]["y"])
+                        self.assertEqual(abs(actors[0]["x"] - actors[1]["x"]), 1)
                     for o in actors:
                         self.assertEqual(o["trainer_type"], "TRAINER_TYPE_NORMAL")
                         self.assertGreaterEqual(int(o["trainer_sight_or_berry_tree_id"]), 3)

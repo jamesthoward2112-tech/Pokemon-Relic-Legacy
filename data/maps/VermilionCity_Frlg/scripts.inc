@@ -190,13 +190,25 @@ VermilionCity_EventScript_CheckTicket::
 	applymovement LOCALID_VERMILION_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterLeft
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
-	goto_if_eq VAR_MAP_SCENE_VERMILION_CITY, 3, VermilionCity_EventScript_CheckSeagallopPresentTrigger
+	goto_if_eq VAR_MAP_SCENE_VERMILION_CITY, 3, VermilionCity_EventScript_PRLPierAccess
 	msgbox VermilionCity_Text_DoYouHaveATicket
 	goto_if_unset FLAG_GOT_SS_TICKET, VermilionCity_EventScript_DontHaveSSTicket
 	msgbox VermilionCity_Text_FlashedSSTicket
 	setvar VAR_VERMILION_CITY_TICKET_CHECK_TRIGGER, 1
 	releaseall
 	end
+
+@ Keep the sailor interactive for future ferry travel; unblock only the
+@ checkpoint once the original S.S. Anne story has completed.
+VermilionCity_EventScript_PRLPierAccess::
+	msgbox VermilionCity_Text_PRLPierAccess
+	setvar VAR_VERMILION_CITY_TICKET_CHECK_TRIGGER, 1
+	releaseall
+	end
+
+VermilionCity_Text_PRLPierAccess:
+	.string "The pier is open to Trainers now.\\p"
+	.string "Ask me about ferry routes any time.$"
 
 VermilionCity_EventScript_DontHaveSSTicket::
 	msgbox VermilionCity_Text_DontHaveNeededSSTicket

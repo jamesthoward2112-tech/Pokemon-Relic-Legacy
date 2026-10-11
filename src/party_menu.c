@@ -2972,6 +2972,34 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
         }
     }
 
+    // PHR: Flash and Fly are available as untaught virtual HM field actions.
+    if (!GetMonData(&mons[slotId], MON_DATA_IS_EGG))
+    {
+        static const enum FieldMove sVirtualFieldHms[] =
+        {
+            FIELD_MOVE_FLASH,
+            FIELD_MOVE_FLY,
+        };
+        enum Species species = GetMonData(&mons[slotId], MON_DATA_SPECIES);
+
+        for (u32 k = 0; k < ARRAY_COUNT(sVirtualFieldHms) && sPartyMenuInternal->numActions < 5; k++)
+        {
+            enum FieldMove fieldMove = sVirtualFieldHms[k];
+            enum Move move = FieldMove_GetMoveId(fieldMove);
+            enum Item hmItem = GetTMHMItemIdFromMoveId(move);
+
+            if (!IsFieldMoveUnlocked(fieldMove)
+             || hmItem == ITEM_NONE
+             || GetItemTMHMIndex(hmItem) <= NUM_TECHNICAL_MACHINES
+             || !CheckBagHasItem(hmItem, 1)
+             || MonKnowsMove(&mons[slotId], move)
+             || !CanLearnTeachableMove(species, move))
+                continue;
+
+            AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, fieldMove + MENU_FIELD_MOVES);
+        }
+    }
+
     if (!InBattlePike())
     {
         if (GetMonData(&mons[1], MON_DATA_SPECIES) != SPECIES_NONE)

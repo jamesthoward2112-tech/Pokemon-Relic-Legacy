@@ -10,6 +10,11 @@
 #include "overworld.h"
 #include "palette.h"
 #include "region_map.h"
+#include "field_move.h"
+#include "pokemon.h"
+#include "item.h"
+#include "constants/field_move.h"
+#include "constants/moves.h"
 #include "sound.h"
 #include "strings.h"
 #include "text.h"
@@ -51,6 +56,26 @@ static void MCB2_FieldUpdateRegionMap(void);
 static void FieldUpdateRegionMap(void);
 static void PrintRegionMapSecName();
 static void PrintTitleWindowText();
+
+// Map R-button Fly requires the same badge + HM + compatible party checks as PHR.
+static bool32 PRL_CanFlyDirectlyFromMap(void)
+{
+    enum Item hm = GetTMHMItemIdFromMoveId(MOVE_FLY);
+    if (!IsFieldMoveUnlocked(FIELD_MOVE_FLY) || hm == ITEM_NONE || !CheckBagHasItem(hm, 1))
+        return FALSE;
+
+    for (u32 i = 0; i < PARTY_SIZE; i++)
+    {
+        enum Species species = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES);
+        if (!species)
+            break;
+        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG)
+         && CanLearnTeachableMove(species, MOVE_FLY))
+            return TRUE;
+    }
+    return FALSE;
+}
+
 
 static const struct BgTemplate sFieldRegionMapBgTemplates[] = {
     {
@@ -188,7 +213,7 @@ static void FieldUpdateRegionMap(void)
                 break;
         case MAP_INPUT_R_BUTTON:
                 if (sFieldRegionMapHandler->regionMap.mapSecType == MAPSECTYPE_CITY_CANFLY
-                    && FlagGet(OW_FLAG_POKE_RIDER) && Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
+                    && PRL_CanFlyDirectlyFromMap() && Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
                 {
                     PlaySE(SE_SELECT);
                     SetFlyDestination(&sFieldRegionMapHandler->regionMap);
@@ -242,7 +267,7 @@ static void PrintTitleWindowText(void)
     FillWindowPixelBuffer(WIN_TITLE, PIXEL_FILL(1));
 
     if (sFieldRegionMapHandler->regionMap.mapSecType == MAPSECTYPE_CITY_CANFLY
-        && FlagGet(OW_FLAG_POKE_RIDER) && Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
+        && PRL_CanFlyDirectlyFromMap() && Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
     {
         AddTextPrinterParameterized(WIN_TITLE, FONT_NORMAL, FlyPromptText, flyOffset, 1, 0, NULL);
         ScheduleBgCopyTilemapToVram(WIN_TITLE);

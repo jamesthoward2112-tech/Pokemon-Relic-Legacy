@@ -116,3 +116,20 @@ void StartWallClock(void)
     SetMainCallback2(CB2_StartWallClock);
     gMain.savedCallback = ReturnFromStartWallClock;
 }
+
+// Four simple choices use the existing, save-persistent local RTC offset.
+// 07:00 morning; 12:00 day; 18:00 evening; 23:00 night.
+void PRL_SetDaypart(void)
+{
+    static const u8 sHours[] = {7, 12, 18, 23};
+    u16 selected = gSpecialVar_0x8004;
+
+    if (selected >= ARRAY_COUNT(sHours))
+        return;
+
+    RtcCalcLocalTime();
+    RtcCalcLocalTimeOffset(gLocalTime.days, sHours[selected], 0, 0);
+    RtcCalcLocalTime();
+    GetTimeOfDay();
+    FormChangeTimeUpdate();
+}

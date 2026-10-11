@@ -2304,12 +2304,25 @@ bool8 ScrCmd_checkfieldmove(struct ScriptContext *ctx)
         return FALSE;
 
     move = FieldMove_GetMoveId(fieldMove);
+    // Original PHR HM protocol: badge (checked above), HM in the Bag,
+    // and a compatible party member. Teaching the move is not required.
+    enum Item hmItem = GetTMHMItemIdFromMoveId(move);
+    bool32 useFieldHm = hmItem != ITEM_NONE
+        && GetItemTMHMIndex(hmItem) > NUM_TECHNICAL_MACHINES;
+
+    if (useFieldHm && !CheckBagHasItem(hmItem, 1))
+        return FALSE;
+
     for (u32 i = 0; i < PARTY_SIZE; i++)
     {
         enum Species species = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES);
         if (!species)
             break;
-        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG) && MonKnowsMove(&gParties[B_TRAINER_PLAYER][i], move) == TRUE)
+        if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
+            continue;
+
+        if ((useFieldHm && CanLearnTeachableMove(species, move))
+            || (!useFieldHm && MonKnowsMove(&gParties[B_TRAINER_PLAYER][i], move)))
         {
             gSpecialVar_Result = i;
             gSpecialVar_0x8004 = species;
