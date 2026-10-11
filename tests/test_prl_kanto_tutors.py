@@ -72,9 +72,12 @@ def test_dojo_tutors_require_their_own_black_belt_defeat():
     }
     for trainer_name, (trainer, tutor) in assignments.items():
         script = block(scripts, f"SaffronCity_Dojo_EventScript_{trainer_name}")
-        check = f"goto_if_defeated {trainer}, SaffronCity_Dojo_EventScript_{tutor}"
-        assert check in script
-        assert script.index(check) < script.index(f"trainerbattle_single {trainer}")
+        # Keep trainerbattle as the FIRST command. The trainer-vision scanner
+        # must find it even after a prior victory; otherwise it auto-triggers
+        # the tutor text with an exclamation mark on every approach.
+        assert script.strip().splitlines()[1].strip().startswith(f"trainerbattle_single {trainer}")
+        assert "goto_if_defeated" not in script
+        assert f"goto SaffronCity_Dojo_EventScript_{tutor}" in script
         unlock = block(scripts, f"SaffronCity_Dojo_EventScript_{tutor}")
         assert f"goto EventScript_PRL_Tutor{tutor}" in unlock
 

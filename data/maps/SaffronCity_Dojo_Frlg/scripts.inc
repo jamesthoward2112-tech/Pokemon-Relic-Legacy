@@ -114,9 +114,9 @@ SaffronCity_Dojo_EventScript_RightScroll::
 	end
 
 SaffronCity_Dojo_EventScript_Hitoshi::
-	goto_if_defeated TRAINER_BLACK_BELT_HITOSHI, SaffronCity_Dojo_EventScript_PowerUpPunch
 	trainerbattle_single TRAINER_BLACK_BELT_HITOSHI, SaffronCity_Dojo_Text_HitoshiIntro, SaffronCity_Dojo_Text_HitoshiDefeat
 	msgbox SaffronCity_Dojo_Text_HitoshiPostBattle, MSGBOX_AUTOCLOSE
+	goto SaffronCity_Dojo_EventScript_PowerUpPunch
 	end
 
 SaffronCity_Dojo_EventScript_PowerUpPunch::
@@ -126,9 +126,9 @@ SaffronCity_Dojo_EventScript_PowerUpPunch::
 	end
 
 SaffronCity_Dojo_EventScript_Hideki::
-	goto_if_defeated TRAINER_BLACK_BELT_HIDEKI, SaffronCity_Dojo_EventScript_IcePunch
 	trainerbattle_single TRAINER_BLACK_BELT_HIDEKI, SaffronCity_Dojo_Text_HidekiIntro, SaffronCity_Dojo_Text_HidekiDefeat
 	msgbox SaffronCity_Dojo_Text_HidekiPostBattle, MSGBOX_AUTOCLOSE
+	goto SaffronCity_Dojo_EventScript_IcePunch
 	end
 
 SaffronCity_Dojo_EventScript_IcePunch::
@@ -138,9 +138,9 @@ SaffronCity_Dojo_EventScript_IcePunch::
 	end
 
 SaffronCity_Dojo_EventScript_Aaron::
-	goto_if_defeated TRAINER_BLACK_BELT_AARON, SaffronCity_Dojo_EventScript_BlazeKick
 	trainerbattle_single TRAINER_BLACK_BELT_AARON, SaffronCity_Dojo_Text_AaronIntro, SaffronCity_Dojo_Text_AaronDefeat
 	msgbox SaffronCity_Dojo_Text_AaronPostBattle, MSGBOX_AUTOCLOSE
+	goto SaffronCity_Dojo_EventScript_BlazeKick
 	end
 
 SaffronCity_Dojo_EventScript_BlazeKick::
@@ -150,9 +150,9 @@ SaffronCity_Dojo_EventScript_BlazeKick::
 	end
 
 SaffronCity_Dojo_EventScript_Mike::
-	goto_if_defeated TRAINER_BLACK_BELT_MIKE, SaffronCity_Dojo_EventScript_HighJumpKick
 	trainerbattle_single TRAINER_BLACK_BELT_MIKE, SaffronCity_Dojo_Text_MikeIntro, SaffronCity_Dojo_Text_MikeDefeat
 	msgbox SaffronCity_Dojo_Text_MikePostBattle, MSGBOX_AUTOCLOSE
+	goto SaffronCity_Dojo_EventScript_HighJumpKick
 	end
 
 SaffronCity_Dojo_EventScript_HighJumpKick::
