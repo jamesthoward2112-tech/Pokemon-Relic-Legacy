@@ -97,19 +97,23 @@ SilphCo_5F_Text_BeauPostBattle::
 	.string "after seeing RELIC data!$"
 
 SilphCo_5F_Text_DaltonIntro::
-	.string "Whaaat?\p"
-	.string "There shouldn't be any children\n"
-	.string "here!$"
+	.string "A kid?! In the MASTER\n"
+	.string "BALL laboratory?!\p"
+	.string "You can't see the plans!$"
 
 SilphCo_5F_Text_DaltonDefeat::
 	.string "Oh, goodness!$"
 
 SilphCo_5F_Text_DaltonPostBattle::
-	.string "You're only on 5F.\n"
-	.string "It's a long way to my BOSS!$"
+	.string "BOSS wants the MASTER BALL\n"
+	.string "to catch some ancient beast.\p"
+	.string "The drawings could be myth.\n"
+	.string "But he won't take that chance.$"
 
 SilphCo_5F_Text_Grunt2Intro::
-	.string "Show TEAM ROCKET a little respect!$"
+	.string "The RELIC records are ours!\p"
+	.string "Even SILPH's best minds\n"
+	.string "can't explain those markings.$"
 
 SilphCo_5F_Text_Grunt2Defeat::
 	.string "Cough…\n"
