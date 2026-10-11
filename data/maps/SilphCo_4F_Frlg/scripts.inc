@@ -40,8 +40,9 @@ SilphCo_4F_EventScript_Grunt2::
 	end
 
 SilphCo_4F_Text_CantYouSeeImHiding::
-	.string "Sssh!\n"
-	.string "Can't you see I'm hiding?$"
+	.string "Sssh! I'm hiding from ROCKET!\p"
+	.string "They stole our MT. MOON\n"
+	.string "records and Cinnabar notes.$"
 
 SilphCo_4F_Text_TeamRocketIsGone::
 	.string "Huh?\n"
@@ -63,17 +64,18 @@ SilphCo_4F_Text_Grunt1PostBattle::
 	.string "The same mark keeps turning up!$"
 
 SilphCo_4F_Text_RodneyIntro::
-	.string "My POKéMON is my loyal servant.$"
+	.string "My POKéMON obey me!\p"
+	.string "Just like these fossil\n"
+	.string "specimens obey TEAM ROCKET!$"
 
 SilphCo_4F_Text_RodneyDefeat::
 	.string "Darn!\n"
 	.string "You weak POKéMON!$"
 
 SilphCo_4F_Text_RodneyPostBattle::
-	.string "The doors are electronically\n"
-	.string "locked.\p"
-	.string "It takes a CARD KEY to open the\n"
-	.string "doors here.$"
+	.string "The doors need a CARD KEY.\p"
+	.string "BOSS locked the RELIC files\n"
+	.string "behind those doors too!$"
 
 SilphCo_4F_Text_Grunt2Intro::
 	.string "Halt! Don't touch the\n"
