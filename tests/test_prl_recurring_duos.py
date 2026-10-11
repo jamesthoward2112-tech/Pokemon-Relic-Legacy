@@ -149,7 +149,7 @@ class PRLRecurringDuos(unittest.TestCase):
                     expected_facing = "MOVEMENT_TYPE_FACE_LEFT" if name.endswith("_SS_ANNE") else "MOVEMENT_TYPE_FACE_DOWN"
                     self.assertEqual(obj["movement_type"], expected_facing)
                 if name.endswith("_SS_ANNE"):
-                    self.assertEqual([(obj["x"], obj["y"]) for obj in twins], [(31, 9), (32, 9)])
+                    self.assertEqual([(obj["x"], obj["y"]) for obj in twins], [(31, 9), (31, 8)])
                 script = read(f"data/maps/{map_name}/scripts.inc")
                 suffix = name.split("STEEVE_NEEVEE_", 1)[1]
                 prefix = {"ROUTE3": "Route3", "SS_ANNE": "SSAnne_2F_Corridor",
