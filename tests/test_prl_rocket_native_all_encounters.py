@@ -25,7 +25,9 @@ class RocketNativeTrainerRegression(unittest.TestCase):
                 for name in ("JESSIE", "JAMES"):
                     npc = actors["LOCALID_PRL_" + name + "_" + tag]
                     self.assertEqual(npc["trainer_type"], "TRAINER_TYPE_NORMAL")
-                    self.assertEqual(npc["movement_type"], "MOVEMENT_TYPE_FACE_DOWN")
+                    expected_direction = ("MOVEMENT_TYPE_FACE_RIGHT" if tag == "HIDEOUT"
+                                          else "MOVEMENT_TYPE_FACE_DOWN")
+                    self.assertEqual(npc["movement_type"], expected_direction)
                     self.assertEqual(int(npc["trainer_sight_or_berry_tree_id"]), 4)
                     self.assertEqual(npc["script"], prefix + "_EventScript_PRL_" + name.title())
                     self.assertEqual(npc["flag"], "FLAG_HIDE_PRL_ROCKET_" + ("MT_MOON" if tag == "MT_MOON" else tag))
