@@ -9442,11 +9442,28 @@ void TryRestoreHeldItems(void)
 
     for (u32 i = 0; i < PARTY_SIZE; i++)
     {
+        enum Item originalItem = gBattleStruct->itemLost[B_TRAINER_PLAYER][i].originalItem;
+        enum Item currentItem = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_HELD_ITEM);
+
+        // PRL: held items are reusable between battles. A consumed Berry,
+        // Focus Sash, herb, policy, Air Balloon, etc. disappears during the
+        // battle as normal, then returns to its original holder afterwards.
+        // Restore only an empty slot: do not overwrite a different held item
+        // acquired through Thief, Covet, Trick or another battle effect.
+        // Nothing is given to a mon that entered battle without an item.
+        if (originalItem != ITEM_NONE && currentItem == ITEM_NONE)
+        {
+            SetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_HELD_ITEM, &originalItem);
+            continue;
+        }
+
+        // Preserve the engine's existing rules for reversing trainer-battle
+        // theft and exchanges, including normal non-consumable held items.
         if (gBattleStruct->itemLost[B_TRAINER_PLAYER][i].stolen || returnNPCItems)
         {
-            enum Item lostItem = gBattleStruct->itemLost[B_TRAINER_PLAYER][i].originalItem;
+            enum Item lostItem = originalItem;
 
-            if (GetItemPocket(lostItem) == POCKET_BERRIES && GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_HELD_ITEM) != lostItem)
+            if (GetItemPocket(lostItem) == POCKET_BERRIES && currentItem != lostItem)
                 lostItem = ITEM_NONE;
 
             if ((lostItem != ITEM_NONE || returnNPCItems) && GetItemPocket(lostItem) != POCKET_BERRIES)
