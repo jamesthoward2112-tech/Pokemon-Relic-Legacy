@@ -42,24 +42,24 @@ Route15_WestEntrance_2F_EventScript_GetAideRequestInfo::
 	return
 
 Route15_WestEntrance_2F_Text_GiveItemIfCaughtEnough::
-\t.string "The relic search has taken\n"
-\t.string "our team across Kanto.\p"
-\t.string "PROF. OAK sent LEFTOVERS\n"
-\t.string "for your long expeditions.$"
+	.string "The relic search has taken\n"
+	.string "our team across Kanto.\p"
+	.string "PROF. OAK sent LEFTOVERS\n"
+	.string "for your long expeditions.$"
 
 Route15_WestEntrance_2F_Text_GreatHereYouGo::
 	.string "PROF. OAK sent this for you.\n"
 	.string "Here you go!$"
 
 Route15_WestEntrance_2F_Text_ReceivedItemFromAide::
-\t.string "{PLAYER} received LEFTOVERS\n"
-\t.string "from PROF. OAK's AIDE!$"
+	.string "{PLAYER} received LEFTOVERS\n"
+	.string "from PROF. OAK's AIDE!$"
 
 Route15_WestEntrance_2F_Text_ExplainExpShare::
-\t.string "LEFTOVERS restores HP each\n"
-\t.string "turn during battle.\p"
-\t.string "Keep it on a POKéMON for\n"
-\t.string "those long relic searches.$"
+	.string "LEFTOVERS restores HP each\n"
+	.string "turn during battle.\p"
+	.string "Keep it on a POKéMON for\n"
+	.string "those long relic searches.$"
 
 Route15_WestEntrance_2F_Text_LargeShiningBird::
 	.string "Let's see what the binoculars have\n"
