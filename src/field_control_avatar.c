@@ -99,12 +99,13 @@ void FieldClearPlayerInput(struct FieldInput *input)
     input->input_field_1_1 = FALSE;
     input->input_field_1_2 = FALSE;
     input->input_field_1_3 = FALSE;
+    input->tappedSelectButton = FALSE;
+    input->heldSelectButton = FALSE;
     input->dpadDirection = 0;
 }
 
-// Keep a held SELECT press until the player reaches a tile centre and
-// require button release before a second menu activation.
-static bool8 sPRLSelectConsumed;
+// PJR: distinguish a short SELECT tap from a 60-frame hold.
+static EWRAM_DATA u8 sPlayerSelectHoldFrames = 0;
 
 void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
 {
@@ -112,20 +113,24 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
     u8 runningState = gPlayerAvatar.runningState;
     bool8 forcedMove = MetatileBehavior_IsForcedMovementTile(GetPlayerCurMetatileBehavior(runningState));
 
-    if (!(heldKeys & SELECT_BUTTON))
-        sPRLSelectConsumed = FALSE;
-
     if ((tileTransitionState == T_TILE_CENTER && forcedMove == FALSE) || tileTransitionState == T_NOT_MOVING)
     {
-        if ((heldKeys & SELECT_BUTTON) && !sPRLSelectConsumed)
-        {
-            input->pressedSelectButton = TRUE;
-            sPRLSelectConsumed = TRUE;
-        }
         if (GetPlayerSpeed() != PLAYER_SPEED_FASTEST)
         {
             if (newKeys & START_BUTTON)
                 input->pressedStartButton = TRUE;
+            if (newKeys & SELECT_BUTTON)
+                input->pressedSelectButton = TRUE;
+            if (sPlayerSelectHoldFrames == 60)
+                input->heldSelectButton = TRUE;
+            if (heldKeys & SELECT_BUTTON)
+                sPlayerSelectHoldFrames = sPlayerSelectHoldFrames < 0xFF ? sPlayerSelectHoldFrames + 1 : 0xFF;
+            else if (sPlayerSelectHoldFrames != 0)
+            {
+                if (sPlayerSelectHoldFrames < 60)
+                    input->tappedSelectButton = TRUE;
+                sPlayerSelectHoldFrames = 0;
+            }
             if (newKeys & A_BUTTON)
                 input->pressedAButton = TRUE;
             if (newKeys & B_BUTTON)
@@ -244,7 +249,9 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     if (input->tookStep && TryFindHiddenPokemon())
         return TRUE;
 
-    if (input->pressedSelectButton && UseRegisteredKeyItemOnField() == TRUE)
+    if (input->tappedSelectButton && UseRegisteredKeyItemOnField(FALSE) == TRUE)
+        return TRUE;
+    if (input->heldSelectButton && UseRegisteredKeyItemOnField(TRUE) == TRUE)
         return TRUE;
 
     if (input->pressedRButton && TryStartDexNavSearch())
