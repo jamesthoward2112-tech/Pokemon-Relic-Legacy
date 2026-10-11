@@ -2755,6 +2755,13 @@ u8 GetMoveSlotToReplace(void)
     return sMoveSlotToReplace;
 }
 
+// The in-place move relearner must pass the selected slot to the common
+// LearnMove state machine without opening the summary screen.
+void SetMoveSlotToReplace(u8 slot)
+{
+    sMoveSlotToReplace = slot;
+}
+
 static void DrawPagination(void) // Updates the pagination dots at the top of the summary screen
 {
     u16 *tilemap = Alloc(8 * PSS_PAGE_COUNT);
