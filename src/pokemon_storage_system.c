@@ -5866,10 +5866,14 @@ static struct Sprite *CreateChooseBoxArrows(u16 x, u16 y, u8 animId, u8 priority
 
 static void InitCursor(void)
 {
-    if (sStorage->boxOption != OPTION_DEPOSIT)
-        sCursorArea = CURSOR_AREA_IN_BOX;
-    else
+    // The PC-mon selector opens with the party panel visible. Initialise
+    // its *cursor area* to party too, or UI and input disagree: selecting a
+    // party Pokémon actually selects a Box 1 slot and corrupts the move
+    // relearning flow. Keep the box panel available via the normal toggle.
+    if (sStorage->boxOption == OPTION_DEPOSIT || sStorage->boxOption == OPTION_SELECT_MON)
         sCursorArea = CURSOR_AREA_IN_PARTY;
+    else
+        sCursorArea = CURSOR_AREA_IN_BOX;
 
     sCursorPosition = 0;
     sIsMonBeingMoved = FALSE;
