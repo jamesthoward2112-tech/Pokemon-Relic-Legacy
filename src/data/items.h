@@ -16119,12 +16119,12 @@ const struct ItemInfo gItemsInfo[] =
 
 [ITEM_ANCIENT_STONE] =
     {
-        .name = ITEM_NAME("Shiny Stone"),
+        .name = ITEM_NAME("Ancient Stone"),
         .price = (I_PRICE >= GEN_7) ? 3000 : 2100,
         .description = COMPOUND_STRING(
-            "Makes certain\n"
-            "species of Pokémon\n"
-            "evolve."),
+            "An old stone that\n"
+            "awakens dormant\n"
+            "RELIC powers."),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_EVOLUTION_STONE,
         .type = ITEM_USE_PARTY_MENU,
