@@ -17,10 +17,43 @@ SaffronCity_Dojo_EventScript_TriggerMasterBattleRight::
 	releaseall
 	end
 
+@ Original FireRed Dojo gifts set FLAG_GOT_HITMON_FROM_DOJO (0x278)
+@ but did not track which species. On old saves with that flag, use
+@ caught Pokédex records (including Pokémon deposited in PC) once.
+SaffronCity_Dojo_EventScript_EnsureGiftFlags::
+	goto_if_set FLAG_PRL_DOJO_GIFT_MIGRATED, SaffronCity_Dojo_EventScript_EnsureGiftFlagsDone
+	goto_if_set FLAG_GOT_HITMON_FROM_DOJO, SaffronCity_Dojo_EventScript_MigrateGiftFlags
+	goto SaffronCity_Dojo_EventScript_MigrationDone
+
+SaffronCity_Dojo_EventScript_MigrateGiftFlags::
+	getcaughtmon SPECIES_HITMONLEE
+	goto_if_eq VAR_RESULT, FALSE, SaffronCity_Dojo_EventScript_MigrateHitmonchan
+	setflag FLAG_PRL_DOJO_HITMONLEE_CLAIMED
+SaffronCity_Dojo_EventScript_MigrateHitmonchan::
+	getcaughtmon SPECIES_HITMONCHAN
+	goto_if_eq VAR_RESULT, FALSE, SaffronCity_Dojo_EventScript_MigrationDone
+	setflag FLAG_PRL_DOJO_HITMONCHAN_CLAIMED
+SaffronCity_Dojo_EventScript_MigrationDone::
+	setflag FLAG_PRL_DOJO_GIFT_MIGRATED
+SaffronCity_Dojo_EventScript_EnsureGiftFlagsDone::
+	return
+
 SaffronCity_Dojo_EventScript_HitmonleeBall::
 	lock
 	faceplayer
-	goto_if_set FLAG_GOT_HITMON_FROM_DOJO, SaffronCity_Dojo_EventScript_AlreadyGotHitmon
+	goto_if_defeated TRAINER_BLACK_BELT_KOICHI, SaffronCity_Dojo_EventScript_CheckHitmonlee
+	msgbox SaffronCity_Dojo_Text_DefeatMasterFirst
+	release
+	end
+
+SaffronCity_Dojo_EventScript_CheckHitmonlee::
+	call SaffronCity_Dojo_EventScript_EnsureGiftFlags
+	goto_if_set FLAG_PRL_DOJO_HITMONLEE_CLAIMED, SaffronCity_Dojo_EventScript_AlreadyGotHitmon
+	goto_if_unset FLAG_PRL_DOJO_HITMONCHAN_CLAIMED, SaffronCity_Dojo_EventScript_OfferHitmonlee
+	goto_if_set FLAG_PRL_BADGE_KANTO_SABRINA, SaffronCity_Dojo_EventScript_OfferHitmonlee
+	goto SaffronCity_Dojo_EventScript_SecondHitmonLocked
+
+SaffronCity_Dojo_EventScript_OfferHitmonlee::
 	showmonpic SPECIES_HITMONLEE, 10, 3
 	setvar VAR_TEMP_1, SPECIES_HITMONLEE
 	applymovement LOCALID_KARATE_MASTER, Common_Movement_WalkInPlaceFasterUp
@@ -33,15 +66,22 @@ SaffronCity_Dojo_EventScript_HitmonleeBall::
 	release
 	end
 
-SaffronCity_Dojo_EventScript_AlreadyGotHitmon::
-	msgbox SaffronCity_Dojo_Text_BetterNotGetGreedy
-	release
-	end
-
 SaffronCity_Dojo_EventScript_HitmonchanBall::
 	lock
 	faceplayer
-	goto_if_set FLAG_GOT_HITMON_FROM_DOJO, SaffronCity_Dojo_EventScript_AlreadyGotHitmon
+	goto_if_defeated TRAINER_BLACK_BELT_KOICHI, SaffronCity_Dojo_EventScript_CheckHitmonchan
+	msgbox SaffronCity_Dojo_Text_DefeatMasterFirst
+	release
+	end
+
+SaffronCity_Dojo_EventScript_CheckHitmonchan::
+	call SaffronCity_Dojo_EventScript_EnsureGiftFlags
+	goto_if_set FLAG_PRL_DOJO_HITMONCHAN_CLAIMED, SaffronCity_Dojo_EventScript_AlreadyGotHitmon
+	goto_if_unset FLAG_PRL_DOJO_HITMONLEE_CLAIMED, SaffronCity_Dojo_EventScript_OfferHitmonchan
+	goto_if_set FLAG_PRL_BADGE_KANTO_SABRINA, SaffronCity_Dojo_EventScript_OfferHitmonchan
+	goto SaffronCity_Dojo_EventScript_SecondHitmonLocked
+
+SaffronCity_Dojo_EventScript_OfferHitmonchan::
 	showmonpic SPECIES_HITMONCHAN, 10, 3
 	setvar VAR_TEMP_1, SPECIES_HITMONCHAN
 	applymovement LOCALID_KARATE_MASTER, Common_Movement_WalkInPlaceFasterUp
@@ -54,6 +94,16 @@ SaffronCity_Dojo_EventScript_HitmonchanBall::
 	release
 	end
 
+SaffronCity_Dojo_EventScript_AlreadyGotHitmon::
+	msgbox SaffronCity_Dojo_Text_AlreadyClaimedThisHitmon
+	release
+	end
+
+SaffronCity_Dojo_EventScript_SecondHitmonLocked::
+	msgbox SaffronCity_Dojo_Text_SecondHitmonRequiresSabrina
+	release
+	end
+
 SaffronCity_Dojo_EventScript_GiveHitmon::
 	hidemonpic
 	givemon VAR_TEMP_1, 25
@@ -63,6 +113,15 @@ SaffronCity_Dojo_EventScript_GiveHitmon::
 	release
 	end
 
+SaffronCity_Dojo_EventScript_RecordHitmonGift::
+	setflag FLAG_GOT_HITMON_FROM_DOJO
+	goto_if_eq VAR_TEMP_1, SPECIES_HITMONLEE, SaffronCity_Dojo_EventScript_RecordHitmonlee
+	setflag FLAG_PRL_DOJO_HITMONCHAN_CLAIMED
+	return
+SaffronCity_Dojo_EventScript_RecordHitmonlee::
+	setflag FLAG_PRL_DOJO_HITMONLEE_CLAIMED
+	return
+
 SaffronCity_Dojo_EventScript_ReceivedHitmonParty::
 	removeobject VAR_LAST_TALKED
 	bufferspeciesname STR_VAR_1, VAR_TEMP_1
@@ -70,7 +129,7 @@ SaffronCity_Dojo_EventScript_ReceivedHitmonParty::
 	message SaffronCity_Dojo_Text_ReceivedMonFromKarateMaster
 	waitmessage
 	waitfanfare
-	setflag FLAG_GOT_HITMON_FROM_DOJO
+	call SaffronCity_Dojo_EventScript_RecordHitmonGift
 	msgbox gText_NicknameThisPokemon, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, SaffronCity_Dojo_EventScript_EndGiveMon
 	call Common_EventScript_GetGiftMonPartySlot
@@ -85,7 +144,7 @@ SaffronCity_Dojo_EventScript_ReceivedHitmonPC::
 	message SaffronCity_Dojo_Text_ReceivedMonFromKarateMaster
 	waitmessage
 	waitfanfare
-	setflag FLAG_GOT_HITMON_FROM_DOJO
+	call SaffronCity_Dojo_EventScript_RecordHitmonGift
 	msgbox gText_NicknameThisPokemon, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, SaffronCity_Dojo_EventScript_TransferredHitmonToPC
 	call Common_EventScript_NameReceivedBoxMon
@@ -163,8 +222,25 @@ SaffronCity_Dojo_EventScript_HighJumpKick::
 
 SaffronCity_Dojo_EventScript_MasterKoichi::
 	trainerbattle_single TRAINER_BLACK_BELT_KOICHI, SaffronCity_Dojo_Text_MasterKoichiIntro, SaffronCity_Dojo_Text_MasterKoichiDefeat, SaffronCity_Dojo_EventScript_DefeatedMasterKoichi
-	goto_if_set FLAG_GOT_HITMON_FROM_DOJO, SaffronCity_Dojo_EventScript_MasterKoichiAlreadyGotHitmon
-	msgbox SaffronCity_Dojo_Text_ChoosePrizedFightingMon, MSGBOX_AUTOCLOSE
+	call SaffronCity_Dojo_EventScript_EnsureGiftFlags
+	goto_if_set FLAG_PRL_DOJO_HITMONLEE_CLAIMED, SaffronCity_Dojo_EventScript_KoichiAfterFirst
+	goto_if_set FLAG_PRL_DOJO_HITMONCHAN_CLAIMED, SaffronCity_Dojo_EventScript_KoichiAfterFirst
+	msgbox SaffronCity_Dojo_Text_ChoosePrizedFightingMon
+	release
+	end
+
+SaffronCity_Dojo_EventScript_KoichiAfterFirst::
+	goto_if_unset FLAG_PRL_DOJO_HITMONLEE_CLAIMED, SaffronCity_Dojo_EventScript_KoichiSecondPending
+	goto_if_set FLAG_PRL_DOJO_HITMONCHAN_CLAIMED, SaffronCity_Dojo_EventScript_MasterKoichiAlreadyGotHitmon
+SaffronCity_Dojo_EventScript_KoichiSecondPending::
+	goto_if_set FLAG_PRL_BADGE_KANTO_SABRINA, SaffronCity_Dojo_EventScript_KoichiSecondReady
+	msgbox SaffronCity_Dojo_Text_SecondHitmonRequiresSabrina
+	release
+	end
+
+SaffronCity_Dojo_EventScript_KoichiSecondReady::
+	msgbox SaffronCity_Dojo_Text_SecondHitmonUnlocked
+	release
 	end
 
 SaffronCity_Dojo_EventScript_MasterKoichiAlreadyGotHitmon::
@@ -195,11 +271,29 @@ SaffronCity_Dojo_Text_ChoosePrizedFightingMon::
 	.string "our emblem as your trophy!\p"
 	.string "In return, I will give you a prized\n"
 	.string "FIGHTING POKéMON!\p"
-	.string "Choose whichever one you like!$"
+	.string "Choose whichever one you like!\p"
+	.string "Beat SABRINA in the GYM next door,\n"
+	.string "and the other is yours, too!$"
 
 SaffronCity_Dojo_Text_StayAndTrainWithUs::
 	.string "Grunt!\n"
 	.string "Stay and train at karate with us!$"
+
+SaffronCity_Dojo_Text_DefeatMasterFirst::
+	.string "The KARATE MASTER must approve\n"
+	.string "your choice first.$"
+SaffronCity_Dojo_Text_SecondHitmonRequiresSabrina::
+	.string "You've earned one of our prized\n"
+	.string "FIGHTING POKéMON.\p"
+	.string "Defeat SABRINA at the GYM next\n"
+	.string "door, then return for the other!$"
+SaffronCity_Dojo_Text_SecondHitmonUnlocked::
+	.string "You defeated SABRINA!\p"
+	.string "Our second prized FIGHTING\n"
+	.string "POKéMON is yours. Take it!$"
+SaffronCity_Dojo_Text_AlreadyClaimedThisHitmon::
+	.string "You've already claimed this\n"
+	.string "FIGHTING POKéMON!$"
 
 SaffronCity_Dojo_Text_MikeIntro::
 	.string "Hoargh!\n"

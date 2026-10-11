@@ -1291,6 +1291,12 @@
 #define FLAG_PRL_BADGE_HOENN_TATE_LIZA          FLAG_0x4D3
 #define FLAG_PRL_BADGE_HOENN_JUAN               FLAG_0x4D4
 
+// PRL Dojo rewards: FireRed-specific persistent save flags.
+// Original one-time FLAG_GOT_HITMON_FROM_DOJO is 0x278.
+#define FLAG_PRL_DOJO_HITMONLEE_CLAIMED   FLAG_0x4D5
+#define FLAG_PRL_DOJO_HITMONCHAN_CLAIMED  FLAG_0x4D6
+#define FLAG_PRL_DOJO_GIFT_MIGRATED      FLAG_0x4D7
+
 #define FLAG_0x4D5               0x4D5
 #define FLAG_0x4D6               0x4D6
 #define FLAG_0x4D7               0x4D7

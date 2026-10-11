@@ -99,7 +99,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "SaffronCity_Dojo_EventScript_HitmonleeBall",
-      "flag": "FLAG_HIDE_DOJO_HITMONLEE_BALL"
+      "flag": "FLAG_PRL_DOJO_HITMONLEE_CLAIMED"
     },
     {
       "type": "object",
@@ -113,7 +113,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "SaffronCity_Dojo_EventScript_HitmonchanBall",
-      "flag": "FLAG_HIDE_DOJO_HITMONCHAN_BALL"
+      "flag": "FLAG_PRL_DOJO_HITMONCHAN_CLAIMED"
     }
   ],
   "warp_events": [
