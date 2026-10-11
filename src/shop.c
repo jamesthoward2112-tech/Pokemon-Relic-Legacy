@@ -111,7 +111,8 @@ struct ShopData
 static EWRAM_DATA struct MartInfo sMartInfo = {0};
 static EWRAM_DATA struct ShopData *sShopData = NULL;
 static EWRAM_DATA struct ListMenuItem *sListMenuItems = NULL;
-static EWRAM_DATA u8 (*sItemNames)[ITEM_NAME_LENGTH + 2] = {0};
+// Enough space for TM number + a space + its actual move name in Celadon.
+static EWRAM_DATA u8 (*sItemNames)[ITEM_NAME_LENGTH + MOVE_NAME_LENGTH + 4] = {0};
 static EWRAM_DATA u8 sPurchaseHistoryId = 0;
 EWRAM_DATA struct ItemSlot gMartPurchaseHistory[SMARTSHOPPER_NUM_ITEMS] = {0};
 
@@ -570,6 +571,18 @@ static void BuyMenuFreeMemory(void)
     FreeAllWindowBuffers();
 }
 
+// Scope the wider TM labels to Celadon's complete TM01-TM50 counter;
+// all other marts and the Bag retain their normal item names and layouts.
+static bool32 PRLIsCeladonFullTMShop(void)
+{
+    return sMartInfo.martType == MART_TYPE_NORMAL
+        && sMartInfo.itemCount == 50
+        && sMartInfo.itemList[0] == ITEM_TM01
+        && sMartInfo.itemList[49] == ITEM_TM50;
+}
+
+static const u8 sPRLTMNameSpace[] = _(" ");
+
 static void BuyMenuBuildListMenuTemplate(void)
 {
     u16 i;
@@ -585,6 +598,9 @@ static void BuyMenuBuildListMenuTemplate(void)
 
     gMultiuseListMenuTemplate = sShopBuyMenuListTemplate;
     gMultiuseListMenuTemplate.items = sListMenuItems;
+    // Compact long TM move names while preserving the right-hand price column.
+    if (PRLIsCeladonFullTMShop())
+        gMultiuseListMenuTemplate.textNarrowWidth = 76;
     gMultiuseListMenuTemplate.totalItems = sMartInfo.itemCount + 1;
     if (gMultiuseListMenuTemplate.totalItems > MAX_ITEMS_SHOWN)
         gMultiuseListMenuTemplate.maxShowed = MAX_ITEMS_SHOWN;
@@ -597,7 +613,16 @@ static void BuyMenuBuildListMenuTemplate(void)
 static void BuyMenuSetListEntry(struct ListMenuItem *menuItem, enum Item item, u8 *name)
 {
     if (sMartInfo.martType == MART_TYPE_NORMAL)
+    {
         CopyItemName(item, name);
+        if (PRLIsCeladonFullTMShop() && item >= ITEM_TM01 && item <= ITEM_TM50)
+        {
+            // Show e.g. "TM24 THUNDERBOLT" in the shop list. Use the engine's
+            // own item-to-move mapping, not an outdated hardcoded TM table.
+            StringAppend(name, sPRLTMNameSpace);
+            StringAppend(name, GetMoveName(ItemIdToBattleMoveId(item)));
+        }
+    }
     else
         StringCopy(name, gDecorations[item].name);
 
