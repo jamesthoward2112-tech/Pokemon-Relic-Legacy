@@ -652,11 +652,35 @@ static bool32 PRLIsSteeveNeeveeSignatureEevee(enum BattlerId battler, enum Speci
     return FALSE;
 }
 
+
+// Jessie & James are the only trainers that display Galarian Weezing art.
+// The underlying mon remains SPECIES_WEEZING: moves, typing, stats, ability,
+// party/save identity and damage calculation all remain unchanged.
+static bool32 PRLIsJessieJamesWeezingVisual(enum BattlerId battler, enum Species species)
+{
+#if IS_FRLG
+    if (species != SPECIES_WEEZING || IsOnPlayerSide(battler)
+        || !(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
+        return FALSE;
+
+    switch (TRAINER_BATTLE_PARAM.opponentA)
+    {
+    case TRAINER_JESSIE_JAMES_MT_MOON:
+    case TRAINER_JESSIE_JAMES_HIDEOUT:
+    case TRAINER_JESSIE_JAMES_SILPH:
+    case TRAINER_JESSIE_JAMES_VICTORY_ROAD:
+        return TRUE;
+    }
+#endif
+    return FALSE;
+}
+
 void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
 {
     u32 personalityValue, paletteOffset;
     bool32 isShiny;
     bool32 prlTwinsEevee;
+    bool32 prlRocketWeezing;
     enum Species species;
     enum BattlerPosition position;
     const u16 *paletteData;
@@ -688,17 +712,21 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
     position = GetBattlerPosition(battler);
     prlTwinsEevee = PRLIsSteeveNeeveeSignatureEevee(battler, species)
                    && gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE;
+    prlRocketWeezing = PRLIsJessieJamesWeezingVisual(battler, species)
+                       && gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE;
     if (prlTwinsEevee)
         DecompressDataWithHeaderWram(gPRLEeveeTwinsFrontPic, gMonSpritesGfxPtr->spritesGfx[position]);
     else
         HandleLoadSpecialPokePic(!IsOnPlayerSide(battler),
                                  gMonSpritesGfxPtr->spritesGfx[position],
-                                 species, personalityValue);
+                                 prlRocketWeezing ? SPECIES_WEEZING_GALAR : species, personalityValue);
 
     paletteOffset = OBJ_PLTT_ID(battler);
 
     if (prlTwinsEevee)
         paletteData = isShiny ? gPRLEeveeTwinsShinyPalette : gPRLEeveeTwinsNormalPalette;
+    else if (prlRocketWeezing)
+        paletteData = GetMonSpritePalFromSpeciesAndPersonality(SPECIES_WEEZING_GALAR, isShiny, personalityValue);
     else if (gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE)
         paletteData = GetMonFrontSpritePal(mon);
     else
