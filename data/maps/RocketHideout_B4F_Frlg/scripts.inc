@@ -252,7 +252,7 @@ RocketHideout_B4F_Text_PRL_MeowthAfter::
 	.string "MEOWTH: They lost AGAIN?!$"
 
 RocketHideout_B4F_Text_PRL_RocketIntro::
-	.string "JESSIE: You again?!\p"
+	.string "JESSIE: You ruined MT. MOON!\p"
 	.string "JAMES: These RELIC ledgers\n"
 	.string "came from ancient KANTO.\p"
 	.string "JESSIE: You will NOT get\n"
