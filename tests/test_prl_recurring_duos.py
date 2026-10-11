@@ -19,7 +19,6 @@ ENCOUNTERS = {
 GATES = {
     "STEEVE_NEEVEE_ROUTE3": "FLAG_BADGE01_GET",
     "STEEVE_NEEVEE_SS_ANNE": "FLAG_GOT_SS_TICKET",
-    "STEEVE_NEEVEE_TOWER": "ITEM_SILPH_SCOPE",
     "STEEVE_NEEVEE_ROUTE23": "FLAG_BADGE08_GET",
     "JESSIE_JAMES_MT_MOON": "FLAG_GOT_FOSSIL_FROM_MT_MOON",
     "JESSIE_JAMES_HIDEOUT": "FLAG_CAN_USE_ROCKET_HIDEOUT_LIFT",
@@ -62,9 +61,15 @@ class PRLRecurringDuos(unittest.TestCase):
                     self.assertIn(f"goto_if_defeated TRAINER_{name}", script)
                 else:
                     self.assertIn(f"trainerbattle_double TRAINER_{name}", script)  # native trainer flag detection
-                self.assertIn(GATES[name], script)
-                if GATES[name] == "ITEM_SILPH_SCOPE":
-                    self.assertIn("checkitem ITEM_SILPH_SCOPE", script)
+                if name in GATES:
+                    self.assertIn(GATES[name], script)
+                if name == "STEEVE_NEEVEE_TOWER":
+                    for actor in ("Steevee", "Neevee"):
+                        label = f"PokemonTower_1F_EventScript_PRLSteeveNeevee{actor}::"
+                        body = script.split(label, 1)[1]
+                        self.assertTrue(body.startswith("\\n\\ttrainerbattle_double".replace("\\\\n", "\\n").replace("\\\\t", "\\t")),
+                                        f"Tower {actor} must start with trainerbattle for native trainer sight")
+                    self.assertNotIn("PokemonTower_1F_EventScript_PRLSteeveNeeveeNotReady", script)
                 map_data = json.loads(read(f"data/maps/{map_name}/map.json"))
                 if name == "JESSIE_JAMES_MT_MOON":
                     self.assertIn("MtMoon_B1F_EventScript_PRL_Jessie", script)
@@ -91,7 +96,9 @@ class PRLRecurringDuos(unittest.TestCase):
                         self.assertEqual(actors[0]["y"], actors[1]["y"])
                         self.assertEqual(abs(actors[0]["x"] - actors[1]["x"]), 1)
                     for o in actors:
-                        self.assertEqual(o["trainer_type"], "TRAINER_TYPE_NORMAL")
+                        expected_type = ("TRAINER_TYPE_SEE_ALL_DIRECTIONS"
+                                         if name == "STEEVE_NEEVEE_TOWER" else "TRAINER_TYPE_NORMAL")
+                        self.assertEqual(o["trainer_type"], expected_type)
                         self.assertGreaterEqual(int(o["trainer_sight_or_berry_tree_id"]), 3)
 
     def test_mt_moon_battle_follows_both_fossil_choices_without_replacing_miguel(self):
