@@ -41,7 +41,8 @@ class TestPjrRegisteredItems(unittest.TestCase):
         config = (ROOT / "include/config/dexnav.h").read_text()
         self.assertIn("#define DEXNAV_ENABLED                TRUE", config)
         relearner = (ROOT / "src/move_relearner.c").read_text()
-        self.assertIn("Task_HandleChooseMon", relearner)
+        self.assertIn("Task_MoveRelearner_HandleInput", relearner)
+        self.assertIn("PRL_IsExtraRelearnerMoveUnlocked", relearner)
 
 if __name__ == "__main__":
     unittest.main()
