@@ -1,0 +1,63 @@
+name: PRL Approved Duo Intros and Jessie James Kanto Finale
+
+on:
+  push:
+    branches: [prl/approved-duo-intros-jj-finale-20261011]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fire-red:
+    runs-on: ubuntu-latest
+    timeout-minutes: 85
+    env:
+      COMPARE: 0
+      GAME_REVISION: 0
+      GAME_LANGUAGE: ENGLISH
+    steps:
+      - name: Checkout approved 38-Crystal-background source
+        uses: actions/checkout@v4
+      - name: Recreate approved Crystal and new duo transition assets
+        run: |
+          python3 tools/prl_crystal_presentation_assets.py
+          python3 tools/prl_duo_20261011_assets.py
+      - name: Test source regression gates
+        run: |
+          python3 -m unittest tests.test_prl_duo_20261011 tests.test_prl_recurring_duos tests.test_prl_crystal_backgrounds
+      - name: Install GBA ARM toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends binutils-arm-none-eabi gcc-arm-none-eabi libnewlib-arm-none-eabi libpng-dev python3
+      - name: Build the playable FireRed ROM
+        shell: bash
+        run: |
+          set +e
+          make -j4 firered -O > /tmp/prl-duo-build.log 2>&1
+          status=$?
+          if [ "$status" -ne 0 ]; then
+            grep -E -C 4 'error:|fatal|undefined reference|No rule to make target|make.*\*\*\*' /tmp/prl-duo-build.log | tail -n 160 || tail -n 120 /tmp/prl-duo-build.log
+          else
+            tail -n 45 /tmp/prl-duo-build.log
+          fi
+          exit "$status"
+      - name: Verify resulting GBA header and checksum
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib
+          p=Path("pokefirered.gba")
+          rom=p.read_bytes()
+          assert len(rom) == 33554432, len(rom)
+          assert rom[0xAC:0xB0] == b"BPRE", rom[0xAC:0xB0]
+          print("PRL_ROM_SHA256=" + hashlib.sha256(rom).hexdigest())
+          PY
+      - name: Upload directly playable FireRed ROM
+        uses: actions/upload-artifact@v4
+        with:
+          name: PRL_Duo_Intros_JessieJames_Kanto_20261011
+          path: pokefirered.gba
+          if-no-files-found: error
+          retention-days: 2
