@@ -196,6 +196,20 @@ class PRLDuoApprovedArt(unittest.TestCase):
             self.assertIn("SPECIES_" + species, evolution)
             self.assertIn(species, src, "Expert should describe every current evolution")
 
+
+    def test_celadon_tm_shop_displays_number_and_real_move_name(self):
+        shop = (ROOT / "src/shop.c").read_text()
+        self.assertIn("PRLIsCeladonFullTMShop", shop)
+        self.assertIn("sMartInfo.itemCount == 50", shop)
+        self.assertIn("sMartInfo.itemList[0] == ITEM_TM01", shop)
+        self.assertIn("sMartInfo.itemList[49] == ITEM_TM50", shop)
+        self.assertIn("StringAppend(name, GetMoveName(ItemIdToBattleMoveId(item)))", shop)
+        self.assertIn("gMultiuseListMenuTemplate.textNarrowWidth = 76", shop)
+        self.assertIn("ITEM_NAME_LENGTH + MOVE_NAME_LENGTH + 4", shop)
+        tmshop = (ROOT / "data/maps/CeladonCity_DepartmentStore_2F_Frlg/scripts.inc").read_text()
+        self.assertEqual(sum(f".2byte ITEM_TM{i:02d}" in tmshop for i in range(1, 51)), 50)
+        self.assertIn(".2byte ITEM_PP_MAX", tmshop)
+
     def test_kanto_finale_has_strong_unchanged_mascots(self):
         party = (ROOT / "src/data/trainers_frlg.party").read_text()
         section = party.split("=== TRAINER_JESSIE_JAMES_VICTORY_ROAD ===", 1)[1].split("===", 1)[0]
