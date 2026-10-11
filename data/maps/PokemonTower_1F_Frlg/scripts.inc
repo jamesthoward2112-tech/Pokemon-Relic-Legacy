@@ -74,20 +74,13 @@ PokemonTower_1F_Text_SenseSpiritsUpToMischief::
 @ Ordinary sight-based twin trainers. The engine owns the ! and approach.
 @ Both share a trainer ID: a single double battle, then permanent postbattle dialogue.
 PokemonTower_1F_EventScript_PRLSteeveNeeveeSteevee::
-	checkitem ITEM_SILPH_SCOPE
-		goto_if_eq VAR_RESULT, FALSE, PokemonTower_1F_EventScript_PRLSteeveNeeveeNotReady
 	trainerbattle_double TRAINER_STEEVE_NEEVEE_TOWER, PokemonTower_1F_Text_PRL_SteeveNeeveeIntro, PokemonTower_1F_Text_PRL_SteeveNeeveeDefeat, PokemonTower_1F_Text_PRL_SteeveNeeveeNotEnoughMons, PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerWon, localId=LOCALID_PRL_STEEVE_TOWER
 	msgbox PokemonTower_1F_Text_PRL_SteeveNeeveePostBattle, MSGBOX_AUTOCLOSE
 	end
 
 PokemonTower_1F_EventScript_PRLSteeveNeeveeNeevee::
-	checkitem ITEM_SILPH_SCOPE
-		goto_if_eq VAR_RESULT, FALSE, PokemonTower_1F_EventScript_PRLSteeveNeeveeNotReady
 	trainerbattle_double TRAINER_STEEVE_NEEVEE_TOWER, PokemonTower_1F_Text_PRL_SteeveNeeveeIntro, PokemonTower_1F_Text_PRL_SteeveNeeveeDefeat, PokemonTower_1F_Text_PRL_SteeveNeeveeNotEnoughMons, PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerWon, localId=LOCALID_PRL_NEEVEE_TOWER
 	msgbox PokemonTower_1F_Text_PRL_SteeveNeeveePostBattle, MSGBOX_AUTOCLOSE
-	end
-
-PokemonTower_1F_EventScript_PRLSteeveNeeveeNotReady::
 	end
 
 PokemonTower_1F_EventScript_PRLSteeveNeeveeTriggerWon::
