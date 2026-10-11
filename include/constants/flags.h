@@ -34,6 +34,8 @@
 #define FLAG_PRL_GYM_HOENN_JUAN_EXTRA                     0x4AA
 // Next unused persistent FRLG event flag (no save-structure change).
 #define FLAG_PRL_ROUTE2_HOUSE_RESEARCH_GIFT               0x4AB
+// One-time missing Mt. Moon fossil gift from Oak's aide at Cinnabar Lab.
+#define FLAG_PRL_CINNABAR_OAK_FOSSIL_GIFT                 0x4AC
 
 // Temporary Flags
 // These temporary flags are are cleared every time a map is loaded. They are used
