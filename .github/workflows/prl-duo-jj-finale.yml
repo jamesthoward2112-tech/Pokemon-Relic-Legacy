@@ -30,6 +30,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends binutils-arm-none-eabi gcc-arm-none-eabi libnewlib-arm-none-eabi libpng-dev python3
+      - name: Recreate original approved PRL opening graphics
+        run: python3 tools/prl/prepare_hwl_scene0.py
       - name: Build the playable FireRed ROM
         shell: bash
         run: |
