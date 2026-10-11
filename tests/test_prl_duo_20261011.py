@@ -85,6 +85,38 @@ class PRLDuoApprovedArt(unittest.TestCase):
         self.assertIn("prlRocketWeezing ? SPECIES_WEEZING_GALAR : species", graphics)
         self.assertIn("GetMonSpritePalFromSpeciesAndPersonality(SPECIES_WEEZING_GALAR", graphics)
 
+    def test_all_standard_frlg_pokemon_center_upstairs_match_vermilion(self):
+        import json
+        kanto_centers = ("ViridianCity", "PewterCity", "CeruleanCity", "LavenderTown",
+                         "VermilionCity", "CeladonCity", "FuchsiaCity", "CinnabarIsland",
+                         "IndigoPlateau", "SaffronCity", "Route4", "Route10",
+                         "SevenIsland", "TwoIsland", "ThreeIsland", "FourIsland",
+                         "FiveIsland", "SixIsland")
+        base = json.loads((ROOT / "data/maps/VermilionCity_PokemonCenter_2F_Frlg/map.json").read_text())
+        for area in kanto_centers:
+            with self.subTest(center=area):
+                path = ROOT / f"data/maps/{area}_PokemonCenter_2F_Frlg/map.json"
+                room = json.loads(path.read_text())
+                self.assertEqual(room["layout"], "LAYOUT_POKEMON_CENTER_2F_FRLG")
+                self.assertEqual(room["object_events"], base["object_events"],
+                                 "Keep Vermilion's three upstairs services and Mystery Gift")
+                self.assertEqual(len(room["warp_events"]), len(base["warp_events"]))
+                self.assertEqual(room["warp_events"][0]["dest_map"],
+                                 f"MAP_{self._center_constant(area)}_POKEMON_CENTER_1F")
+        # One Island has its own original, intentional upstairs map layout.
+
+    @staticmethod
+    def _center_constant(area):
+        import re
+        return re.sub(r"(?<!^)(?=[A-Z][a-z])", "_", area).upper()
+
+    def test_omeon_uses_grounded_front_sprite_y_offset(self):
+        data = (ROOT / "src/data/pokemon/species_info/prl_custom.h").read_text()
+        block = data.split("[SPECIES_OMEON] =", 1)[1].split("[SPECIES_DRAKEON] =", 1)[0]
+        self.assertIn(".frontPic = gMonFrontPic_Omeon", block)
+        self.assertIn(".frontPicYOffset = 7", block)
+        self.assertIn(".backPicYOffset = 0", block)
+
     def test_kanto_finale_has_strong_unchanged_mascots(self):
         party = (ROOT / "src/data/trainers_frlg.party").read_text()
         section = party.split("=== TRAINER_JESSIE_JAMES_VICTORY_ROAD ===", 1)[1].split("===", 1)[0]
