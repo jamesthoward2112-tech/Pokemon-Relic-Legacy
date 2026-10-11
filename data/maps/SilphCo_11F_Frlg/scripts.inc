@@ -182,10 +182,11 @@ SilphCo_11F_Text_YouHaveNoRoomForThis::
 	.string "You have no room for this.$"
 
 SilphCo_11F_Text_ThanksForRescuingUs::
-	.string "SECRETARY: Thank you for rescuing\n"
-	.string "all of us.\p"
-	.string "We, from the PRESIDENT down,\n"
-	.string "are indebted to you.$"
+	.string "SECRETARY: Thank you!\p"
+	.string "ROCKET seized our research\n"
+	.string "on ancient evolution traits.\p"
+	.string "Please keep our findings\n"
+	.string "from becoming weapons!$"
 
 SilphCo_11F_Text_GiovanniIntro::
 	.string "GIOVANNI: You persist, child.\p"
@@ -209,8 +210,10 @@ SilphCo_11F_Text_GiovanniPostBattle::
 	.string "I have another plan!$"
 
 SilphCo_11F_Text_Grunt2Intro::
-	.string "Stop right there!\n"
-	.string "Don't you move!$"
+	.string "Stay back! The BOSS is\n"
+	.string "claiming our fossil army!\p"
+	.string "The MASTER BALL is for\n"
+	.string "something even older!$"
 
 SilphCo_11F_Text_Grunt2Defeat::
 	.string "Don't…\n"
@@ -281,14 +284,16 @@ SilphCo_11F_EventScript_PRL_RocketWon::
 	end
 
 SilphCo_11F_Text_PRL_JessiePostBattle::
-	.string "JESSIE: Don't celebrate yet!\p"
-	.string "TEAM ROCKET will still find\n"
-	.string "the ultimate ancient RELIC!$"
+	.string "JESSIE: The BOSS spent so\n"
+	.string "much on that fossil army!\p"
+	.string "And now you've ruined\n"
+	.string "his MASTER BALL plans!$"
 
 SilphCo_11F_Text_PRL_JamesPostBattle::
-	.string "JAMES: Every ancient specimen\n"
-	.string "leads to another mystery.\p"
-	.string "BOSS has a lot to learn!$"
+	.string "JAMES: Those sketches might\n"
+	.string "only be ancient legends.\p"
+	.string "But the signal from the\n"
+	.string "fossils was definitely real!$"
 
 SilphCo_11F_Text_PRL_MeowthBefore::
 	.string "MEOWTH: Mrowr! Not another kid!$"
