@@ -117,6 +117,42 @@ class PRLDuoApprovedArt(unittest.TestCase):
         self.assertIn(".frontPicYOffset = 7", block)
         self.assertIn(".backPicYOffset = 0", block)
 
+
+    def test_ancient_stone_is_distinct_and_correctly_named_in_celadon_shop(self):
+        items = (ROOT / "src/data/items.h").read_text()
+        old = items.split("[ITEM_SHINY_STONE] =", 1)[1].split("[ITEM_DUSK_STONE] =", 1)[0]
+        ancient = items.split("[ITEM_ANCIENT_STONE] =", 1)[1].split("// PRL STEP10 ITEM DATA END", 1)[0]
+        self.assertIn('.name = ITEM_NAME("Shiny Stone")', old)
+        self.assertIn('.name = ITEM_NAME("Ancient Stone")', ancient)
+        self.assertNotIn('.name = ITEM_NAME("Shiny Stone")', ancient)
+        self.assertIn("ItemUseOutOfBattle_EvolutionStone", ancient)
+        self.assertIn("gItemEffect_EvoItem", ancient)
+        shop = (ROOT / "data/maps/CeladonCity_DepartmentStore_4F_Frlg/scripts.inc").read_text()
+        self.assertIn(".2byte ITEM_ANCIENT_STONE", shop)
+
+    def test_cinnabar_oak_aide_grants_the_other_mt_moon_fossil_once(self):
+        import json
+        flags = (ROOT / "include/constants/flags.h").read_text()
+        self.assertIn("FLAG_PRL_CINNABAR_OAK_FOSSIL_GIFT                 0x4AC", flags)
+        data = json.loads((ROOT / "data/maps/CinnabarIsland_PokemonLab_Entrance_Frlg/map.json").read_text())
+        matching = [o for o in data["object_events"] if o["script"].endswith("EventScript_PRL_FossilAide")]
+        self.assertEqual(len(matching), 1)
+        self.assertEqual(matching[0]["graphics_id"], "OBJ_EVENT_GFX_SCIENTIST")
+        self.assertEqual(matching[0]["flag"], "0")
+        script = (ROOT / "data/maps/CinnabarIsland_PokemonLab_Entrance_Frlg/scripts.inc").read_text()
+        gift = script.split("CinnabarIsland_PokemonLab_Entrance_EventScript_PRL_FossilAide::", 1)[1]
+        gift = gift.split("CinnabarIsland_PokemonLab_Entrance_Text_PRL_OakFossilGiftDone::", 1)[0]
+        self.assertIn("goto_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON", gift)
+        self.assertIn("goto_if_set FLAG_GOT_DOME_FOSSIL", gift)
+        self.assertIn("goto_if_set FLAG_GOT_HELIX_FOSSIL", gift)
+        self.assertIn("checkitemspace ITEM_HELIX_FOSSIL, 1", gift)
+        self.assertIn("checkitemspace ITEM_DOME_FOSSIL, 1", gift)
+        self.assertEqual(gift.count("setflag FLAG_PRL_CINNABAR_OAK_FOSSIL_GIFT"), 3)
+        self.assertIn("giveitem ITEM_HELIX_FOSSIL, 1", gift)
+        self.assertIn("giveitem ITEM_DOME_FOSSIL, 1", gift)
+        self.assertNotIn("pokedex", gift.lower())
+        self.assertIn("CinnabarIsland_PokemonLab_Entrance_EventScript_PRL_FossilNoBagSpace", gift)
+
     def test_kanto_finale_has_strong_unchanged_mascots(self):
         party = (ROOT / "src/data/trainers_frlg.party").read_text()
         section = party.split("=== TRAINER_JESSIE_JAMES_VICTORY_ROAD ===", 1)[1].split("===", 1)[0]
