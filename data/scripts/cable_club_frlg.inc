@@ -172,14 +172,8 @@ CableClub_EventScript_PlayerExitLinkRoom_Frlg::
 CableClub_EventScript_Tutorial_Frlg::
 	lockall
 	textcolor NPC_TEXT_COLOR_FEMALE
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
-	waitmovement 0
+	@ Skip the obsolete forced Wireless tutorial; retain its one-time story flag.
 	msgbox CableClub_Text_FirstTimeRightThisWay_Frlg
-	closemessage
-	applymovement LOCALID_PLAYER, Movement_PlayerApproachCounter
-	waitmovement 0
-	delay 30
-	msgbox CableClub_Text_ExplainWirelessClubFirstTime_Frlg
 	setvar VAR_MAP_SCENE_POKEMON_CENTER_TEALA, 2
 	releaseall
 	end
@@ -1606,15 +1600,14 @@ CableClub_Text_EnjoyUnionRoom_Frlg::
 	.string "the UNION ROOM.$"
 
 CableClub_Text_FirstTimeRightThisWay_Frlg::
-	.string "Hello!\n"
-	.string "My name is TEALA.\p"
-	.string "This must be your first time\n"
-	.string "up here.\p"
-	.string "I'll show you how the Wireless\n"
-	.string "Communication System works.\p"
-	.string "First, I need to show you this\n"
-	.string "floor of our POKéMON CENTER.\p"
-	.string "Right this way, please.$"
+	.string "Welcome upstairs!\n"
+	.string "I'm TEALA.\p"
+	.string "PROF. OAK's relic researchers\n"
+	.string "have been studying lost moves.\p"
+	.string "Our move-training service can\n"
+	.string "help your POKéMON remember them.\p"
+	.string "Start with your party, or check\n"
+	.string "your PC for other POKéMON.$"
 
 CableClub_Text_ExplainWirelessClubFirstTime_Frlg::
 	.string "On the top floor, there are two\n"
