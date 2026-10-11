@@ -345,7 +345,8 @@ CeladonCity_GameCorner_PrizeRoom_EventScript_ChoosePrizeItem::
 	case 2, CeladonCity_GameCorner_PrizeRoom_EventScript_Charcoal
 	case 3, CeladonCity_GameCorner_PrizeRoom_EventScript_MysticWater
 	case 4, CeladonCity_GameCorner_PrizeRoom_EventScript_YellowFlute
-	case 5, CeladonCity_GameCorner_PrizeRoom_EventScript_EndPrizeExchange
+	case 5, CeladonCity_GameCorner_PrizeRoom_EventScript_ScopeLens
+	case 6, CeladonCity_GameCorner_PrizeRoom_EventScript_EndPrizeExchange
 	case 127, CeladonCity_GameCorner_PrizeRoom_EventScript_EndPrizeExchange
 	end
 
@@ -376,6 +377,12 @@ CeladonCity_GameCorner_PrizeRoom_EventScript_MysticWater::
 CeladonCity_GameCorner_PrizeRoom_EventScript_YellowFlute::
 	setvar VAR_TEMP_1, ITEM_YELLOW_FLUTE
 	setvar VAR_TEMP_2, 1600
+	goto CeladonCity_GameCorner_PrizeRoom_EventScript_ConfirmPrizeItem
+	end
+
+CeladonCity_GameCorner_PrizeRoom_EventScript_ScopeLens::
+	setvar VAR_TEMP_1, ITEM_SCOPE_LENS
+	setvar VAR_TEMP_2, 1500
 	goto CeladonCity_GameCorner_PrizeRoom_EventScript_ConfirmPrizeItem
 	end
 
