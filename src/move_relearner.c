@@ -251,7 +251,6 @@ static void CreateLearnableMovesList(void);
 static void CreateUISprites(void);
 static void CB2_MoveRelearnerMain(void);
 static void Task_WaitForFadeOut(u8 taskId);
-static void CB2_InitLearnMoveReturnFromSelectMove(void);
 static void InitMoveRelearnerBackgroundLayers(void);
 static void AddScrollArrows(void);
 static void ShowTeachMoveText();
@@ -413,18 +412,6 @@ void CB2_InitLearnMove(void)
         gTasks[sMoveRelearnerStruct->mainTask].tCategory = CONTEST_INFO;
     else
         gTasks[sMoveRelearnerStruct->mainTask].tCategory = BATTLE_INFO;
-    SetMainCallback2(CB2_InitLearnMove_Basic);
-}
-
-static void CB2_InitLearnMoveReturnFromSelectMove(void)
-{
-    ResetTasks();
-    sMoveRelearnerStruct = AllocZeroed(sizeof(*sMoveRelearnerStruct));
-    sMoveRelearnerStruct->mainTask = CreateTask(TaskDummy, 1);
-    gTasks[sMoveRelearnerStruct->mainTask].tState = GetLearnMoveResumeAfterSummaryScreenState();
-    gTasks[sMoveRelearnerStruct->mainTask].tPartyIndex = gSpecialVar_0x8008;
-    gTasks[sMoveRelearnerStruct->mainTask].tMove = gSpecialVar_0x8009;
-    gTasks[sMoveRelearnerStruct->mainTask].tCategory = gSpecialVar_0x800A;
     SetMainCallback2(CB2_InitLearnMove_Basic);
 }
 
