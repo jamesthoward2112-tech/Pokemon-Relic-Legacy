@@ -106,7 +106,7 @@ void UpdatePocketListPosition(u8 pocketId);
 void CB2_ReturnToBagMenuPocket(void);
 void CB2_BagMenuFromStartMenu(void);
 u8 GetItemListPosition(u8 pocketId);
-bool8 UseRegisteredKeyItemOnField(void);
+bool8 UseRegisteredKeyItemOnField(bool8 isRegisterHold);
 bool8 IsItemRegistered(enum Item itemId);
 void ReplaceRegisteredItem(enum Item oldItem, enum Item newItem);
 void CB2_GoToSellMenu(void);

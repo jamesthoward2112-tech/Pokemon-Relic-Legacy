@@ -24,7 +24,7 @@ jobs:
       - name: Confirm authentic Eeveelution sprite assets are present
         run: test -f graphics/pokemon/eeveeon/front.png && test -f graphics/pokemon/nimbeon/front.png
       - name: Validate Kanto Eevee Twins and new species
-        run: python3 -m unittest tests.test_prl_recurring_duos tests.test_prl_eeveeon_nimbeon tests.test_prl_pjr_qol_dexnav tests.test_prl_pjr_qol_center_clocks tests.test_prl_phr_four_registered_items
+        run: python3 -m unittest tests.test_prl_recurring_duos tests.test_prl_eeveeon_nimbeon tests.test_prl_pjr_qol_dexnav tests.test_prl_pjr_qol_center_clocks tests.test_prl_pjr_registered_items
       - name: Install GBA ARM toolchain
         run: |
           sudo apt-get update
