@@ -2045,7 +2045,10 @@ static void ResetForPokeStorage(void)
 static void InitStartingPosData(void)
 {
     ClearSavedCursorPos();
-    sInPartyMenu = (sStorage->boxOption == OPTION_DEPOSIT);
+    // Start party-capable NPC selectors at the active team, not Box 1.
+    // The existing SHOW/HIDE PARTY controls still allow selecting PC Pokémon.
+    sInPartyMenu = (sStorage->boxOption == OPTION_DEPOSIT
+                 || sStorage->boxOption == OPTION_SELECT_MON);
     sDepositBoxId = 0;
 }
 
