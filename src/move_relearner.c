@@ -508,12 +508,19 @@ static void UIPlayFanfare(u32 songId)
 
 static void UIShowMoveList(u8 taskId)
 {
-    gSpecialVar_0x8008 = gTasks[taskId].tPartyIndex;
-    gSpecialVar_0x8009 = gTasks[taskId].tMove;
+    // Snapshot the choice before releasing the task. The summary allocates a
+    // sizeable UI context; opening it while the relearner still owns its list,
+    // windows and sprites can exhaust the GBA heap and leave a black screen.
+    u8 partyIndex = gTasks[taskId].tPartyIndex;
+    u16 move = gTasks[taskId].tMove;
+
+    gSpecialVar_0x8008 = partyIndex;
+    gSpecialVar_0x8009 = move;
     gSpecialVar_0x800A = gTasks[taskId].tCategory;
-    ShowSelectMovePokemonSummaryScreen(gParties[B_TRAINER_PLAYER], gTasks[taskId].tPartyIndex, CB2_InitLearnMoveReturnFromSelectMove, gTasks[taskId].tMove);
+
     DestroyTask(taskId);
     FreeMoveRelearnerResources();
+    ShowSelectMovePokemonSummaryScreen(gParties[B_TRAINER_PLAYER], partyIndex, CB2_InitLearnMoveReturnFromSelectMove, move);
 }
 
 static void RedrawMoveList(void)
@@ -563,21 +570,29 @@ static void Task_MoveRelearner_Quit(u8 taskId)
     if (gPaletteFade.active)
         return;
 
-    if (gInitialSummaryScreenCallback != NULL)
+    // Finish releasing the relearner before allocating the next screen.
+    // A relearner launched by an overworld NPC must return to that NPC's
+    // pending script, not reopen a stale initial Pokémon summary callback.
+    u8 partyIndex = gTasks[taskId].tPartyIndex;
+    MainCallback callback = gInitialSummaryScreenCallback;
+    bool8 fromScript = (gRelearnMode == RELEARN_MODE_SCRIPT);
+    bool8 contestPage = (gRelearnMode == RELEARN_MODE_PSS_PAGE_CONTEST_MOVES);
+
+    DestroyTask(taskId);
+    FreeMoveRelearnerResources();
+    gRelearnMode = RELEARN_MODE_NONE;
+
+    if (!fromScript && callback != NULL)
     {
-        if (gRelearnMode == RELEARN_MODE_PSS_PAGE_CONTEST_MOVES)
-            ShowPokemonSummaryScreen(SUMMARY_MODE_RELEARNER_CONTEST, gParties[B_TRAINER_PLAYER], gTasks[taskId].tPartyIndex, gPartiesCount[B_TRAINER_PLAYER] - 1, gInitialSummaryScreenCallback);
-        else
-            ShowPokemonSummaryScreen(SUMMARY_MODE_RELEARNER_BATTLE, gParties[B_TRAINER_PLAYER], gTasks[taskId].tPartyIndex, gPartiesCount[B_TRAINER_PLAYER] - 1, gInitialSummaryScreenCallback);
+        ShowPokemonSummaryScreen(contestPage ? SUMMARY_MODE_RELEARNER_CONTEST : SUMMARY_MODE_RELEARNER_BATTLE,
+                                 gParties[B_TRAINER_PLAYER], partyIndex, gPartiesCount[B_TRAINER_PLAYER] - 1, callback);
     }
     else
     {
+        if (fromScript)
+            gInitialSummaryScreenCallback = NULL;
         SetMainCallback2(CB2_ReturnToField);
     }
-
-    FreeMoveRelearnerResources();
-    gRelearnMode = RELEARN_MODE_NONE;
-    DestroyTask(taskId);
 }
 
 static void Task_MoveRelearner_Giveup_Answer(u8 taskId)
