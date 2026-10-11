@@ -68,4 +68,4 @@ Route2_House_Text_OakResearchAideAfter::
 	.string "PROF. OAK is investigating\n"
 	.string "ancient POKéMON relics.\p"
 	.string "Come back if you find anything\n"
-	.string "unusual in Kanto.$
+	.string "unusual in Kanto.$"
