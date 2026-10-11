@@ -241,6 +241,7 @@ enum {
     PALTAG_MON_ICON_3, // Used implicitly in CreateMonIconSprite
     PALTAG_MON_ICON_4, // Used implicitly in CreateMonIconSprite
     PALTAG_MON_ICON_5, // Used implicitly in CreateMonIconSprite
+    PALTAG_MON_ICON_6, // Unique Noxichu palette; do not alias the PC display-mon tag
     PALTAG_DISPLAY_MON,
     PALTAG_MISC_1,
     PALTAG_MARKING_COMBO,
