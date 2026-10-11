@@ -76,6 +76,7 @@ static const struct LevelUpMove sKhangLevelUpLearnset[] =
 static const struct LevelUpMove sNolaxLevelUpLearnset[] =
 {
     LEVEL_UP_MOVE(0, MOVE_EXTREME_SPEED),
+    LEVEL_UP_MOVE(1, MOVE_KNOCK_OFF),
     LEVEL_UP_MOVE(32, MOVE_CRUNCH),
     LEVEL_UP_MOVE(36, MOVE_BODY_SLAM),
     LEVEL_UP_MOVE(40, MOVE_ZEN_HEADBUTT),
