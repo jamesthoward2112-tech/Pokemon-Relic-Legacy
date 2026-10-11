@@ -13,6 +13,7 @@ SilphCo_11F_EventScript_President::
 	lock
 	faceplayer
 	goto_if_set FLAG_GOT_MASTER_BALL_FROM_SILPH, SilphCo_11F_EventScript_AlreadyGotMasterBall
+	goto_if_eq VAR_MAP_SCENE_SILPH_CO_11F, 0, SilphCo_11F_EventScript_PresidentRocketOccupied
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, SilphCo_11F_EventScript_PresidentThanksMale
 	call_if_eq VAR_RESULT, FEMALE, SilphCo_11F_EventScript_PresidentThanksFemale
@@ -21,6 +22,11 @@ SilphCo_11F_EventScript_President::
 	giveitem_msg SilphCo_11F_Text_ObtainedMasterBallFromPresident, ITEM_MASTER_BALL, 1, MUS_RG_OBTAIN_KEY_ITEM
 	msgbox SilphCo_11F_Text_ThatsOurSecretPrototype
 	setflag FLAG_GOT_MASTER_BALL_FROM_SILPH
+	release
+	end
+
+SilphCo_11F_EventScript_PresidentRocketOccupied::
+	msgbox SilphCo_11F_Text_PresidentRocketOccupied
 	release
 	end
 
@@ -43,7 +49,12 @@ SilphCo_11F_EventScript_AlreadyGotMasterBall::
 	end
 
 SilphCo_11F_EventScript_Secretary::
+	goto_if_eq VAR_MAP_SCENE_SILPH_CO_11F, 0, SilphCo_11F_EventScript_SecretaryRocketOccupied
 	msgbox SilphCo_11F_Text_ThanksForRescuingUs, MSGBOX_NPC
+	end
+
+SilphCo_11F_EventScript_SecretaryRocketOccupied::
+	msgbox SilphCo_11F_Text_SecretaryRocketOccupied, MSGBOX_NPC
 	end
 
 SilphCo_11F_EventScript_GiovanniTriggerLeft::
@@ -55,6 +66,14 @@ SilphCo_11F_EventScript_GiovanniTriggerLeft::
 SilphCo_11F_EventScript_GiovanniTriggerRight::
 	lockall
 	setvar VAR_TEMP_1, 1
+	goto SilphCo_11F_EventScript_BattleGiovanni
+	end
+
+@ The second trigger fires after the duo, with Giovanni one tile north.
+@ VAR_TEMP_1=2 intentionally skips his original long walk to row 15.
+SilphCo_11F_EventScript_GiovanniTriggerCorridor::
+	lockall
+	setvar VAR_TEMP_1, 2
 	goto SilphCo_11F_EventScript_BattleGiovanni
 	end
 
@@ -144,6 +163,17 @@ SilphCo_11F_EventScript_Grunt2::
 	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_41, SilphCo_11F_Text_Grunt2Intro, SilphCo_11F_Text_Grunt2Defeat
 	msgbox SilphCo_11F_Text_Grunt2PostBattle, MSGBOX_AUTOCLOSE
 	end
+
+SilphCo_11F_Text_PresidentRocketOccupied::
+	.string "PRESIDENT: TEAM ROCKET is still\\n"
+	.string "holding SILPH hostage!\\p"
+	.string "Defeat GIOVANNI before I can\\n"
+	.string "entrust you with our MASTER BALL!$"
+
+SilphCo_11F_Text_SecretaryRocketOccupied::
+	.string "SECRETARY: Please stop\\n"
+	.string "GIOVANNI! The PRESIDENT and\\n"
+	.string "our research are in danger!$"
 
 SilphCo_11F_Text_ThanksForSavingMeDearBoy::
 	.string "PRESIDENT: Dear boy!\n"
