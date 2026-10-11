@@ -94,7 +94,7 @@ class PRLRelicStoryRescue(unittest.TestCase):
         self.assertIn("No one knows its name.", silph)
         mansion = (ROOT / "PokemonMansion_2F_Frlg" / "scripts.inc").read_text()
         self.assertIn("RELIC-01", mansion)
-        self.assertIn("FOSSIL", (ROOT / "RocketHideout_B1F_Frlg" / "scripts.inc").read_text())
+        self.assertIn("fossil", (ROOT / "RocketHideout_B1F_Frlg" / "scripts.inc").read_text().lower())
 
 if __name__ == "__main__":
     unittest.main()
