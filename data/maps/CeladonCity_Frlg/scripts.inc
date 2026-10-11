@@ -112,10 +112,12 @@ CeladonCity_Text_GymIsGreatFullOfWomen::
 	.string "It's full of women!$"
 
 CeladonCity_Text_GameCornerIsBadForCitysImage::
-	.string "CELADON takes pride in its efforts\n"
-	.string "to keep the city beautiful.\p"
-	.string "That's why the new GAME CORNER is\n"
-	.string "bad for our city's image.$"
+	.string "CELADON keeps its streets\n"
+	.string "beautiful and peaceful.\p"
+	.string "But men in ROCKET uniforms\n"
+	.string "haul fossil crates at night.\p"
+	.string "The GAME CORNER is hiding\n"
+	.string "something worse than slots!$"
 
 CeladonCity_Text_BlewItAllAtSlots::
 	.string "Moan…\n"
@@ -136,7 +138,9 @@ CeladonCity_Text_GetLostOrIllPunchYou::
 	.string "Get lost, or I'll punch you.$"
 
 CeladonCity_Text_KeepOutOfTeamRocketsWay::
-	.string "Keep out of TEAM ROCKET's way!$"
+	.string "Keep out of TEAM ROCKET's way!\p"
+	.string "The BOSS's excavations\n"
+	.string "are none of your business!$"
 
 CeladonCity_Text_ExplainXAccuracyDireHit::
 	.string "TRAINER TIPS\p"
@@ -209,10 +213,9 @@ Text_SoftboiledTaught::
 	.string "I wish you the best of luck!$"
 
 CeladonCity_Text_SomeoneStoleSilphScope::
-	.string "Oh, what am I to do…\p"
-	.string "Someone stole our SILPH SCOPE.\p"
-	.string "The thief came running this way,\n"
-	.string "I'm sure of it.\p"
-	.string "But I lost sight of him!\n"
-	.string "Where'd he go?$"
+	.string "Someone stole our SILPH SCOPE!\p"
+	.string "The thief carried a crate\n"
+	.string "marked ANCIENT SPECIMENS.\p"
+	.string "He ran toward GAME CORNER.\n"
+	.string "What is ROCKET planning?$"
 

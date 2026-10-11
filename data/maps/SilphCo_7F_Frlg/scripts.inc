@@ -256,11 +256,12 @@ SilphCo_7F_Text_RocketBossWentToBoardroom::
 	.string "Please save our PRESIDENT!$"
 
 SilphCo_7F_Text_RocketsAfterMasterBall::
-	.string "ROCKET wants our MASTER BALL\n"
-	.string "for an ancient POKéMON.\p"
-	.string "One file mentions a bird\n"
-	.string "shining like gold.\p"
-	.string "But that's only a legend!$"
+	.string "The MASTER BALL was meant\n"
+	.string "for any known POKéMON.\p"
+	.string "ROCKET wants it for a bird\n"
+	.string "drawn in an old gold sketch.\p"
+	.string "No one has identified it.\n"
+	.string "Maybe it's just a legend.$"
 
 SilphCo_7F_Text_CanceledMasterBallProject::
 	.string "We canceled the MASTER BALL\n"
@@ -285,15 +286,18 @@ SilphCo_7F_Text_ThankYouSoMuch::
 	.string "Thank you so much!$"
 
 SilphCo_7F_Text_Grunt3Intro::
-	.string "Uh-oh!\n"
-	.string "I smell a little mouse!$"
+	.string "Uh-oh! A little mouse!\p"
+	.string "Stay away from the ancient\n"
+	.string "seabed samples, kid!$"
 
 SilphCo_7F_Text_Grunt3Defeat::
 	.string "Lights out!$"
 
 SilphCo_7F_Text_Grunt3PostBattle::
-	.string "You won't find my BOSS by just\n"
-	.string "scurrying around!$"
+	.string "ROCKET found old deep-sea\n"
+	.string "patterns in the lab files.\p"
+	.string "But even BOSS doesn't know\n"
+	.string "what made that ancient mark.$"
 
 SilphCo_7F_Text_JoshuaIntro::
 	.string "Heheh!\p"
@@ -321,8 +325,9 @@ SilphCo_7F_Text_Grunt1PostBattle::
 	.string "ancient-sea research!$"
 
 SilphCo_7F_Text_Grunt2Intro::
-	.string "A child intruder?\n"
-	.string "That must be you!$"
+	.string "One more meddling kid?!\p"
+	.string "The golden sketch is ours!\n"
+	.string "You won't get past me!$"
 
 SilphCo_7F_Text_Grunt2Defeat::
 	.string "Fine!\n"

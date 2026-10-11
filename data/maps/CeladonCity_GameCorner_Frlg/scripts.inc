@@ -494,13 +494,18 @@ CeladonCity_GameCorner_Text_HereAreYourCoins::
 	.string "Here are your COINS!$"
 
 CeladonCity_GameCorner_Text_RumoredTeamRocketRunsThisPlace::
-	.string "Keep this quiet.\p"
-	.string "It's rumored that this place is run\n"
-	.string "by TEAM ROCKET.$"
+	.string "Keep this quiet, kid.\p"
+	.string "TEAM ROCKET runs this place.\n"
+	.string "But why so many sealed crates?\p"
+	.string "They call them DIG SITE PRIZES.\n"
+	.string "Doesn't sound like gambling...$"
 
 CeladonCity_GameCorner_Text_ThinkMachinesHaveDifferentOdds::
-	.string "I think these machines have\n"
-	.string "different odds.$"
+	.string "These machines have odd odds...\p"
+	.string "I heard the real profits\n"
+	.string "come from underground digs.\p"
+	.string "ROCKET keeps ledgers beneath\n"
+	.string "that poster by the wall.$"
 
 CeladonCity_GameCorner_Text_DoYouWantToPlay::
 	.string "Kid, do you want to play?$"
@@ -533,9 +538,11 @@ CeladonCity_GameCorner_Text_GymGuyAdvice::
 	.string "lightly!$"
 
 CeladonCity_GameCorner_Text_RareMonsForCoins::
-	.string "They offer rare POKéMON that can\n"
-	.string "be exchanged for your COINS.\p"
-	.string "But, I just can't seem to win!$"
+	.string "Rare POKéMON for COINS!\p"
+	.string "Someone said the BOSS wants\n"
+	.string "ancient POKéMON, not prizes.\p"
+	.string "What could be worth more\n"
+	.string "than the whole GAME CORNER?$"
 
 CeladonCity_GameCorner_Text_SoEasyToGetHooked::
 	.string "Games are scary!\n"
@@ -573,16 +580,19 @@ CeladonCity_GameCorner_Text_WatchReelsClosely::
 	.string "closely.$"
 
 CeladonCity_GameCorner_Text_GruntIntro::
-	.string "I'm guarding this poster!\n"
-	.string "Go away, or else!$"
+	.string "I'm guarding this poster!\p"
+	.string "Behind it are the BOSS's\n"
+	.string "RELIC shipment records!\p"
+	.string "Wait! You heard NOTHING!$"
 
 CeladonCity_GameCorner_Text_GruntDefeat::
 	.string "Dang!$"
 
 CeladonCity_GameCorner_Text_GruntPostBattle::
-	.string "The TEAM ROCKET HIDEOUT might\n"
-	.string "be discovered!\p"
-	.string "I better tell BOSS!$"
+	.string "The hidden lift...\p"
+	.string "Our fossil ledgers and\n"
+	.string "RELIC samples are exposed!\p"
+	.string "I'd better warn the BOSS!$"
 
 CeladonCity_GameCorner_Text_SwitchBehindPosterPushIt::
 	.string "Hey!\p"

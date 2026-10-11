@@ -39,7 +39,9 @@ SilphCo_8F_EventScript_Grunt2::
 	end
 
 SilphCo_8F_Text_WonderIfSilphIsFinished::
-	.string "I wonder if SILPH is finished…$"
+	.string "SILPH may be finished...\p"
+	.string "ROCKET copied every report\n"
+	.string "on those dormant RELIC traits.$"
 
 SilphCo_8F_Text_ThanksForSavingUs::
 	.string "Thanks for saving us!$"
@@ -61,15 +63,19 @@ SilphCo_8F_Text_Grunt1PostBattle::
 	.string "the thing really exists!$"
 
 SilphCo_8F_Text_ParkerIntro::
-	.string "You're causing us problems!$"
+	.string "You found our RELIC lab?!\p"
+	.string "Those ancient sketches\n"
+	.string "must never leave SILPH!$"
 
 SilphCo_8F_Text_ParkerDefeat::
 	.string "Huh?\n"
 	.string "I lost?$"
 
 SilphCo_8F_Text_ParkerPostBattle::
-	.string "So, what do you think of SILPH\n"
-	.string "BUILDING's maze?$"
+	.string "One drawing shows wings\n"
+	.string "outlined in faded gold.\p"
+	.string "Not even the scientists\n"
+	.string "know what species it is.$"
 
 SilphCo_8F_Text_Grunt2Intro::
 	.string "I'm one of the four\n"

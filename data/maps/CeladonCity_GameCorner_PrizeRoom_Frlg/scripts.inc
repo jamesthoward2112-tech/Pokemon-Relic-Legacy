@@ -380,12 +380,17 @@ CeladonCity_GameCorner_PrizeRoom_EventScript_YellowFlute::
 	end
 
 CeladonCity_GameCorner_PrizeRoom_Text_FancyThatPorygon::
-	.string "I sure do fancy that PORYGON!\n"
-	.string "But, it's hard to win at slots!$"
+	.string "I sure fancy that PORYGON!\p"
+	.string "A ROCKET scientist asked\n"
+	.string "about ancient POKéMON too.\p"
+	.string "His notes mentioned a mark\n"
+	.string "found inside old fossils.$"
 
 CeladonCity_GameCorner_PrizeRoom_Text_RakedItInToday::
-	.string "Gahaha! I raked it in today!\n"
-	.string "If only every day were like this…$"
+	.string "Gahaha! I raked it in!\p"
+	.string "A ROCKET left this ledger.\n"
+	.string "It lists fossils, not COINS!\p"
+	.string "That's one strange prize...$"
 
 CeladonCity_GameCorner_PrizeRoom_Text_CoinCaseRequired::
 	.string "A COIN CASE is required…$"

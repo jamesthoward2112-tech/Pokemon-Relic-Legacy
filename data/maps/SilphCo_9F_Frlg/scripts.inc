@@ -49,7 +49,11 @@ SilphCo_9F_Text_YouShouldTakeQuickNap::
 	.string "You should take a quick nap.$"
 
 SilphCo_9F_Text_DontGiveUp::
-	.string "Don't give up!$"
+	.string "Don't give up!\p"
+	.string "The labs show fossil and\n"
+	.string "living POKéMON share traits.\p"
+	.string "ROCKET wants to force\n"
+	.string "those ancient traits awake!$"
 
 SilphCo_9F_Text_ThankYouSoMuch::
 	.string "Thank you so much.$"
@@ -80,8 +84,9 @@ SilphCo_9F_Text_EdPostBattle::
 	.string "Think about type advantages.$"
 
 SilphCo_9F_Text_Grunt2Intro::
-	.string "I am one of the four ROCKET\n"
-	.string "BROTHERS!$"
+	.string "I'm a ROCKET BROTHER!\p"
+	.string "I guard the oldest\n"
+	.string "deep-sea RELIC records!$"
 
 SilphCo_9F_Text_Grunt2Defeat::
 	.string "Warg!\n"

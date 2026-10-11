@@ -50,15 +50,19 @@ SilphCo_2F_Text_ConnorPostBattle::
 	.string "worth a fortune to us!$"
 
 SilphCo_2F_Text_JerryIntro::
-	.string "It's off-limits here!\n"
-	.string "Go home!$"
+	.string "Get out! This floor belongs\n"
+	.string "to TEAM ROCKET now!\p"
+	.string "The ancient specimens\n"
+	.string "are company property!$"
 
 SilphCo_2F_Text_JerryDefeat::
 	.string "You're good.$"
 
 SilphCo_2F_Text_JerryPostBattle::
-	.string "Can you solve the maze in here?\n"
-	.string "It's not easy, I tell you!$"
+	.string "The scientists at SILPH\n"
+	.string "found strange fossil marks.\p"
+	.string "ROCKET wants the data\n"
+	.string "before anyone else sees it.$"
 
 SilphCo_2F_Text_Grunt1Intro::
 	.string "Don't touch those files!\p"

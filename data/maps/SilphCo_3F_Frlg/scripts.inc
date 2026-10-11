@@ -35,12 +35,17 @@ SilphCo_3F_EventScript_Grunt::
 	end
 
 SilphCo_3F_Text_WhatAmIToDo::
-	.string "I work for SILPH CO.\n"
-	.string "What am I to do?$"
+	.string "I work for SILPH CO.!\p"
+	.string "ROCKET forced us to study\n"
+	.string "old fossils and living DNA.\p"
+	.string "Both had the same mark!\n"
+	.string "How can that be?$"
 
 SilphCo_3F_Text_YouAndYourMonsSavedUs::
-	.string "{PLAYER}!\n"
-	.string "You and your POKéMON saved us!$"
+	.string "{PLAYER}! You saved us!\p"
+	.string "Please stop the BOSS.\n"
+	.string "He wants to use RELIC traits\n"
+	.string "to build a fossil army!$"
 
 SilphCo_3F_Text_GruntIntro::
 	.string "Keep away from the lab!\p"

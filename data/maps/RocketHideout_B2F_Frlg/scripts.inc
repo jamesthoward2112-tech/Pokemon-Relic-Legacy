@@ -17,7 +17,10 @@ RocketHideout_B2F_Text_GruntDefeat::
 	.string "I surrender!$"
 
 RocketHideout_B2F_Text_GruntPostBattle::
-	.string "Four floors underground...\p"
-	.string "Still no room for all the\n"
-	.string "fossil and RELIC catalogues!$"
+	.string "These archives are packed\n"
+	.string "with fossil photographs.\p"
+	.string "One page shows a golden\n"
+	.string "feather-shaped outline...\p"
+	.string "That's a sketch, not proof.\n"
+	.string "The BOSS believes in it.$"
 

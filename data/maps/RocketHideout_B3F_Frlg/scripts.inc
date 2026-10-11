@@ -22,15 +22,17 @@ RocketHideout_B3F_Text_Grunt1Defeat::
 	.string "Taken down!$"
 
 RocketHideout_B3F_Text_Grunt1PostBattle::
-	.string "SILPH SCOPE?\n"
-	.string "Oh, that machine the BOSS stole.\p"
-	.string "It's here somewhere.$"
+	.string "The SILPH SCOPE sees energy\n"
+	.string "that ordinary eyes miss.\p"
+	.string "Our scientists detected\n"
+	.string "the same mark in fossils.\p"
+	.string "You weren't meant to know!$"
 
 RocketHideout_B3F_Text_Grunt2Intro::
-	.string "You again?! The BOSS has\n"
-	.string "ordered the old stone marks\n"
-	.string "sent for laboratory testing!\p"
-	.string "You're not stopping us!$"
+	.string "BOSS wants the ancient marks\n"
+	.string "taken to the SILPH labs!\p"
+	.string "He calls them RELIC traits.\n"
+	.string "You won't spoil his research!$"
 
 RocketHideout_B3F_Text_Grunt2Defeat::
 	.string "What?\n"
