@@ -3,6 +3,7 @@ name: PRL Approved Duo Intros and Jessie James Kanto Finale
 on:
   push:
     branches: [prl/approved-duo-intros-jj-finale-20261011]
+  pull_request:
   workflow_dispatch:
 
 permissions:
