@@ -99,6 +99,8 @@
 #define FLAG_PRL_GOT_CHARMANDER_GIFT FLAG_UNUSED_0x024
 #define FLAG_PRL_GOT_SQUIRTLE_GIFT FLAG_UNUSED_0x025
 #define FLAG_PRL_EXP_SHARE_ENABLED FLAG_UNUSED_0x026
+// One-time gift from Oak's Route 2 house researcher; uses an existing unused persistent flag.
+#define FLAG_PRL_ROUTE2_HOUSE_RESEARCH_GIFT FLAG_UNUSED_0x8F3
 #define FLAG_UNUSED_0x02C    0x2C // Unused Flag
 #define FLAG_UNUSED_0x02D    0x2D // Unused Flag
 #define FLAG_UNUSED_0x02E    0x2E // Unused Flag
