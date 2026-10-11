@@ -1756,7 +1756,18 @@ static void Task_HandleInput(u8 taskId)
         {
             ChangePage(taskId, 1);
         }
-        else if (JOY_NEW(A_BUTTON))
+        // SELECT is an alternative to A for move ordering in ordinary party
+        // and PC Summaries. The PJR field registered-item tap/hold handler is
+        // not active inside the Summary task, and locked battle/trade Summary
+        // screens deliberately keep their existing restrictions.
+        else if (JOY_NEW(A_BUTTON)
+                 || (JOY_NEW(SELECT_BUTTON)
+                     && IS_MOVE_PAGE(sMonSummaryScreen->currPageIndex)
+                     && !sMonSummaryScreen->lockMovesFlag
+                     && !gMain.inBattle
+                     && (sMonSummaryScreen->mode == SUMMARY_MODE_NORMAL
+                         || sMonSummaryScreen->mode == SUMMARY_MODE_BOX
+                         || sMonSummaryScreen->mode == SUMMARY_MODE_BOX_CURSOR)))
         {
             if (sMonSummaryScreen->currPageIndex != PSS_PAGE_SKILLS)
             {
@@ -2335,7 +2346,10 @@ static void Task_HandleInput_MoveSelect(u8 taskId)
             data[0] = 4;
             ChangeSelectedMove(data, 1, &sMonSummaryScreen->firstMoveIndex);
         }
-        else if (JOY_NEW(A_BUTTON))
+        else if (JOY_NEW(A_BUTTON)
+                 || (JOY_NEW(SELECT_BUTTON)
+                     && !sMonSummaryScreen->lockMovesFlag
+                     && !gMain.inBattle))
         {
             if (sMonSummaryScreen->lockMovesFlag == TRUE
                 || (sMonSummaryScreen->newMove == MOVE_NONE && sMonSummaryScreen->firstMoveIndex == MAX_MON_MOVES))
@@ -2481,7 +2495,10 @@ static void Task_HandleInput_MovePositionSwitch(u8 taskId)
             data[0] = 3;
             ChangeSelectedMove(&data[0], 1, &sMonSummaryScreen->secondMoveIndex);
         }
-        else if (JOY_NEW(A_BUTTON))
+        else if (JOY_NEW(A_BUTTON)
+                 || (JOY_NEW(SELECT_BUTTON)
+                     && !sMonSummaryScreen->lockMovesFlag
+                     && !gMain.inBattle))
         {
             if (sMonSummaryScreen->firstMoveIndex == sMonSummaryScreen->secondMoveIndex)
                 ExitMovePositionSwitchMode(taskId, FALSE);
