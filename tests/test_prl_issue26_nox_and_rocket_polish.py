@@ -45,7 +45,13 @@ class NoxAndRocket(unittest.TestCase):
                 x=actors['LOCALID_PRL_JESSIE_'+tag]
                 y=actors['LOCALID_PRL_JAMES_'+tag]
                 m=actors['LOCALID_PRL_MEOWTH_'+tag]
-                self.assertEqual(x["y"],y["y"])
+                if tag == "HIDEOUT":
+                    self.assertEqual(x["x"], y["x"])
+                    self.assertEqual(abs(x["y"] - y["y"]), 1)
+                    self.assertEqual(x["movement_type"], "MOVEMENT_TYPE_FACE_RIGHT")
+                    self.assertEqual(y["movement_type"], "MOVEMENT_TYPE_FACE_RIGHT")
+                else:
+                    self.assertEqual(x["y"],y["y"])
                 self.assertNotEqual((m["x"],m["y"]),(x["x"],x["y"]))
                 self.assertNotEqual((m["x"],m["y"]),(y["x"],y["y"]))
                 script=(ROOT/"data/maps"/name/"scripts.inc").read_text()
