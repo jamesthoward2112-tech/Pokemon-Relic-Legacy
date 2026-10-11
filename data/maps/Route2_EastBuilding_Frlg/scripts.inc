@@ -30,9 +30,10 @@ Route2_EastBuilding_EventScript_Rocker::
 	end
 
 Route2_EastBuilding_Text_GiveHM05IfSeen10Mons::
-	.string "PROF. OAK has sent me to study
-ancient relics in Kanto.pHe left HM05 FLASH for you.
-It will help on your journey.$"
+\t.string "PROF. OAK sent me to study\n"
+\t.string "ancient relics in Kanto.\p"
+\t.string "He left HM05 FLASH for you.\n"
+\t.string "It will help on your journey.$"
 
 Route2_EastBuilding_Text_GreatHereYouGo::
 	.string "PROF. OAK sent this for you.\n"
