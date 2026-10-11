@@ -2,6 +2,30 @@ import pathlib, subprocess, tempfile, unittest
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 class CrystalRestoreTests(unittest.TestCase):
+    def test_continuous_scenery_reveal_preserves_link_and_partner_intros(self):
+        config = (ROOT / 'include/config/battle.h').read_text()
+        setting = next(line for line in config.splitlines()
+                       if line.startswith('#define B_FAST_INTRO_NO_SLIDE '))
+        program = '''#include <assert.h>
+#define FALSE 0
+#define IS_FRLG firered
+#define BATTLE_TYPE_LINK 1
+#define BATTLE_TYPE_INGAME_PARTNER 2
+unsigned gBattleTypeFlags;
+int firered;
+''' + setting + '''
+int main(void) {
+ firered=1; gBattleTypeFlags=0; assert(B_FAST_INTRO_NO_SLIDE);
+ gBattleTypeFlags=BATTLE_TYPE_LINK; assert(!B_FAST_INTRO_NO_SLIDE);
+ gBattleTypeFlags=BATTLE_TYPE_INGAME_PARTNER; assert(!B_FAST_INTRO_NO_SLIDE);
+ firered=0; gBattleTypeFlags=0; assert(!B_FAST_INTRO_NO_SLIDE);
+ return 0;
+}'''
+        with tempfile.TemporaryDirectory() as d:
+            source=pathlib.Path(d)/'test.c'; source.write_text(program)
+            subprocess.run(['gcc',str(source),'-o',d+'/test'],check=True)
+            subprocess.run([d+'/test'],check=True)
+
     def test_standard_firered_trainers_use_pokeball_transition(self):
         code=(ROOT/'src/battle_setup.c').read_text()
         self.assertTrue('if (IS_FRLG)\n        return B_TRANSITION_BIG_POKEBALL;' in code)
