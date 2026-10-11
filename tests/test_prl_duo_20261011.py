@@ -51,6 +51,30 @@ class PRLDuoApprovedArt(unittest.TestCase):
         self.assertIn("sPRL_jessie_james_Tiles", code)
         self.assertIn("sPRL_eevee_twins_Tiles", code)
 
+    def test_original_dark_rocket_sprite_bank_is_gba_valid(self):
+        import sys
+        sys.path.insert(0, str(ROOT / "tools"))
+        import prl_rocket_dark_20261011_assets
+        for path in prl_rocket_dark_20261011_assets.unpack():
+            f = ROOT / path
+            self.assertTrue(f.exists(), path)
+            payload = f.read_bytes()
+            if path.endswith(".gbapal"):
+                self.assertEqual(len(payload), 32)
+            else:
+                self.assertTrue(payload.startswith(b"\\x10\\x00\\x08\\x00"))
+                self.assertEqual(len(payload) % 4, 0)
+
+    def test_rocket_dark_visuals_are_scoped_without_species_replacement(self):
+        gfx = (ROOT / "src/battle_gfx_sfx_util.c").read_text()
+        self.assertIn("PRLGetRocketDarkGfx", gfx)
+        self.assertIn("PRLGetRocketDarkFront(prlRocketDarkGfx)", gfx)
+        self.assertIn("PRLGetRocketDarkPalette(prlRocketDarkGfx)", gfx)
+        for x in ("ARBOK", "RATICATE", "VICTREEBEL", "GYARADOS"):
+            self.assertIn("PRL_ROCKET_DARK_" + x, gfx)
+        self.assertIn("IsOnPlayerSide(battler)", gfx)
+        self.assertIn("TRAINER_JESSIE_JAMES_VICTORY_ROAD", gfx)
+
     def test_galarian_weezing_skin_is_scoped_to_rocket_only(self):
         graphics = (ROOT / "src/battle_gfx_sfx_util.c").read_text()
         self.assertIn("PRLIsJessieJamesWeezingVisual", graphics)
