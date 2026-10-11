@@ -72,6 +72,8 @@ static EWRAM_DATA struct
     u8 moveDisplayArrowTask;
     u16 scrollOffset;
     u8 categoryIconSpriteId;
+    u16 savedListOffset;
+    u16 savedListRow;
 } *sMoveRelearnerStruct = {0};
 
 static EWRAM_DATA struct {
@@ -249,7 +251,6 @@ static void CreateLearnableMovesList(void);
 static void CreateUISprites(void);
 static void CB2_MoveRelearnerMain(void);
 static void Task_WaitForFadeOut(u8 taskId);
-static void CB2_InitLearnMoveReturnFromSelectMove(void);
 static void InitMoveRelearnerBackgroundLayers(void);
 static void AddScrollArrows(void);
 static void ShowTeachMoveText();
@@ -271,6 +272,7 @@ static u32 GetRelearnerTutorMoves(struct BoxPokemon *mon, u16 *moves);
 
 static void Task_MoveRelearner_HandleInput(u8 taskId);
 static void Task_MoveRelearner_LearnMove(u8 taskId);
+static void Task_MoveRelearner_SelectMoveToForget(u8 taskId);
 static void Task_MoveRelearner_Quit(u8 taskId);
 static void SortMovesAlphabetically(u16 *moves, u32 numMoves);
 static void QuickSortMoves(u16 *moves, s32 left, s32 right);
@@ -413,18 +415,6 @@ void CB2_InitLearnMove(void)
     SetMainCallback2(CB2_InitLearnMove_Basic);
 }
 
-static void CB2_InitLearnMoveReturnFromSelectMove(void)
-{
-    ResetTasks();
-    sMoveRelearnerStruct = AllocZeroed(sizeof(*sMoveRelearnerStruct));
-    sMoveRelearnerStruct->mainTask = CreateTask(TaskDummy, 1);
-    gTasks[sMoveRelearnerStruct->mainTask].tState = GetLearnMoveResumeAfterSummaryScreenState();
-    gTasks[sMoveRelearnerStruct->mainTask].tPartyIndex = gSpecialVar_0x8008;
-    gTasks[sMoveRelearnerStruct->mainTask].tMove = gSpecialVar_0x8009;
-    gTasks[sMoveRelearnerStruct->mainTask].tCategory = gSpecialVar_0x800A;
-    SetMainCallback2(CB2_InitLearnMove_Basic);
-}
-
 static bool32 GameHasDifferentRelearners(void)
 {
     if (P_ENABLE_MOVE_RELEARNERS || P_TM_MOVES_RELEARNER)
@@ -506,14 +496,77 @@ static void UIPlayFanfare(u32 songId)
     PlayFanfare(songId);
 }
 
+// Keep the four-move replacement picker within the same UI task. Returning
+// from the Pokémon summary screen crashes this FireRed build on *both* accept
+// and cancel. The relearner already has a move list and the current BoxMon,
+// so no callback / scene teardown is necessary for selecting the old slot.
 static void UIShowMoveList(u8 taskId)
 {
-    gSpecialVar_0x8008 = gTasks[taskId].tPartyIndex;
-    gSpecialVar_0x8009 = gTasks[taskId].tMove;
-    gSpecialVar_0x800A = gTasks[taskId].tCategory;
-    ShowSelectMovePokemonSummaryScreen(gParties[B_TRAINER_PLAYER], gTasks[taskId].tPartyIndex, CB2_InitLearnMoveReturnFromSelectMove, gTasks[taskId].tMove);
-    DestroyTask(taskId);
-    FreeMoveRelearnerResources();
+    struct BoxPokemon *boxMon = GetSelectedBoxMonFromPcOrParty();
+    u32 i;
+
+    sMoveRelearnerStruct->savedListOffset = sMoveRelearnerScrollState.listOffset;
+    sMoveRelearnerStruct->savedListRow = sMoveRelearnerScrollState.listRow;
+    DestroyListMenuTask(sMoveRelearnerStruct->moveListMenuTask, NULL, NULL);
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        enum Move oldMove = GetBoxMonData(boxMon, MON_DATA_MOVE1 + i);
+        sMoveRelearnerStruct->menuItems[i].name = GetMoveName(oldMove);
+        sMoveRelearnerStruct->menuItems[i].id = oldMove;
+    }
+    sMoveRelearnerStruct->menuItems[MAX_MON_MOVES].name = gText_Cancel;
+    sMoveRelearnerStruct->menuItems[MAX_MON_MOVES].id = LIST_CANCEL;
+    sMoveRelearnerStruct->numMenuChoices = MAX_MON_MOVES + 1;
+    sMoveRelearnerStruct->numToShowAtOnce =
+        LoadMoveRelearnerMovesList(sMoveRelearnerStruct->menuItems, MAX_MON_MOVES + 1);
+    sMoveRelearnerStruct->moveListMenuTask =
+        ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
+    gTasks[taskId].func = Task_MoveRelearner_SelectMoveToForget;
+}
+
+// A selected entry is a move ID for the existing description renderer;
+// resolve that move back to the party/boxed Pokémon's actual slot before
+// running the ordinary LearnMove(WANT_REPLACE_3) branch.
+static void Task_MoveRelearner_SelectMoveToForget(u8 taskId)
+{
+    struct BoxPokemon *boxMon = GetSelectedBoxMonFromPcOrParty();
+    s32 choice = ListMenu_ProcessInput(sMoveRelearnerStruct->moveListMenuTask);
+    u8 chosenSlot = MAX_MON_MOVES;
+    u8 i;
+
+    if (choice == LIST_NOTHING_CHOSEN)
+        return;
+
+    if (choice != LIST_CANCEL)
+    {
+        for (i = 0; i < MAX_MON_MOVES; i++)
+        {
+            if (GetBoxMonData(boxMon, MON_DATA_MOVE1 + i) == (enum Move)choice)
+            {
+                chosenSlot = i;
+                break;
+            }
+        }
+    }
+
+    PlaySE(SE_SELECT);
+    SetMoveSlotToReplace(chosenSlot);
+    gSpecialVar_0x8005 = chosenSlot;
+    gSpecialVar_Result = (chosenSlot != MAX_MON_MOVES);
+
+    DestroyListMenuTask(sMoveRelearnerStruct->moveListMenuTask, NULL, NULL);
+    sMoveRelearnerScrollState.listOffset = sMoveRelearnerStruct->savedListOffset;
+    sMoveRelearnerScrollState.listRow = sMoveRelearnerStruct->savedListRow;
+    CreateLearnableMovesList();
+    if (sMoveRelearnerScrollState.listOffset > sMoveRelearnerStruct->numMenuChoices - sMoveRelearnerStruct->numToShowAtOnce)
+        sMoveRelearnerScrollState.listOffset = sMoveRelearnerStruct->numMenuChoices - sMoveRelearnerStruct->numToShowAtOnce;
+    sMoveRelearnerStruct->moveListMenuTask =
+        ListMenuInit(&gMultiuseListMenuTemplate, sMoveRelearnerScrollState.listOffset, sMoveRelearnerScrollState.listRow);
+
+    // LearnMove set WANT_REPLACE_3 after the UI callback. Resume its normal
+    // success or cancellation path without ever leaving the relearner.
+    gTasks[taskId].func = Task_MoveRelearner_LearnMove;
 }
 
 static void RedrawMoveList(void)
@@ -563,21 +616,29 @@ static void Task_MoveRelearner_Quit(u8 taskId)
     if (gPaletteFade.active)
         return;
 
-    if (gInitialSummaryScreenCallback != NULL)
+    // Finish releasing the relearner before allocating the next screen.
+    // A relearner launched by an overworld NPC must return to that NPC's
+    // pending script, not reopen a stale initial Pokémon summary callback.
+    u8 partyIndex = gTasks[taskId].tPartyIndex;
+    MainCallback callback = gInitialSummaryScreenCallback;
+    bool8 fromScript = (gRelearnMode == RELEARN_MODE_SCRIPT);
+    bool8 contestPage = (gRelearnMode == RELEARN_MODE_PSS_PAGE_CONTEST_MOVES);
+
+    DestroyTask(taskId);
+    FreeMoveRelearnerResources();
+    gRelearnMode = RELEARN_MODE_NONE;
+
+    if (!fromScript && callback != NULL)
     {
-        if (gRelearnMode == RELEARN_MODE_PSS_PAGE_CONTEST_MOVES)
-            ShowPokemonSummaryScreen(SUMMARY_MODE_RELEARNER_CONTEST, gParties[B_TRAINER_PLAYER], gTasks[taskId].tPartyIndex, gPartiesCount[B_TRAINER_PLAYER] - 1, gInitialSummaryScreenCallback);
-        else
-            ShowPokemonSummaryScreen(SUMMARY_MODE_RELEARNER_BATTLE, gParties[B_TRAINER_PLAYER], gTasks[taskId].tPartyIndex, gPartiesCount[B_TRAINER_PLAYER] - 1, gInitialSummaryScreenCallback);
+        ShowPokemonSummaryScreen(contestPage ? SUMMARY_MODE_RELEARNER_CONTEST : SUMMARY_MODE_RELEARNER_BATTLE,
+                                 gParties[B_TRAINER_PLAYER], partyIndex, gPartiesCount[B_TRAINER_PLAYER] - 1, callback);
     }
     else
     {
+        if (fromScript)
+            gInitialSummaryScreenCallback = NULL;
         SetMainCallback2(CB2_ReturnToField);
     }
-
-    FreeMoveRelearnerResources();
-    gRelearnMode = RELEARN_MODE_NONE;
-    DestroyTask(taskId);
 }
 
 static void Task_MoveRelearner_Giveup_Answer(u8 taskId)
