@@ -61,10 +61,10 @@ Route16_NorthEntrance_2F_Text_LongPathOverWater::
 	.string "away.$"
 
 Route16_NorthEntrance_2F_Text_GiveAmuletCoinIfCaught40::
-\t.string "PROF. OAK's researchers have\n"
-\t.string "found rare relics nearby.\p"
-\t.string "He sent an AMULET COIN to\n"
-\t.string "help fund your discoveries.$"
+	.string "PROF. OAK's researchers have\n"
+	.string "found rare relics nearby.\p"
+	.string "He sent an AMULET COIN to\n"
+	.string "help fund your discoveries.$"
 
 Route16_NorthEntrance_2F_Text_GreatHereYouGo::
 	.string "PROF. OAK sent this for you.\n"
