@@ -14014,49 +14014,52 @@ Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability
 
 Arbok @ Sitrus Berry
-Level: 54
-IVs: 22 HP / 22 Atk / 22 Def / 22 SpA / 22 SpD / 22 Spe
+Level: 58
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Intimidate
 - Sludge Bomb
 - Earthquake
 - Glare
-- Bite
+- Crunch
 
-Weezing @ Sitrus Berry
-Level: 54
-IVs: 22 HP / 22 Atk / 22 Def / 22 SpA / 22 SpD / 22 Spe
-- Sludge
+Weezing @ Black Sludge
+Level: 58
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Sludge Bomb
 - Thunderbolt
-- Self-Destruct
+- Will-O-Wisp
 - Haze
 
-Hypno
-Level: 55
-IVs: 22 HP / 22 Atk / 22 Def / 22 SpA / 22 SpD / 22 Spe
-- Psychic
-- Hypnosis
-- Shadow Ball
-- Calm Mind
-
-Victreebel
-Level: 55
-IVs: 22 HP / 22 Atk / 22 Def / 22 SpA / 22 SpD / 22 Spe
-- Razor Leaf
+Victreebel @ Sitrus Berry
+Level: 59
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Leaf Blade
 - Sludge Bomb
 - Sleep Powder
 - Swords Dance
 
-Pikachu
-Level: 56
-IVs: 22 HP / 22 Atk / 22 Def / 22 SpA / 22 SpD / 22 Spe
-- Thunderbolt
-- Quick Attack
-- Iron Tail
-- Thunder Wave
+Gyarados @ Sitrus Berry
+Level: 59
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Intimidate
+- Waterfall
+- Crunch
+- Ice Fang
+- Dragon Dance
 
-Meowth
-Level: 56
-IVs: 22 HP / 22 Atk / 22 Def / 22 SpA / 22 SpD / 22 Spe
-- Slash
-- Shadow Ball
+Pikachu @ Light Ball
+Level: 60
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Thunderbolt
-- Aerial Ace
+- Nuzzle
+- Grass Knot
+- Protect
+
+Meowth @ Focus Sash
+Level: 60
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Technician
+- Fake Out
+- Feint
+- Taunt
+- U-turn
