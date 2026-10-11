@@ -51,6 +51,16 @@ class PRLDuoApprovedArt(unittest.TestCase):
         self.assertIn("sPRL_jessie_james_Tiles", code)
         self.assertIn("sPRL_eevee_twins_Tiles", code)
 
+    def test_galarian_weezing_skin_is_scoped_to_rocket_only(self):
+        graphics = (ROOT / "src/battle_gfx_sfx_util.c").read_text()
+        self.assertIn("PRLIsJessieJamesWeezingVisual", graphics)
+        self.assertIn("SPECIES_WEEZING_GALAR", graphics)
+        self.assertIn("species != SPECIES_WEEZING", graphics)
+        self.assertIn("IsOnPlayerSide(battler)", graphics)
+        self.assertIn("TRAINER_JESSIE_JAMES_VICTORY_ROAD", graphics)
+        self.assertIn("prlRocketWeezing ? SPECIES_WEEZING_GALAR : species", graphics)
+        self.assertIn("GetMonSpritePalFromSpeciesAndPersonality(SPECIES_WEEZING_GALAR", graphics)
+
     def test_kanto_finale_has_strong_unchanged_mascots(self):
         party = (ROOT / "src/data/trainers_frlg.party").read_text()
         section = party.split("=== TRAINER_JESSIE_JAMES_VICTORY_ROAD ===", 1)[1].split("===", 1)[0]
