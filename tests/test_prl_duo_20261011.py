@@ -153,6 +153,49 @@ class PRLDuoApprovedArt(unittest.TestCase):
         self.assertNotIn("pokedex", gift.lower())
         self.assertIn("CinnabarIsland_PokemonLab_Entrance_EventScript_PRL_FossilNoBagSpace", gift)
 
+
+    def test_rooftop_eevee_expert_shop_and_all_18_methods(self):
+        import json
+        room = json.loads((ROOT / "data/maps/CeladonCity_Condominiums_RoofRoom_Frlg/map.json").read_text())
+        expert = [x for x in room["object_events"]
+                  if x["script"] == "CeladonCity_Condominiums_RoofRoom_EventScript_PRLEeveelutionsExpert"]
+        self.assertEqual(len(expert), 1)
+        self.assertEqual((expert[0]["x"], expert[0]["y"]), (8, 5))
+        self.assertEqual(expert[0]["trainer_type"], "TRAINER_TYPE_NONE")
+        self.assertEqual(expert[0]["flag"], "0")
+        self.assertEqual(len([x for x in room["object_events"]
+                              if x.get("local_id") == "LOCALID_EEVEE_POKEBALL"]), 1)
+        self.assertEqual(len(room["warp_events"]), 3)
+        menu_enum = (ROOT / "include/constants/script_menu.h").read_text()
+        menu_def = (ROOT / "src/data/script_menu.h").read_text()
+        self.assertIn("MULTI_PRL_EEVEE_EXPERT", menu_enum)
+        self.assertIn("MULTICHOICE(sMultichoiceList_PRLEeveeExpert)", menu_def)
+        for action in ("BUY STONES", "BUY HELD ITEMS", "STONE GUIDE", "OTHER EVOLUTIONS"):
+            self.assertIn(action, menu_def)
+        src = (ROOT / "data/maps/CeladonCity_Condominiums_RoofRoom_Frlg/scripts.inc").read_text()
+        stones = src.split("CeladonCity_Condominiums_RoofRoom_PRLEeveeStones::", 1)[1]
+        stones = stones.split("CeladonCity_Condominiums_RoofRoom_PRLEeveeHeldItems::", 1)[0]
+        for stone in ("WATER_STONE", "THUNDER_STONE", "FIRE_STONE", "LEAF_STONE",
+                      "ICE_STONE", "DUSK_STONE", "ANCIENT_STONE"):
+            self.assertIn(".2byte ITEM_" + stone, stones)
+        self.assertEqual(stones.count(".2byte ITEM_"), 8)  # includes terminator
+        held = src.split("CeladonCity_Condominiums_RoofRoom_PRLEeveeHeldItems::", 1)[1]
+        held = held.split("CeladonCity_Condominiums_RoofRoom_Text_PRLExpertGreeting::", 1)[0]
+        for item in ("SHARP_BEAK", "EXPERT_BELT", "SILVER_POWDER", "SOFT_SAND",
+                     "METAL_COAT", "HARD_STONE", "POISON_BARB", "DRAGON_FANG"):
+            self.assertIn(".2byte ITEM_" + item, held)
+        self.assertEqual(held.count(".2byte ITEM_"), 9)
+        self.assertIn("multichoice 0, 0, MULTI_PRL_EEVEE_EXPERT", src)
+        evo = (ROOT / "src/data/pokemon/species_info/gen_1_families.h").read_text()
+        evolution = evo.split("[SPECIES_EEVEE] =", 1)[1].split("[SPECIES_EEVEE_GMAX]", 1)[0]
+        target_forms = ("VAPOREON", "JOLTEON", "FLAREON", "LEAFEON", "GLACEON",
+                        "OMEON", "EEVEEON", "NIMBEON", "CHAMPEON", "LEPIDEON",
+                        "SPHYNXEON", "GUARDEON", "OBSIDEON", "TOXEON", "DRAKEON",
+                        "ESPEON", "UMBREON", "SYLVEON")
+        for species in target_forms:
+            self.assertIn("SPECIES_" + species, evolution)
+            self.assertIn(species, src, "Expert should describe every current evolution")
+
     def test_kanto_finale_has_strong_unchanged_mascots(self):
         party = (ROOT / "src/data/trainers_frlg.party").read_text()
         section = party.split("=== TRAINER_JESSIE_JAMES_VICTORY_ROAD ===", 1)[1].split("===", 1)[0]
