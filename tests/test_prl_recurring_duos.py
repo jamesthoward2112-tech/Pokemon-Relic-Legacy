@@ -67,7 +67,7 @@ class PRLRecurringDuos(unittest.TestCase):
                     for actor in ("Steevee", "Neevee"):
                         label = f"PokemonTower_1F_EventScript_PRLSteeveNeevee{actor}::"
                         body = script.split(label, 1)[1]
-                        self.assertTrue(body.startswith("\\n\\ttrainerbattle_double".replace("\\\\n", "\\n").replace("\\\\t", "\\t")),
+                        self.assertTrue(body.lstrip().startswith("trainerbattle_double"),
                                         f"Tower {actor} must start with trainerbattle for native trainer sight")
                     self.assertNotIn("PokemonTower_1F_EventScript_PRLSteeveNeeveeNotReady", script)
                 map_data = json.loads(read(f"data/maps/{map_name}/map.json"))
