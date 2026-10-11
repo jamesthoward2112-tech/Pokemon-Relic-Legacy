@@ -14,7 +14,7 @@ ENCOUNTERS = {
     "JESSIE_JAMES_MT_MOON": ("MtMoon_B1F_Frlg", [("Ekans", 16), ("Koffing", 16), ("Bellsprout", 16), ("Meowth", 17)]),
     "JESSIE_JAMES_HIDEOUT": ("RocketHideout_B4F_Frlg", [("Arbok", 29), ("Weezing", 29), ("Raticate", 30), ("Meowth", 30)]),
     "JESSIE_JAMES_SILPH": ("SilphCo_11F_Frlg", [("Arbok", 39), ("Weezing", 39), ("Drowzee", 40), ("Victreebel", 40), ("Pikachu", 41), ("Meowth", 41)]),
-    "JESSIE_JAMES_VICTORY_ROAD": ("VictoryRoad_3F_Frlg", [("Arbok", 54), ("Weezing", 54), ("Hypno", 55), ("Victreebel", 55), ("Pikachu", 56), ("Meowth", 56)]),
+    "JESSIE_JAMES_VICTORY_ROAD": ("VictoryRoad_3F_Frlg", [("Arbok", 58), ("Weezing", 58), ("Victreebel", 59), ("Gyarados", 59), ("Pikachu", 60), ("Meowth", 60)]),
 }
 GATES = {
     "STEEVE_NEEVEE_ROUTE3": "FLAG_BADGE01_GET",
