@@ -105,7 +105,7 @@
     .frontAnimFrames = sAnims_SingleFramePlaceHolder, .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
     .backPic = gMonBackPic_Nolax, .backPicSize = MON_COORDS_SIZE(64, 64), .backPicYOffset = 0, .backAnimId = BACK_ANIM_NONE,
     .palette = gMonPalette_Nolax, .shinyPalette = gMonShinyPalette_Nolax,
-    .iconSprite = gMonIcon_Nolax, .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 1 : 3,
+    .iconSprite = gMonIcon_Nolax, .iconPalIndex = 3, // PKR Nolax portrait uses the compatible blue/tan icon palette
     .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
     .levelUpLearnset = sNolaxLevelUpLearnset, .teachableLearnset = sLopunnyTeachableLearnset,
 },

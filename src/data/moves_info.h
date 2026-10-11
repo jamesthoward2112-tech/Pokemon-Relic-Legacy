@@ -6740,7 +6740,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .power = 80,
         .type = TYPE_NORMAL,
         .accuracy = 100,
-        .pp = 5,
+        .pp = 10,
         .target = TARGET_SELECTED,
         .priority = B_UPDATED_MOVE_DATA >= GEN_5 ? 2 : 1,
         .category = DAMAGE_CATEGORY_PHYSICAL,
