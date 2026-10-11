@@ -66,20 +66,22 @@ Route10_PokemonCenter_1F_Text_HeardGhostsHauntLavender::
 	.string "LAVENDER TOWN.$"
 
 Route10_PokemonCenter_1F_Text_GiveEverstoneIfCaught20Mons::
-	.string "PROF. OAK's team is studying
-strange relics in Kanto.pHe left a LUCKY EGG for you!
-It will help train your team.$"
+\t.string "PROF. OAK's team is studying\n"
+\t.string "strange relics in Kanto.\p"
+\t.string "He left a LUCKY EGG for you!\n"
+\t.string "It will help train your team.$"
 
 Route10_PokemonCenter_1F_Text_GreatHereYouGo::
 	.string "PROF. OAK sent this for you.\n"
 	.string "Here you go!$"
 
 Route10_PokemonCenter_1F_Text_ReceivedEverstoneFromAide::
-	.string "{PLAYER} received LUCKY EGG\n"
-	.string "from PROF. OAK's AIDE!$"
+\t.string "{PLAYER} received LUCKY EGG\n"
+\t.string "from PROF. OAK's AIDE!$"
 
 Route10_PokemonCenter_1F_Text_ExplainEverstone::
-	.string "A LUCKY EGG helps its holder
-gain more EXP. Points.pUse it to train for the
-relic expeditions ahead.$"
+\t.string "A LUCKY EGG helps its holder\n"
+\t.string "gain more EXP. Points.\p"
+\t.string "Use it to train for the\n"
+\t.string "relic expeditions ahead.$"
 
