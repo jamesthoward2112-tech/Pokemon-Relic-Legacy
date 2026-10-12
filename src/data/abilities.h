@@ -2624,7 +2624,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 [ABILITY_EDENS_CANOPY] =
 {
     .name = _("Eden's Canopy"),
-    .description = COMPOUND_STRING("On switch-in create Grassy Terrain for 5 turns. While Grassy Terrain is active, Edensaur cannot"),
+    .description = COMPOUND_STRING("Summons Grassy Terrain;\nblocks status in it."),
     .aiRating = 3,
 },
 
@@ -2638,7 +2638,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 [ABILITY_CITADEL_SHELL] =
 {
     .name = _("Citadel Shell"),
-    .description = COMPOUND_STRING("Super-effective damage received is reduced by 20%. Fortotoise Defense cannot be lowered by oppo"),
+    .description = COMPOUND_STRING("Cuts super-effective hits\nby 20%; blocks Def drops."),
     .aiRating = 3,
 },
 
