@@ -51,6 +51,12 @@ static const u32 sPRL_RocketGyaradosFront[] = INCBIN_U32("graphics/battle_transi
 static const u16 sPRL_RocketGyaradosPalette[] = INCBIN_U16("graphics/battle_transitions/prl/dark_gyarados.gbapal");
 
 
+// Graphics-only Giovanni fossil apparitions. Pokémon species/party data are unchanged.
+static const u32 sPRL_GiovanniSkeletonKabutopsFront[] = INCBIN_U32("graphics/battle_transitions/prl/giovanni_skeleton_kabutops.4bpp.lz");
+static const u16 sPRL_GiovanniSkeletonKabutopsPalette[] = INCBIN_U16("graphics/battle_transitions/prl/giovanni_skeleton_kabutops.gbapal");
+static const u32 sPRL_GiovanniSkeletonAerodactylFront[] = INCBIN_U32("graphics/battle_transitions/prl/giovanni_skeleton_aerodactyl.4bpp.lz");
+static const u16 sPRL_GiovanniSkeletonAerodactylPalette[] = INCBIN_U16("graphics/battle_transitions/prl/giovanni_skeleton_aerodactyl.gbapal");
+
 // this file's functions
 static u8 GetBattlePalaceMoveGroup(enum BattlerId battler, enum Move move);
 static u16 GetBattlePalaceTarget(enum BattlerId battler);
@@ -739,6 +745,47 @@ static const u16 *PRLGetRocketDarkPalette(u8 id)
     return NULL;
 }
 
+// Use skeletal fossil art only for Giovanni's Viridian Gym team.
+// Other trainers, wild and player-owned Kabutops/Aerodactyl keep regular art.
+enum PRLGiovanniSkeletonGfx
+{
+    PRL_GIOVANNI_SKELETON_NONE,
+    PRL_GIOVANNI_SKELETON_KABUTOPS,
+    PRL_GIOVANNI_SKELETON_AERODACTYL,
+};
+
+static u8 PRLGetGiovanniSkeletonGfx(enum BattlerId battler, enum Species species)
+{
+#if IS_FRLG
+    if (IsOnPlayerSide(battler) || !(gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+        || TRAINER_BATTLE_PARAM.opponentA != TRAINER_LEADER_GIOVANNI)
+        return PRL_GIOVANNI_SKELETON_NONE;
+    if (species == SPECIES_KABUTOPS)
+        return PRL_GIOVANNI_SKELETON_KABUTOPS;
+    if (species == SPECIES_AERODACTYL)
+        return PRL_GIOVANNI_SKELETON_AERODACTYL;
+#endif
+    return PRL_GIOVANNI_SKELETON_NONE;
+}
+
+static const u32 *PRLGetGiovanniSkeletonFront(u8 id)
+{
+    if (id == PRL_GIOVANNI_SKELETON_KABUTOPS)
+        return sPRL_GiovanniSkeletonKabutopsFront;
+    if (id == PRL_GIOVANNI_SKELETON_AERODACTYL)
+        return sPRL_GiovanniSkeletonAerodactylFront;
+    return NULL;
+}
+
+static const u16 *PRLGetGiovanniSkeletonPalette(u8 id)
+{
+    if (id == PRL_GIOVANNI_SKELETON_KABUTOPS)
+        return sPRL_GiovanniSkeletonKabutopsPalette;
+    if (id == PRL_GIOVANNI_SKELETON_AERODACTYL)
+        return sPRL_GiovanniSkeletonAerodactylPalette;
+    return NULL;
+}
+
 void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
 {
     u32 personalityValue, paletteOffset;
@@ -746,6 +793,7 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
     bool32 prlTwinsEevee;
     bool32 prlRocketWeezing;
     u8 prlRocketDarkGfx;
+    u8 prlGiovanniSkeletonGfx;
     enum Species species;
     enum BattlerPosition position;
     const u16 *paletteData;
@@ -781,10 +829,15 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
                        && gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE;
     prlRocketDarkGfx = gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE
                        ? PRLGetRocketDarkGfx(battler, species) : PRL_ROCKET_DARK_NONE;
+    prlGiovanniSkeletonGfx = gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE
+                             ? PRLGetGiovanniSkeletonGfx(battler, species) : PRL_GIOVANNI_SKELETON_NONE;
     if (prlTwinsEevee)
         DecompressDataWithHeaderWram(gPRLEeveeTwinsFrontPic, gMonSpritesGfxPtr->spritesGfx[position]);
     else if (prlRocketDarkGfx != PRL_ROCKET_DARK_NONE)
         DecompressDataWithHeaderWram(PRLGetRocketDarkFront(prlRocketDarkGfx),
+                                     gMonSpritesGfxPtr->spritesGfx[position]);
+    else if (prlGiovanniSkeletonGfx != PRL_GIOVANNI_SKELETON_NONE)
+        DecompressDataWithHeaderWram(PRLGetGiovanniSkeletonFront(prlGiovanniSkeletonGfx),
                                      gMonSpritesGfxPtr->spritesGfx[position]);
     else
         HandleLoadSpecialPokePic(!IsOnPlayerSide(battler),
@@ -797,6 +850,8 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
         paletteData = isShiny ? gPRLEeveeTwinsShinyPalette : gPRLEeveeTwinsNormalPalette;
     else if (prlRocketDarkGfx != PRL_ROCKET_DARK_NONE)
         paletteData = PRLGetRocketDarkPalette(prlRocketDarkGfx);
+    else if (prlGiovanniSkeletonGfx != PRL_GIOVANNI_SKELETON_NONE)
+        paletteData = PRLGetGiovanniSkeletonPalette(prlGiovanniSkeletonGfx);
     else if (prlRocketWeezing)
         paletteData = GetMonSpritePalFromSpeciesAndPersonality(SPECIES_WEEZING_GALAR, isShiny, personalityValue);
     else if (gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE)
