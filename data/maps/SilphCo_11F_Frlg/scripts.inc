@@ -69,16 +69,13 @@ SilphCo_11F_EventScript_GiovanniTriggerRight::
 	goto SilphCo_11F_EventScript_BattleGiovanni
 	end
 
-@ The second trigger fires after the duo, with Giovanni one tile north.
-@ VAR_TEMP_1=2 intentionally skips his original long walk to row 15.
-SilphCo_11F_EventScript_GiovanniTriggerCorridor::
-	lockall
-	setvar VAR_TEMP_1, 2
-	goto SilphCo_11F_EventScript_BattleGiovanni
-	end
-
 SilphCo_11F_EventScript_BattleGiovanni::
-	goto_if_unset FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_GiovanniWaitForJessieJames
+	@ Trainer defeated state works immediately after battle and for older saves.
+	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_GiovanniBattleUnlocked
+	goto SilphCo_11F_EventScript_GiovanniWaitForJessieJames
+
+SilphCo_11F_EventScript_GiovanniBattleUnlocked::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
 	textcolor NPC_TEXT_COLOR_MALE
 	applymovement LOCALID_SILPH_CO_GIOVANNI, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
@@ -108,8 +105,10 @@ SilphCo_11F_EventScript_GiovanniWaitForJessieJames::
 	end
 
 SilphCo_11F_Text_PRL_StillGuarded::
-	.string "GIOVANNI: Face JESSIE and JAMES\n"
-	.string "before you challenge me!$"
+	.string "GIOVANNI: My agents are\n"
+	.string "guarding the western corridor!\p"
+	.string "Defeat JESSIE and JAMES if\n"
+	.string "you intend to challenge me!$"
 
 SilphCo_11F_EventScript_GiovanniApproachLeft::
 	applymovement LOCALID_SILPH_CO_GIOVANNI, SilphCo_11F_Movement_GiovanniApproachLeft
