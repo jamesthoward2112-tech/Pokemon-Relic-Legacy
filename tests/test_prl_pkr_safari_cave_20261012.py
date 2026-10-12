@@ -35,3 +35,29 @@ def test_first_champion_victory_opens_cave():
     city = read("data/maps/CeruleanCity_Frlg/scripts.inc")
     assert "call_if_set FLAG_SYS_GAME_CLEAR, CeruleanCity_EventScript_RemoveCaveGuard" in city
     assert "CeruleanCity_EventScript_RemoveCaveGuard::\n\tsetflag FLAG_HIDE_CERULEAN_CAVE_GUARD\n\treturn" in city
+
+
+def test_kanto_one_save_version_exclusive_encounters():
+    data = json.loads(read("src/data/wild_encounters.json"))
+    wanted = {
+        "SANDSHREW": "MAP_ROUTE4",
+        "BELLSPROUT": "MAP_ROUTE5",
+        "VULPIX": "MAP_ROUTE7",
+        "SLOWPOKE": "MAP_ROUTE6",
+        "STARYU": "MAP_PALLET_TOWN",
+        "PINSIR": "MAP_SAFARI_ZONE_EAST",
+        "MAGMAR": "MAP_POKEMON_MANSION_1F",
+        "PORYGON": "MAP_POWER_PLANT",
+        "TAUROS": "MAP_ROUTE13",
+    }
+    seen = set()
+    for group in data["wild_encounter_groups"]:
+        for e in group.get("encounters", []):
+            if not e.get("base_label", "").endswith("_FireRed"):
+                continue
+            for container in ("land_mons", "water_mons", "fishing_mons"):
+                for mon in e.get(container, {}).get("mons", []):
+                    key = mon["species"].removeprefix("SPECIES_")
+                    if wanted.get(key) == e["map"]:
+                        seen.add(key)
+    assert seen == set(wanted), sorted(set(wanted) - seen)
