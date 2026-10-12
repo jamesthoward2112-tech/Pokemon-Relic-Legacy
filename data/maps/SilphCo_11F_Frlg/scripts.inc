@@ -13,6 +13,7 @@ SilphCo_11F_EventScript_President::
 	lock
 	faceplayer
 	goto_if_set FLAG_GOT_MASTER_BALL_FROM_SILPH, SilphCo_11F_EventScript_AlreadyGotMasterBall
+	goto_if_eq VAR_MAP_SCENE_SILPH_CO_11F, 0, SilphCo_11F_EventScript_PresidentRocketOccupied
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, SilphCo_11F_EventScript_PresidentThanksMale
 	call_if_eq VAR_RESULT, FEMALE, SilphCo_11F_EventScript_PresidentThanksFemale
@@ -21,6 +22,11 @@ SilphCo_11F_EventScript_President::
 	giveitem_msg SilphCo_11F_Text_ObtainedMasterBallFromPresident, ITEM_MASTER_BALL, 1, MUS_RG_OBTAIN_KEY_ITEM
 	msgbox SilphCo_11F_Text_ThatsOurSecretPrototype
 	setflag FLAG_GOT_MASTER_BALL_FROM_SILPH
+	release
+	end
+
+SilphCo_11F_EventScript_PresidentRocketOccupied::
+	msgbox SilphCo_11F_Text_PresidentRocketOccupied
 	release
 	end
 
@@ -43,7 +49,12 @@ SilphCo_11F_EventScript_AlreadyGotMasterBall::
 	end
 
 SilphCo_11F_EventScript_Secretary::
+	goto_if_eq VAR_MAP_SCENE_SILPH_CO_11F, 0, SilphCo_11F_EventScript_SecretaryRocketOccupied
 	msgbox SilphCo_11F_Text_ThanksForRescuingUs, MSGBOX_NPC
+	end
+
+SilphCo_11F_EventScript_SecretaryRocketOccupied::
+	msgbox SilphCo_11F_Text_SecretaryRocketOccupied, MSGBOX_NPC
 	end
 
 SilphCo_11F_EventScript_GiovanniTriggerLeft::
@@ -59,7 +70,12 @@ SilphCo_11F_EventScript_GiovanniTriggerRight::
 	end
 
 SilphCo_11F_EventScript_BattleGiovanni::
-	goto_if_unset FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_GiovanniWaitForJessieJames
+	@ Trainer defeated state works immediately after battle and for older saves.
+	goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_GiovanniBattleUnlocked
+	goto SilphCo_11F_EventScript_GiovanniWaitForJessieJames
+
+SilphCo_11F_EventScript_GiovanniBattleUnlocked::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
 	textcolor NPC_TEXT_COLOR_MALE
 	applymovement LOCALID_SILPH_CO_GIOVANNI, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
@@ -89,8 +105,10 @@ SilphCo_11F_EventScript_GiovanniWaitForJessieJames::
 	end
 
 SilphCo_11F_Text_PRL_StillGuarded::
-	.string "GIOVANNI: Face JESSIE and JAMES\n"
-	.string "before you challenge me!$"
+	.string "GIOVANNI: My agents are\n"
+	.string "guarding the western corridor!\p"
+	.string "Defeat JESSIE and JAMES if\n"
+	.string "you intend to challenge me!$"
 
 SilphCo_11F_EventScript_GiovanniApproachLeft::
 	applymovement LOCALID_SILPH_CO_GIOVANNI, SilphCo_11F_Movement_GiovanniApproachLeft
@@ -144,6 +162,17 @@ SilphCo_11F_EventScript_Grunt2::
 	trainerbattle_single TRAINER_TEAM_ROCKET_GRUNT_41, SilphCo_11F_Text_Grunt2Intro, SilphCo_11F_Text_Grunt2Defeat
 	msgbox SilphCo_11F_Text_Grunt2PostBattle, MSGBOX_AUTOCLOSE
 	end
+
+SilphCo_11F_Text_PresidentRocketOccupied::
+	.string "PRESIDENT: TEAM ROCKET is still\n"
+	.string "holding SILPH hostage!\p"
+	.string "Defeat GIOVANNI before I can\n"
+	.string "entrust you with our MASTER BALL!$"
+
+SilphCo_11F_Text_SecretaryRocketOccupied::
+	.string "SECRETARY: Please stop\n"
+	.string "GIOVANNI! The PRESIDENT and\n"
+	.string "our research are in danger!$"
 
 SilphCo_11F_Text_ThanksForSavingMeDearBoy::
 	.string "PRESIDENT: Dear boy!\n"

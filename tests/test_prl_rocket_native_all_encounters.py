@@ -25,7 +25,7 @@ class RocketNativeTrainerRegression(unittest.TestCase):
                 for name in ("JESSIE", "JAMES"):
                     npc = actors["LOCALID_PRL_" + name + "_" + tag]
                     self.assertEqual(npc["trainer_type"], "TRAINER_TYPE_NORMAL")
-                    expected_direction = ("MOVEMENT_TYPE_FACE_RIGHT" if tag == "HIDEOUT"
+                    expected_direction = ("MOVEMENT_TYPE_FACE_RIGHT" if tag in ("HIDEOUT", "SILPH")
                                           else "MOVEMENT_TYPE_FACE_DOWN")
                     self.assertEqual(npc["movement_type"], expected_direction)
                     self.assertEqual(int(npc["trainer_sight_or_berry_tree_id"]), 4)
@@ -58,7 +58,7 @@ class RocketNativeTrainerRegression(unittest.TestCase):
         silph = (ROOT / "data/maps/SilphCo_11F_Frlg/scripts.inc").read_text()
         road = (ROOT / "data/maps/VictoryRoad_2F_Frlg/scripts.inc").read_text()
         self.assertIn("goto_if_unset FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT", hideout)
-        self.assertIn("goto_if_unset FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH", silph)
+        self.assertIn("goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_GiovanniBattleUnlocked", silph)
         self.assertIn("goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD", road)
         self.assertIn("FLAG_CAN_USE_ROCKET_HIDEOUT_LIFT", hideout)
         self.assertIn("checkitem ITEM_SILPH_SCOPE", silph)
