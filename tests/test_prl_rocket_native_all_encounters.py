@@ -58,7 +58,7 @@ class RocketNativeTrainerRegression(unittest.TestCase):
         silph = (ROOT / "data/maps/SilphCo_11F_Frlg/scripts.inc").read_text()
         road = (ROOT / "data/maps/VictoryRoad_2F_Frlg/scripts.inc").read_text()
         self.assertIn("goto_if_unset FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT", hideout)
-        self.assertIn("goto_if_unset FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH", silph)
+        self.assertIn("goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_GiovanniBattleUnlocked", silph)
         self.assertIn("goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD", road)
         self.assertIn("FLAG_CAN_USE_ROCKET_HIDEOUT_LIFT", hideout)
         self.assertIn("checkitem ITEM_SILPH_SCOPE", silph)
