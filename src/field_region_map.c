@@ -57,23 +57,13 @@ static void FieldUpdateRegionMap(void);
 static void PrintRegionMapSecName();
 static void PrintTitleWindowText();
 
-// Map R-button Fly requires the same badge + HM + compatible party checks as PHR.
+// Map R-button Fly works with the badge and HM in the Bag; no Pokémon is required.
 static bool32 PRL_CanFlyDirectlyFromMap(void)
 {
     enum Item hm = GetTMHMItemIdFromMoveId(MOVE_FLY);
-    if (!IsFieldMoveUnlocked(FIELD_MOVE_FLY) || hm == ITEM_NONE || !CheckBagHasItem(hm, 1))
-        return FALSE;
-
-    for (u32 i = 0; i < PARTY_SIZE; i++)
-    {
-        enum Species species = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES);
-        if (!species)
-            break;
-        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG)
-         && CanLearnTeachableMove(species, MOVE_FLY))
-            return TRUE;
-    }
-    return FALSE;
+    return IsFieldMoveUnlocked(FIELD_MOVE_FLY)
+        && hm != ITEM_NONE
+        && CheckBagHasItem(hm, 1);
 }
 
 

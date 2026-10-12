@@ -31,6 +31,15 @@ class TestHMBagBadge(unittest.TestCase):
         menu = read("src/party_menu.c").split("static void CursorCb_FieldMove(u8 taskId)\n{",1)[1].split("static void DisplayFieldMoveExitAreaMessage",1)[0]
         self.assertIn("!CheckBagHasItem(GetTMHMItemIdFromMoveId(FieldMove_GetMoveId(fieldMove)), 1)",menu)
 
+    def test_map_fly_needs_only_badge_and_hm_in_bag(self):
+        src = read("src/field_region_map.c")
+        block = src.split("static bool32 PRL_CanFlyDirectlyFromMap(void)",1)[1].split("static const struct BgTemplate",1)[0]
+        self.assertIn("IsFieldMoveUnlocked(FIELD_MOVE_FLY)",block)
+        self.assertIn("CheckBagHasItem(hm, 1)",block)
+        self.assertNotIn("CanLearnTeachableMove",block)
+        self.assertNotIn("GetMonData",block)
+        self.assertIn("MAP_INPUT_R_BUTTON",src)
+
     def test_field_strings_credit_trainer(self):
         files = [read("data/scripts/field_move_scripts.inc"),read("data/text/surf.inc")]
         for name in ("STRENGTH", "WATERFALL", "DIVE"):

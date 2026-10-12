@@ -259,11 +259,14 @@ class PRLRecurringDuos(unittest.TestCase):
         self.assertIn("VermilionCity_Text_PRLPierAccess:", script)
         self.assertIn("The pier is open to Trainers now.", script)
         hm = read("src/scrcmd.c")
-        self.assertIn("CanLearnTeachableMove(species, move)", hm)
+        self.assertIn("(doUnlockedCheck || useFieldHm) && !IsFieldMoveUnlocked(fieldMove)", hm)
         self.assertIn("CheckBagHasItem(hmItem, 1)", hm)
+        self.assertIn("if (useFieldHm || MonKnowsMove(", hm)
+        self.assertNotIn("CanLearnTeachableMove(species, move)", hm)
         fly = read("src/field_region_map.c")
         self.assertIn("PRL_CanFlyDirectlyFromMap()", fly)
-        self.assertIn("CanLearnTeachableMove(species, MOVE_FLY)", fly)
+        self.assertIn("CheckBagHasItem(hm, 1)", fly)
+        self.assertNotIn("CanLearnTeachableMove(species, MOVE_FLY)", fly)
 
     def test_select_relearner_and_field_hm_text_regression(self):
         field = read("src/field_control_avatar.c")
@@ -279,8 +282,8 @@ class PRLRecurringDuos(unittest.TestCase):
         for category in ("EggMoves", "TMMoves", "TutorMoves"):
             self.assertIn("GetRelearner" + category, relearner)
         text = read("data/scripts/field_move_scripts.inc")
-        self.assertIn("{PLAYER} used {STR_VAR_2}!", text)
-        self.assertIn("{PLAYER} used STRENGTH!", text)
+        self.assertIn("Trainer used {STR_VAR_2}!", text)
+        self.assertIn("Trainer used STRENGTH!", text)
 
 
 if __name__ == "__main__":
