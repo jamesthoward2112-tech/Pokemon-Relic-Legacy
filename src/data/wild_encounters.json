@@ -15253,9 +15253,9 @@
                 "species": "SPECIES_NIDORINO"
               },
               {
-                "min_level": 30,
-                "max_level": 30,
-                "species": "SPECIES_NIDORAN_F"
+                "min_level": 28,
+                "max_level": 28,
+                "species": "SPECIES_KANGASKHAN"
               },
               {
                 "min_level": 32,
@@ -15273,9 +15273,9 @@
                 "species": "SPECIES_TAUROS"
               },
               {
-                "min_level": 23,
-                "max_level": 23,
-                "species": "SPECIES_VENONAT"
+                "min_level": 26,
+                "max_level": 26,
+                "species": "SPECIES_KANGASKHAN"
               },
               {
                 "min_level": 28,
@@ -15407,9 +15407,9 @@
                 "species": "SPECIES_NIDORINA"
               },
               {
-                "min_level": 30,
-                "max_level": 30,
-                "species": "SPECIES_NIDORAN_M"
+                "min_level": 28,
+                "max_level": 28,
+                "species": "SPECIES_KANGASKHAN"
               },
               {
                 "min_level": 32,
@@ -15427,9 +15427,9 @@
                 "species": "SPECIES_TAUROS"
               },
               {
-                "min_level": 23,
-                "max_level": 23,
-                "species": "SPECIES_VENONAT"
+                "min_level": 26,
+                "max_level": 26,
+                "species": "SPECIES_KANGASKHAN"
               },
               {
                 "min_level": 28,

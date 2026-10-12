@@ -118,7 +118,7 @@ FuchsiaCity_SafariZone_Entrance_EventScript_TryEnterSafariZone::
 	msgbox FuchsiaCity_SafariZone_Entrance_Text_ThatllBe500WeOnlyUseSpecialBalls
 	textcolor NPC_TEXT_COLOR_NEUTRAL
 	playfanfare MUS_LEVEL_UP
-	message FuchsiaCity_SafariZone_Entrance_Text_PlayerReceived30SafariBalls
+	message FuchsiaCity_SafariZone_Entrance_Text_PlayerReceived99SafariBalls
 	waitfanfare
 	call EventScript_RestorePrevTextColor
 	msgbox FuchsiaCity_SafariZone_Entrance_Text_CallYouOnPAWhenYouRunOut
@@ -220,8 +220,8 @@ FuchsiaCity_SafariZone_Entrance_Text_ThatllBe500WeOnlyUseSpecialBalls::
 	.string "We only use a special kind of \n"
 	.string "POKé BALLS here.$"
 
-FuchsiaCity_SafariZone_Entrance_Text_PlayerReceived30SafariBalls::
-	.string "{PLAYER} received 30 SAFARI BALLS\n"
+FuchsiaCity_SafariZone_Entrance_Text_PlayerReceived99SafariBalls::
+	.string "{PLAYER} received 99 SAFARI BALLS\n"
 	.string "from the attendant.$"
 
 FuchsiaCity_SafariZone_Entrance_Text_CallYouOnPAWhenYouRunOut::
@@ -262,8 +262,8 @@ FuchsiaCity_SafariZone_Entrance_Text_ExplainSafariZone::
 	.string "four zones in it.\p"
 	.string "Each zone has different kinds of\n"
 	.string "POKéMON, even some rare ones.\p"
-	.string "Use the supplied SAFARI BALLS to\n"
-	.string "catch them.\p"
+	.string "You get 99 SAFARI BALLS and\n"
+	.string "996 steps to explore.\p"
 	.string "You can also throw BAIT or ROCKS\n"
 	.string "besides the SAFARI BALLS.\p"
 	.string "If you throw BAIT, the POKéMON\n"

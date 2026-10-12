@@ -24,6 +24,8 @@
 #define FLAG_HIDE_PRL_ROCKET_HIDEOUT                   FLAG_0x8F9
 #define FLAG_HIDE_PRL_ROCKET_SILPH                     FLAG_0x8FA
 #define FLAG_HIDE_PRL_ROCKET_VICTORY_ROAD              FLAG_0x8FB
+// Permanent extra Safari pickup; existing West-area items remain intact.
+#define FLAG_HIDE_PRL_SAFARI_WEST_SILK_SCARF          FLAG_0x8FC
 
 
 // PRL persistent early-Kanto flags; native FRLG slots 0x020-0x026 were unused.

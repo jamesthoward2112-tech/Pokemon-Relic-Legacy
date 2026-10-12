@@ -195,8 +195,8 @@ FuchsiaCity_Text_VoltorbSign::
 
 FuchsiaCity_Text_KangaskhanSign::
 	.string "Name: KANGASKHAN\p"
-	.string "A maternal POKéMON that raises its\n"
-	.string "young in a pouch on its belly.$"
+	.string "A rare and protective parent.\n"
+	.string "Friendship may awaken KHANG.$"
 
 FuchsiaCity_Text_SlowpokeSign::
 	.string "Name: SLOWPOKE\n"
