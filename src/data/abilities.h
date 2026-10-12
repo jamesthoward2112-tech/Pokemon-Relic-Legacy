@@ -2631,7 +2631,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 [ABILITY_THERMAL_WINGS] =
 {
     .name = _("Thermal Wings"),
-    .description = COMPOUND_STRING("Fire- and Flying-type damaging moves deal 20% more damage. Recoil from damaging moves is reduce"),
+    .description = COMPOUND_STRING("Boosts Fire/Flying moves\nby 20%; reduces recoil."),
     .aiRating = 3,
 },
 

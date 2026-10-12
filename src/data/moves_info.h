@@ -24264,8 +24264,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
 [MOVE_SCORCHWING] =
 {
-    .name = COMPOUND_STRING("SCORCHWING"),
-    .description = COMPOUND_STRING("PRL signature move."),
+    .name = COMPOUND_STRING("Scorch Wings"),
+    .description = COMPOUND_STRING("Scorching wings strike the\nfoe. May cause a burn."),
     .effect = EFFECT_HIT,
     .power = 95,
     .type = TYPE_FLYING,
