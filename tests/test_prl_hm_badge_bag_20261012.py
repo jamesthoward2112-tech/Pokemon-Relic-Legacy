@@ -40,14 +40,27 @@ class TestHMBagBadge(unittest.TestCase):
         self.assertNotIn("GetMonData",block)
         self.assertIn("MAP_INPUT_R_BUTTON",src)
 
-    def test_field_strings_credit_trainer(self):
-        files = [read("data/scripts/field_move_scripts.inc"),read("data/text/surf.inc")]
-        for name in ("STRENGTH", "WATERFALL", "DIVE"):
-            self.assertIn("Trainer used "+name, files[0])
-        self.assertIn("Trainer used {STR_VAR_2}", files[0])
-        self.assertIn("Trainer used SURF", files[1])
-        self.assertNotIn("{PLAYER} used",files[0])
-        self.assertNotIn("{STR_VAR_1} used SURF",files[1])
+    def test_field_strings_credit_player_character(self):
+        # {PLAYER} expands to the saved Trainer name; 'Trainer' is not a placeholder.
+        files = [read("data/scripts/field_move_scripts.inc"), read("data/text/surf.inc")]
+        for name in ("STRENGTH", "WATERFALL", "DIVE", "Rock Climb"):
+            self.assertIn("{PLAYER} used " + name, files[0])
+        self.assertIn("{PLAYER} used {STR_VAR_2}", files[0])
+        self.assertIn("{PLAYER} used SURF", files[1])
+        for contents in files:
+            self.assertNotIn("Trainer used", contents)
+
+    def test_a_button_water_edge_surf_uses_badge_and_bag(self):
+        src = read("src/field_control_avatar.c")
+        script = src.split("static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metatileBehavior, enum Direction direction)\n{", 1)[1].split("static bool32 TrySetupDiveDownScript", 1)[0]
+        self.assertIn("IsFieldMoveUnlocked(FIELD_MOVE_SURF)", script)
+        self.assertIn("CheckBagHasItem(GetTMHMItemIdFromMoveId(MOVE_SURF), 1)", script)
+        self.assertIn("IsPlayerFacingSurfableFishableWater()", script)
+        self.assertIn("CheckFollowerNPCFlag(FOLLOWER_NPC_FLAG_CAN_SURF)", script)
+        self.assertIn("return EventScript_UseSurf;", script)
+        self.assertNotIn("PartyHasMonWithSurf()", script)
+        self.assertIn("input->pressedAButton && TryStartInteractionScript(", src)
+        self.assertIn("script = GetInteractedWaterScript(", src)
 
     def test_surf_rock_smash_and_strength_still_use_field_check(self):
         self.assertIn("checkfieldmove FIELD_MOVE_SURF",read("data/scripts/surf.inc"))
