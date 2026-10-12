@@ -1085,6 +1085,16 @@ struct ExternalEventFlags
 
 } __attribute__((packed));/*size = 0x15*/
 
+// Fixed legacy fields: never modify or resize these, even when expanding the live bag.
+struct LegacyBag
+{
+    struct ItemSlot items[30];
+    struct ItemSlot keyItems[30];
+    struct ItemSlot pokeBalls[16];
+    struct ItemSlot TMsHMs[64];
+    struct ItemSlot berries[46];
+};
+
 struct Bag
 {
     struct ItemSlot items[BAG_ITEMS_COUNT];
