@@ -18,8 +18,8 @@ def block(label):
 class SilphCo11FProgressionTests(unittest.TestCase):
     def test_duo_lines_the_left_wall_facing_right(self):
         actors = {obj.get("local_id"): obj for obj in MAP["object_events"]}
-        for name, position in (("JESSIE", (5, 13)), ("JAMES", (5, 14)),
-                               ("MEOWTH", (5, 12))):
+        for name, position in (("JESSIE", (0, 14)), ("JAMES", (0, 15)),
+                               ("MEOWTH", (0, 13))):
             actor = actors["LOCALID_PRL_" + name + "_SILPH"]
             assert (actor["x"], actor["y"]) == position
             assert actor["movement_type"] == "MOVEMENT_TYPE_FACE_RIGHT"
@@ -29,22 +29,21 @@ class SilphCo11FProgressionTests(unittest.TestCase):
                 assert actor["trainer_type"] == "TRAINER_TYPE_NORMAL"
                 assert actor["trainer_sight_or_berry_tree_id"] == "4"
     
-    def test_second_corridor_trigger_fires_after_duo_and_skips_old_walk(self):
-        new = next((e for e in MAP["coord_events"] if (e["x"], e["y"]) == (6, 12)), None)
-        assert new is not None
-        assert new["script"] == "SilphCo_11F_EventScript_GiovanniTriggerCorridor"
-        assert new["var"] == "VAR_MAP_SCENE_SILPH_CO_11F"
-        assert new["var_value"] == "0"
-        assert "setvar VAR_TEMP_1, 2" in block(new["script"])
+    def test_giovanni_requires_real_victory_without_premature_trigger(self):
+        assert not any((e["x"], e["y"]) == (6, 12) for e in MAP["coord_events"])
+        assert len(MAP["coord_events"]) == 2
         boss = block("SilphCo_11F_EventScript_BattleGiovanni")
-        assert "goto_if_unset FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH" in boss
-        assert "trainerbattle_no_intro TRAINER_BOSS_GIOVANNI_2" in boss
-        assert "call_if_eq VAR_TEMP_1, 0" in boss
-        assert "call_if_eq VAR_TEMP_1, 1" in boss
-        assert "setvar VAR_MAP_SCENE_SILPH_CO_11F, 1" in boss
-        for old in ("SilphCo_11F_EventScript_GiovanniTriggerLeft", "SilphCo_11F_EventScript_GiovanniTriggerRight"):
-            assert any(e["script"] == old for e in MAP["coord_events"])
-    
+        assert "goto_if_defeated TRAINER_JESSIE_JAMES_SILPH, SilphCo_11F_EventScript_GiovanniBattleUnlocked" in boss
+        assert "SilphCo_11F_EventScript_GiovanniWaitForJessieJames" in boss
+        unlocked = block("SilphCo_11F_EventScript_GiovanniBattleUnlocked")
+        assert unlocked.index("setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH") < unlocked.index(
+            "trainerbattle_no_intro TRAINER_BOSS_GIOVANNI_2")
+        assert "call_if_eq VAR_TEMP_1, 0" in unlocked
+        assert "call_if_eq VAR_TEMP_1, 1" in unlocked
+        assert "setvar VAR_MAP_SCENE_SILPH_CO_11F, 1" in unlocked
+        for label in ("SilphCo_11F_EventScript_GiovanniTriggerLeft", "SilphCo_11F_EventScript_GiovanniTriggerRight"):
+            assert any(e["script"] == label for e in MAP["coord_events"])
+
     def test_master_ball_cannot_be_claimed_before_giovanni(self):
         president = block("SilphCo_11F_EventScript_President")
         assert president.index("goto_if_set FLAG_GOT_MASTER_BALL_FROM_SILPH") < president.index(
@@ -55,7 +54,7 @@ class SilphCo11FProgressionTests(unittest.TestCase):
         assert "release" in denied and "giveitem" not in denied
         secretary = block("SilphCo_11F_EventScript_Secretary")
         assert "goto_if_eq VAR_MAP_SCENE_SILPH_CO_11F, 0" in secretary
-        assert "setvar VAR_MAP_SCENE_SILPH_CO_11F, 1" in block("SilphCo_11F_EventScript_BattleGiovanni")
+        assert "setvar VAR_MAP_SCENE_SILPH_CO_11F, 1" in block("SilphCo_11F_EventScript_GiovanniBattleUnlocked")
     
     def test_existing_duo_uses_native_trainer_detection_and_one_shared_fight(self):
         for name in ("Jessie", "James"):
