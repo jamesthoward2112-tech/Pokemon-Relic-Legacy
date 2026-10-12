@@ -61,3 +61,17 @@ def test_kanto_one_save_version_exclusive_encounters():
                     if wanted.get(key) == e["map"]:
                         seen.add(key)
     assert seen == set(wanted), sorted(set(wanted) - seen)
+
+
+def test_legendaries_return_when_defeated_until_caught():
+    for p,name,flag in (
+        ("data/maps/PowerPlant_Frlg/scripts.inc", "Zapdos", "FLAG_FOUGHT_ZAPDOS"),
+        ("data/maps/MtEmber_Summit_Frlg/scripts.inc", "Moltres", "FLAG_FOUGHT_MOLTRES"),
+        ("data/maps/CeruleanCave_B1F_Frlg/scripts.inc", "Mewtwo", "FLAG_FOUGHT_MEWTWO"),
+        ("data/maps/SeafoamIslands_B4F_Frlg/scripts.inc", "Articuno", "FLAG_FOUGHT_ARTICUNO"),
+    ):
+        script = read(p)
+        defeated = script.split("EventScript_Defeated" + name + "::", 1)[1].split("\n\tend", 1)[0]
+        assert "goto EventScript_RemoveStaticMon" in defeated
+        assert "setflag " + flag not in defeated
+        assert "call_if_unset " + flag in script
