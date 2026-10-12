@@ -2972,7 +2972,8 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
         }
     }
 
-    // PHR: Flash and Fly are available as untaught virtual HM field actions.
+    // Flash and Fly remain optional untaught field actions; HM + badge suffice.
+    // Do not gate either action on the selected Pokémon's learnset.
     if (!GetMonData(&mons[slotId], MON_DATA_IS_EGG))
     {
         static const enum FieldMove sVirtualFieldHms[] =
@@ -2980,7 +2981,6 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
             FIELD_MOVE_FLASH,
             FIELD_MOVE_FLY,
         };
-        enum Species species = GetMonData(&mons[slotId], MON_DATA_SPECIES);
 
         for (u32 k = 0; k < ARRAY_COUNT(sVirtualFieldHms) && sPartyMenuInternal->numActions < 5; k++)
         {
@@ -2992,8 +2992,7 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
              || hmItem == ITEM_NONE
              || GetItemTMHMIndex(hmItem) <= NUM_TECHNICAL_MACHINES
              || !CheckBagHasItem(hmItem, 1)
-             || MonKnowsMove(&mons[slotId], move)
-             || !CanLearnTeachableMove(species, move))
+             || MonKnowsMove(&mons[slotId], move))
                 continue;
 
             AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, fieldMove + MENU_FIELD_MOVES);
@@ -4137,6 +4136,14 @@ static void CursorCb_FieldMove(u8 taskId)
     {
         DisplayPartyMenuMessage(FieldMove_GetLockedMessage(fieldMove), TRUE);
         gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
+    }
+    else if (GetTMHMItemIdFromMoveId(FieldMove_GetMoveId(fieldMove)) != ITEM_NONE
+          && GetItemTMHMIndex(GetTMHMItemIdFromMoveId(FieldMove_GetMoveId(fieldMove))) > NUM_TECHNICAL_MACHINES
+          && !CheckBagHasItem(GetTMHMItemIdFromMoveId(FieldMove_GetMoveId(fieldMove)), 1))
+    {
+        // Party-menu HMs use the same Bag + badge rule as overworld objects.
+        DisplayPartyMenuStdMessage(PARTY_MSG_CANT_USE_HERE);
+        gTasks[taskId].func = Task_CancelAfterAorBPress;
     }
     else if (SetUpFieldMove(fieldMove) == TRUE)
     {
