@@ -281,4 +281,10 @@ bool32 IsHoldEffectChoice(enum HoldEffect holdEffect);
 ShopCriteriaFunc GetItemShopCriteriaFunc(enum Item itemId);
 bool32 IsItemShopCriteriaFulfilled(enum Item itemId);
 
+// Expanded SaveBlock3 live inventory, with legacy SaveBlock1 backup.
+struct Bag *GetPrlBag(void);
+struct ItemSlot *GetPrlPCItems(void);
+void EnsurePrlInventoryInitialized(void);
+void SyncPrlInventoryLegacyBackup(void);
+
 #endif // GUARD_ITEM_H

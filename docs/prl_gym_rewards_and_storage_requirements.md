@@ -46,3 +46,8 @@ This Gym work does not expand Bag or PC storage. Capacities remain BAG_ITEMS_COU
 
 ## Validation
 Static checks verify the 24 reward flags, 24 region-specific badge flags, item-before-cash ordering, first-clear hooks, rematch routes, and approved TMs/items. Save flags use the project's persistent event-flag storage, but emulator save/reload and live full-Bag recovery were not available in this environment. FireRed compilation was attempted but is blocked here because arm-none-eabi-gcc, pkg-config, and libpng headers are missing. Johto integration remains pending until its Gym maps are imported.
+
+## 12 October — Sabrina retry and expanded item storage
+TM04 Calm Mind and the Marsh Badge are independent of her Twisted Spoon and ₽10,000 first-clear bonus. When the held item is still unclaimed, Sabrina gives the bonus before offering a rematch. A full bag leaves it pending; existing saves can claim it without rebattling.
+
+The previously developed safe-inventory SaveBlock3 design is integrated over the latest PRL base: Items 60, Key Items 50, Poké Balls 32, TMs/HMs 100, Berries 56, PC Items 100. Original SaveBlock1 fixed offsets and item encryption remain unchanged; full inventories serialize into SaveBlock3 with the original-size backup in SaveBlock1. Pokémon PC boxes are not expanded. Keep a backup of your .sav before conversion; reverting to older PRL ROMs after filling expanded pockets is unsupported.
