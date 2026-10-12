@@ -36,6 +36,8 @@
 #define FLAG_PRL_ROUTE2_HOUSE_RESEARCH_GIFT               0x4AB
 // One-time missing Mt. Moon fossil gift from Oak's aide at Cinnabar Lab.
 #define FLAG_PRL_CINNABAR_OAK_FOSSIL_GIFT                 0x4AC
+// Save-persistent Erika reward fix: 0x4D8 previously unused; no SaveBlock changes.
+#define FLAG_PRL_ERIKA_BIG_ROOT_CORRECTION               0x4D8
 
 // Temporary Flags
 // These temporary flags are are cleared every time a map is loaded. They are used

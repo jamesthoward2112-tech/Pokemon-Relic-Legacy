@@ -40,15 +40,35 @@ PRL_EventScript_GymExtra_KANTO_SURGE_Done::
 
 PRL_EventScript_GymExtra_KANTO_ERIKA::
 	goto_if_set FLAG_PRL_GYM_KANTO_ERIKA_EXTRA, PRL_EventScript_GymExtra_KANTO_ERIKA_Done
-	checkitemspace ITEM_MIRACLE_SEED
+	checkitemspace ITEM_BIG_ROOT
 	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_GymExtraNoRoom
-	giveitem ITEM_MIRACLE_SEED
+	giveitem ITEM_BIG_ROOT
 	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_GymExtraNoRoom
 	addmoney 10000
 	setflag FLAG_PRL_GYM_KANTO_ERIKA_EXTRA
+	@ Fresh saves must never receive a second Big Root through legacy repair.
+	setflag FLAG_PRL_ERIKA_BIG_ROOT_CORRECTION
 	msgbox PRL_Text_GymExtraClaimed, MSGBOX_DEFAULT
 PRL_EventScript_GymExtra_KANTO_ERIKA_Done::
 	return
+
+@ Save-compatible fix for Erika's earlier Miracle Seed bonus.
+@ Do not remove the old Seed (it may now be held), and do not award cash twice.
+PRL_EventScript_GymExtra_KANTO_ERIKA_LegacyBigRoot::
+	goto_if_unset FLAG_PRL_GYM_KANTO_ERIKA_EXTRA, PRL_EventScript_GymExtra_KANTO_ERIKA_LegacyDone
+	goto_if_set FLAG_PRL_ERIKA_BIG_ROOT_CORRECTION, PRL_EventScript_GymExtra_KANTO_ERIKA_LegacyDone
+	checkitemspace ITEM_BIG_ROOT
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_GymExtraNoRoom
+	giveitem ITEM_BIG_ROOT
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_GymExtraNoRoom
+	setflag FLAG_PRL_ERIKA_BIG_ROOT_CORRECTION
+	msgbox PRL_Text_GymErikaBigRootCorrection, MSGBOX_DEFAULT
+PRL_EventScript_GymExtra_KANTO_ERIKA_LegacyDone::
+	return
+
+PRL_Text_GymErikaBigRootCorrection::
+	.string "My BIG ROOT complements the\n"
+	.string "GIGA DRAIN TM. Keep it safe!$"
 
 PRL_EventScript_GymExtra_KANTO_KOGA::
 	goto_if_set FLAG_PRL_GYM_KANTO_KOGA_EXTRA, PRL_EventScript_GymExtra_KANTO_KOGA_Done

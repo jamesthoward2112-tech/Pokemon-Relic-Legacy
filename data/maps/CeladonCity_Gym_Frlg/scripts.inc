@@ -4,12 +4,27 @@ CeladonCity_Gym_Frlg_MapScripts::
 CeladonCity_Gym_EventScript_Erika::
 	famechecker FAMECHECKER_ERIKA, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	trainerbattle_single TRAINER_LEADER_ERIKA, CeladonCity_Gym_Text_ErikaIntro, CeladonCity_Gym_Text_ErikaDefeat, CeladonCity_Gym_EventScript_DefeatedErika, NO_MUSIC
+	@ The missing Big Root is claimable without starting a rematch, even on old saves.
+	goto_if_unset FLAG_PRL_GYM_KANTO_ERIKA_EXTRA, CeladonCity_Gym_EventScript_ClaimPendingBonus
+	goto_if_unset FLAG_PRL_ERIKA_BIG_ROOT_CORRECTION, CeladonCity_Gym_EventScript_ClaimLegacyBigRoot
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, CeladonCity_Gym_EventScript_ErikaRematch
-	call_if_unset FLAG_PRL_GYM_KANTO_ERIKA_EXTRA, PRL_EventScript_GymExtra_KANTO_ERIKA
 	goto_if_unset FLAG_GOT_TM19_FROM_ERIKA, CeladonCity_Gym_EventScript_GiveTM19
 	famechecker FAMECHECKER_ERIKA, 4
 	msgbox CeladonCity_Gym_Text_ErikaPostBattle
+	release
+	end
+
+@ Legacy saves may have a Miracle Seed and completed bonus flag.
+@ Do not replay the money reward; give only the missing approved Big Root once.
+CeladonCity_Gym_EventScript_ClaimLegacyBigRoot::
+	call_if_unset FLAG_PRL_ERIKA_BIG_ROOT_CORRECTION, PRL_EventScript_GymExtra_KANTO_ERIKA_LegacyBigRoot
+	release
+	end
+
+@ Full-Bag first-clear rewards are claimed before rematches, with no duplicate money.
+CeladonCity_Gym_EventScript_ClaimPendingBonus::
+	call_if_unset FLAG_PRL_GYM_KANTO_ERIKA_EXTRA, PRL_EventScript_GymExtra_KANTO_ERIKA
 	release
 	end
 

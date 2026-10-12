@@ -10,7 +10,7 @@ Across 24 gyms, first-clear badge + approved TM + a type-appropriate held item a
 | BROCK | TM39 | HARD_STONE |
 | MISTY | TM03 | MYSTIC_WATER |
 | SURGE | TM34 | MAGNET |
-| ERIKA | TM19 | MIRACLE_SEED |
+| ERIKA | TM19 | BIG_ROOT |
 | KOGA | TM06 | POISON_BARB |
 | SABRINA | TM04 | TWISTED_SPOON |
 | BLAINE | TM38 | CHARCOAL |
@@ -52,3 +52,9 @@ Pokémon PC remains at **14 boxes × 30 Pokémon (420)**; no Pokémon storage ch
 
 ## Validation
 Static checks verify the 24 reward flags, 24 region-specific badge flags, item-before-cash ordering, first-clear hooks, rematch routes, and approved TMs/items. Save flags use the project's persistent event-flag storage, but emulator save/reload and live full-Bag recovery were not available in this environment. FireRed compilation was attempted but is blocked here because arm-none-eabi-gcc, pkg-config, and libpng headers are missing. Johto integration remains pending until its Gym maps are imported.
+
+## Erika's original PKR Big Root reward and existing-save correction — 12 October 2026
+
+The PKR master sheet locked Erika's package on 3 September: Giga Drain TM19, **Big Root**, and **10,000 Pokédollars**, replacing the earlier Miracle Seed reward. PRL accidentally retained the superseded Miracle Seed. New first-clear rewards now give Big Root, set the existing item-and-cash claim flag, and separately mark the new persistent correction flag `0x4D8` once the item is safely granted.
+
+For existing saves where Erika already gave **Miracle Seed + 10,000**, return to Erika and speak to her. Before any rematch, she awards **one Big Root** and marks `0x4D8`, with **no additional money** and **no confiscation of the earlier Miracle Seed** (which may be held or consumed). If the Bag is full, her correction flag remains unset and the conversation can be retried after freeing space. Fresh saves mark the correction flag with the initial Big Root gift, so cannot double-claim. Existing TM19, badges, original bonus flag, rematches, other leaders, and saves are not changed.
