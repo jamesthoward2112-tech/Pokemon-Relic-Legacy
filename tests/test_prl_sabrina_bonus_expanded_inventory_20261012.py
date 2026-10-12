@@ -40,12 +40,18 @@ class SabrinaBonusTests(unittest.TestCase):
             "goto_if_set FLAG_PRL_GYM_KANTO_SABRINA_EXTRA",
             "checkitemspace ITEM_TWISTED_SPOON",
             "giveitem ITEM_TWISTED_SPOON",
-            "goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_GymExtraNoRoom",
             "addmoney 10000",
             "setflag FLAG_PRL_GYM_KANTO_SABRINA_EXTRA",
         ]
         positions = [gift.index(token) for token in tokens]
         self.assertEqual(positions, sorted(positions))
+        self.assertEqual(gift.count("goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_GymExtraNoRoom"), 2)
+        first = gift.index("goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_GymExtraNoRoom")
+        second = gift.rindex("goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_GymExtraNoRoom")
+        self.assertLess(gift.index("checkitemspace ITEM_TWISTED_SPOON"), first)
+        self.assertLess(first, gift.index("giveitem ITEM_TWISTED_SPOON"))
+        self.assertLess(gift.index("giveitem ITEM_TWISTED_SPOON"), second)
+        self.assertLess(second, gift.index("addmoney 10000"))
         self.assertIn("Please free a", rewards)
 
 
