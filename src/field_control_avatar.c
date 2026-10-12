@@ -21,6 +21,7 @@
 #include "field_specials.h"
 #include "fldeff_misc.h"
 #include "follower_npc.h"
+#include "item.h"
 #include "item_menu.h"
 #include "link.h"
 #include "match_call.h"
@@ -41,6 +42,7 @@
 #include "constants/event_objects.h"
 #include "constants/field_poison.h"
 #include "constants/layouts.h"
+#include "constants/moves.h"
 #include "constants/metatile_behaviors.h"
 #include "constants/songs.h"
 #include "constants/trainer_hill.h"
@@ -658,9 +660,12 @@ static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metati
 {
     if (MetatileBehavior_IsFastWater(metatileBehavior) == TRUE && !TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
         return EventScript_CurrentTooFast;
-    if (IsFieldMoveUnlocked(FIELD_MOVE_SURF) && PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE
-     && CheckFollowerNPCFlag(FOLLOWER_NPC_FLAG_CAN_SURF)
-     )
+    // PRL: A-button Surf uses the Soul Badge and HM03 in the Bag, not a taught move.
+    // Keep the regular water-facing and follower restrictions unchanged.
+    if (IsFieldMoveUnlocked(FIELD_MOVE_SURF)
+     && CheckBagHasItem(GetTMHMItemIdFromMoveId(MOVE_SURF), 1)
+     && IsPlayerFacingSurfableFishableWater() == TRUE
+     && CheckFollowerNPCFlag(FOLLOWER_NPC_FLAG_CAN_SURF))
         return EventScript_UseSurf;
 
     if (MetatileBehavior_IsWaterfall(metatileBehavior) == TRUE
