@@ -258,7 +258,7 @@ void LoadPlayerBag(void)
     int i;
 
     // load player bag.
-    memcpy(&gLoadedSaveData.bag, &gSaveBlock1Ptr->bag, sizeof(struct Bag));
+    memcpy(&gLoadedSaveData.bag, GetPrlBag(), sizeof(struct Bag));
 
     // load mail.
     for (i = 0; i < MAIL_COUNT; i++)
@@ -273,7 +273,7 @@ void SavePlayerBag(void)
     u32 encryptionKeyBackup;
 
     // save player bag.
-    memcpy(&gSaveBlock1Ptr->bag, &gLoadedSaveData.bag, sizeof(struct Bag));
+    memcpy(GetPrlBag(), &gLoadedSaveData.bag, sizeof(struct Bag));
 
     // save mail.
     for (i = 0; i < MAIL_COUNT; i++)

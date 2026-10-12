@@ -35,6 +35,17 @@ class PRLGymRewards(unittest.TestCase):
                 self.assertIn(f"setflag FLAG_BADGE0{badge}_GET",s)
                 self.assertIn(tm,s)
     self.assertEqual(read("data/event_scripts.s").count('.include "data/scripts/prl_gym_rewards.inc"'),1)
+ def test_sabrina_claims_spoon_before_rematch(self):
+    script=read("data/maps/SaffronCity_Gym_Frlg/scripts.inc")
+    talk=script.split("SaffronCity_Gym_EventScript_Sabrina::",1)[1].split("SaffronCity_Gym_EventScript_ClaimPendingSpoon::",1)[0]
+    self.assertLess(talk.index("goto_if_unset FLAG_PRL_GYM_KANTO_SABRINA_EXTRA"), talk.index("ShouldTryRematchBattle"))
+    reward=script.split("SaffronCity_Gym_EventScript_ClaimPendingSpoon::",1)[1].split("SaffronCity_Gym_EventScript_SpoonStillPending::",1)[0]
+    self.assertIn("call PRL_EventScript_GymExtra_KANTO_SABRINA",reward)
+    self.assertIn("goto_if_unset FLAG_PRL_GYM_KANTO_SABRINA_EXTRA",reward)
+    bonus=read("data/scripts/prl_gym_rewards.inc").split("PRL_EventScript_GymExtra_KANTO_SABRINA::",1)[1].split("PRL_EventScript_GymExtra_KANTO_SABRINA_Done::",1)[0]
+    for x in ("checkitemspace ITEM_TWISTED_SPOON","giveitem ITEM_TWISTED_SPOON","addmoney 10000","setflag FLAG_PRL_GYM_KANTO_SABRINA_EXTRA"):
+        self.assertIn(x,bonus)
+    self.assertIn("goto_if_unset FLAG_GOT_TM04_FROM_SABRINA",talk)
  def test_johto_not_present(self):
     self.assertFalse((R/"data/maps/VioletCity_Gym").exists())
  def test_distinct_badge_flags_are_reserved_separately(self):
