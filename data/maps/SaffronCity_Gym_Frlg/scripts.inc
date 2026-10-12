@@ -4,11 +4,18 @@ SaffronCity_Gym_Frlg_MapScripts::
 SaffronCity_Gym_EventScript_Sabrina::
 	famechecker FAMECHECKER_SABRINA, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	trainerbattle_single TRAINER_LEADER_SABRINA, SaffronCity_Gym_Text_SabrinaIntro, SaffronCity_Gym_Text_SabrinaDefeat, SaffronCity_Gym_EventScript_DefeatedSabrina, NO_MUSIC
+	@ First claim any outstanding held-item + cash reward; no rematch required.
+	goto_if_unset FLAG_PRL_GYM_KANTO_SABRINA_EXTRA, SaffronCity_Gym_EventScript_ClaimPendingBonus
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, SaffronCity_Gym_EventScript_SabrinaRematch
-	call_if_unset FLAG_PRL_GYM_KANTO_SABRINA_EXTRA, PRL_EventScript_GymExtra_KANTO_SABRINA
 	goto_if_unset FLAG_GOT_TM04_FROM_SABRINA, SaffronCity_Gym_EventScript_GiveTM04
 	msgbox SaffronCity_Gym_Text_ExplainTM04
+	release
+	end
+
+SaffronCity_Gym_EventScript_ClaimPendingBonus::
+	call_if_unset FLAG_PRL_GYM_KANTO_SABRINA_EXTRA, PRL_EventScript_GymExtra_KANTO_SABRINA
+	@ Return without starting the rematch whether the bag is still full or now has space.
 	release
 	end
 

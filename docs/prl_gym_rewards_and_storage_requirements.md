@@ -40,9 +40,15 @@ Across 24 gyms, first-clear badge + approved TM + a type-appropriate held item a
 
 **Johto caveat:** Whitney's updated donor Eviolite/Return selection replaces the older Silk Scarf; Clair's Dragon Pulse is awarded only after Dragon's Den shrine test, unlike the immediate held item and bonus.
 
-## Storage capacities — unchanged
+## Save-compatible expanded Bag and PC item storage — 12 October 2026
 
-This Gym work does not expand Bag or PC storage. Capacities remain BAG_ITEMS_COUNT=30, BAG_KEYITEMS_COUNT=30, BAG_POKEBALLS_COUNT=16, BAG_TMHM_COUNT=64, BAG_BERRIES_COUNT=46, PC_ITEMS_COUNT=50, and Pokémon storage at 14 boxes ×30 (420 Pokémon). The separate experimental storage expansion draft is not part of this implementation.
+PRL ports the experimental save-compatible inventory layout from `prl/safe-inventory-20261009` onto the latest Silph 11F branch. Slot limits are **Bag items 60**, **Key Items 50**, **Poké Balls 32**, **TMs/HMs 100**, **Berries 56**, and **PC item storage 100**. Each normal stack can already hold up to 999 units; the change adds *distinct item slots* rather than quantity-per-slot.
+
+The original `SaveBlock1` bag/PC arrays stay at their exact old sizes and offsets so current saves retain badges, flags, Pokémon and other data. Expanded inventory data is persisted in the spare `SaveBlock3` area. When an old save loads, the live inventory is initialized by copying the original encrypted bag slots and unencrypted PC items. Saving retains legacy-size backup arrays; downgrading to older PRL builds **after filling additional slots is not supported**.
+
+Sabrina's first-clear held item is **Twisted Spoon**, separate from TM04 Calm Mind. Her one-time held-item-plus-10,000 bonus can be claimed on a return visit without a rematch, even if the TM was already received. The claim flag is set only after the item is awarded and the money added.
+
+Pokémon PC remains at **14 boxes × 30 Pokémon (420)**; no Pokémon storage changes were made.
 
 ## Validation
 Static checks verify the 24 reward flags, 24 region-specific badge flags, item-before-cash ordering, first-clear hooks, rematch routes, and approved TMs/items. Save flags use the project's persistent event-flag storage, but emulator save/reload and live full-Bag recovery were not available in this environment. FireRed compilation was attempted but is blocked here because arm-none-eabi-gcc, pkg-config, and libpng headers are missing. Johto integration remains pending until its Gym maps are imported.

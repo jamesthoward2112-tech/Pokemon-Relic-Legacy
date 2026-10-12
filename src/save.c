@@ -3,6 +3,7 @@
 #include "gba/flash_internal.h"
 #include "fieldmap.h"
 #include "save.h"
+#include "item.h" // expanded inventory migration / legacy backup
 #include "task.h"
 #include "decompress.h"
 #include "load_save.h"
@@ -716,6 +717,8 @@ u8 HandleSavingData(u8 saveType)
     u32 *backupVar = gTrainerHillVBlankCounter;
 
     gTrainerHillVBlankCounter = NULL;
+    if (saveType != SAVE_HALL_OF_FAME)
+        SyncPrlInventoryLegacyBackup();
     UpdateSaveAddresses();
     switch (saveType)
     {
@@ -796,6 +799,7 @@ bool8 LinkFullSave_Init(void)
 {
     if (gFlashMemoryPresent != TRUE)
         return TRUE;
+    SyncPrlInventoryLegacyBackup();
     UpdateSaveAddresses();
     CopyPartyAndObjectsToSave();
     RestoreSaveBackupVarsAndIncrement(gRamSaveSectorLocations);
@@ -892,6 +896,8 @@ u8 LoadGameSave(u8 saveType)
     case SAVE_NORMAL:
     default:
         status = TryLoadSaveSlot(FULL_SAVE_SLOT, gRamSaveSectorLocations);
+        if (status == SAVE_STATUS_OK)
+            EnsurePrlInventoryInitialized();
         CopyPartyAndObjectsFromSave();
         gSaveFileStatus = status;
         gGameContinueCallback = NULL;
