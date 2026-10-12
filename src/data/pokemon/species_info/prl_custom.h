@@ -59,7 +59,7 @@
     .pokemonScale = 256, .pokemonOffset = 0, .trainerScale = 256, .trainerOffset = 0,
     .frontPic = gMonFrontPic_Fortotoise, .frontPicSize = MON_COORDS_SIZE(64, 64), .frontPicYOffset = 0,
     .frontAnimFrames = sAnims_SingleFramePlaceHolder, .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-    .backPic = gMonBackPic_Fortotoise, .backPicSize = MON_COORDS_SIZE(64, 64), .backPicYOffset = 0, .backAnimId = BACK_ANIM_NONE,
+    .backPic = gMonBackPic_Fortotoise, .backPicSize = MON_COORDS_SIZE(64, 64), .backPicYOffset = 5, .backAnimId = BACK_ANIM_NONE,
     .palette = gMonPalette_Fortotoise, .shinyPalette = gMonShinyPalette_Fortotoise,
     .iconSprite = gMonIcon_Fortotoise, .iconPalIndex = 2,
     .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
