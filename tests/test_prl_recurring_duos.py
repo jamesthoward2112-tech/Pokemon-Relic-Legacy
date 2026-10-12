@@ -282,8 +282,8 @@ class PRLRecurringDuos(unittest.TestCase):
         for category in ("EggMoves", "TMMoves", "TutorMoves"):
             self.assertIn("GetRelearner" + category, relearner)
         text = read("data/scripts/field_move_scripts.inc")
-        self.assertIn("Trainer used {STR_VAR_2}!", text)
-        self.assertIn("Trainer used STRENGTH!", text)
+        self.assertIn("{PLAYER} used {STR_VAR_2}!", text)
+        self.assertIn("{PLAYER} used STRENGTH!", text)
 
 
 if __name__ == "__main__":
