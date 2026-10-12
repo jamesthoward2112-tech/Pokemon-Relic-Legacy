@@ -45,7 +45,8 @@ MtEmber_Summit_EventScript_Moltres::
 	end
 
 MtEmber_Summit_EventScript_DefeatedMoltres::
-	setflag FLAG_FOUGHT_MOLTRES
+	@ Do not mark this encounter permanently completed when the wild Pokémon faints.
+	@ It will respawn on the next map entry; catching it sets the completion flag.
 	goto EventScript_RemoveStaticMon
 	end
 

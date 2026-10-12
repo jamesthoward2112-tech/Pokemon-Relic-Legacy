@@ -4,8 +4,14 @@ CeruleanCity_Frlg_MapScripts::
 
 CeruleanCity_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_CERULEAN_CITY
+	call_if_set FLAG_SYS_GAME_CLEAR, CeruleanCity_EventScript_RemoveCaveGuard
 	call_if_unset FLAG_GOT_SS_TICKET, CeruleanCity_EventScript_BlockExits
 	end
+
+@ First Champion victory alone removes the guard; no National Dex condition.
+CeruleanCity_EventScript_RemoveCaveGuard::
+	setflag FLAG_HIDE_CERULEAN_CAVE_GUARD
+	return
 
 CeruleanCity_EventScript_BlockExits::
 	setobjectxyperm LOCALID_CERULEAN_POLICEMAN, 30, 12

@@ -45,7 +45,8 @@ CeruleanCave_B1F_EventScript_Mewtwo::
 	end
 
 CeruleanCave_B1F_EventScript_DefeatedMewtwo::
-	setflag FLAG_FOUGHT_MEWTWO
+	@ Do not mark this encounter permanently completed when the wild Pokémon faints.
+	@ It will respawn on the next map entry; catching it sets the completion flag.
 	goto EventScript_RemoveStaticMon
 	end
 

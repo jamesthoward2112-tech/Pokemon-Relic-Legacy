@@ -56,7 +56,8 @@ PowerPlant_EventScript_Zapdos::
 	end
 
 PowerPlant_EventScript_DefeatedZapdos::
-	setflag FLAG_FOUGHT_ZAPDOS
+	@ Do not mark this encounter permanently completed when the wild Pokémon faints.
+	@ It will respawn on the next map entry; catching it sets the completion flag.
 	goto EventScript_RemoveStaticMon
 	end
 

@@ -24248,8 +24248,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
 [MOVE_EDEN_BLOOM] =
 {
-    .name = COMPOUND_STRING("EDEN BLOOM"),
-    .description = COMPOUND_STRING("PRL signature move."),
+    .name = COMPOUND_STRING("Eden Bloom"),
+    .description = COMPOUND_STRING("A sacred bloom strikes the\nfoe. May cause poisoning."),
     .effect = EFFECT_HIT,
     .power = 95,
     .type = TYPE_GRASS,
@@ -24264,8 +24264,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
 [MOVE_SCORCHWING] =
 {
-    .name = COMPOUND_STRING("SCORCHWING"),
-    .description = COMPOUND_STRING("PRL signature move."),
+    .name = COMPOUND_STRING("Scorch Wings"),
+    .description = COMPOUND_STRING("Scorching wings strike the\nfoe. May cause a burn."),
     .effect = EFFECT_HIT,
     .power = 95,
     .type = TYPE_FLYING,
@@ -24281,8 +24281,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
 [MOVE_BASTION_CANNON] =
 {
-    .name = COMPOUND_STRING("BASTION CANNON"),
-    .description = COMPOUND_STRING("PRL signature move."),
+    .name = COMPOUND_STRING("Bastion Cannon"),
+    .description = COMPOUND_STRING("A mighty steel blast that\nmay boost user's Defense."),
     .effect = EFFECT_HIT,
     .power = 95,
     .type = TYPE_STEEL,

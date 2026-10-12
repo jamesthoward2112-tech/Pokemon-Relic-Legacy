@@ -218,6 +218,10 @@ SafariZone_West_EventScript_ItemMaxPotion::
 	finditem ITEM_MAX_POTION
 	end
 
+SafariZone_West_EventScript_ItemSilkScarf::
+	finditem ITEM_SILK_SCARF
+	end
+
 SafariZone_West_EventScript_ItemMaxRevive::
 	finditem ITEM_MAX_REVIVE
 	end

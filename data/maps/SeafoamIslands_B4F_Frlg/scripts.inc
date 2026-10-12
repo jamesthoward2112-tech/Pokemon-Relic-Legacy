@@ -175,7 +175,8 @@ SeafoamIslands_B4F_EventScript_Articuno::
 	end
 
 SeafoamIslands_B4F_EventScript_DefeatedArticuno::
-	setflag FLAG_FOUGHT_ARTICUNO
+	@ Do not mark this encounter permanently completed when the wild Pokémon faints.
+	@ It will respawn on the next map entry; catching it sets the completion flag.
 	goto EventScript_RemoveStaticMon
 	end
 
