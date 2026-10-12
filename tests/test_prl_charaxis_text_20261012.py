@@ -19,9 +19,9 @@ class TestCharaxisDescriptions(unittest.TestCase):
     def test_thermal_wings_summary_text_is_two_short_lines(self):
         data = (ROOT / "src/data/abilities.h").read_text()
         block = data.split("[ABILITY_THERMAL_WINGS] =", 1)[1].split("\n},", 1)[0]
-        match = re.search(r'\\.description = COMPOUND_STRING\\("([^"]+)"\\)', block)
+        match = re.search(r'\.description = COMPOUND_STRING\("([^"]+)"\)', block)
         self.assertIsNotNone(match)
-        lines = match.group(1).split(r"\\n")
+        lines = match.group(1).split(r"\n")
         self.assertEqual(len(lines), 2)
         self.assertTrue(all(len(line) <= 29 for line in lines), lines)
         self.assertIn("20%", match.group(1))
