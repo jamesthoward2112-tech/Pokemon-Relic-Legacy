@@ -3,6 +3,7 @@
 #include "gba/flash_internal.h"
 #include "fieldmap.h"
 #include "save.h"
+#include "item.h" // expanded inventory migration / legacy backup
 #include "task.h"
 #include "decompress.h"
 #include "load_save.h"
