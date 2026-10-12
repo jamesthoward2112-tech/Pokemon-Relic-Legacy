@@ -613,7 +613,7 @@ void MoveItemSlotInPC(struct ItemSlot *itemSlots, u32 from, u32 to)
 
 void ClearBag(void)
 {
-    CpuFastFill(0, GetPrlBag(), sizeof(struct Bag));
+    memset(GetPrlBag(), 0, sizeof(struct Bag));
     GetPrlInventory()->magic = PRL_INVENTORY_MAGIC;
 }
 
