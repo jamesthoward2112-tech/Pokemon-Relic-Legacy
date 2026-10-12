@@ -716,6 +716,8 @@ u8 HandleSavingData(u8 saveType)
     u32 *backupVar = gTrainerHillVBlankCounter;
 
     gTrainerHillVBlankCounter = NULL;
+    if (saveType != SAVE_HALL_OF_FAME)
+        SyncPrlInventoryLegacyBackup();
     UpdateSaveAddresses();
     switch (saveType)
     {
@@ -796,6 +798,7 @@ bool8 LinkFullSave_Init(void)
 {
     if (gFlashMemoryPresent != TRUE)
         return TRUE;
+    SyncPrlInventoryLegacyBackup();
     UpdateSaveAddresses();
     CopyPartyAndObjectsToSave();
     RestoreSaveBackupVarsAndIncrement(gRamSaveSectorLocations);
@@ -892,6 +895,8 @@ u8 LoadGameSave(u8 saveType)
     case SAVE_NORMAL:
     default:
         status = TryLoadSaveSlot(FULL_SAVE_SLOT, gRamSaveSectorLocations);
+        if (status == SAVE_STATUS_OK)
+            EnsurePrlInventoryInitialized();
         CopyPartyAndObjectsFromSave();
         gSaveFileStatus = status;
         gGameContinueCallback = NULL;
