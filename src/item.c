@@ -73,12 +73,12 @@ void EnsurePrlInventoryInitialized(void)
 
     // Migration is byte-preserving, including the encrypted item quantities.
     memset(inventory, 0, sizeof(*inventory));
-    memcpy(inventory->bag.items, GetPrlBag()->items, sizeof(GetPrlBag()->items));
-    memcpy(inventory->bag.keyItems, GetPrlBag()->keyItems, sizeof(GetPrlBag()->keyItems));
-    memcpy(inventory->bag.pokeBalls, GetPrlBag()->pokeBalls, sizeof(GetPrlBag()->pokeBalls));
-    memcpy(inventory->bag.TMsHMs, GetPrlBag()->TMsHMs, sizeof(GetPrlBag()->TMsHMs));
-    memcpy(inventory->bag.berries, GetPrlBag()->berries, sizeof(GetPrlBag()->berries));
-    memcpy(inventory->pcItems, GetPrlPCItems(), sizeof(GetPrlPCItems()));
+    memcpy(inventory->bag.items, gSaveBlock1Ptr->bag.items, sizeof(gSaveBlock1Ptr->bag.items));
+    memcpy(inventory->bag.keyItems, gSaveBlock1Ptr->bag.keyItems, sizeof(gSaveBlock1Ptr->bag.keyItems));
+    memcpy(inventory->bag.pokeBalls, gSaveBlock1Ptr->bag.pokeBalls, sizeof(gSaveBlock1Ptr->bag.pokeBalls));
+    memcpy(inventory->bag.TMsHMs, gSaveBlock1Ptr->bag.TMsHMs, sizeof(gSaveBlock1Ptr->bag.TMsHMs));
+    memcpy(inventory->bag.berries, gSaveBlock1Ptr->bag.berries, sizeof(gSaveBlock1Ptr->bag.berries));
+    memcpy(inventory->pcItems, gSaveBlock1Ptr->pcItems, sizeof(gSaveBlock1Ptr->pcItems));
     inventory->magic = PRL_INVENTORY_MAGIC;
 }
 
@@ -88,12 +88,12 @@ void SyncPrlInventoryLegacyBackup(void)
     if (inventory->magic != PRL_INVENTORY_MAGIC)
         return;
     // Copy only the old-sized prefix from each pocket, never shift save offsets.
-    memcpy(GetPrlBag()->items, inventory->bag.items, sizeof(GetPrlBag()->items));
-    memcpy(GetPrlBag()->keyItems, inventory->bag.keyItems, sizeof(GetPrlBag()->keyItems));
-    memcpy(GetPrlBag()->pokeBalls, inventory->bag.pokeBalls, sizeof(GetPrlBag()->pokeBalls));
-    memcpy(GetPrlBag()->TMsHMs, inventory->bag.TMsHMs, sizeof(GetPrlBag()->TMsHMs));
-    memcpy(GetPrlBag()->berries, inventory->bag.berries, sizeof(GetPrlBag()->berries));
-    memcpy(GetPrlPCItems(), inventory->pcItems, sizeof(GetPrlPCItems()));
+    memcpy(gSaveBlock1Ptr->bag.items, inventory->bag.items, sizeof(gSaveBlock1Ptr->bag.items));
+    memcpy(gSaveBlock1Ptr->bag.keyItems, inventory->bag.keyItems, sizeof(gSaveBlock1Ptr->bag.keyItems));
+    memcpy(gSaveBlock1Ptr->bag.pokeBalls, inventory->bag.pokeBalls, sizeof(gSaveBlock1Ptr->bag.pokeBalls));
+    memcpy(gSaveBlock1Ptr->bag.TMsHMs, inventory->bag.TMsHMs, sizeof(gSaveBlock1Ptr->bag.TMsHMs));
+    memcpy(gSaveBlock1Ptr->bag.berries, inventory->bag.berries, sizeof(gSaveBlock1Ptr->bag.berries));
+    memcpy(gSaveBlock1Ptr->pcItems, inventory->pcItems, sizeof(gSaveBlock1Ptr->pcItems));
 }
 
 #include "data/pokemon/item_effects.h"
