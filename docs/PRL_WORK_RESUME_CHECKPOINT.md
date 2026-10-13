@@ -98,3 +98,7 @@ python3 tools/prl/qa_great_badge_heist.py pokefirered.gba \
 ## Exact next action
 
 User playtest of delivered ROM. No gameplay implementation restart is needed. Broader upstream make-check remains unverified, and harness runtime coverage does not mean each battle was manually defeated turn-by-turn. Apply later final-PRL changes (including PR #53) in a separate pass after playtest.
+
+## Balloon boarding polish — 2026-10-13
+
+Branch: `prl/balloon-boarding-polish-20261013`, based on published release `3809ee2d`. Both Route 23 escapes now reveal the balloon before moving/removing the trio, render it in front for boarding, and use slow converging boarding movement. South heist spawn raised from (8,151) to (8,150); final escape uses its actual northern trio location (8,30). Existing logic, flags, trainers and sprite assets are unchanged. 194 source tests passed and release rebuild exited 0. Frame-by-frame mGBA and progression checks are running. Pending unrelated source assets remain preserved on their separate recovery branch; generated PNG/palette build rewrites are excluded from this change. Next: review QA, save ROM and publish final checkpoint.
