@@ -320,6 +320,9 @@ Route23_EventScript_PRLFinalRocketWon::
 	msgbox Route23_Text_PRLFinalRocketAfterBattle
 	msgbox Route23_Text_PRLFinalRocketBlastOff
 	closemessage
+	applymovement LOCALID_PRL_HEIST_JESSIE, Route23_Movement_PRLFinalJessieStepBack
+	applymovement LOCALID_PRL_HEIST_JAMES, Route23_Movement_PRLFinalJamesStepBack
+	waitmovement 0
 	clearflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
 	addobject LOCALID_PRL_HEIST_BALLOON
 	hideobjectat LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23
@@ -386,12 +389,22 @@ Route23_Movement_PRLMeowthBoard:
 	step_end
 
 Route23_Movement_PRLFinalJessieApproach:
-	walk_right
+	walk_up
 	face_up
 	step_end
 
 Route23_Movement_PRLFinalJamesApproach:
-	walk_left
+	walk_up
+	face_up
+	step_end
+
+Route23_Movement_PRLFinalJessieStepBack:
+	walk_down
+	face_up
+	step_end
+
+Route23_Movement_PRLFinalJamesStepBack:
+	walk_down
 	face_up
 	step_end
 
