@@ -691,24 +691,6 @@
       "var": "VAR_TEMP_1",
       "var_value": "0",
       "script": "Route23_EventScript_PRLFinalRocketTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 19,
-      "y": 25,
-      "elevation": 0,
-      "var": "VAR_TEMP_1",
-      "var_value": "0",
-      "script": "Route23_EventScript_PRLFinalRocketTrigger"
-    },
-    {
-      "type": "trigger",
-      "x": 20,
-      "y": 26,
-      "elevation": 0,
-      "var": "VAR_TEMP_1",
-      "var_value": "0",
-      "script": "Route23_EventScript_PRLFinalRocketTrigger"
     }
   ],
   "bg_events": [
