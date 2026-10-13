@@ -121,7 +121,7 @@ class PRLRecurringDuos(unittest.TestCase):
         self.assertIn("setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED", route)
         overworld = read("src/overworld.c")
         self.assertIn("PRLRedirectBlockedVictoryRoadWarp", overworld)
-        self.assertIn("FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED", overworld)
+        self.assertIn("FLAG_PRL_BADGE_HEIST_ALL_RECOVERED", overworld)
 
     def test_roster_is_limited_to_the_specified_kanto_species(self):
         banned = {"Noxichu", "Wobbuffet"}
@@ -163,7 +163,7 @@ class PRLRecurringDuos(unittest.TestCase):
                 for actor in ("STEEVE", "NEEVEE"):
                     self.assertIn(f"localId=LOCALID_PRL_{actor}_{suffix}", script)
                 self.assertIn(f"msgbox {'Route23' if suffix == 'ROUTE23' else prefix}_Text_PRL_SteeveNeeveePostBattle", script)
-                self.assertNotIn("continueScript=TRUE", script.split(f"{prefix}_EventScript_PRLSteeveNeeveeSteevee::",1)[1].split(f"{prefix}_Text_PRL_SteeveNeeveeIntro::",1)[0])
+                self.assertNotIn("continueScript=TRUE", script.split(f"{prefix}_EventScript_{label_part}Steevee::",1)[1].split("trainerbattle_double",1)[0])
                 for actor in ("STEEVE", "NEEVEE"):
                     self.assertNotIn(f"removeobject LOCALID_PRL_{actor}_{suffix}", script)
                 self.assertNotIn(f"{prefix}_EventScript_PRLSteeveNeeveeMovement_Leave::", script)
