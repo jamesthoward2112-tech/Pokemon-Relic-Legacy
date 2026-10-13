@@ -77,7 +77,7 @@
     .abilities = { ABILITY_PARENTAL_BOND, ABILITY_NONE, ABILITY_NONE }, .bodyColor = BODY_COLOR_BROWN,
     .speciesName = _("Khang"), .cryId = CRY_KANGASKHAN, .natDexNum = NATIONAL_DEX_KANGASKHAN,
     .categoryName = _("Relic"), .height = 22, .weight = 800,
-    .description = COMPOUND_STRING("A Pokemon awakened by Relic Resonance.\nIts ancient power has taken a new form."),
+    .description = COMPOUND_STRING("After its mother passed on,\nit carries her soothing bell.\nNow it stands on its own."),
     .pokemonScale = 256, .pokemonOffset = 0, .trainerScale = 256, .trainerOffset = 0,
     .frontPic = gMonFrontPic_Khang, .frontPicSize = MON_COORDS_SIZE(64, 64), .frontPicYOffset = 0,
     .frontAnimFrames = sAnims_SingleFramePlaceHolder, .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
