@@ -21,7 +21,11 @@ class TestPjrCenterTrainerServices(unittest.TestCase):
                                   (10, "EventScript_PRL_CenterMoveDeleter")):
                     npc = [o for o in second["object_events"] if o["x"] == x and o["y"] == 2]
                     self.assertEqual(len(npc), 1)
-                    self.assertEqual(npc[0]["script"], script)
+                    if x == 10 and "_Frlg" in downstairs.parent.name:
+                        # The former Move Deleter desk now hosts a location-scaled Chansey coach.
+                        self.assertTrue(npc[0]["script"].startswith("EventScript_PRL_Chansey_"))
+                    else:
+                        self.assertEqual(npc[0]["script"], script)
 
     def test_four_relearner_categories_use_level_and_badge_gates(self):
         src = (ROOT / "data/scripts/move_relearner.inc").read_text()
