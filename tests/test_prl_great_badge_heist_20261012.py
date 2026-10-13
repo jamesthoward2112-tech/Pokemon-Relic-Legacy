@@ -146,7 +146,7 @@ class GreatBadgeHeistTests(unittest.TestCase):
         for map_name in ("MAP_VICTORY_ROAD_1F_FRLG", "MAP_VICTORY_ROAD_2F", "MAP_VICTORY_ROAD_3F"):
             self.assertIn(map_name, overworld)
         self.assertIn("FLAG_PRL_BADGE_HEIST_STARTED", overworld)
-        self.assertIn("FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED", overworld)
+        self.assertIn("FLAG_PRL_BADGE_HEIST_ALL_RECOVERED", overworld)
         self.assertIn("MAP_ROUTE23", overworld)
         self.assertIn("PRL_ROUTE23_SOUTH_WARP_ID", overworld)
         self.assertIn("PRLRedirectBlockedVictoryRoadSavedLocation();", overworld)
