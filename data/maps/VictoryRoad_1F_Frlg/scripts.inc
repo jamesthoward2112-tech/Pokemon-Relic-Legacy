@@ -34,7 +34,8 @@ VictoryRoad_1F_EventScript_FloorSwitchAlreadyPressed::
 	end
 
 @ The fourth Eevee Twins battle takes place *inside* the cave.
-@ Coord triggers across the south entrance prevent walking past either twin.
+@ The Twins wait on the raised ledge (elevation 4), clear of every Strength boulder.
+@ Stair and ledge coord triggers force their battle when the player climbs up.
 VictoryRoad_1F_EventScript_PRLSteevee::
 	goto VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger
 
