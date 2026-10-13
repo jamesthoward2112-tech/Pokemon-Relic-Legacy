@@ -1,7 +1,66 @@
 VictoryRoad_1F_Frlg_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, VictoryRoad_1F_Frlg_OnLoad
 	map_script MAP_SCRIPT_ON_TRANSITION, VictoryRoad_1F_Frlg_OnTransition
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, VictoryRoad_1F_PRLTwinsOnFrame
 	.byte 0
+
+
+@ The final Eevee Twins battle happens inside the cave, just after the
+@ Route 23 entrance (11,20), not behind the outdoor route's stone statues.
+@ A map-frame event forces the encounter without relying on only one trainer
+@ detecting the player. Their NPCs remain for friendly postbattle dialogue.
+VictoryRoad_1F_PRLTwinsOnFrame::
+	map_script_2 VAR_TEMP_1, 0, VictoryRoad_1F_EventScript_PRLTwinsEnter
+	.2byte 0
+
+VictoryRoad_1F_EventScript_PRLTwinsEnter::
+	lockall
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23, VictoryRoad_1F_EventScript_PRLTwinsPreviouslyWon
+	goto_if_unset FLAG_BADGE08_GET, VictoryRoad_1F_EventScript_PRLTwinsNoBadge
+	setvar VAR_TEMP_1, 1
+	playse SE_PIN
+	applymovement LOCALID_PRL_STEEVE_ROUTE23, Common_Movement_ExclamationMark
+	applymovement LOCALID_PRL_NEEVEE_ROUTE23, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_PRL_STEEVE_ROUTE23, VictoryRoad_1F_Movement_PRLSteeveApproach
+	applymovement LOCALID_PRL_NEEVEE_ROUTE23, VictoryRoad_1F_Movement_PRLNeeveeApproach
+	waitmovement 0
+	goto VictoryRoad_1F_EventScript_PRLTwinsSteevee
+
+VictoryRoad_1F_EventScript_PRLTwinsPreviouslyWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
+	setvar VAR_MAP_SCENE_ROUTE23, 9
+VictoryRoad_1F_EventScript_PRLTwinsNoBadge::
+	setvar VAR_TEMP_1, 1
+	releaseall
+	end
+
+VictoryRoad_1F_EventScript_PRLTwinsSteevee::
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_Text_PRL_SteeveNeeveeIntro, Route23_Text_PRL_SteeveNeeveeDefeat, Route23_Text_PRL_SteeveNeeveeNotEnoughMons, VictoryRoad_1F_EventScript_PRLTwinsWon, localId=LOCALID_PRL_STEEVE_ROUTE23
+	msgbox Route23_Text_PRL_SteeveNeeveePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+VictoryRoad_1F_EventScript_PRLTwinsNeevee::
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_Text_PRL_SteeveNeeveeIntro, Route23_Text_PRL_SteeveNeeveeDefeat, Route23_Text_PRL_SteeveNeeveeNotEnoughMons, VictoryRoad_1F_EventScript_PRLTwinsWon, localId=LOCALID_PRL_NEEVEE_ROUTE23
+	msgbox Route23_Text_PRL_SteeveNeeveePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+VictoryRoad_1F_EventScript_PRLTwinsWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
+	setvar VAR_MAP_SCENE_ROUTE23, 9
+	msgbox Route23_Text_PRL_SteeveNeeveePostBattle
+	releaseall
+	end
+
+VictoryRoad_1F_Movement_PRLSteeveApproach:
+	walk_down
+	face_down
+	step_end
+
+VictoryRoad_1F_Movement_PRLNeeveeApproach:
+	walk_down
+	face_down
+	step_end
 
 VictoryRoad_1F_Frlg_OnLoad::
 	call_if_ne VAR_MAP_SCENE_VICTORY_ROAD_1F, 100, VictoryRoad_1F_EventScript_SetRockBarrier
