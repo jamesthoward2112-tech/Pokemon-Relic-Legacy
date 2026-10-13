@@ -641,10 +641,12 @@ static void SetWarpData(struct WarpData *warp, s8 mapGroup, s8 mapNum, s8 warpId
 
 #define PRL_ROUTE23_SOUTH_WARP_ID 2
 
-// The badge-recovery quest deliberately leaves the engine's original Badge
-// flags intact. Guard every Victory Road entry point here as a save-safe
-// backstop for warps, Fly/teleport-style destinations, and saves made inside
-// Victory Road before the quest was installed.
+// The badge-recovery quest keeps the engine's real Badge flags intact.
+// Before ALL eight stolen badges are recovered, still redirect entry/save warps
+// out of Victory Road. Once all are recovered, the player may enter and face
+// the Twins inside 1F; the Rocket finale waits at the far outdoor exit.
+// Requiring the final Rocket win here caused entry to bounce to Route 23's
+// southern gate, making the whole long Badge Check walk repeat indefinitely.
 static bool32 PRLIsBlockedVictoryRoadWarp(const struct WarpData *warp)
 {
 #if IS_FRLG
@@ -657,7 +659,7 @@ static bool32 PRLIsBlockedVictoryRoadWarp(const struct WarpData *warp)
 
     return isVictoryRoad
         && FlagGet(FLAG_PRL_BADGE_HEIST_STARTED)
-        && !FlagGet(FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED);
+        && !FlagGet(FLAG_PRL_BADGE_HEIST_ALL_RECOVERED);
 #else
     return FALSE;
 #endif

@@ -10,7 +10,7 @@ ENCOUNTERS = {
     "STEEVE_NEEVEE_ROUTE3": ("Route3_Frlg", [("Eevee", 16), ("Eevee", 16)]),
     "STEEVE_NEEVEE_SS_ANNE": ("SSAnne_2F_Corridor_Frlg", [("Vaporeon", 26), ("Jolteon", 26), ("Eevee", 25), ("Eevee", 25)]),
     "STEEVE_NEEVEE_TOWER": ("PokemonTower_1F_Frlg", [("Flareon", 37), ("Omeon", 37), ("Espeon", 37), ("Umbreon", 36)]),
-    "STEEVE_NEEVEE_ROUTE23": ("Route23_Frlg", [("Vaporeon", 52), ("Jolteon", 52), ("Flareon", 55), ("Toxeon", 55), ("Nimbeon", 54), ("Eeveeon", 55)]),
+    "STEEVE_NEEVEE_ROUTE23": ("VictoryRoad_1F_Frlg", [("Vaporeon", 52), ("Jolteon", 52), ("Flareon", 55), ("Toxeon", 55), ("Nimbeon", 54), ("Eeveeon", 55)]),
     "JESSIE_JAMES_MT_MOON": ("MtMoon_B1F_Frlg", [("Ekans", 16), ("Koffing", 16), ("Bellsprout", 16), ("Meowth", 17)]),
     "JESSIE_JAMES_HIDEOUT": ("RocketHideout_B4F_Frlg", [("Arbok", 29), ("Weezing", 29), ("Raticate", 30), ("Meowth", 30)]),
     "JESSIE_JAMES_SILPH": ("SilphCo_11F_Frlg", [("Arbok", 39), ("Weezing", 39), ("Drowzee", 40), ("Victreebel", 40), ("Pikachu", 41), ("Meowth", 41)]),
@@ -96,7 +96,7 @@ class PRLRecurringDuos(unittest.TestCase):
                         self.assertEqual(actors[1]["movement_type"], "MOVEMENT_TYPE_FACE_LEFT")
                     else:
                         self.assertEqual(actors[0]["y"], actors[1]["y"])
-                        self.assertEqual(abs(actors[0]["x"] - actors[1]["x"]), 1)
+                        self.assertEqual(abs(actors[0]["x"] - actors[1]["x"]), 2 if actor_suffix == "ROUTE23" else 1)
                     for o in actors:
                         expected_type = ("TRAINER_TYPE_SEE_ALL_DIRECTIONS"
                                          if name == "STEEVE_NEEVEE_TOWER" else "TRAINER_TYPE_NORMAL")
@@ -121,7 +121,7 @@ class PRLRecurringDuos(unittest.TestCase):
         self.assertIn("setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED", route)
         overworld = read("src/overworld.c")
         self.assertIn("PRLRedirectBlockedVictoryRoadWarp", overworld)
-        self.assertIn("FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED", overworld)
+        self.assertIn("FLAG_PRL_BADGE_HEIST_ALL_RECOVERED", overworld)
 
     def test_roster_is_limited_to_the_specified_kanto_species(self):
         banned = {"Noxichu", "Wobbuffet"}
@@ -153,15 +153,17 @@ class PRLRecurringDuos(unittest.TestCase):
                 script = read(f"data/maps/{map_name}/scripts.inc")
                 suffix = name.split("STEEVE_NEEVEE_", 1)[1]
                 prefix = {"ROUTE3": "Route3", "SS_ANNE": "SSAnne_2F_Corridor",
-                          "TOWER": "PokemonTower_1F", "ROUTE23": "Route23"}[suffix]
-                self.assertIn(f"{prefix}_EventScript_PRLSteeveNeeveeSteevee::", script)
-                self.assertIn(f"{prefix}_EventScript_PRLSteeveNeeveeNeevee::", script)
-                self.assertIn(f"{prefix}_EventScript_PRLSteeveNeeveeTriggerWon::", script)
+                          "TOWER": "PokemonTower_1F", "ROUTE23": "VictoryRoad_1F"}[suffix]
+                label_part = "PRLTwins" if suffix == "ROUTE23" else "PRLSteeveNeevee"
+                win_part = "PRLTwinsWon" if suffix == "ROUTE23" else "PRLSteeveNeeveeTriggerWon"
+                self.assertIn(f"{prefix}_EventScript_{label_part}Steevee::", script)
+                self.assertIn(f"{prefix}_EventScript_{label_part}Neevee::", script)
+                self.assertIn(f"{prefix}_EventScript_{win_part}::", script)
                 self.assertEqual(script.count(f"trainerbattle_double TRAINER_{name}"), 2)
                 for actor in ("STEEVE", "NEEVEE"):
                     self.assertIn(f"localId=LOCALID_PRL_{actor}_{suffix}", script)
-                self.assertIn(f"msgbox {prefix}_Text_PRL_SteeveNeeveePostBattle", script)
-                self.assertNotIn("continueScript=TRUE", script.split(f"{prefix}_EventScript_PRLSteeveNeeveeSteevee::",1)[1].split(f"{prefix}_Text_PRL_SteeveNeeveeIntro::",1)[0])
+                self.assertIn(f"msgbox {'Route23' if suffix == 'ROUTE23' else prefix}_Text_PRL_SteeveNeeveePostBattle", script)
+                self.assertNotIn("continueScript=TRUE", script.split(f"{prefix}_EventScript_{label_part}Steevee::",1)[1].split("trainerbattle_double",1)[0])
                 for actor in ("STEEVE", "NEEVEE"):
                     self.assertNotIn(f"removeobject LOCALID_PRL_{actor}_{suffix}", script)
                 self.assertNotIn(f"{prefix}_EventScript_PRLSteeveNeeveeMovement_Leave::", script)

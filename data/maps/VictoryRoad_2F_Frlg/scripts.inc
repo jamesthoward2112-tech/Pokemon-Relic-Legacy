@@ -5,13 +5,18 @@ VictoryRoad_2F_Frlg_MapScripts::
 VictoryRoad_2F_OnLoad::
 	call_if_ne VAR_MAP_SCENE_VICTORY_ROAD_2F_BOULDER1, 100, VictoryRoad_2F_EventScript_SetRockBarrier1
 	call_if_ne VAR_MAP_SCENE_VICTORY_ROAD_2F_BOULDER2, 100, VictoryRoad_2F_EventScript_SetRockBarrier2
-	call_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_2F_EventScript_PRL_RocketGateOpen
+	call_if_set FLAG_PRL_BADGE_HEIST_ALL_RECOVERED, VictoryRoad_2F_EventScript_PRL_RocketGateOpen
 	end
 
 VictoryRoad_2F_EventScript_PRL_RocketGate::
 	lockall
-	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_2F_EventScript_PRL_RocketGateOpen
+	goto_if_set FLAG_PRL_BADGE_HEIST_ALL_RECOVERED, VictoryRoad_2F_EventScript_PRL_RocketGateLetThrough
 	msgbox VictoryRoad_2F_Text_PRL_RocketGateClosed
+	releaseall
+	end
+
+VictoryRoad_2F_EventScript_PRL_RocketGateLetThrough::
+	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 1
 	releaseall
 	end
 
@@ -159,8 +164,8 @@ VictoryRoad_2F_Text_GregoryPostBattle::
 
 VictoryRoad_2F_Text_PRL_RocketGateClosed::
 	.string "A voice echoes from above…\p"
-	.string "TEAM ROCKET is waiting on the\n"
-	.string "upper floor. The path is blocked!$"
+	.string "Recover your stolen BADGES\n"
+	.string "before reaching the LEAGUE!$"
 
 @ Unused, old text for Moltres
 VictoryRoad_2F_Text_Gyaoo::
