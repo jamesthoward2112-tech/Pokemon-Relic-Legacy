@@ -55,6 +55,9 @@ VictoryRoad_1F_EventScript_PRLTwinsWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
 	setvar VAR_MAP_SCENE_ROUTE23, 9
 	msgbox VictoryRoad_1F_Text_PRLTwinsFarewell
+	@ A native trainer can walk toward the player; put both back on the upper ledge.
+	setobjectxy LOCALID_PRL_VR_TWIN_STEEVE, 9, 13
+	setobjectxy LOCALID_PRL_VR_TWIN_NEEVEE, 10, 13
 	release
 	end
 
