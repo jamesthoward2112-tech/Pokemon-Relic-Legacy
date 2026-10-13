@@ -1,4 +1,4 @@
-"""Issue #26 source regression: two visible Eevee Twins at each mandatory story scene.
+"""Issue #26 source regression: two visible Eevee Twins at early story scenes.
 
 These tests cannot substitute for fresh/old-save emulator coverage.
 """
@@ -12,11 +12,10 @@ CASES = (
     ("Route3_Frlg", "ROUTE3", "VAR_PRL_RECURRING_ROUTE3_TRIGGER", "0"),
     ("SSAnne_2F_Corridor_Frlg", "SS_ANNE", "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR", "1"),
     ("PokemonTower_1F_Frlg", "TOWER", "VAR_PRL_RECURRING_TOWER_TRIGGER", "0"),
-    ("Route23_Frlg", "ROUTE23", "VAR_MAP_SCENE_ROUTE23", "8"),
 )
 
 class Issue26VisibleDuos(unittest.TestCase):
-    def test_all_four_maps_have_two_approved_twin_actors(self):
+    def test_three_original_maps_have_two_approved_twin_actors(self):
         for map_name, tag, _, _ in CASES:
             with self.subTest(map=map_name):
                 map_data = json.loads((ROOT / f"data/maps/{map_name}/map.json").read_text())
@@ -34,7 +33,7 @@ class Issue26VisibleDuos(unittest.TestCase):
                 self.assertTrue(all(actor["trainer_type"] == expected_type for actor in actors))
 
     def test_native_trainer_sight_has_both_npc_contexts_and_save_sync(self):
-        # The approved native sight handlers replaced the earlier coordinate/departure prototype.
+        # The early three native-sight encounters are unchanged; Victory Road has its own coordinate-gate regression tests.
         for map_name, tag, _, _ in CASES:
             with self.subTest(map=map_name):
                 map_data = json.loads((ROOT / f"data/maps/{map_name}/map.json").read_text())
