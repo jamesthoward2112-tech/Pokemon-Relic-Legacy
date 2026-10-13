@@ -33,47 +33,49 @@ VictoryRoad_1F_EventScript_FloorSwitchAlreadyPressed::
 	releaseall
 	end
 
-@ The fourth Eevee Twins battle takes place *inside* the cave.
-@ The Twins wait on the raised ledge (elevation 4), clear of every Strength boulder.
-@ Stair and ledge coord triggers force their battle when the player climbs up.
+@ The final Kanto Eevee Twins battle uses native trainer line of sight.
+@ Both stand on the upper ledge (elevation 4), safely clear of Strength.
+@ Normal trainerbattle_double keeps them visible after victory, including old saves.
 VictoryRoad_1F_EventScript_PRLSteevee::
-	goto VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger
+	goto_if_unset FLAG_BADGE08_GET, VictoryRoad_1F_EventScript_PRLTwinsNotReady
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_Text_PRL_SteeveNeeveeIntro, Route23_Text_PRL_SteeveNeeveeDefeat, Route23_Text_PRL_SteeveNeeveeNotEnoughMons, VictoryRoad_1F_EventScript_PRLTwinsWon, localId=LOCALID_PRL_VR_TWIN_STEEVE
+	msgbox VictoryRoad_1F_Text_PRLSteeveeAfter, MSGBOX_AUTOCLOSE
+	end
 
 VictoryRoad_1F_EventScript_PRLNeevee::
-	goto VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger
+	goto_if_unset FLAG_BADGE08_GET, VictoryRoad_1F_EventScript_PRLTwinsNotReady
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_Text_PRL_SteeveNeeveeIntro, Route23_Text_PRL_SteeveNeeveeDefeat, Route23_Text_PRL_SteeveNeeveeNotEnoughMons, VictoryRoad_1F_EventScript_PRLTwinsWon, localId=LOCALID_PRL_VR_TWIN_NEEVEE
+	msgbox VictoryRoad_1F_Text_PRLNeeveeAfter, MSGBOX_AUTOCLOSE
+	end
 
-VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger::
-	lockall
-	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23, VictoryRoad_1F_EventScript_PRLTwinsDone
-	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23, VictoryRoad_1F_EventScript_PRLTwinsSyncWon
-	goto_if_unset FLAG_BADGE08_GET, VictoryRoad_1F_EventScript_PRLTwinsDone
-	setvar VAR_TEMP_2, 1
-	playse SE_PIN
-	applymovement LOCALID_PRL_VR_TWIN_STEEVE, Route23_Movement_PRLHeistExclamation
-	applymovement LOCALID_PRL_VR_TWIN_NEEVEE, Route23_Movement_PRLHeistExclamation
-	waitmovement LOCALID_PRL_VR_TWIN_STEEVE
-	waitmovement LOCALID_PRL_VR_TWIN_NEEVEE
-	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_Text_PRL_SteeveNeeveeIntro, Route23_Text_PRL_SteeveNeeveeDefeat, Route23_Text_PRL_SteeveNeeveeNotEnoughMons, VictoryRoad_1F_EventScript_PRLTwinsWon, localId=LOCALID_PRL_VR_TWIN_STEEVE
-	goto VictoryRoad_1F_EventScript_PRLTwinsDone
+VictoryRoad_1F_EventScript_PRLTwinsNotReady::
+	end
 
-@ The cave Strength boulder must never be blocked by the defeated Twins.
-@ This already-existing battle flag also hides both NPC objects on every reload.
 VictoryRoad_1F_EventScript_PRLTwinsWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
 	setvar VAR_MAP_SCENE_ROUTE23, 9
-	msgbox Route23_Text_PRL_SteeveNeeveePostBattle
-	removeobject LOCALID_PRL_VR_TWIN_STEEVE
-	removeobject LOCALID_PRL_VR_TWIN_NEEVEE
-	releaseall
+	msgbox VictoryRoad_1F_Text_PRLTwinsFarewell
+	release
 	end
 
-VictoryRoad_1F_EventScript_PRLTwinsSyncWon::
-	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
-	removeobject LOCALID_PRL_VR_TWIN_STEEVE
-	removeobject LOCALID_PRL_VR_TWIN_NEEVEE
-VictoryRoad_1F_EventScript_PRLTwinsDone::
-	releaseall
-	end
+VictoryRoad_1F_Text_PRLTwinsFarewell::
+	.string "STEEVEE: From ROUTE 3 to here…\\p"
+	.string "You've beaten us every time!\\p"
+	.string "NEEVEE: KANTO was incredible.\\p"
+	.string "We'll train even harder now!\\p"
+	.string "STEEVEE: This isn't goodbye.\\p"
+	.string "NEEVEE: See you in HOENN,\\n"
+	.string "{PLAYER}!$"
+
+VictoryRoad_1F_Text_PRLSteeveeAfter::
+	.string "STEEVEE: What a journey!\\p"
+	.string "We're heading to HOENN next.\\n"
+	.string "We'll be ready for you!$"
+
+VictoryRoad_1F_Text_PRLNeeveeAfter::
+	.string "NEEVEE: This was our last\\n"
+	.string "KANTO battle together.\\p"
+	.string "See you in HOENN, {PLAYER}!$"
 
 VictoryRoad_1F_EventScript_Naomi::
 	trainerbattle_single TRAINER_COOLTRAINER_NAOMI, VictoryRoad_1F_Text_NaomiIntro, VictoryRoad_1F_Text_NaomiDefeat
