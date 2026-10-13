@@ -1,19 +1,116 @@
 VictoryRoad_2F_Frlg_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, VictoryRoad_2F_EventScript_PRL_OnTransition
 	map_script MAP_SCRIPT_ON_LOAD, VictoryRoad_2F_OnLoad
 	.byte 0
+
+@ The final Rocket confrontation belongs to the exit corridor, not Route 23.
+@ Both old saves and new saves retain the existing trainer and badge-heist flags.
+VictoryRoad_2F_EventScript_PRL_OnTransition::
+	setflag FLAG_HIDE_PRL_BADGE_HEIST_TRIO
+	setflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, VictoryRoad_2F_EventScript_PRL_TransitionDone
+	goto_if_unset FLAG_PRL_BADGE_HEIST_ALL_RECOVERED, VictoryRoad_2F_EventScript_PRL_TransitionDone
+	goto_if_set FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED, VictoryRoad_2F_EventScript_PRL_TransitionDone
+	goto_if_defeated TRAINER_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_2F_EventScript_PRL_TransitionSyncWon
+	clearflag FLAG_HIDE_PRL_BADGE_HEIST_TRIO
+VictoryRoad_2F_EventScript_PRL_TransitionDone::
+	end
+
+VictoryRoad_2F_EventScript_PRL_TransitionSyncWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD
+	setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED
+	end
 
 VictoryRoad_2F_OnLoad::
 	call_if_ne VAR_MAP_SCENE_VICTORY_ROAD_2F_BOULDER1, 100, VictoryRoad_2F_EventScript_SetRockBarrier1
 	call_if_ne VAR_MAP_SCENE_VICTORY_ROAD_2F_BOULDER2, 100, VictoryRoad_2F_EventScript_SetRockBarrier2
+	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 0
 	call_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_2F_EventScript_PRL_RocketGateOpen
 	end
 
+@ Three approach lanes and the actual outgoing warp footprint are intercepted.
+@ Unlike the old map-script gate, this launches the trainer battle automatically.
 VictoryRoad_2F_EventScript_PRL_RocketGate::
 	lockall
-	goto_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_2F_EventScript_PRL_RocketGateOpen
+	goto_if_set FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED, VictoryRoad_2F_EventScript_PRL_RocketAlreadyWon
+	goto_if_defeated TRAINER_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_2F_EventScript_PRL_RocketAlreadyWon
+	goto_if_unset FLAG_PRL_BADGE_HEIST_ALL_RECOVERED, VictoryRoad_2F_EventScript_PRL_RocketNotReady
+	setvar VAR_TEMP_3, 1
+	playse SE_PIN
+	applymovement LOCALID_PRL_VR_ROCKET_JESSIE, Route23_Movement_PRLHeistExclamation
+	applymovement LOCALID_PRL_VR_ROCKET_JAMES, Route23_Movement_PRLHeistExclamation
+	waitmovement LOCALID_PRL_VR_ROCKET_JESSIE
+	waitmovement LOCALID_PRL_VR_ROCKET_JAMES
+	applymovement LOCALID_PRL_VR_ROCKET_JESSIE, VictoryRoad_2F_Movement_PRL_RocketStepIn
+	applymovement LOCALID_PRL_VR_ROCKET_JAMES, VictoryRoad_2F_Movement_PRL_RocketStepIn
+	waitmovement LOCALID_PRL_VR_ROCKET_JESSIE
+	waitmovement LOCALID_PRL_VR_ROCKET_JAMES
+	trainerbattle_double TRAINER_JESSIE_JAMES_VICTORY_ROAD, Route23_Text_PRLFinalRocketIntro, Route23_Text_PRLFinalRocketDefeat, Route23_Text_PRLFinalRocketNotEnoughMons, VictoryRoad_2F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_VR_ROCKET_JESSIE
+	goto VictoryRoad_2F_EventScript_PRL_RocketAlreadyWon
+
+VictoryRoad_2F_EventScript_PRL_Meowth::
+	lock
+	faceplayer
+	goto_if_set FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED, VictoryRoad_2F_EventScript_PRL_RocketMeowthGone
+	msgbox Route23_Text_PRLFinalRocketMeowth
+	release
+	end
+
+VictoryRoad_2F_EventScript_PRL_RocketMeowthGone::
+	msgbox Route23_Text_PRLFinalRocketGone
+	release
+	end
+
+VictoryRoad_2F_EventScript_PRL_RocketNotReady::
 	msgbox VictoryRoad_2F_Text_PRL_RocketGateClosed
 	releaseall
 	end
+
+VictoryRoad_2F_EventScript_PRL_RocketAlreadyWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD
+	setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED
+	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 1
+	releaseall
+	end
+
+VictoryRoad_2F_EventScript_PRL_RocketWon::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD
+	setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED
+	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 1
+	msgbox Route23_Text_PRLFinalRocketAfterBattle
+	msgbox Route23_Text_PRLFinalRocketBlastOff
+	closemessage
+	clearflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
+	addobject LOCALID_PRL_VR_ROCKET_BALLOON
+	hideobjectat LOCALID_PRL_VR_ROCKET_BALLOON, MAP_VICTORY_ROAD_2F
+	setobjectxy LOCALID_PRL_VR_ROCKET_BALLOON, 46, 8
+	setobjectsubpriority LOCALID_PRL_VR_ROCKET_BALLOON, MAP_VICTORY_ROAD_2F, 1
+	applymovement LOCALID_PRL_VR_ROCKET_BALLOON, Route23_Movement_PRLBalloonEnter
+	waitmovement LOCALID_PRL_VR_ROCKET_BALLOON
+	setobjectsubpriority LOCALID_PRL_VR_ROCKET_JESSIE, MAP_VICTORY_ROAD_2F, 0
+	setobjectsubpriority LOCALID_PRL_VR_ROCKET_JAMES, MAP_VICTORY_ROAD_2F, 0
+	setobjectsubpriority LOCALID_PRL_VR_ROCKET_MEOWTH, MAP_VICTORY_ROAD_2F, 0
+	playse SE_LEDGE
+	applymovement LOCALID_PRL_VR_ROCKET_JESSIE, Route23_Movement_PRLJessieFinalBoard
+	applymovement LOCALID_PRL_VR_ROCKET_JAMES, Route23_Movement_PRLJamesFinalBoard
+	applymovement LOCALID_PRL_VR_ROCKET_MEOWTH, Route23_Movement_PRLMeowthFinalBoard
+	waitmovement LOCALID_PRL_VR_ROCKET_JESSIE
+	waitmovement LOCALID_PRL_VR_ROCKET_JAMES
+	waitmovement LOCALID_PRL_VR_ROCKET_MEOWTH
+	removeobject LOCALID_PRL_VR_ROCKET_JESSIE
+	removeobject LOCALID_PRL_VR_ROCKET_JAMES
+	removeobject LOCALID_PRL_VR_ROCKET_MEOWTH
+	applymovement LOCALID_PRL_VR_ROCKET_BALLOON, Route23_Movement_PRLBalloonTakeoff
+	waitmovement LOCALID_PRL_VR_ROCKET_BALLOON
+	setflag FLAG_HIDE_PRL_BADGE_HEIST_TRIO
+	setflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
+	removeobject LOCALID_PRL_VR_ROCKET_BALLOON
+	releaseall
+	end
+
+VictoryRoad_2F_Movement_PRL_RocketStepIn:
+	walk_down
+	step_end
 
 VictoryRoad_2F_EventScript_PRL_RocketGateOpen::
 	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 1

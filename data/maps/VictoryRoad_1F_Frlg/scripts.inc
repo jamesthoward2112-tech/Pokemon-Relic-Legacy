@@ -33,6 +33,41 @@ VictoryRoad_1F_EventScript_FloorSwitchAlreadyPressed::
 	releaseall
 	end
 
+@ The fourth Eevee Twins battle takes place *inside* the cave.
+@ Coord triggers across the south entrance prevent walking past either twin.
+VictoryRoad_1F_EventScript_PRLSteevee::
+	goto VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger
+
+VictoryRoad_1F_EventScript_PRLNeevee::
+	goto VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger
+
+VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger::
+	lockall
+	goto_if_set FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23, VictoryRoad_1F_EventScript_PRLTwinsDone
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23, VictoryRoad_1F_EventScript_PRLTwinsSyncWon
+	goto_if_unset FLAG_BADGE08_GET, VictoryRoad_1F_EventScript_PRLTwinsDone
+	setvar VAR_TEMP_2, 1
+	playse SE_PIN
+	applymovement LOCALID_PRL_VR_TWIN_STEEVE, Route23_Movement_PRLHeistExclamation
+	applymovement LOCALID_PRL_VR_TWIN_NEEVEE, Route23_Movement_PRLHeistExclamation
+	waitmovement LOCALID_PRL_VR_TWIN_STEEVE
+	waitmovement LOCALID_PRL_VR_TWIN_NEEVEE
+	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_Text_PRL_SteeveNeeveeIntro, Route23_Text_PRL_SteeveNeeveeDefeat, Route23_Text_PRL_SteeveNeeveeNotEnoughMons, VictoryRoad_1F_EventScript_PRLTwinsWon, localId=LOCALID_PRL_VR_TWIN_STEEVE
+	goto VictoryRoad_1F_EventScript_PRLTwinsDone
+
+VictoryRoad_1F_EventScript_PRLTwinsWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
+	setvar VAR_MAP_SCENE_ROUTE23, 9
+	msgbox Route23_Text_PRL_SteeveNeeveePostBattle
+	releaseall
+	end
+
+VictoryRoad_1F_EventScript_PRLTwinsSyncWon::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
+VictoryRoad_1F_EventScript_PRLTwinsDone::
+	releaseall
+	end
+
 VictoryRoad_1F_EventScript_Naomi::
 	trainerbattle_single TRAINER_COOLTRAINER_NAOMI, VictoryRoad_1F_Text_NaomiIntro, VictoryRoad_1F_Text_NaomiDefeat
 	msgbox VictoryRoad_1F_Text_NaomiPostBattle, MSGBOX_AUTOCLOSE
