@@ -87,7 +87,7 @@ class PRLRecurringDuos(unittest.TestCase):
                 elif name == "STEEVE_NEEVEE_ROUTE23":
                     self.assertIn("VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger::", script)
                     duo = [o for o in map_data["object_events"] if o.get("local_id", "").startswith("LOCALID_PRL_VR_TWIN_")]
-                    self.assertEqual({(o["x"], o["y"]) for o in duo}, {(10, 18), (12, 18)})
+                    self.assertEqual({(o["x"], o["y"]) for o in duo}, {(10, 15), (12, 15)})
                     self.assertTrue(any("PRLSteeveNeeveeTrigger" in e["script"] for e in map_data["coord_events"]))
                 else:
                     # The original three twins battles continue to use native sight.
@@ -151,7 +151,7 @@ class PRLRecurringDuos(unittest.TestCase):
                 if name == "STEEVE_NEEVEE_ROUTE23":
                     twins = [obj for obj in map_data["object_events"] if obj.get("local_id", "").startswith("LOCALID_PRL_VR_TWIN_")]
                     self.assertEqual(len(twins), 2)
-                    self.assertTrue(all(o["flag"] == "0" for o in twins))
+                    self.assertTrue(all(o["flag"] == "FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23" for o in twins))
                     self.assertTrue(all(o["trainer_type"] == "TRAINER_TYPE_NONE" for o in twins))
                     continue
                 twins = [obj for obj in map_data["object_events"]
