@@ -114,6 +114,36 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "EventScript_StrengthBoulder",
       "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_PRL_STEEVE_ROUTE23",
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_TWIN",
+      "x": 10,
+      "y": 18,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "3",
+      "script": "VictoryRoad_1F_EventScript_PRLTwinsSteevee",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_PRL_NEEVEE_ROUTE23",
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_TWIN",
+      "x": 12,
+      "y": 18,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "3",
+      "script": "VictoryRoad_1F_EventScript_PRLTwinsNeevee",
+      "flag": "0"
     }
   ],
   "warp_events": [
