@@ -221,23 +221,28 @@ Route23_EventScript_PRLGreatBadgeHeist::
 	applymovement LOCALID_PRL_HEIST_JAMES, Route23_Movement_PRLHeistExclamation
 	waitmovement 0
 	msgbox Route23_Text_PRLGreatBadgeHeist
+	msgbox Route23_Text_PRLGreatBadgeHeistEscape
+	closemessage
 	clearflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
 	addobject LOCALID_PRL_HEIST_BALLOON
+	hideobjectat LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23
 	setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 150
-	setobjectsubpriority LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23, 0
-	playse SE_WARP_IN
-	delay 24
+	setobjectsubpriority LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23, 1
+	applymovement LOCALID_PRL_HEIST_BALLOON, Route23_Movement_PRLBalloonEnter
+	waitmovement LOCALID_PRL_HEIST_BALLOON
+	setobjectsubpriority LOCALID_PRL_HEIST_JESSIE, MAP_ROUTE23, 0
+	setobjectsubpriority LOCALID_PRL_HEIST_JAMES, MAP_ROUTE23, 0
+	setobjectsubpriority LOCALID_PRL_HEIST_MEOWTH, MAP_ROUTE23, 0
+	playse SE_LEDGE
 	applymovement LOCALID_PRL_HEIST_JESSIE, Route23_Movement_PRLJessieBoard
 	applymovement LOCALID_PRL_HEIST_JAMES, Route23_Movement_PRLJamesBoard
 	applymovement LOCALID_PRL_HEIST_MEOWTH, Route23_Movement_PRLMeowthBoard
 	waitmovement LOCALID_PRL_HEIST_JESSIE
 	waitmovement LOCALID_PRL_HEIST_JAMES
 	waitmovement LOCALID_PRL_HEIST_MEOWTH
-	delay 16
 	removeobject LOCALID_PRL_HEIST_JESSIE
 	removeobject LOCALID_PRL_HEIST_JAMES
 	removeobject LOCALID_PRL_HEIST_MEOWTH
-	msgbox Route23_Text_PRLGreatBadgeHeistEscape
 	applymovement LOCALID_PRL_HEIST_BALLOON, Route23_Movement_PRLBalloonTakeoff
 	waitmovement 0
 	setflag FLAG_HIDE_PRL_BADGE_HEIST_TRIO
@@ -282,23 +287,28 @@ Route23_EventScript_PRLFinalRocketWon::
 	setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED
 	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 1
 	msgbox Route23_Text_PRLFinalRocketAfterBattle
+	msgbox Route23_Text_PRLFinalRocketBlastOff
+	closemessage
 	clearflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
 	addobject LOCALID_PRL_HEIST_BALLOON
+	hideobjectat LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23
 	setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 30
-	setobjectsubpriority LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23, 0
-	playse SE_WARP_IN
-	delay 24
+	setobjectsubpriority LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23, 1
+	applymovement LOCALID_PRL_HEIST_BALLOON, Route23_Movement_PRLBalloonEnter
+	waitmovement LOCALID_PRL_HEIST_BALLOON
+	setobjectsubpriority LOCALID_PRL_HEIST_JESSIE, MAP_ROUTE23, 0
+	setobjectsubpriority LOCALID_PRL_HEIST_JAMES, MAP_ROUTE23, 0
+	setobjectsubpriority LOCALID_PRL_HEIST_MEOWTH, MAP_ROUTE23, 0
+	playse SE_LEDGE
 	applymovement LOCALID_PRL_HEIST_JESSIE, Route23_Movement_PRLJessieFinalBoard
 	applymovement LOCALID_PRL_HEIST_JAMES, Route23_Movement_PRLJamesFinalBoard
 	applymovement LOCALID_PRL_HEIST_MEOWTH, Route23_Movement_PRLMeowthFinalBoard
 	waitmovement LOCALID_PRL_HEIST_JESSIE
 	waitmovement LOCALID_PRL_HEIST_JAMES
 	waitmovement LOCALID_PRL_HEIST_MEOWTH
-	delay 16
 	removeobject LOCALID_PRL_HEIST_JESSIE
 	removeobject LOCALID_PRL_HEIST_JAMES
 	removeobject LOCALID_PRL_HEIST_MEOWTH
-	msgbox Route23_Text_PRLFinalRocketBlastOff
 	applymovement LOCALID_PRL_HEIST_BALLOON, Route23_Movement_PRLBalloonTakeoff
 	waitmovement 0
 	setflag FLAG_HIDE_PRL_BADGE_HEIST_TRIO
@@ -329,41 +339,40 @@ Route23_Movement_PRLHeistExclamation:
 	step_end
 
 Route23_Movement_PRLJessieBoard:
-	walk_slow_down
-	walk_slow_right
+	walk_down
+	jump_right
 	step_end
 
 Route23_Movement_PRLJamesBoard:
-	walk_slow_down
-	walk_slow_left
+	walk_down
+	jump_left
 	step_end
 
 Route23_Movement_PRLMeowthBoard:
-	face_up
-	delay_16
+	jump_in_place_up
 	step_end
 
 Route23_Movement_PRLJessieFinalBoard:
-	walk_slow_right
-	walk_slow_up
+	walk_right
+	jump_up
 	step_end
 
 Route23_Movement_PRLJamesFinalBoard:
-	walk_slow_left
-	walk_slow_up
+	walk_left
+	jump_up
 	step_end
 
 Route23_Movement_PRLMeowthFinalBoard:
-	walk_slow_up
-	walk_slow_up
+	walk_up
+	jump_up
+	step_end
+
+Route23_Movement_PRLBalloonEnter:
+	fly_down
 	step_end
 
 Route23_Movement_PRLBalloonTakeoff:
-	walk_slow_up
-	walk_slow_up
-	walk_slow_up
-	walk_slow_up
-	walk_slow_up
+	fly_up
 	step_end
 
 Route23_Text_PRLGreatBadgeHeist::
