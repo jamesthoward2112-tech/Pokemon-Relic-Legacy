@@ -226,7 +226,7 @@ Route23_EventScript_PRLGreatBadgeHeist::
 	clearflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
 	addobject LOCALID_PRL_HEIST_BALLOON
 	hideobjectat LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23
-	setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 150
+	setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 151
 	setobjectsubpriority LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23, 1
 	applymovement LOCALID_PRL_HEIST_BALLOON, Route23_Movement_PRLBalloonEnter
 	waitmovement LOCALID_PRL_HEIST_BALLOON
@@ -340,16 +340,18 @@ Route23_Movement_PRLHeistExclamation:
 
 Route23_Movement_PRLJessieBoard:
 	walk_down
+	walk_down
 	jump_right
 	step_end
 
 Route23_Movement_PRLJamesBoard:
 	walk_down
+	walk_down
 	jump_left
 	step_end
 
 Route23_Movement_PRLMeowthBoard:
-	jump_in_place_up
+	jump_down
 	step_end
 
 Route23_Movement_PRLJessieFinalBoard:

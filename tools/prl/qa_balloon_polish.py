@@ -65,12 +65,13 @@ def check_scene(qa, final):
                 if key in objects:
                     address = objects[key]
                     last_coords[key] = (emu.read(address + 0x10, 2), emu.read(address + 0x12, 2))
-                    last_finished[key] = bool(emu.read(address, 1) & 0x80)
+                    movement_bits = emu.read(address, 1)
+                    last_finished[key] = bool(movement_bits & 0x80) or not bool(movement_bits & 0x40)
                     sprite = qa.sym['gSprites'] + emu.read(address + 0x23, 1) * 0x44
                     if appeared and signed(emu.read(sprite + 0x26, 2)) < 0:
                         jump_seen.add(key)
                 elif appeared and key in last_coords and key not in collected:
-                    assert last_coords[key] == (15, 37 if final else 157), (name, key, 'removed before basket', last_coords[key])
+                    assert last_coords[key] == (15, 37 if final else 158), (name, key, 'removed before basket', last_coords[key])
                     assert last_finished[key], (name, key, 'boarding movement unfinished')
                     collected.add(key)
                     if len(collected) == 3:

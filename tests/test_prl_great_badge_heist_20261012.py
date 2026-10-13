@@ -94,7 +94,7 @@ class GreatBadgeHeistTests(unittest.TestCase):
         )
         self.assertEqual((balloon["x"], balloon["y"]), (8, 30))
         script = text("data/maps/Route23_Frlg/scripts.inc")
-        self.assertIn("setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 150", script)
+        self.assertIn("setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 151", script)
 
     def test_balloon_is_visible_before_boarding_in_both_escapes(self):
         script = text("data/maps/Route23_Frlg/scripts.inc")
