@@ -17,6 +17,7 @@ ViridianCity_Gym_EventScript_PRLGiovanniVisibilityDone::
 	return
 
 ViridianCity_Gym_EventScript_Giovanni::
+	call ViridianCity_Gym_Frlg_EventScript_PRLBadgeRewardPending
 	famechecker FAMECHECKER_GIOVANNI, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, ViridianCity_Gym_EventScript_GiovanniNormal
 	goto_if_set FLAG_PRL_BADGE_HEIST_RECOVERED_EARTH, ViridianCity_Gym_EventScript_GiovanniNormal
@@ -58,6 +59,7 @@ ViridianCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
 	playfanfare MUS_OBTAIN_BADGE
 	waitfanfare
 	msgbox ViridianCity_Gym_Text_PRLRecoveryWon
+	call PRL_EventScript_BadgeHeistReward_GIOVANNI
 	release
 	end
 
@@ -354,3 +356,15 @@ ViridianCity_Gym_Text_GymStatuePlayerWon::
 	.string "WINNING TRAINERS:\n"
 	.string "{RIVAL}, {PLAYER}$"
 
+
+@ A recovered badge remains valid even while its full-Bag gift is pending.
+ViridianCity_Gym_Frlg_EventScript_PRLBadgeRewardPending::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_EARTH, ViridianCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_GIOVANNI, ViridianCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone
+	lock
+	faceplayer
+	call PRL_EventScript_BadgeHeistReward_GIOVANNI
+	release
+	end
+ViridianCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone::
+	return

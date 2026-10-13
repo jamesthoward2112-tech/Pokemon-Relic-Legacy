@@ -202,6 +202,7 @@ VermilionCity_Gym_EventScript_SetBeamsOn::
 	return
 
 VermilionCity_Gym_EventScript_LtSurge::
+	call VermilionCity_Gym_Frlg_EventScript_PRLBadgeRewardPending
 	famechecker FAMECHECKER_LTSURGE, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, VermilionCity_Gym_EventScript_LtSurgeNormal
 	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_THUNDER, VermilionCity_Gym_Frlg_EventScript_PRLBadgeRecovery
@@ -225,6 +226,7 @@ VermilionCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
 	playfanfare MUS_OBTAIN_BADGE
 	waitfanfare
 	msgbox VermilionCity_Gym_Text_PRLRecoveryWon
+	call PRL_EventScript_BadgeHeistReward_SURGE
 	release
 	end
 
@@ -459,3 +461,15 @@ VermilionCity_Gym_Text_OnlyTrashLocksWereReset::
 	.string "Hey!\n"
 	.string "The electric locks were reset!$"
 
+
+@ A recovered badge remains valid even while its full-Bag gift is pending.
+VermilionCity_Gym_Frlg_EventScript_PRLBadgeRewardPending::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_THUNDER, VermilionCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_SURGE, VermilionCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone
+	lock
+	faceplayer
+	call PRL_EventScript_BadgeHeistReward_SURGE
+	release
+	end
+VermilionCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone::
+	return

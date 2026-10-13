@@ -1,0 +1,1991 @@
+{
+  "schema_version": 1,
+  "approved_date": "2026-10-13",
+  "starter_dispatch": {
+    "Pikachu": "TRAINER_CHAMPION_FIRST_SQUIRTLE",
+    "Nidoran M": "TRAINER_CHAMPION_FIRST_BULBASAUR",
+    "Growlithe": "TRAINER_CHAMPION_FIRST_CHARMANDER"
+  },
+  "trainers": {
+    "TRAINER_ELITE_FOUR_LORELEI": {
+      "trainer_id": 310,
+      "double_battle": false,
+      "party": [
+        {
+          "species": "Dewgong",
+          "level": 65,
+          "ability": "Thick Fat",
+          "item": "Leftovers",
+          "moves": [
+            "Ice Beam",
+            "Surf",
+            "Encore",
+            "Icy Wind"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Cloyster",
+          "level": 65,
+          "ability": "Skill Link",
+          "item": "White Herb",
+          "moves": [
+            "Shell Smash",
+            "Icicle Spear",
+            "Rock Blast",
+            "Ice Shard"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Slowbro",
+          "level": 66,
+          "ability": "Regenerator",
+          "item": "Rocky Helmet",
+          "moves": [
+            "Scald",
+            "Psychic",
+            "Slack Off",
+            "Thunder Wave"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Jynx",
+          "level": 66,
+          "ability": "Dry Skin",
+          "item": "Focus Sash",
+          "moves": [
+            "Ice Beam",
+            "Psychic",
+            "Lovely Kiss",
+            "Focus Blast"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Starmie",
+          "level": 67,
+          "ability": "Natural Cure",
+          "item": "Expert Belt",
+          "moves": [
+            "Surf",
+            "Thunderbolt",
+            "Ice Beam",
+            "Recover"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Lapras",
+          "level": 69,
+          "ability": "Water Absorb",
+          "item": "Assault Vest",
+          "moves": [
+            "Freeze-Dry",
+            "Hydro Pump",
+            "Thunderbolt",
+            "Ice Shard"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        }
+      ]
+    },
+    "TRAINER_ELITE_FOUR_BRUNO": {
+      "trainer_id": 311,
+      "double_battle": false,
+      "party": [
+        {
+          "species": "Onix",
+          "level": 66,
+          "ability": "Sturdy",
+          "item": "Eviolite",
+          "moves": [
+            "Stealth Rock",
+            "Earthquake",
+            "Rock Slide",
+            "Dragon Tail"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Primeape",
+          "level": 66,
+          "ability": "Defiant",
+          "item": "Choice Scarf",
+          "moves": [
+            "Close Combat",
+            "U-turn",
+            "Stone Edge",
+            "Ice Punch"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Hitmonlee",
+          "level": 67,
+          "ability": "Reckless",
+          "item": "Life Orb",
+          "moves": [
+            "High Jump Kick",
+            "Blaze Kick",
+            "Stone Edge",
+            "Knock Off"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Hitmonchan",
+          "level": 68,
+          "ability": "Iron Fist",
+          "item": "Expert Belt",
+          "moves": [
+            "Drain Punch",
+            "Mach Punch",
+            "Ice Punch",
+            "Thunder Punch"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Poliwrath",
+          "level": 69,
+          "ability": "Water Absorb",
+          "item": "Leftovers",
+          "moves": [
+            "Liquidation",
+            "Drain Punch",
+            "Bulk Up",
+            "Ice Punch"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Machamp",
+          "level": 70,
+          "ability": "No Guard",
+          "item": "Assault Vest",
+          "moves": [
+            "Dynamic Punch",
+            "Stone Edge",
+            "Knock Off",
+            "Bullet Punch"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        }
+      ]
+    },
+    "TRAINER_ELITE_FOUR_AGATHA": {
+      "trainer_id": 312,
+      "double_battle": false,
+      "party": [
+        {
+          "species": "Arbok",
+          "level": 67,
+          "ability": "Intimidate",
+          "item": "Black Sludge",
+          "moves": [
+            "Coil",
+            "Gunk Shot",
+            "Crunch",
+            "Earthquake"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Golbat",
+          "level": 67,
+          "ability": "Infiltrator",
+          "item": "Eviolite",
+          "moves": [
+            "Brave Bird",
+            "Roost",
+            "U-turn",
+            "Toxic"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Weezing",
+          "level": 68,
+          "ability": "Levitate",
+          "item": "Rocky Helmet",
+          "moves": [
+            "Sludge Bomb",
+            "Will-O-Wisp",
+            "Flamethrower",
+            "Pain Split"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Muk",
+          "level": 68,
+          "ability": "Poison Touch",
+          "item": "Assault Vest",
+          "moves": [
+            "Gunk Shot",
+            "Knock Off",
+            "Shadow Sneak",
+            "Ice Punch"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Maroghost",
+          "level": 70,
+          "ability": "Cursed Body",
+          "item": "Spell Tag",
+          "moves": [
+            "Shadow Bone",
+            "Bonemerang",
+            "Will-O-Wisp",
+            "Stone Edge"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Gengar",
+          "level": 71,
+          "ability": "Cursed Body",
+          "item": "Life Orb",
+          "moves": [
+            "Shadow Ball",
+            "Sludge Bomb",
+            "Thunderbolt",
+            "Focus Blast"
+          ],
+          "shiny": true,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        }
+      ]
+    },
+    "TRAINER_ELITE_FOUR_LANCE": {
+      "trainer_id": 313,
+      "double_battle": false,
+      "party": [
+        {
+          "species": "Gyarados",
+          "level": 68,
+          "ability": "Intimidate",
+          "item": "Lum Berry",
+          "moves": [
+            "Dragon Dance",
+            "Waterfall",
+            "Ice Fang",
+            "Earthquake"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Seadra",
+          "level": 68,
+          "ability": "Sniper",
+          "item": "Scope Lens",
+          "moves": [
+            "Focus Energy",
+            "Hydro Pump",
+            "Dragon Pulse",
+            "Ice Beam"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Dragonair",
+          "level": 69,
+          "ability": "Shed Skin",
+          "item": "Eviolite",
+          "moves": [
+            "Dragon Dance",
+            "Dragon Claw",
+            "Thunder Wave",
+            "Aqua Tail"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Aerodactyl",
+          "level": 70,
+          "ability": "Rock Head",
+          "item": "Choice Band",
+          "moves": [
+            "Stone Edge",
+            "Earthquake",
+            "Aerial Ace",
+            "Crunch"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Charizard",
+          "level": 71,
+          "ability": "Blaze",
+          "item": "Expert Belt",
+          "moves": [
+            "Flamethrower",
+            "Air Slash",
+            "Dragon Pulse",
+            "Focus Blast"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        },
+        {
+          "species": "Dragonite",
+          "level": 72,
+          "ability": "Multiscale",
+          "item": "Weakness Policy",
+          "moves": [
+            "Dragon Dance",
+            "Dragon Claw",
+            "Thunder Punch",
+            "Extreme Speed"
+          ],
+          "shiny": false,
+          "ivs": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ]
+        }
+      ]
+    },
+    "TRAINER_PRL_BADGE_RECOVERY_BROCK": {
+      "trainer_id": 632,
+      "double_battle": false,
+      "party": [
+        {
+          "species": "Onix",
+          "level": 56,
+          "ability": "Sturdy",
+          "item": "Eviolite",
+          "moves": [
+            "Stealth Rock",
+            "Earthquake",
+            "Rock Slide",
+            "Dragon Tail"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Omastar",
+          "level": 57,
+          "ability": "Shell Armor",
+          "item": "White Herb",
+          "moves": [
+            "Shell Smash",
+            "Surf",
+            "Ice Beam",
+            "Earth Power"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Kabutops",
+          "level": 58,
+          "ability": "Battle Armor",
+          "item": "Life Orb",
+          "moves": [
+            "Swords Dance",
+            "Liquidation",
+            "Stone Edge",
+            "Aqua Jet"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Golem",
+          "level": 59,
+          "ability": "Sturdy",
+          "item": "Leftovers",
+          "moves": [
+            "Earthquake",
+            "Stone Edge",
+            "Fire Punch",
+            "Sucker Punch"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Aerodactyl",
+          "level": 60,
+          "ability": "Rock Head",
+          "item": "Choice Band",
+          "moves": [
+            "Stone Edge",
+            "Earthquake",
+            "Aerial Ace",
+            "Crunch"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Rhydon",
+          "level": 61,
+          "ability": "Rock Head",
+          "item": "Eviolite",
+          "moves": [
+            "Earthquake",
+            "Rock Slide",
+            "Megahorn",
+            "Ice Punch"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        }
+      ]
+    },
+    "TRAINER_PRL_BADGE_RECOVERY_MISTY": {
+      "trainer_id": 633,
+      "double_battle": false,
+      "party": [
+        {
+          "species": "Golduck",
+          "level": 57,
+          "ability": "Cloud Nine",
+          "item": "Expert Belt",
+          "moves": [
+            "Surf",
+            "Ice Beam",
+            "Psychic",
+            "Encore"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Cloyster",
+          "level": 58,
+          "ability": "Skill Link",
+          "item": "White Herb",
+          "moves": [
+            "Shell Smash",
+            "Icicle Spear",
+            "Rock Blast",
+            "Ice Shard"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Vaporeon",
+          "level": 59,
+          "ability": "Water Absorb",
+          "item": "Leftovers",
+          "moves": [
+            "Scald",
+            "Ice Beam",
+            "Wish",
+            "Protect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Lapras",
+          "level": 60,
+          "ability": "Water Absorb",
+          "item": "Assault Vest",
+          "moves": [
+            "Freeze-Dry",
+            "Surf",
+            "Thunderbolt",
+            "Ice Shard"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Starmie",
+          "level": 61,
+          "ability": "Natural Cure",
+          "item": "Expert Belt",
+          "moves": [
+            "Surf",
+            "Psychic",
+            "Ice Beam",
+            "Recover"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Starmie",
+          "level": 62,
+          "ability": "Natural Cure",
+          "item": "Life Orb",
+          "moves": [
+            "Hydro Pump",
+            "Psychic",
+            "Thunderbolt",
+            "Ice Beam"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        }
+      ]
+    },
+    "TRAINER_PRL_BADGE_RECOVERY_LT_SURGE": {
+      "trainer_id": 634,
+      "double_battle": false,
+      "party": [
+        {
+          "species": "Electrode",
+          "level": 58,
+          "ability": "Static",
+          "item": "Light Clay",
+          "moves": [
+            "Thunderbolt",
+            "Volt Switch",
+            "Reflect",
+            "Light Screen"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Magneton",
+          "level": 59,
+          "ability": "Sturdy",
+          "item": "Eviolite",
+          "moves": [
+            "Thunderbolt",
+            "Flash Cannon",
+            "Volt Switch",
+            "Thunder Wave"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Electabuzz",
+          "level": 60,
+          "ability": "Static",
+          "item": "Eviolite",
+          "moves": [
+            "Thunderbolt",
+            "Focus Blast",
+            "Ice Punch",
+            "Volt Switch"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Jolteon",
+          "level": 61,
+          "ability": "Volt Absorb",
+          "item": "Expert Belt",
+          "moves": [
+            "Thunderbolt",
+            "Shadow Ball",
+            "Signal Beam",
+            "Volt Switch"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Noxichu",
+          "level": 62,
+          "ability": "Infiltrator",
+          "item": "Life Orb",
+          "moves": [
+            "Thunderbolt",
+            "Dark Pulse",
+            "Nasty Plot",
+            "Extreme Speed"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Raichu",
+          "level": 63,
+          "ability": "Lightning Rod",
+          "item": "Air Balloon",
+          "moves": [
+            "Thunderbolt",
+            "Focus Blast",
+            "Grass Knot",
+            "Nasty Plot"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        }
+      ]
+    },
+    "TRAINER_PRL_BADGE_RECOVERY_ERIKA": {
+      "trainer_id": 635,
+      "double_battle": false,
+      "party": [
+        {
+          "species": "Tangela",
+          "level": 59,
+          "ability": "Regenerator",
+          "item": "Eviolite",
+          "moves": [
+            "Giga Drain",
+            "Knock Off",
+            "Sleep Powder",
+            "Leech Seed"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Parasect",
+          "level": 60,
+          "ability": "Dry Skin",
+          "item": "Leftovers",
+          "moves": [
+            "Spore",
+            "Seed Bomb",
+            "X-Scissor",
+            "Knock Off"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Exeggutor",
+          "level": 61,
+          "ability": "Harvest",
+          "item": "Sitrus Berry",
+          "moves": [
+            "Giga Drain",
+            "Psychic",
+            "Sleep Powder",
+            "Reflect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Vileplume",
+          "level": 62,
+          "ability": "Effect Spore",
+          "item": "Black Sludge",
+          "moves": [
+            "Giga Drain",
+            "Sludge Bomb",
+            "Moonblast",
+            "Moonlight"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Victreebel",
+          "level": 63,
+          "ability": "Chlorophyll",
+          "item": "Life Orb",
+          "moves": [
+            "Giga Drain",
+            "Sludge Bomb",
+            "Sleep Powder",
+            "Sunny Day"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Victreebel",
+          "level": 64,
+          "ability": "Chlorophyll",
+          "item": "Heat Rock",
+          "moves": [
+            "Sunny Day",
+            "Solar Beam",
+            "Weather Ball",
+            "Sludge Bomb"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        }
+      ]
+    },
+    "TRAINER_PRL_BADGE_RECOVERY_KOGA": {
+      "trainer_id": 636,
+      "double_battle": false,
+      "party": [
+        {
+          "species": "Muk",
+          "level": 60,
+          "ability": "Poison Touch",
+          "item": "Assault Vest",
+          "moves": [
+            "Gunk Shot",
+            "Knock Off",
+            "Shadow Sneak",
+            "Ice Punch"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Venomoth",
+          "level": 61,
+          "ability": "Tinted Lens",
+          "item": "Black Sludge",
+          "moves": [
+            "Quiver Dance",
+            "Bug Buzz",
+            "Sludge Bomb",
+            "Sleep Powder"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Arbok",
+          "level": 62,
+          "ability": "Intimidate",
+          "item": "Black Sludge",
+          "moves": [
+            "Coil",
+            "Gunk Shot",
+            "Crunch",
+            "Earthquake"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Nidoking",
+          "level": 63,
+          "ability": "Sheer Force",
+          "item": "Life Orb",
+          "moves": [
+            "Earth Power",
+            "Sludge Bomb",
+            "Ice Beam",
+            "Thunderbolt"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Weezing",
+          "level": 64,
+          "ability": "Levitate",
+          "item": "Rocky Helmet",
+          "moves": [
+            "Sludge Bomb",
+            "Will-O-Wisp",
+            "Flamethrower",
+            "Pain Split"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Nidoqueen",
+          "level": 65,
+          "ability": "Sheer Force",
+          "item": "Life Orb",
+          "moves": [
+            "Earth Power",
+            "Sludge Bomb",
+            "Ice Beam",
+            "Thunderbolt"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        }
+      ]
+    },
+    "TRAINER_PRL_BADGE_RECOVERY_SABRINA": {
+      "trainer_id": 637,
+      "double_battle": false,
+      "party": [
+        {
+          "species": "Mr Mime",
+          "level": 61,
+          "ability": "Filter",
+          "item": "Light Clay",
+          "moves": [
+            "Psychic",
+            "Dazzling Gleam",
+            "Reflect",
+            "Light Screen"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Hypno",
+          "level": 62,
+          "ability": "Insomnia",
+          "item": "Leftovers",
+          "moves": [
+            "Psychic",
+            "Shadow Ball",
+            "Thunder Wave",
+            "Protect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Slowbro",
+          "level": 63,
+          "ability": "Regenerator",
+          "item": "Rocky Helmet",
+          "moves": [
+            "Scald",
+            "Psychic",
+            "Slack Off",
+            "Thunder Wave"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Jynx",
+          "level": 64,
+          "ability": "Dry Skin",
+          "item": "Focus Sash",
+          "moves": [
+            "Ice Beam",
+            "Psychic",
+            "Lovely Kiss",
+            "Focus Blast"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Exeggutor",
+          "level": 65,
+          "ability": "Harvest",
+          "item": "Sitrus Berry",
+          "moves": [
+            "Giga Drain",
+            "Psychic",
+            "Sleep Powder",
+            "Reflect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Alakazam",
+          "level": 66,
+          "ability": "Magic Guard",
+          "item": "Life Orb",
+          "moves": [
+            "Psychic",
+            "Dazzling Gleam",
+            "Shadow Ball",
+            "Focus Blast"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        }
+      ]
+    },
+    "TRAINER_PRL_BADGE_RECOVERY_BLAINE": {
+      "trainer_id": 638,
+      "double_battle": false,
+      "party": [
+        {
+          "species": "Ninetales",
+          "level": 62,
+          "ability": "Drought",
+          "item": "Heat Rock",
+          "moves": [
+            "Flamethrower",
+            "Solar Beam",
+            "Will-O-Wisp",
+            "Nasty Plot"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Rapidash",
+          "level": 63,
+          "ability": "Flash Fire",
+          "item": "Life Orb",
+          "moves": [
+            "Flare Blitz",
+            "High Horsepower",
+            "Megahorn",
+            "Morning Sun"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Flareon",
+          "level": 64,
+          "ability": "Guts",
+          "item": "Flame Orb",
+          "moves": [
+            "Flare Blitz",
+            "Facade",
+            "Superpower",
+            "Quick Attack"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Magmar",
+          "level": 65,
+          "ability": "Flame Body",
+          "item": "Eviolite",
+          "moves": [
+            "Flamethrower",
+            "Thunderbolt",
+            "Focus Blast",
+            "Will-O-Wisp"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Arcanine",
+          "level": 66,
+          "ability": "Intimidate",
+          "item": "Leftovers",
+          "moves": [
+            "Flare Blitz",
+            "Extreme Speed",
+            "Crunch",
+            "Morning Sun"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Arcanine",
+          "level": 67,
+          "ability": "Intimidate",
+          "item": "Life Orb",
+          "moves": [
+            "Flare Blitz",
+            "Extreme Speed",
+            "Wild Charge",
+            "Close Combat"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        }
+      ]
+    },
+    "TRAINER_PRL_BADGE_RECOVERY_GIOVANNI": {
+      "trainer_id": 639,
+      "double_battle": false,
+      "party": [
+        {
+          "species": "Tauros",
+          "level": 63,
+          "ability": "Intimidate",
+          "item": "Life Orb",
+          "moves": [
+            "Body Slam",
+            "Earthquake",
+            "Zen Headbutt",
+            "Stone Edge"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Pinsir",
+          "level": 64,
+          "ability": "Mold Breaker",
+          "item": "Life Orb",
+          "moves": [
+            "Swords Dance",
+            "X-Scissor",
+            "Close Combat",
+            "Stone Edge"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Kabutops",
+          "level": 65,
+          "ability": "Battle Armor",
+          "item": "Life Orb",
+          "moves": [
+            "Swords Dance",
+            "Liquidation",
+            "Stone Edge",
+            "Aqua Jet"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Aerodactyl",
+          "level": 66,
+          "ability": "Rock Head",
+          "item": "Choice Band",
+          "moves": [
+            "Stone Edge",
+            "Earthquake",
+            "Aerial Ace",
+            "Crunch"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Nidoqueen",
+          "level": 67,
+          "ability": "Sheer Force",
+          "item": "Life Orb",
+          "moves": [
+            "Earth Power",
+            "Sludge Bomb",
+            "Ice Beam",
+            "Thunderbolt"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Nidoking",
+          "level": 68,
+          "ability": "Sheer Force",
+          "item": "Life Orb",
+          "moves": [
+            "Earth Power",
+            "Sludge Bomb",
+            "Ice Beam",
+            "Thunderbolt"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        }
+      ]
+    },
+    "TRAINER_CHAMPION_FIRST_SQUIRTLE": {
+      "trainer_id": 338,
+      "double_battle": true,
+      "party": [
+        {
+          "species": "Pidgeot",
+          "level": 71,
+          "ability": "Big Pecks",
+          "item": "Focus Sash",
+          "moves": [
+            "Tailwind",
+            "Air Slash",
+            "Heat Wave",
+            "Protect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Exeggutor",
+          "level": 72,
+          "ability": "Harvest",
+          "item": "Sitrus Berry",
+          "moves": [
+            "Giga Drain",
+            "Psychic",
+            "Sleep Powder",
+            "Reflect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Rhydon",
+          "level": 72,
+          "ability": "Lightning Rod",
+          "item": "Eviolite",
+          "moves": [
+            "High Horsepower",
+            "Rock Slide",
+            "Megahorn",
+            "Protect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Alakazam",
+          "level": 72,
+          "ability": "Magic Guard",
+          "item": "Wise Glasses",
+          "moves": [
+            "Psychic",
+            "Dazzling Gleam",
+            "Shadow Ball",
+            "Protect"
+          ],
+          "shiny": true,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Nidoking",
+          "level": 73,
+          "ability": "Sheer Force",
+          "item": "Life Orb",
+          "moves": [
+            "Earth Power",
+            "Sludge Bomb",
+            "Ice Beam",
+            "Thunderbolt"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Arcanine",
+          "level": 74,
+          "ability": "Intimidate",
+          "item": "Leftovers",
+          "moves": [
+            "Flare Blitz",
+            "Extreme Speed",
+            "Rock Slide",
+            "Protect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        }
+      ]
+    },
+    "TRAINER_CHAMPION_FIRST_BULBASAUR": {
+      "trainer_id": 339,
+      "double_battle": true,
+      "party": [
+        {
+          "species": "Pidgeot",
+          "level": 71,
+          "ability": "Big Pecks",
+          "item": "Focus Sash",
+          "moves": [
+            "Tailwind",
+            "Air Slash",
+            "Heat Wave",
+            "Protect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Raichu",
+          "level": 72,
+          "ability": "Lightning Rod",
+          "item": "Air Balloon",
+          "moves": [
+            "Thunderbolt",
+            "Fake Out",
+            "Nuzzle",
+            "Protect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Gyarados",
+          "level": 72,
+          "ability": "Intimidate",
+          "item": "Lum Berry",
+          "moves": [
+            "Waterfall",
+            "Ice Fang",
+            "Dragon Dance",
+            "Protect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Alakazam",
+          "level": 72,
+          "ability": "Magic Guard",
+          "item": "Wise Glasses",
+          "moves": [
+            "Psychic",
+            "Dazzling Gleam",
+            "Shadow Ball",
+            "Protect"
+          ],
+          "shiny": true,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Nidoking",
+          "level": 73,
+          "ability": "Sheer Force",
+          "item": "Life Orb",
+          "moves": [
+            "Earth Power",
+            "Sludge Bomb",
+            "Ice Beam",
+            "Thunderbolt"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Arcanine",
+          "level": 74,
+          "ability": "Intimidate",
+          "item": "Leftovers",
+          "moves": [
+            "Flare Blitz",
+            "Extreme Speed",
+            "Rock Slide",
+            "Protect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        }
+      ]
+    },
+    "TRAINER_CHAMPION_FIRST_CHARMANDER": {
+      "trainer_id": 340,
+      "double_battle": true,
+      "party": [
+        {
+          "species": "Pidgeot",
+          "level": 71,
+          "ability": "Big Pecks",
+          "item": "Focus Sash",
+          "moves": [
+            "Tailwind",
+            "Air Slash",
+            "Heat Wave",
+            "Protect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Gyarados",
+          "level": 72,
+          "ability": "Intimidate",
+          "item": "Lum Berry",
+          "moves": [
+            "Waterfall",
+            "Ice Fang",
+            "Dragon Dance",
+            "Protect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Rhydon",
+          "level": 72,
+          "ability": "Lightning Rod",
+          "item": "Eviolite",
+          "moves": [
+            "High Horsepower",
+            "Rock Slide",
+            "Megahorn",
+            "Protect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Alakazam",
+          "level": 72,
+          "ability": "Magic Guard",
+          "item": "Wise Glasses",
+          "moves": [
+            "Psychic",
+            "Dazzling Gleam",
+            "Shadow Ball",
+            "Protect"
+          ],
+          "shiny": true,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Nidoking",
+          "level": 73,
+          "ability": "Sheer Force",
+          "item": "Life Orb",
+          "moves": [
+            "Earth Power",
+            "Sludge Bomb",
+            "Ice Beam",
+            "Thunderbolt"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        },
+        {
+          "species": "Arcanine",
+          "level": 74,
+          "ability": "Intimidate",
+          "item": "Leftovers",
+          "moves": [
+            "Flare Blitz",
+            "Extreme Speed",
+            "Rock Slide",
+            "Protect"
+          ],
+          "shiny": false,
+          "ivs": [
+            31,
+            31,
+            31,
+            31,
+            31,
+            31
+          ]
+        }
+      ]
+    }
+  }
+}

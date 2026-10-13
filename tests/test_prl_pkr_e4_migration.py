@@ -5,14 +5,14 @@ import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 EXPECTED = {
-    "LORELEI": [("Dewgong", 60), ("Cloyster", 60), ("Slowbro", 61),
-                ("Jynx", 61), ("Starmie", 62), ("Lapras", 63)],
-    "BRUNO": [("Primeape", 61), ("Hitmonlee", 61), ("Hitmonchan", 62),
-              ("Poliwrath", 62), ("Onix", 63), ("Machamp", 64)],
-    "AGATHA": [("Arbok", 62), ("Golbat", 62), ("Haunter", 63),
-               ("Weezing", 63), ("Muk", 64), ("Gengar", 65)],
-    "LANCE": [("Gyarados", 63), ("Seadra", 63), ("Dragonair", 64),
-              ("Aerodactyl", 64), ("Charizard", 65), ("Dragonite", 66)],
+    "LORELEI": [("Dewgong", 65), ("Cloyster", 65), ("Slowbro", 66),
+                ("Jynx", 66), ("Starmie", 67), ("Lapras", 69)],
+    "BRUNO": [("Onix", 66), ("Primeape", 66), ("Hitmonlee", 67),
+              ("Hitmonchan", 68), ("Poliwrath", 69), ("Machamp", 70)],
+    "AGATHA": [("Arbok", 67), ("Golbat", 67), ("Weezing", 68),
+               ("Muk", 68), ("Maroghost", 70), ("Gengar", 71)],
+    "LANCE": [("Gyarados", 68), ("Seadra", 68), ("Dragonair", 69),
+              ("Aerodactyl", 70), ("Charizard", 71), ("Dragonite", 72)],
 }
 
 
@@ -47,8 +47,8 @@ class PRLPKRFirstRunEliteFour(unittest.TestCase):
         party = read_party()
         bruno = trainer_record(party, "BRUNO")
         agatha = trainer_record(party, "AGATHA")
-        self.assertRegex(bruno, r"(?m)^Machamp @ Sitrus Berry\nLevel: 64\nIVs: [^\n]+\nAbility: No Guard$")
-        self.assertRegex(agatha, r"(?m)^Gengar @ Sitrus Berry\nLevel: 65\nIVs: [^\n]+\nShiny: Yes$")
+        self.assertRegex(bruno, r"(?m)^Machamp @ Assault Vest\nLevel: 70\nIVs: [^\n]+\nAbility: No Guard$")
+        self.assertRegex(agatha, r"(?m)^Gengar @ Life Orb\nLevel: 71\nIVs: [^\n]+\nAbility: Cursed Body\nShiny: Yes$")
 
 
 if __name__ == "__main__":

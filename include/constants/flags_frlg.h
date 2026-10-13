@@ -24,7 +24,7 @@
 #define FLAG_HIDE_PRL_ROCKET_HIDEOUT                   FLAG_0x8F9
 #define FLAG_HIDE_PRL_ROCKET_SILPH                     FLAG_0x8FA
 #define FLAG_HIDE_PRL_ROCKET_VICTORY_ROAD              FLAG_0x8FB
-// Permanent extra Safari pickup; existing West-area items remain intact.
+// Reserved legacy Safari West Silk Scarf pickup flag; do not reuse for save compatibility.
 #define FLAG_HIDE_PRL_SAFARI_WEST_SILK_SCARF          FLAG_0x8FC
 
 
@@ -1332,6 +1332,17 @@
 #define FLAG_0x4E3               0x4E3
 #define FLAG_0x4E4               0x4E4
 #define FLAG_0x4E5               0x4E5
+
+// One-time Badge Heist recovery gifts, independent of badge and first-clear flags.
+#define FLAG_PRL_BADGE_HEIST_REWARD_BROCK      FLAG_0x4E6
+#define FLAG_PRL_BADGE_HEIST_REWARD_MISTY      FLAG_0x4E7
+#define FLAG_PRL_BADGE_HEIST_REWARD_SURGE      FLAG_0x4E8
+#define FLAG_PRL_BADGE_HEIST_REWARD_ERIKA      FLAG_0x4E9
+#define FLAG_PRL_BADGE_HEIST_REWARD_KOGA       FLAG_0x4EA
+#define FLAG_PRL_BADGE_HEIST_REWARD_SABRINA    FLAG_0x4EB
+#define FLAG_PRL_BADGE_HEIST_REWARD_BLAINE     FLAG_0x4EC
+#define FLAG_PRL_BADGE_HEIST_REWARD_GIOVANNI   FLAG_0x4ED
+
 #define FLAG_0x4E6               0x4E6
 #define FLAG_0x4E7               0x4E7
 #define FLAG_0x4E8               0x4E8

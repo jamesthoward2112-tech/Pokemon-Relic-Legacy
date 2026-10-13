@@ -15307,7 +15307,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .formSpeciesIdTable = sKangaskhanFormSpeciesIdTable,
         .formChangeTable = sKangaskhanFormChangeTable,
     
-        .evolutions = EVOLUTION({EVO_LEVEL, 0, SPECIES_KHANG, CONDITIONS({IF_MIN_FRIENDSHIP, FRIENDSHIP_EVO_THRESHOLD})}),
+        .evolutions = EVOLUTION({EVO_LEVEL, 0, SPECIES_KHANG, CONDITIONS({IF_HOLD_ITEM, ITEM_SOOTHE_BELL})}),
 },
 
 #if P_MEGA_EVOLUTIONS

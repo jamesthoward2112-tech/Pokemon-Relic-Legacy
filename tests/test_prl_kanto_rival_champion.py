@@ -137,17 +137,13 @@ def test_first_champion_is_six_vs_six_double_and_protects_one_usable_pokemon():
         assert "Double Battle: Yes" in block
         entries = species_levels(block)
         assert len(entries) == 6
-        assert all(64 <= level <= 67 for _, level in entries)
-        species = {name for name, _ in entries}
-        if trainer.endswith("_SQUIRTLE"):
-            assert {"Nidoking", "Arcanine"} <= species
-            assert not ({"Pikachu", "Raichu"} & species)
-        elif trainer.endswith("_BULBASAUR"):
-            assert {"Raichu", "Arcanine"} <= species
-            assert not ({"Nidoran M", "Nidorino", "Nidoking"} & species)
-        else:
-            assert {"Raichu", "Nidoking"} <= species
-            assert not ({"Growlithe", "Arcanine"} & species)
+        assert [level for _, level in entries] == [71, 72, 72, 72, 73, 74]
+        expected = {
+            "TRAINER_CHAMPION_FIRST_SQUIRTLE": ["Pidgeot", "Exeggutor", "Rhydon", "Alakazam", "Nidoking", "Arcanine"],
+            "TRAINER_CHAMPION_FIRST_BULBASAUR": ["Pidgeot", "Raichu", "Gyarados", "Alakazam", "Nidoking", "Arcanine"],
+            "TRAINER_CHAMPION_FIRST_CHARMANDER": ["Pidgeot", "Gyarados", "Rhydon", "Alakazam", "Nidoking", "Arcanine"],
+        }
+        assert [name.split(" @ ", 1)[0] for name, _ in entries] == expected[trainer]
 
 
 def test_first_champion_keeps_safe_hall_of_fame_and_elite_four_singles():

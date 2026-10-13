@@ -79,8 +79,15 @@ VictoryRoad_2F_EventScript_Nelson::
 	end
 
 VictoryRoad_2F_EventScript_Gregory::
-	trainerbattle_single TRAINER_JUGGLER_GREGORY, VictoryRoad_2F_Text_GregoryIntro, VictoryRoad_2F_Text_GregoryDefeat
-	msgbox VictoryRoad_2F_Text_GregoryPostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_single TRAINER_JUGGLER_GREGORY, VictoryRoad_2F_Text_GregoryIntro, VictoryRoad_2F_Text_GregoryDefeat, VictoryRoad_2F_EventScript_GregoryHeal
+	goto VictoryRoad_2F_EventScript_GregoryHeal
+
+VictoryRoad_2F_EventScript_GregoryHeal::
+	lock
+	faceplayer
+	special HealPlayerParty
+	msgbox VictoryRoad_2F_Text_GregoryHealing, MSGBOX_DEFAULT
+	release
 	end
 
 VictoryRoad_2F_EventScript_Vincent::
@@ -159,3 +166,9 @@ VictoryRoad_2F_Text_PRL_RocketGateClosed::
 VictoryRoad_2F_Text_Gyaoo::
 	.string "ギヤーオ！$"
 
+
+VictoryRoad_2F_Text_GregoryHealing::
+	.string "That was a terrific battle!\p"
+	.string "Let me restore your POKéMON\n"
+	.string "before you carry on.\p"
+	.string "Come back any time for a rest!$"

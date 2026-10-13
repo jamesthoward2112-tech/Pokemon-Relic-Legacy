@@ -46,7 +46,7 @@ class ErikaRewardMigration(unittest.TestCase):
         self.assertIn("| ERIKA | TM19 | BIG_ROOT |",spec)
         self.assertNotIn("| ERIKA | TM19 | MIRACLE_SEED |",spec)
         rewards=read("data/scripts/prl_gym_rewards.inc")
-        self.assertEqual(rewards.count("addmoney 10000"),16)
+        self.assertEqual(rewards.split("@ Badge Heist recovery gifts:", 1)[0].count("addmoney 10000"),16)
         self.assertIn("giveitem ITEM_TWISTED_SPOON",rewards)
         self.assertIn("giveitem ITEM_POISON_BARB",rewards)
 

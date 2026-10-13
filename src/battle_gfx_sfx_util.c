@@ -747,6 +747,7 @@ static const u16 *PRLGetRocketDarkPalette(u8 id)
 
 // Use skeletal fossil art only for Giovanni's Viridian Gym team.
 // Other trainers, wild and player-owned Kabutops/Aerodactyl keep regular art.
+// The recovery battle uses its distinct PKR six-form cosmetics below.
 enum PRLGiovanniSkeletonGfx
 {
     PRL_GIOVANNI_SKELETON_NONE,
@@ -758,8 +759,7 @@ static u8 PRLGetGiovanniSkeletonGfx(enum BattlerId battler, enum Species species
 {
 #if IS_FRLG
     if (IsOnPlayerSide(battler) || !(gBattleTypeFlags & BATTLE_TYPE_TRAINER)
-        || (TRAINER_BATTLE_PARAM.opponentA != TRAINER_LEADER_GIOVANNI
-         && TRAINER_BATTLE_PARAM.opponentA != TRAINER_PRL_BADGE_RECOVERY_GIOVANNI))
+        || TRAINER_BATTLE_PARAM.opponentA != TRAINER_LEADER_GIOVANNI)
         return PRL_GIOVANNI_SKELETON_NONE;
     if (species == SPECIES_KABUTOPS)
         return PRL_GIOVANNI_SKELETON_KABUTOPS;
@@ -787,6 +787,9 @@ static const u16 *PRLGetGiovanniSkeletonPalette(u8 id)
     return NULL;
 }
 
+
+#include "data/prl_kanto_boss_graphics.h"
+
 void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
 {
     u32 personalityValue, paletteOffset;
@@ -795,6 +798,7 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
     bool32 prlRocketWeezing;
     u8 prlRocketDarkGfx;
     u8 prlGiovanniSkeletonGfx;
+    const struct PRLKantoCosmetic *prlKantoCosmetic;
     enum Species species;
     enum BattlerPosition position;
     const u16 *paletteData;
@@ -832,7 +836,10 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
                        ? PRLGetRocketDarkGfx(battler, species) : PRL_ROCKET_DARK_NONE;
     prlGiovanniSkeletonGfx = gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE
                              ? PRLGetGiovanniSkeletonGfx(battler, species) : PRL_GIOVANNI_SKELETON_NONE;
-    if (prlTwinsEevee)
+    prlKantoCosmetic = PRLGetFinalKantoCosmetic(battler, species);
+    if (prlKantoCosmetic != NULL)
+        DecompressDataWithHeaderWram(prlKantoCosmetic->front, gMonSpritesGfxPtr->spritesGfx[position]);
+    else if (prlTwinsEevee)
         DecompressDataWithHeaderWram(gPRLEeveeTwinsFrontPic, gMonSpritesGfxPtr->spritesGfx[position]);
     else if (prlRocketDarkGfx != PRL_ROCKET_DARK_NONE)
         DecompressDataWithHeaderWram(PRLGetRocketDarkFront(prlRocketDarkGfx),
@@ -847,7 +854,9 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
 
     paletteOffset = OBJ_PLTT_ID(battler);
 
-    if (prlTwinsEevee)
+    if (prlKantoCosmetic != NULL)
+        paletteData = prlKantoCosmetic->palette;
+    else if (prlTwinsEevee)
         paletteData = isShiny ? gPRLEeveeTwinsShinyPalette : gPRLEeveeTwinsNormalPalette;
     else if (prlRocketDarkGfx != PRL_ROCKET_DARK_NONE)
         paletteData = PRLGetRocketDarkPalette(prlRocketDarkGfx);

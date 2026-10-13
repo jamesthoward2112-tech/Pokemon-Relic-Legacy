@@ -30,8 +30,15 @@ VictoryRoad_3F_EventScript_FloorSwitchAlreadyPressed::
 	end
 
 VictoryRoad_3F_EventScript_George::
-	trainerbattle_single TRAINER_COOLTRAINER_GEORGE, VictoryRoad_3F_Text_GeorgeIntro, VictoryRoad_3F_Text_GeorgeDefeat
-	msgbox VictoryRoad_3F_Text_GeorgePostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_single TRAINER_COOLTRAINER_GEORGE, VictoryRoad_3F_Text_GeorgeIntro, VictoryRoad_3F_Text_GeorgeDefeat, VictoryRoad_3F_EventScript_GeorgeHeal
+	goto VictoryRoad_3F_EventScript_GeorgeHeal
+
+VictoryRoad_3F_EventScript_GeorgeHeal::
+	lock
+	faceplayer
+	special HealPlayerParty
+	msgbox VictoryRoad_3F_Text_GeorgeHealing, MSGBOX_DEFAULT
+	release
 	end
 
 VictoryRoad_3F_EventScript_Colby::
@@ -166,3 +173,9 @@ VictoryRoad_3F_Text_TyraNotEnoughMons::
 
 
 
+
+VictoryRoad_3F_Text_GeorgeHealing::
+	.string "That was a terrific battle!\p"
+	.string "Let me restore your POKéMON\n"
+	.string "before you carry on.\p"
+	.string "Come back any time for a rest!$"

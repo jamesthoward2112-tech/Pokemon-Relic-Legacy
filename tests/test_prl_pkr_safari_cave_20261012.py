@@ -27,8 +27,8 @@ def test_safari_catch_and_kangaskhan():
 
 def test_extra_silk_scarf():
     objs = json.loads(read("data/maps/SafariZone_West_Frlg/map.json"))["object_events"]
-    assert any(x["script"] == "SafariZone_West_EventScript_ItemSilkScarf" and x["flag"]=="FLAG_HIDE_PRL_SAFARI_WEST_SILK_SCARF" for x in objs)
-    assert "finditem ITEM_SILK_SCARF" in read("data/scripts/item_ball_scripts_frlg.inc")
+    assert not any(x["script"] == "SafariZone_West_EventScript_ItemSilkScarf" for x in objs)
+    assert "SafariZone_West_EventScript_ItemSilkScarf::" not in read("data/scripts/item_ball_scripts_frlg.inc")
     assert "FLAG_HIDE_PRL_SAFARI_WEST_SILK_SCARF" in read("include/constants/flags_frlg.h")
 
 def test_first_champion_victory_opens_cave():

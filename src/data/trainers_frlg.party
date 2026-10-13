@@ -6805,29 +6805,59 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 Mugshot: Purple
 
-Dewgong
-Level: 60
+Dewgong @ Leftovers
+Level: 65
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Thick Fat
+- Ice Beam
+- Surf
+- Encore
+- Icy Wind
 
-Cloyster
-Level: 60
+Cloyster @ White Herb
+Level: 65
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Skill Link
+- Shell Smash
+- Icicle Spear
+- Rock Blast
+- Ice Shard
 
-Slowbro
-Level: 61
+Slowbro @ Rocky Helmet
+Level: 66
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Regenerator
+- Scald
+- Psychic
+- Slack Off
+- Thunder Wave
 
-Jynx
-Level: 61
+Jynx @ Focus Sash
+Level: 66
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Dry Skin
+- Ice Beam
+- Psychic
+- Lovely Kiss
+- Focus Blast
 
-Starmie
-Level: 62
+Starmie @ Expert Belt
+Level: 67
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Natural Cure
+- Surf
+- Thunderbolt
+- Ice Beam
+- Recover
 
-Lapras @ Sitrus Berry
-Level: 63
+Lapras @ Assault Vest
+Level: 69
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Water Absorb
+- Freeze-Dry
+- Hydro Pump
+- Thunderbolt
+- Ice Shard
 
 === TRAINER_ELITE_FOUR_BRUNO ===
 Name: BRUNO
@@ -6840,30 +6870,59 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 Mugshot: Green
 
-Primeape
-Level: 61
+Onix @ Eviolite
+Level: 66
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Sturdy
+- Stealth Rock
+- Earthquake
+- Rock Slide
+- Dragon Tail
 
-Hitmonlee
-Level: 61
+Primeape @ Choice Scarf
+Level: 66
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Defiant
+- Close Combat
+- U-turn
+- Stone Edge
+- Ice Punch
 
-Hitmonchan
-Level: 62
+Hitmonlee @ Life Orb
+Level: 67
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Reckless
+- High Jump Kick
+- Blaze Kick
+- Stone Edge
+- Knock Off
 
-Poliwrath
-Level: 62
+Hitmonchan @ Expert Belt
+Level: 68
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Iron Fist
+- Drain Punch
+- Mach Punch
+- Ice Punch
+- Thunder Punch
 
-Onix
-Level: 63
+Poliwrath @ Leftovers
+Level: 69
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Water Absorb
+- Liquidation
+- Drain Punch
+- Bulk Up
+- Ice Punch
 
-Machamp @ Sitrus Berry
-Level: 64
+Machamp @ Assault Vest
+Level: 70
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 Ability: No Guard
+- Dynamic Punch
+- Stone Edge
+- Knock Off
+- Bullet Punch
 
 === TRAINER_ELITE_FOUR_AGATHA ===
 Name: AGATHA
@@ -6876,30 +6935,60 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 Mugshot: Pink
 
-Arbok
-Level: 62
+Arbok @ Black Sludge
+Level: 67
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Intimidate
+- Coil
+- Gunk Shot
+- Crunch
+- Earthquake
 
-Golbat
-Level: 62
+Golbat @ Eviolite
+Level: 67
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Infiltrator
+- Brave Bird
+- Roost
+- U-turn
+- Toxic
 
-Haunter
-Level: 63
+Weezing @ Rocky Helmet
+Level: 68
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Levitate
+- Sludge Bomb
+- Will-O-Wisp
+- Flamethrower
+- Pain Split
 
-Weezing
-Level: 63
+Muk @ Assault Vest
+Level: 68
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Poison Touch
+- Gunk Shot
+- Knock Off
+- Shadow Sneak
+- Ice Punch
 
-Muk
-Level: 64
+Maroghost @ Spell Tag
+Level: 70
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Cursed Body
+- Shadow Bone
+- Bonemerang
+- Will-O-Wisp
+- Stone Edge
 
-Gengar @ Sitrus Berry
-Level: 65
+Gengar @ Life Orb
+Level: 71
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Cursed Body
 Shiny: Yes
+- Shadow Ball
+- Sludge Bomb
+- Thunderbolt
+- Focus Blast
 
 === TRAINER_ELITE_FOUR_LANCE ===
 Name: LANCE
@@ -6912,29 +7001,59 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 Mugshot: Blue
 
-Gyarados
-Level: 63
+Gyarados @ Lum Berry
+Level: 68
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Intimidate
+- Dragon Dance
+- Waterfall
+- Ice Fang
+- Earthquake
 
-Seadra
-Level: 63
+Seadra @ Scope Lens
+Level: 68
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Sniper
+- Focus Energy
+- Hydro Pump
+- Dragon Pulse
+- Ice Beam
 
-Dragonair
-Level: 64
+Dragonair @ Eviolite
+Level: 69
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Shed Skin
+- Dragon Dance
+- Dragon Claw
+- Thunder Wave
+- Aqua Tail
 
-Aerodactyl
-Level: 64
+Aerodactyl @ Choice Band
+Level: 70
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Rock Head
+- Stone Edge
+- Earthquake
+- Aerial Ace
+- Crunch
 
-Charizard
-Level: 65
+Charizard @ Expert Belt
+Level: 71
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Blaze
+- Flamethrower
+- Air Slash
+- Dragon Pulse
+- Focus Blast
 
-Dragonite @ Sitrus Berry
-Level: 66
+Dragonite @ Weakness Policy
+Level: 72
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Ability: Multiscale
+- Dragon Dance
+- Dragon Claw
+- Thunder Punch
+- Extreme Speed
 
 === TRAINER_LEADER_BROCK ===
 Name: BROCK
@@ -7696,54 +7815,60 @@ Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability
 Mugshot: Yellow
 
-Nidoking
-Level: 65
+Pidgeot @ Focus Sash
+Level: 71
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Rock Tomb
-- Double Kick
-- Poison Sting
-
-Arcanine
-Level: 64
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Flamethrower
-- Extreme Speed
-- Bite
-- Agility
-
-Pidgeot
-Level: 64
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Aerial Ace
-- Wing Attack
-- Feather Dance
-- Quick Attack
-
-Alakazam
-Level: 66
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Psychic
-- Calm Mind
-- Shadow Ball
-- Recover
-
-Rhydon
-Level: 66
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Rock Tomb
-- Take Down
-- Scary Face
+Ability: Big Pecks
+- Tailwind
+- Air Slash
+- Heat Wave
+- Protect
 
 Exeggutor @ Sitrus Berry
-Level: 67
+Level: 72
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Psychic
+Ability: Harvest
 - Giga Drain
+- Psychic
 - Sleep Powder
-- Light Screen
+- Reflect
 
+Rhydon @ Eviolite
+Level: 72
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Lightning Rod
+- High Horsepower
+- Rock Slide
+- Megahorn
+- Protect
+
+Alakazam @ Wise Glasses
+Level: 72
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Magic Guard
+Shiny: Yes
+- Psychic
+- Dazzling Gleam
+- Shadow Ball
+- Protect
+
+Nidoking @ Life Orb
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Sheer Force
+- Earth Power
+- Sludge Bomb
+- Ice Beam
+- Thunderbolt
+
+Arcanine @ Leftovers
+Level: 74
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Intimidate
+- Flare Blitz
+- Extreme Speed
+- Rock Slide
+- Protect
 
 === TRAINER_CHAMPION_FIRST_BULBASAUR ===
 Name: TERRY
@@ -7756,54 +7881,60 @@ Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability
 Mugshot: Yellow
 
-Raichu
-Level: 65
+Pidgeot @ Focus Sash
+Level: 71
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Big Pecks
+- Tailwind
+- Air Slash
+- Heat Wave
+- Protect
+
+Raichu @ Air Balloon
+Level: 72
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Lightning Rod
 - Thunderbolt
-- Thunder Wave
-- Quick Attack
-- Brick Break
+- Fake Out
+- Nuzzle
+- Protect
 
-Arcanine
-Level: 64
+Gyarados @ Lum Berry
+Level: 72
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Flamethrower
-- Extreme Speed
-- Bite
-- Agility
-
-Pidgeot
-Level: 64
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Aerial Ace
-- Wing Attack
-- Feather Dance
-- Quick Attack
-
-Alakazam
-Level: 66
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Psychic
-- Calm Mind
-- Shadow Ball
-- Recover
-
-Rhydon
-Level: 66
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Rock Tomb
-- Take Down
-- Scary Face
-
-Gyarados @ Sitrus Berry
-Level: 67
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Surf
-- Ice Beam
+Ability: Intimidate
+- Waterfall
+- Ice Fang
 - Dragon Dance
-- Bite
+- Protect
 
+Alakazam @ Wise Glasses
+Level: 72
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Magic Guard
+Shiny: Yes
+- Psychic
+- Dazzling Gleam
+- Shadow Ball
+- Protect
+
+Nidoking @ Life Orb
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Sheer Force
+- Earth Power
+- Sludge Bomb
+- Ice Beam
+- Thunderbolt
+
+Arcanine @ Leftovers
+Level: 74
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Intimidate
+- Flare Blitz
+- Extreme Speed
+- Rock Slide
+- Protect
 
 === TRAINER_CHAMPION_FIRST_CHARMANDER ===
 Name: TERRY
@@ -7816,54 +7947,60 @@ Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability
 Mugshot: Yellow
 
-Raichu
-Level: 65
+Pidgeot @ Focus Sash
+Level: 71
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Thunderbolt
-- Thunder Wave
-- Quick Attack
-- Brick Break
+Ability: Big Pecks
+- Tailwind
+- Air Slash
+- Heat Wave
+- Protect
 
-Nidoking
-Level: 64
+Gyarados @ Lum Berry
+Level: 72
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Rock Tomb
-- Double Kick
-- Poison Sting
-
-Pidgeot
-Level: 64
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Aerial Ace
-- Wing Attack
-- Feather Dance
-- Quick Attack
-
-Alakazam
-Level: 66
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Psychic
-- Calm Mind
-- Shadow Ball
-- Recover
-
-Rhydon
-Level: 66
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Rock Tomb
-- Take Down
-- Scary Face
-
-Gyarados @ Sitrus Berry
-Level: 67
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Surf
-- Ice Beam
+Ability: Intimidate
+- Waterfall
+- Ice Fang
 - Dragon Dance
-- Bite
+- Protect
 
+Rhydon @ Eviolite
+Level: 72
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Lightning Rod
+- High Horsepower
+- Rock Slide
+- Megahorn
+- Protect
+
+Alakazam @ Wise Glasses
+Level: 72
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Magic Guard
+Shiny: Yes
+- Psychic
+- Dazzling Gleam
+- Shadow Ball
+- Protect
+
+Nidoking @ Life Orb
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Sheer Force
+- Earth Power
+- Sludge Bomb
+- Ice Beam
+- Thunderbolt
+
+Arcanine @ Leftovers
+Level: 74
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Intimidate
+- Flare Blitz
+- Extreme Speed
+- Rock Slide
+- Protect
 
 === TRAINER_CHANNELER_PATRICIA ===
 Name: PATRICIA
@@ -14074,29 +14211,59 @@ Items: Full Restore / Full Restore
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
-Golem
-Level: 55
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Omastar
+Onix @ Eviolite
 Level: 56
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Sturdy
+- Stealth Rock
+- Earthquake
+- Rock Slide
+- Dragon Tail
 
-Kabutops
+Omastar @ White Herb
 Level: 57
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Shell Armor
+- Shell Smash
+- Surf
+- Ice Beam
+- Earth Power
 
-Onix
-Level: 57
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Rhydon
+Kabutops @ Life Orb
 Level: 58
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Battle Armor
+- Swords Dance
+- Liquidation
+- Stone Edge
+- Aqua Jet
 
-Aerodactyl
+Golem @ Leftovers
 Level: 59
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Sturdy
+- Earthquake
+- Stone Edge
+- Fire Punch
+- Sucker Punch
+
+Aerodactyl @ Choice Band
+Level: 60
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Rock Head
+- Stone Edge
+- Earthquake
+- Aerial Ace
+- Crunch
+
+Rhydon @ Eviolite
+Level: 61
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Rock Head
+- Earthquake
+- Rock Slide
+- Megahorn
+- Ice Punch
 
 === TRAINER_PRL_BADGE_RECOVERY_MISTY ===
 Name: MISTY
@@ -14108,29 +14275,59 @@ Items: Full Restore / Full Restore
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
-Golduck
-Level: 55
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Cloyster
-Level: 56
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Slowbro
+Golduck @ Expert Belt
 Level: 57
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Cloud Nine
+- Surf
+- Ice Beam
+- Psychic
+- Encore
 
-Lapras
-Level: 57
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Gyarados
+Cloyster @ White Herb
 Level: 58
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Skill Link
+- Shell Smash
+- Icicle Spear
+- Rock Blast
+- Ice Shard
 
-Starmie
+Vaporeon @ Leftovers
+Level: 59
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Water Absorb
+- Scald
+- Ice Beam
+- Wish
+- Protect
+
+Lapras @ Assault Vest
 Level: 60
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Water Absorb
+- Freeze-Dry
+- Surf
+- Thunderbolt
+- Ice Shard
+
+Starmie @ Expert Belt
+Level: 61
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Natural Cure
+- Surf
+- Psychic
+- Ice Beam
+- Recover
+
+Starmie @ Life Orb
+Level: 62
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Natural Cure
+- Hydro Pump
+- Psychic
+- Thunderbolt
+- Ice Beam
 
 === TRAINER_PRL_BADGE_RECOVERY_LT_SURGE ===
 Name: LT. SURGE
@@ -14142,29 +14339,59 @@ Items: Full Restore / Full Restore
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
-Electrode
-Level: 55
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Magneton
-Level: 56
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Electabuzz
-Level: 57
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Jolteon
+Electrode @ Light Clay
 Level: 58
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Static
+- Thunderbolt
+- Volt Switch
+- Reflect
+- Light Screen
 
-Noxichu
+Magneton @ Eviolite
 Level: 59
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Sturdy
+- Thunderbolt
+- Flash Cannon
+- Volt Switch
+- Thunder Wave
 
-Raichu
+Electabuzz @ Eviolite
 Level: 60
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Static
+- Thunderbolt
+- Focus Blast
+- Ice Punch
+- Volt Switch
+
+Jolteon @ Expert Belt
+Level: 61
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Volt Absorb
+- Thunderbolt
+- Shadow Ball
+- Signal Beam
+- Volt Switch
+
+Noxichu @ Life Orb
+Level: 62
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Infiltrator
+- Thunderbolt
+- Dark Pulse
+- Nasty Plot
+- Extreme Speed
+
+Raichu @ Air Balloon
+Level: 63
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Lightning Rod
+- Thunderbolt
+- Focus Blast
+- Grass Knot
+- Nasty Plot
 
 === TRAINER_PRL_BADGE_RECOVERY_ERIKA ===
 Name: ERIKA
@@ -14176,29 +14403,59 @@ Items: Full Restore / Full Restore
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
-Tangela
-Level: 55
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Parasect
-Level: 56
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Victreebel
-Level: 57
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Exeggutor
-Level: 58
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Venusaur
+Tangela @ Eviolite
 Level: 59
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Regenerator
+- Giga Drain
+- Knock Off
+- Sleep Powder
+- Leech Seed
 
-Vileplume
+Parasect @ Leftovers
 Level: 60
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Dry Skin
+- Spore
+- Seed Bomb
+- X-Scissor
+- Knock Off
+
+Exeggutor @ Sitrus Berry
+Level: 61
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Harvest
+- Giga Drain
+- Psychic
+- Sleep Powder
+- Reflect
+
+Vileplume @ Black Sludge
+Level: 62
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Effect Spore
+- Giga Drain
+- Sludge Bomb
+- Moonblast
+- Moonlight
+
+Victreebel @ Life Orb
+Level: 63
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Chlorophyll
+- Giga Drain
+- Sludge Bomb
+- Sleep Powder
+- Sunny Day
+
+Victreebel @ Heat Rock
+Level: 64
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Chlorophyll
+- Sunny Day
+- Solar Beam
+- Weather Ball
+- Sludge Bomb
 
 === TRAINER_PRL_BADGE_RECOVERY_KOGA ===
 Name: KOGA
@@ -14210,29 +14467,59 @@ Items: Full Restore / Full Restore
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
-Arbok
-Level: 56
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Golbat
-Level: 56
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Muk
-Level: 57
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Weezing
-Level: 58
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Venomoth
-Level: 59
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Nidoking
+Muk @ Assault Vest
 Level: 60
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Poison Touch
+- Gunk Shot
+- Knock Off
+- Shadow Sneak
+- Ice Punch
+
+Venomoth @ Black Sludge
+Level: 61
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Tinted Lens
+- Quiver Dance
+- Bug Buzz
+- Sludge Bomb
+- Sleep Powder
+
+Arbok @ Black Sludge
+Level: 62
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Intimidate
+- Coil
+- Gunk Shot
+- Crunch
+- Earthquake
+
+Nidoking @ Life Orb
+Level: 63
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Sheer Force
+- Earth Power
+- Sludge Bomb
+- Ice Beam
+- Thunderbolt
+
+Weezing @ Rocky Helmet
+Level: 64
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Levitate
+- Sludge Bomb
+- Will-O-Wisp
+- Flamethrower
+- Pain Split
+
+Nidoqueen @ Life Orb
+Level: 65
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Sheer Force
+- Earth Power
+- Sludge Bomb
+- Ice Beam
+- Thunderbolt
 
 === TRAINER_PRL_BADGE_RECOVERY_SABRINA ===
 Name: SABRINA
@@ -14244,29 +14531,59 @@ Items: Full Restore / Full Restore
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
-Mr Mime
-Level: 56
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Hypno
-Level: 57
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Jynx
-Level: 57
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Slowbro
-Level: 58
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Exeggutor
-Level: 59
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Alakazam
+Mr Mime @ Light Clay
 Level: 61
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Filter
+- Psychic
+- Dazzling Gleam
+- Reflect
+- Light Screen
+
+Hypno @ Leftovers
+Level: 62
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Insomnia
+- Psychic
+- Shadow Ball
+- Thunder Wave
+- Protect
+
+Slowbro @ Rocky Helmet
+Level: 63
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Regenerator
+- Scald
+- Psychic
+- Slack Off
+- Thunder Wave
+
+Jynx @ Focus Sash
+Level: 64
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Dry Skin
+- Ice Beam
+- Psychic
+- Lovely Kiss
+- Focus Blast
+
+Exeggutor @ Sitrus Berry
+Level: 65
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Harvest
+- Giga Drain
+- Psychic
+- Sleep Powder
+- Reflect
+
+Alakazam @ Life Orb
+Level: 66
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Magic Guard
+- Psychic
+- Dazzling Gleam
+- Shadow Ball
+- Focus Blast
 
 === TRAINER_PRL_BADGE_RECOVERY_BLAINE ===
 Name: BLAINE
@@ -14278,29 +14595,59 @@ Items: Full Restore / Full Restore
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
-Ninetales
-Level: 57
+Ninetales @ Heat Rock
+Level: 62
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Drought
+- Flamethrower
+- Solar Beam
+- Will-O-Wisp
+- Nasty Plot
 
-Rapidash
-Level: 57
+Rapidash @ Life Orb
+Level: 63
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Flash Fire
+- Flare Blitz
+- High Horsepower
+- Megahorn
+- Morning Sun
 
-Magmar
-Level: 58
+Flareon @ Flame Orb
+Level: 64
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Guts
+- Flare Blitz
+- Facade
+- Superpower
+- Quick Attack
 
-Flareon
-Level: 59
+Magmar @ Eviolite
+Level: 65
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Flame Body
+- Flamethrower
+- Thunderbolt
+- Focus Blast
+- Will-O-Wisp
 
-Charizard
-Level: 60
+Arcanine @ Leftovers
+Level: 66
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Intimidate
+- Flare Blitz
+- Extreme Speed
+- Crunch
+- Morning Sun
 
-Arcanine
-Level: 61
+Arcanine @ Life Orb
+Level: 67
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Intimidate
+- Flare Blitz
+- Extreme Speed
+- Wild Charge
+- Close Combat
 
 === TRAINER_PRL_BADGE_RECOVERY_GIOVANNI ===
 Name: GIOVANNI
@@ -14312,26 +14659,56 @@ Items: Full Restore / Full Restore / Full Restore
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
-Onix
-Level: 59
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Marowak
-Level: 60
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Tauros
-Level: 60
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Kabutops
-Level: 62
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Aerodactyl
+Tauros @ Life Orb
 Level: 63
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Intimidate
+- Body Slam
+- Earthquake
+- Zen Headbutt
+- Stone Edge
 
-Rhydon
+Pinsir @ Life Orb
+Level: 64
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Mold Breaker
+- Swords Dance
+- X-Scissor
+- Close Combat
+- Stone Edge
+
+Kabutops @ Life Orb
 Level: 65
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Battle Armor
+- Swords Dance
+- Liquidation
+- Stone Edge
+- Aqua Jet
+
+Aerodactyl @ Choice Band
+Level: 66
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Rock Head
+- Stone Edge
+- Earthquake
+- Aerial Ace
+- Crunch
+
+Nidoqueen @ Life Orb
+Level: 67
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Sheer Force
+- Earth Power
+- Sludge Bomb
+- Ice Beam
+- Thunderbolt
+
+Nidoking @ Life Orb
+Level: 68
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Ability: Sheer Force
+- Earth Power
+- Sludge Bomb
+- Ice Beam
+- Thunderbolt

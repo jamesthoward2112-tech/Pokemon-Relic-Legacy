@@ -2,6 +2,7 @@ FuchsiaCity_Gym_Frlg_MapScripts::
 	.byte 0
 
 FuchsiaCity_Gym_EventScript_Koga::
+	call FuchsiaCity_Gym_Frlg_EventScript_PRLBadgeRewardPending
 	famechecker FAMECHECKER_KOGA, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, FuchsiaCity_Gym_EventScript_KogaNormal
 	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_SOUL, FuchsiaCity_Gym_Frlg_EventScript_PRLBadgeRecovery
@@ -25,6 +26,7 @@ FuchsiaCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
 	playfanfare MUS_OBTAIN_BADGE
 	waitfanfare
 	msgbox FuchsiaCity_Gym_Text_PRLRecoveryWon
+	call PRL_EventScript_BadgeHeistReward_KOGA
 	release
 	end
 
@@ -286,3 +288,15 @@ FuchsiaCity_Gym_Text_GymStatuePlayerWon::
 	.string "WINNING TRAINERS:\n"
 	.string "{RIVAL}, {PLAYER}$"
 
+
+@ A recovered badge remains valid even while its full-Bag gift is pending.
+FuchsiaCity_Gym_Frlg_EventScript_PRLBadgeRewardPending::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_SOUL, FuchsiaCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_KOGA, FuchsiaCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone
+	lock
+	faceplayer
+	call PRL_EventScript_BadgeHeistReward_KOGA
+	release
+	end
+FuchsiaCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone::
+	return

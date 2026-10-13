@@ -1,0 +1,114 @@
+{
+  "blaine_arcanine": {
+    "source": "/workspace/scratch/95236103e27c/final-kanto-donors/Pok\u00e9mon Johto Relics/Redux Asset Bank/extracted/ARCANINE_MEGA_REDUX.png",
+    "source_sha256": "71af52f0d3765b8dcbfce2e4eb695756518cbf191b788c7a021dd910e952d06f",
+    "colors": 16,
+    "front_sha256": "a54b3492a85ee47a68577a3cc38324012bbe6565e08de6285554c09175d233b9"
+  },
+  "champion_arcanine": {
+    "source": "/workspace/scratch/95236103e27c/final-kanto-donors/Pok\u00e9mon Johto Relics/Redux Asset Bank/extracted/ARCANINE_MEGA.png",
+    "source_sha256": "6f180f0d81420102ce1a961e1ebb71c2d3435aa59bdcf620e231914d923e4fc8",
+    "colors": 15,
+    "front_sha256": "a5d87cfb1f2ab0eb6264e07942ff7e284e5677d96cbc72be985d14a168962aad"
+  },
+  "sabrina_alakazam": {
+    "source": "/workspace/scratch/95236103e27c/final-kanto-donors/Pok\u00e9mon Johto Relics/Redux Asset Bank/extracted/ALAKAZAM_MEGA_REDUX.png",
+    "source_sha256": "a77686512cc8081e182ec6cec8e485ec27b028bd1818130c79856e3eccd75e0b",
+    "colors": 13,
+    "front_sha256": "46c49c6a673b2b4c579d83f7cbab7f068c1ffac96e05e02028ab77c4ae6cacee"
+  },
+  "erika_victreebel": {
+    "source": "/workspace/scratch/95236103e27c/final-kanto-donors/Pok\u00e9mon Johto Relics/Redux Asset Bank/extracted/VICTREEBEL_REDUX.png",
+    "source_sha256": "e1769062f06f001456845b9e8640635bc37fdd121e2ecc2fb66a3d32b36ba2ae",
+    "colors": 16,
+    "front_sha256": "1ab74d89386825fb744a78b5400f3af259f96265a32a43660e609828fba9aeab"
+  },
+  "lorelei_lapras": {
+    "source": "/workspace/scratch/95236103e27c/final-kanto-donors/Pok\u00e9mon Johto Relics/Redux Asset Bank/extracted/LAPRAS_MEGA_X.png",
+    "source_sha256": "44b9da2542cd9d7e8d0b106b3eaa8e7d97f4c31ce8643fc73aa2bc276ab64a22",
+    "colors": 16,
+    "front_sha256": "c447c463ebcdd950c0adfb727408329acd4fc084ff76a2234cb35d00f1da8a91"
+  },
+  "bruno_machamp": {
+    "source": "/workspace/scratch/95236103e27c/final-kanto-donors/Pok\u00e9mon Johto Relics/Redux Asset Bank/extracted/MACHAMP_MEGA_REDUX.png",
+    "source_sha256": "3f683af79426e86471bd36e5aff309a584dae9e3ca1964e228cb54c661d80da9",
+    "colors": 16,
+    "front_sha256": "d15f54a36f2bb7121170d70cda284cfe5a1a486a76af312cd18ac0d056b053e8"
+  },
+  "lance_dragonite": {
+    "source": "/workspace/scratch/95236103e27c/final-kanto-donors/Pok\u00e9mon Johto Relics/Redux Asset Bank/extracted/DRAGONITE_MEGA.png",
+    "source_sha256": "b35cd8dcb12cae133beb608144902172262fda90110e28b45008fbe2bbf84589",
+    "colors": 16,
+    "front_sha256": "ca043ec90450165d556c80f617839c4177996488adf61b2c0f57602e9169f58a"
+  },
+  "misty_starmie": {
+    "source": "/workspace/scratch/95236103e27c/final-kanto-donors/Pokemon Sprite Libraries/TRE 2026/Additional Finds/extracted/TRE_2026_Additional_Finds/forms/877_Mega_Starmie_alternate_TRE_slot/front_normal.png",
+    "source_sha256": "7d89f34a04acea35cbd5c1485ac982dae38b466322a0bc6251cb6486e1005b36",
+    "colors": 15,
+    "front_sha256": "e7383ef99a1c43d841d09c5e14f37f10168111976ed9b714ea4cde400d87b520"
+  },
+  "surge_raichu": {
+    "source": "/workspace/scratch/95236103e27c/final-kanto-donors/Pokemon Sprite Libraries/TRE 2026/Additional Finds/extracted/TRE_2026_Additional_Finds/forms/1027_Mega_Raichu_X/front_normal.png",
+    "source_sha256": "be56b1865ea66805b44117d6aa02e3492a0644d61d3849ca3e46852006632906",
+    "colors": 15,
+    "front_sha256": "ddbf8ae5d6e43e42cfe3ff2cee44f833624d415e32bb02811edf2650820b3e91"
+  },
+  "rocket_weezing_fire": {
+    "source": "/workspace/scratch/95236103e27c/ss2-weezing/WEEZING.png",
+    "source_sha256": "a1f5aede812cdd3fe7410e4d80b0be6fb5d4704d5933ace0b1a03978826e21ac",
+    "colors": 16,
+    "front_sha256": "fdc31756aedc3a3a22c65016f54b9ef4a6accb3ff4bdc993780241943b86127c"
+  },
+  "rocket_weezing_blue": {
+    "source": "/workspace/scratch/95236103e27c/ss2-weezing/WEEZING_2.png",
+    "source_sha256": "81411a2f3a5f5a6303735f6bb890c91c45f68ff6cd0d91a5abc093286d767935",
+    "colors": 15,
+    "front_sha256": "694897b036d20b15eb09a5d5af90f74156fe9e6fe4eaab30305b133c93744eee"
+  },
+  "tauros_x": {
+    "source": "Pokemon Kanto Relics.gba expanded SpeciesInfo, see pkr_source_manifest.json",
+    "front_sha256": "4d656e93585429efb4bb77821b70b13e27944b9de1e13e236592e80e1d000451"
+  },
+  "purakkusu_pinsir": {
+    "source": "Pokemon Kanto Relics.gba expanded SpeciesInfo, see pkr_source_manifest.json",
+    "front_sha256": "ca721397f7d99d07b00758c418299faadf2d7fa6f6ec7cb5db2cdf4403520e94"
+  },
+  "kabutops_p": {
+    "source": "Pokemon Kanto Relics.gba expanded SpeciesInfo, see pkr_source_manifest.json",
+    "front_sha256": "1091e23ff6fec0e8c3d652977eab9068af3e19dbb97ecc869ba10b0238943b75"
+  },
+  "aerodactyl_p": {
+    "source": "Pokemon Kanto Relics.gba expanded SpeciesInfo, see pkr_source_manifest.json",
+    "front_sha256": "9be63927238ca9fce1f4ac47215cb7a4d89116d6c604ce66ff1e868ab4357be1"
+  },
+  "nidoqueen_y": {
+    "source": "Pokemon Kanto Relics.gba expanded SpeciesInfo, see pkr_source_manifest.json",
+    "front_sha256": "9e087cf26bace85ea0332f822b5a03d87f1c27427e13c5c66d0d32d452f821d1"
+  },
+  "nidoking_x": {
+    "source": "Pokemon Kanto Relics.gba expanded SpeciesInfo, see pkr_source_manifest.json",
+    "front_sha256": "8f6af4fc386f358c278f55295842293aeb9e6d39bd0e221598968a298d2646ad"
+  },
+  "nidogod": {
+    "source": "Pokemon Kanto Relics.gba expanded SpeciesInfo, see pkr_source_manifest.json",
+    "front_sha256": "10859a08589be77e5f143e31ee1dbc1ae741187e8fb861f32ef5a89dcff527c1"
+  },
+  "shiny_mega_gengar": {
+    "source": "Pokemon Kanto Relics.gba expanded SpeciesInfo, see pkr_source_manifest.json",
+    "front_sha256": "684b93200ab6074468df89bf7c563338ad4d838b9ac7277684d320c276436d75"
+  },
+  "shiny_mega_alakazam": {
+    "source": "Pokemon Kanto Relics.gba expanded SpeciesInfo, see pkr_source_manifest.json",
+    "front_sha256": "222ccc968dc1a75549af89634eed02b8678fe51bb0e5d88b4c1bb5df457339aa"
+  },
+  "mega_pidgeot": {
+    "source": "Pokemon Kanto Relics.gba expanded SpeciesInfo, see pkr_source_manifest.json",
+    "front_sha256": "fab0aec7dbda2a1e7216b7a71bf4a248453c477d0623a17d99254109443af22f"
+  },
+  "brock_rhydon": {
+    "source": "/workspace/scratch/95236103e27c/final-kanto-donors/Mega Rhydon Pixel Sprite Sheet.png",
+    "source_sha256": "40e20b02a9baac771633c8149ef087c0499eae05c6eeba6bef1d3183d69c0d90",
+    "colors": 16,
+    "front_sha256": "c8d5e4fb158d945af01f8b98172381268b03c4c585a3e428a2a6dc8cd8e2a448"
+  }
+}
