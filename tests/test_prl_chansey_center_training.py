@@ -18,14 +18,14 @@ class ChanseyCenterTests(unittest.TestCase):
         for index, (key, city, starting_level) in enumerate(CENTERS):
             with self.subTest(center=key):
                 label = 'TRAINER_PRL_CHANSEY_' + key
-                trainer = re.search(r'^=== ' + label + r' ===\\n(.*?)(?=^=== |\\Z)', self.parties, re.M | re.S)
+                trainer = re.search(r'^=== ' + label + r' ===\n(.*?)(?=^=== |\Z)', self.parties, re.M | re.S)
                 self.assertIsNotNone(trainer, label)
                 party = trainer.group(1)
-                self.assertEqual(party.count('\\nChansey\\n'), 6)
-                self.assertEqual([int(x) for x in re.findall(r'^Level: (\\d+)$', party, re.M)], list(range(starting_level, starting_level + 6)))
+                self.assertEqual(party.count('\nChansey\n'), 6)
+                self.assertEqual([int(x) for x in re.findall(r'^Level: (\d+)$', party, re.M)], list(range(starting_level, starting_level + 6)))
                 self.assertEqual(re.findall(r'^- (.*?)$', party, re.M), ['Memento', 'Heal Pulse'] * 6)
                 self.assertIn(f'#define {label}', self.trainer_ids)
-                self.assertRegex(self.trainer_ids, label + r'\\s+' + str(640 + index) + r'\\b')
+                self.assertRegex(self.trainer_ids, label + r'\s+' + str(640 + index) + r'\b')
 
     def test_all_19_centers_replace_only_move_deleter(self):
         for key, city, _ in CENTERS:
@@ -47,7 +47,7 @@ class ChanseyCenterTests(unittest.TestCase):
             segment = self.scripts.split(start, 1)[1].split(after, 1)[0]
             self.assertIn('cleartrainerflag TRAINER_PRL_CHANSEY_' + key, segment)
             self.assertIn('trainerbattle_single TRAINER_PRL_CHANSEY_' + key, segment)
-            callback = self.scripts.split(after, 1)[1].split('\\n\\tend', 1)[0]
+            callback = self.scripts.split(after, 1)[1].split('\n\tend', 1)[0]
             self.assertIn('cleartrainerflag TRAINER_PRL_CHANSEY_' + key, callback)
 
     def test_source_wiring_and_money(self):
