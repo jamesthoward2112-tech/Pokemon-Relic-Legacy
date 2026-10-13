@@ -98,8 +98,19 @@ class PRLDuoApprovedArt(unittest.TestCase):
                 path = ROOT / f"data/maps/{area}_PokemonCenter_2F_Frlg/map.json"
                 room = json.loads(path.read_text())
                 self.assertEqual(room["layout"], "LAYOUT_POKEMON_CENTER_2F_FRLG")
-                self.assertEqual(room["object_events"], base["object_events"],
-                                 "Keep Vermilion's three upstairs services and Mystery Gift")
+                # Keep room layout, positions and the other services identical, but
+                # each location's right-hand coach has a different trainer script.
+                def neutralize_coach(objects):
+                    result = []
+                    for npc in objects:
+                        e = dict(npc)
+                        if e.get("script", "").startswith("EventScript_PRL_Chansey_"):
+                            e["script"] = "EventScript_PRL_Chansey_LOCATION"
+                        result.append(e)
+                    return result
+                self.assertEqual(neutralize_coach(room["object_events"]),
+                                 neutralize_coach(base["object_events"]),
+                                 "Keep three upstairs services, their positions and Mystery Gift")
                 self.assertEqual(len(room["warp_events"]), len(base["warp_events"]))
                 self.assertEqual(room["warp_events"][0]["dest_map"],
                                  f"MAP_{self._center_constant(area)}_POKEMON_CENTER_1F")
