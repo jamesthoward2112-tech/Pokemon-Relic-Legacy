@@ -85,10 +85,10 @@ class PRLRecurringDuos(unittest.TestCase):
                     self.assertIn("VictoryRoad_2F_EventScript_PRL_RocketWon::", script)
                     self.assertTrue(any("PRL_RocketGate" in event["script"] for event in map_data["coord_events"]))
                 elif name == "STEEVE_NEEVEE_ROUTE23":
-                    self.assertIn("VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger::", script)
+                    self.assertIn("VictoryRoad_1F_EventScript_PRLSteevee::", script)
                     duo = [o for o in map_data["object_events"] if o.get("local_id", "").startswith("LOCALID_PRL_VR_TWIN_")]
                     self.assertEqual({(o["x"], o["y"]) for o in duo}, {(9, 13), (10, 13)})
-                    self.assertTrue(any("PRLSteeveNeeveeTrigger" in e["script"] for e in map_data["coord_events"]))
+                    self.assertFalse(any("PRLSteeveNeeveeTrigger" in e["script"] for e in map_data["coord_events"]))
                 else:
                     # The original three twins battles continue to use native sight.
                     self.assertFalse(any("PRLSteeveNeeveeTrigger" in event["script"] for event in map_data["coord_events"]), name)
@@ -151,8 +151,8 @@ class PRLRecurringDuos(unittest.TestCase):
                 if name == "STEEVE_NEEVEE_ROUTE23":
                     twins = [obj for obj in map_data["object_events"] if obj.get("local_id", "").startswith("LOCALID_PRL_VR_TWIN_")]
                     self.assertEqual(len(twins), 2)
-                    self.assertTrue(all(o["flag"] == "FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23" for o in twins))
-                    self.assertTrue(all(o["trainer_type"] == "TRAINER_TYPE_NONE" for o in twins))
+                    self.assertTrue(all(o["flag"] == "0" for o in twins))
+                    self.assertTrue(all(o["trainer_type"] == "TRAINER_TYPE_NORMAL" for o in twins))
                     continue
                 twins = [obj for obj in map_data["object_events"]
                          if obj.get("local_id") in (f"LOCALID_PRL_STEEVE_{name.split('STEEVE_NEEVEE_', 1)[1]}",
