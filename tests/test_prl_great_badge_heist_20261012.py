@@ -94,7 +94,7 @@ class GreatBadgeHeistTests(unittest.TestCase):
         )
         self.assertEqual((balloon["x"], balloon["y"]), (8, 30))
         script = text("data/maps/Route23_Frlg/scripts.inc")
-        self.assertIn("setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 150", script)
+        self.assertIn("setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 151", script)
 
     def test_balloon_is_visible_before_boarding_in_both_escapes(self):
         script = text("data/maps/Route23_Frlg/scripts.inc")
@@ -105,7 +105,21 @@ class GreatBadgeHeistTests(unittest.TestCase):
             self.assertLess(spawn, board, label)
             for actor in ("JESSIE", "JAMES", "MEOWTH"):
                 self.assertLess(spawn, block.index("removeobject LOCALID_PRL_HEIST_" + actor), label)
-            self.assertIn("setobjectsubpriority LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23, 0", block)
+            self.assertIn("setobjectsubpriority LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23, 1", block)
+
+    def test_balloon_flies_in_and_leaves_without_dialogue_or_fixed_step_cutoff(self):
+        script = text("data/maps/Route23_Frlg/scripts.inc")
+        for label in ("Route23_EventScript_PRLGreatBadgeHeist", "Route23_EventScript_PRLFinalRocketWon"):
+            block = script.split(label + "::", 1)[1].split("\nRoute23_", 1)[0]
+            animation = block[block.index("addobject LOCALID_PRL_HEIST_BALLOON"):]
+            self.assertIn("Route23_Movement_PRLBalloonEnter", animation)
+            self.assertNotIn("msgbox", animation)
+            self.assertNotIn("delay ", animation)
+        self.assertIn("Route23_Movement_PRLBalloonEnter:\n\tfly_down", script)
+        self.assertIn("Route23_Movement_PRLBalloonTakeoff:\n\tfly_up", script)
+        for name in ("JessieBoard", "JamesBoard", "MeowthBoard", "JessieFinalBoard", "JamesFinalBoard", "MeowthFinalBoard"):
+            movement = script.split("Route23_Movement_PRL" + name + ":", 1)[1].split("\tstep_end", 1)[0]
+            self.assertIn("jump_", movement, name)
 
     def test_approved_meowth_balloon_bytes_are_integrated(self):
         gfx = ROOT / "graphics/object_events/pics/misc/prl_meowth_balloon.4bpp"

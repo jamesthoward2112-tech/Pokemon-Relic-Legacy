@@ -11324,6 +11324,15 @@ u8 MovementAction_FlyUp_Step0(struct ObjectEvent *objectEvent, struct Sprite *sp
 
 u8 MovementAction_FlyUp_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
+    if (objectEvent->graphicsId == OBJ_EVENT_GFX_PRL_MEOWTH_BALLOON)
+    {
+        // Keep the 64px balloon moving until its entire bottom clears the screen.
+        sprite->y2 -= 2;
+        if (sprite->y + sprite->y2 + sprite->centerToCornerVecY
+            + gSpriteCoordOffsetY + 64 <= -2)
+            sprite->sActionFuncId++;
+        return FALSE;
+    }
     sprite->y2 -= 8;
 
     if (sprite->y2 == -DISPLAY_HEIGHT)
@@ -11334,13 +11343,20 @@ u8 MovementAction_FlyUp_Step1(struct ObjectEvent *objectEvent, struct Sprite *sp
 u8 MovementAction_FlyDown_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
     sprite->y2 = -DISPLAY_HEIGHT;
+    if (objectEvent->graphicsId == OBJ_EVENT_GFX_PRL_MEOWTH_BALLOON)
+    {
+        // Reveal from just above the top edge, never at the resting position.
+        s16 bottom = sprite->y + sprite->centerToCornerVecY + gSpriteCoordOffsetY + 64;
+        sprite->y2 = -((bottom + 3) & ~1);
+        objectEvent->invisible = FALSE;
+    }
     sprite->sActionFuncId++;
     return FALSE;
 }
 
 u8 MovementAction_FlyDown_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
-    sprite->y2 += 8;
+    sprite->y2 += objectEvent->graphicsId == OBJ_EVENT_GFX_PRL_MEOWTH_BALLOON ? 2 : 8;
 
     if (!sprite->y2)
         sprite->sActionFuncId++;
