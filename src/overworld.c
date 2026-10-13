@@ -657,7 +657,7 @@ static bool32 PRLIsBlockedVictoryRoadWarp(const struct WarpData *warp)
 
     return isVictoryRoad
         && FlagGet(FLAG_PRL_BADGE_HEIST_STARTED)
-        && !FlagGet(FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED);
+        && !FlagGet(FLAG_PRL_BADGE_HEIST_ALL_RECOVERED);
 #else
     return FALSE;
 #endif
