@@ -1079,7 +1079,7 @@
     .frontAnimFrames = sAnims_SingleFramePlaceHolder, .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
     .backPic = gMonBackPic_Eeveeon, .backPicSize = MON_COORDS_SIZE(64, 64), .backPicYOffset = 0, .backAnimId = BACK_ANIM_NONE,
     .palette = gMonPalette_Eeveeon, .shinyPalette = gMonShinyPalette_Eeveeon,
-    .iconSprite = gMonIcon_Eeveeon, .iconPalIndex = 2,
+    .iconSprite = gMonIcon_Eeveeon, .iconPalIndex = 7,
     .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
     .levelUpLearnset = sEeveeonLevelUpLearnset,
     .teachableLearnset = sEeveeonTeachableLearnset,
