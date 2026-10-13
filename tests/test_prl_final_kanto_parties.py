@@ -167,7 +167,7 @@ def test_preserved_other_parties_and_headers():
                         if k not in targets and k not in victory_road_trainers
                         and not k.startswith('TRAINER_PRL_CHANSEY_'))
     raw = untouched.encode()
-    git_blob_sha1 = hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\\0' + raw).hexdigest()
+    git_blob_sha1 = hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest()
     assert git_blob_sha1 == '03b71837f0cf71a08cab14190609e12f25b02fb6'
     headers = {key: value.split('\n\n', 1)[0] for key, value in source.items() if key in targets}
     assert hashlib.sha256(json.dumps(headers, sort_keys=True).encode()).hexdigest() == 'af116c620d5bc9ba3e0ffcd326e68f7d6748a8ed436ac310b9dd8347fc2afe5a'
