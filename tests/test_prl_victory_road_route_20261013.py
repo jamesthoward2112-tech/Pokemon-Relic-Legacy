@@ -1,6 +1,7 @@
 """Save-safe PRL Victory Road entrances, mandatory duo scenes and battle art."""
 import json
 import re
+import struct
 import unittest
 from pathlib import Path
 
@@ -74,6 +75,33 @@ class VictoryRoadRouteTests(unittest.TestCase):
         f2 = read("data/maps/VictoryRoad_2F_Frlg/scripts.inc")
         self.assertIn("call_if_set FLAG_PRL_BADGE_HEIST_ALL_RECOVERED", f2)
         self.assertIn("VictoryRoad_2F_EventScript_PRL_RocketGateLetThrough", f2)
+
+    def test_encounter_and_boarding_tiles_are_traversable(self):
+        # Map.bin stores 16-bit FRLG metatiles; collision bits 10-11 are zero
+        # for traversable squares, with 3 as the accessible floor elevation.
+        def check(layout, width, coords):
+            raw = (ROOT / f"data/layouts/{layout}/map.bin").read_bytes()
+            for x, y in coords:
+                with self.subTest(layout=layout, x=x, y=y):
+                    value = struct.unpack_from("<H", raw, 2 * (y * width + x))[0]
+                    self.assertEqual((value >> 10) & 3, 0)
+                    self.assertEqual((value >> 12) & 15, 3)
+
+        check("VictoryRoad_1F_Frlg", 48, [
+            (11, 20), (10, 18), (12, 18), (10, 19), (12, 19)
+        ])
+        check("Route23_Frlg", 24, [
+            (19, 23), (21, 23), (20, 24), (19, 24), (21, 24),
+            (20, 23), (20, 22), (21, 28), (21, 27), (21, 26),
+            (21, 25), (21, 24), (20, 25)
+        ])
+        route = mp("Route23_Frlg")
+        triggers = [x for x in route["coord_events"]
+                    if x["script"] == "Route23_EventScript_PRLFinalRocketTrigger"]
+        check("Route23_Frlg", 24, {(x["x"], x["y"]) for x in triggers})
+        for y in (25, 26, 27, 28):
+            self.assertIn((21, y), {(t["x"], t["y"]) for t in triggers},
+                          "The sole traversable east corridor must trigger the finale")
 
     def test_both_toxeon_and_nimbeon_are_six_pixels_lower(self):
         s = read("src/data/pokemon/species_info/prl_custom.h")
