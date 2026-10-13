@@ -22,8 +22,12 @@ class VictoryRoadCaveEncountersTests(unittest.TestCase):
         self.assertTrue(all(o["flag"] == "FLAG_HIDE_PRL_BADGE_HEIST_TRIO" for o in old_twins))
         inside = map_data("VictoryRoad_1F_Frlg")
         twins = [o for o in inside["object_events"] if o.get("local_id", "").startswith("LOCALID_PRL_VR_TWIN_")]
-        self.assertEqual({(o["x"], o["y"]) for o in twins}, {(10, 18), (12, 18)})
+        self.assertEqual({(o["x"], o["y"]) for o in twins}, {(10, 15), (12, 15)})
         self.assertTrue(all(o["trainer_type"] == "TRAINER_TYPE_NONE" for o in twins))
+        self.assertTrue(all(o["flag"] == "FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23" for o in twins))
+        self.assertTrue(all(o["y"] != 18 for o in twins))
+        boulder = next(o for o in inside["object_events"] if o.get("local_id") == "LOCALID_VICTORY_ROAD_1F_BOULDER")
+        self.assertEqual((boulder["x"], boulder["y"]), (7, 18))
         triggers = [e for e in inside["coord_events"] if e["script"] == "VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger"]
         self.assertEqual({(e["x"], e["y"]) for e in triggers}, {(x, 19) for x in range(8, 15)})
         self.assertTrue(all(e["elevation"] == 3 for e in triggers))
@@ -32,6 +36,10 @@ class VictoryRoadCaveEncountersTests(unittest.TestCase):
         self.assertIn("applymovement LOCALID_PRL_VR_TWIN_STEEVE, Route23_Movement_PRLHeistExclamation", script)
         self.assertIn("applymovement LOCALID_PRL_VR_TWIN_NEEVEE, Route23_Movement_PRLHeistExclamation", script)
         self.assertIn("goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23", script)
+        won = script.split("VictoryRoad_1F_EventScript_PRLTwinsWon::", 1)[1].split("VictoryRoad_1F_EventScript_PRLTwinsSyncWon::", 1)[0]
+        for local_id in ("STEEVE", "NEEVEE"):
+            self.assertIn(f"removeobject LOCALID_PRL_VR_TWIN_{local_id}", won)
+        self.assertIn("setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23", won)
 
     def test_rocket_finale_occurs_at_cave_exit_and_cannot_be_clicked_past(self):
         cave = map_data("VictoryRoad_2F_Frlg")
