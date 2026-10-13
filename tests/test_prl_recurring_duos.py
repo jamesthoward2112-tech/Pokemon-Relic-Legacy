@@ -151,7 +151,7 @@ class PRLRecurringDuos(unittest.TestCase):
                 if name == "STEEVE_NEEVEE_ROUTE23":
                     twins = [obj for obj in map_data["object_events"] if obj.get("local_id", "").startswith("LOCALID_PRL_VR_TWIN_")]
                     self.assertEqual(len(twins), 2)
-                    self.assertTrue(all(o["flag"] == "0" for o in twins))
+                    self.assertTrue(all(o["flag"] == "FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23" for o in twins))
                     self.assertTrue(all(o["trainer_type"] == "TRAINER_TYPE_NONE" for o in twins))
                     continue
                 twins = [obj for obj in map_data["object_events"]
