@@ -59,22 +59,22 @@ VictoryRoad_1F_EventScript_PRLTwinsWon::
 	end
 
 VictoryRoad_1F_Text_PRLTwinsFarewell::
-	.string "STEEVEE: From ROUTE 3 to here…\\p"
-	.string "You've beaten us every time!\\p"
-	.string "NEEVEE: KANTO was incredible.\\p"
-	.string "We'll train even harder now!\\p"
-	.string "STEEVEE: This isn't goodbye.\\p"
-	.string "NEEVEE: See you in HOENN,\\n"
+	.string "STEEVEE: From ROUTE 3 to here…\p"
+	.string "You've beaten us every time!\p"
+	.string "NEEVEE: KANTO was incredible.\p"
+	.string "We'll train even harder now!\p"
+	.string "STEEVEE: This isn't goodbye.\p"
+	.string "NEEVEE: See you in HOENN,\n"
 	.string "{PLAYER}!$"
 
 VictoryRoad_1F_Text_PRLSteeveeAfter::
-	.string "STEEVEE: What a journey!\\p"
-	.string "We're heading to HOENN next.\\n"
+	.string "STEEVEE: What a journey!\p"
+	.string "We're heading to HOENN next.\n"
 	.string "We'll be ready for you!$"
 
 VictoryRoad_1F_Text_PRLNeeveeAfter::
-	.string "NEEVEE: This was our last\\n"
-	.string "KANTO battle together.\\p"
+	.string "NEEVEE: This was our last\n"
+	.string "KANTO battle together.\p"
 	.string "See you in HOENN, {PLAYER}!$"
 
 VictoryRoad_1F_EventScript_Naomi::
