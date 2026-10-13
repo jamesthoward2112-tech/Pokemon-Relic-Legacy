@@ -1,0 +1,110 @@
+[
+  {
+    "asset": "blaine_arcanine",
+    "decompressed_length": 4096,
+    "png_size": [
+      64,
+      64
+    ],
+    "opaque_rgb5_mismatches_first_frame": 0
+  },
+  {
+    "asset": "brock_rhydon",
+    "decompressed_length": 4096,
+    "png_size": [
+      64,
+      64
+    ],
+    "opaque_rgb5_mismatches_first_frame": 0
+  },
+  {
+    "asset": "bruno_machamp",
+    "decompressed_length": 4096,
+    "png_size": [
+      64,
+      64
+    ],
+    "opaque_rgb5_mismatches_first_frame": 0
+  },
+  {
+    "asset": "champion_arcanine",
+    "decompressed_length": 4096,
+    "png_size": [
+      64,
+      64
+    ],
+    "opaque_rgb5_mismatches_first_frame": 0
+  },
+  {
+    "asset": "erika_victreebel",
+    "decompressed_length": 4096,
+    "png_size": [
+      64,
+      64
+    ],
+    "opaque_rgb5_mismatches_first_frame": 0
+  },
+  {
+    "asset": "lance_dragonite",
+    "decompressed_length": 4096,
+    "png_size": [
+      64,
+      64
+    ],
+    "opaque_rgb5_mismatches_first_frame": 0
+  },
+  {
+    "asset": "lorelei_lapras",
+    "decompressed_length": 4096,
+    "png_size": [
+      64,
+      64
+    ],
+    "opaque_rgb5_mismatches_first_frame": 0
+  },
+  {
+    "asset": "misty_starmie",
+    "decompressed_length": 4096,
+    "png_size": [
+      64,
+      64
+    ],
+    "opaque_rgb5_mismatches_first_frame": 0
+  },
+  {
+    "asset": "rocket_weezing_blue",
+    "decompressed_length": 4096,
+    "png_size": [
+      64,
+      64
+    ],
+    "opaque_rgb5_mismatches_first_frame": 0
+  },
+  {
+    "asset": "rocket_weezing_fire",
+    "decompressed_length": 4096,
+    "png_size": [
+      64,
+      64
+    ],
+    "opaque_rgb5_mismatches_first_frame": 0
+  },
+  {
+    "asset": "sabrina_alakazam",
+    "decompressed_length": 4096,
+    "png_size": [
+      64,
+      64
+    ],
+    "opaque_rgb5_mismatches_first_frame": 0
+  },
+  {
+    "asset": "surge_raichu",
+    "decompressed_length": 4096,
+    "png_size": [
+      64,
+      64
+    ],
+    "opaque_rgb5_mismatches_first_frame": 0
+  }
+]

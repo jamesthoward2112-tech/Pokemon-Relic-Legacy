@@ -39,8 +39,15 @@ VictoryRoad_1F_EventScript_Naomi::
 	end
 
 VictoryRoad_1F_EventScript_Rolando::
-	trainerbattle_single TRAINER_COOLTRAINER_ROLANDO, VictoryRoad_1F_Text_RolandoIntro, VictoryRoad_1F_Text_RolandoDefeat
-	msgbox VictoryRoad_1F_Text_RolandoPostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_single TRAINER_COOLTRAINER_ROLANDO, VictoryRoad_1F_Text_RolandoIntro, VictoryRoad_1F_Text_RolandoDefeat, VictoryRoad_1F_EventScript_RolandoHeal
+	goto VictoryRoad_1F_EventScript_RolandoHeal
+
+VictoryRoad_1F_EventScript_RolandoHeal::
+	lock
+	faceplayer
+	special HealPlayerParty
+	msgbox VictoryRoad_1F_Text_RolandoHealing, MSGBOX_DEFAULT
+	release
 	end
 
 VictoryRoad_1F_Text_NaomiIntro::
@@ -68,3 +75,9 @@ VictoryRoad_1F_Text_RolandoPostBattle::
 	.string "Tch!\n"
 	.string "I concede, you are better than I!$"
 
+
+VictoryRoad_1F_Text_RolandoHealing::
+	.string "That was a terrific battle!\p"
+	.string "Let me restore your POKéMON\n"
+	.string "before you carry on.\p"
+	.string "Come back any time for a rest!$"

@@ -1,0 +1,32 @@
+{
+  "purchase_72": {
+    "money_before": 50000,
+    "money_after": 45000,
+    "quantity_before": 0,
+    "quantity_after": 1
+  },
+  "purchase_34": {
+    "money_before": 50000,
+    "money_after": 47000,
+    "quantity_before": 0,
+    "quantity_after": 1
+  },
+  "bell_required_independent_of_friendship": true,
+  "actual_evolution_scene_and_return_learned": {
+    "species": 1577,
+    "moves": [
+      216,
+      0,
+      0,
+      0
+    ],
+    "held_item": 463
+  },
+  "actual_return_battle_max_friendship_power": 102,
+  "safari_old_save_only_extra_object_removed": [
+    "SafariZone_West_EventScript_ItemGoldTeeth",
+    "SafariZone_West_EventScript_ItemTM32",
+    "SafariZone_West_EventScript_ItemMaxPotion",
+    "SafariZone_West_EventScript_ItemMaxRevive"
+  ]
+}

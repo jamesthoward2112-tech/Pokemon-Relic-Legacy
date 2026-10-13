@@ -2,6 +2,7 @@ SaffronCity_Gym_Frlg_MapScripts::
 	.byte 0
 
 SaffronCity_Gym_EventScript_Sabrina::
+	call SaffronCity_Gym_Frlg_EventScript_PRLBadgeRewardPending
 	famechecker FAMECHECKER_SABRINA, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, SaffronCity_Gym_EventScript_SabrinaNormal
 	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_MARSH, SaffronCity_Gym_Frlg_EventScript_PRLBadgeRecovery
@@ -26,6 +27,7 @@ SaffronCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
 	playfanfare MUS_OBTAIN_BADGE
 	waitfanfare
 	msgbox SaffronCity_Gym_Text_PRLRecoveryWon
+	call PRL_EventScript_BadgeHeistReward_SABRINA
 	release
 	end
 
@@ -304,3 +306,15 @@ SaffronCity_Gym_Text_GymStatuePlayerWon::
 	.string "WINNING TRAINERS:\n"
 	.string "{RIVAL}, {PLAYER}$"
 
+
+@ A recovered badge remains valid even while its full-Bag gift is pending.
+SaffronCity_Gym_Frlg_EventScript_PRLBadgeRewardPending::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_MARSH, SaffronCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_SABRINA, SaffronCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone
+	lock
+	faceplayer
+	call PRL_EventScript_BadgeHeistReward_SABRINA
+	release
+	end
+SaffronCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone::
+	return

@@ -46,6 +46,7 @@ CinnabarIsland_Gym_OnLoadOpenDoor6::
 	return
 
 CinnabarIsland_Gym_EventScript_Blaine::
+	call CinnabarIsland_Gym_Frlg_EventScript_PRLBadgeRewardPending
 	famechecker FAMECHECKER_BLAINE, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, CinnabarIsland_Gym_EventScript_BlaineNormal
 	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_VOLCANO, CinnabarIsland_Gym_Frlg_EventScript_PRLBadgeRecovery
@@ -69,6 +70,7 @@ CinnabarIsland_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
 	playfanfare MUS_OBTAIN_BADGE
 	waitfanfare
 	msgbox CinnabarIsland_Gym_Text_PRLRecoveryWon
+	call PRL_EventScript_BadgeHeistReward_BLAINE
 	release
 	end
 
@@ -940,3 +942,15 @@ CinnabarIsland_Gym_Text_SorryBadCall::
 	.string "Sorry!\n"
 	.string "Bad call!$"
 
+
+@ A recovered badge remains valid even while its full-Bag gift is pending.
+CinnabarIsland_Gym_Frlg_EventScript_PRLBadgeRewardPending::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_VOLCANO, CinnabarIsland_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_BLAINE, CinnabarIsland_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone
+	lock
+	faceplayer
+	call PRL_EventScript_BadgeHeistReward_BLAINE
+	release
+	end
+CinnabarIsland_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone::
+	return

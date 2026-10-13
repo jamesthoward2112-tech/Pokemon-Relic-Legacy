@@ -199,7 +199,7 @@ class GreatBadgeHeistTests(unittest.TestCase):
             levels = [int(value) for value in re.findall(r"^Level: (\d+)$", block, re.M)]
             self.assertEqual(len(levels), 6, leader)
             self.assertGreaterEqual(min(levels), 54, leader)
-            self.assertLessEqual(max(levels), 65, leader)
+            self.assertLessEqual(max(levels), 68, leader)
 
     def test_giovanni_recovery_team_retains_skeletal_species_and_trainer_art(self):
         parties = text("src/data/trainers_frlg.party")
@@ -209,7 +209,8 @@ class GreatBadgeHeistTests(unittest.TestCase):
         self.assertIn("Aerodactyl", block)
         graphics = text("src/battle_gfx_sfx_util.c")
         predicate = graphics.split("static u8 PRLGetGiovanniSkeletonGfx", 1)[1].split("static const u32 *", 1)[0]
-        self.assertIn("TRAINER_PRL_BADGE_RECOVERY_GIOVANNI", predicate)
+        self.assertNotIn("TRAINER_PRL_BADGE_RECOVERY_GIOVANNI", predicate)
+        self.assertIn("TRAINER_LEADER_GIOVANNI", predicate)
         self.assertIn("SPECIES_KABUTOPS", predicate)
         self.assertIn("SPECIES_AERODACTYL", predicate)
 

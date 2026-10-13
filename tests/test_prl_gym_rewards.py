@@ -24,7 +24,7 @@ class PRLGymRewards(unittest.TestCase):
             locs=[segment.index(t) for t in tokens]
             self.assertEqual(locs,sorted(locs))
             self.assertIn("PRL_EventScript_GymExtraNoRoom",segment)
-    self.assertEqual(txt.count("addmoney 10000"),16)
+    self.assertEqual(txt.split("@ Badge Heist recovery gifts:", 1)[0].count("addmoney 10000"),16)
  def test_each_gym_has_retry_and_original_tm(self):
     for region,gyms in (("KANTO",K),("HOENN",H)):
         for name,path,item,tm,badge in gyms:

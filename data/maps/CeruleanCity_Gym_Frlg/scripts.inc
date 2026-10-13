@@ -2,6 +2,7 @@ CeruleanCity_Gym_Frlg_MapScripts::
 	.byte 0
 
 CeruleanCity_Gym_EventScript_Misty::
+	call CeruleanCity_Gym_Frlg_EventScript_PRLBadgeRewardPending
 	famechecker FAMECHECKER_MISTY, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, CeruleanCity_Gym_EventScript_MistyNormal
 	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_CASCADE, CeruleanCity_Gym_Frlg_EventScript_PRLBadgeRecovery
@@ -25,6 +26,7 @@ CeruleanCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
 	playfanfare MUS_OBTAIN_BADGE
 	waitfanfare
 	msgbox CeruleanCity_Gym_Text_PRLRecoveryWon
+	call PRL_EventScript_BadgeHeistReward_MISTY
 	release
 	end
 
@@ -206,3 +208,15 @@ CeruleanCity_Gym_Text_GymStatuePlayerWon::
 	.string "WINNING TRAINERS:\n"
 	.string "{RIVAL}, {PLAYER}$"
 
+
+@ A recovered badge remains valid even while its full-Bag gift is pending.
+CeruleanCity_Gym_Frlg_EventScript_PRLBadgeRewardPending::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_CASCADE, CeruleanCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_MISTY, CeruleanCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone
+	lock
+	faceplayer
+	call PRL_EventScript_BadgeHeistReward_MISTY
+	release
+	end
+CeruleanCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone::
+	return

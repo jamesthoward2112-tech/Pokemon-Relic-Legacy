@@ -83,7 +83,7 @@ SINGLE_BATTLE_TEST("PRL Astonish can inflict Fear")
     } WHEN {
         TURN { MOVE(player, MOVE_ASTONISH, hit: TRUE, WITH_RNG(RNG_SECONDARY_EFFECT_2, TRUE)); }
     } THEN {
-        EXPECT_EQ(opponent->volatiles.fearTimer, 1);
+        EXPECT_EQ((u32)opponent->volatiles.fearTimer, 1);
     }
 }
 
@@ -95,7 +95,7 @@ SINGLE_BATTLE_TEST("PRL Snarl can inflict Fear")
     } WHEN {
         TURN { MOVE(player, MOVE_SNARL, hit: TRUE, WITH_RNG(RNG_SECONDARY_EFFECT_2, TRUE)); }
     } THEN {
-        EXPECT_EQ(opponent->volatiles.fearTimer, 1);
+        EXPECT_EQ((u32)opponent->volatiles.fearTimer, 1);
     }
 }
 
@@ -109,6 +109,6 @@ SINGLE_BATTLE_TEST("PRL Noble Roar preserves its stat drop and can inflict Fear"
     } THEN {
         EXPECT_EQ(opponent->statStages[STAT_ATK], DEFAULT_STAT_STAGE - 1);
         EXPECT_EQ(opponent->statStages[STAT_SPATK], DEFAULT_STAT_STAGE - 1);
-        EXPECT_EQ(opponent->volatiles.fearTimer, 1);
+        EXPECT_EQ((u32)opponent->volatiles.fearTimer, 1);
     }
 }

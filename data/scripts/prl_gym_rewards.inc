@@ -225,3 +225,114 @@ PRL_Text_GymExtraClaimed::
 PRL_Text_GymExtraNoRoom::
 	.string "Your BAG is full. Please free a\n"
 	.string "slot, then return for your bonus.$"
+
+@ Badge Heist recovery gifts: item and cash are claimed together once.
+
+PRL_EventScript_BadgeHeistReward_BROCK::
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_BROCK, PRL_EventScript_BadgeHeistReward_BROCK_Done
+	checkitemspace ITEM_ROCKY_HELMET
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	giveitem ITEM_ROCKY_HELMET
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	addmoney 10000
+	setflag FLAG_PRL_BADGE_HEIST_REWARD_BROCK
+	msgbox PRL_Text_BadgeHeistRewardClaimed, MSGBOX_DEFAULT
+PRL_EventScript_BadgeHeistReward_BROCK_Done::
+	return
+
+PRL_EventScript_BadgeHeistReward_MISTY::
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_MISTY, PRL_EventScript_BadgeHeistReward_MISTY_Done
+	checkitemspace ITEM_LEFTOVERS
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	giveitem ITEM_LEFTOVERS
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	addmoney 10000
+	setflag FLAG_PRL_BADGE_HEIST_REWARD_MISTY
+	msgbox PRL_Text_BadgeHeistRewardClaimed, MSGBOX_DEFAULT
+PRL_EventScript_BadgeHeistReward_MISTY_Done::
+	return
+
+PRL_EventScript_BadgeHeistReward_SURGE::
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_SURGE, PRL_EventScript_BadgeHeistReward_SURGE_Done
+	checkitemspace ITEM_CHOICE_SPECS
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	giveitem ITEM_CHOICE_SPECS
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	addmoney 10000
+	setflag FLAG_PRL_BADGE_HEIST_REWARD_SURGE
+	msgbox PRL_Text_BadgeHeistRewardClaimed, MSGBOX_DEFAULT
+PRL_EventScript_BadgeHeistReward_SURGE_Done::
+	return
+
+PRL_EventScript_BadgeHeistReward_ERIKA::
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_ERIKA, PRL_EventScript_BadgeHeistReward_ERIKA_Done
+	checkitemspace ITEM_WIDE_LENS
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	giveitem ITEM_WIDE_LENS
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	addmoney 10000
+	setflag FLAG_PRL_BADGE_HEIST_REWARD_ERIKA
+	msgbox PRL_Text_BadgeHeistRewardClaimed, MSGBOX_DEFAULT
+PRL_EventScript_BadgeHeistReward_ERIKA_Done::
+	return
+
+PRL_EventScript_BadgeHeistReward_KOGA::
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_KOGA, PRL_EventScript_BadgeHeistReward_KOGA_Done
+	checkitemspace ITEM_BLACK_SLUDGE
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	giveitem ITEM_BLACK_SLUDGE
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	addmoney 10000
+	setflag FLAG_PRL_BADGE_HEIST_REWARD_KOGA
+	msgbox PRL_Text_BadgeHeistRewardClaimed, MSGBOX_DEFAULT
+PRL_EventScript_BadgeHeistReward_KOGA_Done::
+	return
+
+PRL_EventScript_BadgeHeistReward_SABRINA::
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_SABRINA, PRL_EventScript_BadgeHeistReward_SABRINA_Done
+	checkitemspace ITEM_WISE_GLASSES
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	giveitem ITEM_WISE_GLASSES
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	addmoney 10000
+	setflag FLAG_PRL_BADGE_HEIST_REWARD_SABRINA
+	msgbox PRL_Text_BadgeHeistRewardClaimed, MSGBOX_DEFAULT
+PRL_EventScript_BadgeHeistReward_SABRINA_Done::
+	return
+
+PRL_EventScript_BadgeHeistReward_BLAINE::
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_BLAINE, PRL_EventScript_BadgeHeistReward_BLAINE_Done
+	checkitemspace ITEM_EXPERT_BELT
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	giveitem ITEM_EXPERT_BELT
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	addmoney 10000
+	setflag FLAG_PRL_BADGE_HEIST_REWARD_BLAINE
+	msgbox PRL_Text_BadgeHeistRewardClaimed, MSGBOX_DEFAULT
+PRL_EventScript_BadgeHeistReward_BLAINE_Done::
+	return
+
+PRL_EventScript_BadgeHeistReward_GIOVANNI::
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_GIOVANNI, PRL_EventScript_BadgeHeistReward_GIOVANNI_Done
+	checkitemspace ITEM_CHOICE_BAND
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	giveitem ITEM_CHOICE_BAND
+	goto_if_eq VAR_RESULT, FALSE, PRL_EventScript_BadgeHeistRewardNoRoom
+	addmoney 10000
+	setflag FLAG_PRL_BADGE_HEIST_REWARD_GIOVANNI
+	msgbox PRL_Text_BadgeHeistRewardClaimed, MSGBOX_DEFAULT
+PRL_EventScript_BadgeHeistReward_GIOVANNI_Done::
+	return
+
+PRL_EventScript_BadgeHeistRewardNoRoom::
+	msgbox PRL_Text_BadgeHeistRewardNoRoom, MSGBOX_DEFAULT
+	return
+
+PRL_Text_BadgeHeistRewardClaimed::
+	.string "You earned an additional 10,000\n"
+	.string "for recovering your stolen Badge!$"
+
+PRL_Text_BadgeHeistRewardNoRoom::
+	.string "Your Badge is recovered, but your\n"
+	.string "BAG is full. Make room and return\l"
+	.string "for your item and 10,000 bonus!$"

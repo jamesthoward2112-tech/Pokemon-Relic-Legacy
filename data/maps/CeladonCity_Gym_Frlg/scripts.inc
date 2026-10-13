@@ -2,6 +2,7 @@ CeladonCity_Gym_Frlg_MapScripts::
 	.byte 0
 
 CeladonCity_Gym_EventScript_Erika::
+	call CeladonCity_Gym_Frlg_EventScript_PRLBadgeRewardPending
 	famechecker FAMECHECKER_ERIKA, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, CeladonCity_Gym_EventScript_ErikaNormal
 	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_RAINBOW, CeladonCity_Gym_Frlg_EventScript_PRLBadgeRecovery
@@ -28,6 +29,7 @@ CeladonCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
 	playfanfare MUS_OBTAIN_BADGE
 	waitfanfare
 	msgbox CeladonCity_Gym_Text_PRLRecoveryWon
+	call PRL_EventScript_BadgeHeistReward_ERIKA
 	release
 	end
 
@@ -290,3 +292,15 @@ CeladonCity_Gym_Text_GymStatuePlayerWon::
 	.string "WINNING TRAINERS:\n"
 	.string "{RIVAL}, {PLAYER}$"
 
+
+@ A recovered badge remains valid even while its full-Bag gift is pending.
+CeladonCity_Gym_Frlg_EventScript_PRLBadgeRewardPending::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_RAINBOW, CeladonCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone
+	goto_if_set FLAG_PRL_BADGE_HEIST_REWARD_ERIKA, CeladonCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone
+	lock
+	faceplayer
+	call PRL_EventScript_BadgeHeistReward_ERIKA
+	release
+	end
+CeladonCity_Gym_Frlg_EventScript_PRLBadgeRewardPendingDone::
+	return
