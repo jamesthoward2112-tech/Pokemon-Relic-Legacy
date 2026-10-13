@@ -50,8 +50,8 @@ class VictoryRoadRouteTests(unittest.TestCase):
     def test_rockets_confront_player_near_far_exit_with_approved_balloon(self):
         route = mp("Route23_Frlg")
         actors = {o.get("local_id"): o for o in route["object_events"]}
-        self.assertEqual((actors["LOCALID_PRL_HEIST_JESSIE"]["x"], actors["LOCALID_PRL_HEIST_JESSIE"]["y"]), (16,31))
-        self.assertEqual((actors["LOCALID_PRL_HEIST_JAMES"]["x"], actors["LOCALID_PRL_HEIST_JAMES"]["y"]), (20,31))
+        self.assertEqual((actors["LOCALID_PRL_HEIST_JESSIE"]["x"], actors["LOCALID_PRL_HEIST_JESSIE"]["y"]), (17,31))
+        self.assertEqual((actors["LOCALID_PRL_HEIST_JAMES"]["x"], actors["LOCALID_PRL_HEIST_JAMES"]["y"]), (19,31))
         # The base balloon stays put to protect the first approved badge heist.
         self.assertEqual((actors["LOCALID_PRL_HEIST_BALLOON"]["x"], actors["LOCALID_PRL_HEIST_BALLOON"]["y"]), (8,30))
         triggers = [x for x in route["coord_events"] if x["script"] == "Route23_EventScript_PRLFinalRocketTrigger"]
@@ -60,6 +60,10 @@ class VictoryRoadRouteTests(unittest.TestCase):
         self.assertIn("applymovement LOCALID_PRL_HEIST_JESSIE, Common_Movement_ExclamationMark", s)
         self.assertIn("applymovement LOCALID_PRL_HEIST_JAMES, Common_Movement_ExclamationMark", s)
         self.assertIn("goto Route23_EventScript_PRLFinalRocketBattle", s)
+        self.assertIn("Route23_Movement_PRLFinalJessieApproach:\n\twalk_up", s)
+        self.assertIn("Route23_Movement_PRLFinalJamesApproach:\n\twalk_up", s)
+        self.assertIn("applymovement LOCALID_PRL_HEIST_JESSIE, Route23_Movement_PRLFinalJessieStepBack", s)
+        self.assertIn("applymovement LOCALID_PRL_HEIST_JAMES, Route23_Movement_PRLFinalJamesStepBack", s)
         self.assertIn("setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 151", s)
         self.assertIn("setobjectxy LOCALID_PRL_HEIST_BALLOON, 18, 30", s)
         self.assertIn("Route23_Movement_PRLBalloonEnter:\n\tfly_down", s)
