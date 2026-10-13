@@ -14712,3 +14712,860 @@ Ability: Sheer Force
 - Sludge Bomb
 - Ice Beam
 - Thunderbolt
+
+
+=== TRAINER_PRL_CHANSEY_VIRIDIAN ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 7
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 8
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 9
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 10
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 11
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 12
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_PEWTER ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 10
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 11
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 12
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 13
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 14
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 15
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_ROUTE4 ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 14
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 15
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 16
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 17
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 18
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 19
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_CERULEAN ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 16
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 17
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 18
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 19
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 20
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 21
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_VERMILION ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 22
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 23
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 24
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 25
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 26
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 27
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_ROUTE10 ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 26
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 27
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 28
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 29
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 30
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 31
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_LAVENDER ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 27
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 28
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 29
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 30
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 31
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 32
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_CELADON ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 30
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 31
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 32
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 33
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 34
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 35
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_SAFFRON ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 34
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 35
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 36
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 37
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 38
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 39
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_FUCHSIA ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 38
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 39
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 40
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 41
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 42
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 43
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_CINNABAR ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 42
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 43
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 44
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 45
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 46
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 47
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_INDIGO ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 47
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 48
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 49
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 50
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 51
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 52
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_ONE_ISLAND ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 50
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 51
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 52
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 53
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 54
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 55
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_TWO_ISLAND ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 55
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 56
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 57
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 58
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 59
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 60
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_THREE_ISLAND ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 65
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 66
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 67
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 68
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 69
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 70
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_FOUR_ISLAND ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 59
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 60
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 61
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 62
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 63
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 64
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_FIVE_ISLAND ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 60
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 61
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 62
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 63
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 64
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 65
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_SIX_ISLAND ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 61
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 62
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 63
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 64
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 65
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 66
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+=== TRAINER_PRL_CHANSEY_SEVEN_ISLAND ===
+Name: COACH
+Class: Pkmn Trainer 1
+Pic: Lady Frlg
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move
+
+Chansey
+Level: 62
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 63
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 64
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 65
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 66
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+
+Chansey
+Level: 67
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Memento
+- Heal Pulse
+

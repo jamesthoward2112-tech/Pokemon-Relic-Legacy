@@ -1,5 +1,10 @@
 # Summary
 
+- [PRL Work Resume Checkpoint](./PRL_WORK_RESUME_CHECKPOINT.md)
+- [PRL Final Kanto Validation](./PRL_FINAL_KANTO_VALIDATION.md)
+- [Great Badge Heist Plan](./superpowers/plans/2026-10-12-great-badge-heist.md)
+- [Great Badge Heist Design](./superpowers/specs/2026-10-12-great-badge-heist-design.md)
+
 - [PRL PJR registered items](./PRL_PJR_REGISTERED_ITEMS_20261011.md)
 - [PRL PJR and PHR QoL migration](./PRL_PJR_PHR_QOL_MIGRATION.md)
 - [PRL Eeveeon and Nimbeon build status](./prl-eeveeon-nimbeon-build-status.md)

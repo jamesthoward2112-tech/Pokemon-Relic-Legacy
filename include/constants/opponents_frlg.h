@@ -648,7 +648,27 @@
 //       only space for 25 additional trainers before trainer flag space overflows.
 //       MAX_TRAINERS_COUNT_FRLG can be increased but will take up additional saveblock space
 
-#define TRAINERS_COUNT_FRLG                      640
+#define TRAINER_PRL_CHANSEY_VIRIDIAN                  640
+#define TRAINER_PRL_CHANSEY_PEWTER                    641
+#define TRAINER_PRL_CHANSEY_ROUTE4                    642
+#define TRAINER_PRL_CHANSEY_CERULEAN                  643
+#define TRAINER_PRL_CHANSEY_VERMILION                 644
+#define TRAINER_PRL_CHANSEY_ROUTE10                   645
+#define TRAINER_PRL_CHANSEY_LAVENDER                  646
+#define TRAINER_PRL_CHANSEY_CELADON                   647
+#define TRAINER_PRL_CHANSEY_SAFFRON                   648
+#define TRAINER_PRL_CHANSEY_FUCHSIA                   649
+#define TRAINER_PRL_CHANSEY_CINNABAR                  650
+#define TRAINER_PRL_CHANSEY_INDIGO                    651
+#define TRAINER_PRL_CHANSEY_ONE_ISLAND                652
+#define TRAINER_PRL_CHANSEY_TWO_ISLAND                653
+#define TRAINER_PRL_CHANSEY_THREE_ISLAND              654
+#define TRAINER_PRL_CHANSEY_FOUR_ISLAND               655
+#define TRAINER_PRL_CHANSEY_FIVE_ISLAND               656
+#define TRAINER_PRL_CHANSEY_SIX_ISLAND                657
+#define TRAINER_PRL_CHANSEY_SEVEN_ISLAND              658
+
+#define TRAINERS_COUNT_FRLG                      659
 #define MAX_TRAINERS_COUNT_FRLG                  768
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_FRLG_H

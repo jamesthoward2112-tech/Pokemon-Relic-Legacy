@@ -4022,6 +4022,10 @@ static void Cmd_hitanimation(void)
 
 static u32 GetTrainerMoneyToGive(u16 trainerId)
 {
+    // Chansey center coaches are EXP training only, not a money farm.
+    if (IS_FRLG && trainerId >= TRAINER_PRL_CHANSEY_VIRIDIAN && trainerId <= TRAINER_PRL_CHANSEY_SEVEN_ISLAND)
+        return 0;
+
     u32 lastMonLevel = 0;
     u32 moneyReward;
     u8 trainerMoney = 0;
