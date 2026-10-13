@@ -55,15 +55,21 @@ VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger::
 	trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_Text_PRL_SteeveNeeveeIntro, Route23_Text_PRL_SteeveNeeveeDefeat, Route23_Text_PRL_SteeveNeeveeNotEnoughMons, VictoryRoad_1F_EventScript_PRLTwinsWon, localId=LOCALID_PRL_VR_TWIN_STEEVE
 	goto VictoryRoad_1F_EventScript_PRLTwinsDone
 
+@ The cave Strength boulder must never be blocked by the defeated Twins.
+@ This already-existing battle flag also hides both NPC objects on every reload.
 VictoryRoad_1F_EventScript_PRLTwinsWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
 	setvar VAR_MAP_SCENE_ROUTE23, 9
 	msgbox Route23_Text_PRL_SteeveNeeveePostBattle
+	removeobject LOCALID_PRL_VR_TWIN_STEEVE
+	removeobject LOCALID_PRL_VR_TWIN_NEEVEE
 	releaseall
 	end
 
 VictoryRoad_1F_EventScript_PRLTwinsSyncWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
+	removeobject LOCALID_PRL_VR_TWIN_STEEVE
+	removeobject LOCALID_PRL_VR_TWIN_NEEVEE
 VictoryRoad_1F_EventScript_PRLTwinsDone::
 	releaseall
 	end
