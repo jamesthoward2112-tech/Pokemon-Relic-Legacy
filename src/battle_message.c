@@ -2745,7 +2745,10 @@ void BufferStringBattle(enum StringID stringID, enum BattlerId battler)
         }
         break;
     case STRINGID_USEDMOVE: // Pokémon used a move msg
+        // Eevoboost is an ordinary move allocated after the Dynamax IDs to
+        // preserve existing PRL saves. Do not treat it as an unnamed move.
         if (gBattleMsgDataPtr->currentMove >= MOVES_COUNT
+         && gBattleMsgDataPtr->currentMove != MOVE_EEVOBOOST
          && !IsZMove(gBattleMsgDataPtr->currentMove)
          && !IsMaxMove(gBattleMsgDataPtr->currentMove))
             StringCopy(gBattleTextBuff3, gTypesInfo[*(&gBattleStruct->stringMoveType)].generic);
@@ -3238,6 +3241,7 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize)
                 break;
             case B_TXT_CURRENT_MOVE: // current move name
                 if (gBattleMsgDataPtr->currentMove >= MOVES_COUNT
+                 && gBattleMsgDataPtr->currentMove != MOVE_EEVOBOOST
                  && !IsZMove(gBattleMsgDataPtr->currentMove)
                  && !IsMaxMove(gBattleMsgDataPtr->currentMove))
                     toCpy = gTypesInfo[gBattleStruct->stringMoveType].generic;
@@ -3246,8 +3250,9 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize)
                 break;
             case B_TXT_LAST_MOVE: // originally used move name
                 if (gBattleMsgDataPtr->originallyUsedMove >= MOVES_COUNT
-                 && !IsZMove(gBattleMsgDataPtr->currentMove)
-                 && !IsMaxMove(gBattleMsgDataPtr->currentMove))
+                 && gBattleMsgDataPtr->originallyUsedMove != MOVE_EEVOBOOST
+                 && !IsZMove(gBattleMsgDataPtr->originallyUsedMove)
+                 && !IsMaxMove(gBattleMsgDataPtr->originallyUsedMove))
                     toCpy = gTypesInfo[gBattleStruct->stringMoveType].generic;
                 else
                     toCpy = GetMoveName(gBattleMsgDataPtr->originallyUsedMove);

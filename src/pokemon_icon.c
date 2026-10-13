@@ -7,6 +7,7 @@
 #include "sprite.h"
 #include "data.h"
 #include "constants/pokemon_icon.h"
+#include "constants/rgb.h"
 
 struct MonIconSpriteTemplate
 {
@@ -21,6 +22,28 @@ struct MonIconSpriteTemplate
 static u8 CreateMonIconSprite(struct MonIconSpriteTemplate *, s16, s16, u8);
 static void FreeAndDestroyMonIconSprite_(struct Sprite *sprite);
 
+// Eeveeon icon PNG uses a distinct cream/brown 16-colour index palette.
+// Keep the existing 0..6 shared palettes unchanged so other icons cannot regress.
+static const u16 sPRLEeveeonIconPalette[16] =
+{
+    RGB(0, 0, 0),
+    RGB(31, 29, 29),
+    RGB(29, 26, 22),
+    RGB(22, 20, 17),
+    RGB(25, 18, 10),
+    RGB(18, 13, 9),
+    RGB(26, 13, 5),
+    RGB(19, 6, 4),
+    RGB(12, 7, 3),
+    RGB(8, 8, 8),
+    RGB(0, 0, 0),
+    RGB(0, 0, 0),
+    RGB(0, 0, 0),
+    RGB(0, 0, 0),
+    RGB(0, 0, 0),
+    RGB(0, 0, 0),
+};
+
 const struct SpritePalette gMonIconPaletteTable[] =
 {
     { gMonIconPalettes[0], POKE_ICON_BASE_PAL_TAG + 0 },
@@ -30,6 +53,7 @@ const struct SpritePalette gMonIconPaletteTable[] =
     { gMonIconPalettes[4], POKE_ICON_BASE_PAL_TAG + 4 },
     { gMonIconPalettes[5], POKE_ICON_BASE_PAL_TAG + 5 },
     { gMonIconPalettes[6], POKE_ICON_BASE_PAL_TAG + 6 },
+    { sPRLEeveeonIconPalette, POKE_ICON_BASE_PAL_TAG + 7 },
 };
 
 static const struct OamData sMonIconOamData =

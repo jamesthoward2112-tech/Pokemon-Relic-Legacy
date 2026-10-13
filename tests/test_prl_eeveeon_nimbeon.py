@@ -26,7 +26,7 @@ class ApprovedEeveelutions(unittest.TestCase):
         s=(R/"src/data/moves_info.h").read_text()
         b=s.split("[MOVE_EEVOBOOST] =",1)[1].split("    },",1)[0]
         self.assertIn(".priority = -2",b)
-        self.assertIn(".pp = 2",b)
+        self.assertIn(".pp = 5",b)
     def test_kanto_roster_has_signature_evolutions(self):
         s=(R/"src/data/trainers_frlg.party").read_text()
         for tag, mons in {"TOWER":("Omeon","Espeon","Umbreon"),"ROUTE23":("Toxeon","Eeveeon","Nimbeon")}.items():
