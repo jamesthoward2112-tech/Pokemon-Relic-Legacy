@@ -7,6 +7,7 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_NinjaBoy;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Twin;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PrlJessie;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PrlJames;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PrlMeowthBalloon;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Boy1;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Girl1;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Boy2;
@@ -794,6 +795,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_SS_ANNE]                  = &gObjectEventGraphicsInfo_SSAnne,
     [OBJ_EVENT_GFX_PRL_JESSIE]                = &gObjectEventGraphicsInfo_PrlJessie,
     [OBJ_EVENT_GFX_PRL_JAMES]                 = &gObjectEventGraphicsInfo_PrlJames,
+    [OBJ_EVENT_GFX_PRL_MEOWTH_BALLOON]        = &gObjectEventGraphicsInfo_PrlMeowthBalloon,
 #endif // IS_FRLG
 };
 

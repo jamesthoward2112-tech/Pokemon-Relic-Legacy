@@ -203,6 +203,9 @@ VermilionCity_Gym_EventScript_SetBeamsOn::
 
 VermilionCity_Gym_EventScript_LtSurge::
 	famechecker FAMECHECKER_LTSURGE, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, VermilionCity_Gym_EventScript_LtSurgeNormal
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_THUNDER, VermilionCity_Gym_Frlg_EventScript_PRLBadgeRecovery
+VermilionCity_Gym_EventScript_LtSurgeNormal::
 	trainerbattle_single TRAINER_LEADER_LT_SURGE, VermilionCity_Gym_Text_LtSurgeIntro, VermilionCity_Gym_Text_LtSurgeDefeat, VermilionCity_Gym_EventScript_DefeatedLtSurge, NO_MUSIC
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, VermilionCity_Gym_EventScript_LtSurgeRematch
@@ -211,6 +214,31 @@ VermilionCity_Gym_EventScript_LtSurge::
 	msgbox VermilionCity_Gym_Text_LtSurgePostBattle
 	release
 	end
+
+VermilionCity_Gym_Frlg_EventScript_PRLBadgeRecovery::
+	trainerbattle_single TRAINER_PRL_BADGE_RECOVERY_LT_SURGE, VermilionCity_Gym_Text_PRLRecoveryIntro, VermilionCity_Gym_Text_PRLRecoveryDefeat, VermilionCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon, NO_MUSIC
+	msgbox VermilionCity_Gym_Text_PRLRecoveryAfter
+	release
+	end
+VermilionCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
+	setflag FLAG_PRL_BADGE_HEIST_RECOVERED_THUNDER
+	playfanfare MUS_OBTAIN_BADGE
+	waitfanfare
+	msgbox VermilionCity_Gym_Text_PRLRecoveryWon
+	release
+	end
+
+VermilionCity_Gym_Text_PRLRecoveryIntro::
+	.string "LT. SURGE: Rocket pulled a dirty\n"
+	.string "trick, soldier!\p"
+	.string "Survive my full voltage and take\n"
+	.string "back the THUNDERBADGE!$"
+VermilionCity_Gym_Text_PRLRecoveryDefeat::
+	.string "You can weather any shock!$"
+VermilionCity_Gym_Text_PRLRecoveryWon::
+	.string "You recovered the THUNDERBADGE!$"
+VermilionCity_Gym_Text_PRLRecoveryAfter::
+	.string "LT. SURGE: Now finish the mission!$"
 
 VermilionCity_Gym_EventScript_LtSurgeRematch::
 	trainerbattle_rematch TRAINER_LEADER_LT_SURGE, VermilionCity_Gym_Text_LtSurgeIntro, VermilionCity_Gym_Text_LtSurgeDefeat

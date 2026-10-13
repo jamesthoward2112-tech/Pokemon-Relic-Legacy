@@ -635,12 +635,20 @@
 #define TRAINER_JESSIE_JAMES_HIDEOUT               629
 #define TRAINER_JESSIE_JAMES_SILPH                 630
 #define TRAINER_JESSIE_JAMES_VICTORY_ROAD          631
+#define TRAINER_PRL_BADGE_RECOVERY_BROCK            632
+#define TRAINER_PRL_BADGE_RECOVERY_MISTY            633
+#define TRAINER_PRL_BADGE_RECOVERY_LT_SURGE         634
+#define TRAINER_PRL_BADGE_RECOVERY_ERIKA            635
+#define TRAINER_PRL_BADGE_RECOVERY_KOGA             636
+#define TRAINER_PRL_BADGE_RECOVERY_SABRINA          637
+#define TRAINER_PRL_BADGE_RECOVERY_BLAINE           638
+#define TRAINER_PRL_BADGE_RECOVERY_GIOVANNI         639
 
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, there is
 //       only space for 25 additional trainers before trainer flag space overflows.
 //       MAX_TRAINERS_COUNT_FRLG can be increased but will take up additional saveblock space
 
-#define TRAINERS_COUNT_FRLG                      632
+#define TRAINERS_COUNT_FRLG                      640
 #define MAX_TRAINERS_COUNT_FRLG                  768
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_FRLG_H

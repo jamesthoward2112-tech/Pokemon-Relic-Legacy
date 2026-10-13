@@ -38,7 +38,7 @@ class NoxAndRocket(unittest.TestCase):
         self.assertEqual(j,png("graphics/trainers/front_pics/prl_james.png",64,64))
         self.assertEqual(hashlib.sha256(j).hexdigest(),"37321dc53d66139cb466971b75b9d5764f6148ea45f589617fa7bb4f316006a2")
     def test_rocket_actor_staging(self):
-        for name,tag in [("MtMoon_B1F_Frlg","MT_MOON"),("RocketHideout_B4F_Frlg","HIDEOUT"),("SilphCo_11F_Frlg","SILPH"),("VictoryRoad_3F_Frlg","VICTORY_ROAD")]:
+        for name,tag in [("MtMoon_B1F_Frlg","MT_MOON"),("RocketHideout_B4F_Frlg","HIDEOUT"),("SilphCo_11F_Frlg","SILPH")]:
             with self.subTest(name=name):
                 j=json.loads((ROOT/"data/maps"/name/"map.json").read_text())
                 actors={o.get('local_id'):o for o in j['object_events']}

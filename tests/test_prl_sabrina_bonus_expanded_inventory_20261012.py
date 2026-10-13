@@ -20,7 +20,8 @@ def script(label, data):
 class SabrinaBonusTests(unittest.TestCase):
     def test_unclaimed_bonus_precedes_rematch_and_does_not_start_another_battle(self):
         gym = read("data/maps/SaffronCity_Gym_Frlg/scripts.inc")
-        main = script("SaffronCity_Gym_EventScript_Sabrina", gym)
+        # The heist branch now precedes the unchanged normal first-clear/rematch path.
+        main = script("SaffronCity_Gym_EventScript_SabrinaNormal", gym)
         self.assertLess(
             main.index("goto_if_unset FLAG_PRL_GYM_KANTO_SABRINA_EXTRA, SaffronCity_Gym_EventScript_ClaimPendingBonus"),
             main.index("specialvar VAR_RESULT, ShouldTryRematchBattle"),

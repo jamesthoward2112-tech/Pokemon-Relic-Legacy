@@ -3,6 +3,9 @@ SaffronCity_Gym_Frlg_MapScripts::
 
 SaffronCity_Gym_EventScript_Sabrina::
 	famechecker FAMECHECKER_SABRINA, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, SaffronCity_Gym_EventScript_SabrinaNormal
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_MARSH, SaffronCity_Gym_Frlg_EventScript_PRLBadgeRecovery
+SaffronCity_Gym_EventScript_SabrinaNormal::
 	trainerbattle_single TRAINER_LEADER_SABRINA, SaffronCity_Gym_Text_SabrinaIntro, SaffronCity_Gym_Text_SabrinaDefeat, SaffronCity_Gym_EventScript_DefeatedSabrina, NO_MUSIC
 	@ First claim any outstanding held-item + cash reward; no rematch required.
 	goto_if_unset FLAG_PRL_GYM_KANTO_SABRINA_EXTRA, SaffronCity_Gym_EventScript_ClaimPendingBonus
@@ -12,6 +15,30 @@ SaffronCity_Gym_EventScript_Sabrina::
 	msgbox SaffronCity_Gym_Text_ExplainTM04
 	release
 	end
+
+SaffronCity_Gym_Frlg_EventScript_PRLBadgeRecovery::
+	trainerbattle_single TRAINER_PRL_BADGE_RECOVERY_SABRINA, SaffronCity_Gym_Text_PRLRecoveryIntro, SaffronCity_Gym_Text_PRLRecoveryDefeat, SaffronCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon, NO_MUSIC
+	msgbox SaffronCity_Gym_Text_PRLRecoveryAfter
+	release
+	end
+SaffronCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
+	setflag FLAG_PRL_BADGE_HEIST_RECOVERED_MARSH
+	playfanfare MUS_OBTAIN_BADGE
+	waitfanfare
+	msgbox SaffronCity_Gym_Text_PRLRecoveryWon
+	release
+	end
+
+SaffronCity_Gym_Text_PRLRecoveryIntro::
+	.string "SABRINA: I foresaw your return.\p"
+	.string "Focus your will, defeat me again,\n"
+	.string "and reclaim the MARSHBADGE.$"
+SaffronCity_Gym_Text_PRLRecoveryDefeat::
+	.string "Your will changed the future.$"
+SaffronCity_Gym_Text_PRLRecoveryWon::
+	.string "You recovered the MARSHBADGE!$"
+SaffronCity_Gym_Text_PRLRecoveryAfter::
+	.string "SABRINA: Victory Road awaits you.$"
 
 SaffronCity_Gym_EventScript_ClaimPendingBonus::
 	call_if_unset FLAG_PRL_GYM_KANTO_SABRINA_EXTRA, PRL_EventScript_GymExtra_KANTO_SABRINA

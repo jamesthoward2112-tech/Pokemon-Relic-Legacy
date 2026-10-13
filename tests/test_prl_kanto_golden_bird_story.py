@@ -20,14 +20,14 @@ STORY_SCENES = {
     "PokemonMansion_2F_Frlg": ["PokemonMansion_1F_Text_NewMonDiscoveredInGuyanaJungle"],
     "CinnabarIsland_PokemonLab_ResearchRoom_Frlg": ["CinnabarIsland_PokemonLab_ResearchRoom_Text_LegendaryBirdEmail"],
     "ViridianCity_Gym_Frlg": ["ViridianCity_Gym_Text_GiovanniIntro", "ViridianCity_Gym_Text_GiovanniPostBattle"],
-    "VictoryRoad_3F_Frlg": ["VictoryRoad_3F_Text_PRL_RocketIntro", "VictoryRoad_3F_Text_PRL_RocketPostBattle"],
+    "Route23_Frlg": ["Route23_Text_PRLFinalRocketIntro", "Route23_Text_PRLFinalRocketAfterBattle"],
     "PokemonLeague_ChampionsRoom_Frlg": ["PokemonLeague_ChampionsRoom_Text_OakCongratulations"],
 }
 ROCKET_SITES = {
     "MtMoon_B2F_Frlg": "MtMoon_B2F",
     "RocketHideout_B4F_Frlg": "RocketHideout_B4F",
     "SilphCo_11F_Frlg": "SilphCo_11F",
-    "VictoryRoad_3F_Frlg": "VictoryRoad_3F",
+    "Route23_Frlg": "Route23",
 }
 
 
@@ -67,9 +67,14 @@ class KantoRelicStoryTests(unittest.TestCase):
         intros = []
         for map_name, prefix in ROCKET_SITES.items():
             src = load(map_name)
-            intro = dialogue(src, prefix + "_Text_PRL_RocketIntro")
-            defeat = dialogue(src, prefix + "_Text_PRL_RocketDefeat")
-            aftermath = dialogue(src, prefix + "_Text_PRL_RocketPostBattle")
+            if map_name == "Route23_Frlg":
+                intro = dialogue(src, "Route23_Text_PRLFinalRocketIntro")
+                defeat = dialogue(src, "Route23_Text_PRLFinalRocketDefeat")
+                aftermath = dialogue(src, "Route23_Text_PRLFinalRocketAfterBattle")
+            else:
+                intro = dialogue(src, prefix + "_Text_PRL_RocketIntro")
+                defeat = dialogue(src, prefix + "_Text_PRL_RocketDefeat")
+                aftermath = dialogue(src, prefix + "_Text_PRL_RocketPostBattle")
             self.assertIn("JESSIE", intro)
             self.assertIn("JAMES", intro)
             self.assertIn("$", defeat)
