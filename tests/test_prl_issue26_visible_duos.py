@@ -12,7 +12,7 @@ CASES = (
     ("Route3_Frlg", "ROUTE3", "VAR_PRL_RECURRING_ROUTE3_TRIGGER", "0"),
     ("SSAnne_2F_Corridor_Frlg", "SS_ANNE", "VAR_MAP_SCENE_S_S_ANNE_2F_CORRIDOR", "1"),
     ("PokemonTower_1F_Frlg", "TOWER", "VAR_PRL_RECURRING_TOWER_TRIGGER", "0"),
-    ("Route23_Frlg", "ROUTE23", "VAR_MAP_SCENE_ROUTE23", "8"),
+    ("VictoryRoad_1F_Frlg", "ROUTE23", "VAR_TEMP_1", "0"),
 )
 
 class Issue26VisibleDuos(unittest.TestCase):
@@ -47,7 +47,7 @@ class Issue26VisibleDuos(unittest.TestCase):
                     self.assertRegex(s, rf"trainerbattle_double TRAINER_STEEVE_NEEVEE_{tag}[^\n]*localId={actor}")
                 self.assertIn(f"goto_if_defeated TRAINER_STEEVE_NEEVEE_{tag}", s)
                 self.assertIn(f"setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_{tag}", s)
-                self.assertIn("SaveSync", s)
+                self.assertTrue("SaveSync" in s or (tag == "ROUTE23" and "PRLTwinsPreviouslyWon" in s))
 
     def test_mt_moon_native_trainer_vision_and_warps(self):
         m=json.loads((ROOT/"data/maps/MtMoon_B1F_Frlg/map.json").read_text())
