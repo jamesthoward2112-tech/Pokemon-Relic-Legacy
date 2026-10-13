@@ -2745,7 +2745,10 @@ void BufferStringBattle(enum StringID stringID, enum BattlerId battler)
         }
         break;
     case STRINGID_USEDMOVE: // Pokémon used a move msg
+        // Eevoboost is an ordinary move allocated after the Dynamax IDs to
+        // preserve existing PRL saves. Do not treat it as an unnamed move.
         if (gBattleMsgDataPtr->currentMove >= MOVES_COUNT
+         && gBattleMsgDataPtr->currentMove != MOVE_EEVOBOOST
          && !IsZMove(gBattleMsgDataPtr->currentMove)
          && !IsMaxMove(gBattleMsgDataPtr->currentMove))
             StringCopy(gBattleTextBuff3, gTypesInfo[*(&gBattleStruct->stringMoveType)].generic);
