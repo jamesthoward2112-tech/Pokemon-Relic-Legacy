@@ -78,7 +78,9 @@ VictoryRoad_1F_EventScript_PRLTwinsWon::
 	end
 
 VictoryRoad_1F_Movement_PRLTwinLeave:
-	walk_up
+	@ Turn away and vanish without stepping onto a rock or wall tile.
+	walk_in_place_faster_up
+	set_invisible
 	step_end
 
 VictoryRoad_1F_EventScript_PRLTwinsSyncWon::
