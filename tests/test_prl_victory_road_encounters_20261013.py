@@ -22,15 +22,21 @@ class VictoryRoadCaveEncountersTests(unittest.TestCase):
         self.assertTrue(all(o["flag"] == "FLAG_HIDE_PRL_BADGE_HEIST_TRIO" for o in old_twins))
         inside = map_data("VictoryRoad_1F_Frlg")
         twins = [o for o in inside["object_events"] if o.get("local_id", "").startswith("LOCALID_PRL_VR_TWIN_")]
-        self.assertEqual({(o["x"], o["y"]) for o in twins}, {(10, 15), (12, 15)})
+        self.assertEqual({(o["x"], o["y"]) for o in twins}, {(9, 13), (10, 13)})
         self.assertTrue(all(o["trainer_type"] == "TRAINER_TYPE_NONE" for o in twins))
         self.assertTrue(all(o["flag"] == "FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23" for o in twins))
-        self.assertTrue(all(o["y"] != 18 for o in twins))
+        self.assertTrue(all(o["elevation"] == 4 for o in twins))
+        self.assertTrue(all(o["movement_type"] == "MOVEMENT_TYPE_FACE_DOWN" for o in twins))
+        self.assertEqual(abs(twins[0]["x"] - twins[1]["x"]), 1)
+        self.assertTrue(all(o["y"] < 16 for o in twins))
         boulder = next(o for o in inside["object_events"] if o.get("local_id") == "LOCALID_VICTORY_ROAD_1F_BOULDER")
         self.assertEqual((boulder["x"], boulder["y"]), (7, 18))
         triggers = [e for e in inside["coord_events"] if e["script"] == "VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger"]
-        self.assertEqual({(e["x"], e["y"]) for e in triggers}, {(x, 19) for x in range(8, 15)})
-        self.assertTrue(all(e["elevation"] == 3 for e in triggers))
+        expected = {(x, y, 4) for x in range(7, 12) for y in (14, 15)}
+        expected.add((7, 16, 0))  # staircase entry: catching the player before the raised floor
+        self.assertEqual({(e["x"], e["y"], e["elevation"]) for e in triggers}, expected)
+        self.assertFalse(any(e["y"] == 19 for e in triggers), "no off-screen battle at cave entrance")
+        self.assertTrue(all(e["var"] == "VAR_TEMP_2" and e["var_value"] == "0" for e in triggers))
         script = read("data/maps/VictoryRoad_1F_Frlg/scripts.inc")
         self.assertIn("trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23", script)
         self.assertIn("applymovement LOCALID_PRL_VR_TWIN_STEEVE, Route23_Movement_PRLHeistExclamation", script)
