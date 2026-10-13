@@ -307,10 +307,12 @@ Route23_EventScript_PRLFinalRocketMeowth::
 	end
 
 Route23_EventScript_PRLFinalRocketNotReady::
+	releaseall
 	end
 
 Route23_EventScript_PRLFinalRocketGone::
 	msgbox Route23_Text_PRLFinalRocketGone, MSGBOX_AUTOCLOSE
+	releaseall
 	end
 
 Route23_EventScript_PRLFinalRocketWon::
