@@ -125,10 +125,10 @@
       "local_id": "LOCALID_PRL_VR_TWIN_STEEVE",
       "graphics_id": "OBJ_EVENT_GFX_TWIN",
       "x": 10,
-      "y": 18,
+      "y": 15,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "script": "VictoryRoad_1F_EventScript_PRLSteevee",
-      "flag": "0"
+      "flag": "FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23"
     },
     {
       "type": "object",
@@ -140,10 +140,10 @@
       "local_id": "LOCALID_PRL_VR_TWIN_NEEVEE",
       "graphics_id": "OBJ_EVENT_GFX_TWIN",
       "x": 12,
-      "y": 18,
+      "y": 15,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "script": "VictoryRoad_1F_EventScript_PRLNeevee",
-      "flag": "0"
+      "flag": "FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23"
     }
   ],
   "warp_events": [
