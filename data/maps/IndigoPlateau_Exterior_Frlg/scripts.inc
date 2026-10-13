@@ -6,6 +6,11 @@ IndigoPlateau_Exterior_Frlg_MapScripts::
 IndigoPlateau_Exterior_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_INDIGO_PLATEAU_EXTERIOR
 	call_if_eq VAR_MAP_SCENE_INDIGO_PLATEAU_EXTERIOR, 1, IndigoPlateau_Exterior_EventScript_PlayCreditsMusic
+	@ Walking around the outdoor cave entrance must not bypass the cave finale.
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, IndigoPlateau_Exterior_EventScript_PRLGateDone
+	goto_if_set FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED, IndigoPlateau_Exterior_EventScript_PRLGateDone
+	setvar VAR_MAP_SCENE_INDIGO_PLATEAU_EXTERIOR, 2
+IndigoPlateau_Exterior_EventScript_PRLGateDone::
 	end
 
 IndigoPlateau_Exterior_EventScript_PlayCreditsMusic::
@@ -14,7 +19,23 @@ IndigoPlateau_Exterior_EventScript_PlayCreditsMusic::
 
 IndigoPlateau_Exterior_OnFrame::
 	map_script_2 VAR_MAP_SCENE_INDIGO_PLATEAU_EXTERIOR, 1, IndigoPlateau_Exterior_EventScript_Credits
+	map_script_2 VAR_MAP_SCENE_INDIGO_PLATEAU_EXTERIOR, 2, IndigoPlateau_Exterior_EventScript_PRLReturnToCave
 	.2byte 0
+
+IndigoPlateau_Exterior_EventScript_PRLReturnToCave::
+	lockall
+	msgbox IndigoPlateau_Exterior_Text_PRLReturnToCave
+	setvar VAR_MAP_SCENE_INDIGO_PLATEAU_EXTERIOR, 0
+	warp MAP_VICTORY_ROAD_2F, 44, 10
+	waitstate
+	releaseall
+	end
+
+IndigoPlateau_Exterior_Text_PRLReturnToCave::
+	.string "TEAM ROCKET still blocks the\\n"
+	.string "last stretch of VICTORY ROAD!\\p"
+	.string "Return to the cave and face them.$"
+
 
 
 @ After beating the champion, you are warped to the main
