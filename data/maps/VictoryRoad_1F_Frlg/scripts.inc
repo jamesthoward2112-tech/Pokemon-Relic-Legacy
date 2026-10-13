@@ -14,6 +14,13 @@ VictoryRoad_1F_EventScript_SetRockBarrier::
 
 VictoryRoad_1F_Frlg_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_VICTORY_ROAD_1F
+	@ Synchronise old saves: players who beat the pair before the boulder
+	@ fix must also find the original puzzle lane clear on map reload.
+	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23, VictoryRoad_1F_EventScript_PRLHideClearedTwins
+	end
+
+VictoryRoad_1F_EventScript_PRLHideClearedTwins::
+	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
 	end
 
 VictoryRoad_1F_EventScript_FloorSwitch::
@@ -59,11 +66,25 @@ VictoryRoad_1F_EventScript_PRLTwinsWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
 	setvar VAR_MAP_SCENE_ROUTE23, 9
 	msgbox Route23_Text_PRL_SteeveNeeveePostBattle
+	closemessage
+	@ Both trainers step off the pushable boulder's eastbound puzzle lane.
+	applymovement LOCALID_PRL_VR_TWIN_STEEVE, VictoryRoad_1F_Movement_PRLTwinLeave
+	applymovement LOCALID_PRL_VR_TWIN_NEEVEE, VictoryRoad_1F_Movement_PRLTwinLeave
+	waitmovement LOCALID_PRL_VR_TWIN_STEEVE
+	waitmovement LOCALID_PRL_VR_TWIN_NEEVEE
+	removeobject LOCALID_PRL_VR_TWIN_STEEVE
+	removeobject LOCALID_PRL_VR_TWIN_NEEVEE
 	releaseall
 	end
 
+VictoryRoad_1F_Movement_PRLTwinLeave:
+	walk_up
+	step_end
+
 VictoryRoad_1F_EventScript_PRLTwinsSyncWon::
 	setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23
+	removeobject LOCALID_PRL_VR_TWIN_STEEVE
+	removeobject LOCALID_PRL_VR_TWIN_NEEVEE
 VictoryRoad_1F_EventScript_PRLTwinsDone::
 	releaseall
 	end
