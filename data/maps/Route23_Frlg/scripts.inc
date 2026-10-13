@@ -255,6 +255,37 @@ Route23_EventScript_PRLGreatBadgeHeistNotReady::
 	releaseall
 	end
 
+@ The final Rocket fight waits by Victory Road's FAR exit (Route 23's east
+@ tunnel mouth), after completing the cave. Both partners see the player,
+@ react and converge before their existing six-Pokemon double battle.
+@ All approved balloon boarding, climb timing and first heist are retained.
+Route23_EventScript_PRLFinalRocketTrigger::
+	lockall
+	goto_if_unset FLAG_PRL_BADGE_HEIST_ALL_RECOVERED, Route23_EventScript_PRLFinalRocketTriggerNotReady
+	goto_if_set FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED, Route23_EventScript_PRLFinalRocketTriggerDone
+	goto_if_defeated TRAINER_JESSIE_JAMES_VICTORY_ROAD, Route23_EventScript_PRLFinalRocketTriggerSyncWin
+	setvar VAR_TEMP_1, 1
+	playse SE_PIN
+	applymovement LOCALID_PRL_HEIST_JESSIE, Common_Movement_ExclamationMark
+	applymovement LOCALID_PRL_HEIST_JAMES, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_PRL_HEIST_JESSIE, Route23_Movement_PRLFinalJessieApproach
+	applymovement LOCALID_PRL_HEIST_JAMES, Route23_Movement_PRLFinalJamesApproach
+	waitmovement 0
+	goto Route23_EventScript_PRLFinalRocketBattle
+
+Route23_EventScript_PRLFinalRocketTriggerNotReady::
+	msgbox Route23_Text_PRLFinalRocketStillRecovering
+	goto Route23_EventScript_PRLFinalRocketTriggerDone
+Route23_EventScript_PRLFinalRocketTriggerSyncWin::
+	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD
+	setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED
+	setflag FLAG_HIDE_PRL_BADGE_HEIST_TRIO
+Route23_EventScript_PRLFinalRocketTriggerDone::
+	setvar VAR_TEMP_1, 1
+	releaseall
+	end
+
 Route23_EventScript_PRLFinalRocketBattle::
 	goto_if_unset FLAG_PRL_BADGE_HEIST_ALL_RECOVERED, Route23_EventScript_PRLFinalRocketNotReady
 	goto_if_set FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED, Route23_EventScript_PRLFinalRocketGone
@@ -292,7 +323,7 @@ Route23_EventScript_PRLFinalRocketWon::
 	clearflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
 	addobject LOCALID_PRL_HEIST_BALLOON
 	hideobjectat LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23
-	setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 30
+	setobjectxy LOCALID_PRL_HEIST_BALLOON, 18, 30
 	setobjectsubpriority LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23, 1
 	applymovement LOCALID_PRL_HEIST_BALLOON, Route23_Movement_PRLBalloonEnter
 	waitmovement LOCALID_PRL_HEIST_BALLOON
@@ -314,7 +345,7 @@ Route23_EventScript_PRLFinalRocketWon::
 	setflag FLAG_HIDE_PRL_BADGE_HEIST_TRIO
 	setflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
 	removeobject LOCALID_PRL_HEIST_BALLOON
-	release
+	releaseall
 	end
 
 Route23_Movement_PRLJessieApproach:
@@ -354,6 +385,16 @@ Route23_Movement_PRLMeowthBoard:
 	jump_down
 	step_end
 
+Route23_Movement_PRLFinalJessieApproach:
+	walk_right
+	face_up
+	step_end
+
+Route23_Movement_PRLFinalJamesApproach:
+	walk_left
+	face_up
+	step_end
+
 Route23_Movement_PRLJessieFinalBoard:
 	walk_right
 	jump_up
@@ -390,6 +431,10 @@ Route23_Text_PRLGreatBadgeHeistEscape::
 	.string "again!\p"
 	.string "MEOWTH: Up, up, and away!$"
 
+Route23_Text_PRLFinalRocketStillRecovering::
+	.string "TEAM ROCKET still has your stolen\n"
+	.string "BADGES! Recover them first!$"
+
 Route23_Text_PRLFinalRocketIntro::
 	.string "JESSIE: You actually reclaimed\n"
 	.string "every BADGE?!\p"
@@ -406,8 +451,8 @@ Route23_Text_PRLFinalRocketNotEnoughMons::
 	.string "last double battle!$"
 
 Route23_Text_PRLFinalRocketMeowth::
-	.string "MEOWTH: We ain't lettin' you into\n"
-	.string "VICTORY ROAD!$"
+	.string "MEOWTH: You ain't reaching the\n"
+	.string "POKéMON LEAGUE!$"
 
 Route23_Text_PRLFinalRocketGone::
 	.string "TEAM ROCKET's KANTO story is over.$"
