@@ -45,9 +45,9 @@ def test_all_seven_moves_use_repeatable_eligible_party_selection():
 
 def test_moon_and_rock_tunnel_objects_are_wired_to_their_tutors():
     locations = [
-        ("data/maps/MtMoon_1F_Frlg/map.json",
-         "data/maps/MtMoon_1F_Frlg/scripts.inc",
-         "MtMoon_1F_EventScript_DrainPunchTutor",
+        ("data/maps/Route4_Frlg/map.json",
+         "data/maps/Route4_Frlg/scripts.inc",
+         "Route4_EventScript_PRL_DrainPunchTutor",
          "EventScript_PRL_TutorDrainPunch"),
         ("data/maps/RockTunnel_B1F_Frlg/map.json",
          "data/maps/RockTunnel_B1F_Frlg/scripts.inc",

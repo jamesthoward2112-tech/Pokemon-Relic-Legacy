@@ -13,8 +13,9 @@ def source(path):
 def label_block(scripts, label):
     start = scripts.index(label + "::\n")
     tail = scripts[start:]
-    match = re.search(r"^[A-Za-z0-9_]+::", tail[1:], re.M)
-    return tail[:match.start() + 1] if match else tail
+    header_end = tail.index("\n") + 1
+    match = re.search(r"^[A-Za-z0-9_]+::", tail[header_end:], re.M)
+    return tail[:match.start() + header_end] if match else tail
 
 
 def test_immediate_r_to_run_no_intro_a_press():

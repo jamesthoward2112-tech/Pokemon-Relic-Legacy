@@ -20,7 +20,7 @@ class FinalQA(QA):
         self.call(emu, 'SetMonData', mon, field, SCRATCH)
 
     def mon_get(self, emu, mon, field):
-        return self.call(emu, 'GetMonData', mon, field, 0)
+        return self.call(emu, 'GetMonData3', mon, field, 0)
 
     def quantity(self, emu, item):
         return self.call(emu, 'CountTotalItemQuantityInBag', item)
@@ -39,6 +39,7 @@ class FinalQA(QA):
             before = self.quantity(emu, item)
             self.call(emu, 'ScriptContext_SetupScript', self.sym['IndigoPlateau_PokemonCenter_1F_EventScript_Clerk'])
             emu.frame(180)
+            emu.press('A', after=120) # Finish the greeting and show Buy/Sell/Quit.
             emu.press('A', after=240) # Buy opens the actual buy list.
             for _ in range(row): emu.press('DOWN', after=12)
             emu.shot(self.out / f'league-{item}-listed.png')
@@ -46,7 +47,10 @@ class FinalQA(QA):
             emu.shot(self.out / f'league-{item}-quantity-price.png')
             emu.press('A', after=180) # purchase confirmation
             emu.shot(self.out / f'league-{item}-confirm.png')
-            emu.press('A', after=180) # Yes
+            emu.press('A', after=180) # Advance confirmation.
+            for _ in range(4):
+                if self.money(emu) != 50000: break
+                emu.press('A', after=180)
             after_money = self.money(emu)
             after_quantity = self.quantity(emu, item)
             emu.shot(self.out / f'league-{item}-purchased.png')
@@ -85,6 +89,7 @@ class FinalQA(QA):
             assert 216 in moves, moves
             assert self.mon_get(emu, mon, HELD) == BELL
             self.results['actual_evolution_scene_and_return_learned'] = {'species': KHANG, 'moves': moves, 'held_item': BELL}
+            emu.frame(180)
             emu.shot(self.out / 'khang-evolved-return.png')
         finally: emu.close()
 
@@ -97,6 +102,7 @@ class FinalQA(QA):
             self.mon_set(emu, mon, FRIENDSHIP, 255)
             self.mon_set(emu, mon, MOVE1, 216)
             self.mon_set(emu, mon, 24, 20) # PP1
+            self.mon_set(emu, mon, 68, 500) # Fixture speed: attack before random paralysis.
             self.set_flag(emu, 0x4D9)
             self.set_flag(emu, 0x4E1, False)
             self.set_flag(emu, 0x055, False)
@@ -107,11 +113,13 @@ class FinalQA(QA):
             # Advance trainer introduction and battle menus, then inspect every
             # frame for Return's actual damage-calculation power at max friendship.
             found = False
+            observed = set()
             frames = []
             for i in range(100):
                 emu.press('A', after=1)
                 for j in range(39):
                     emu.frame()
+                    observed.add((emu.read(self.sym['gCurrentMove'], 2), emu.read(self.sym['gBattleMovePower'], 2)))
                     if emu.read(self.sym['gCurrentMove'], 2) == 216 and emu.read(self.sym['gBattleMovePower'], 2) == 102:
                         found = True
                 if i % 5 == 0: frames.append((f'Return battle {i}', emu.image()))
@@ -119,6 +127,7 @@ class FinalQA(QA):
                     emu.shot(self.out / 'khang-return-102-power.png')
                     break
             contact_sheet(frames, self.out / 'khang-return-battle-contact.png')
+            (self.out / 'return-observed-powers.json').write_text(json.dumps(sorted(observed)))
             assert found, 'Return never reached its expected 102 base power in the live battle'
             self.results['actual_return_battle_max_friendship_power'] = 102
         finally: emu.close()

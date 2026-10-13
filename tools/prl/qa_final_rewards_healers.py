@@ -32,7 +32,16 @@ class FinalQA(QA):
         self.call(e,'BagPocket_SetSlotData',pocket,index,(quantity<<16)|item)
 
     def persist(self,e,name):
-        assert self.call(e,'TrySavingData',0)==1, 'GBA save failed'
+        e.write(self.sym['sStartMenuCursorPos'],0,1)
+        e.press('START',after=120)
+        count=e.read(self.sym['sNumStartMenuActions'],1)
+        actions=[e.read(self.sym['sCurrentStartMenuActions']+i,1) for i in range(count)]
+        assert 5 in actions, ('SAVE action absent',actions)
+        for _ in range(actions.index(5)):e.press('DOWN',after=16)
+        e.press('A',after=120)
+        for _ in range(6):e.press('A',after=180)
+        e.frame(700)
+        e.shot(self.out/(name+'-saved.png'))
         path=self.out/(name+'.sav')
         assert e.lib.prl_save(str(path).encode()), 'mGBA export failed'
         e.close()
@@ -84,15 +93,15 @@ class FinalQA(QA):
                     self.script(e,city+'_Gym_Frlg_EventScript_PRLBadgeRecoveryWon',key+'-reloaded')
                     assert self.money(e)==before+10000 and self.quantity(e,item)==1
                 self.results[key]={'full_bag_badge_preserved':True,'pending_claim':True,'no_duplicate':True}
-            # Also test direct normal victory with room on a clean claimed flag.
-            city,leader,key,item=LEADERS[0]
-            pocket,capacity=self.pocket(e,item)
-            for pos in range(capacity):self.slot(e,pocket,pos,0,0)
-            self.set_flag(e,0x4E6,False)
-            before=self.money(e)
-            self.script(e,city+'_Gym_Frlg_EventScript_PRLBadgeRecoveryWon','normal-victory')
-            assert self.quantity(e,item)==1 and self.money(e)==before+10000 and self.flag(e,0x4E6)
-            self.results['normal_victory']=True
+            # Direct victory with room is checked separately for every leader.
+            for i,(city,leader,key,item) in enumerate(LEADERS):
+                pocket,capacity=self.pocket(e,item)
+                for pos in range(capacity):self.slot(e,pocket,pos,0,0)
+                self.set_flag(e,0x4E6+i,False)
+                before=self.money(e)
+                self.script(e,city+'_Gym_Frlg_EventScript_PRLBadgeRecoveryWon',key+'-normal-victory')
+                assert self.quantity(e,item)==1 and self.money(e)==before+10000 and self.flag(e,0x4E6+i)
+                self.results[key]['normal_victory']=True
         finally:e.close()
 
     def mon(self,e,address,field):return self.call(e,'GetMonData3',address,field,0)

@@ -311,3 +311,7 @@ $(PKNAVOPTIONSGFXDIR)/options.4bpp: $(PKNAVOPTIONSGFXDIR)/hoenn_map.4bpp \
                                     $(PKNAVOPTIONSGFXDIR)/tough.4bpp \
                                     $(PKNAVOPTIONSGFXDIR)/cancel.4bpp
 	@cat $^ >$@
+
+# Pinned trainer-only imports already contain two 64x64 frames and 16-color palettes.
+# Their PNGs are previews, not implicit conversion inputs.
+$(wildcard graphics/prl_kanto_bosses/*.4bpp.lz) $(wildcard graphics/prl_kanto_bosses/*.gbapal): ;
