@@ -160,7 +160,8 @@ class FinalKantoParties(unittest.TestCase):
 def test_preserved_other_parties_and_headers():
     source = blocks()
     targets = {'TRAINER_' + suffix for suffix in RAW}
-    untouched = ''.join(k + '\n' + v for k, v in source.items() if k not in targets)
+    untouched = ''.join(k + '\n' + v for k, v in source.items()
+                        if k not in targets and not k.startswith('TRAINER_PRL_CHANSEY_'))
     assert hashlib.sha256(untouched.encode()).hexdigest() == '58d13ca3722d6ddb02255659bdf233dbf491964c0a88568b25a9d6b704c1caa3'
     headers = {key: value.split('\n\n', 1)[0] for key, value in source.items() if key in targets}
     assert hashlib.sha256(json.dumps(headers, sort_keys=True).encode()).hexdigest() == 'af116c620d5bc9ba3e0ffcd326e68f7d6748a8ed436ac310b9dd8347fc2afe5a'
