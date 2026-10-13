@@ -32,8 +32,8 @@ IndigoPlateau_Exterior_EventScript_PRLReturnToCave::
 	end
 
 IndigoPlateau_Exterior_Text_PRLReturnToCave::
-	.string "TEAM ROCKET still blocks the\\n"
-	.string "last stretch of VICTORY ROAD!\\p"
+	.string "TEAM ROCKET still blocks the\n"
+	.string "last stretch of VICTORY ROAD!\p"
 	.string "Return to the cave and face them.$"
 
 
