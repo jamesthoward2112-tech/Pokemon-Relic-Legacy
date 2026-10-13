@@ -44,6 +44,8 @@ class VictoryRoadCaveEncountersTests(unittest.TestCase):
         self.assertEqual(script.count("trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23"), 2)
         self.assertIn("VictoryRoad_1F_Text_PRLTwinsFarewell::", script)
         self.assertIn("See you in HOENN", script)
+        self.assertIn("setobjectxy LOCALID_PRL_VR_TWIN_STEEVE, 9, 13", script)
+        self.assertIn("setobjectxy LOCALID_PRL_VR_TWIN_NEEVEE, 10, 13", script)
         self.assertIn("setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23", script)
         self.assertNotIn("FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23, VictoryRoad_1F_EventScript_PRLTwinsDone", script)
 
