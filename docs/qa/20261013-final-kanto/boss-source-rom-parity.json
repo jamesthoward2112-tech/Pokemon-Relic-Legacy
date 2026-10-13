@@ -1,0 +1,310 @@
+[
+  {
+    "symbol": "sPRLKanto_brock_rhydon_front",
+    "path": "graphics/prl_kanto_bosses/brock_rhydon.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "c8d5e4fb158d945af01f8b98172381268b03c4c585a3e428a2a6dc8cd8e2a448"
+  },
+  {
+    "symbol": "sPRLKanto_brock_rhydon_pal",
+    "path": "graphics/prl_kanto_bosses/brock_rhydon.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "448f0537c24342badab7ffd188bb82c288a84f7c4cbd8f5b9879954466bb7d09"
+  },
+  {
+    "symbol": "sPRLKanto_misty_starmie_front",
+    "path": "graphics/prl_kanto_bosses/misty_starmie.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "e7383ef99a1c43d841d09c5e14f37f10168111976ed9b714ea4cde400d87b520"
+  },
+  {
+    "symbol": "sPRLKanto_misty_starmie_pal",
+    "path": "graphics/prl_kanto_bosses/misty_starmie.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "6788f68bdccb4236317ce3641f5ba0a0bb44ce56a0feeca2c03f341f5aea287c"
+  },
+  {
+    "symbol": "sPRLKanto_surge_raichu_front",
+    "path": "graphics/prl_kanto_bosses/surge_raichu.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "ddbf8ae5d6e43e42cfe3ff2cee44f833624d415e32bb02811edf2650820b3e91"
+  },
+  {
+    "symbol": "sPRLKanto_surge_raichu_pal",
+    "path": "graphics/prl_kanto_bosses/surge_raichu.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "449c3623ae4bab77469f9d3f1e331efa17ff31c40a36b84b57e37b7ae4b9910f"
+  },
+  {
+    "symbol": "sPRLKanto_erika_victreebel_front",
+    "path": "graphics/prl_kanto_bosses/erika_victreebel.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "1ab74d89386825fb744a78b5400f3af259f96265a32a43660e609828fba9aeab"
+  },
+  {
+    "symbol": "sPRLKanto_erika_victreebel_pal",
+    "path": "graphics/prl_kanto_bosses/erika_victreebel.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "5b2b89d60a6237ccf3bc0e691dd5cd4afe5c11dc7a624391521ad158464f56a4"
+  },
+  {
+    "symbol": "sPRLKanto_nidoqueen_y_front",
+    "path": "graphics/prl_kanto_bosses/nidoqueen_y.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "9e087cf26bace85ea0332f822b5a03d87f1c27427e13c5c66d0d32d452f821d1"
+  },
+  {
+    "symbol": "sPRLKanto_nidoqueen_y_pal",
+    "path": "graphics/prl_kanto_bosses/nidoqueen_y.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "d2b591e0f175ca3a40d62fbd4a8f5cdeab4a1c2c5a3e87f79ab9f44206cc04f6"
+  },
+  {
+    "symbol": "sPRLKanto_sabrina_alakazam_front",
+    "path": "graphics/prl_kanto_bosses/sabrina_alakazam.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "46c49c6a673b2b4c579d83f7cbab7f068c1ffac96e05e02028ab77c4ae6cacee"
+  },
+  {
+    "symbol": "sPRLKanto_sabrina_alakazam_pal",
+    "path": "graphics/prl_kanto_bosses/sabrina_alakazam.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "fe693e9a2b742c3e607ee839fad5d57c31185bbd50f0e35b2c0c9eb21380ba43"
+  },
+  {
+    "symbol": "sPRLKanto_blaine_arcanine_front",
+    "path": "graphics/prl_kanto_bosses/blaine_arcanine.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "a54b3492a85ee47a68577a3cc38324012bbe6565e08de6285554c09175d233b9"
+  },
+  {
+    "symbol": "sPRLKanto_blaine_arcanine_pal",
+    "path": "graphics/prl_kanto_bosses/blaine_arcanine.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "4cdbe4dee80204c91354a667d45ae135ec922a41c49bde0b93480c5c6a0679f4"
+  },
+  {
+    "symbol": "sPRLKanto_tauros_x_front",
+    "path": "graphics/prl_kanto_bosses/tauros_x.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "4d656e93585429efb4bb77821b70b13e27944b9de1e13e236592e80e1d000451"
+  },
+  {
+    "symbol": "sPRLKanto_tauros_x_pal",
+    "path": "graphics/prl_kanto_bosses/tauros_x.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "07b7bc4324a1a55f467802f31c9eb2e263efd2c5d37278f908ff8208794a2ddd"
+  },
+  {
+    "symbol": "sPRLKanto_purakkusu_pinsir_front",
+    "path": "graphics/prl_kanto_bosses/purakkusu_pinsir.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "ca721397f7d99d07b00758c418299faadf2d7fa6f6ec7cb5db2cdf4403520e94"
+  },
+  {
+    "symbol": "sPRLKanto_purakkusu_pinsir_pal",
+    "path": "graphics/prl_kanto_bosses/purakkusu_pinsir.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "bb7a805e30fac157f6b051ae5893e874f84ad02494eb006f2e872e9073e4f49e"
+  },
+  {
+    "symbol": "sPRLKanto_kabutops_p_front",
+    "path": "graphics/prl_kanto_bosses/kabutops_p.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "1091e23ff6fec0e8c3d652977eab9068af3e19dbb97ecc869ba10b0238943b75"
+  },
+  {
+    "symbol": "sPRLKanto_kabutops_p_pal",
+    "path": "graphics/prl_kanto_bosses/kabutops_p.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "d4dac176988e82d99a406633e138e07f6f0b67733dba5d4bfe79fa8c1a8e4f72"
+  },
+  {
+    "symbol": "sPRLKanto_aerodactyl_p_front",
+    "path": "graphics/prl_kanto_bosses/aerodactyl_p.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "9be63927238ca9fce1f4ac47215cb7a4d89116d6c604ce66ff1e868ab4357be1"
+  },
+  {
+    "symbol": "sPRLKanto_aerodactyl_p_pal",
+    "path": "graphics/prl_kanto_bosses/aerodactyl_p.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "a4835fd4e9fac0fb1c8a8d32e0552eade5b685b41011435363d3d372bda3be7a"
+  },
+  {
+    "symbol": "sPRLKanto_nidoking_x_front",
+    "path": "graphics/prl_kanto_bosses/nidoking_x.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "8f6af4fc386f358c278f55295842293aeb9e6d39bd0e221598968a298d2646ad"
+  },
+  {
+    "symbol": "sPRLKanto_nidoking_x_pal",
+    "path": "graphics/prl_kanto_bosses/nidoking_x.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "95d42667324b4176c756ec87de3343615bcdacd621a45a7dfb500049b0d6e29b"
+  },
+  {
+    "symbol": "sPRLKanto_lorelei_lapras_front",
+    "path": "graphics/prl_kanto_bosses/lorelei_lapras.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "c447c463ebcdd950c0adfb727408329acd4fc084ff76a2234cb35d00f1da8a91"
+  },
+  {
+    "symbol": "sPRLKanto_lorelei_lapras_pal",
+    "path": "graphics/prl_kanto_bosses/lorelei_lapras.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "c8ac3136f6269b4e805d06912a02e307f49c7b1f25e024ec80d30cc804f7de27"
+  },
+  {
+    "symbol": "sPRLKanto_bruno_machamp_front",
+    "path": "graphics/prl_kanto_bosses/bruno_machamp.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "d15f54a36f2bb7121170d70cda284cfe5a1a486a76af312cd18ac0d056b053e8"
+  },
+  {
+    "symbol": "sPRLKanto_bruno_machamp_pal",
+    "path": "graphics/prl_kanto_bosses/bruno_machamp.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "1c0aefef1ea68ffb59227cb133507bcade25b8c45cc369dd554b0c917735471c"
+  },
+  {
+    "symbol": "sPRLKanto_shiny_mega_gengar_front",
+    "path": "graphics/prl_kanto_bosses/shiny_mega_gengar.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "684b93200ab6074468df89bf7c563338ad4d838b9ac7277684d320c276436d75"
+  },
+  {
+    "symbol": "sPRLKanto_shiny_mega_gengar_pal",
+    "path": "graphics/prl_kanto_bosses/shiny_mega_gengar.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "7ffa442d0774e69289eeb18b4b1619fac0368e2f1f06b52237e1a13f9f6d0646"
+  },
+  {
+    "symbol": "sPRLKanto_lance_dragonite_front",
+    "path": "graphics/prl_kanto_bosses/lance_dragonite.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "ca043ec90450165d556c80f617839c4177996488adf61b2c0f57602e9169f58a"
+  },
+  {
+    "symbol": "sPRLKanto_lance_dragonite_pal",
+    "path": "graphics/prl_kanto_bosses/lance_dragonite.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "9a764114a5698d2133e13b091ef3e6d28560d919d5c4db3bbd3d99d00e0ebfa7"
+  },
+  {
+    "symbol": "sPRLKanto_mega_pidgeot_front",
+    "path": "graphics/prl_kanto_bosses/mega_pidgeot.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "fab0aec7dbda2a1e7216b7a71bf4a248453c477d0623a17d99254109443af22f"
+  },
+  {
+    "symbol": "sPRLKanto_mega_pidgeot_pal",
+    "path": "graphics/prl_kanto_bosses/mega_pidgeot.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "993b7486f6e3666abec05b1bc0cfbbf86ff3b4c23bb3eb5708a73f589d90c834"
+  },
+  {
+    "symbol": "sPRLKanto_shiny_mega_alakazam_front",
+    "path": "graphics/prl_kanto_bosses/shiny_mega_alakazam.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "222ccc968dc1a75549af89634eed02b8678fe51bb0e5d88b4c1bb5df457339aa"
+  },
+  {
+    "symbol": "sPRLKanto_shiny_mega_alakazam_pal",
+    "path": "graphics/prl_kanto_bosses/shiny_mega_alakazam.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "4ade23ad51062787d7a42216c2b019e2bccca6519b586657cb9da2ade8914a97"
+  },
+  {
+    "symbol": "sPRLKanto_nidogod_front",
+    "path": "graphics/prl_kanto_bosses/nidogod.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "10859a08589be77e5f143e31ee1dbc1ae741187e8fb861f32ef5a89dcff527c1"
+  },
+  {
+    "symbol": "sPRLKanto_nidogod_pal",
+    "path": "graphics/prl_kanto_bosses/nidogod.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "e7aeda5bfd1ed9d8f5da5ad62941fe6243483922cea4bf75e843c9b17a659ff2"
+  },
+  {
+    "symbol": "sPRLKanto_champion_arcanine_front",
+    "path": "graphics/prl_kanto_bosses/champion_arcanine.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "a5d87cfb1f2ab0eb6264e07942ff7e284e5677d96cbc72be985d14a168962aad"
+  },
+  {
+    "symbol": "sPRLKanto_champion_arcanine_pal",
+    "path": "graphics/prl_kanto_bosses/champion_arcanine.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "76b0e5bfd3aef035f866aaafe5029884fb36f6aa0af9af7cd8e10cb1273545c0"
+  },
+  {
+    "symbol": "sPRLKanto_rocket_weezing_blue_front",
+    "path": "graphics/prl_kanto_bosses/rocket_weezing_blue.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "694897b036d20b15eb09a5d5af90f74156fe9e6fe4eaab30305b133c93744eee"
+  },
+  {
+    "symbol": "sPRLKanto_rocket_weezing_blue_pal",
+    "path": "graphics/prl_kanto_bosses/rocket_weezing_blue.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "d29b338d8b5469f4620de99fff279d056bf8a26068ffa3295b5b19a2b1bbef83"
+  },
+  {
+    "symbol": "sPRLKanto_rocket_weezing_fire_front",
+    "path": "graphics/prl_kanto_bosses/rocket_weezing_fire.4bpp.lz",
+    "length": 4612,
+    "source_rom_match": true,
+    "sha256": "fdc31756aedc3a3a22c65016f54b9ef4a6accb3ff4bdc993780241943b86127c"
+  },
+  {
+    "symbol": "sPRLKanto_rocket_weezing_fire_pal",
+    "path": "graphics/prl_kanto_bosses/rocket_weezing_fire.gbapal",
+    "length": 32,
+    "source_rom_match": true,
+    "sha256": "65c19efe56d272440ee6b56ac5468cb31ee32d265dfd24025f3181c1c320ecff"
+  }
+]

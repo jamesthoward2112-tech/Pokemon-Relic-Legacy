@@ -1,0 +1,69 @@
+{
+  "BROCK": {
+    "full_bag_badge_preserved": true,
+    "pending_claim": true,
+    "no_duplicate": true,
+    "normal_victory": true
+  },
+  "MISTY": {
+    "full_bag_badge_preserved": true,
+    "pending_claim": true,
+    "no_duplicate": true,
+    "normal_victory": true
+  },
+  "SURGE": {
+    "full_bag_badge_preserved": true,
+    "pending_claim": true,
+    "no_duplicate": true,
+    "normal_victory": true
+  },
+  "ERIKA": {
+    "full_bag_badge_preserved": true,
+    "pending_claim": true,
+    "no_duplicate": true,
+    "normal_victory": true
+  },
+  "KOGA": {
+    "full_bag_badge_preserved": true,
+    "pending_claim": true,
+    "no_duplicate": true,
+    "normal_victory": true
+  },
+  "SABRINA": {
+    "full_bag_badge_preserved": true,
+    "pending_claim": true,
+    "no_duplicate": true,
+    "normal_victory": true
+  },
+  "BLAINE": {
+    "full_bag_badge_preserved": true,
+    "pending_claim": true,
+    "no_duplicate": true,
+    "normal_victory": true
+  },
+  "GIOVANNI": {
+    "full_bag_badge_preserved": true,
+    "pending_claim": true,
+    "no_duplicate": true,
+    "normal_victory": true
+  },
+  "Rolando": {
+    "old_save_repeat_heal": true,
+    "callback_heal": true,
+    "hp_pp_status": true,
+    "invariants": true
+  },
+  "Gregory": {
+    "old_save_repeat_heal": true,
+    "callback_heal": true,
+    "hp_pp_status": true,
+    "invariants": true
+  },
+  "George": {
+    "old_save_repeat_heal": true,
+    "callback_heal": true,
+    "hp_pp_status": true,
+    "invariants": true
+  },
+  "healed_save_reload": true
+}

@@ -1,0 +1,22 @@
+{
+  "heist": {
+    "smooth_top_entry": true,
+    "all_three_jump_and_finish_boarding": true,
+    "top_fully_cleared_before_removal": true,
+    "overlap_frames": 85,
+    "takeoff_delay_frames": 1,
+    "upward_pixels": 58,
+    "downward_pixels": 58,
+    "progression_preserved": true
+  },
+  "final": {
+    "smooth_top_entry": true,
+    "all_three_jump_and_finish_boarding": true,
+    "top_fully_cleared_before_removal": true,
+    "overlap_frames": 93,
+    "takeoff_delay_frames": 1,
+    "upward_pixels": 106,
+    "downward_pixels": 106,
+    "progression_preserved": true
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "provenance": {
+    "rom": "/workspace/scratch/b89c0838e65a/great-badge-heist-build/pokefirered.gba",
+    "rom_sha256": "94f97b4c85d98a868474754a2ab36789ecdd10f936cfb52d4f82d6c8fef4ac41",
+    "elf_sha256": "89349962212a146c604a683a357d03b2d7a80e4ba4f65baaddeebb9b32985825",
+    "manifest_sha256": "e3bc502781972a9817e26811007c3e828538070b3f504448e434cda4b6539f08"
+  },
+  "battle_parties_checked": 15,
+  "actual_pokemon_checked": 90,
+  "champion_wins": [
+    {
+      "won": true,
+      "hall_of_fame_map": true,
+      "hall_of_fame_callback": true,
+      "support_moves_observed": [
+        "PROTECT"
+      ],
+      "game_clear_flag": true,
+      "champion_flag": false,
+      "champion_ribbons": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "starter_index": 0,
+      "trainer_id": 338,
+      "postwin_script_resumed": true,
+      "real_battle_started": true,
+      "final_outcome": 1
+    },
+    {
+      "won": true,
+      "hall_of_fame_map": true,
+      "hall_of_fame_callback": true,
+      "support_moves_observed": [
+        "FAKE_OUT",
+        "PROTECT"
+      ],
+      "game_clear_flag": true,
+      "champion_flag": false,
+      "champion_ribbons": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "starter_index": 1,
+      "trainer_id": 339,
+      "postwin_script_resumed": true,
+      "real_battle_started": true,
+      "final_outcome": 1
+    },
+    {
+      "won": true,
+      "hall_of_fame_map": true,
+      "hall_of_fame_callback": true,
+      "support_moves_observed": [
+        "PROTECT",
+        "DRAGON_DANCE"
+      ],
+      "game_clear_flag": true,
+      "champion_flag": false,
+      "champion_ribbons": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "starter_index": 2,
+      "trainer_id": 340,
+      "postwin_script_resumed": true,
+      "real_battle_started": true,
+      "final_outcome": 1
+    }
+  ],
+  "validation_boundary": "Trainer scripts staged in mGBA; untouched enemy parties, player fixture powered. Normal battle input wins; normal EnterRoom postwin script resumed from actual defeated-trainer flag for Oak/HOF. No battle outcome or victory flags injected."
+}

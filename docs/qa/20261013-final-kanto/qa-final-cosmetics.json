@@ -1,0 +1,160 @@
+{
+  "renders": {
+    "brock_rhydon": {
+      "trainer": 632,
+      "species": 112,
+      "party_index": 5,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "misty_starmie": {
+      "trainer": 633,
+      "species": 121,
+      "party_index": 5,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "surge_raichu": {
+      "trainer": 634,
+      "species": 26,
+      "party_index": 5,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "erika_victreebel": {
+      "trainer": 635,
+      "species": 71,
+      "party_index": 5,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "nidoqueen_y": {
+      "trainer": 639,
+      "species": 31,
+      "party_index": 4,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "sabrina_alakazam": {
+      "trainer": 637,
+      "species": 65,
+      "party_index": 5,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "blaine_arcanine": {
+      "trainer": 638,
+      "species": 59,
+      "party_index": 5,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "tauros_x": {
+      "trainer": 639,
+      "species": 128,
+      "party_index": 0,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "purakkusu_pinsir": {
+      "trainer": 639,
+      "species": 127,
+      "party_index": 1,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "kabutops_p": {
+      "trainer": 639,
+      "species": 141,
+      "party_index": 2,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "aerodactyl_p": {
+      "trainer": 639,
+      "species": 142,
+      "party_index": 3,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "nidoking_x": {
+      "trainer": 639,
+      "species": 34,
+      "party_index": 5,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "lorelei_lapras": {
+      "trainer": 310,
+      "species": 131,
+      "party_index": 5,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "bruno_machamp": {
+      "trainer": 311,
+      "species": 68,
+      "party_index": 5,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "shiny_mega_gengar": {
+      "trainer": 312,
+      "species": 94,
+      "party_index": 5,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "lance_dragonite": {
+      "trainer": 313,
+      "species": 149,
+      "party_index": 5,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "mega_pidgeot": {
+      "trainer": 338,
+      "species": 18,
+      "party_index": 0,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "shiny_mega_alakazam": {
+      "trainer": 338,
+      "species": 65,
+      "party_index": 3,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "nidogod": {
+      "trainer": 338,
+      "species": 34,
+      "party_index": 4,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "champion_arcanine": {
+      "trainer": 338,
+      "species": 59,
+      "party_index": 5,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "rocket_weezing_blue": {
+      "trainer": 630,
+      "species": 110,
+      "party_index": 1,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    },
+    "rocket_weezing_fire": {
+      "trainer": 631,
+      "species": 110,
+      "party_index": 1,
+      "decoded_tiles_match": true,
+      "palette_match": true
+    }
+  },
+  "ace_only_and_player_exclusion": true,
+  "original_giovanni_skeletons_preserved": true
+}
