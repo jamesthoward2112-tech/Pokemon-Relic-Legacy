@@ -92,9 +92,20 @@ class GreatBadgeHeistTests(unittest.TestCase):
             event for event in route_map["object_events"]
             if event.get("local_id") == "LOCALID_PRL_HEIST_BALLOON"
         )
-        self.assertEqual((balloon["x"], balloon["y"]), (8, 151))
+        self.assertEqual((balloon["x"], balloon["y"]), (8, 30))
         script = text("data/maps/Route23_Frlg/scripts.inc")
-        self.assertIn("setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 151", script)
+        self.assertIn("setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 150", script)
+
+    def test_balloon_is_visible_before_boarding_in_both_escapes(self):
+        script = text("data/maps/Route23_Frlg/scripts.inc")
+        for label in ("Route23_EventScript_PRLGreatBadgeHeist", "Route23_EventScript_PRLFinalRocketWon"):
+            block = script.split(label + "::", 1)[1].split("\nRoute23_", 1)[0]
+            spawn = block.index("addobject LOCALID_PRL_HEIST_BALLOON")
+            board = block.index("applymovement LOCALID_PRL_HEIST_JESSIE, Route23_Movement_PRLJessie", block.index("msgbox"))
+            self.assertLess(spawn, board, label)
+            for actor in ("JESSIE", "JAMES", "MEOWTH"):
+                self.assertLess(spawn, block.index("removeobject LOCALID_PRL_HEIST_" + actor), label)
+            self.assertIn("setobjectsubpriority LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23, 0", block)
 
     def test_approved_meowth_balloon_bytes_are_integrated(self):
         gfx = ROOT / "graphics/object_events/pics/misc/prl_meowth_balloon.4bpp"

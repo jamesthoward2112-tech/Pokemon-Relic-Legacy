@@ -221,15 +221,19 @@ Route23_EventScript_PRLGreatBadgeHeist::
 	applymovement LOCALID_PRL_HEIST_JAMES, Route23_Movement_PRLHeistExclamation
 	waitmovement 0
 	msgbox Route23_Text_PRLGreatBadgeHeist
+	clearflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
+	addobject LOCALID_PRL_HEIST_BALLOON
+	setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 150
+	setobjectsubpriority LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23, 0
+	playse SE_WARP_IN
+	delay 24
 	applymovement LOCALID_PRL_HEIST_JESSIE, Route23_Movement_PRLJessieBoard
 	applymovement LOCALID_PRL_HEIST_JAMES, Route23_Movement_PRLJamesBoard
 	applymovement LOCALID_PRL_HEIST_MEOWTH, Route23_Movement_PRLMeowthBoard
-	waitmovement 0
-	clearflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
-	addobject LOCALID_PRL_HEIST_BALLOON
-	setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 151
-	playse SE_WARP_IN
-	delay 24
+	waitmovement LOCALID_PRL_HEIST_JESSIE
+	waitmovement LOCALID_PRL_HEIST_JAMES
+	waitmovement LOCALID_PRL_HEIST_MEOWTH
+	delay 16
 	removeobject LOCALID_PRL_HEIST_JESSIE
 	removeobject LOCALID_PRL_HEIST_JAMES
 	removeobject LOCALID_PRL_HEIST_MEOWTH
@@ -278,14 +282,19 @@ Route23_EventScript_PRLFinalRocketWon::
 	setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED
 	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 1
 	msgbox Route23_Text_PRLFinalRocketAfterBattle
+	clearflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
+	addobject LOCALID_PRL_HEIST_BALLOON
+	setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 30
+	setobjectsubpriority LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23, 0
+	playse SE_WARP_IN
+	delay 24
 	applymovement LOCALID_PRL_HEIST_JESSIE, Route23_Movement_PRLJessieFinalBoard
 	applymovement LOCALID_PRL_HEIST_JAMES, Route23_Movement_PRLJamesFinalBoard
 	applymovement LOCALID_PRL_HEIST_MEOWTH, Route23_Movement_PRLMeowthFinalBoard
-	waitmovement 0
-	clearflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
-	addobject LOCALID_PRL_HEIST_BALLOON
-	playse SE_WARP_IN
-	delay 24
+	waitmovement LOCALID_PRL_HEIST_JESSIE
+	waitmovement LOCALID_PRL_HEIST_JAMES
+	waitmovement LOCALID_PRL_HEIST_MEOWTH
+	delay 16
 	removeobject LOCALID_PRL_HEIST_JESSIE
 	removeobject LOCALID_PRL_HEIST_JAMES
 	removeobject LOCALID_PRL_HEIST_MEOWTH
@@ -320,33 +329,33 @@ Route23_Movement_PRLHeistExclamation:
 	step_end
 
 Route23_Movement_PRLJessieBoard:
-	walk_up
-	walk_up
+	walk_slow_down
+	walk_slow_right
 	step_end
 
 Route23_Movement_PRLJamesBoard:
-	walk_up
-	walk_up
+	walk_slow_down
+	walk_slow_left
 	step_end
 
 Route23_Movement_PRLMeowthBoard:
-	walk_up
-	walk_up
+	face_up
+	delay_16
 	step_end
 
 Route23_Movement_PRLJessieFinalBoard:
-	walk_right
-	walk_up
+	walk_slow_right
+	walk_slow_up
 	step_end
 
 Route23_Movement_PRLJamesFinalBoard:
-	walk_left
-	walk_up
+	walk_slow_left
+	walk_slow_up
 	step_end
 
 Route23_Movement_PRLMeowthFinalBoard:
-	walk_up
-	walk_up
+	walk_slow_up
+	walk_slow_up
 	step_end
 
 Route23_Movement_PRLBalloonTakeoff:

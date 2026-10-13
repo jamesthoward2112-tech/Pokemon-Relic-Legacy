@@ -174,7 +174,7 @@ class QA:
             self.set_flag(emu, FLAG_FINAL_DEFEATED, False)
             self.set_flag(emu, FLAG_HIDE_TRIO, False)
             self.set_flag(emu, FLAG_HIDE_BALLOON, True)
-            self.warp(emu, *MAP_ROUTE23, 2)
+            self.warp(emu, *MAP_ROUTE23, 0)
             battle = self.run_script_frames(
                 emu, "Route23_EventScript_PRLFinalRocketBattle", 12, "final battle"
             )
@@ -189,7 +189,7 @@ class QA:
             self.set_flag(emu, FLAG_FINAL_DEFEATED, False)
             self.set_flag(emu, FLAG_HIDE_TRIO, False)
             self.set_flag(emu, FLAG_HIDE_BALLOON, True)
-            self.warp(emu, *MAP_ROUTE23, 2)
+            self.warp(emu, *MAP_ROUTE23, 0)
             escape = self.run_script_frames(
                 emu, "Route23_EventScript_PRLFinalRocketWon", 14, "final escape"
             )
