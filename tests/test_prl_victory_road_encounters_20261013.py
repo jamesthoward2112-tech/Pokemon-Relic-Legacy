@@ -22,16 +22,57 @@ class VictoryRoadCaveEncountersTests(unittest.TestCase):
         self.assertTrue(all(o["flag"] == "FLAG_HIDE_PRL_BADGE_HEIST_TRIO" for o in old_twins))
         inside = map_data("VictoryRoad_1F_Frlg")
         twins = [o for o in inside["object_events"] if o.get("local_id", "").startswith("LOCALID_PRL_VR_TWIN_")]
-        self.assertEqual({(o["x"], o["y"]) for o in twins}, {(10, 18), (12, 18)})
-        self.assertTrue(all(o["trainer_type"] == "TRAINER_TYPE_NONE" for o in twins))
-        triggers = [e for e in inside["coord_events"] if e["script"] == "VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger"]
-        self.assertEqual({(e["x"], e["y"]) for e in triggers}, {(x, 19) for x in range(8, 15)})
-        self.assertTrue(all(e["elevation"] == 3 for e in triggers))
+        self.assertEqual({(o["x"], o["y"]) for o in twins}, {(9, 13), (10, 13)})
+        self.assertTrue(all(o["trainer_type"] == "TRAINER_TYPE_NORMAL" for o in twins))
+        self.assertTrue(all(o["flag"] == "0" for o in twins))
+        self.assertTrue(all(o["elevation"] == 4 for o in twins))
+        self.assertTrue(all(o["movement_type"] == "MOVEMENT_TYPE_FACE_DOWN" for o in twins))
+        self.assertEqual(abs(twins[0]["x"] - twins[1]["x"]), 1)
+        self.assertTrue(all(o["y"] < 16 for o in twins))
+        boulder = next(o for o in inside["object_events"] if o.get("local_id") == "LOCALID_VICTORY_ROAD_1F_BOULDER")
+        self.assertEqual((boulder["x"], boulder["y"]), (7, 18))
+        # Native trainer sight from the two adjacent upper-ledge twins.
+        self.assertFalse(any("PRLSteeveNeeveeTrigger" in e["script"] for e in inside["coord_events"]))
+        self.assertEqual({o["trainer_sight_or_berry_tree_id"] for o in twins}, {"3"})
         script = read("data/maps/VictoryRoad_1F_Frlg/scripts.inc")
-        self.assertIn("trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23", script)
-        self.assertIn("applymovement LOCALID_PRL_VR_TWIN_STEEVE, Route23_Movement_PRLHeistExclamation", script)
-        self.assertIn("applymovement LOCALID_PRL_VR_TWIN_NEEVEE, Route23_Movement_PRLHeistExclamation", script)
-        self.assertIn("goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23", script)
+        self.assertNotIn("VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger::", script)
+        for actor in ("Steevee", "Neevee"):
+            self.assertIn(f"VictoryRoad_1F_EventScript_PRL{actor}::", script)
+        for local_id in ("STEEVE", "NEEVEE"):
+            self.assertIn(f"localId=LOCALID_PRL_VR_TWIN_{local_id}", script)
+            self.assertNotIn(f"removeobject LOCALID_PRL_VR_TWIN_{local_id}", script)
+        self.assertEqual(script.count("trainerbattle_double TRAINER_STEEVE_NEEVEE_ROUTE23"), 2)
+        self.assertIn("VictoryRoad_1F_Text_PRLTwinsFarewell::", script)
+        self.assertIn("See you in HOENN", script)
+        self.assertIn("setobjectxy LOCALID_PRL_VR_TWIN_STEEVE, 9, 13", script)
+        self.assertIn("setobjectxy LOCALID_PRL_VR_TWIN_NEEVEE, 10, 13", script)
+        self.assertIn("setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23", script)
+        self.assertNotIn("FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23, VictoryRoad_1F_EventScript_PRLTwinsDone", script)
+
+    def test_victory_road_trainers_match_the_post_badge_curve(self):
+        party = read("src/data/trainers_frlg.party")
+        maps = ["VictoryRoad_1F_Frlg", "VictoryRoad_2F_Frlg", "VictoryRoad_3F_Frlg"]
+        by_map = {}
+        for map_name in maps:
+            scripts = read(f"data/maps/{map_name}/scripts.inc")
+            trainers = set(re.findall(r"trainerbattle_(?:single|double|no_intro) (TRAINER_[A-Z_0-9]+)", scripts))
+            by_map[map_name] = trainers
+        floors = {
+            "VictoryRoad_1F_Frlg": (58, 64),
+            "VictoryRoad_2F_Frlg": (58, 65),
+            "VictoryRoad_3F_Frlg": (60, 64),
+        }
+        for floor, (lo, hi) in floors.items():
+            for name in by_map[floor]:
+                marker = f"=== {name} ==="
+                self.assertIn(marker, party)
+                entry = party.split(marker, 1)[1].split("\n=== TRAINER_", 1)[0]
+                levels = [int(x) for x in re.findall(r"Level: (\d+)", entry)]
+                self.assertTrue(levels, name)
+                for lv in levels:
+                    self.assertGreaterEqual(lv, lo, name)
+                    self.assertLessEqual(lv, hi, name)
+        self.assertEqual(len(set.union(*by_map.values())), 14)
 
     def test_rocket_finale_occurs_at_cave_exit_and_cannot_be_clicked_past(self):
         cave = map_data("VictoryRoad_2F_Frlg")

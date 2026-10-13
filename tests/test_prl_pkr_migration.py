@@ -17,8 +17,8 @@ GYM_TEAMS = {
     "GIOVANNI": [("Onix", 53), ("Marowak", 54), ("Omastar", 54), ("Kabutops", 55), ("Aerodactyl", 56), ("Rhydon", 58)],
 }
 ROUTE23_TEAM = [
-    ("Vaporeon", 52), ("Jolteon", 52), ("Flareon", 55),
-    ("Toxeon", 55), ("Nimbeon", 54), ("Eeveeon", 55),
+    ("Vaporeon", 61), ("Jolteon", 61), ("Flareon", 62),
+    ("Toxeon", 62), ("Nimbeon", 63), ("Eeveeon", 64),
 ]
 
 

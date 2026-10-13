@@ -10,11 +10,11 @@ ENCOUNTERS = {
     "STEEVE_NEEVEE_ROUTE3": ("Route3_Frlg", [("Eevee", 16), ("Eevee", 16)]),
     "STEEVE_NEEVEE_SS_ANNE": ("SSAnne_2F_Corridor_Frlg", [("Vaporeon", 26), ("Jolteon", 26), ("Eevee", 25), ("Eevee", 25)]),
     "STEEVE_NEEVEE_TOWER": ("PokemonTower_1F_Frlg", [("Flareon", 37), ("Omeon", 37), ("Espeon", 37), ("Umbreon", 36)]),
-    "STEEVE_NEEVEE_ROUTE23": ("VictoryRoad_1F_Frlg", [("Vaporeon", 52), ("Jolteon", 52), ("Flareon", 55), ("Toxeon", 55), ("Nimbeon", 54), ("Eeveeon", 55)]),
+    "STEEVE_NEEVEE_ROUTE23": ("VictoryRoad_1F_Frlg", [("Vaporeon", 61), ("Jolteon", 61), ("Flareon", 62), ("Toxeon", 62), ("Nimbeon", 63), ("Eeveeon", 64)]),
     "JESSIE_JAMES_MT_MOON": ("MtMoon_B1F_Frlg", [("Ekans", 16), ("Koffing", 16), ("Bellsprout", 16), ("Meowth", 17)]),
     "JESSIE_JAMES_HIDEOUT": ("RocketHideout_B4F_Frlg", [("Arbok", 29), ("Weezing", 29), ("Raticate", 30), ("Meowth", 30)]),
     "JESSIE_JAMES_SILPH": ("SilphCo_11F_Frlg", [("Arbok", 39), ("Weezing", 39), ("Drowzee", 40), ("Victreebel", 40), ("Pikachu", 41), ("Meowth", 41)]),
-    "JESSIE_JAMES_VICTORY_ROAD": ("VictoryRoad_2F_Frlg", [("Arbok", 58), ("Weezing", 58), ("Victreebel", 59), ("Gyarados", 59), ("Pikachu", 60), ("Meowth", 60)]),
+    "JESSIE_JAMES_VICTORY_ROAD": ("VictoryRoad_2F_Frlg", [("Arbok", 63), ("Weezing", 63), ("Victreebel", 64), ("Gyarados", 64), ("Pikachu", 65), ("Meowth", 65)]),
 }
 GATES = {
     "STEEVE_NEEVEE_ROUTE3": "FLAG_BADGE01_GET",
@@ -85,10 +85,10 @@ class PRLRecurringDuos(unittest.TestCase):
                     self.assertIn("VictoryRoad_2F_EventScript_PRL_RocketWon::", script)
                     self.assertTrue(any("PRL_RocketGate" in event["script"] for event in map_data["coord_events"]))
                 elif name == "STEEVE_NEEVEE_ROUTE23":
-                    self.assertIn("VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger::", script)
+                    self.assertIn("VictoryRoad_1F_EventScript_PRLSteevee::", script)
                     duo = [o for o in map_data["object_events"] if o.get("local_id", "").startswith("LOCALID_PRL_VR_TWIN_")]
-                    self.assertEqual({(o["x"], o["y"]) for o in duo}, {(10, 18), (12, 18)})
-                    self.assertTrue(any("PRLSteeveNeeveeTrigger" in e["script"] for e in map_data["coord_events"]))
+                    self.assertEqual({(o["x"], o["y"]) for o in duo}, {(9, 13), (10, 13)})
+                    self.assertFalse(any("PRLSteeveNeeveeTrigger" in e["script"] for e in map_data["coord_events"]))
                 else:
                     # The original three twins battles continue to use native sight.
                     self.assertFalse(any("PRLSteeveNeeveeTrigger" in event["script"] for event in map_data["coord_events"]), name)
@@ -152,7 +152,7 @@ class PRLRecurringDuos(unittest.TestCase):
                     twins = [obj for obj in map_data["object_events"] if obj.get("local_id", "").startswith("LOCALID_PRL_VR_TWIN_")]
                     self.assertEqual(len(twins), 2)
                     self.assertTrue(all(o["flag"] == "0" for o in twins))
-                    self.assertTrue(all(o["trainer_type"] == "TRAINER_TYPE_NONE" for o in twins))
+                    self.assertTrue(all(o["trainer_type"] == "TRAINER_TYPE_NORMAL" for o in twins))
                     continue
                 twins = [obj for obj in map_data["object_events"]
                          if obj.get("local_id") in (f"LOCALID_PRL_STEEVE_{name.split('STEEVE_NEEVEE_', 1)[1]}",

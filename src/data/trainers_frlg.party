@@ -1355,16 +1355,16 @@ Music: Suspicious
 Double Battle: No
 AI: Check Bad Move
 
-Charmeleon
-Level: 40
+Charizard
+Level: 58
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 
 Lapras
-Level: 40
+Level: 59
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 
 Lickitung
-Level: 40
+Level: 59
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 
 === TRAINER_POKEMANIAC_ASHTON ===
@@ -3662,20 +3662,20 @@ Music: Hiker
 Double Battle: No
 AI: Check Bad Move
 
-Drowzee
-Level: 41
+Mr Mime
+Level: 59
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 Hypno
-Level: 41
+Level: 60
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
-Kadabra
-Level: 41
+Alakazam
+Level: 60
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
-Kadabra
-Level: 41
+Espeon
+Level: 61
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_JUGGLER_KIRK ===
@@ -3730,7 +3730,7 @@ Double Battle: No
 AI: Check Bad Move
 
 Mr Mime
-Level: 48
+Level: 61
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Psychic
 - Role Play
@@ -3886,11 +3886,11 @@ Double Battle: No
 AI: Check Bad Move
 
 Persian
-Level: 44
+Level: 60
 IVs: 4 HP / 4 Atk / 4 Def / 4 SpA / 4 SpD / 4 Spe
 
 Golduck
-Level: 44
+Level: 61
 IVs: 4 HP / 4 Atk / 4 Def / 4 SpA / 4 SpD / 4 Spe
 
 === TRAINER_TAMER_JOHN ===
@@ -4416,16 +4416,16 @@ Music: Intense
 Double Battle: No
 AI: Check Bad Move
 
-Machoke @ Black Belt
-Level: 43
+Machamp @ Black Belt
+Level: 59
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
-Machop @ Black Belt
-Level: 43
+Hitmonlee @ Black Belt
+Level: 60
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
-Machoke @ Black Belt
-Level: 43
+Hitmonchan @ Black Belt
+Level: 60
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 === TRAINER_RIVAL_OAKS_LAB_SQUIRTLE ===
@@ -5955,41 +5955,41 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
 Exeggutor
-Level: 42
+Level: 61
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Egg Bomb
-- Confusion
+- Psychic
 - Stun Spore
 - Sleep Powder
 
 Sandslash
-Level: 42
+Level: 61
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Fury Swipes
 - Swift
-- Poison Sting
+- Earthquake
 - Sand Attack
 
 Cloyster
-Level: 42
+Level: 62
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Spike Cannon
+- Icicle Spear
 - Spikes
 - Aurora Beam
 - Supersonic
 
 Electrode
-Level: 42
+Level: 62
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Spark
-- Sonic Boom
+- Thunderbolt
 - Screech
 - Light Screen
 
 Arcanine
-Level: 42
+Level: 63
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Flame Wheel
+- Flare Blitz
 - Roar
 - Bite
 - Take Down
@@ -6005,42 +6005,42 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
 Kingler
-Level: 41
+Level: 61
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Guillotine
 - Stomp
 - Mud Shot
-- Bubble
+- Crabhammer
 
-Poliwhirl
-Level: 42
+Poliwrath
+Level: 62
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Body Slam
 - Double Slap
-- Water Gun
+- Surf
 - Hypnosis
 
 Tentacruel
-Level: 42
+Level: 62
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Barrier
 - Wrap
-- Bubble Beam
+- Surf
 - Acid
 
-Seadra
-Level: 42
+Kingdra
+Level: 63
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Water Gun
+- Surf
 - Smokescreen
 - Twister
 - Leer
 
 Blastoise
-Level: 43
+Level: 63
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Water Gun
-- Bite
+- Surf
+- Ice Beam
 - Rapid Spin
 - Rain Dance
 
@@ -6105,39 +6105,39 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
 Raticate
-Level: 42
+Level: 58
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Super Fang
-- Pursuit
+- Crunch
 - Scary Face
 - Quick Attack
 
-Ivysaur
-Level: 42
+Venusaur
+Level: 59
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Razor Leaf
+- Energy Ball
 - Sleep Powder
 - Sweet Scent
 - Synthesis
 
-Wartortle
-Level: 42
+Blastoise
+Level: 59
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Water Gun
+- Surf
 - Bite
 - Rapid Spin
-- Tail Whip
+- Ice Beam
 
-Charmeleon
-Level: 42
+Arcanine
+Level: 60
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Flamethrower
 - Slash
-- Smokescreen
-- Scary Face
+- Extreme Speed
+- Crunch
 
 Charizard
-Level: 42
+Level: 60
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Flamethrower
 - Wing Attack
@@ -6454,44 +6454,44 @@ Items: Hyper Potion
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
-Bellsprout
-Level: 42
+Tangela
+Level: 60
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Razor Leaf
+- Energy Ball
 - Acid
 - Stun Spore
 - Poison Powder
 
-Weepinbell
-Level: 42
+Vileplume
+Level: 61
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Razor Leaf
+- Energy Ball
 - Acid
 - Sleep Powder
 - Poison Powder
 
 Victreebel
-Level: 42
+Level: 61
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Razor Leaf
+- Leaf Blade
 - Acid
 - Stun Spore
 - Sleep Powder
 
-Paras
-Level: 42
+Scyther
+Level: 62
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Growth
 - Slash
-- Leech Life
+- X-Scissor
 - Stun Spore
 
 Parasect
-Level: 42
+Level: 62
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Spore
 - Slash
-- Leech Life
+- X-Scissor
 - Poison Powder
 
 === TRAINER_COOLTRAINER_ALEXA ===
@@ -6504,32 +6504,32 @@ Items: Full Restore
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
-Clefairy
-Level: 42
+Clefable
+Level: 61
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Light Screen
 - Cosmic Power
-- Double Slap
+- Moonblast
 - Encore
 
-Jigglypuff
-Level: 42
+Wigglytuff
+Level: 61
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Sing
 - Body Slam
-- Rollout
+- Dazzling Gleam
 - Disable
 
 Persian
-Level: 42
+Level: 62
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Pay Day
+- Slash
 - Faint Attack
 - Bite
 - Screech
 
 Dewgong
-Level: 42
+Level: 63
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Sheer Cold
 - Take Down
@@ -6537,7 +6537,7 @@ IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Aurora Beam
 
 Chansey
-Level: 42
+Level: 63
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Sing
 - Egg Bomb
@@ -6605,44 +6605,44 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
 Persian
-Level: 42
+Level: 58
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Fury Swipes
+- Slash
 - Screech
 - Faint Attack
-- Pay Day
+- Fake Out
 
-Ponyta
-Level: 42
+Arcanine
+Level: 59
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Agility
 - Take Down
-- Fire Spin
-- Stomp
+- Flamethrower
+- Extreme Speed
 
 Rapidash
-Level: 42
+Level: 59
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Fury Attack
-- Fire Spin
+- Flare Blitz
 - Stomp
 - Growl
 
-Vulpix
-Level: 42
+Magmar
+Level: 60
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Flamethrower
 - Confuse Ray
-- Quick Attack
+- Thunderbolt
 - Imprison
 
 Ninetales
-Level: 42
+Level: 60
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Safeguard
 - Will O Wisp
 - Confuse Ray
-- Fire Spin
+- Flamethrower
 
 === TRAINER_COOLTRAINER_BROOKE ===
 Name: BROOKE
@@ -8640,20 +8640,20 @@ Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability
 
 Nidoqueen
-Level: 45
+Level: 64
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Superpower
 - Body Slam
 - Double Kick
-- Poison Sting
+- Poison Jab
 
 Nidoking
-Level: 45
+Level: 64
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Megahorn
 - Thrash
 - Double Kick
-- Poison Sting
+- Poison Jab
 
 === TRAINER_YOUNG_COUPLE_GIA_JES ===
 Name: GIA & JES
@@ -13957,7 +13957,7 @@ Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability
 
 Vaporeon @ Sitrus Berry
-Level: 52
+Level: 61
 IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Surf
 - Aurora Beam
@@ -13965,7 +13965,7 @@ IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Acid Armor
 
 Jolteon @ Sitrus Berry
-Level: 52
+Level: 61
 IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Thunderbolt
 - Double Kick
@@ -13973,7 +13973,7 @@ IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Thunder Wave
 
 Flareon @ Sitrus Berry
-Level: 55
+Level: 62
 IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Flamethrower
 - Fire Spin
@@ -13981,7 +13981,7 @@ IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Quick Attack
 
 Toxeon @ Sitrus Berry
-Level: 55
+Level: 62
 IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Poison Jab
 - Bite
@@ -13989,7 +13989,7 @@ IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Quick Attack
 
 Nimbeon @ Sitrus Berry
-Level: 54
+Level: 63
 IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Air Slash
 - Roost
@@ -13997,7 +13997,7 @@ IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Icy Wind
 
 Eeveeon @ Sitrus Berry
-Level: 55
+Level: 64
 IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
 - Eevoboost
 - Hyper Voice
@@ -14151,7 +14151,7 @@ Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability
 
 Arbok @ Sitrus Berry
-Level: 58
+Level: 63
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 Ability: Intimidate
 - Sludge Bomb
@@ -14160,7 +14160,7 @@ Ability: Intimidate
 - Crunch
 
 Weezing @ Black Sludge
-Level: 58
+Level: 63
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Sludge Bomb
 - Thunderbolt
@@ -14168,7 +14168,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Haze
 
 Victreebel @ Sitrus Berry
-Level: 59
+Level: 64
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Leaf Blade
 - Sludge Bomb
@@ -14176,7 +14176,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Swords Dance
 
 Gyarados @ Sitrus Berry
-Level: 59
+Level: 64
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 Ability: Intimidate
 - Waterfall
@@ -14185,7 +14185,7 @@ Ability: Intimidate
 - Dragon Dance
 
 Pikachu @ Light Ball
-Level: 60
+Level: 65
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Thunderbolt
 - Nuzzle
@@ -14193,7 +14193,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Protect
 
 Meowth @ Focus Sash
-Level: 60
+Level: 65
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 Ability: Technician
 - Fake Out
