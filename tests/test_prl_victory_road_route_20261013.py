@@ -72,7 +72,7 @@ class VictoryRoadRouteTests(unittest.TestCase):
         s = read("src/data/pokemon/species_info/prl_custom.h")
         for name in ("Toxeon", "Nimbeon"):
             with self.subTest(name=name):
-                self.assertRegex(s, rf"gMonFrontPic_{name}, .frontPicSize = MON_COORDS_SIZE\\(64, 64\\), .frontPicYOffset = 6")
+                self.assertRegex(s, rf"gMonFrontPic_{name}, .frontPicSize = MON_COORDS_SIZE\(64, 64\), .frontPicYOffset = 6")
 
 if __name__ == "__main__":
     unittest.main()
