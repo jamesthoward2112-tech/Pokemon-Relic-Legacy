@@ -64,8 +64,8 @@ class VictoryRoadCaveEncountersTests(unittest.TestCase):
             for name in by_map[floor]:
                 marker = f"=== {name} ==="
                 self.assertIn(marker, party)
-                entry = party.split(marker, 1)[1].split("\\n=== TRAINER_", 1)[0]
-                levels = [int(x) for x in re.findall(r"Level: (\\d+)", entry)]
+                entry = party.split(marker, 1)[1].split("\n=== TRAINER_", 1)[0]
+                levels = [int(x) for x in re.findall(r"Level: (\d+)", entry)]
                 self.assertTrue(levels, name)
                 for lv in levels:
                     self.assertGreaterEqual(lv, lo, name)
