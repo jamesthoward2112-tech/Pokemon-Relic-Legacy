@@ -10,11 +10,11 @@ ENCOUNTERS = {
     "STEEVE_NEEVEE_ROUTE3": ("Route3_Frlg", [("Eevee", 16), ("Eevee", 16)]),
     "STEEVE_NEEVEE_SS_ANNE": ("SSAnne_2F_Corridor_Frlg", [("Vaporeon", 26), ("Jolteon", 26), ("Eevee", 25), ("Eevee", 25)]),
     "STEEVE_NEEVEE_TOWER": ("PokemonTower_1F_Frlg", [("Flareon", 37), ("Omeon", 37), ("Espeon", 37), ("Umbreon", 36)]),
-    "STEEVE_NEEVEE_ROUTE23": ("Route23_Frlg", [("Vaporeon", 52), ("Jolteon", 52), ("Flareon", 55), ("Toxeon", 55), ("Nimbeon", 54), ("Eeveeon", 55)]),
+    "STEEVE_NEEVEE_ROUTE23": ("VictoryRoad_1F_Frlg", [("Vaporeon", 52), ("Jolteon", 52), ("Flareon", 55), ("Toxeon", 55), ("Nimbeon", 54), ("Eeveeon", 55)]),
     "JESSIE_JAMES_MT_MOON": ("MtMoon_B1F_Frlg", [("Ekans", 16), ("Koffing", 16), ("Bellsprout", 16), ("Meowth", 17)]),
     "JESSIE_JAMES_HIDEOUT": ("RocketHideout_B4F_Frlg", [("Arbok", 29), ("Weezing", 29), ("Raticate", 30), ("Meowth", 30)]),
     "JESSIE_JAMES_SILPH": ("SilphCo_11F_Frlg", [("Arbok", 39), ("Weezing", 39), ("Drowzee", 40), ("Victreebel", 40), ("Pikachu", 41), ("Meowth", 41)]),
-    "JESSIE_JAMES_VICTORY_ROAD": ("Route23_Frlg", [("Arbok", 58), ("Weezing", 58), ("Victreebel", 59), ("Gyarados", 59), ("Pikachu", 60), ("Meowth", 60)]),
+    "JESSIE_JAMES_VICTORY_ROAD": ("VictoryRoad_2F_Frlg", [("Arbok", 58), ("Weezing", 58), ("Victreebel", 59), ("Gyarados", 59), ("Pikachu", 60), ("Meowth", 60)]),
 }
 GATES = {
     "STEEVE_NEEVEE_ROUTE3": "FLAG_BADGE01_GET",
@@ -81,9 +81,16 @@ class PRLRecurringDuos(unittest.TestCase):
                     self.assertIn("EventScript_PRL_Jessie", script)
                     self.assertIn("EventScript_PRL_James", script)
                 elif name == "JESSIE_JAMES_VICTORY_ROAD":
-                    self.assertIn("Route23_EventScript_PRLFinalRocketBattle", script)
+                    self.assertIn("VictoryRoad_2F_EventScript_PRL_RocketGate::", script)
+                    self.assertIn("VictoryRoad_2F_EventScript_PRL_RocketWon::", script)
+                    self.assertTrue(any("PRL_RocketGate" in event["script"] for event in map_data["coord_events"]))
+                elif name == "STEEVE_NEEVEE_ROUTE23":
+                    self.assertIn("VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger::", script)
+                    duo = [o for o in map_data["object_events"] if o.get("local_id", "").startswith("LOCALID_PRL_VR_TWIN_")]
+                    self.assertEqual({(o["x"], o["y"]) for o in duo}, {(10, 18), (12, 18)})
+                    self.assertTrue(any("PRLSteeveNeeveeTrigger" in e["script"] for e in map_data["coord_events"]))
                 else:
-                    # All four twin encounters use native object-event sight (and its !).
+                    # The original three twins battles continue to use native sight.
                     self.assertFalse(any("PRLSteeveNeeveeTrigger" in event["script"] for event in map_data["coord_events"]), name)
                     actor_suffix = name.split("STEEVE_NEEVEE_", 1)[1]
                     actors = [o for o in map_data["object_events"] if o.get("local_id") in
@@ -115,13 +122,15 @@ class PRLRecurringDuos(unittest.TestCase):
         self.assertIn("trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON", b1)
         self.assertIn("FLAG_GOT_FOSSIL_FROM_MT_MOON", b1)
 
-    def test_route23_finale_is_mandatory_before_victory_road(self):
-        route = read("data/maps/Route23_Frlg/scripts.inc")
-        self.assertIn("FLAG_PRL_BADGE_HEIST_ALL_RECOVERED", route)
-        self.assertIn("setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED", route)
+    def test_cave_finale_is_mandatory_before_league(self):
+        cave = read("data/maps/VictoryRoad_2F_Frlg/scripts.inc")
+        self.assertIn("FLAG_PRL_BADGE_HEIST_ALL_RECOVERED", cave)
+        self.assertIn("setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED", cave)
         overworld = read("src/overworld.c")
         self.assertIn("PRLRedirectBlockedVictoryRoadWarp", overworld)
-        self.assertIn("FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED", overworld)
+        self.assertIn("!FlagGet(FLAG_PRL_BADGE_HEIST_ALL_RECOVERED)", overworld)
+        plateau = read("data/maps/IndigoPlateau_Exterior_Frlg/scripts.inc")
+        self.assertIn("IndigoPlateau_Exterior_EventScript_PRLReturnToCave", plateau)
 
     def test_roster_is_limited_to_the_specified_kanto_species(self):
         banned = {"Noxichu", "Wobbuffet"}
@@ -139,6 +148,12 @@ class PRLRecurringDuos(unittest.TestCase):
                 continue
             with self.subTest(encounter=name):
                 map_data = json.loads(read(f"data/maps/{map_name}/map.json"))
+                if name == "STEEVE_NEEVEE_ROUTE23":
+                    twins = [obj for obj in map_data["object_events"] if obj.get("local_id", "").startswith("LOCALID_PRL_VR_TWIN_")]
+                    self.assertEqual(len(twins), 2)
+                    self.assertTrue(all(o["flag"] == "0" for o in twins))
+                    self.assertTrue(all(o["trainer_type"] == "TRAINER_TYPE_NONE" for o in twins))
+                    continue
                 twins = [obj for obj in map_data["object_events"]
                          if obj.get("local_id") in (f"LOCALID_PRL_STEEVE_{name.split('STEEVE_NEEVEE_', 1)[1]}",
                                                     f"LOCALID_PRL_NEEVEE_{name.split('STEEVE_NEEVEE_', 1)[1]}")]
@@ -192,9 +207,9 @@ class PRLRecurringDuos(unittest.TestCase):
                 script = read(f"data/maps/{map_name}/scripts.inc")
                 self.assertIn("trainerbattle_double", script)
                 if name == "JESSIE_JAMES_VICTORY_ROAD":
-                    self.assertIn("Route23_EventScript_PRLFinalRocketBattle", script)
+                    self.assertIn("VictoryRoad_2F_EventScript_PRL_RocketWon::", script)
                     self.assertIn("Route23_Movement_PRLBalloonTakeoff", script)
-                    self.assertIn("removeobject LOCALID_PRL_HEIST_JESSIE", script)
+                    self.assertIn("removeobject LOCALID_PRL_VR_ROCKET_JESSIE", script)
                     continue
                 self.assertIn("EventScript_PRL_Jessie::", script)
                 self.assertIn("EventScript_PRL_James::", script)
