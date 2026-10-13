@@ -33,6 +33,28 @@ class VictoryRoadCaveEncountersTests(unittest.TestCase):
         self.assertIn("applymovement LOCALID_PRL_VR_TWIN_NEEVEE, Route23_Movement_PRLHeistExclamation", script)
         self.assertIn("goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23", script)
 
+    def test_twins_clear_strength_boulder_path_after_defeat_and_on_old_saves(self):
+        cave = map_data("VictoryRoad_1F_Frlg")
+        twins = [o for o in cave["object_events"] if o.get("local_id", "").startswith("LOCALID_PRL_VR_TWIN_")]
+        self.assertEqual(len(twins), 2)
+        self.assertEqual({o["flag"] for o in twins}, {"FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23"})
+        self.assertEqual((cave["object_events"][4]["x"], cave["object_events"][4]["y"]), (7, 18))
+        script = read("data/maps/VictoryRoad_1F_Frlg/scripts.inc")
+        transition = script.split("VictoryRoad_1F_Frlg_OnTransition::", 1)[1].split("VictoryRoad_1F_EventScript_FloorSwitch::", 1)[0]
+        self.assertIn("goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23", transition)
+        self.assertIn("setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23", transition)
+        won = script.split("VictoryRoad_1F_EventScript_PRLTwinsWon::", 1)[1].split("VictoryRoad_1F_EventScript_PRLTwinsSyncWon::", 1)[0]
+        self.assertIn("msgbox Route23_Text_PRL_SteeveNeeveePostBattle", won)
+        self.assertIn("setflag FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23", won)
+        for name in ("STEEVE", "NEEVEE"):
+            self.assertIn(f"applymovement LOCALID_PRL_VR_TWIN_{name}, VictoryRoad_1F_Movement_PRLTwinLeave", won)
+            self.assertIn(f"waitmovement LOCALID_PRL_VR_TWIN_{name}", won)
+            self.assertIn(f"removeobject LOCALID_PRL_VR_TWIN_{name}", won)
+        leave = won.split("VictoryRoad_1F_Movement_PRLTwinLeave:", 1)[1].split("step_end", 1)[0]
+        self.assertIn("walk_in_place_faster_up", leave)
+        self.assertIn("set_invisible", leave)
+        self.assertNotIn("\\n\\twalk_up\\n", leave)
+
     def test_rocket_finale_occurs_at_cave_exit_and_cannot_be_clicked_past(self):
         cave = map_data("VictoryRoad_2F_Frlg")
         rocket = {o.get("local_id"): o for o in cave["object_events"]}

@@ -128,7 +128,7 @@
       "y": 18,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "script": "VictoryRoad_1F_EventScript_PRLSteevee",
-      "flag": "0"
+      "flag": "FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23"
     },
     {
       "type": "object",
@@ -143,7 +143,7 @@
       "y": 18,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "script": "VictoryRoad_1F_EventScript_PRLNeevee",
-      "flag": "0"
+      "flag": "FLAG_PRL_RECURRING_STEEVE_NEEVEE_ROUTE23"
     }
   ],
   "warp_events": [
