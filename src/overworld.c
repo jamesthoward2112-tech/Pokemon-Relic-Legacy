@@ -639,6 +639,36 @@ static void SetWarpData(struct WarpData *warp, s8 mapGroup, s8 mapNum, s8 warpId
     warp->y = y;
 }
 
+#define PRL_ROUTE23_SOUTH_WARP_ID 2
+
+// The badge-recovery quest deliberately leaves the engine's original Badge
+// flags intact. Guard every Victory Road entry point here as a save-safe
+// backstop for warps, Fly/teleport-style destinations, and saves made inside
+// Victory Road before the quest was installed.
+static bool32 PRLIsBlockedVictoryRoadWarp(const struct WarpData *warp)
+{
+#if IS_FRLG
+    bool32 isVictoryRoad = (warp->mapGroup == MAP_GROUP(MAP_VICTORY_ROAD_1F_FRLG)
+                         && warp->mapNum == MAP_NUM(MAP_VICTORY_ROAD_1F_FRLG))
+                      || (warp->mapGroup == MAP_GROUP(MAP_VICTORY_ROAD_2F)
+                         && warp->mapNum == MAP_NUM(MAP_VICTORY_ROAD_2F))
+                      || (warp->mapGroup == MAP_GROUP(MAP_VICTORY_ROAD_3F)
+                         && warp->mapNum == MAP_NUM(MAP_VICTORY_ROAD_3F));
+
+    return isVictoryRoad
+        && FlagGet(FLAG_PRL_BADGE_HEIST_STARTED)
+        && !FlagGet(FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED);
+#else
+    return FALSE;
+#endif
+}
+
+static void PRLRedirectBlockedVictoryRoadWarp(struct WarpData *warp)
+{
+    if (PRLIsBlockedVictoryRoadWarp(warp))
+        SetWarpData(warp, MAP_GROUP(MAP_ROUTE23), MAP_NUM(MAP_ROUTE23), PRL_ROUTE23_SOUTH_WARP_ID, -1, -1);
+}
+
 static bool32 IsDummyWarp(struct WarpData *warp)
 {
     if (warp->mapGroup != (s8)MAP_GROUP(MAP_UNDEFINED))
@@ -709,9 +739,20 @@ void WarpIntoMap(void)
     SetPlayerCoordsFromWarp();
 }
 
+static void PRLRedirectBlockedVictoryRoadSavedLocation(void)
+{
+    if (PRLIsBlockedVictoryRoadWarp(&gSaveBlock1Ptr->location))
+    {
+        sWarpDestination = gSaveBlock1Ptr->location;
+        PRLRedirectBlockedVictoryRoadWarp(&sWarpDestination);
+        WarpIntoMap();
+    }
+}
+
 void SetWarpDestination(s8 mapGroup, s8 mapNum, s8 warpId, s8 x, s8 y)
 {
     SetWarpData(&sWarpDestination, mapGroup, mapNum, warpId, x, y);
+    PRLRedirectBlockedVictoryRoadWarp(&sWarpDestination);
 }
 
 void SetWarpDestinationToMapWarp(s8 mapGroup, s8 mapNum, s8 warpId)
@@ -732,6 +773,7 @@ void SetDynamicWarpWithCoords(s32 unused, s8 mapGroup, s8 mapNum, s8 warpId, s8 
 void SetWarpDestinationToDynamicWarp(u8 unusedWarpId)
 {
     sWarpDestination = gSaveBlock1Ptr->dynamicWarp;
+    PRLRedirectBlockedVictoryRoadWarp(&sWarpDestination);
 }
 
 void SetWarpDestinationToHealLocation(u8 healLocationId)
@@ -754,11 +796,13 @@ void SetWarpDestinationToLastHealLocation(void)
         SetWhiteoutRespawnWarpAndHealerNPC(&sWarpDestination);
     else
         sWarpDestination = gSaveBlock1Ptr->lastHealLocation;
+    PRLRedirectBlockedVictoryRoadWarp(&sWarpDestination);
 }
 
 void SetWarpDestinationForTeleport(void)
 {
     sWarpDestination = gSaveBlock1Ptr->lastHealLocation;
+    PRLRedirectBlockedVictoryRoadWarp(&sWarpDestination);
 }
 
 void SetLastHealLocationWarp(u8 healLocationId)
@@ -784,6 +828,7 @@ void SetEscapeWarp(s8 mapGroup, s8 mapNum, s8 warpId, s8 x, s8 y)
 void SetWarpDestinationToEscapeWarp(void)
 {
     sWarpDestination = gSaveBlock1Ptr->escapeWarp;
+    PRLRedirectBlockedVictoryRoadWarp(&sWarpDestination);
 }
 
 void SetFixedDiveWarp(s8 mapGroup, s8 mapNum, s8 warpId, s8 x, s8 y)
@@ -794,6 +839,7 @@ void SetFixedDiveWarp(s8 mapGroup, s8 mapNum, s8 warpId, s8 x, s8 y)
 static void SetWarpDestinationToDiveWarp(void)
 {
     sWarpDestination = sFixedDiveWarp;
+    PRLRedirectBlockedVictoryRoadWarp(&sWarpDestination);
 }
 
 void SetFixedHoleWarp(s8 mapGroup, s8 mapNum, s8 warpId, s8 x, s8 y)
@@ -804,7 +850,10 @@ void SetFixedHoleWarp(s8 mapGroup, s8 mapNum, s8 warpId, s8 x, s8 y)
 void SetWarpDestinationToFixedHoleWarp(s16 x, s16 y)
 {
     if (IsDummyWarp(&sFixedHoleWarp) == TRUE)
+    {
         sWarpDestination = gLastUsedWarp;
+        PRLRedirectBlockedVictoryRoadWarp(&sWarpDestination);
+    }
     else
         SetWarpDestination(sFixedHoleWarp.mapGroup, sFixedHoleWarp.mapNum, WARP_ID_NONE, x, y);
 }
@@ -812,6 +861,7 @@ void SetWarpDestinationToFixedHoleWarp(s16 x, s16 y)
 static void SetWarpDestinationToContinueGameWarp(void)
 {
     sWarpDestination = gSaveBlock1Ptr->continueGameWarp;
+    PRLRedirectBlockedVictoryRoadWarp(&sWarpDestination);
 }
 
 void SetContinueGameWarpToHealLocation(u8 healLocationId)
@@ -2122,6 +2172,7 @@ void CB2_ContinueSavedGame(void)
     if (gSaveFileStatus == SAVE_STATUS_ERROR)
         ResetWinStreaks();
 
+    PRLRedirectBlockedVictoryRoadSavedLocation();
     LoadSaveblockMapHeader();
     ClearDiveAndHoleWarps();
     trainerHillMapId = GetCurrentTrainerHillMapId();
@@ -3881,6 +3932,7 @@ static bool32 SetUpScrollSceneForCredits(u8 *state, u8 unused)
         warp.x = sCreditsOverworld_Script[sCreditsOverworld_CmdIndex].unk_0;
         warp.y = sCreditsOverworld_Script[sCreditsOverworld_CmdIndex].unk_2;
         sWarpDestination = warp;
+        PRLRedirectBlockedVictoryRoadWarp(&sWarpDestination);
         sCreditsOverworld_CmdLength = sCreditsOverworld_Script[sCreditsOverworld_CmdIndex].unk_4;
         WarpIntoMap();
         gPaletteFade.bufferTransferDisabled = TRUE;

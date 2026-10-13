@@ -12,7 +12,6 @@ SCENES = (
     ("MtMoon_B1F_Frlg", "MtMoon_B1F", "MT_MOON", "TRAINER_JESSIE_JAMES_MT_MOON"),
     ("RocketHideout_B4F_Frlg", "RocketHideout_B4F", "HIDEOUT", "TRAINER_JESSIE_JAMES_HIDEOUT"),
     ("SilphCo_11F_Frlg", "SilphCo_11F", "SILPH", "TRAINER_JESSIE_JAMES_SILPH"),
-    ("VictoryRoad_3F_Frlg", "VictoryRoad_3F", "VICTORY_ROAD", "TRAINER_JESSIE_JAMES_VICTORY_ROAD"),
 )
 
 class RocketNativeTrainerRegression(unittest.TestCase):

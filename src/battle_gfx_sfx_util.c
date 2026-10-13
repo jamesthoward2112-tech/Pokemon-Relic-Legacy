@@ -758,7 +758,8 @@ static u8 PRLGetGiovanniSkeletonGfx(enum BattlerId battler, enum Species species
 {
 #if IS_FRLG
     if (IsOnPlayerSide(battler) || !(gBattleTypeFlags & BATTLE_TYPE_TRAINER)
-        || TRAINER_BATTLE_PARAM.opponentA != TRAINER_LEADER_GIOVANNI)
+        || (TRAINER_BATTLE_PARAM.opponentA != TRAINER_LEADER_GIOVANNI
+         && TRAINER_BATTLE_PARAM.opponentA != TRAINER_PRL_BADGE_RECOVERY_GIOVANNI))
         return PRL_GIOVANNI_SKELETON_NONE;
     if (species == SPECIES_KABUTOPS)
         return PRL_GIOVANNI_SKELETON_KABUTOPS;

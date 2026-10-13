@@ -9,8 +9,19 @@
 static struct mCore *core;
 static color_t pixels[240 * 160];
 
+static void PRLDiscardLog(struct mLogger *logger, int category,
+                          enum mLogLevel level, const char *format, va_list args)
+{
+}
+
+static struct mLogger sPRLQuietLogger = {
+    .log = PRLDiscardLog,
+    .filter = NULL,
+};
+
 int prl_open(const char *rom, const char *save)
 {
+    mLogSetDefaultLogger(&sPRLQuietLogger);
     core = mCoreFind(rom);
     if (!core || !core->init(core)) return 0;
     mCoreInitConfig(core, "prl-qa");

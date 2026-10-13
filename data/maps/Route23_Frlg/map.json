@@ -161,6 +161,66 @@
       "trainer_sight_or_berry_tree_id": "5",
       "script": "Route23_EventScript_PRLSteeveNeeveeNeevee",
       "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_PRL_HEIST_JESSIE",
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_PRL_JESSIE",
+      "x": 7,
+      "y": 31,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "3",
+      "script": "Route23_EventScript_PRLFinalRocketBattle",
+      "flag": "FLAG_HIDE_PRL_BADGE_HEIST_TRIO"
+    },
+    {
+      "local_id": "LOCALID_PRL_HEIST_JAMES",
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_PRL_JAMES",
+      "x": 9,
+      "y": 31,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "3",
+      "script": "Route23_EventScript_PRLFinalRocketBattleJames",
+      "flag": "FLAG_HIDE_PRL_BADGE_HEIST_TRIO"
+    },
+    {
+      "local_id": "LOCALID_PRL_HEIST_MEOWTH",
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_MEOWTH",
+      "x": 8,
+      "y": 32,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Route23_EventScript_PRLFinalRocketMeowth",
+      "flag": "FLAG_HIDE_PRL_BADGE_HEIST_TRIO"
+    },
+    {
+      "local_id": "LOCALID_PRL_HEIST_BALLOON",
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_PRL_MEOWTH_BALLOON",
+      "x": 8,
+      "y": 151,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_HIDE_PRL_BADGE_HEIST_BALLOON"
     }
   ],
   "warp_events": [
@@ -571,6 +631,24 @@
       "var": "VAR_MAP_SCENE_ROUTE23",
       "var_value": "1",
       "script": "Route23_EventScript_CascadeBadgeGuardTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 8,
+      "y": 152,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "Route23_EventScript_PRLGreatBadgeHeist"
+    },
+    {
+      "type": "trigger",
+      "x": 9,
+      "y": 152,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "Route23_EventScript_PRLGreatBadgeHeist"
     }
   ],
   "bg_events": [

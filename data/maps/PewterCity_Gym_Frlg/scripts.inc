@@ -3,6 +3,9 @@ PewterCity_Gym_Frlg_MapScripts::
 
 PewterCity_Gym_EventScript_Brock::
 	famechecker FAMECHECKER_BROCK, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, PewterCity_Gym_EventScript_BrockNormal
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_BOULDER, PewterCity_Gym_Frlg_EventScript_PRLBadgeRecovery
+PewterCity_Gym_EventScript_BrockNormal::
 	trainerbattle_single TRAINER_LEADER_BROCK, PewterCity_Gym_Text_BrockIntro, PewterCity_Gym_Text_BrockDefeat, PewterCity_Gym_EventScript_DefeatedBrock, NO_MUSIC
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, PewterCity_Gym_EventScript_BrockRematch
@@ -11,6 +14,30 @@ PewterCity_Gym_EventScript_Brock::
 	msgbox PewterCity_Gym_Text_BrockPostBattle
 	release
 	end
+
+PewterCity_Gym_Frlg_EventScript_PRLBadgeRecovery::
+	trainerbattle_single TRAINER_PRL_BADGE_RECOVERY_BROCK, PewterCity_Gym_Text_PRLRecoveryIntro, PewterCity_Gym_Text_PRLRecoveryDefeat, PewterCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon, NO_MUSIC
+	msgbox PewterCity_Gym_Text_PRLRecoveryAfter
+	release
+	end
+PewterCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
+	setflag FLAG_PRL_BADGE_HEIST_RECOVERED_BOULDER
+	playfanfare MUS_OBTAIN_BADGE
+	waitfanfare
+	msgbox PewterCity_Gym_Text_PRLRecoveryWon
+	release
+	end
+
+PewterCity_Gym_Text_PRLRecoveryIntro::
+	.string "BROCK: A Badge is proof of resolve.\p"
+	.string "Show me your strength once more,\n"
+	.string "and the BOULDERBADGE is yours!$"
+PewterCity_Gym_Text_PRLRecoveryDefeat::
+	.string "Your foundation is unshakable!$"
+PewterCity_Gym_Text_PRLRecoveryWon::
+	.string "You recovered the BOULDERBADGE!$"
+PewterCity_Gym_Text_PRLRecoveryAfter::
+	.string "BROCK: That Badge belongs with you.$"
 
 PewterCity_Gym_EventScript_BrockRematch::
 	trainerbattle_rematch TRAINER_LEADER_BROCK, PewterCity_Gym_Text_BrockIntro, PewterCity_Gym_Text_BrockDefeat

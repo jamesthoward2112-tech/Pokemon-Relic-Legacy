@@ -1,16 +1,9 @@
 VictoryRoad_3F_Frlg_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, VictoryRoad_3F_OnLoad
-	map_script MAP_SCRIPT_ON_TRANSITION, VictoryRoad_3F_OnTransition
 	.byte 0
 
-VictoryRoad_3F_OnTransition::
-	call VictoryRoad_3F_OnTransition_PRLRocket
-	end
-
 VictoryRoad_3F_OnLoad::
-	setflag FLAG_HIDE_PRL_ROCKET_VICTORY_ROAD
 	call_if_ne VAR_MAP_SCENE_VICTORY_ROAD_3F, 100, VictoryRoad_3F_EventScript_SetRockBarrier
-	call VictoryRoad_3F_OnLoad_PRLRocketVisibility
 	end
 
 VictoryRoad_3F_EventScript_SetRockBarrier::
@@ -173,103 +166,3 @@ VictoryRoad_3F_Text_TyraNotEnoughMons::
 
 
 
-@ Jessie and James behave as ordinary trainers, using native ! / walk-up.
-@ One shared opponent ID makes the first alignment a single double battle.
-@ Neither character is removed: each has separate post-battle dialogue.
-VictoryRoad_3F_EventScript_PRL_Jessie::
-	trainerbattle_double TRAINER_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_3F_Text_PRL_RocketIntro, VictoryRoad_3F_Text_PRL_RocketDefeat, VictoryRoad_3F_Text_PRL_RocketNotEnoughMons, VictoryRoad_3F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_JESSIE_VICTORY_ROAD
-	msgbox VictoryRoad_3F_Text_PRL_JessiePostBattle, MSGBOX_AUTOCLOSE
-	end
-
-VictoryRoad_3F_EventScript_PRL_James::
-	trainerbattle_double TRAINER_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_3F_Text_PRL_RocketIntro, VictoryRoad_3F_Text_PRL_RocketDefeat, VictoryRoad_3F_Text_PRL_RocketNotEnoughMons, VictoryRoad_3F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_JAMES_VICTORY_ROAD
-	msgbox VictoryRoad_3F_Text_PRL_JamesPostBattle, MSGBOX_AUTOCLOSE
-	end
-
-VictoryRoad_3F_EventScript_PRL_Meowth::
-	lock
-	faceplayer
-	goto_if_defeated TRAINER_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_3F_EventScript_PRL_MeowthAfter
-	msgbox VictoryRoad_3F_Text_PRL_MeowthBefore
-	release
-	end
-VictoryRoad_3F_EventScript_PRL_MeowthAfter::
-	msgbox VictoryRoad_3F_Text_PRL_MeowthAfter
-	release
-	end
-
-VictoryRoad_3F_EventScript_PRL_RocketWon::
-	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD
-	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 1
-	msgbox VictoryRoad_3F_Text_PRL_RocketPostBattle
-	release
-	end
-
-VictoryRoad_3F_Text_PRL_JessiePostBattle::
-	.string "JESSIE: Don't celebrate yet!\p"
-	.string "TEAM ROCKET will still find\n"
-	.string "the ultimate ancient RELIC!$"
-
-VictoryRoad_3F_Text_PRL_JamesPostBattle::
-	.string "JAMES: Every ancient specimen\n"
-	.string "leads to another mystery.\p"
-	.string "BOSS has a lot to learn!$"
-
-VictoryRoad_3F_Text_PRL_MeowthBefore::
-	.string "MEOWTH: Mrowr! Not another kid!$"
-
-VictoryRoad_3F_Text_PRL_MeowthAfter::
-	.string "MEOWTH: They lost AGAIN?!$"
-
-VictoryRoad_3F_Text_PRL_RocketIntro::
-	.string "JESSIE: From SILPH to here?!\p"
-	.string "JAMES: GIOVANNI disbanded\n"
-	.string "TEAM ROCKET...\p"
-	.string "JESSIE: But we still have\n"
-	.string "unfinished business with YOU!$"
-
-VictoryRoad_3F_Text_PRL_RocketDefeat::
-	.string "JAMES: Even our last plan!\p"
-	.string "JESSIE: This is NOT how our\n"
-	.string "grand finale should end!$"
-
-VictoryRoad_3F_Text_PRL_RocketNotEnoughMons::
-	.string "JESSIE: Bring at least two POKéMON\n"
-	.string "if you want to stop TEAM ROCKET!$"
-
-VictoryRoad_3F_Text_PRL_RocketPostBattle::
-	.string "JAMES: The old clues point\n"
-	.string "far beyond this mountain.\p"
-	.string "JESSIE: Keep the gold-bird\n"
-	.string "rumour to yourself, twerp!$"
-
-
-@ Visibility is set before spawning map objects and refreshed on transition.
-@ Neither function starts a battle or changes the native map's warp tiles.
-VictoryRoad_3F_OnLoad_PRLRocketVisibility::
-	goto_if_unset FLAG_BADGE08_GET, VictoryRoad_3F_PRLRocketVisibilityDone
-	goto_if_defeated TRAINER_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_3F_PRLRocketAlreadyWon
-	clearflag FLAG_HIDE_PRL_ROCKET_VICTORY_ROAD
-VictoryRoad_3F_PRLRocketVisibilityDone::
-	return
-VictoryRoad_3F_PRLRocketAlreadyWon::
-	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD
-	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 1
-	clearflag FLAG_HIDE_PRL_ROCKET_VICTORY_ROAD
-	return
-
-VictoryRoad_3F_OnTransition_PRLRocket::
-	goto_if_unset FLAG_BADGE08_GET, VictoryRoad_3F_PRLRocketTransitionDone
-	goto_if_defeated TRAINER_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_3F_PRLRocketTransitionAlreadyWon
-	clearflag FLAG_HIDE_PRL_ROCKET_VICTORY_ROAD
-	goto VictoryRoad_3F_PRLRocketTransitionAdd
-VictoryRoad_3F_PRLRocketTransitionAlreadyWon::
-	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD
-	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 1
-	clearflag FLAG_HIDE_PRL_ROCKET_VICTORY_ROAD
-VictoryRoad_3F_PRLRocketTransitionAdd::
-	addobject LOCALID_PRL_JESSIE_VICTORY_ROAD
-	addobject LOCALID_PRL_JAMES_VICTORY_ROAD
-	addobject LOCALID_PRL_MEOWTH_VICTORY_ROAD
-VictoryRoad_3F_PRLRocketTransitionDone::
-	return

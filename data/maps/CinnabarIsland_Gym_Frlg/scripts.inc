@@ -47,6 +47,9 @@ CinnabarIsland_Gym_OnLoadOpenDoor6::
 
 CinnabarIsland_Gym_EventScript_Blaine::
 	famechecker FAMECHECKER_BLAINE, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, CinnabarIsland_Gym_EventScript_BlaineNormal
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_VOLCANO, CinnabarIsland_Gym_Frlg_EventScript_PRLBadgeRecovery
+CinnabarIsland_Gym_EventScript_BlaineNormal::
 	trainerbattle_single TRAINER_LEADER_BLAINE, CinnabarIsland_Gym_Text_BlaineIntro, CinnabarIsland_Gym_Text_BlaineDefeat, CinnabarIsland_Gym_EventScript_DefeatedBlaine, NO_MUSIC
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, CinnabarIsland_Gym_EventScript_BlaineRematch
@@ -55,6 +58,31 @@ CinnabarIsland_Gym_EventScript_Blaine::
 	msgbox CinnabarIsland_Gym_Text_BlainePostBattle
 	release
 	end
+
+CinnabarIsland_Gym_Frlg_EventScript_PRLBadgeRecovery::
+	trainerbattle_single TRAINER_PRL_BADGE_RECOVERY_BLAINE, CinnabarIsland_Gym_Text_PRLRecoveryIntro, CinnabarIsland_Gym_Text_PRLRecoveryDefeat, CinnabarIsland_Gym_Frlg_EventScript_PRLBadgeRecoveryWon, NO_MUSIC
+	msgbox CinnabarIsland_Gym_Text_PRLRecoveryAfter
+	release
+	end
+CinnabarIsland_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
+	setflag FLAG_PRL_BADGE_HEIST_RECOVERED_VOLCANO
+	playfanfare MUS_OBTAIN_BADGE
+	waitfanfare
+	msgbox CinnabarIsland_Gym_Text_PRLRecoveryWon
+	release
+	end
+
+CinnabarIsland_Gym_Text_PRLRecoveryIntro::
+	.string "BLAINE: TEAM ROCKET took your\n"
+	.string "Badge, but not your fire!\p"
+	.string "Burn brighter than my best team\n"
+	.string "to reclaim the VOLCANOBADGE!$"
+CinnabarIsland_Gym_Text_PRLRecoveryDefeat::
+	.string "Your flame outshines the volcano!$"
+CinnabarIsland_Gym_Text_PRLRecoveryWon::
+	.string "You recovered the VOLCANOBADGE!$"
+CinnabarIsland_Gym_Text_PRLRecoveryAfter::
+	.string "BLAINE: Blaze on to the LEAGUE!$"
 
 CinnabarIsland_Gym_EventScript_BlaineRematch::
 	trainerbattle_rematch TRAINER_LEADER_BLAINE, CinnabarIsland_Gym_Text_BlaineIntro, CinnabarIsland_Gym_Text_BlaineDefeat

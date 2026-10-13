@@ -66,6 +66,8 @@ tools/aif2pcm/aif2pcm
 *.smolTM
 __pycache__
 .map_version
+.worktrees/
+.superpowers/
 
 # Recreated exactly from assets/prl_crystal_presentation.json.
 /graphics/battle_environment/crystal_redux/

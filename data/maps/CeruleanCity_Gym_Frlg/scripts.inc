@@ -3,6 +3,9 @@ CeruleanCity_Gym_Frlg_MapScripts::
 
 CeruleanCity_Gym_EventScript_Misty::
 	famechecker FAMECHECKER_MISTY, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, CeruleanCity_Gym_EventScript_MistyNormal
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_CASCADE, CeruleanCity_Gym_Frlg_EventScript_PRLBadgeRecovery
+CeruleanCity_Gym_EventScript_MistyNormal::
 	trainerbattle_single TRAINER_LEADER_MISTY, CeruleanCity_Gym_Text_MistyIntro, CeruleanCity_Gym_Text_MistyDefeat, CeruleanCity_Gym_EventScript_MistyDefeated, NO_MUSIC
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, CeruleanCity_Gym_EventScript_MistyRematch
@@ -11,6 +14,30 @@ CeruleanCity_Gym_EventScript_Misty::
 	msgbox CeruleanCity_Gym_Text_ExplainTM03
 	release
 	end
+
+CeruleanCity_Gym_Frlg_EventScript_PRLBadgeRecovery::
+	trainerbattle_single TRAINER_PRL_BADGE_RECOVERY_MISTY, CeruleanCity_Gym_Text_PRLRecoveryIntro, CeruleanCity_Gym_Text_PRLRecoveryDefeat, CeruleanCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon, NO_MUSIC
+	msgbox CeruleanCity_Gym_Text_PRLRecoveryAfter
+	release
+	end
+CeruleanCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
+	setflag FLAG_PRL_BADGE_HEIST_RECOVERED_CASCADE
+	playfanfare MUS_OBTAIN_BADGE
+	waitfanfare
+	msgbox CeruleanCity_Gym_Text_PRLRecoveryWon
+	release
+	end
+
+CeruleanCity_Gym_Text_PRLRecoveryIntro::
+	.string "MISTY: Rocket stole your Badge?\p"
+	.string "Beat my strongest Water team,\n"
+	.string "and reclaim the CASCADEBADGE!$"
+CeruleanCity_Gym_Text_PRLRecoveryDefeat::
+	.string "You rode out the whole wave!$"
+CeruleanCity_Gym_Text_PRLRecoveryWon::
+	.string "You recovered the CASCADEBADGE!$"
+CeruleanCity_Gym_Text_PRLRecoveryAfter::
+	.string "MISTY: Go wash TEAM ROCKET away!$"
 
 CeruleanCity_Gym_EventScript_MistyRematch::
 	trainerbattle_rematch TRAINER_LEADER_MISTY, CeruleanCity_Gym_Text_MistyIntro, CeruleanCity_Gym_Text_MistyDefeat

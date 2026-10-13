@@ -3,6 +3,9 @@ CeladonCity_Gym_Frlg_MapScripts::
 
 CeladonCity_Gym_EventScript_Erika::
 	famechecker FAMECHECKER_ERIKA, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, CeladonCity_Gym_EventScript_ErikaNormal
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_RAINBOW, CeladonCity_Gym_Frlg_EventScript_PRLBadgeRecovery
+CeladonCity_Gym_EventScript_ErikaNormal::
 	trainerbattle_single TRAINER_LEADER_ERIKA, CeladonCity_Gym_Text_ErikaIntro, CeladonCity_Gym_Text_ErikaDefeat, CeladonCity_Gym_EventScript_DefeatedErika, NO_MUSIC
 	@ The missing Big Root is claimable without starting a rematch, even on old saves.
 	goto_if_unset FLAG_PRL_GYM_KANTO_ERIKA_EXTRA, CeladonCity_Gym_EventScript_ClaimPendingBonus
@@ -14,6 +17,31 @@ CeladonCity_Gym_EventScript_Erika::
 	msgbox CeladonCity_Gym_Text_ErikaPostBattle
 	release
 	end
+
+CeladonCity_Gym_Frlg_EventScript_PRLBadgeRecovery::
+	trainerbattle_single TRAINER_PRL_BADGE_RECOVERY_ERIKA, CeladonCity_Gym_Text_PRLRecoveryIntro, CeladonCity_Gym_Text_PRLRecoveryDefeat, CeladonCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon, NO_MUSIC
+	msgbox CeladonCity_Gym_Text_PRLRecoveryAfter
+	release
+	end
+CeladonCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
+	setflag FLAG_PRL_BADGE_HEIST_RECOVERED_RAINBOW
+	playfanfare MUS_OBTAIN_BADGE
+	waitfanfare
+	msgbox CeladonCity_Gym_Text_PRLRecoveryWon
+	release
+	end
+
+CeladonCity_Gym_Text_PRLRecoveryIntro::
+	.string "ERIKA: Even a stolen flower can\n"
+	.string "take root again.\p"
+	.string "Prove your growth and reclaim\n"
+	.string "the RAINBOWBADGE.$"
+CeladonCity_Gym_Text_PRLRecoveryDefeat::
+	.string "Your strength has truly blossomed.$"
+CeladonCity_Gym_Text_PRLRecoveryWon::
+	.string "You recovered the RAINBOWBADGE!$"
+CeladonCity_Gym_Text_PRLRecoveryAfter::
+	.string "ERIKA: May your path keep blooming.$"
 
 @ Legacy saves may have a Miracle Seed and completed bonus flag.
 @ Do not replay the money reward; give only the missing approved Big Root once.

@@ -3,6 +3,9 @@ FuchsiaCity_Gym_Frlg_MapScripts::
 
 FuchsiaCity_Gym_EventScript_Koga::
 	famechecker FAMECHECKER_KOGA, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, FuchsiaCity_Gym_EventScript_KogaNormal
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_SOUL, FuchsiaCity_Gym_Frlg_EventScript_PRLBadgeRecovery
+FuchsiaCity_Gym_EventScript_KogaNormal::
 	trainerbattle_single TRAINER_LEADER_KOGA, FuchsiaCity_Gym_Text_KogaIntro, FuchsiaCity_Gym_Text_KogaDefeat, FuchsiaCity_Gym_EventScript_DefeatedKoga, NO_MUSIC
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, FuchsiaCity_Gym_EventScript_KogaRematch
@@ -11,6 +14,31 @@ FuchsiaCity_Gym_EventScript_Koga::
 	msgbox FuchsiaCity_Gym_Text_KogaPostBattle
 	release
 	end
+
+FuchsiaCity_Gym_Frlg_EventScript_PRLBadgeRecovery::
+	trainerbattle_single TRAINER_PRL_BADGE_RECOVERY_KOGA, FuchsiaCity_Gym_Text_PRLRecoveryIntro, FuchsiaCity_Gym_Text_PRLRecoveryDefeat, FuchsiaCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon, NO_MUSIC
+	msgbox FuchsiaCity_Gym_Text_PRLRecoveryAfter
+	release
+	end
+FuchsiaCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
+	setflag FLAG_PRL_BADGE_HEIST_RECOVERED_SOUL
+	playfanfare MUS_OBTAIN_BADGE
+	waitfanfare
+	msgbox FuchsiaCity_Gym_Text_PRLRecoveryWon
+	release
+	end
+
+FuchsiaCity_Gym_Text_PRLRecoveryIntro::
+	.string "KOGA: A ninja guards against theft,\n"
+	.string "yet learns from every surprise.\p"
+	.string "Overcome my hidden arts and reclaim\n"
+	.string "the SOULBADGE!$"
+FuchsiaCity_Gym_Text_PRLRecoveryDefeat::
+	.string "Your discipline pierces every veil!$"
+FuchsiaCity_Gym_Text_PRLRecoveryWon::
+	.string "You recovered the SOULBADGE!$"
+FuchsiaCity_Gym_Text_PRLRecoveryAfter::
+	.string "KOGA: Vanquish those Rocket fools.$"
 
 FuchsiaCity_Gym_EventScript_KogaRematch::
 	trainerbattle_rematch TRAINER_LEADER_KOGA, FuchsiaCity_Gym_Text_KogaIntro, FuchsiaCity_Gym_Text_KogaDefeat

@@ -15,6 +15,13 @@ Route23_EventScript_MissingBadge::
 	release
 	end
 
+Route23_EventScript_MissingStolenBadge::
+	msgbox Text_PRLBadgeHeistBadgeStillMissing
+	playse SE_BOO
+	waitse
+	release
+	end
+
 Route23_EventScript_AlreadyRecognizedBoulderBadge::
 	message Text_OhThatsBadgeGoRightAhead
 	waitmessage
@@ -31,7 +38,9 @@ Route23_EventScript_AlreadyRecognizedBadge::
 
 @ Duplicate of the below, only used for Boulder Badge
 Route22_NorthEntrance_EventScript_BadgeGuard::
+	goto_if_set FLAG_PRL_BADGE_HEIST_STARTED, Route22_NorthEntrance_EventScript_HeistBadgeGuard
 	goto_if_ge VAR_MAP_SCENE_ROUTE23, VAR_TEMP_1, Route23_EventScript_AlreadyRecognizedBoulderBadge
+Route22_NorthEntrance_EventScript_HeistBadgeGuard::
 	switch VAR_TEMP_1
 	case 1, Route23_EventScript_CheckBoulderBadge
 	case 2, Route23_EventScript_CheckCascadeBadge
@@ -44,7 +53,9 @@ Route22_NorthEntrance_EventScript_BadgeGuard::
 	end
 
 Route23_EventScript_BadgeGuard::
+	goto_if_set FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_HeistBadgeGuard
 	goto_if_ge VAR_MAP_SCENE_ROUTE23, VAR_TEMP_1, Route23_EventScript_AlreadyRecognizedBadge
+Route23_EventScript_HeistBadgeGuard::
 	switch VAR_TEMP_1
 	case 1, Route23_EventScript_CheckBoulderBadge
 	case 2, Route23_EventScript_CheckCascadeBadge
@@ -57,41 +68,65 @@ Route23_EventScript_BadgeGuard::
 	end
 
 Route23_EventScript_CheckBoulderBadge::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalBoulderBadge
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_BOULDER, Route23_EventScript_MissingStolenBadge
+Route23_EventScript_CheckOriginalBoulderBadge::
 	goto_if_set FLAG_BADGE01_GET, Route23_EventScript_RecognizeBoulderBadge
 	goto Route23_EventScript_MissingBoulderBadge
 	end
 
 Route23_EventScript_CheckCascadeBadge::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalCascadeBadge
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_CASCADE, Route23_EventScript_MissingStolenBadge
+Route23_EventScript_CheckOriginalCascadeBadge::
 	goto_if_set FLAG_BADGE02_GET, Route23_EventScript_RecognizeBadge
 	goto Route23_EventScript_MissingBadge
 	end
 
 Route23_EventScript_CheckThunderBadge::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalThunderBadge
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_THUNDER, Route23_EventScript_MissingStolenBadge
+Route23_EventScript_CheckOriginalThunderBadge::
 	goto_if_set FLAG_BADGE03_GET, Route23_EventScript_RecognizeBadge
 	goto Route23_EventScript_MissingBadge
 	end
 
 Route23_EventScript_CheckRainbowBadge::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalRainbowBadge
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_RAINBOW, Route23_EventScript_MissingStolenBadge
+Route23_EventScript_CheckOriginalRainbowBadge::
 	goto_if_set FLAG_BADGE04_GET, Route23_EventScript_RecognizeBadge
 	goto Route23_EventScript_MissingBadge
 	end
 
 Route23_EventScript_CheckSoulBadge::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalSoulBadge
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_SOUL, Route23_EventScript_MissingStolenBadge
+Route23_EventScript_CheckOriginalSoulBadge::
 	goto_if_set FLAG_BADGE05_GET, Route23_EventScript_RecognizeBadge
 	goto Route23_EventScript_MissingBadge
 	end
 
 Route23_EventScript_CheckMarshBadge::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalMarshBadge
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_MARSH, Route23_EventScript_MissingStolenBadge
+Route23_EventScript_CheckOriginalMarshBadge::
 	goto_if_set FLAG_BADGE06_GET, Route23_EventScript_RecognizeBadge
 	goto Route23_EventScript_MissingBadge
 	end
 
 Route23_EventScript_CheckVolcanoBadge::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalVolcanoBadge
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_VOLCANO, Route23_EventScript_MissingStolenBadge
+Route23_EventScript_CheckOriginalVolcanoBadge::
 	goto_if_set FLAG_BADGE07_GET, Route23_EventScript_RecognizeBadge
 	goto Route23_EventScript_MissingBadge
 	end
 
 Route23_EventScript_CheckEarthBadge::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalEarthBadge
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_EARTH, Route23_EventScript_MissingStolenBadge
+Route23_EventScript_CheckOriginalEarthBadge::
 	goto_if_set FLAG_BADGE08_GET, Route23_EventScript_RecognizeBadge
 	goto Route23_EventScript_MissingBadge
 	end
@@ -128,41 +163,65 @@ Route23_EventScript_BadgeGuardTrigger::
 	end
 
 Route23_EventScript_CheckBoulderBadgeTrigger::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalBoulderBadgeTrigger
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_BOULDER, Route23_EventScript_MissingStolenBadgeTrigger
+Route23_EventScript_CheckOriginalBoulderBadgeTrigger::
 	goto_if_set FLAG_BADGE01_GET, Route23_EventScript_RecognizeBoulderBadgeTrigger
 	goto Route23_EventScript_MissingBoulderBadgeTrigger
 	end
 
 Route23_EventScript_CheckCascadeBadgeTrigger::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalCascadeBadgeTrigger
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_CASCADE, Route23_EventScript_MissingStolenBadgeTrigger
+Route23_EventScript_CheckOriginalCascadeBadgeTrigger::
 	goto_if_set FLAG_BADGE02_GET, Route23_EventScript_RecognizeBadgeTrigger
 	goto Route23_EventScript_MissingBadgeTrigger
 	end
 
 Route23_EventScript_CheckThunderBadgeTrigger::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalThunderBadgeTrigger
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_THUNDER, Route23_EventScript_MissingStolenBadgeTrigger
+Route23_EventScript_CheckOriginalThunderBadgeTrigger::
 	goto_if_set FLAG_BADGE03_GET, Route23_EventScript_RecognizeBadgeTrigger
 	goto Route23_EventScript_MissingBadgeTrigger
 	end
 
 Route23_EventScript_CheckRainbowBadgeTrigger::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalRainbowBadgeTrigger
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_RAINBOW, Route23_EventScript_MissingStolenBadgeTrigger
+Route23_EventScript_CheckOriginalRainbowBadgeTrigger::
 	goto_if_set FLAG_BADGE04_GET, Route23_EventScript_RecognizeBadgeTrigger
 	goto Route23_EventScript_MissingBadgeTrigger
 	end
 
 Route23_EventScript_CheckSoulBadgeTrigger::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalSoulBadgeTrigger
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_SOUL, Route23_EventScript_MissingStolenBadgeTrigger
+Route23_EventScript_CheckOriginalSoulBadgeTrigger::
 	goto_if_set FLAG_BADGE05_GET, Route23_EventScript_RecognizeBadgeTrigger
 	goto Route23_EventScript_MissingBadgeTrigger
 	end
 
 Route23_EventScript_CheckMarshBadgeTrigger::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalMarshBadgeTrigger
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_MARSH, Route23_EventScript_MissingStolenBadgeTrigger
+Route23_EventScript_CheckOriginalMarshBadgeTrigger::
 	goto_if_set FLAG_BADGE06_GET, Route23_EventScript_RecognizeBadgeTrigger
 	goto Route23_EventScript_MissingBadgeTrigger
 	end
 
 Route23_EventScript_CheckVolcanoBadgeTrigger::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalVolcanoBadgeTrigger
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_VOLCANO, Route23_EventScript_MissingStolenBadgeTrigger
+Route23_EventScript_CheckOriginalVolcanoBadgeTrigger::
 	goto_if_set FLAG_BADGE07_GET, Route23_EventScript_RecognizeBadgeTrigger
 	goto Route23_EventScript_MissingBadgeTrigger
 	end
 
 Route23_EventScript_CheckEarthBadgeTrigger::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_CheckOriginalEarthBadgeTrigger
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_EARTH, Route23_EventScript_MissingStolenBadgeTrigger
+Route23_EventScript_CheckOriginalEarthBadgeTrigger::
 	goto_if_set FLAG_BADGE08_GET, Route23_EventScript_RecognizeBadgeTrigger
 	goto Route23_EventScript_MissingBadgeTrigger
 	end
@@ -185,6 +244,17 @@ Route23_EventScript_MissingBadgeTrigger::
 	waitbuttonpress
 	closemessage
 	waitse
+	applymovement LOCALID_PLAYER, Route23_Movement_WalkDown
+	applymovement VAR_0x8009, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	releaseall
+	end
+
+Route23_EventScript_MissingStolenBadgeTrigger::
+	msgbox Text_PRLBadgeHeistBadgeStillMissing
+	playse SE_BOO
+	waitse
+	closemessage
 	applymovement LOCALID_PLAYER, Route23_Movement_WalkDown
 	applymovement VAR_0x8009, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
@@ -239,4 +309,9 @@ Text_OnlyPassWithBadgeOhGoAhead::
 	.string "Oh! That is the {STR_VAR_1}!{PAUSE_MUSIC}{PLAY_BGM}{MUS_LEVEL_UP}{PAUSE 0x60}{RESUME_MUSIC}\p"
 	.string "Okay, then.\n"
 	.string "Please, go right ahead.$"
+
+Text_PRLBadgeHeistBadgeStillMissing::
+	.string "TEAM ROCKET stole that Badge!\p"
+	.string "Recover it from its GYM LEADER\n"
+	.string "before you can pass.$"
 

@@ -1,8 +1,34 @@
 ViridianCity_Gym_Frlg_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, ViridianCity_Gym_OnTransition_PRLBadgeRecovery
 	.byte 0
+
+ViridianCity_Gym_OnTransition_PRLBadgeRecovery::
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, ViridianCity_Gym_EventScript_PRLGiovanniVisibilityDone
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_BOULDER, ViridianCity_Gym_EventScript_PRLGiovanniVisibilityDone
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_CASCADE, ViridianCity_Gym_EventScript_PRLGiovanniVisibilityDone
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_THUNDER, ViridianCity_Gym_EventScript_PRLGiovanniVisibilityDone
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_RAINBOW, ViridianCity_Gym_EventScript_PRLGiovanniVisibilityDone
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_SOUL, ViridianCity_Gym_EventScript_PRLGiovanniVisibilityDone
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_MARSH, ViridianCity_Gym_EventScript_PRLGiovanniVisibilityDone
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_VOLCANO, ViridianCity_Gym_EventScript_PRLGiovanniVisibilityDone
+	clearflag FLAG_HIDE_VIRIDIAN_GIOVANNI
+	addobject LOCALID_VIRIDIAN_GIOVANNI
+ViridianCity_Gym_EventScript_PRLGiovanniVisibilityDone::
+	return
 
 ViridianCity_Gym_EventScript_Giovanni::
 	famechecker FAMECHECKER_GIOVANNI, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
+	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, ViridianCity_Gym_EventScript_GiovanniNormal
+	goto_if_set FLAG_PRL_BADGE_HEIST_RECOVERED_EARTH, ViridianCity_Gym_EventScript_GiovanniNormal
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_BOULDER, ViridianCity_Gym_EventScript_PRLGiovanniNotReady
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_CASCADE, ViridianCity_Gym_EventScript_PRLGiovanniNotReady
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_THUNDER, ViridianCity_Gym_EventScript_PRLGiovanniNotReady
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_RAINBOW, ViridianCity_Gym_EventScript_PRLGiovanniNotReady
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_SOUL, ViridianCity_Gym_EventScript_PRLGiovanniNotReady
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_MARSH, ViridianCity_Gym_EventScript_PRLGiovanniNotReady
+	goto_if_unset FLAG_PRL_BADGE_HEIST_RECOVERED_VOLCANO, ViridianCity_Gym_EventScript_PRLGiovanniNotReady
+	goto ViridianCity_Gym_Frlg_EventScript_PRLBadgeRecovery
+ViridianCity_Gym_EventScript_GiovanniNormal::
 	trainerbattle_single TRAINER_LEADER_GIOVANNI, ViridianCity_Gym_Text_GiovanniIntro, ViridianCity_Gym_Text_GiovanniDefeat, ViridianCity_Gym_EventScript_DefeatedGiovanni, NO_MUSIC
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, ViridianCity_Gym_EventScript_GiovanniRematch
@@ -15,6 +41,43 @@ ViridianCity_Gym_EventScript_Giovanni::
 	fadescreen FADE_FROM_BLACK
 	release
 	end
+
+ViridianCity_Gym_EventScript_PRLGiovanniNotReady::
+	msgbox ViridianCity_Gym_Text_PRLGiovanniNotReady
+	release
+	end
+
+ViridianCity_Gym_Frlg_EventScript_PRLBadgeRecovery::
+	trainerbattle_single TRAINER_PRL_BADGE_RECOVERY_GIOVANNI, ViridianCity_Gym_Text_PRLRecoveryIntro, ViridianCity_Gym_Text_PRLRecoveryDefeat, ViridianCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon, NO_MUSIC
+	msgbox ViridianCity_Gym_Text_PRLRecoveryAfter
+	release
+	end
+ViridianCity_Gym_Frlg_EventScript_PRLBadgeRecoveryWon::
+	setflag FLAG_PRL_BADGE_HEIST_RECOVERED_EARTH
+	setflag FLAG_PRL_BADGE_HEIST_ALL_RECOVERED
+	playfanfare MUS_OBTAIN_BADGE
+	waitfanfare
+	msgbox ViridianCity_Gym_Text_PRLRecoveryWon
+	release
+	end
+
+ViridianCity_Gym_Text_PRLGiovanniNotReady::
+	.string "GIOVANNI: Reclaim the other seven\n"
+	.string "Badges before you challenge me.$"
+ViridianCity_Gym_Text_PRLRecoveryIntro::
+	.string "So, you've reclaimed the other\n"
+	.string "seven Badges? Impressive.\p"
+	.string "But the EARTHBADGE will not be\n"
+	.string "so easily recovered.$"
+ViridianCity_Gym_Text_PRLRecoveryDefeat::
+	.string "Your command is beyond question.$"
+ViridianCity_Gym_Text_PRLRecoveryWon::
+	.string "You recovered the EARTHBADGE!\p"
+	.string "All eight stolen Badges have been\n"
+	.string "reclaimed!$"
+ViridianCity_Gym_Text_PRLRecoveryAfter::
+	.string "GIOVANNI: Go. Settle this with\n"
+	.string "those troublesome agents.$"
 
 ViridianCity_Gym_EventScript_GiovanniRematch::
 	trainerbattle_rematch TRAINER_LEADER_GIOVANNI, ViridianCity_Gym_Text_GiovanniIntro, ViridianCity_Gym_Text_GiovanniDefeat
