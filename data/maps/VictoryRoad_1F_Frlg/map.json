@@ -114,6 +114,36 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "EventScript_StrengthBoulder",
       "flag": "0"
+    },
+    {
+      "type": "object",
+      "elevation": 3,
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "local_id": "LOCALID_PRL_VR_TWIN_STEEVE",
+      "graphics_id": "OBJ_EVENT_GFX_TWIN",
+      "x": 10,
+      "y": 18,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "script": "VictoryRoad_1F_EventScript_PRLSteevee",
+      "flag": "0"
+    },
+    {
+      "type": "object",
+      "elevation": 3,
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "local_id": "LOCALID_PRL_VR_TWIN_NEEVEE",
+      "graphics_id": "OBJ_EVENT_GFX_TWIN",
+      "x": 12,
+      "y": 18,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "script": "VictoryRoad_1F_EventScript_PRLNeevee",
+      "flag": "0"
     }
   ],
   "warp_events": [
@@ -141,6 +171,69 @@
       "var": "VAR_MAP_SCENE_VICTORY_ROAD_1F",
       "var_value": "99",
       "script": "VictoryRoad_1F_EventScript_FloorSwitch"
+    },
+    {
+      "type": "trigger",
+      "x": 8,
+      "y": 19,
+      "elevation": 3,
+      "var": "VAR_TEMP_2",
+      "var_value": "0",
+      "script": "VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 9,
+      "y": 19,
+      "elevation": 3,
+      "var": "VAR_TEMP_2",
+      "var_value": "0",
+      "script": "VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 10,
+      "y": 19,
+      "elevation": 3,
+      "var": "VAR_TEMP_2",
+      "var_value": "0",
+      "script": "VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 11,
+      "y": 19,
+      "elevation": 3,
+      "var": "VAR_TEMP_2",
+      "var_value": "0",
+      "script": "VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 12,
+      "y": 19,
+      "elevation": 3,
+      "var": "VAR_TEMP_2",
+      "var_value": "0",
+      "script": "VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 13,
+      "y": 19,
+      "elevation": 3,
+      "var": "VAR_TEMP_2",
+      "var_value": "0",
+      "script": "VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 14,
+      "y": 19,
+      "elevation": 3,
+      "var": "VAR_TEMP_2",
+      "var_value": "0",
+      "script": "VictoryRoad_1F_EventScript_PRLSteeveNeeveeTrigger"
     }
   ],
   "bg_events": [
