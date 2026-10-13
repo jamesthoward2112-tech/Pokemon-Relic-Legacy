@@ -230,7 +230,9 @@ Route23_EventScript_PRLGreatBadgeHeist::
 	applymovement LOCALID_PRL_HEIST_JESSIE, Route23_Movement_PRLJessieBoard
 	applymovement LOCALID_PRL_HEIST_JAMES, Route23_Movement_PRLJamesBoard
 	applymovement LOCALID_PRL_HEIST_MEOWTH, Route23_Movement_PRLMeowthBoard
-	waitmovement 0
+	waitmovement LOCALID_PRL_HEIST_JESSIE
+	waitmovement LOCALID_PRL_HEIST_JAMES
+	waitmovement LOCALID_PRL_HEIST_MEOWTH
 	delay 16
 	removeobject LOCALID_PRL_HEIST_JESSIE
 	removeobject LOCALID_PRL_HEIST_JAMES
@@ -289,7 +291,9 @@ Route23_EventScript_PRLFinalRocketWon::
 	applymovement LOCALID_PRL_HEIST_JESSIE, Route23_Movement_PRLJessieFinalBoard
 	applymovement LOCALID_PRL_HEIST_JAMES, Route23_Movement_PRLJamesFinalBoard
 	applymovement LOCALID_PRL_HEIST_MEOWTH, Route23_Movement_PRLMeowthFinalBoard
-	waitmovement 0
+	waitmovement LOCALID_PRL_HEIST_JESSIE
+	waitmovement LOCALID_PRL_HEIST_JAMES
+	waitmovement LOCALID_PRL_HEIST_MEOWTH
 	delay 16
 	removeobject LOCALID_PRL_HEIST_JESSIE
 	removeobject LOCALID_PRL_HEIST_JAMES

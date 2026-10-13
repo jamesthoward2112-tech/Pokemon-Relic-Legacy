@@ -31,6 +31,9 @@ def check_scene(qa, final):
         overlap = 0
         previous_y = None
         upward_pixels = 0
+        last_coords = {}
+        last_finished = {}
+        collected = set()
         for frame in range(2200):
             emu.frame(1, 'A' if frame % 120 == 80 else 0)
             objects = {}
@@ -41,6 +44,15 @@ def check_scene(qa, final):
                     if local_id in (10, 11, 12, 13):
                         objects[local_id] = address
             visible = {key for key, address in objects.items() if not emu.read(address + 1, 1) & 0x60}
+            for key in (10, 11, 12):
+                if key in objects:
+                    address = objects[key]
+                    last_coords[key] = (emu.read(address + 0x10, 2), emu.read(address + 0x12, 2))
+                    last_finished[key] = bool(emu.read(address, 1) & 0x80)
+                elif appeared and key in last_coords and key not in collected:
+                    assert last_coords[key] == (15, 37 if final else 157), (name, key, 'removed before reaching basket', last_coords[key])
+                    assert last_finished[key], (name, key, 'removed while boarding movement still active')
+                    collected.add(key)
             actors = all(key in visible for key in (10, 11, 12))
             ready |= actors
             balloon = 13 in visible
@@ -63,6 +75,7 @@ def check_scene(qa, final):
                     pictures.append((f'frame {frame}', emu.image()))
             trace.append({'frame': frame, 'visible': sorted(visible), 'balloon_y': previous_y if balloon else None})
         assert appeared and overlap >= 24, (name, 'missing boarding overlap', overlap)
+        assert collected == {10, 11, 12}, (name, 'trio not collected', collected)
         assert upward_pixels >= 48, (name, 'takeoff did not lift continuously', upward_pixels)
         assert qa.flag(emu, FLAG_HEIST_STARTED)
         assert all(qa.flag(emu, flag) for flag in BADGE_FLAGS)
