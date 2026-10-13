@@ -12,14 +12,10 @@ Route23_OnTransition::
 	setvar VAR_MAP_SCENE_VICTORY_ROAD_2F_BOULDER2, 0
 	setvar VAR_MAP_SCENE_VICTORY_ROAD_3F, 0
 	goto_if_defeated TRAINER_STEEVE_NEEVEE_ROUTE23, Route23_EventScript_PRLSteeveNeeveeSaveSyncWon
+@ Route 23 keeps its original approved southern badge-heist balloon scene.
+@ The recovered-badge FINAL battle is now at the far end of the Victory Road cave.
 Route23_EventScript_PRLHeistVisibility::
-	goto_if_unset FLAG_PRL_BADGE_HEIST_STARTED, Route23_EventScript_PRLHeistVisibilityDone
-	goto_if_unset FLAG_PRL_BADGE_HEIST_ALL_RECOVERED, Route23_EventScript_PRLHeistVisibilityDone
-	goto_if_set FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED, Route23_EventScript_PRLHeistVisibilityDone
-	clearflag FLAG_HIDE_PRL_BADGE_HEIST_TRIO
-	addobject LOCALID_PRL_HEIST_JESSIE
-	addobject LOCALID_PRL_HEIST_JAMES
-	addobject LOCALID_PRL_HEIST_MEOWTH
+	goto Route23_EventScript_PRLHeistVisibilityDone
 Route23_EventScript_PRLHeistVisibilityDone::
 	end
 Route23_EventScript_PRLSteeveNeeveeSaveSyncWon::
