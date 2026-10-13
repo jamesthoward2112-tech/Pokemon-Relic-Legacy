@@ -58,7 +58,7 @@ class VictoryRoadCaveEncountersTests(unittest.TestCase):
             trainers = set(re.findall(r"trainerbattle_(?:single|double|no_intro) (TRAINER_[A-Z_0-9]+)", scripts))
             by_map[map_name] = trainers
         floors = {
-            "VictoryRoad_1F_Frlg": (58, 60),
+            "VictoryRoad_1F_Frlg": (58, 64),
             "VictoryRoad_2F_Frlg": (58, 65),
             "VictoryRoad_3F_Frlg": (60, 64),
         }
