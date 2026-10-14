@@ -223,7 +223,7 @@ string generate_map_connections_text(Json map_data) {
     // Temporary PRL FireRed Hoenn bridge: a solid edge, not a dangling
     // connection to the excluded Route 101 layout/header.
     if (version == "firered" && json_to_string(map_data, "name") == "LittlerootTown")
-        return string("\\n");
+        return string("\n");
     if (map_data["connections"] == Json())
         return string("\n");
 
@@ -311,7 +311,7 @@ string generate_map_events_text(Json map_data) {
             if (version == "firered" && mapName == "LittlerootTown"
              && (destination == "MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F"
               || destination == "MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F")) {
-                text << "\twarp_def 255, 255, 0, 0, MAP_LITTLEROOT_TOWN\\n";
+                text << "\twarp_def 255, 255, 0, 0, MAP_LITTLEROOT_TOWN\n";
                 continue;
             }
             text << "\twarp_def "
