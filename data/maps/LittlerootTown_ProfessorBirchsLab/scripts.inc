@@ -96,11 +96,118 @@ LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForJohtoStarters::
 	end
 
 LittlerootTown_ProfessorBirchsLab_OnFrame:
+	@ PR83: one-shot return-safe arrival for the Kanto Champion.
+	map_script_2 VAR_PRL_REGION_STAGE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival
 	map_script_2 VAR_BIRCH_LAB_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_GiveStarterEvent
 	map_script_2 VAR_BIRCH_LAB_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_GivePokedexEvent
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_UpgradeToNationalDex
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_ChooseJohtoStarter
 	.2byte 0
+
+@ PR83: the player arrives from KANTO on the S.S. LEGACY, retaining
+@ their national Pokédex and Trainer ID. Never replay Emerald's old truck.
+@ The party was boxed during the Kanto departure transaction.
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival::
+	lockall
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
+	addobject LOCALID_BIRCHS_LAB_BIRCH
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLChooseRalts::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLWantRalts, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveRalts
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLWantPoochyena, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGivePoochyena
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLWantSableye, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveSableye
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLChooseCarefully
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLChooseRalts
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveRalts::
+	givemon SPECIES_RALTS, 5
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGotRalts
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterFailed
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLGotRalts::
+	setvar VAR_PRL_HOENN_STARTER, 1
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLGivePoochyena::
+	givemon SPECIES_POOCHYENA, 5
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGotPoochyena
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterFailed
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLGotPoochyena::
+	setvar VAR_PRL_HOENN_STARTER, 2
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveSableye::
+	givemon SPECIES_SABLEYE, 5
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGotSableye
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterFailed
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLGotSableye::
+	setvar VAR_PRL_HOENN_STARTER, 3
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterFailed::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLStarterFailed
+	releaseall
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::
+	@ Trigger no vanilla Birch-starter duplicate, dex-upgrade or Johto cutscene.
+	setvar VAR_BIRCH_LAB_STATE, 5
+	setvar VAR_LITTLEROOT_TOWN_STATE, 3
+	setvar VAR_LITTLEROOT_RIVAL_STATE, 4
+	setvar VAR_OLDALE_TOWN_STATE, 1
+	setflag FLAG_RESCUED_BIRCH
+	setflag FLAG_ADVENTURE_STARTED
+	setvar VAR_PRL_REGION_STAGE, 2
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLHoennNext
+	releaseall
+	end
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome::
+	.string "BIRCH: The KANTO CHAMPION!\n"
+	.string "PROF. OAK said you'd arrive.\p"
+	.string "Welcome to HOENN, {PLAYER}!\p"
+	.string "Your KANTO team is safe in\n"
+	.string "the PC, ready for later.\p"
+	.string "Your uncle FRANK lives in\n"
+	.string "PETALBURG CITY.\p"
+	.string "First, choose a partner for\n"
+	.string "your new adventure!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLWantRalts::
+	.string "Will you begin with RALTS?$"
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLWantPoochyena::
+	.string "How about POOCHYENA?$"
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLWantSableye::
+	.string "Or would you choose SABLEYE?$"
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLChooseCarefully::
+	.string "BIRCH: Take your time.\n"
+	.string "One partner will join you!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLStarterFailed::
+	.string "BIRCH: Something went wrong.\n"
+	.string "Please talk to me again.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLHoennNext::
+	.string "BIRCH: Excellent choice!\p"
+	.string "Start in LITTLEROOT, then\n"
+	.string "head north to OLDALE.\p"
+	.string "HOENN has new RELICS to find!\n"
+	.string "And remember uncle FRANK.$"
 
 @ The starter is technically given prior to this on Route 101 by special ChooseStarter
 @ This is just where the game tells you its yours and lets you nickname it
