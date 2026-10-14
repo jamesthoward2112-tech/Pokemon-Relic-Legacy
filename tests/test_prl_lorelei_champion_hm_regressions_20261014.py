@@ -22,10 +22,13 @@ class LoreleiChampionPartyHmRegression(unittest.TestCase):
         self.assertRegex(opponents, r"#define TRAINER_ELITE_FOUR_LORELEI\s+310")
         self.assertRegex(opponents, r"#define TRAINER_ELITE_FOUR_BRUNO\s+311")
         special_block = specials.split("#if IS_FRLG", 1)[1].split("#else", 1)[0]
-        self.assertIn("TRAINER_EREADER                     0xFF03", special_block)
-        self.assertIn("TRAINER_FRONTIER_BRAIN              0xFF04", special_block)
-        self.assertIn("TRAINER_PLAYER                      0xFF05", special_block)
+        self.assertIn("TRAINER_EREADER                     0x02F0", special_block)
+        self.assertIn("TRAINER_FRONTIER_BRAIN              0x02F1", special_block)
+        self.assertIn("TRAINER_PLAYER                      0x02F2", special_block)
         self.assertIn("(TRAINER_EREADER + 1)", specials.split("#else", 1)[1])
+        self.assertIn("#define TRAINERS_COUNT_FRLG                      659", opponents)
+        self.assertIn("#define MAX_TRAINERS_COUNT_FRLG                  768", opponents)
+        self.assertTrue(all(659 <= x < 768 for x in (0x02F0, 0x02F1, 0x02F2)))
 
     def test_lorelei_unchanged_first_clear_team_and_no_intro(self):
         scripts = read("data/maps/PokemonLeague_LoreleisRoom_Frlg/scripts.inc")
