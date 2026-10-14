@@ -123,8 +123,8 @@ VictoryRoad_2F_Movement_PRL_MeowthRetreat:
 	step_end
 
 VictoryRoad_2F_Text_PRL_RocketRetreat::
-	.string "JESSIE: This isn't over yet!\\p"
-	.string "JAMES: Come on, MEOWTH!\\p"
+	.string "JESSIE: This isn't over yet!\p"
+	.string "JAMES: Come on, MEOWTH!\p"
 	.string "MEOWTH: We're runnin' for it!$"
 
 VictoryRoad_2F_Movement_PRL_RocketStepIn:
