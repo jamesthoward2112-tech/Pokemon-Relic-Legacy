@@ -1,9 +1,30 @@
 PalletTown_PlayersHouse_1F_Frlg_MapScripts::
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, PalletTown_PlayersHouse_1F_OnFrame
 	.byte 0
+
+@ If the player returns home after the Hall of Fame (including older saves),
+@ start this scene once. It must not interrupt the beginning of the game.
+PalletTown_PlayersHouse_1F_OnFrame::
+	map_script_2 VAR_TEMP_2, 0, PalletTown_PlayersHouse_1F_EventScript_PRLHomecoming
+	.2byte 0
+
+PalletTown_PlayersHouse_1F_EventScript_PRLHomecoming::
+	setvar VAR_TEMP_2, 1
+	goto_if_unset FLAG_SYS_GAME_CLEAR, PalletTown_PlayersHouse_1F_EventScript_PRLHomecomingDone
+	goto_if_set FLAG_PRL_POSTHOF_MOM_WELCOME, PalletTown_PlayersHouse_1F_EventScript_PRLHomecomingDone
+	lockall
+	msgbox PalletTown_PlayersHouse_1F_Text_PRLHomecoming
+	setflag FLAG_PRL_POSTHOF_MOM_WELCOME
+	releaseall
+	end
+
+PalletTown_PlayersHouse_1F_EventScript_PRLHomecomingDone::
+	end
 
 PalletTown_PlayersHouse_1F_EventScript_Mom::
 	lock
 	faceplayer
+	goto_if_set FLAG_SYS_GAME_CLEAR, PalletTown_PlayersHouse_1F_EventScript_PRLMomPostLeague
 	goto_if_set FLAG_BEAT_RIVAL_IN_OAKS_LAB, PalletTown_PlayersHouse_1F_EventScript_MomHeal
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, PalletTown_PlayersHouse_1F_EventScript_MomOakLookingForYouMale
@@ -21,6 +42,15 @@ PalletTown_PlayersHouse_1F_EventScript_MomOakLookingForYouMale::
 PalletTown_PlayersHouse_1F_EventScript_MomOakLookingForYouFemale::
 	msgbox PalletTown_PlayersHouse_1F_Text_AllGirlsLeaveOakLookingForYou
 	return
+
+@ Direct talk fallback for anyone loading a save at Pallet Town instead
+@ of reaching the house through the credits.
+PalletTown_PlayersHouse_1F_EventScript_PRLMomPostLeague::
+	goto_if_set FLAG_PRL_POSTHOF_MOM_WELCOME, PalletTown_PlayersHouse_1F_EventScript_MomHeal
+	msgbox PalletTown_PlayersHouse_1F_Text_PRLHomecoming
+	setflag FLAG_PRL_POSTHOF_MOM_WELCOME
+	release
+	end
 
 PalletTown_PlayersHouse_1F_EventScript_MomHeal::
 	msgbox PalletTown_PlayersHouse_1F_Text_YouShouldTakeQuickRest
@@ -90,3 +120,14 @@ PalletTown_PlayersHouse_1F_Text_MovieOnTVGirlOnBrickRoad::
 
 PalletTown_PlayersHouse_1F_Text_OopsWrongSide::
 	.string "Oops, wrong side…$"
+
+PalletTown_PlayersHouse_1F_Text_PRLHomecoming::
+	.string "MOM: {PLAYER}! My new CHAMPION!\\p"
+	.string "I knew you'd make it. I'm so\\n"
+	.string "proud of you and your POKéMON.\\p"
+	.string "You've earned time to explore\\n"
+	.string "all that KANTO has left.\\p"
+	.string "When you're ready for more,\\n"
+	.string "visit PROF. OAK in his LAB.\\p"
+	.string "He has news of a faraway place\\n"
+	.string "called HOENN!$"
