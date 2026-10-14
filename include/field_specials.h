@@ -41,4 +41,6 @@ bool32 CheckPartyHasSpecies(enum Species);
 bool8 CutMoveRuinValleyCheck(void);
 void CutMoveOpenDottedHoleDoor(void);
 
+u16 PRLHasKantoHallOfFameRecord(void);
+
 #endif // GUARD_FIELD_SPECIALS_H
