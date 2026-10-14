@@ -25,7 +25,7 @@ class PRLHoennPreflight(unittest.TestCase):
         for destructive in ("ZeroBoxMonAt(", "ZeroMonData(", "RemoveBagItem(", "SetMoney(", "SetBoxMonAt(", "SetMonData("):
             self.assertNotIn(destructive, body)
 
-    def test_sailor_honours_oak_ticket_and_does_not_warp(self):
+    def test_sailor_honours_oak_ticket_and_warps_only_after_safe_commit(self):
         script = read("data/maps/VermilionCity_Frlg/scripts.inc")
         sailor = script.split("VermilionCity_EventScript_FerrySailor::", 1)[1].split("VermilionCity_EventScript_CheckHasMysticTicket::", 1)[0]
         self.assertIn("goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET", sailor)
@@ -34,7 +34,10 @@ class PRLHoennPreflight(unittest.TestCase):
         self.assertIn("VermilionCity_EventScript_PRLHoennNoRoom", sailor)
         self.assertIn("VermilionCity_EventScript_PRLHoennBoardingDeclined", sailor)
         self.assertIn("VermilionCity_EventScript_CheckSeagallopPresent", sailor)
-        for command in ("\twarp ", "\tremoveitem ", "\tsetmoney ", "\tsetflag FLAG_PRL_", "\tremoveobject "):
+        self.assertIn("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer", sailor)
+        self.assertIn("goto_if_eq VAR_RESULT, FALSE, VermilionCity_EventScript_PRLHoennTransferFailed", sailor)
+        self.assertIn("warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 6, 9", sailor)
+        for command in ("\tremoveitem ", "\tsetmoney ", "\tsetflag FLAG_PRL_", "\tremoveobject "):
             self.assertNotIn(command, sailor)
 
     def test_save_storage_layout_stays_unchanged(self):

@@ -44,5 +44,6 @@ void CutMoveOpenDottedHoleDoor(void);
 u16 PRLHasKantoHallOfFameRecord(void);
 
 u16 PRLHoennCheckPCSpaceForParty(void);
+u16 PRLHoennCommitKantoTransfer(void);
 
 #endif // GUARD_FIELD_SPECIALS_H

@@ -1,6 +1,7 @@
 #include "global.h"
 #include "debug.h"
 #include "malloc.h"
+#include "money.h"
 #include "battle.h"
 #include "battle_special.h"
 #include "cable_club.h"
@@ -5790,7 +5791,7 @@ u16 PRLHasKantoHallOfFameRecord(void)
 #define PRL_HOENN_OVERFLOW_END     13
 #define PRL_HOENN_LEGENDS_BOX      13
 
-static bool32 PRLHoennPlaceInManifest(u8 boxUsed[TOTAL_BOXES_COUNT], enum Species species, u8 level, u16 *fallbackCount)
+static bool32 PRLHoennPlaceInManifest(u8 boxUsed[TOTAL_BOXES_COUNT], enum Species species, u8 level, u16 *fallbackCount, u8 *destinationBox)
 {
     u8 preferredBox;
     u8 box;
@@ -5812,6 +5813,8 @@ static bool32 PRLHoennPlaceInManifest(u8 boxUsed[TOTAL_BOXES_COUNT], enum Specie
     if (boxUsed[preferredBox] < IN_BOX_COUNT)
     {
         boxUsed[preferredBox]++;
+        if (destinationBox != NULL)
+            *destinationBox = preferredBox;
         return TRUE;
     }
 
@@ -5821,6 +5824,8 @@ static bool32 PRLHoennPlaceInManifest(u8 boxUsed[TOTAL_BOXES_COUNT], enum Specie
         if (boxUsed[box] < IN_BOX_COUNT)
         {
             boxUsed[box]++;
+            if (destinationBox != NULL)
+                *destinationBox = box;
             return TRUE;
         }
     }
@@ -5831,6 +5836,8 @@ static bool32 PRLHoennPlaceInManifest(u8 boxUsed[TOTAL_BOXES_COUNT], enum Specie
         if (boxUsed[box] < IN_BOX_COUNT)
         {
             boxUsed[box]++;
+            if (destinationBox != NULL)
+                *destinationBox = box;
             return TRUE;
         }
     }
@@ -5865,7 +5872,7 @@ u16 PRLHoennCheckPCSpaceForParty(void)
             if (species != SPECIES_NONE)
             {
                 occupied++;
-                if (!PRLHoennPlaceInManifest(used, species, GetBoxMonData(mon, MON_DATA_LEVEL), &fallbackCount))
+                if (!PRLHoennPlaceInManifest(used, species, GetBoxMonData(mon, MON_DATA_LEVEL), &fallbackCount, NULL))
                     return FALSE;
             }
         }
@@ -5881,12 +5888,161 @@ u16 PRLHoennCheckPCSpaceForParty(void)
         enum Species species = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES);
         if (species != SPECIES_NONE)
         {
-            if (!PRLHoennPlaceInManifest(used, species, GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_LEVEL), &fallbackCount))
+            if (!PRLHoennPlaceInManifest(used, species, GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_LEVEL), &fallbackCount, NULL))
                 return FALSE;
         }
     }
 
     // Diagnostic only; the sailor's existing dialogue/result are unchanged.
     gSpecialVar_0x8006 = fallbackCount;
+    return TRUE;
+}
+
+
+// PR83 departure: build a complete sorted image of every BoxPokemon first.
+// No Pokémon, Bag, money or flags change unless every single boxed + party
+// occupant was copied into a valid destination and RAM allocation succeeded.
+// A reset before saving after the voyage restores the original saved game.
+static const u8 sPRLHoennLevelBoxNames[PRL_HOENN_LEVEL_BOXES][BOX_NAME_LENGTH + 1] =
+{
+    _("LV01-10"), _("LV11-20"), _("LV21-30"), _("LV31-40"), _("LV41-50"),
+    _("LV51-60"), _("LV61-70"), _("LV71-80"), _("LV81-90"), _("LV91-100")
+};
+static const u8 sPRLHoennOverflowBoxNames[3][BOX_NAME_LENGTH + 1] =
+{
+    _("EXTRA 1"), _("EXTRA 2"), _("EXTRA 3")
+};
+static const u8 sPRLHoennLegendsBoxName[] = _("LEGENDS");
+
+static void PRLHoennSortEachBoxAscending(struct BoxPokemon (*planned)[IN_BOX_COUNT], const u8 *used)
+{
+    u8 box, left, right;
+    for (box = 0; box < TOTAL_BOXES_COUNT; box++)
+    {
+        for (left = 0; left < used[box]; left++)
+        {
+            for (right = left + 1; right < used[box]; right++)
+            {
+                if (GetBoxMonData(&planned[box][right], MON_DATA_LEVEL)
+                  < GetBoxMonData(&planned[box][left], MON_DATA_LEVEL))
+                {
+                    struct BoxPokemon temp = planned[box][left];
+                    planned[box][left] = planned[box][right];
+                    planned[box][right] = temp;
+                }
+            }
+        }
+    }
+}
+
+// Return FALSE without mutating save data on insufficient PC room / heap.
+// The boarding script calls this only after the explicit final confirmation.
+u16 PRLHoennCommitKantoTransfer(void)
+{
+    struct BoxPokemon (*planned)[IN_BOX_COUNT];
+    u8 used[TOTAL_BOXES_COUNT] = {0};
+    u16 fallbackCount = 0;
+    u8 box, slot, partySlot, destination;
+    u16 expShareQuantity;
+    u32 money;
+
+    if (VarGet(VAR_PRL_REGION_STAGE) != 0 || !FlagGet(FLAG_PRL_POSTHOF_OAK_TICKET))
+        return FALSE;
+    if (!PRLHasKantoHallOfFameRecord() || !PRLHoennCheckPCSpaceForParty())
+        return FALSE;
+
+    planned = AllocZeroed(sizeof(*planned) * TOTAL_BOXES_COUNT);
+    if (planned == NULL)
+        return FALSE;
+
+    // Copy every boxed Pokémon without decoding/recreating it: this retains
+    // personality, checksum, ability, shiny state, OT, ribbons and held item.
+    for (box = 0; box < TOTAL_BOXES_COUNT; box++)
+    {
+        for (slot = 0; slot < IN_BOX_COUNT; slot++)
+        {
+            struct BoxPokemon *mon = GetBoxedMonPtr(box, slot);
+            enum Species species = GetBoxMonData(mon, MON_DATA_SPECIES);
+            if (species != SPECIES_NONE)
+            {
+                if (!PRLHoennPlaceInManifest(used, species, GetBoxMonData(mon, MON_DATA_LEVEL), &fallbackCount, &destination))
+                {
+                    Free(planned);
+                    return FALSE;
+                }
+                planned[destination][used[destination] - 1] = *mon;
+            }
+        }
+    }
+
+    for (partySlot = 0; partySlot < PARTY_SIZE; partySlot++)
+    {
+        struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][partySlot];
+        enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+        if (species != SPECIES_NONE)
+        {
+            if (!PRLHoennPlaceInManifest(used, species, GetMonData(mon, MON_DATA_LEVEL), &fallbackCount, &destination))
+            {
+                Free(planned);
+                return FALSE;
+            }
+            planned[destination][used[destination] - 1] = mon->box;
+        }
+    }
+
+    // All safety checks passed. The following commit has no remaining
+    // allocations or failure-return branches.
+    PRLHoennSortEachBoxAscending(planned, used);
+    money = GetMoney(&gSaveBlock1Ptr->money);
+    expShareQuantity = CountTotalItemQuantityInBag(ITEM_EXP_SHARE);
+
+    for (box = 0; box < TOTAL_BOXES_COUNT; box++)
+    {
+        for (slot = 0; slot < IN_BOX_COUNT; slot++)
+            SetBoxMonAt(box, slot, &planned[box][slot]);
+    }
+    Free(planned);
+
+    for (partySlot = 0; partySlot < PARTY_SIZE; partySlot++)
+        ZeroMonData(&gParties[B_TRAINER_PLAYER][partySlot]);
+    gPartiesCount[B_TRAINER_PLAYER] = 0;
+
+    for (box = 0; box < PRL_HOENN_LEVEL_BOXES; box++)
+        StringCopy(GetBoxNamePtr(box), sPRLHoennLevelBoxNames[box]);
+    for (box = 0; box < 3; box++)
+        StringCopy(GetBoxNamePtr(box + PRL_HOENN_OVERFLOW_START), sPRLHoennOverflowBoxNames[box]);
+    StringCopy(GetBoxNamePtr(PRL_HOENN_LEGENDS_BOX), sPRLHoennLegendsBoxName);
+
+    // Preserve the whole Kanto bankroll in 2x16-bit pre-existing save vars.
+    VarSet(VAR_PRL_BANK_KANTO_MONEY_LO, money & 0xFFFF);
+    VarSet(VAR_PRL_BANK_KANTO_MONEY_HI, money >> 16);
+    SetMoney(&gSaveBlock1Ptr->money, 3000);
+
+    // The Bag is donated to the Hoenn Training School, not held Pokémon items.
+    // EXP SHARE is the one material Bag exception. Remote PC is a PRL start
+    // menu feature, not an item, so its access is retained without migration.
+    ClearBag();
+    if (expShareQuantity != 0)
+        AddBagItem(ITEM_EXP_SHARE, expShareQuantity);
+    gSaveBlock1Ptr->registeredItem = ITEM_NONE;
+    VarSet(VAR_PRL_REGISTERED_ITEM_HOLD, ITEM_NONE);
+    SyncPrlInventoryLegacyBackup();
+
+    // FRLG shares eight system badge bits with Hoenn. Explicit saved Kanto
+    // history is kept in PRL's Kanto badge flags and Hall of Fame game stat.
+    FlagSet(FLAG_PRL_KANTO_CHAMPION);
+    for (box = 0; box < NUM_BADGES; box++)
+        FlagClear(FLAG_BADGE01_GET + box);
+    FlagClear(FLAG_SYS_GAME_CLEAR);
+
+    // Begin the Hoenn story in Birch's lab instead of replaying the
+    // old Emerald moving-truck/New Game cutscene.
+    VarSet(VAR_LITTLEROOT_INTRO_STATE, 0);
+    VarSet(VAR_BIRCH_LAB_STATE, 0);
+    VarSet(VAR_LITTLEROOT_TOWN_STATE, 0);
+    VarSet(VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0);
+    VarSet(VAR_PRL_HOENN_STARTER, 0);
+    VarSet(VAR_PRL_REGION_STAGE, 1);
+    FlagClear(FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH);
     return TRUE;
 }

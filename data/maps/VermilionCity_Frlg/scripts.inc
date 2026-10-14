@@ -62,7 +62,20 @@ VermilionCity_EventScript_PRLHoennBoardingPreflight::
 	goto_if_eq VAR_RESULT, NO, VermilionCity_EventScript_PRLHoennBoardingDeclined
 	specialvar VAR_RESULT, PRLHoennCheckPCSpaceForParty
 	goto_if_eq VAR_RESULT, FALSE, VermilionCity_EventScript_PRLHoennNoRoom
-	msgbox VermilionCity_Text_PRLHoennNotYetReady
+	msgbox VermilionCity_Text_PRLHoennFinalConfirm, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, VermilionCity_EventScript_PRLHoennBoardingDeclined
+	@ A capacity or heap failure MUST leave everything unchanged in Kanto.
+	specialvar VAR_RESULT, PRLHoennCommitKantoTransfer
+	goto_if_eq VAR_RESULT, FALSE, VermilionCity_EventScript_PRLHoennTransferFailed
+	msgbox VermilionCity_Text_PRLHoennSailAway
+	closemessage
+	fadescreen FADE_TO_BLACK
+	warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 6, 9
+	waitstate
+	end
+
+VermilionCity_EventScript_PRLHoennTransferFailed::
+	msgbox VermilionCity_Text_PRLHoennTransferFailed
 	release
 	end
 
@@ -84,13 +97,26 @@ VermilionCity_Text_PRLHoennCheckDeparture::
 	.string "Shall I check whether you're\n"
 	.string "ready to board the S.S. LEGACY?$"
 
-VermilionCity_Text_PRLHoennNotYetReady::
-	.string "SAILOR: Your party can fit\n"
-	.string "safely into the PC.\p"
-	.string "We're finishing the transfer\n"
-	.string "facilities for HOENN.\p"
-	.string "I won't take your items or\n"
-	.string "POKéMON until we can sail.$"
+VermilionCity_Text_PRLHoennFinalConfirm::
+	.string "SAILOR: This voyage is ONE WAY.\p"
+	.string "Your KANTO team will be boxed,\n"
+	.string "and your money banked safely.\p"
+	.string "Your Bag goes to HOENN's\n"
+	.string "Training School, except the\n"
+	.string "EXP SHARE and REMOTE PC.\p"
+	.string "Please SAVE before boarding!\p"
+	.string "Sail aboard the S.S. LEGACY?$"
+
+VermilionCity_Text_PRLHoennTransferFailed::
+	.string "SAILOR: The transfer could not\n"
+	.string "be completed safely.\p"
+	.string "Nothing has been moved.\n"
+	.string "Please check your PC space.$"
+
+VermilionCity_Text_PRLHoennSailAway::
+	.string "SAILOR: All aboard!\p"
+	.string "The S.S. LEGACY sets sail\n"
+	.string "across the ocean to HOENN...$"
 
 VermilionCity_Text_PRLHoennNeedBoxRoom::
 	.string "SAILOR: Your PC needs enough\n"
