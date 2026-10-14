@@ -990,12 +990,18 @@ static s32 RollCredits(void)
         if (gPaletteFade.active)
             return sCreditsMgr->canSpeedThrough;
         win0v[0] = sCreditsTexts[sCreditsScript[sCreditsMgr->scrcmdidx].param].unused;
-        AddTextPrinterParameterized4(sCreditsMgr->windowId, FONT_NORMAL, 2, 6, 0, 0, sTextColor_Header, -1, sCreditsTexts[sCreditsScript[sCreditsMgr->scrcmdidx].param].title);
+        if (sCreditsScript[sCreditsMgr->scrcmdidx].param == CREDITS_STRING_PRL_HOENN_TEASER)
+            AddTextPrinterParameterized4(sCreditsMgr->windowId, FONT_NORMAL, 30, 24, 0, 0, sTextColor_Header, -1, sCreditsText_PRLHoennHeading);
+        else
+            AddTextPrinterParameterized4(sCreditsMgr->windowId, FONT_NORMAL, 2, 6, 0, 0, sTextColor_Header, -1, sCreditsTexts[sCreditsScript[sCreditsMgr->scrcmdidx].param].title);
         sCreditsMgr->mainseqno = CREDITSSCENE_PRINT_ADDPRINTER2;
         return sCreditsMgr->canSpeedThrough;
     case CREDITSSCENE_PRINT_ADDPRINTER2:
         win0v[0] = sCreditsTexts[sCreditsScript[sCreditsMgr->scrcmdidx].param].unused;
-        AddTextPrinterParameterized4(sCreditsMgr->windowId, FONT_NORMAL, 8, 6, 0, 0, sTextColor_Regular, -1, sCreditsTexts[sCreditsScript[sCreditsMgr->scrcmdidx].param].names);
+        if (sCreditsScript[sCreditsMgr->scrcmdidx].param == CREDITS_STRING_PRL_HOENN_TEASER)
+            AddTextPrinterParameterized4(sCreditsMgr->windowId, FONT_NORMAL, 84, 52, 0, 0, sTextColor_Regular, -1, sCreditsText_PRLHoennSubtitle);
+        else
+            AddTextPrinterParameterized4(sCreditsMgr->windowId, FONT_NORMAL, 8, 6, 0, 0, sTextColor_Regular, -1, sCreditsTexts[sCreditsScript[sCreditsMgr->scrcmdidx].param].names);
         sCreditsMgr->mainseqno = CREDITSSCENE_PRINT_DELAY;
         return sCreditsMgr->canSpeedThrough;
     case CREDITSSCENE_PRINT_DELAY:
