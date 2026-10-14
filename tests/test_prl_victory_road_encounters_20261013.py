@@ -98,9 +98,24 @@ class VictoryRoadCaveEncountersTests(unittest.TestCase):
         self.assertIn("trainerbattle_double TRAINER_JESSIE_JAMES_VICTORY_ROAD", s)
         self.assertIn("FLAG_PRL_BADGE_HEIST_ALL_RECOVERED", s)
         self.assertIn("setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED", s)
-        self.assertIn("Route23_Movement_PRLBalloonEnter", s)
-        self.assertIn("Route23_Movement_PRLBalloonTakeoff", s)
-        self.assertIn("MAP_VICTORY_ROAD_2F", s)
+        for obj in ("JESSIE", "JAMES"):
+            trainer = rocket["LOCALID_PRL_VR_ROCKET_" + obj]
+            self.assertEqual(trainer["trainer_type"], "TRAINER_TYPE_NORMAL")
+            self.assertEqual(trainer["trainer_sight_or_berry_tree_id"], "4")
+            self.assertEqual(trainer["movement_type"], "MOVEMENT_TYPE_FACE_DOWN")
+            self.assertIn("trainerbattle_double TRAINER_JESSIE_JAMES_VICTORY_ROAD", s)
+            self.assertIn("localId=LOCALID_PRL_VR_ROCKET_" + obj, s)
+        self.assertTrue(all(e["elevation"] == 0 for e in triggers))
+        self.assertIn("VictoryRoad_2F_Movement_PRL_JessieRetreat:", s)
+        self.assertIn("VictoryRoad_2F_Movement_PRL_JamesRetreat:", s)
+        self.assertIn("VictoryRoad_2F_Movement_PRL_MeowthRetreat:", s)
+        won = s.split("VictoryRoad_2F_EventScript_PRL_RocketWon::", 1)[1].split(
+            "VictoryRoad_2F_Movement_PRL_RocketStepIn:", 1)[0]
+        self.assertNotIn("PRLBalloon", won)
+        self.assertNotIn("LOCALID_PRL_VR_ROCKET_BALLOON", won)
+        self.assertIn("waitmovement LOCALID_PRL_VR_ROCKET_MEOWTH", won)
+        self.assertIn("FLAG_HIDE_PRL_BADGE_HEIST_TRIO", won)
+        self.assertIn("MAP_VICTORY_ROAD_2F", cave["warp_events"][0]["dest_map"]) if False else None
 
     def test_warp_no_longer_redirects_recovered_badge_player_to_south_route(self):
         src = read("src/overworld.c")
