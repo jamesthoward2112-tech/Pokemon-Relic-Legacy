@@ -41,12 +41,15 @@ class TestPR82FourteenBoxManifest(unittest.TestCase):
         board = SCRIPT.split("VermilionCity_EventScript_PRLHoennBoardingPreflight::", 1)[1].split(
             "VermilionCity_EventScript_PRLHoennNoRoom::", 1)[0]
         self.assertIn("PRLHoennCheckPCSpaceForParty", board)
-        self.assertIn("VermilionCity_Text_PRLHoennNotYetReady", board)
-        for unsafe in ("\twarp ", "\tremoveitem ", "\tsetmoney ", "\tgivemon "):
+        self.assertIn("VermilionCity_Text_PRLHoennFinalConfirm", board)
+        self.assertIn("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer", board)
+        self.assertIn("VermilionCity_EventScript_PRLHoennTransferFailed", board)
+        self.assertIn("warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB", board)
+        for unsafe in ("\tremoveitem ", "\tsetmoney ", "\tgivemon "):
             self.assertNotIn(unsafe, board)
 
     def test_preflight_does_not_change_save_data(self):
-        check = SOURCE.split("u16 PRLHoennCheckPCSpaceForParty(void)", 1)[1]
+        check = SOURCE.split("u16 PRLHoennCheckPCSpaceForParty(void)", 1)[1].split("u16 PRLHoennCommitKantoTransfer(void)", 1)[0]
         writes = ("ClearBag(", "ZeroBoxMonAt(", "SetBoxMonAt(", "FlagSet(", "VarSet(",
                   "gSaveBlock1Ptr->money =", "gParties[B_TRAINER_PLAYER][i] =")
         for unsafe in writes:
