@@ -15,7 +15,11 @@ class PR77SailorAccess(unittest.TestCase):
     def test_sailor_does_not_occupy_last_pier_entry(self):
         sailor = next(x for x in self.map["object_events"]
                       if x.get("local_id") == "LOCALID_VERMILION_FERRY_SAILOR")
-        self.assertEqual((sailor["x"], sailor["y"]), (24, 31))
+        self.assertEqual((sailor["x"], sailor["y"]), (31, 30))
+        self.assertFalse(any(x.get("script") == "VermilionCity_EventScript_Sailor"
+                             for x in self.map["object_events"]))
+        self.assertFalse(any(x["x"] in (22, 23, 24) and x["y"] >= 30
+                             for x in self.map["object_events"]))
         for x in (22, 23, 24):
             self.assertFalse(any(o["x"] == x and o["y"] == 33
                                  for o in self.map["object_events"]),
@@ -36,8 +40,9 @@ class PR77SailorAccess(unittest.TestCase):
         self.assertIn("goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET", block)
         self.assertIn("specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord", block)
         self.assertIn("goto_if_eq VAR_RESULT, TRUE, VermilionCity_EventScript_PRLHoennBoardingPreflight", block)
+        self.assertIn("goto_if_eq VAR_MAP_SCENE_VERMILION_CITY, 3, VermilionCity_EventScript_PRLPierDepartedFallback", block)
         self.assertLess(block.index("PRLHasKantoHallOfFameRecord"),
-                        block.index("VermilionCity_EventScript_CheckSeagallopPresent"))
+                        block.index("VermilionCity_EventScript_PRLPierDepartedFallback"))
 
     def test_gate_allows_champion_without_requiring_ticket_flag(self):
         block = self.script.split("VermilionCity_EventScript_CheckTicket::", 1)[1].split(
