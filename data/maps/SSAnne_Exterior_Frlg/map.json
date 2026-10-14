@@ -69,7 +69,26 @@
       "dest_warp_id": "2"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 32,
+      "y": 14,
+      "elevation": 0,
+      "var": "VAR_MAP_SCENE_VERMILION_CITY",
+      "var_value": "3",
+      "script": "SSAnne_Exterior_EventScript_PRLNoBoardingDepartedShip"
+    },
+    {
+      "type": "trigger",
+      "x": 33,
+      "y": 15,
+      "elevation": 0,
+      "var": "VAR_MAP_SCENE_VERMILION_CITY",
+      "var_value": "3",
+      "script": "SSAnne_Exterior_EventScript_PRLNoBoardingDepartedShip"
+    }
+  ],
   "bg_events": [
     {
       "type": "hidden_item",
