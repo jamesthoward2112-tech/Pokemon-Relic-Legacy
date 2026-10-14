@@ -2564,6 +2564,14 @@ void SetFlyDestination(struct RegionMap* regionMap)
     // Defense in depth: no out-of-region menu path may select a NULL map.
     if (PRLIsUnavailableHoennFlyMapSec(regionMap->mapSecId))
         return;
+    if (regionMap->mapSecId == MAPSEC_LITTLEROOT_TOWN)
+    {
+        // A known walkable outdoor arrival position, rather than the
+        // default map center (which may be inside a house/obstacle).
+        SetWarpDestination(MAP_GROUP(MAP_LITTLEROOT_TOWN),
+                           MAP_NUM(MAP_LITTLEROOT_TOWN), WARP_ID_NONE, 7, 18);
+        return;
+    }
 #endif
     u32 flyDestination = FilterFlyDestination(regionMap);
 
