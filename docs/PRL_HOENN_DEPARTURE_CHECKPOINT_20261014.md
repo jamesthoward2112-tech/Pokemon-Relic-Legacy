@@ -38,3 +38,8 @@ On entry to Hoenn, box withdrawal of Kanto-owned Pokémon is limited by badges (
 5. **Later:** Hoenn → Johto move and, eventually, 24-badge cross-region free travel and level-100 regional Elite Four rematches.
 
 No automatic migration, no deletion of a user's old saves and no source-changing content copy without compatibility checks.
+
+## PR74 stage A — non-destructive boarding preflight
+The post-PR73 Vermilion ferry sailor recognises Oak's Hoenn ticket. Talking to the sailor offers a **yes/no storage readiness check** for the S.S. Anne, uses `PRLHoennCheckPCSpaceForParty` to count free slots against every occupied party slot (including Eggs), and says if there is not enough room. The preview performs no transfer or warp. It must not take money, donate Bag contents, reorganise boxes, or move/remove Pokémon. This is an explicit temporary safeguard **until real migration is validated**, not a claim that Hoenn is playable.
+The real departure must also preserve Sevii Island ferry access; existing Seagallop routes must not be regressed by this new sailor branch (the branch currently takes priority for Oak-ticket holders, so integration with Seagallop menus is still required before final release).
+Do not convert this non-destructive checkpoint into an actual sail merely by changing its last message. It requires independent Kanto/Hoenn story flags, PC save migration, atomic cash/Bag transfer, Hoenn arrival/starter, and end-to-end emulation first.
