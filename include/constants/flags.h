@@ -42,6 +42,8 @@
 #define FLAG_PRL_POSTHOF_MOM_WELCOME                       0x4D9
 #define FLAG_PRL_POSTHOF_OAK_TICKET                        0x4DA
 #define FLAG_PRL_POSTHOF_MOM_PREP_BRIEFED                  0x4DB
+// Explicit first-region Champion marker; old saves also match HOF game stat.
+#define FLAG_PRL_KANTO_CHAMPION                            0x4DC
 
 // Temporary Flags
 // These temporary flags are are cleared every time a map is loaded. They are used
