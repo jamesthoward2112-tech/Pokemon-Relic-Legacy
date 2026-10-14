@@ -45,10 +45,16 @@ class PKRTruckMewMigrationTests(unittest.TestCase):
         self.assertNotIn("setflag FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT", battle)
         on_catch = script.split("SSAnne_Exterior_EventScript_PRLTruckMewCaught::", 1)[1].split("SSAnne_Exterior_EventScript_PRLTruckMewQuiet::", 1)[0]
         self.assertIn("setflag FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT", on_catch)
+        self.assertIn("setflag FLAG_PRL_SSANNE_TRUCK_MEW_CAPTURE_CONFIRMED", on_catch)
+        self.assertIn("goto_if_unset FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT, SSAnne_Exterior_EventScript_PRLTruckMewAvailable", battle)
+        self.assertIn("goto_if_set FLAG_PRL_SSANNE_TRUCK_MEW_CAPTURE_CONFIRMED, SSAnne_Exterior_EventScript_PRLTruckMewQuiet", battle)
+        self.assertNotIn("setflag FLAG_PRL_SSANNE_TRUCK_MEW_CAPTURE_CONFIRMED", battle)
 
     def test_dedicated_flag_and_original_mew_flags_untouched(self):
         flags = read("include/constants/flags.h")
-        self.assertIn("#define FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT                 0x4DD", flags)
+        self.assertIn("#define FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT                 0x4EE", flags)
+        self.assertIn("#define FLAG_PRL_SSANNE_TRUCK_MEW_CAPTURE_CONFIRMED      0x4EF", flags)
+        self.assertNotIn("#define FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT                 0x4DD", flags)
         self.assertIn("#define FLAG_CAUGHT_MEW", flags)
         self.assertIn("#define FLAG_DEFEATED_MEW", flags)
         self.assertIn("#define FLAG_HIDE_MEW", flags)
