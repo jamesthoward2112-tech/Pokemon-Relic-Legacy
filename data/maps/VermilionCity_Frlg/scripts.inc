@@ -71,7 +71,8 @@ VermilionCity_EventScript_PRLHoennBoardingPreflight::
 	msgbox VermilionCity_Text_PRLHoennSailAway
 	closemessage
 	fadescreen FADE_TO_BLACK
-	warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 6, 9
+	@ First enter the outdoor HOENN map; do not run Birch lab scripts mid-voyage.
+	warp MAP_LITTLEROOT_TOWN, 7, 18
 	waitstate
 	end
 
