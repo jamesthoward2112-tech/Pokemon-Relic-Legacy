@@ -5878,10 +5878,10 @@ u16 PRLHoennCheckPCSpaceForParty(void)
 
     for (i = 0; i < PARTY_SIZE; i++)
     {
-        enum Species species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES);
+        enum Species species = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES);
         if (species != SPECIES_NONE)
         {
-            if (!PRLHoennPlaceInManifest(used, species, GetMonData(&gPlayerParty[i], MON_DATA_LEVEL), &fallbackCount))
+            if (!PRLHoennPlaceInManifest(used, species, GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_LEVEL), &fallbackCount))
                 return FALSE;
         }
     }
