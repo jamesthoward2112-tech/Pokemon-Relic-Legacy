@@ -51,6 +51,7 @@ class PRLHallOfFameHomecoming(unittest.TestCase):
         self.assertIn("giveitem_msg", start)
         self.assertIn("setflag FLAG_PRL_POSTHOF_OAK_TICKET", start)
         self.assertIn("PRLHoennAfterInvitation", start)
+        self.assertIn("FLAG_SYS_NATIONAL_DEX", start)
         self.assertIn("one way for now", s)
         self.assertIn("Find MEWTWO", s)
         self.assertIn("SEVII ISLANDS", s)
@@ -76,6 +77,7 @@ class PRLDeparturePreparation(unittest.TestCase):
         pallet = read("data/maps/PalletTown_Frlg/scripts.inc")
         self.assertIn("call_if_set FLAG_SYS_GAME_CLEAR, PalletTown_EventScript_PRLDisableAutomaticOakDexCheck", pallet)
         self.assertIn("setvar VAR_MAP_SCENE_PALLET_TOWN_OAK, 3", pallet)
+        self.assertIn("goto_if_set FLAG_SYS_GAME_CLEAR, PalletTown_EventScript_PRLDisableAutoOakOnFrame", pallet)
 
     def test_oak_gives_ticket_without_mum_first(self):
         oak = read("data/maps/PalletTown_ProfessorOaksLab_Frlg/scripts.inc")
