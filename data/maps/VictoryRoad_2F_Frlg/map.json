@@ -398,6 +398,114 @@
       "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
       "var_value": "0",
       "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
+    },
+    {
+      "type": "trigger",
+      "x": 44,
+      "y": 10,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
+    },
+    {
+      "type": "trigger",
+      "x": 45,
+      "y": 10,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
+    },
+    {
+      "type": "trigger",
+      "x": 46,
+      "y": 10,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
+    },
+    {
+      "type": "trigger",
+      "x": 47,
+      "y": 10,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
+    },
+    {
+      "type": "trigger",
+      "x": 48,
+      "y": 10,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
+    },
+    {
+      "type": "trigger",
+      "x": 44,
+      "y": 11,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
+    },
+    {
+      "type": "trigger",
+      "x": 45,
+      "y": 11,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
+    },
+    {
+      "type": "trigger",
+      "x": 46,
+      "y": 11,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
+    },
+    {
+      "type": "trigger",
+      "x": 47,
+      "y": 11,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
+    },
+    {
+      "type": "trigger",
+      "x": 44,
+      "y": 12,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
+    },
+    {
+      "type": "trigger",
+      "x": 45,
+      "y": 12,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
+    },
+    {
+      "type": "trigger",
+      "x": 46,
+      "y": 12,
+      "elevation": 3,
+      "var": "VAR_PRL_VICTORY_ROAD_ROCKET_GATE",
+      "var_value": "0",
+      "script": "VictoryRoad_2F_EventScript_PRL_RocketGate"
     }
   ],
   "bg_events": []
