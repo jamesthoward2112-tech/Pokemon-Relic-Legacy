@@ -595,6 +595,9 @@ PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck::
 	end
 
 PalletTown_ProfessorOaksLab_EventScript_PRLHoennAfterInvitation::
+	@ Preserve manual National Dex upgrade for the Sevii/Mewtwo postgame.
+	@ The old outdoor forced Pokédex encounter is still disabled.
+	goto_if_unset FLAG_SYS_NATIONAL_DEX, PalletTown_ProfessorOaksLab_EventScript_TryStartNationalDexScene
 	msgbox PalletTown_ProfessorOaksLab_Text_PRLHoennVisitMom
 	release
 	end
