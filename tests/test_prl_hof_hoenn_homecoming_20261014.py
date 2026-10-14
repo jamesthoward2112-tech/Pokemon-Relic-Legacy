@@ -34,7 +34,7 @@ class PRLHallOfFameHomecoming(unittest.TestCase):
         script = read("data/maps/PalletTown_PlayersHouse_1F_Frlg/scripts.inc")
         self.assertIn("MAP_SCRIPT_ON_FRAME_TABLE", script)
         self.assertIn("PalletTown_PlayersHouse_1F_EventScript_PRLHomecoming::", script)
-        self.assertIn("goto_if_unset FLAG_SYS_GAME_CLEAR", script)
+        self.assertIn("PRLHasKantoHallOfFameRecord", script)
         self.assertIn("goto_if_set FLAG_PRL_POSTHOF_MOM_WELCOME", script)
         self.assertIn("setflag FLAG_PRL_POSTHOF_MOM_WELCOME", script)
         self.assertIn("PROF. OAK in his LAB.", script)
@@ -44,14 +44,15 @@ class PRLHallOfFameHomecoming(unittest.TestCase):
     def test_oak_one_time_ticket_with_existing_ticket_and_bag_full_handling(self):
         s = read("data/maps/PalletTown_ProfessorOaksLab_Frlg/scripts.inc")
         start = s.split("PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck::", 1)[1].split("PalletTown_ProfessorOaksLab_EventScript_OakJustShownCompleteDex::", 1)[0]
-        self.assertIn("FLAG_SYS_GAME_CLEAR", s)
+        self.assertIn("PRLHasKantoHallOfFameRecord", s)
         self.assertIn("goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET", start)
         self.assertIn("checkitem ITEM_SS_TICKET", start)
         self.assertIn("checkitemspace ITEM_SS_TICKET", start)
         self.assertIn("giveitem_msg", start)
         self.assertIn("setflag FLAG_PRL_POSTHOF_OAK_TICKET", start)
         self.assertIn("PRLHoennAfterInvitation", start)
-        self.assertIn("FLAG_SYS_NATIONAL_DEX", start)
+        self.assertIn("EnableNationalPokedex", start)
+        self.assertNotIn("TryStartNationalDexScene", start)
         self.assertIn("one way for now", s)
         self.assertIn("Find MEWTWO", s)
         self.assertIn("SEVII ISLANDS", s)
@@ -75,13 +76,13 @@ class PRLHallOfFameHomecoming(unittest.TestCase):
 class PRLDeparturePreparation(unittest.TestCase):
     def test_champion_oak_dex_ambush_is_disabled_on_pallet_entry(self):
         pallet = read("data/maps/PalletTown_Frlg/scripts.inc")
-        self.assertIn("call_if_set FLAG_SYS_GAME_CLEAR, PalletTown_EventScript_PRLDisableAutomaticOakDexCheck", pallet)
+        self.assertIn("specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord", pallet)
         self.assertIn("setvar VAR_MAP_SCENE_PALLET_TOWN_OAK, 3", pallet)
-        self.assertIn("goto_if_set FLAG_SYS_GAME_CLEAR, PalletTown_EventScript_PRLDisableAutoOakOnFrame", pallet)
+        self.assertIn("goto_if_eq VAR_RESULT, TRUE, PalletTown_EventScript_PRLDisableAutoOakOnFrame", pallet)
 
     def test_oak_gives_ticket_without_mum_first(self):
         oak = read("data/maps/PalletTown_ProfessorOaksLab_Frlg/scripts.inc")
-        self.assertIn("goto_if_set FLAG_SYS_GAME_CLEAR, PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck", oak)
+        self.assertIn("goto_if_eq VAR_RESULT, TRUE, PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck", oak)
         self.assertIn("PalletTown_ProfessorOaksLab_EventScript_PRLHoennAfterInvitation", oak)
 
     def test_mum_prepares_but_does_not_touch_items_before_boarding(self):
@@ -94,6 +95,27 @@ class PRLDeparturePreparation(unittest.TestCase):
         self.assertIn("you actually board the ship", mum)
         flags = read("include/constants/flags.h")
         self.assertRegex(flags, r"#define FLAG_PRL_POSTHOF_MOM_PREP_BRIEFED\s+0x4DB\b")
+
+
+class PRLChampionHofStatRegression(unittest.TestCase):
+    def test_kanto_champion_uses_actual_saved_hof_stat(self):
+        s = read("src/field_specials.c")
+        self.assertIn("u16 PRLHasKantoHallOfFameRecord(void)", s)
+        self.assertIn("GetGameStat(GAME_STAT_ENTERED_HOF) != 0", s)
+        self.assertIn("FLAG_PRL_KANTO_CHAMPION", s)
+        self.assertIn("def_special PRLHasKantoHallOfFameRecord", read("data/specials.inc"))
+        self.assertIn("setflag FLAG_PRL_KANTO_CHAMPION", read("data/maps/PokemonLeague_HallOfFame_Frlg/scripts.inc"))
+
+    def test_oak_and_mum_no_longer_gate_on_generic_game_clear(self):
+        for path in ("data/maps/PalletTown_PlayersHouse_1F_Frlg/scripts.inc",
+                     "data/maps/PalletTown_ProfessorOaksLab_Frlg/scripts.inc",
+                     "data/maps/PalletTown_Frlg/scripts.inc"):
+            s = read(path)
+            self.assertIn("specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord", s)
+        oak = read("data/maps/PalletTown_ProfessorOaksLab_Frlg/scripts.inc")
+        invitation = oak.split("PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck::", 1)[1].split("PalletTown_ProfessorOaksLab_EventScript_PRLHoennHasTicket::", 1)[0]
+        self.assertNotIn("TryStartNationalDexScene", invitation)
+        self.assertIn("special EnableNationalPokedex", invitation)
 
 
 if __name__ == "__main__":
