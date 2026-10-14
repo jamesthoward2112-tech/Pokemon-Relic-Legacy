@@ -569,7 +569,7 @@ PalletTown_ProfessorOaksLab_EventScript_ProfOak::
 	faceplayer
 	@ The one-time Hoenn invitation takes priority over normal dex ratings,
 	@ but only after Mum has celebrated the first Hall of Fame.
-	goto_if_set FLAG_PRL_POSTHOF_MOM_WELCOME, PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck
+	goto_if_set FLAG_SYS_GAME_CLEAR, PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck
 	goto_if_set SHOWED_OAK_COMPLETE_DEX, PalletTown_ProfessorOaksLab_EventScript_OakJustShownCompleteDex
 	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 9, PalletTown_ProfessorOaksLab_EventScript_RatePokedex
 	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 8, PalletTown_ProfessorOaksLab_EventScript_MonsAroundWorldWait
@@ -584,7 +584,7 @@ PalletTown_ProfessorOaksLab_EventScript_ProfOak::
 	end
 
 PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck::
-	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, PalletTown_ProfessorOaksLab_EventScript_TryStartNationalDexScene
+	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, PalletTown_ProfessorOaksLab_EventScript_PRLHoennAfterInvitation
 	msgbox PalletTown_ProfessorOaksLab_Text_PRLHoennInvitation
 	checkitem ITEM_SS_TICKET
 	goto_if_eq VAR_RESULT, TRUE, PalletTown_ProfessorOaksLab_EventScript_PRLHoennHasTicket
@@ -592,6 +592,11 @@ PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck::
 	goto_if_eq VAR_RESULT, FALSE, PalletTown_ProfessorOaksLab_EventScript_PRLHoennBagFull
 	giveitem_msg PalletTown_ProfessorOaksLab_Text_PRLHoennTicketReceived, ITEM_SS_TICKET, 1, MUS_RG_OBTAIN_KEY_ITEM
 	goto PalletTown_ProfessorOaksLab_EventScript_PRLHoennTicketDone
+	end
+
+PalletTown_ProfessorOaksLab_EventScript_PRLHoennAfterInvitation::
+	msgbox PalletTown_ProfessorOaksLab_Text_PRLHoennVisitMom
+	release
 	end
 
 PalletTown_ProfessorOaksLab_EventScript_PRLHoennHasTicket::
@@ -1770,3 +1775,11 @@ PalletTown_ProfessorOaksLab_Text_PRLHoennTakeYourTime::
 	.string "before your next adventure.\p"
 	.string "Your passage can wait until\n"
 	.string "you're ready for HOENN!$"
+
+
+PalletTown_ProfessorOaksLab_Text_PRLHoennVisitMom::
+	.string "OAK: The S.S. ANNE will wait.\p"
+	.string "Visit your MOM to prepare for\n"
+	.string "the journey to HOENN.\p"
+	.string "There's still time to explore\n"
+	.string "KANTO and the SEVII ISLANDS!$"
