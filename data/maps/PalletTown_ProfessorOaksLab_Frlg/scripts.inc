@@ -1794,8 +1794,13 @@ PalletTown_ProfessorOaksLab_Text_PRLHoennTakeYourTime::
 
 
 PalletTown_ProfessorOaksLab_Text_PRLHoennVisitMom::
-	.string "OAK: The S.S. ANNE will wait.\p"
-	.string "Visit your MOM to prepare for\n"
-	.string "the journey to HOENN.\p"
-	.string "There's still time to explore\n"
-	.string "KANTO and the SEVII ISLANDS!$"
+	.string "OAK: {PLAYER}, CHAMPION of\n"
+	.string "KANTO! Well done once again!\p"
+	.string "Your next challenge is HOENN,\n"
+	.string "with its own GYMS and LEAGUE.\p"
+	.string "Your S.S. ANNE passage waits\n"
+	.string "at the VERMILION pier.\p"
+	.string "Visit your MOM to arrange\n"
+	.string "your money and supplies.\p"
+	.string "You can explore KANTO and\n"
+	.string "the SEVII ISLANDS first!$"
