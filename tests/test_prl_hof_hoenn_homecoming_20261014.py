@@ -90,6 +90,10 @@ class PRLDeparturePreparation(unittest.TestCase):
         prep = mum.split("PalletTown_PlayersHouse_1F_EventScript_PRLCheckDeparturePrep::", 1)[1].split("PalletTown_PlayersHouse_1F_EventScript_MomHeal::", 1)[0]
         self.assertIn("FLAG_PRL_POSTHOF_OAK_TICKET", prep)
         self.assertIn("FLAG_PRL_POSTHOF_MOM_PREP_BRIEFED", prep)
+        self.assertNotIn("goto_if_set FLAG_PRL_POSTHOF_MOM_PREP_BRIEFED", prep)
+        self.assertIn("msgbox PalletTown_PlayersHouse_1F_Text_PRLDeparturePrep", prep)
+        self.assertIn("MSGBOX_YESNO", prep)
+        self.assertIn("PalletTown_PlayersHouse_1F_EventScript_PRLRestAfterHoenn", mum)
         self.assertNotIn("removeitem", prep)
         self.assertNotIn("setmoney", prep)
         self.assertIn("you actually board the ship", mum)
@@ -118,6 +122,8 @@ class PRLChampionHofStatRegression(unittest.TestCase):
         self.assertIn("PRLRetireAutomaticDexScene", oak)
         self.assertIn("VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 7", oak)
         self.assertIn("special EnableNationalPokedex", invitation)
+        self.assertIn("CHAMPION of", oak)
+        self.assertIn("Your next challenge is HOENN", oak)
 
 
 if __name__ == "__main__":
