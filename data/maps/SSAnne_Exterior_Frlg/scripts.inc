@@ -63,3 +63,57 @@ SSAnne_Exterior_Movement_WalkDown::
 	walk_down
 	walk_down
 	step_end
+
+@ PKR V18 (user-confirmed 14 Sep): truck A-button event at x55-63 / y0-7.
+@ Avoid guessed tile coordinates and NEVER overwrite Lava Cookie x58/y28.
+@ This is the Vermilion S.S. Anne truck, NOT Hoenn's moving truck.
+SSAnne_Exterior_EventScript_PRLTruckMew::
+	lockall
+	goto_if_set FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT, SSAnne_Exterior_EventScript_PRLTruckMewQuiet
+	@ Keep the PKR post-League unlock, recognising old and new PRL HoF saves.
+	specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord
+	goto_if_eq VAR_RESULT, FALSE, SSAnne_Exterior_EventScript_PRLTruckMewDormant
+	msgbox SSAnne_Exterior_Text_PRLTruckMewShakes
+	waitse
+	playmoncry SPECIES_MEW, CRY_MODE_ENCOUNTER
+	waitmoncry
+	delay 20
+	setwildbattle SPECIES_MEW, 50
+	special BattleSetup_StartLegendaryBattle
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, SSAnne_Exterior_EventScript_PRLTruckMewCaught
+	@ KO, run and all teleport/flee outcomes preserve the encounter.
+	msgbox SSAnne_Exterior_Text_PRLTruckMewEscaped
+	releaseall
+	end
+
+SSAnne_Exterior_EventScript_PRLTruckMewCaught::
+	setflag FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT
+	msgbox SSAnne_Exterior_Text_PRLTruckMewQuiet
+	releaseall
+	end
+
+SSAnne_Exterior_EventScript_PRLTruckMewQuiet::
+	msgbox SSAnne_Exterior_Text_PRLTruckMewQuiet
+	releaseall
+	end
+
+SSAnne_Exterior_EventScript_PRLTruckMewDormant::
+	msgbox SSAnne_Exterior_Text_PRLTruckMewDormant
+	releaseall
+	end
+
+SSAnne_Exterior_Text_PRLTruckMewShakes::
+	.string "The truck suddenly began to\n"
+	.string "shake...!$"
+
+SSAnne_Exterior_Text_PRLTruckMewEscaped::
+	.string "The mysterious POKéMON slipped\n"
+	.string "away. The truck is still...$"
+
+SSAnne_Exterior_Text_PRLTruckMewQuiet::
+	.string "The truck is quiet now.$"
+
+SSAnne_Exterior_Text_PRLTruckMewDormant::
+	.string "An old truck. Something about\n"
+	.string "it feels strangely familiar.$"
