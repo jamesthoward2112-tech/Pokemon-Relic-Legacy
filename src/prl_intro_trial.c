@@ -844,12 +844,11 @@ static void Task_Scene0_Main(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
 
-    // B/START/A skip: fade safely back to the approved PRL title.
-    if (gMain.newKeys != 0 && task->tState != S0_SKIP_FADE && task->tState != S0_DONE)
-    {
-        BeginNormalPaletteFade(PALETTES_ALL, 3, 0, 16, RGB_BLACK);
-        task->tState = S0_SKIP_FADE;
-    }
+    // PR78 approved cinematic lock: the complete original Celebi/Jirachi
+    // forest sequence must play before the PRL title, even if A/START was
+    // pressed on the preceding Porygon splash or an emulator repeats input.
+    // A generic newKeys check used to skip *every* forest stage instantly.
+    // Keep source assets/timings and approved Mode 3 title entirely unchanged.
     switch (task->tState)
     {
     // ------------------------------------------------------------------
