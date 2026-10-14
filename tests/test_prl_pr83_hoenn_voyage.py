@@ -40,7 +40,7 @@ class PR83Journey(unittest.TestCase):
         sc=read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
         self.assertIn("map_script_2 VAR_PRL_REGION_STAGE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival", sc)
         for species in ("RALTS", "POOCHYENA", "SABLEYE"):
-            self.assertIn("givemon SPECIES_"+species+", 5",sc)
+            self.assertIn("starterSpecies = SPECIES_"+species+";", read("src/field_specials.c"))
         for phrase in ("setvar VAR_PRL_REGION_STAGE, 2", "setflag FLAG_RESCUED_BIRCH",
                        "uncle FRANK", "BIRCH: The KANTO CHAMPION"):
             self.assertIn(phrase,sc)
@@ -49,10 +49,13 @@ class PR83Journey(unittest.TestCase):
         point=sc.index("VermilionCity_EventScript_PRLHoennBoardingPreflight::")
         part=sc[point:sc.index("VermilionCity_EventScript_PRLHoennNoRoom::",point)]
         self.assertIn("MSGBOX_YESNO",part)
-        self.assertIn("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer",part)
-        self.assertIn("goto_if_eq VAR_RESULT, FALSE, VermilionCity_EventScript_PRLHoennTransferFailed",part)
-        self.assertLess(part.index("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer"),part.index("warp MAP_LITTLEROOT_TOWN"))
+        self.assertIn("setvar VAR_PRL_REGION_STAGE, 1",part)
+        self.assertNotIn("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer",part)
+        lab=read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
+        self.assertIn("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer",lab)
+        self.assertIn("warp MAP_VERMILION_CITY, 24, 32",lab)
         self.assertIn("S.S. LEGACY",sc)
+        self.assertIn("CreateRandomMon(&gParties[B_TRAINER_PLAYER][0], starterSpecies, 5);", read("src/field_specials.c"))
     def test_no_save_struct_relayout(self):
         storage=read("include/pokemon_storage_system.h")
         self.assertIn("struct BoxPokemon boxes[TOTAL_BOXES_COUNT][IN_BOX_COUNT]",storage)
