@@ -1152,6 +1152,14 @@ static bool8 TryDoorWarp(struct MapPosition *position, u16 metatileBehavior, enu
 
 static s8 GetWarpEventAtPosition(struct MapHeader *mapHeader, u16 x, u16 y, u8 elevation)
 {
+    // PRL: once the original S.S. Anne has sailed, its hidden entrance must
+    // never trigger a warp (including directional/arrow/door warps). Keep
+    // the exterior pier and truck reachable for the post-League Mew event.
+    if (mapHeader->mapLayoutId == LAYOUT_SSANNE_EXTERIOR
+     && VarGet(VAR_MAP_SCENE_VERMILION_CITY) == 3
+     && ((x == 32 && y == 14) || (x == 33 && y == 15)))
+        return WARP_ID_NONE;
+
     s32 i;
     const struct WarpEvent *warpEvent = mapHeader->events->warps;
     u8 warpCount = mapHeader->events->warpCount;

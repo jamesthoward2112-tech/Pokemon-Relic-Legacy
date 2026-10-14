@@ -82,7 +82,7 @@ VermilionCity_Text_PRLHoennCheckDeparture::
 	.string "SAILOR: CHAMPION! PROF. OAK\n"
 	.string "has booked your HOENN voyage.\p"
 	.string "Shall I check whether you're\n"
-	.string "ready to board the S.S. ANNE?$"
+	.string "ready to board the S.S. LEGACY?$"
 
 VermilionCity_Text_PRLHoennNotYetReady::
 	.string "SAILOR: Your party can fit\n"
