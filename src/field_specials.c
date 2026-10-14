@@ -5766,3 +5766,11 @@ bool8 CheckAddCoins(void)
     else
         return TRUE;
 }
+
+// A Kanto Champion must be recognised even on a Hall of Fame save made
+// before PRL's dedicated regional flags existed. FRLG's save code records
+// GAME_STAT_ENTERED_HOF; FLAG_SYS_GAME_CLEAR is not reliably set on that path.
+u16 PRLHasKantoHallOfFameRecord(void)
+{
+    return FlagGet(FLAG_PRL_KANTO_CHAMPION) || GetGameStat(GAME_STAT_ENTERED_HOF) != 0;
+}
