@@ -1,3 +1,18 @@
+## Decision locked — 14 October 2026: preserve 420-slot GBA storage
+
+User explicitly approved **14 existing boxes**, not an unsafe 21-box expansion.
+Physical box assignment on Hoenn handover is:
+
+| Box | Label (8 characters maximum) | Preferred contents |
+| --- | --- | --- |
+| 1–10 | LV01-10 through LV91-100 | Increasing ten-level ranges |
+| 11–13 | EXTRA 1 through EXTRA 3 | Any overflow/eggs as needed |
+| 14 | LEGENDS | Legendary and mythical Pokémon |
+
+**All boxed Pokémon and the active party must fit, including Eggs, held items, shiny and custom species, and any existing fusion metadata.** If a preferred box is full, the placement planner uses the overflow boxes, then any remaining free box. Placement must be **lossless** rather than rejecting a viable 420-slot save. Existing box names are left unchanged until an actual committed departure.
+
+PR82 implements a read-only 14-box placement manifest in `PRLHoennCheckPCSpaceForParty`. It tests capacity without touching any save data, and keeps the working Kanto pier/ferry intact. **PR82 is not a working region voyage**. Before enabling it, implement and emulator-verify atomic transfer, regional money escrow, agreed Bag donation with EXP SHARE and Remote PC preserved, a separate Hoenn story/region state and starter selection, level-cap PC withdrawal, and recovery from cancelled/full-PC/new/legacy saves. Do not risk saves by enabling boarding from a purely static-source test.
+
 # PRL Kanto → Hoenn: region-change checkpoint (14 October 2026)
 
 ## Status and donor repositories
