@@ -75,7 +75,7 @@ SSAnne_Exterior_EventScript_PRLNoBoardingDepartedShip::
 	end
 
 SSAnne_Exterior_Text_PRLNoBoardingDepartedShip::
-	.string "The S.S. ANNE has already\\n"
+	.string "The S.S. ANNE has already\n"
 	.string "sailed. There is no ship here.$"
 
 @ PKR V18 (user-confirmed 14 Sep): truck A-button event at x55-63 / y0-7.
