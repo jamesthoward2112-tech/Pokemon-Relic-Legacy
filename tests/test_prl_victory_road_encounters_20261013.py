@@ -82,8 +82,12 @@ class VictoryRoadCaveEncountersTests(unittest.TestCase):
         self.assertEqual((rocket["LOCALID_PRL_VR_ROCKET_JESSIE"]["x"], rocket["LOCALID_PRL_VR_ROCKET_JESSIE"]["y"]), (45, 9))
         self.assertEqual((rocket["LOCALID_PRL_VR_ROCKET_JAMES"]["x"], rocket["LOCALID_PRL_VR_ROCKET_JAMES"]["y"]), (47, 9))
         triggers = [e for e in cave["coord_events"] if e["script"] == "VictoryRoad_2F_EventScript_PRL_RocketGate"]
-        self.assertTrue({(47, 12), (48, 11), (49, 12), (47, 13), (49, 13)} <=
-                        {(e["x"], e["y"]) for e in triggers})
+        # The on-screen sight corridor directly below Jessie/James must react,
+        # not only the distant outgoing warps.
+        expected_approach = {(x, y) for y in range(10, 13) for x in range(44, 49)}
+        observed = {(e["x"], e["y"]) for e in triggers}
+        self.assertTrue(expected_approach <= observed)
+        self.assertTrue({(47, 12), (48, 11), (49, 12), (47, 13), (49, 13)} <= observed)
         for e in triggers:
             self.assertEqual(e["var"], "VAR_PRL_VICTORY_ROAD_ROCKET_GATE")
             self.assertEqual(e["var_value"], "0")
