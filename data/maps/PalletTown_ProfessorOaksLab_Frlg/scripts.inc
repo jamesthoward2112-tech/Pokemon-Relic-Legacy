@@ -567,6 +567,9 @@ PalletTown_ProfessorOaksLab_EventScript_RivalChoseStarter::
 PalletTown_ProfessorOaksLab_EventScript_ProfOak::
 	lock
 	faceplayer
+	@ The one-time Hoenn invitation takes priority over normal dex ratings,
+	@ but only after Mum has celebrated the first Hall of Fame.
+	goto_if_set FLAG_PRL_POSTHOF_MOM_WELCOME, PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck
 	goto_if_set SHOWED_OAK_COMPLETE_DEX, PalletTown_ProfessorOaksLab_EventScript_OakJustShownCompleteDex
 	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 9, PalletTown_ProfessorOaksLab_EventScript_RatePokedex
 	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 8, PalletTown_ProfessorOaksLab_EventScript_MonsAroundWorldWait
@@ -577,6 +580,33 @@ PalletTown_ProfessorOaksLab_EventScript_ProfOak::
 	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 4, PalletTown_ProfessorOaksLab_EventScript_OakBattleMonForItToGrow
 	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3, PalletTown_ProfessorOaksLab_EventScript_OakCanReachNextTownWithMon
 	msgbox PalletTown_ProfessorOaksLab_Text_OakWhichOneWillYouChoose
+	release
+	end
+
+PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck::
+	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, PalletTown_ProfessorOaksLab_EventScript_TryStartNationalDexScene
+	msgbox PalletTown_ProfessorOaksLab_Text_PRLHoennInvitation
+	checkitem ITEM_SS_TICKET
+	goto_if_eq VAR_RESULT, TRUE, PalletTown_ProfessorOaksLab_EventScript_PRLHoennHasTicket
+	checkitemspace ITEM_SS_TICKET
+	goto_if_eq VAR_RESULT, FALSE, PalletTown_ProfessorOaksLab_EventScript_PRLHoennBagFull
+	giveitem_msg PalletTown_ProfessorOaksLab_Text_PRLHoennTicketReceived, ITEM_SS_TICKET, 1, MUS_RG_OBTAIN_KEY_ITEM
+	goto PalletTown_ProfessorOaksLab_EventScript_PRLHoennTicketDone
+	end
+
+PalletTown_ProfessorOaksLab_EventScript_PRLHoennHasTicket::
+	msgbox PalletTown_ProfessorOaksLab_Text_PRLHoennTicketStamped
+	goto PalletTown_ProfessorOaksLab_EventScript_PRLHoennTicketDone
+	end
+
+PalletTown_ProfessorOaksLab_EventScript_PRLHoennBagFull::
+	msgbox PalletTown_ProfessorOaksLab_Text_PRLHoennBagFull
+	release
+	end
+
+PalletTown_ProfessorOaksLab_EventScript_PRLHoennTicketDone::
+	setflag FLAG_PRL_POSTHOF_OAK_TICKET
+	msgbox PalletTown_ProfessorOaksLab_Text_PRLHoennTakeYourTime
 	release
 	end
 
@@ -1710,3 +1740,33 @@ PalletTown_ProfessorOaksLab_Text_PRLAideResearch::
 	.string "turning up strange parallels.\p"
 	.string "Compare fossils with the\n"
 	.string "living POKéMON you find!$"
+
+PalletTown_ProfessorOaksLab_Text_PRLHoennInvitation::
+	.string "OAK: {PLAYER}! Welcome back,\\n"
+	.string "KANTO's newest CHAMPION!\\p"
+	.string "Your journey is far from over.\\n"
+	.string "A new region awaits: HOENN.\\p"
+	.string "I've arranged passage on the\\n"
+	.string "S.S. ANNE, one way for now.\\p"
+	.string "There's no rush. Find MEWTWO,\\n"
+	.string "explore the SEVII ISLANDS...\\p"
+	.string "Then visit the VERMILION pier\\n"
+	.string "when you're ready to sail.$"
+
+PalletTown_ProfessorOaksLab_Text_PRLHoennTicketReceived::
+	.string "{PLAYER} received an S.S. TICKET\\n"
+	.string "for the journey to HOENN!$"
+
+PalletTown_ProfessorOaksLab_Text_PRLHoennTicketStamped::
+	.string "OAK: You kept your S.S. TICKET.\\n"
+	.string "I've marked it for HOENN!$"
+
+PalletTown_ProfessorOaksLab_Text_PRLHoennBagFull::
+	.string "OAK: Make room in your BAG,\\n"
+	.string "then come back for the ticket.$"
+
+PalletTown_ProfessorOaksLab_Text_PRLHoennTakeYourTime::
+	.string "OAK: Finish exploring KANTO\\n"
+	.string "before your next adventure.\\p"
+	.string "Your passage can wait until\\n"
+	.string "you're ready for HOENN!$"
