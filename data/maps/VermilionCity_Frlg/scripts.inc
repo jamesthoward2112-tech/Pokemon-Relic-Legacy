@@ -49,10 +49,57 @@ VermilionCity_EventScript_OldMan1SSAnneLeft::
 VermilionCity_EventScript_FerrySailor::
 	lock
 	faceplayer
+	@ The PRL Champion's ticket takes priority over the original SS Anne
+	@ story, but Sevii routes remain available before the ticket is issued.
+	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, VermilionCity_EventScript_PRLHoennBoardingPreflight
 	goto_if_eq VAR_MAP_SCENE_VERMILION_CITY, 3, VermilionCity_EventScript_CheckSeagallopPresent
 	msgbox VermilionCity_Text_WelcomeToTheSSAnne
 	release
 	end
+
+VermilionCity_EventScript_PRLHoennBoardingPreflight::
+	msgbox VermilionCity_Text_PRLHoennCheckDeparture, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, VermilionCity_EventScript_PRLHoennBoardingDeclined
+	specialvar VAR_RESULT, PRLHoennCheckPCSpaceForParty
+	goto_if_eq VAR_RESULT, FALSE, VermilionCity_EventScript_PRLHoennNoRoom
+	msgbox VermilionCity_Text_PRLHoennNotYetReady
+	release
+	end
+
+VermilionCity_EventScript_PRLHoennNoRoom::
+	msgbox VermilionCity_Text_PRLHoennNeedBoxRoom
+	release
+	end
+
+VermilionCity_EventScript_PRLHoennBoardingDeclined::
+	msgbox VermilionCity_Text_PRLHoennTakeTime
+	release
+	end
+
+VermilionCity_Text_PRLHoennCheckDeparture::
+	.string "SAILOR: CHAMPION! PROF. OAK\n"
+	.string "has booked your HOENN voyage.\p"
+	.string "Shall I check whether you're\n"
+	.string "ready to board the S.S. ANNE?$"
+
+VermilionCity_Text_PRLHoennNotYetReady::
+	.string "SAILOR: Your party can fit\n"
+	.string "safely into the PC.\p"
+	.string "We're finishing the transfer\n"
+	.string "facilities for HOENN.\p"
+	.string "I won't take your items or\n"
+	.string "POKéMON until we can sail.$"
+
+VermilionCity_Text_PRLHoennNeedBoxRoom::
+	.string "SAILOR: Your PC needs enough\n"
+	.string "empty spots for your party.\p"
+	.string "Please make room before we\n"
+	.string "attempt the HOENN journey.$"
+
+VermilionCity_Text_PRLHoennTakeTime::
+	.string "SAILOR: No rush, CHAMPION.\n"
+	.string "Explore KANTO while you can!$"
+
 
 VermilionCity_EventScript_CheckHasMysticTicket::
 	goto_if_unset FLAG_ENABLE_SHIP_NAVEL_ROCK, EventScript_SetResultFalse
