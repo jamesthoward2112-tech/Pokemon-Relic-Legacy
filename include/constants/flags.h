@@ -44,6 +44,8 @@
 #define FLAG_PRL_POSTHOF_MOM_PREP_BRIEFED                  0x4DB
 // Explicit first-region Champion marker; old saves also match HOF game stat.
 #define FLAG_PRL_KANTO_CHAMPION                            0x4DC
+// PKR-style S.S. Anne truck Mew; independent from Faraway Island's Mew.
+#define FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT                 0x4DD
 
 // Temporary Flags
 // These temporary flags are are cleared every time a map is loaded. They are used
