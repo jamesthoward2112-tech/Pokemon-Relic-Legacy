@@ -778,6 +778,7 @@ static const u8 sMovesPPLayout[] = _("{PP}{DYNAMIC 0}/{DYNAMIC 1}");
 
 #define TAG_MOVE_SELECTOR 30000
 #define TAG_MON_STATUS 30001
+#define TAG_MON_STATUS_BLD 30005
 #define TAG_MOVE_TYPES 30002
 #define TAG_MON_MARKINGS 30003
 #define TAG_CATEGORY_ICONS 30004
@@ -1162,6 +1163,35 @@ static const struct SpriteTemplate sSpriteTemplate_StatusCondition =
     .oam = &sOamData_StatusCondition,
     .anims = sSpriteAnimTable_StatusCondition,
 };
+
+// Separate, uncompressed red BLD sprite: does not overwrite existing PSN/FRB.
+static const union AnimCmd sSpriteAnim_StatusBleed[] =
+{
+    ANIMCMD_FRAME(0, 0, FALSE, FALSE),
+    ANIMCMD_END
+};
+static const union AnimCmd *const sSpriteAnimTable_StatusBleed[] =
+{
+    sSpriteAnim_StatusBleed
+};
+static const struct SpriteSheet sBleedStatusSpriteSheet =
+{
+    .data = gPRLBleedStatusIconGfx,
+    .size = sizeof(gPRLBleedStatusIconGfx),
+    .tag = TAG_MON_STATUS_BLD
+};
+static const struct SpritePalette sBleedStatusSpritePalette =
+{
+    .data = gPRLBleedStatusIconPal,
+    .tag = TAG_MON_STATUS_BLD
+};
+static const struct SpriteTemplate sSpriteTemplate_StatusBleed =
+{
+    .tileTag = TAG_MON_STATUS_BLD,
+    .paletteTag = TAG_MON_STATUS_BLD,
+    .oam = &sOamData_StatusCondition,
+    .anims = sSpriteAnimTable_StatusBleed,
+};
 static const u16 sMarkings_Pal[] = INCGFX_U16("graphics/summary_screen/markings.pal", ".gbapal");
 
 // code
@@ -1477,10 +1507,12 @@ static bool8 DecompressGraphics(void)
         break;
     case 9:
         LoadCompressedSpriteSheet(&sStatusIconsSpriteSheet);
+        LoadSpriteSheet(&sBleedStatusSpriteSheet);
         sMonSummaryScreen->switchCounter++;
         break;
     case 10:
         LoadSpritePalette(&sStatusIconsSpritePalette);
+        LoadSpritePalette(&sBleedStatusSpritePalette);
         sMonSummaryScreen->switchCounter++;
         break;
     case 11:
@@ -4646,13 +4678,20 @@ static void CreateSetStatusSprite(void)
     u8 *spriteId = &sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_STATUS];
     u8 statusAnim;
 
-    if (*spriteId == SPRITE_NONE)
-        *spriteId = CreateSprite(&sSpriteTemplate_StatusCondition, 64, 152, 0);
-
     statusAnim = GetMonAilment(&sMonSummaryScreen->currentMon);
+    if (*spriteId != SPRITE_NONE
+        && ((gSprites[*spriteId].anims == sSpriteAnimTable_StatusBleed) != (statusAnim == AILMENT_BLD)))
+    {
+        DestroySprite(&gSprites[*spriteId]);
+        *spriteId = SPRITE_NONE;
+    }
+
+    if (*spriteId == SPRITE_NONE)
+        *spriteId = CreateSprite(statusAnim == AILMENT_BLD ? &sSpriteTemplate_StatusBleed : &sSpriteTemplate_StatusCondition, 64, 152, 0);
+
     if (statusAnim != 0)
     {
-        StartSpriteAnim(&gSprites[*spriteId], statusAnim - 1);
+        StartSpriteAnim(&gSprites[*spriteId], statusAnim == AILMENT_BLD ? 0 : statusAnim - 1);
         SetSpriteInvisibility(SPRITE_ARR_ID_STATUS, FALSE);
     }
     else
