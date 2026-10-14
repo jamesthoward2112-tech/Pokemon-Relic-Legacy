@@ -23,20 +23,25 @@ class PR78Preservation(unittest.TestCase):
         title = (ROOT / "src/title_screen_frlg.c").read_text(encoding="utf-8")
         self.assertIn('INCBIN_U16("graphics/title_screen_prl/prl_option_b_title_mode3.bin")', title)
 
-    def test_dock_walkway_is_not_blocked_by_sailors(self):
+    def test_sailor_exactly_matches_approved_pr75_layout_and_dialogue(self):
         events = json.loads((ROOT / "data/maps/VermilionCity_Frlg/map.json").read_text(encoding="utf-8"))
-        sailor = [o for o in events["object_events"]
-                  if o.get("script") == "VermilionCity_EventScript_FerrySailor"]
-        self.assertEqual(len(sailor), 1)
-        self.assertEqual((sailor[0]["x"], sailor[0]["y"]), (31, 30))
-        self.assertFalse([o for o in events["object_events"]
-                          if o["x"] in (22, 23, 24) and o["y"] >= 30])
-        for x in (22, 23, 24):
-            self.assertIn((x, 34), [(w["x"], w["y"]) for w in events["warp_events"]])
-            self.assertIn((x, 33), [(e["x"], e["y"]) for e in events["coord_events"]])
+        sailor = next(o for o in events["object_events"]
+                      if o.get("local_id") == "LOCALID_VERMILION_FERRY_SAILOR")
+        self.assertEqual((sailor["x"], sailor["y"]), (24, 33))
+        flavor = next(o for o in events["object_events"]
+                      if o["script"] == "VermilionCity_EventScript_Sailor")
+        self.assertEqual((flavor["x"], flavor["y"]), (31, 30))
+        # Exactly the two original ticket-entry/reset lanes, no experimental third lane.
+        triggers = [e for e in events["coord_events"]
+                    if e["var"] == "VAR_VERMILION_CITY_TICKET_CHECK_TRIGGER"]
+        self.assertEqual({(e["x"], e["y"]) for e in triggers}, {(22, 33), (23, 33)})
         script = (ROOT / "data/maps/VermilionCity_Frlg/scripts.inc").read_text(encoding="utf-8")
-        self.assertIn("goto_if_eq VAR_MAP_SCENE_VERMILION_CITY, 3, VermilionCity_EventScript_PRLPierDepartedFallback", script)
-        self.assertIn("goto_if_eq VAR_MAP_SCENE_VERMILION_CITY, 3, VermilionCity_EventScript_PRLPierAccess", script)
+        sailor_script = script.split("VermilionCity_EventScript_FerrySailor::", 1)[1].split(
+            "VermilionCity_EventScript_PRLHoennBoardingPreflight::", 1)[0]
+        self.assertIn("goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, VermilionCity_EventScript_PRLHoennBoardingPreflight", sailor_script)
+        self.assertIn("goto_if_eq VAR_MAP_SCENE_VERMILION_CITY, 3, VermilionCity_EventScript_CheckSeagallopPresent", sailor_script)
+        self.assertNotIn("PRLPierDepartedFallback", script)
+        self.assertNotIn("PRLHasKantoHallOfFameRecord", sailor_script)
 
 
 if __name__ == "__main__":
