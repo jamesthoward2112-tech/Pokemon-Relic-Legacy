@@ -2973,21 +2973,27 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
         }
     }
 
-    // Flash and Fly remain optional untaught field actions; HM + badge suffice.
-    // Do not gate either action on the selected Pokémon's learnset.
+    // HM-in-bag and badge still unlock map-based field moves without teaching.
+    // In the party menu, however, only a compatible species may act as the
+    // animation source. Avoid offering Fly to land-only Pokémon (or Surf to
+    // species that cannot Surf), and never add duplicate known-move actions.
     if (!GetMonData(&mons[slotId], MON_DATA_IS_EGG))
     {
         static const enum FieldMove sVirtualFieldHms[] =
         {
             FIELD_MOVE_FLASH,
             FIELD_MOVE_FLY,
+            FIELD_MOVE_SURF,
         };
+        enum Species species = GetMonData(&mons[slotId], MON_DATA_SPECIES);
+        const u16 *teachableMoves = GetSpeciesTeachableLearnset(species);
 
         for (u32 k = 0; k < ARRAY_COUNT(sVirtualFieldHms) && sPartyMenuInternal->numActions < 5; k++)
         {
             enum FieldMove fieldMove = sVirtualFieldHms[k];
             enum Move move = FieldMove_GetMoveId(fieldMove);
             enum Item hmItem = GetTMHMItemIdFromMoveId(move);
+            bool32 compatible = FALSE;
 
             if (!IsFieldMoveUnlocked(fieldMove)
              || hmItem == ITEM_NONE
@@ -2996,7 +3002,19 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
              || MonKnowsMove(&mons[slotId], move))
                 continue;
 
-            AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, fieldMove + MENU_FIELD_MOVES);
+            // A species may offer an untaught HM only when it could learn
+            // that move normally. No compatibility changes to the Pokémon.
+            for (u32 j = 0; teachableMoves != NULL && teachableMoves[j] != MOVE_UNAVAILABLE; j++)
+            {
+                if (teachableMoves[j] == move)
+                {
+                    compatible = TRUE;
+                    break;
+                }
+            }
+
+            if (compatible)
+                AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, fieldMove + MENU_FIELD_MOVES);
         }
     }
 
