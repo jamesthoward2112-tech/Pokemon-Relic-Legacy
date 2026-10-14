@@ -119,6 +119,7 @@ enum CreditsString
     CREDITS_STRING_SPECIAL_THANKS_5,
     CREDITS_STRING_BRAILLE_CODE_CHECK_4,
     CREDITS_STRING_GRAPHIC_DESIGNER,
+    CREDITS_STRING_PRL_HOENN_TEASER,
     CREDITS_STRING_END
 };
 
@@ -490,73 +491,14 @@ static const struct CompressedGraphicsHeader sCopyrightOrTheEndGfxHeaders[] = {
 #define CREDITS_THEENDGFX(idx, duration) { CREDITSSCRCMD_THEENDGFX, CREDITSCLOSING_##idx, duration }
 #define CREDITS_WAITBUTTON(time) { CREDITSSCRCMD_WAITBUTTON, .duration = time }
 
+// PRL Kanto Hall of Fame: a short victory montage, not vanilla's lengthy
+// staff roll or THE END graphics. No region-transition or player lock.
 static const struct CreditsScrcmd sCreditsScript[] = {
     CREDITS_MAPNEXT(ROUTE23, 16),
-    CREDITS_PRINT(DIRECTOR, 300),
-    CREDITS_PRINT(ART_DIRECTOR_BATTLE_DIRECTOR, 300),
-    CREDITS_PRINT(PROGRAM_LEADER_PLANNING_LEADER_GRAPHIC_DESIGN_LEADER, 300),
-    CREDITS_PRINT(END, 60),
-    CREDITS_MAPNEXT(VIRIDIAN_CITY, 0),
-    CREDITS_PRINT(PROGRAMMERS, 211),
-    CREDITS_PRINT(SYSTEM_PROGRAMMERS, 211),
-    CREDITS_PRINT(GRAPHIC_DESIGNERS, 211),
-    CREDITS_MAPNEXT(PEWTER_CITY, 0),
-    CREDITS_PRINT(GRAPHIC_DESIGNERS_2, 211),
-    CREDITS_PRINT(MUSIC_COMPOSITION, 210),
-    CREDITS_PRINT(SOUND_EFFECTS, 210),
-    CREDITS_MON(CHARIZARD),
-    CREDITS_MAP(CERULEAN_CITY, 16),
-    CREDITS_PRINT(GAME_DESIGNERS, 211),
-    CREDITS_PRINT(GAME_DESIGNERS_2, 210),
-    CREDITS_PRINT(GAME_SCENARIO, 210),
-    CREDITS_MAPNEXT(ROUTE25, 16),
-    CREDITS_PRINT(SCRIPT_DESIGNER_MAP_DESIGNER, 211),
-    CREDITS_PRINT(PARAMETRIC_DESIGNERS, 210),
-    CREDITS_PRINT(POKEDEX_TEXT, 210),
-    CREDITS_MAPNEXT(VERMILION_CITY, 16),
-    CREDITS_PRINT(POKEMON_DESIGNERS, 211),
-    CREDITS_PRINT(POKEMON_DESIGNERS_2, 210),
-    CREDITS_PRINT(POKEMON_DESIGNERS_3, 210),
-    CREDITS_MON(VENUSAUR),
-    CREDITS_MAP(ROUTE10, 16),
-    CREDITS_PRINT(SUPPORTING_PROGRAMMERS, 211),
-    CREDITS_PRINT(NCL_PRODUCT_TESTING, 210),
-    CREDITS_PRINT(SPECIAL_THANKS, 210),
-    CREDITS_MAPNEXT(CELADON_CITY, 16),
-    CREDITS_PRINT(SPECIAL_THANKS_2, 221),
-    CREDITS_PRINT(SPECIAL_THANKS_3, 221),
-    CREDITS_PRINT(BRAILLE_CODE_CHECK, 221),
-    CREDITS_PRINT(INFORMATION_SUPERVISORS, 221),
-    CREDITS_PRINT(END, 51),
-    CREDITS_MAPNEXT(SAFFRON_CITY, 16),
-    CREDITS_PRINT(COORDINATORS, 211),
-    CREDITS_PRINT(TASK_MANAGERS, 210),
-    CREDITS_PRINT(PRODUCERS, 210),
-    CREDITS_MON(BLASTOISE),
-    CREDITS_MAP(ROUTE17, 16),
-    CREDITS_PRINT(EXECUTIVE_DIRECTOR, 331),
-    CREDITS_PRINT(EXECUTIVE_PRODUCER, 331),
-    CREDITS_PRINT(EXECUTIVE_PRODUCER_2, 331),
-    CREDITS_MAPNEXT(FUCHSIA_CITY, 16),
-    CREDITS_PRINT(ENGLISH_VERSION_COORDINATORS, 221),
-    CREDITS_PRINT(TRANSLATOR_TEXT_EDITOR, 221),
-    CREDITS_PRINT(PROGRAMMERS_2, 221),
-    CREDITS_PRINT(ENVIRONMENT_TOOL_PROGRAMMERS, 221),
-    CREDITS_PRINT(END, 52),
-    CREDITS_MAPNEXT(CINNABAR_ISLAND, 16),
-    CREDITS_PRINT(GRAPHIC_DESIGNER, 210),
-    CREDITS_PRINT(NOA_PRODUCT_TESTING, 210),
-    CREDITS_PRINT(BRAILLE_CODE_CHECK_2, 211),
-    CREDITS_MON(PIKACHU),
-    CREDITS_MAP(ROUTE21_NORTH, 16),
-    CREDITS_PRINT(BRAILLE_CODE_CHECK_3, 221),
-    CREDITS_PRINT(BRAILLE_CODE_CHECK_4, 221),
-    CREDITS_PRINT(SPECIAL_THANKS_4, 221),
-    CREDITS_PRINT(SPECIAL_THANKS_5, 221),
-    CREDITS_PRINT(END, 52),
-    CREDITS_THEENDGFX(ALLRIGHTSRESERVED, 224),
-    CREDITS_THEENDGFX(THEEND, 240),
-    CREDITS_WAITBUTTON(600)
+    CREDITS_PRINT(DIRECTOR, 80),
+    CREDITS_PRINT(ART_DIRECTOR_BATTLE_DIRECTOR, 80),
+    CREDITS_PRINT(PRL_HOENN_TEASER, 205),
+    CREDITS_WAITBUTTON(85)
 };
 
 static const ALIGNED(4) u8 sTextColor_Unused[3] = {0, 1, 2};
@@ -772,6 +714,11 @@ static const struct CreditsOverworldCmd *const sOverworldMapScenes[] = {
     sOverworldCmd_Route21
 };
 
+// The credits closing message replaces the stock THE END and copyright
+// closing art, which produced a solid red screen in the user's playtest.
+static const u8 sCreditsText_PRLHoennHeading[] = _("The Journey Continues...");
+static const u8 sCreditsText_PRLHoennSubtitle[] = _("In Hoenn!");
+
 static const struct CreditsTextHeader sCreditsTexts[] = {
     { gCreditsString_Director, gCreditsString_Junichi_Masuda, FALSE },
     { gCreditsString_Art_Director_Battle_Director, gCreditsString_Ken_Sugimori_Shigeki_Morimoto, FALSE },
@@ -815,6 +762,7 @@ static const struct CreditsTextHeader sCreditsTexts[] = {
     { gCreditsString_Special_Thanks_5, gCreditsString_Nicola_Pratt_Barlow_Shellie_Dow_Anthony_Howitt_Naoko_Saeki_Kyoko_Onishi, FALSE },
     { gCreditsString_Braille_Code_Check_4, gCreditsString_The_Royal_New_Zealand_Foundation_of_the_Blind_Greg_Moran, FALSE },
     { gCreditsString_Graphic_Designer, gCreditsString_Akira_Kinashi, FALSE },
+    { sCreditsText_PRLHoennHeading, sCreditsText_PRLHoennSubtitle, FALSE },
     { gText_EmptyString2, gText_EmptyString2, FALSE }
 };
 
@@ -855,9 +803,19 @@ static void CB2_Credits(void)
     case 2:
         FlagClear(FLAG_HIDE_MAP_NAME_POPUP);
         gDisableMapMusicChangeOnMapLoad = MUSIC_DISABLE_OFF;
+        // Do NOT soft-reset to the title or play the broken red closing
+        // screen. Keep the live post-League save in memory and return home
+        // so Mum's one-off Hoenn dialogue can begin immediately.
+        DestroyCreditsWindow();
         Free(sCreditsMgr);
-        SoftReset(RESET_ALL);
-        // noreturn
+        sCreditsMgr = NULL;
+        SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN_PLAYERS_HOUSE_1F),
+                           MAP_NUM(MAP_PALLET_TOWN_PLAYERS_HOUSE_1F), -1, 6, 6);
+        DoWarp();
+        ResetInitialPlayerAvatarState();
+        gMain.state = 0;
+        SetMainCallback2(CB2_LoadMap);
+        break;
     }
 }
 
@@ -964,7 +922,7 @@ static s32 RollCredits(void)
             return 0;
         }
         LoadPlayerOrRivalSprite(0);
-        sCreditsMgr->timer = 100;
+        sCreditsMgr->timer = 15;
         sCreditsMgr->mainseqno = CREDITSSCENE_PRINT_TITLE_STAFF;
         return 0;
     case CREDITSSCENE_PRINT_TITLE_STAFF:
@@ -974,7 +932,7 @@ static s32 RollCredits(void)
             return 0;
             
         }
-        sCreditsMgr->timer = 360;
+        sCreditsMgr->timer = 65;
         AddTextPrinterParameterized4(sCreditsMgr->windowId, FONT_NORMAL, 0x08, 0x29, 1, 2, sTextColor_Header, 0, TITLE_TEXT);
         sCreditsMgr->mainseqno = CREDITSSCENE_WAIT_TITLE_STAFF;
         return 0;
