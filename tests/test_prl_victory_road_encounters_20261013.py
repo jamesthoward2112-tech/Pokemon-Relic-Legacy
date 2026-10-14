@@ -115,7 +115,6 @@ class VictoryRoadCaveEncountersTests(unittest.TestCase):
         self.assertNotIn("LOCALID_PRL_VR_ROCKET_BALLOON", won)
         self.assertIn("waitmovement LOCALID_PRL_VR_ROCKET_MEOWTH", won)
         self.assertIn("FLAG_HIDE_PRL_BADGE_HEIST_TRIO", won)
-        self.assertIn("MAP_VICTORY_ROAD_2F", cave["warp_events"][0]["dest_map"]) if False else None
 
     def test_warp_no_longer_redirects_recovered_badge_player_to_south_route(self):
         src = read("src/overworld.c")
