@@ -278,40 +278,47 @@ Route23_EventScript_PRLFinalRocketGone::
 	msgbox Route23_Text_PRLFinalRocketGone, MSGBOX_AUTOCLOSE
 	end
 
+@ Defensive legacy-route fallback. The only balloon departure in all Kanto is
+@ Route23_EventScript_PRLGreatBadgeHeist; all later Rocket exits are on foot.
 Route23_EventScript_PRLFinalRocketWon::
 	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD
 	setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED
 	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 1
 	msgbox Route23_Text_PRLFinalRocketAfterBattle
-	msgbox Route23_Text_PRLFinalRocketBlastOff
+	msgbox Route23_Text_PRLFinalRocketOnFoot
 	closemessage
-	clearflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
-	addobject LOCALID_PRL_HEIST_BALLOON
-	hideobjectat LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23
-	setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 30
-	setobjectsubpriority LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23, 1
-	applymovement LOCALID_PRL_HEIST_BALLOON, Route23_Movement_PRLBalloonEnter
-	waitmovement LOCALID_PRL_HEIST_BALLOON
-	setobjectsubpriority LOCALID_PRL_HEIST_JESSIE, MAP_ROUTE23, 0
-	setobjectsubpriority LOCALID_PRL_HEIST_JAMES, MAP_ROUTE23, 0
-	setobjectsubpriority LOCALID_PRL_HEIST_MEOWTH, MAP_ROUTE23, 0
-	playse SE_LEDGE
-	applymovement LOCALID_PRL_HEIST_JESSIE, Route23_Movement_PRLJessieFinalBoard
-	applymovement LOCALID_PRL_HEIST_JAMES, Route23_Movement_PRLJamesFinalBoard
-	applymovement LOCALID_PRL_HEIST_MEOWTH, Route23_Movement_PRLMeowthFinalBoard
+	applymovement LOCALID_PRL_HEIST_JESSIE, Route23_Movement_PRLFinalJessieRetreat
+	applymovement LOCALID_PRL_HEIST_JAMES, Route23_Movement_PRLFinalJamesRetreat
+	applymovement LOCALID_PRL_HEIST_MEOWTH, Route23_Movement_PRLFinalMeowthRetreat
 	waitmovement LOCALID_PRL_HEIST_JESSIE
 	waitmovement LOCALID_PRL_HEIST_JAMES
 	waitmovement LOCALID_PRL_HEIST_MEOWTH
+	setflag FLAG_HIDE_PRL_BADGE_HEIST_TRIO
 	removeobject LOCALID_PRL_HEIST_JESSIE
 	removeobject LOCALID_PRL_HEIST_JAMES
 	removeobject LOCALID_PRL_HEIST_MEOWTH
-	applymovement LOCALID_PRL_HEIST_BALLOON, Route23_Movement_PRLBalloonTakeoff
-	waitmovement 0
-	setflag FLAG_HIDE_PRL_BADGE_HEIST_TRIO
-	setflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
-	removeobject LOCALID_PRL_HEIST_BALLOON
 	release
 	end
+
+Route23_Movement_PRLFinalJessieRetreat:
+	walk_fast_left
+	walk_fast_left
+	step_end
+
+Route23_Movement_PRLFinalJamesRetreat:
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+Route23_Movement_PRLFinalMeowthRetreat:
+	walk_fast_down
+	walk_fast_down
+	step_end
+
+Route23_Text_PRLFinalRocketOnFoot::
+	.string "JESSIE: We're getting out of here!\\p"
+	.string "JAMES: By foot this time!\\p"
+	.string "MEOWTH: Move it, you two!$"
 
 Route23_Movement_PRLJessieApproach:
 	walk_right
