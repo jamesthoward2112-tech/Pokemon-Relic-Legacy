@@ -48,7 +48,7 @@ class PKRTruckMewMigrationTests(unittest.TestCase):
 
     def test_dedicated_flag_and_original_mew_flags_untouched(self):
         flags = read("include/constants/flags.h")
-        self.assertIn("#define FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT                 FLAG_UNUSED_0x4DD", flags)
+        self.assertIn("#define FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT                 0x4DD", flags)
         self.assertIn("#define FLAG_CAUGHT_MEW", flags)
         self.assertIn("#define FLAG_DEFEATED_MEW", flags)
         self.assertIn("#define FLAG_HIDE_MEW", flags)
