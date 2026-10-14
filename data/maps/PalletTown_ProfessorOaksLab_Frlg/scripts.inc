@@ -1742,31 +1742,31 @@ PalletTown_ProfessorOaksLab_Text_PRLAideResearch::
 	.string "living POKéMON you find!$"
 
 PalletTown_ProfessorOaksLab_Text_PRLHoennInvitation::
-	.string "OAK: {PLAYER}! Welcome back,\\n"
-	.string "KANTO's newest CHAMPION!\\p"
-	.string "Your journey is far from over.\\n"
-	.string "A new region awaits: HOENN.\\p"
-	.string "I've arranged passage on the\\n"
-	.string "S.S. ANNE, one way for now.\\p"
-	.string "There's no rush. Find MEWTWO,\\n"
-	.string "explore the SEVII ISLANDS...\\p"
-	.string "Then visit the VERMILION pier\\n"
+	.string "OAK: {PLAYER}! Welcome back,\n"
+	.string "KANTO's newest CHAMPION!\p"
+	.string "Your journey is far from over.\n"
+	.string "A new region awaits: HOENN.\p"
+	.string "I've arranged passage on the\n"
+	.string "S.S. ANNE, one way for now.\p"
+	.string "There's no rush. Find MEWTWO,\n"
+	.string "explore the SEVII ISLANDS...\p"
+	.string "Then visit the VERMILION pier\n"
 	.string "when you're ready to sail.$"
 
 PalletTown_ProfessorOaksLab_Text_PRLHoennTicketReceived::
-	.string "{PLAYER} received an S.S. TICKET\\n"
+	.string "{PLAYER} received an S.S. TICKET\n"
 	.string "for the journey to HOENN!$"
 
 PalletTown_ProfessorOaksLab_Text_PRLHoennTicketStamped::
-	.string "OAK: You kept your S.S. TICKET.\\n"
+	.string "OAK: You kept your S.S. TICKET.\n"
 	.string "I've marked it for HOENN!$"
 
 PalletTown_ProfessorOaksLab_Text_PRLHoennBagFull::
-	.string "OAK: Make room in your BAG,\\n"
+	.string "OAK: Make room in your BAG,\n"
 	.string "then come back for the ticket.$"
 
 PalletTown_ProfessorOaksLab_Text_PRLHoennTakeYourTime::
-	.string "OAK: Finish exploring KANTO\\n"
-	.string "before your next adventure.\\p"
-	.string "Your passage can wait until\\n"
+	.string "OAK: Finish exploring KANTO\n"
+	.string "before your next adventure.\p"
+	.string "Your passage can wait until\n"
 	.string "you're ready for HOENN!$"
