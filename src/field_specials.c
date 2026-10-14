@@ -5951,7 +5951,7 @@ u16 PRLHoennCommitKantoTransfer(void)
     // The player is ALREADY safely on the Hoenn map. Never clear the
     // Kanto party just before a cross-region warp: follower/map loading code
     // still expects a non-empty party there.
-    if (VarGet(VAR_PRL_REGION_STAGE) != 1 || !FlagGet(FLAG_PRL_POSTHOF_OAK_TICKET))
+    if (VarGet(VAR_PRL_REGION_STAGE) != 3 || !FlagGet(FLAG_PRL_POSTHOF_OAK_TICKET))
         return FALSE;
     switch (starterChoice)
     {
