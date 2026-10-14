@@ -752,8 +752,14 @@ void process_groups(string groups_filepath, vector<string> &map_filepaths, strin
         }
         string map_name = json_to_string(map_data, "name");
 
+        // PR87 first safe bridge: compile Littleroot's landing and Birch's lab
+        // alongside ALL existing Kanto maps. Other Hoenn map events include
+        // Emerald-only hidden item flags and need a separate migration audit.
+        // Keep map group / numeric map IDs stable for existing Kanto saves.
+        bool prlHoennLanding = map_name == "LittlerootTown"
+                           || map_name == "LittlerootTown_ProfessorBirchsLab";
         if ((version == "emerald" && region != "REGION_HOENN")
-         || (version == "firered" && region != "REGION_KANTO" && region != "REGION_HOENN")) {
+         || (version == "firered" && region != "REGION_KANTO" && !prlHoennLanding)) {
             invalid_maps.push_back(map_name);
         }
     }
@@ -794,7 +800,10 @@ string generate_layout_headers_text(Json layouts_data) {
                 layout_version = "frlg";
         }
         if ((version == "emerald" && layout_version != "emerald")
-         || (version == "firered" && layout_version != "frlg" && layout_version != "emerald"))
+         || (version == "firered" && layout_version != "frlg" &&
+              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN" &&
+              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB" &&
+              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE"))
             continue;
         string layoutName = json_to_string(layout, "name");
         string border_label = layoutName + "_Border";
@@ -851,7 +860,10 @@ string generate_layouts_table_text(Json layouts_data) {
             else if (version == "firered")
                 layout_version = "frlg";
         }
-        if ((version == "emerald" && layout_version != "emerald") || (version == "firered" && layout_version != "frlg" && layout_version != "emerald")) {
+        if ((version == "emerald" && layout_version != "emerald") || (version == "firered" && layout_version != "frlg" &&
+              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN" &&
+              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB" &&
+              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE")) {
             text << "\t.4byte NULL\n";
         } else {
             string layout_name = json_to_string(layout, "name", true);
