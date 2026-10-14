@@ -5,7 +5,14 @@ PalletTown_Frlg_MapScripts::
 
 PalletTown_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_PALLET_TOWN
+	@ Older save files may still carry scene 2 from vanilla FRLG.
+	@ Retire the automatic Dex-count ambush on every Champion return.
+	call_if_set FLAG_SYS_GAME_CLEAR, PalletTown_EventScript_PRLDisableAutomaticOakDexCheck
 	end
+
+PalletTown_EventScript_PRLDisableAutomaticOakDexCheck::
+	setvar VAR_MAP_SCENE_PALLET_TOWN_OAK, 3
+	return
 
 PalletTown_OnFrame::
 	map_script_2 VAR_MAP_SCENE_PALLET_TOWN_OAK, 2, PalletTown_EventScript_OakRatingScene
