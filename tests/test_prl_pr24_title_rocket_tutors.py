@@ -49,7 +49,8 @@ def test_rocket_visible_and_obstructs_exit_before_battle():
         assert "MtMoon_B1F_EventScript_PRL_"+n+"::" in s
         assert "MtMoon_B1F_Text_PRL_"+n+"PostBattle::" in s
     assert s.count("trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON")==2
-    assert "removeobject LOCALID_PRL_JESSIE_MT_MOON" not in s
+    assert "removeobject LOCALID_PRL_JESSIE_MT_MOON" in s
+    assert "MtMoon_B1F_Movement_PRL_JessieRetreat:" in s
 
 
 def test_rocket_has_joint_name_and_approved_front_gfx():
