@@ -3,7 +3,7 @@ MtMoon_B1F_Frlg_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, MtMoon_B1F_OnTransition_PRLJessieJames
 	.byte 0
 
-@ Reveal the duo after either fossil; leave them visible when already defeated.
+@ Reveal the duo after the fossil; do not respawn them after defeat on old saves.
 MtMoon_B1F_OnLoad_PRLJessieJames::
 	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
 	goto_if_unset FLAG_GOT_FOSSIL_FROM_MT_MOON, MtMoon_B1F_OnLoad_PRLRocketDone
@@ -13,7 +13,7 @@ MtMoon_B1F_OnLoad_PRLRocketDone::
 	return
 MtMoon_B1F_OnLoad_PRLRocketAlreadyWon::
 	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON
-	clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
 	return
 
 MtMoon_B1F_OnTransition_PRLJessieJames::
@@ -22,6 +22,8 @@ MtMoon_B1F_OnTransition_PRLJessieJames::
 	goto MtMoon_B1F_OnTransition_PRLRocketShow
 MtMoon_B1F_OnTransition_PRLRocketWon::
 	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON
+	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+	goto MtMoon_B1F_OnTransition_PRLReturn
 MtMoon_B1F_OnTransition_PRLRocketShow::
 	clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON
 	addobject LOCALID_PRL_JESSIE_MT_MOON
@@ -55,12 +57,39 @@ MtMoon_B1F_EventScript_PRL_MeowthAfter::
 	release
 	end
 
-@ Flag progression only; never remove the duo, so A-button dialogue works.
+@ After their native double battle, they make their escape on foot.
 MtMoon_B1F_EventScript_PRL_RocketWon::
 	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_MT_MOON
 	msgbox MtMoon_B2F_Text_PRL_RocketPostBattle
+	closemessage
+	@ Running away on foot after this encounter; no further balloon departures.
+	applymovement LOCALID_PRL_JESSIE_MT_MOON, MtMoon_B1F_Movement_PRL_JessieRetreat
+	applymovement LOCALID_PRL_JAMES_MT_MOON, MtMoon_B1F_Movement_PRL_JamesRetreat
+	applymovement LOCALID_PRL_MEOWTH_MT_MOON, MtMoon_B1F_Movement_PRL_MeowthRetreat
+	waitmovement LOCALID_PRL_JESSIE_MT_MOON
+	waitmovement LOCALID_PRL_JAMES_MT_MOON
+	waitmovement LOCALID_PRL_MEOWTH_MT_MOON
+	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
+	removeobject LOCALID_PRL_JESSIE_MT_MOON
+	removeobject LOCALID_PRL_JAMES_MT_MOON
+	removeobject LOCALID_PRL_MEOWTH_MT_MOON
 	release
 	end
+
+MtMoon_B1F_Movement_PRL_JessieRetreat:
+	walk_fast_down
+	walk_fast_down
+	step_end
+
+MtMoon_B1F_Movement_PRL_JamesRetreat:
+	walk_fast_down
+	walk_fast_down
+	step_end
+
+MtMoon_B1F_Movement_PRL_MeowthRetreat:
+	walk_fast_down
+	walk_fast_down
+	step_end
 
 MtMoon_B1F_Text_PRL_JessiePostBattle::
 	.string "JESSIE: You may have won this time,\n"

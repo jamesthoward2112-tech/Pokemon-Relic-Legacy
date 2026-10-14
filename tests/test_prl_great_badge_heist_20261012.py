@@ -54,7 +54,7 @@ class GreatBadgeHeistTests(unittest.TestCase):
         self.assertIn("FLAG_BADGE01_GET", field_move)
         self.assertNotIn("FLAG_PRL_BADGE_HEIST", field_move)
 
-    def test_route23_contains_one_time_heist_and_two_balloon_escapes(self):
+    def test_route23_balloon_escape_only_for_one_time_badge_theft(self):
         script = text("data/maps/Route23_Frlg/scripts.inc")
         map_json = text("data/maps/Route23_Frlg/map.json")
         for actor in ("JESSIE", "JAMES", "MEOWTH", "BALLOON"):
@@ -65,7 +65,9 @@ class GreatBadgeHeistTests(unittest.TestCase):
         self.assertIn("Route23_EventScript_PRLFinalRocketBattle", script)
         self.assertIn("TRAINER_JESSIE_JAMES_VICTORY_ROAD", script)
         self.assertIn("setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED", script)
-        self.assertGreaterEqual(script.count("Route23_Movement_PRLBalloonTakeoff"), 2)
+        self.assertNotIn("LOCALID_PRL_HEIST_BALLOON", script.split("Route23_EventScript_PRLFinalRocketWon::", 1)[1].split("Route23_Movement_PRLJessieApproach:", 1)[0])
+        self.assertIn("walk_fast_", script.split("Route23_EventScript_PRLFinalRocketWon::", 1)[1].split("Route23_Movement_PRLJessieApproach:", 1)[0])
+        self.assertEqual(script.count("applymovement LOCALID_PRL_HEIST_BALLOON, Route23_Movement_PRLBalloonTakeoff"), 1)
         self.assertIn("JESSIE: TEAM ROCKET", script)
         self.assertIn("defeat all eight GYM LEADERS", script)
 
@@ -96,9 +98,9 @@ class GreatBadgeHeistTests(unittest.TestCase):
         script = text("data/maps/Route23_Frlg/scripts.inc")
         self.assertIn("setobjectxy LOCALID_PRL_HEIST_BALLOON, 8, 151", script)
 
-    def test_balloon_is_visible_before_boarding_in_both_escapes(self):
+    def test_heist_balloon_is_visible_before_boarding(self):
         script = text("data/maps/Route23_Frlg/scripts.inc")
-        for label in ("Route23_EventScript_PRLGreatBadgeHeist", "Route23_EventScript_PRLFinalRocketWon"):
+        for label in ("Route23_EventScript_PRLGreatBadgeHeist",):
             block = script.split(label + "::", 1)[1].split("\nRoute23_", 1)[0]
             spawn = block.index("addobject LOCALID_PRL_HEIST_BALLOON")
             board = block.index("applymovement LOCALID_PRL_HEIST_JESSIE, Route23_Movement_PRLJessie", block.index("msgbox"))
@@ -107,9 +109,9 @@ class GreatBadgeHeistTests(unittest.TestCase):
                 self.assertLess(spawn, block.index("removeobject LOCALID_PRL_HEIST_" + actor), label)
             self.assertIn("setobjectsubpriority LOCALID_PRL_HEIST_BALLOON, MAP_ROUTE23, 1", block)
 
-    def test_balloon_flies_in_and_leaves_without_dialogue_or_fixed_step_cutoff(self):
+    def test_heist_balloon_flies_in_without_dialogue_or_fixed_step_cutoff(self):
         script = text("data/maps/Route23_Frlg/scripts.inc")
-        for label in ("Route23_EventScript_PRLGreatBadgeHeist", "Route23_EventScript_PRLFinalRocketWon"):
+        for label in ("Route23_EventScript_PRLGreatBadgeHeist",):
             block = script.split(label + "::", 1)[1].split("\nRoute23_", 1)[0]
             animation = block[block.index("addobject LOCALID_PRL_HEIST_BALLOON"):]
             self.assertIn("Route23_Movement_PRLBalloonEnter", animation)
@@ -117,7 +119,7 @@ class GreatBadgeHeistTests(unittest.TestCase):
             self.assertNotIn("delay ", animation)
         self.assertIn("Route23_Movement_PRLBalloonEnter:\n\tfly_down", script)
         self.assertIn("Route23_Movement_PRLBalloonTakeoff:\n\tfly_up", script)
-        for name in ("JessieBoard", "JamesBoard", "MeowthBoard", "JessieFinalBoard", "JamesFinalBoard", "MeowthFinalBoard"):
+        for name in ("JessieBoard", "JamesBoard", "MeowthBoard"):
             movement = script.split("Route23_Movement_PRL" + name + ":", 1)[1].split("\tstep_end", 1)[0]
             self.assertIn("jump_", movement, name)
 

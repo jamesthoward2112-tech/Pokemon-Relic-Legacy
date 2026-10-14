@@ -208,15 +208,17 @@ class PRLRecurringDuos(unittest.TestCase):
                 self.assertIn("trainerbattle_double", script)
                 if name == "JESSIE_JAMES_VICTORY_ROAD":
                     self.assertIn("VictoryRoad_2F_EventScript_PRL_RocketWon::", script)
-                    self.assertIn("Route23_Movement_PRLBalloonTakeoff", script)
+                    self.assertNotIn("Route23_Movement_PRLBalloonTakeoff", script)
+                    self.assertIn("VictoryRoad_2F_Movement_PRL_JessieRetreat:", script)
+                    self.assertIn("VictoryRoad_2F_Movement_PRL_JamesRetreat:", script)
                     self.assertIn("removeobject LOCALID_PRL_VR_ROCKET_JESSIE", script)
                     continue
                 self.assertIn("EventScript_PRL_Jessie::", script)
                 self.assertIn("EventScript_PRL_James::", script)
                 self.assertIn("Text_PRL_JessiePostBattle::", script)
                 self.assertIn("Text_PRL_JamesPostBattle::", script)
-                self.assertNotIn("removeobject LOCALID_PRL_JESSIE", script)
-                self.assertNotIn("removeobject LOCALID_PRL_JAMES", script)
+                self.assertIn("removeobject LOCALID_PRL_JESSIE", script)
+                self.assertIn("removeobject LOCALID_PRL_JAMES", script)
                 if name != "JESSIE_JAMES_MT_MOON":
                     self.assertIn("addobject LOCALID_PRL_MEOWTH", script)
                     for actor in ("JESSIE","JAMES"):

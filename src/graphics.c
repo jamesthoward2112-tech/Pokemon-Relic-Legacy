@@ -1,5 +1,6 @@
 #include "global.h"
 #include "graphics.h"
+#include "constants/rgb.h"
 
 const u32 gBattleTextboxTiles[] = INCGFX_U32("graphics/battle_interface/textbox.png", ".4bpp.smol");
 const u16 gBattleTextboxPalette[] = INCBIN_U16("graphics/battle_interface/textbox.gbapal");
@@ -2142,3 +2143,34 @@ const u32 gGhostFrontPic[] = INCGFX_U32("graphics/pokemon/ghost/front.png", ".4b
 const u32 gPRLEeveeTwinsFrontPic[] = INCGFX_U32("graphics/pokemon/prl_eevee_twins/front.png", ".4bpp.smol");
 const u16 gPRLEeveeTwinsNormalPalette[] = INCGFX_U16("graphics/pokemon/prl_eevee_twins/normal.pal", ".gbapal");
 const u16 gPRLEeveeTwinsShinyPalette[] = INCGFX_U16("graphics/pokemon/prl_eevee_twins/shiny.pal", ".gbapal");
+
+// PRL Bleeding: distinct red BLD badges in battle and party/summary screens.
+// 4bpp: GBA tile order, 8x8 pixels per tile; each healthbox copy is 3 tiles.
+// Battle labels use the per-battler palette index 12..15, recoloured red.
+// Palette index 0 is transparent; the rest of the healthbox stays unchanged.
+const u32 gPRLBleedHealthboxGfx[4][24] =
+{
+    {
+        0x22222222, 0x0CCC0002, 0xC00C0002, 0x0CCC0002, 0xC00C0002, 0x0CCC0002, 0x00000002, 0x22222222, 0x22222222, 0x00000C00, 0x00000C00, 0x00000C00, 0x00000C00, 0x00CCCC00, 0x00000000, 0x22222222, 0x22222222, 0x20000CCC, 0x2000C00C, 0x2000C00C, 0x2000C00C, 0x20000CCC, 0x20000000, 0x22222222
+    },
+    {
+        0x22222222, 0x0DDD0002, 0xD00D0002, 0x0DDD0002, 0xD00D0002, 0x0DDD0002, 0x00000002, 0x22222222, 0x22222222, 0x00000D00, 0x00000D00, 0x00000D00, 0x00000D00, 0x00DDDD00, 0x00000000, 0x22222222, 0x22222222, 0x20000DDD, 0x2000D00D, 0x2000D00D, 0x2000D00D, 0x20000DDD, 0x20000000, 0x22222222
+    },
+    {
+        0x22222222, 0x0EEE0002, 0xE00E0002, 0x0EEE0002, 0xE00E0002, 0x0EEE0002, 0x00000002, 0x22222222, 0x22222222, 0x00000E00, 0x00000E00, 0x00000E00, 0x00000E00, 0x00EEEE00, 0x00000000, 0x22222222, 0x22222222, 0x20000EEE, 0x2000E00E, 0x2000E00E, 0x2000E00E, 0x20000EEE, 0x20000000, 0x22222222
+    },
+    {
+        0x22222222, 0x0FFF0002, 0xF00F0002, 0x0FFF0002, 0xF00F0002, 0x0FFF0002, 0x00000002, 0x22222222, 0x22222222, 0x00000F00, 0x00000F00, 0x00000F00, 0x00000F00, 0x00FFFF00, 0x00000000, 0x22222222, 0x22222222, 0x20000FFF, 0x2000F00F, 0x2000F00F, 0x2000F00F, 0x20000FFF, 0x20000000, 0x22222222
+    }
+};
+const u32 gPRLBleedStatusIconGfx[32] =
+{
+    0x33333333, 0x11111113, 0x11111113, 0x11111113, 0x11111113, 0x11111113, 0x11111113, 0x33333333, 0x33333333, 0x12111222, 0x12112112, 0x12111222, 0x12112112, 0x22111222, 0x11111111, 0x33333333, 0x33333333, 0x12221111, 0x21121111, 0x21121111, 0x21121111, 0x12221122, 0x11111111, 0x33333333, 0x33333333, 0x31111111, 0x31111111, 0x31111111, 0x31111111, 0x31111111, 0x31111111, 0x33333333
+};
+const u16 gPRLBleedStatusIconPal[16] =
+{
+    [0] = RGB(0, 0, 0),       // transparent
+    [1] = RGB(27, 3, 6),      // crimson background
+    [2] = RGB(31, 31, 31),   // white BLD lettering
+    [3] = RGB(7, 2, 3),       // dark badge border
+};

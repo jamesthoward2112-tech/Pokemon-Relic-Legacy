@@ -547,7 +547,8 @@ enum
     PAL_STATUS_PAR,
     PAL_STATUS_SLP,
     PAL_STATUS_FRZ,
-    PAL_STATUS_BRN
+    PAL_STATUS_BRN,
+    PAL_STATUS_BLD
 };
 
 static const u16 sStatusIconColors[] =
@@ -557,6 +558,7 @@ static const u16 sStatusIconColors[] =
     [PAL_STATUS_SLP] = RGB(20, 20, 17),
     [PAL_STATUS_FRZ] = RGB(17, 22, 28),
     [PAL_STATUS_BRN] = RGB(28, 14, 10),
+    [PAL_STATUS_BLD] = RGB(29, 5, 7), // bright red, not poison purple
 };
 
 static const struct WindowTemplate sHealthboxWindowTemplate = {
@@ -1921,8 +1923,9 @@ static void UpdateStatusIconInHealthbox(u8 healthboxSpriteId)
     }
     else if (status & STATUS1_BLEED)
     {
-        statusGfxPtr = GetHealthboxElementGfxPtr(GetStatusIconForBattlerId(HEALTHBOX_GFX_STATUS_PSN_BATTLER0, battler));
-        statusPalId = PAL_STATUS_PSN;
+        // Distinct BLD graphic for all four battler palettes; PSN stays poison-only.
+        statusGfxPtr = (const u8 *)gPRLBleedHealthboxGfx[battler];
+        statusPalId = PAL_STATUS_BLD;
     }
     else if (status & STATUS1_PARALYSIS)
     {

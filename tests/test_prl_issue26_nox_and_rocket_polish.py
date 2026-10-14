@@ -81,7 +81,9 @@ class NoxAndRocket(unittest.TestCase):
         for who in ("Jessie","James"):
             self.assertIn("MtMoon_B1F_EventScript_PRL_"+who+"::",scene)
             self.assertIn("MtMoon_B1F_Text_PRL_"+who+"PostBattle::",scene)
-        self.assertNotIn("removeobject LOCALID_PRL_JESSIE_MT_MOON",scene)
+        self.assertIn("removeobject LOCALID_PRL_JESSIE_MT_MOON",scene)
+        self.assertIn("setflag FLAG_HIDE_PRL_ROCKET_MT_MOON", scene)
+        self.assertIn("MtMoon_B1F_Movement_PRL_JessieRetreat:", scene)
 
     def test_opening_untouched(self):
         self.assertIn("CB2_InitPRLHwlScene0",(ROOT/"src/expansion_intro.c").read_text())

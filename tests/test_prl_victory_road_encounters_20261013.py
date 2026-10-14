@@ -82,8 +82,12 @@ class VictoryRoadCaveEncountersTests(unittest.TestCase):
         self.assertEqual((rocket["LOCALID_PRL_VR_ROCKET_JESSIE"]["x"], rocket["LOCALID_PRL_VR_ROCKET_JESSIE"]["y"]), (45, 9))
         self.assertEqual((rocket["LOCALID_PRL_VR_ROCKET_JAMES"]["x"], rocket["LOCALID_PRL_VR_ROCKET_JAMES"]["y"]), (47, 9))
         triggers = [e for e in cave["coord_events"] if e["script"] == "VictoryRoad_2F_EventScript_PRL_RocketGate"]
-        self.assertTrue({(47, 12), (48, 11), (49, 12), (47, 13), (49, 13)} <=
-                        {(e["x"], e["y"]) for e in triggers})
+        # The on-screen sight corridor directly below Jessie/James must react,
+        # not only the distant outgoing warps.
+        expected_approach = {(x, y) for y in range(10, 13) for x in range(44, 49)}
+        observed = {(e["x"], e["y"]) for e in triggers}
+        self.assertTrue(expected_approach <= observed)
+        self.assertTrue({(47, 12), (48, 11), (49, 12), (47, 13), (49, 13)} <= observed)
         for e in triggers:
             self.assertEqual(e["var"], "VAR_PRL_VICTORY_ROAD_ROCKET_GATE")
             self.assertEqual(e["var_value"], "0")
@@ -94,9 +98,23 @@ class VictoryRoadCaveEncountersTests(unittest.TestCase):
         self.assertIn("trainerbattle_double TRAINER_JESSIE_JAMES_VICTORY_ROAD", s)
         self.assertIn("FLAG_PRL_BADGE_HEIST_ALL_RECOVERED", s)
         self.assertIn("setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED", s)
-        self.assertIn("Route23_Movement_PRLBalloonEnter", s)
-        self.assertIn("Route23_Movement_PRLBalloonTakeoff", s)
-        self.assertIn("MAP_VICTORY_ROAD_2F", s)
+        for obj in ("JESSIE", "JAMES"):
+            trainer = rocket["LOCALID_PRL_VR_ROCKET_" + obj]
+            self.assertEqual(trainer["trainer_type"], "TRAINER_TYPE_NORMAL")
+            self.assertEqual(trainer["trainer_sight_or_berry_tree_id"], "4")
+            self.assertEqual(trainer["movement_type"], "MOVEMENT_TYPE_FACE_DOWN")
+            self.assertIn("trainerbattle_double TRAINER_JESSIE_JAMES_VICTORY_ROAD", s)
+            self.assertIn("localId=LOCALID_PRL_VR_ROCKET_" + obj, s)
+        self.assertTrue(all(e["elevation"] == 0 for e in triggers))
+        self.assertIn("VictoryRoad_2F_Movement_PRL_JessieRetreat:", s)
+        self.assertIn("VictoryRoad_2F_Movement_PRL_JamesRetreat:", s)
+        self.assertIn("VictoryRoad_2F_Movement_PRL_MeowthRetreat:", s)
+        won = s.split("VictoryRoad_2F_EventScript_PRL_RocketWon::", 1)[1].split(
+            "VictoryRoad_2F_Movement_PRL_RocketStepIn:", 1)[0]
+        self.assertNotIn("PRLBalloon", won)
+        self.assertNotIn("LOCALID_PRL_VR_ROCKET_BALLOON", won)
+        self.assertIn("waitmovement LOCALID_PRL_VR_ROCKET_MEOWTH", won)
+        self.assertIn("FLAG_HIDE_PRL_BADGE_HEIST_TRIO", won)
 
     def test_warp_no_longer_redirects_recovered_badge_player_to_south_route(self):
         src = read("src/overworld.c")

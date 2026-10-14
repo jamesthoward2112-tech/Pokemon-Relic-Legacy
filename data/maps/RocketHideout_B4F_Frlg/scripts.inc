@@ -231,8 +231,35 @@ RocketHideout_B4F_EventScript_PRL_MeowthAfter::
 RocketHideout_B4F_EventScript_PRL_RocketWon::
 	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT
 	msgbox RocketHideout_B4F_Text_PRL_RocketPostBattle
+	closemessage
+	@ Running away on foot after this encounter; no further balloon departures.
+	applymovement LOCALID_PRL_JESSIE_HIDEOUT, RocketHideout_B4F_Movement_PRL_JessieRetreat
+	applymovement LOCALID_PRL_JAMES_HIDEOUT, RocketHideout_B4F_Movement_PRL_JamesRetreat
+	applymovement LOCALID_PRL_MEOWTH_HIDEOUT, RocketHideout_B4F_Movement_PRL_MeowthRetreat
+	waitmovement LOCALID_PRL_JESSIE_HIDEOUT
+	waitmovement LOCALID_PRL_JAMES_HIDEOUT
+	waitmovement LOCALID_PRL_MEOWTH_HIDEOUT
+	setflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
+	removeobject LOCALID_PRL_JESSIE_HIDEOUT
+	removeobject LOCALID_PRL_JAMES_HIDEOUT
+	removeobject LOCALID_PRL_MEOWTH_HIDEOUT
 	release
 	end
+
+RocketHideout_B4F_Movement_PRL_JessieRetreat:
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+RocketHideout_B4F_Movement_PRL_JamesRetreat:
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+RocketHideout_B4F_Movement_PRL_MeowthRetreat:
+	walk_fast_right
+	walk_fast_right
+	step_end
 
 RocketHideout_B4F_Text_PRL_JessiePostBattle::
 	.string "JESSIE: Enjoy your victory!\p"
@@ -284,7 +311,7 @@ RocketHideout_B4F_PRLRocketVisibilityDone::
 	return
 RocketHideout_B4F_PRLRocketAlreadyWon::
 	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT
-	clearflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
+	setflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
 	return
 
 RocketHideout_B4F_OnTransition_PRLRocket::
@@ -294,7 +321,8 @@ RocketHideout_B4F_OnTransition_PRLRocket::
 	goto RocketHideout_B4F_PRLRocketTransitionAdd
 RocketHideout_B4F_PRLRocketTransitionAlreadyWon::
 	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_HIDEOUT
-	clearflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
+	setflag FLAG_HIDE_PRL_ROCKET_HIDEOUT
+	goto RocketHideout_B4F_PRLRocketTransitionDone
 RocketHideout_B4F_PRLRocketTransitionAdd::
 	addobject LOCALID_PRL_JESSIE_HIDEOUT
 	addobject LOCALID_PRL_JAMES_HIDEOUT

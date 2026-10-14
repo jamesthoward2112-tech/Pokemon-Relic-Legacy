@@ -309,8 +309,35 @@ SilphCo_11F_EventScript_PRL_MeowthAfter::
 SilphCo_11F_EventScript_PRL_RocketWon::
 	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
 	msgbox SilphCo_11F_Text_PRL_RocketPostBattle
+	closemessage
+	@ Running away on foot after this encounter; no further balloon departures.
+	applymovement LOCALID_PRL_JESSIE_SILPH, SilphCo_11F_Movement_PRL_JessieRetreat
+	applymovement LOCALID_PRL_JAMES_SILPH, SilphCo_11F_Movement_PRL_JamesRetreat
+	applymovement LOCALID_PRL_MEOWTH_SILPH, SilphCo_11F_Movement_PRL_MeowthRetreat
+	waitmovement LOCALID_PRL_JESSIE_SILPH
+	waitmovement LOCALID_PRL_JAMES_SILPH
+	waitmovement LOCALID_PRL_MEOWTH_SILPH
+	setflag FLAG_HIDE_PRL_ROCKET_SILPH
+	removeobject LOCALID_PRL_JESSIE_SILPH
+	removeobject LOCALID_PRL_JAMES_SILPH
+	removeobject LOCALID_PRL_MEOWTH_SILPH
 	release
 	end
+
+SilphCo_11F_Movement_PRL_JessieRetreat:
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+SilphCo_11F_Movement_PRL_JamesRetreat:
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+SilphCo_11F_Movement_PRL_MeowthRetreat:
+	walk_fast_right
+	walk_fast_right
+	step_end
 
 SilphCo_11F_Text_PRL_JessiePostBattle::
 	.string "JESSIE: The BOSS spent so\n"
@@ -362,7 +389,7 @@ SilphCo_11F_PRLRocketVisibilityDone::
 	return
 SilphCo_11F_PRLRocketAlreadyWon::
 	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
-	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
+	setflag FLAG_HIDE_PRL_ROCKET_SILPH
 	return
 
 SilphCo_11F_OnTransition_PRLRocket::
@@ -373,7 +400,8 @@ SilphCo_11F_OnTransition_PRLRocket::
 	goto SilphCo_11F_PRLRocketTransitionAdd
 SilphCo_11F_PRLRocketTransitionAlreadyWon::
 	setflag FLAG_PRL_RECURRING_JESSIE_JAMES_SILPH
-	clearflag FLAG_HIDE_PRL_ROCKET_SILPH
+	setflag FLAG_HIDE_PRL_ROCKET_SILPH
+	goto SilphCo_11F_PRLRocketTransitionDone
 SilphCo_11F_PRLRocketTransitionAdd::
 	addobject LOCALID_PRL_JESSIE_SILPH
 	addobject LOCALID_PRL_JAMES_SILPH

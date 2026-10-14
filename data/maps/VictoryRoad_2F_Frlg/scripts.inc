@@ -25,7 +25,20 @@ VictoryRoad_2F_OnLoad::
 	call_if_ne VAR_MAP_SCENE_VICTORY_ROAD_2F_BOULDER1, 100, VictoryRoad_2F_EventScript_SetRockBarrier1
 	call_if_ne VAR_MAP_SCENE_VICTORY_ROAD_2F_BOULDER2, 100, VictoryRoad_2F_EventScript_SetRockBarrier2
 	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 0
-	call_if_set FLAG_PRL_RECURRING_JESSIE_JAMES_VICTORY_ROAD, VictoryRoad_2F_EventScript_PRL_RocketGateOpen
+	call_if_set FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED, VictoryRoad_2F_EventScript_PRL_RocketGateOpen
+	end
+
+@ Jessie and James have real, downward trainer line of sight like ordinary trainers.
+@ Meowth occupies the centre column; wildcard-elevation floor triggers backstop
+@ that middle lane and the outgoing warps without relying on manually pressing A.
+VictoryRoad_2F_EventScript_PRL_RocketJessie::
+	trainerbattle_double TRAINER_JESSIE_JAMES_VICTORY_ROAD, Route23_Text_PRLFinalRocketIntro, Route23_Text_PRLFinalRocketDefeat, Route23_Text_PRLFinalRocketNotEnoughMons, VictoryRoad_2F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_VR_ROCKET_JESSIE
+	msgbox Route23_Text_PRLFinalRocketGone, MSGBOX_AUTOCLOSE
+	end
+
+VictoryRoad_2F_EventScript_PRL_RocketJames::
+	trainerbattle_double TRAINER_JESSIE_JAMES_VICTORY_ROAD, Route23_Text_PRLFinalRocketIntro, Route23_Text_PRLFinalRocketDefeat, Route23_Text_PRLFinalRocketNotEnoughMons, VictoryRoad_2F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_VR_ROCKET_JAMES
+	msgbox Route23_Text_PRLFinalRocketGone, MSGBOX_AUTOCLOSE
 	end
 
 @ Three approach lanes and the actual outgoing warp footprint are intercepted.
@@ -78,35 +91,41 @@ VictoryRoad_2F_EventScript_PRL_RocketWon::
 	setflag FLAG_PRL_BADGE_HEIST_FINAL_DEFEATED
 	setvar VAR_PRL_VICTORY_ROAD_ROCKET_GATE, 1
 	msgbox Route23_Text_PRLFinalRocketAfterBattle
-	msgbox Route23_Text_PRLFinalRocketBlastOff
+	msgbox VictoryRoad_2F_Text_PRL_RocketRetreat
 	closemessage
-	clearflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
-	addobject LOCALID_PRL_VR_ROCKET_BALLOON
-	hideobjectat LOCALID_PRL_VR_ROCKET_BALLOON, MAP_VICTORY_ROAD_2F
-	setobjectxy LOCALID_PRL_VR_ROCKET_BALLOON, 46, 8
-	setobjectsubpriority LOCALID_PRL_VR_ROCKET_BALLOON, MAP_VICTORY_ROAD_2F, 1
-	applymovement LOCALID_PRL_VR_ROCKET_BALLOON, Route23_Movement_PRLBalloonEnter
-	waitmovement LOCALID_PRL_VR_ROCKET_BALLOON
-	setobjectsubpriority LOCALID_PRL_VR_ROCKET_JESSIE, MAP_VICTORY_ROAD_2F, 0
-	setobjectsubpriority LOCALID_PRL_VR_ROCKET_JAMES, MAP_VICTORY_ROAD_2F, 0
-	setobjectsubpriority LOCALID_PRL_VR_ROCKET_MEOWTH, MAP_VICTORY_ROAD_2F, 0
-	playse SE_LEDGE
-	applymovement LOCALID_PRL_VR_ROCKET_JESSIE, Route23_Movement_PRLJessieFinalBoard
-	applymovement LOCALID_PRL_VR_ROCKET_JAMES, Route23_Movement_PRLJamesFinalBoard
-	applymovement LOCALID_PRL_VR_ROCKET_MEOWTH, Route23_Movement_PRLMeowthFinalBoard
+	@ Escape on foot, never spawn the giant Meowth balloon in Victory Road.
+	applymovement LOCALID_PRL_VR_ROCKET_JESSIE, VictoryRoad_2F_Movement_PRL_JessieRetreat
+	applymovement LOCALID_PRL_VR_ROCKET_JAMES, VictoryRoad_2F_Movement_PRL_JamesRetreat
+	applymovement LOCALID_PRL_VR_ROCKET_MEOWTH, VictoryRoad_2F_Movement_PRL_MeowthRetreat
 	waitmovement LOCALID_PRL_VR_ROCKET_JESSIE
 	waitmovement LOCALID_PRL_VR_ROCKET_JAMES
 	waitmovement LOCALID_PRL_VR_ROCKET_MEOWTH
+	setflag FLAG_HIDE_PRL_BADGE_HEIST_TRIO
 	removeobject LOCALID_PRL_VR_ROCKET_JESSIE
 	removeobject LOCALID_PRL_VR_ROCKET_JAMES
 	removeobject LOCALID_PRL_VR_ROCKET_MEOWTH
-	applymovement LOCALID_PRL_VR_ROCKET_BALLOON, Route23_Movement_PRLBalloonTakeoff
-	waitmovement LOCALID_PRL_VR_ROCKET_BALLOON
-	setflag FLAG_HIDE_PRL_BADGE_HEIST_TRIO
-	setflag FLAG_HIDE_PRL_BADGE_HEIST_BALLOON
-	removeobject LOCALID_PRL_VR_ROCKET_BALLOON
 	releaseall
 	end
+
+VictoryRoad_2F_Movement_PRL_JessieRetreat:
+	walk_fast_left
+	walk_fast_left
+	step_end
+
+VictoryRoad_2F_Movement_PRL_JamesRetreat:
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+VictoryRoad_2F_Movement_PRL_MeowthRetreat:
+	walk_fast_down
+	walk_fast_down
+	step_end
+
+VictoryRoad_2F_Text_PRL_RocketRetreat::
+	.string "JESSIE: This isn't over yet!\p"
+	.string "JAMES: Come on, MEOWTH!\p"
+	.string "MEOWTH: We're runnin' for it!$"
 
 VictoryRoad_2F_Movement_PRL_RocketStepIn:
 	walk_down
