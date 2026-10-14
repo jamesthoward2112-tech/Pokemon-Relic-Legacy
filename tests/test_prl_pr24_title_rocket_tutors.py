@@ -19,7 +19,9 @@ def test_title_direct_artwork_and_animation():
     expansion = source("src/expansion_intro.c")
     assert "PRLDrawPrompt(data[1])" in title
     assert "PRLUpdateTitleSparkles" in title
-    assert "PRLUpdateCelebiJirachiTitleAnimation" not in title
+    assert "PRLUpdateCelebiJirachiTitleAnimation" in title
+    assert 'graphics/pokemon/celebi/icon.png' in title
+    assert 'graphics/pokemon/jirachi/icon.png' in title
     assert "CB2_InitPRLHwlScene0" in expansion
     assert "sScene0Celebi_Gfx" in forest and "sScene0Jirachi_Gfx" in forest
     assert "sAnims_Scene0Celebi" in forest and "sAnims_Scene0Jirachi" in forest
