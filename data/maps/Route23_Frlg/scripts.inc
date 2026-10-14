@@ -316,8 +316,8 @@ Route23_Movement_PRLFinalMeowthRetreat:
 	step_end
 
 Route23_Text_PRLFinalRocketOnFoot::
-	.string "JESSIE: We're getting out of here!\\p"
-	.string "JAMES: By foot this time!\\p"
+	.string "JESSIE: We're getting out of here!\p"
+	.string "JAMES: By foot this time!\p"
 	.string "MEOWTH: Move it, you two!$"
 
 Route23_Movement_PRLJessieApproach:
