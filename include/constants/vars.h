@@ -276,6 +276,14 @@
 #define VAR_UNUSED_0x40FE                                0x40FE // Unused Var
 #define VAR_UNUSED_0x40FF                                0x40FF // Unused Var
 
+// PRL regional voyage bookkeeping in four existing, save-compatible unused
+// event vars. Never repurpose the registered-item vars 0x40FD-0x40FF.
+// REGION_STAGE: 0=Kanto, 1=arrived Hoenn/choose starter, 2=Hoenn active.
+#define VAR_PRL_REGION_STAGE                               VAR_UNUSED_0x40F7
+#define VAR_PRL_BANK_KANTO_MONEY_LO                        VAR_UNUSED_0x40F8
+#define VAR_PRL_BANK_KANTO_MONEY_HI                        VAR_UNUSED_0x40F9
+#define VAR_PRL_HOENN_STARTER                              VAR_UNUSED_0x40FA
+
 // Original PHR four registered Key Item slots. Slot 1 remains in SaveBlock1.
 // Save-compatible PJR hold-SELECT registration; former PHR second slot (0x40FD).
 #define VAR_PRL_REGISTERED_ITEM_HOLD                      VAR_UNUSED_0x40FD
