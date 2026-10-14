@@ -142,6 +142,7 @@ enum {
     TAG_POKEBALL = 1200,
     TAG_POKEBALL_SMALL,
     TAG_STATUS_ICONS,
+    TAG_STATUS_BLD,
 };
 
 #define TAG_HELD_ITEM 55120
@@ -2243,7 +2244,7 @@ u8 GetAilmentFromStatus(u32 status)
     if (status & STATUS1_FROSTBITE)
         return AILMENT_FRB;
     if (status & STATUS1_BLEED)
-        return AILMENT_PSN;
+        return AILMENT_BLD;
     return AILMENT_NONE;
 }
 
@@ -4692,15 +4693,35 @@ static void SetPartyMonAilmentGfx(struct Pokemon *mon, struct PartyMenuBox *menu
 
 static void UpdatePartyMonAilmentGfx(u8 status, struct PartyMenuBox *menuBox)
 {
+    struct Sprite *sprite = &gSprites[menuBox->statusSpriteId];
+    bool8 isBleed = status == AILMENT_BLD;
+
+    // Bleeding uses its own 32x8 sprite sheet and red palette.
+    // Recreate only when switching into/out of BLD so healing restores
+    // the original status badge and no other party sprite is recoloured.
+    if (isBleed != (sprite->anims == sSpriteAnimTable_PRLBleed))
+    {
+        u8 priority = sprite->oam.priority;
+        DestroySprite(sprite);
+        menuBox->statusSpriteId = CreateSprite(isBleed ? &sSpriteTemplate_PRLBleedStatus : &gSpriteTemplate_StatusIcons,
+                                              menuBox->spriteCoords[4], menuBox->spriteCoords[5], 0);
+        sprite = &gSprites[menuBox->statusSpriteId];
+        sprite->oam.priority = priority;
+    }
+
     switch (status)
     {
     case AILMENT_NONE:
     case AILMENT_PKRS:
-        gSprites[menuBox->statusSpriteId].invisible = TRUE;
+        sprite->invisible = TRUE;
+        break;
+    case AILMENT_BLD:
+        StartSpriteAnim(sprite, 0);
+        sprite->invisible = FALSE;
         break;
     default:
-        StartSpriteAnim(&gSprites[menuBox->statusSpriteId], status - 1);
-        gSprites[menuBox->statusSpriteId].invisible = FALSE;
+        StartSpriteAnim(sprite, status - 1);
+        sprite->invisible = FALSE;
         break;
     }
 }
@@ -4709,6 +4730,8 @@ void LoadPartyMenuAilmentGfx(void)
 {
     LoadCompressedSpriteSheet(&sSpriteSheet_StatusIcons);
     LoadSpritePalette(&sSpritePalette_StatusIcons);
+    LoadSpriteSheet(&sSpriteSheet_PRLBleedStatus);
+    LoadSpritePalette(&sSpritePalette_PRLBleedStatus);
 }
 
 void CB2_ShowPartyMenuForItemUse(void)
