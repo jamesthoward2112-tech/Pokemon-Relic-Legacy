@@ -69,7 +69,12 @@ SSAnne_Exterior_Movement_WalkDown::
 @ This is the Vermilion S.S. Anne truck, NOT Hoenn's moving truck.
 SSAnne_Exterior_EventScript_PRLTruckMew::
 	lockall
-	goto_if_set FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT, SSAnne_Exterior_EventScript_PRLTruckMewQuiet
+	@ A single stale save bit must never suppress Mew for an older Champion.
+	@ Only this encounter's successful capture sets BOTH fresh markers.
+	goto_if_unset FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT, SSAnne_Exterior_EventScript_PRLTruckMewAvailable
+	goto_if_set FLAG_PRL_SSANNE_TRUCK_MEW_CAPTURE_CONFIRMED, SSAnne_Exterior_EventScript_PRLTruckMewQuiet
+
+SSAnne_Exterior_EventScript_PRLTruckMewAvailable::
 	@ Keep the PKR post-League unlock, recognising old and new PRL HoF saves.
 	specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord
 	goto_if_eq VAR_RESULT, FALSE, SSAnne_Exterior_EventScript_PRLTruckMewDormant
@@ -89,6 +94,7 @@ SSAnne_Exterior_EventScript_PRLTruckMew::
 
 SSAnne_Exterior_EventScript_PRLTruckMewCaught::
 	setflag FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT
+	setflag FLAG_PRL_SSANNE_TRUCK_MEW_CAPTURE_CONFIRMED
 	msgbox SSAnne_Exterior_Text_PRLTruckMewQuiet
 	releaseall
 	end
