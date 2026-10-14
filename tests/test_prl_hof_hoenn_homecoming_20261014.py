@@ -115,6 +115,8 @@ class PRLChampionHofStatRegression(unittest.TestCase):
         oak = read("data/maps/PalletTown_ProfessorOaksLab_Frlg/scripts.inc")
         invitation = oak.split("PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck::", 1)[1].split("PalletTown_ProfessorOaksLab_EventScript_PRLHoennHasTicket::", 1)[0]
         self.assertNotIn("TryStartNationalDexScene", invitation)
+        self.assertIn("PRLRetireAutomaticDexScene", oak)
+        self.assertIn("VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 7", oak)
         self.assertIn("special EnableNationalPokedex", invitation)
 
 
