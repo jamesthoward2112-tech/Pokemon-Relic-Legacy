@@ -1,4 +1,4 @@
-"""Keep the approved Mt Moon Jessie/James trainer behaviour across Kanto.
+"""Jessie and James approach natively, flee on foot, and never reappear after defeat.
 
 Static checks confirm the event wiring. Emulator testing remains necessary.
 """
@@ -32,13 +32,18 @@ class RocketNativeTrainerRegression(unittest.TestCase):
                     self.assertEqual(npc["flag"], "FLAG_HIDE_PRL_ROCKET_" + ("MT_MOON" if tag == "MT_MOON" else tag))
                     self.assertRegex(script, rf"trainerbattle_double {trainer}[^\n]*localId=LOCALID_PRL_{name}_{tag}")
                     self.assertIn(prefix + "_Text_PRL_" + name.title() + "PostBattle::", script)
-                    self.assertNotIn("removeobject LOCALID_PRL_" + name + "_" + tag, script)
+                    self.assertIn("removeobject LOCALID_PRL_" + name + "_" + tag, script)
+                self.assertIn(prefix + "_Movement_PRL_" + name.title() + "Retreat:", script)
+                self.assertIn("walk_fast_", script.split(prefix + "_Movement_PRL_" + name.title() + "Retreat:", 1)[1].split("step_end", 1)[0])
                 meowth = actors["LOCALID_PRL_MEOWTH_" + tag]
                 self.assertEqual(meowth["trainer_type"], "TRAINER_TYPE_NONE")
                 self.assertIn("EventScript_PRL_Meowth", meowth["script"])
-                self.assertNotIn("removeobject LOCALID_PRL_MEOWTH_" + tag, script)
+                self.assertIn("removeobject LOCALID_PRL_MEOWTH_" + tag, script)
                 self.assertIn("goto_if_defeated " + trainer, script)
                 self.assertIn("setflag FLAG_PRL_RECURRING_JESSIE_JAMES_" + tag, script)
+                self.assertIn("setflag FLAG_HIDE_PRL_ROCKET_" + tag, script)
+                self.assertNotIn("Route23_Movement_PRLBalloonEnter", script)
+                self.assertNotIn("Route23_Movement_PRLBalloonTakeoff", script)
 
     def test_no_forced_battles_on_transition_or_warp(self):
         for folder, prefix, tag, _ in SCENES:
