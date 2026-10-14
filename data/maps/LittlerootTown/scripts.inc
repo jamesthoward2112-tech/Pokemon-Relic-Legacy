@@ -118,6 +118,7 @@ LittlerootTown_EventScript_PRLOutdoorDockArrival::
 	@ accidentally run a house warp or the vanilla moving-truck cutscene.
 	setvar VAR_LITTLEROOT_INTRO_STATE, 0
 	setvar VAR_LITTLEROOT_TOWN_STATE, 0
+	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0
 	setvar VAR_PRL_REGION_STAGE, 3
 	msgbox LittlerootTown_Text_PRLSafeHoennArrival
 	releaseall
