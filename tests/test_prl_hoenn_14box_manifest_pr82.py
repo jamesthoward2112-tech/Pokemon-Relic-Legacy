@@ -26,7 +26,7 @@ class TestPR82FourteenBoxManifest(unittest.TestCase):
         self.assertIn("for (box = 0; box < TOTAL_BOXES_COUNT; box++)", manifest)
         self.assertIn("for (slot = 0; slot < IN_BOX_COUNT; slot++)", manifest)
         self.assertIn("GetBoxMonData(mon, MON_DATA_SPECIES)", manifest)
-        self.assertIn("GetMonData(&gPlayerParty[i], MON_DATA_SPECIES)", manifest)
+        self.assertIn("GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES)", manifest)
         self.assertIn("partyCount > freeSlots", manifest)
 
     def test_fallback_uses_all_remaining_boxes(self):
@@ -48,7 +48,7 @@ class TestPR82FourteenBoxManifest(unittest.TestCase):
     def test_preflight_does_not_change_save_data(self):
         check = SOURCE.split("u16 PRLHoennCheckPCSpaceForParty(void)", 1)[1]
         writes = ("ClearBag(", "ZeroBoxMonAt(", "SetBoxMonAt(", "FlagSet(", "VarSet(",
-                  "gSaveBlock1Ptr->money =", "gPlayerParty[i] =")
+                  "gSaveBlock1Ptr->money =", "gParties[B_TRAINER_PLAYER][i] =")
         for unsafe in writes:
             self.assertNotIn(unsafe, check)
 
