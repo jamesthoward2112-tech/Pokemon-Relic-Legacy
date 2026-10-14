@@ -493,8 +493,16 @@ string generate_groups_text(Json groups_data, vector<string> &invalid_maps) {
 
         if (valid_maps.size() > 0) {
             text << group << "::\n";
-            for (string map : valid_maps)
-                text << "\t.4byte " << map << "\n";
+            // Preserve ORIGINAL JSON map indexes. Filtered-out maps need
+            // NULL placeholders, not a compressed pointer array: map IDs are
+            // stable in existing PRL save files and compiled warp scripts.
+            for (Json &map_name : maps) {
+                string map = json_to_string(map_name);
+                if (find(invalid_maps.begin(), invalid_maps.end(), map) == invalid_maps.end())
+                    text << "\t.4byte " << map << "\n";
+                else
+                    text << "\t.4byte NULL\n";
+            }
             text << "\n";
             valid_groups.push_back(group);
         }
