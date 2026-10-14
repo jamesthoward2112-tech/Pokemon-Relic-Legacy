@@ -1177,6 +1177,32 @@ const struct SpriteTemplate gSpriteTemplate_StatusIcons =
     .anims = sSpriteTemplate_StatusCondition,
 };
 
+// Distinct BLD badge uses independent 4bpp tiles and a red/white palette.
+static const union AnimCmd sSpriteAnim_PRLBleed[] =
+{
+    ANIMCMD_FRAME(0, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd *const sSpriteAnimTable_PRLBleed[] =
+{
+    sSpriteAnim_PRLBleed
+};
+static const struct SpriteSheet sSpriteSheet_PRLBleedStatus =
+{
+    gPRLBleedStatusIconGfx, sizeof(gPRLBleedStatusIconGfx), TAG_STATUS_BLD
+};
+static const struct SpritePalette sSpritePalette_PRLBleedStatus =
+{
+    gPRLBleedStatusIconPal, TAG_STATUS_BLD
+};
+static const struct SpriteTemplate sSpriteTemplate_PRLBleedStatus =
+{
+    .tileTag = TAG_STATUS_BLD,
+    .paletteTag = TAG_STATUS_BLD,
+    .oam = &sOamData_StatusCondition,
+    .anims = sSpriteAnimTable_PRLBleed,
+};
+
 static const u8 *const sUnused_StatStrings[] =
 {
     gText_HP4,
