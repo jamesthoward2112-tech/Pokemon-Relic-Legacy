@@ -34,7 +34,7 @@ class TestHMBagBadge(unittest.TestCase):
         self.assertIn("GetSpeciesTeachableLearnset(species)", body)
         self.assertIn("teachableMoves[j] == move", body)
         self.assertIn("if (compatible)", body)
-        menu = read("src/party_menu.c").split("static void CursorCb_FieldMove(u8 taskId)\\n{", 1)[1].split(
+        menu = read("src/party_menu.c").split("static void CursorCb_FieldMove(u8 taskId)", 1)[1].split(
             "static void DisplayFieldMoveExitAreaMessage", 1
         )[0]
         self.assertIn("!CheckBagHasItem(GetTMHMItemIdFromMoveId(FieldMove_GetMoveId(fieldMove)), 1)", menu)
