@@ -78,7 +78,7 @@ jobs:
           for pc in 080591C8 081584A6 0808A29A 08158622 0808A096 0815855A; do
             echo "=== 0x$pc ==="
             arm-none-eabi-addr2line -f -p -C -e pokefirered.elf 0x$pc || true
-            arm-none-eabi-nm -n -C pokefirered.elf | awk -v addr="$pc" 'BEGIN { a = strtonum("0x" addr) } /^[0-9a-fA-F]+ [tTwW] / { n = strtonum("0x" $1); if (n <= a) hit = $0; if (n > a) { print "Nearest symbol: " hit; exit } }' 2>/dev/null || true
+            arm-none-eabi-nm -n -C pokefirered.elf | awk -v addr="$pc" '/^[0-9a-fA-F]+ [tTwW] / { n = tolower($1); t = tolower(addr); if (n <= t) hit = $0; if (n > t) { print "Nearest symbol: " hit; exit } }' || true
           done
       - name: Upload FireRed test ROM
         uses: actions/upload-artifact@v4
