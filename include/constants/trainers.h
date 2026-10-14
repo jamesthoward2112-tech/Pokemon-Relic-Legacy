@@ -8,11 +8,21 @@
 //      0-299 are frontier trainers
 #define TRAINER_RECORD_MIXING_FRIEND        FRONTIER_TRAINERS_COUNT
 #define TRAINER_RECORD_MIXING_APPRENTICE    (TRAINER_RECORD_MIXING_FRIEND + BATTLE_TOWER_RECORD_COUNT)
+// FRLG has real Kanto trainer IDs at 309, 310 and 311 (Julie, Lorelei,
+// Bruno). The generic Frontier special IDs would otherwise collide with
+// those trainers: Lorelei becomes a Frontier Brain during sprite/text setup,
+// which calls the invalid trainer 805 assertions. Keep the original layout
+// for Emerald and put FRLG-only special IDs in unused sentinel space.
+#if IS_FRLG
+#define TRAINER_EREADER                     0xFF03
+#define TRAINER_FRONTIER_BRAIN              0xFF04
+#define TRAINER_PLAYER                      0xFF05
+#else
 #define TRAINER_EREADER                     (TRAINER_RECORD_MIXING_APPRENTICE + APPRENTICE_COUNT)
 #define TRAINER_FRONTIER_BRAIN              (TRAINER_EREADER + 1)
 #define TRAINER_PLAYER                      (TRAINER_EREADER + 2)
-//Above are used only in Battle Frontier and shouldn't interfere with regular trainers
-//Below could interfere with regular trainer if the trainer count get that high
+#endif
+// Above are special Frontier-related values, never ordinary Kanto trainers.
 #define TRAINER_SECRET_BASE                 0xFF00
 #define TRAINER_LINK_OPPONENT               0xFF01
 #define TRAINER_UNION_ROOM                  0xFF02
