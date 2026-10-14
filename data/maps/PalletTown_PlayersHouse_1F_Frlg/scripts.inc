@@ -10,7 +10,8 @@ PalletTown_PlayersHouse_1F_OnFrame::
 
 PalletTown_PlayersHouse_1F_EventScript_PRLHomecoming::
 	setvar VAR_TEMP_2, 1
-	goto_if_unset FLAG_SYS_GAME_CLEAR, PalletTown_PlayersHouse_1F_EventScript_PRLHomecomingDone
+	specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord
+	goto_if_eq VAR_RESULT, FALSE, PalletTown_PlayersHouse_1F_EventScript_PRLHomecomingDone
 	goto_if_set FLAG_PRL_POSTHOF_MOM_WELCOME, PalletTown_PlayersHouse_1F_EventScript_PRLHomecomingDone
 	lockall
 	msgbox PalletTown_PlayersHouse_1F_Text_PRLHomecoming
@@ -24,7 +25,8 @@ PalletTown_PlayersHouse_1F_EventScript_PRLHomecomingDone::
 PalletTown_PlayersHouse_1F_EventScript_Mom::
 	lock
 	faceplayer
-	goto_if_set FLAG_SYS_GAME_CLEAR, PalletTown_PlayersHouse_1F_EventScript_PRLMomPostLeague
+	specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord
+	goto_if_eq VAR_RESULT, TRUE, PalletTown_PlayersHouse_1F_EventScript_PRLMomPostLeague
 	goto_if_set FLAG_BEAT_RIVAL_IN_OAKS_LAB, PalletTown_PlayersHouse_1F_EventScript_MomHeal
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, PalletTown_PlayersHouse_1F_EventScript_MomOakLookingForYouMale

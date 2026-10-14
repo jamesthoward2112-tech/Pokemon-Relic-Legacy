@@ -7,7 +7,8 @@ PalletTown_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_PALLET_TOWN
 	@ Older save files may still carry scene 2 from vanilla FRLG.
 	@ Retire the automatic Dex-count ambush on every Champion return.
-	call_if_set FLAG_SYS_GAME_CLEAR, PalletTown_EventScript_PRLDisableAutomaticOakDexCheck
+	specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord
+	call_if_eq VAR_RESULT, TRUE, PalletTown_EventScript_PRLDisableAutomaticOakDexCheck
 	end
 
 PalletTown_EventScript_PRLDisableAutomaticOakDexCheck::
@@ -22,7 +23,8 @@ PalletTown_OnFrame::
 PalletTown_EventScript_OakRatingScene::
 	@ Extra safety for old saves resumed outside the house without an
 	@ OnTransition event: do not force a Dex-count approach on Champions.
-	goto_if_set FLAG_SYS_GAME_CLEAR, PalletTown_EventScript_PRLDisableAutoOakOnFrame
+	specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord
+	goto_if_eq VAR_RESULT, TRUE, PalletTown_EventScript_PRLDisableAutoOakOnFrame
 	lockall
 	textcolor NPC_TEXT_COLOR_MALE
 	setobjectxyperm LOCALID_PALLET_PROF_OAK, 14, 14

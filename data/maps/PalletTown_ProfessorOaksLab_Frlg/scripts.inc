@@ -13,11 +13,20 @@ PalletTown_ProfessorOaksLab_Frlg_MapScripts::
 
 PalletTown_ProfessorOaksLab_OnTransition::
 	setflag FLAG_VISITED_OAKS_LAB
+	@ An older HoF save can have Oak's vanilla National Dex scene queued.
+	@ Retire only those scripted entrance states, not any early-game setup.
+	specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord
+	call_if_eq VAR_RESULT, TRUE, PalletTown_ProfessorOaksLab_EventScript_PRLRetireAutomaticDexScene
 	call_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 1, PalletTown_ProfessorOaksLab_EventScript_ReadyOakForStarterScene
 	call_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 7, PalletTown_ProfessorOaksLab_EventScript_ReadyOakForNationalDexScene
 	call_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 8, PalletTown_ProfessorOaksLab_EventScript_SetNationalDexSceneFinished
 	call_if_set FLAG_GOT_POKEBALLS_FROM_OAK_AFTER_22_RIVAL, PalletTown_ProfessorOaksLab_EventScript_SetSkipPokeBallCheck
 	end
+
+PalletTown_ProfessorOaksLab_EventScript_PRLRetireAutomaticDexScene::
+	call_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 7, PalletTown_ProfessorOaksLab_EventScript_SetNationalDexSceneFinished
+	call_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 8, PalletTown_ProfessorOaksLab_EventScript_SetNationalDexSceneFinished
+	return
 
 PalletTown_ProfessorOaksLab_EventScript_SetSkipPokeBallCheck::
 	setflag FLAG_OAK_SKIP_22_RIVAL_CHECK
@@ -569,7 +578,8 @@ PalletTown_ProfessorOaksLab_EventScript_ProfOak::
 	faceplayer
 	@ The one-time Hoenn invitation takes priority over normal dex ratings,
 	@ but only after Mum has celebrated the first Hall of Fame.
-	goto_if_set FLAG_SYS_GAME_CLEAR, PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck
+	specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord
+	goto_if_eq VAR_RESULT, TRUE, PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck
 	goto_if_set SHOWED_OAK_COMPLETE_DEX, PalletTown_ProfessorOaksLab_EventScript_OakJustShownCompleteDex
 	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 9, PalletTown_ProfessorOaksLab_EventScript_RatePokedex
 	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 8, PalletTown_ProfessorOaksLab_EventScript_MonsAroundWorldWait
@@ -586,6 +596,9 @@ PalletTown_ProfessorOaksLab_EventScript_ProfOak::
 PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck::
 	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, PalletTown_ProfessorOaksLab_EventScript_PRLHoennAfterInvitation
 	msgbox PalletTown_ProfessorOaksLab_Text_PRLHoennInvitation
+	@ No catch-count threshold for an established Champion. Upgrading the
+	@ Pokédex here also keeps the original Sevii/Mewtwo content accessible.
+	special EnableNationalPokedex
 	checkitem ITEM_SS_TICKET
 	goto_if_eq VAR_RESULT, TRUE, PalletTown_ProfessorOaksLab_EventScript_PRLHoennHasTicket
 	checkitemspace ITEM_SS_TICKET
@@ -595,9 +608,9 @@ PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck::
 	end
 
 PalletTown_ProfessorOaksLab_EventScript_PRLHoennAfterInvitation::
-	@ Preserve manual National Dex upgrade for the Sevii/Mewtwo postgame.
-	@ The old outdoor forced Pokédex encounter is still disabled.
-	goto_if_unset FLAG_SYS_NATIONAL_DEX, PalletTown_ProfessorOaksLab_EventScript_TryStartNationalDexScene
+	@ Never ask for Seen/Caught totals during the post-Kanto Hoenn hand-off.
+	@ Earlier PRL saves with a ticket also receive the National Dex upgrade.
+	special EnableNationalPokedex
 	msgbox PalletTown_ProfessorOaksLab_Text_PRLHoennVisitMom
 	release
 	end
