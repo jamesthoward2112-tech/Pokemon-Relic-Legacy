@@ -418,7 +418,8 @@ Route23_Text_PRLFinalRocketGone::
 Route23_Text_PRLFinalRocketAfterBattle::
 	.string "JESSIE: You haven't seen the last\n"
 	.string "of our ambition!\p"
-	.string "JAMES: Balloon, don't fail us now!$"
+	.string "JAMES: We'll get stronger for\n"
+	.string "our next encounter!$"
 
 Route23_Text_PRLFinalRocketBlastOff::
 	.string "MEOWTH: TEAM ROCKET's blasting off\n"
