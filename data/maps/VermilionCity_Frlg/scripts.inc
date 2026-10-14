@@ -52,34 +52,10 @@ VermilionCity_EventScript_FerrySailor::
 	@ The PRL Champion's ticket takes priority over the original SS Anne
 	@ story, but Sevii routes remain available before the ticket is issued.
 	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, VermilionCity_EventScript_PRLHoennBoardingPreflight
-	@ Old Champion saves may lack the newly allocated Oak ticket bit.
-	@ The Hall of Fame record is authoritative, not the overlapping old flag.
-	specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord
-	goto_if_eq VAR_RESULT, TRUE, VermilionCity_EventScript_PRLHoennBoardingPreflight
-	@ Legacy saves may have neither new ticket bit nor a readable HoF stat.
-	@ Once the original S.S. ANNE has sailed, never fall straight into
-	@ vanilla TRI-PASS dialogue before offering the Hoenn preflight.
-	goto_if_eq VAR_MAP_SCENE_VERMILION_CITY, 3, VermilionCity_EventScript_PRLPierDepartedFallback
+	goto_if_eq VAR_MAP_SCENE_VERMILION_CITY, 3, VermilionCity_EventScript_CheckSeagallopPresent
 	msgbox VermilionCity_Text_WelcomeToTheSSAnne
 	release
 	end
-
-VermilionCity_EventScript_PRLPierDepartedFallback::
-	@ Non-destructive even when older Champion saves have incomplete flags.
-	@ Walking to the pier never depends on talking to this NPC.
-	msgbox VermilionCity_Text_PRLPierDepartedReady, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, VermilionCity_EventScript_CheckSeagallopPresent
-	specialvar VAR_RESULT, PRLHoennCheckPCSpaceForParty
-	goto_if_eq VAR_RESULT, FALSE, VermilionCity_EventScript_PRLHoennNoRoom
-	msgbox VermilionCity_Text_PRLHoennNotYetReady
-	release
-	end
-
-VermilionCity_Text_PRLPierDepartedReady::
-	.string "SAILOR: The pier is open!\\p"
-	.string "Your HOENN preparations are\\n"
-	.string "being checked. Ready for a\\n"
-	.string "PC space check?$"
 
 VermilionCity_EventScript_PRLHoennBoardingPreflight::
 	msgbox VermilionCity_Text_PRLHoennCheckDeparture, MSGBOX_YESNO
@@ -264,9 +240,6 @@ VermilionCity_EventScript_CheckTicket::
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	goto_if_eq VAR_MAP_SCENE_VERMILION_CITY, 3, VermilionCity_EventScript_PRLPierAccess
-	@ Champion saves must not be stopped by legacy ticket/scene flags.
-	specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord
-	goto_if_eq VAR_RESULT, TRUE, VermilionCity_EventScript_PRLPierAccess
 	msgbox VermilionCity_Text_DoYouHaveATicket
 	goto_if_unset FLAG_GOT_SS_TICKET, VermilionCity_EventScript_DontHaveSSTicket
 	msgbox VermilionCity_Text_FlashedSSTicket
