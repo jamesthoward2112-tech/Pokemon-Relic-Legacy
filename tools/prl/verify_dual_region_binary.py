@@ -149,7 +149,7 @@ assert "setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0" in arrival
 # warps to excluded locations. Vanilla truck-only house warps remain in
 # source for Emerald, but are unreachable in FireRed after the arrival-state
 # reset; their *door tiles* are independently disabled in the compiled ROM.
-script_warp = re.compile(r"\\b(?:warp|warpsilent|setwarp|setdynamicwarp|setescapewarp|setholewarp)\\s+(MAP_[A-Z0-9_]+)")
+script_warp = re.compile(r"\b(?:warp|warpsilent|setwarp|setdynamicwarp|setescapewarp|setholewarp)\s+(MAP_[A-Z0-9_]+)")
 town_scripts = (ROOT / "data/maps/LittlerootTown/scripts.inc").read_text()
 lab_scripts = (ROOT / "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc").read_text()
 town_targets = set(script_warp.findall(town_scripts))
