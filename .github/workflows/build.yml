@@ -74,10 +74,13 @@ jobs:
       - name: Upload FireRed test ROM
         uses: actions/upload-artifact@v4
         with:
-          name: prl-kanto-test-rom
-          path: pokefirered.gba
+          name: prl-pr85-rom-and-linker-symbols
+          path: |
+            pokefirered.gba
+            pokefirered.elf
+            pokefirered.map
           if-no-files-found: error
-          retention-days: 2
+          retention-days: 1
 
   python-tests:
     runs-on: ubuntu-latest
