@@ -25,10 +25,10 @@ class PRLHallOfFameHomecoming(unittest.TestCase):
         self.assertNotIn("CREDITS_THEENDGFX(", script)
         self.assertNotIn("CREDITS_MON(", script)
         self.assertIn("CREDITS_WAITBUTTON(", script)
-        self.assertNotIn("SoftReset(RESET_ALL);", credits.split("static void CB2_Credits(void)\n{", 1)[1].split("static void SwitchWin1OffWin0On", 1)[0])
-        self.assertIn("SetMainCallback2(CB2_LoadMap)", credits)
-        self.assertIn("MAP_PALLET_TOWN_PLAYERS_HOUSE_1F", credits)
-        self.assertIn("ResetInitialPlayerAvatarState()", credits)
+        # PR70 direct map loader black-screened after credits on real hardware.
+        self.assertIn("SoftReset(RESET_ALL);", credits)
+        self.assertIn("if (gPaletteFade.active)\n            return 0;", credits)
+        self.assertNotIn("SetMainCallback2(CB2_LoadMap)", credits.split("static void CB2_Credits(void)\n{", 1)[1].split("static void SwitchWin1OffWin0On", 1)[0])
 
     def test_mum_homecoming_happens_once_even_for_loaded_old_save(self):
         script = read("data/maps/PalletTown_PlayersHouse_1F_Frlg/scripts.inc")
@@ -73,3 +73,26 @@ class PRLHallOfFameHomecoming(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PRLDeparturePreparation(unittest.TestCase):
+    def test_champion_oak_dex_ambush_is_disabled_on_pallet_entry(self):
+        pallet = read("data/maps/PalletTown_Frlg/scripts.inc")
+        self.assertIn("call_if_set FLAG_SYS_GAME_CLEAR, PalletTown_EventScript_PRLDisableAutomaticOakDexCheck", pallet)
+        self.assertIn("setvar VAR_MAP_SCENE_PALLET_TOWN_OAK, 3", pallet)
+
+    def test_oak_gives_ticket_without_mum_first(self):
+        oak = read("data/maps/PalletTown_ProfessorOaksLab_Frlg/scripts.inc")
+        self.assertIn("goto_if_set FLAG_SYS_GAME_CLEAR, PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck", oak)
+        self.assertIn("PalletTown_ProfessorOaksLab_EventScript_PRLHoennAfterInvitation", oak)
+
+    def test_mum_prepares_but_does_not_touch_items_before_boarding(self):
+        mum = read("data/maps/PalletTown_PlayersHouse_1F_Frlg/scripts.inc")
+        prep = mum.split("PalletTown_PlayersHouse_1F_EventScript_PRLCheckDeparturePrep::", 1)[1].split("PalletTown_PlayersHouse_1F_EventScript_MomHeal::", 1)[0]
+        self.assertIn("FLAG_PRL_POSTHOF_OAK_TICKET", prep)
+        self.assertIn("FLAG_PRL_POSTHOF_MOM_PREP_BRIEFED", prep)
+        self.assertNotIn("removeitem", prep)
+        self.assertNotIn("setmoney", prep)
+        self.assertIn("you actually board the ship", mum)
+        flags = read("include/constants/flags.h")
+        self.assertRegex(flags, r"#define FLAG_PRL_POSTHOF_MOM_PREP_BRIEFED\s+0x4DB\b")
