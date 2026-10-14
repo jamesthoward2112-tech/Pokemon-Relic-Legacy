@@ -17,8 +17,10 @@ class PRLHoennPreflight(unittest.TestCase):
     def test_pc_space_check_accounts_for_party_and_every_physical_box(self):
         body = read("src/field_specials.c").split("u16 PRLHoennCheckPCSpaceForParty(void)", 1)[1].split("\n}", 1)[0]
         for statement in ("CountPartyMons()", "gPokemonStoragePtr == NULL",
-                          "box < TOTAL_BOXES_COUNT", "CountMonsInBox(box)",
-                          "IN_BOX_COUNT", "return freeSlots >= partyCount;"):
+                          "box < TOTAL_BOXES_COUNT", "slot < IN_BOX_COUNT",
+                          "GetBoxMonData(mon, MON_DATA_SPECIES)",
+                          "freeSlots = (TOTAL_BOXES_COUNT * IN_BOX_COUNT) - occupied",
+                          "if (partyCount > freeSlots)", "return TRUE;"):
             self.assertIn(statement, body)
         for destructive in ("ZeroBoxMonAt(", "ZeroMonData(", "RemoveBagItem(", "SetMoney(", "SetBoxMonAt(", "SetMonData("):
             self.assertNotIn(destructive, body)
