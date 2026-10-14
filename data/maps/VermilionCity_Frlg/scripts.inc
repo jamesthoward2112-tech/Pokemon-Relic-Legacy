@@ -72,6 +72,8 @@ VermilionCity_EventScript_PRLHoennNoRoom::
 	end
 
 VermilionCity_EventScript_PRLHoennBoardingDeclined::
+	@ Preserve existing Sevii ferries when the player declines Hoenn.
+	goto_if_eq VAR_MAP_SCENE_VERMILION_CITY, 3, VermilionCity_EventScript_CheckSeagallopPresent
 	msgbox VermilionCity_Text_PRLHoennTakeTime
 	release
 	end
