@@ -64,6 +64,20 @@ SSAnne_Exterior_Movement_WalkDown::
 	walk_down
 	step_end
 
+@ The ship has departed once Vermilion's scene reaches 3.
+@ Two ship-door coordinate triggers display this line rather than entering
+@ the now-invisible ship. The independent warp guard covers held-arrow inputs.
+@ Do NOT block this exterior map: the truck/Mew remain accessible.
+SSAnne_Exterior_EventScript_PRLNoBoardingDepartedShip::
+	lockall
+	msgbox SSAnne_Exterior_Text_PRLNoBoardingDepartedShip
+	releaseall
+	end
+
+SSAnne_Exterior_Text_PRLNoBoardingDepartedShip::
+	.string "The S.S. ANNE has already\\n"
+	.string "sailed. There is no ship here.$"
+
 @ PKR V18 (user-confirmed 14 Sep): truck A-button event at x55-63 / y0-7.
 @ Avoid guessed tile coordinates and NEVER overwrite Lava Cookie x58/y28.
 @ This is the Vermilion S.S. Anne truck, NOT Hoenn's moving truck.
