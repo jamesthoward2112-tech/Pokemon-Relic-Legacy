@@ -143,4 +143,23 @@ assert "lastHealLocation.mapGroup = MAP_GROUP(MAP_LITTLEROOT_TOWN)" in transfer_
 arrival = arrival_source.split("LittlerootTown_EventScript_PRLOutdoorDockArrival::", 1)[1].split("LittlerootTown_Text_PRLSafeHoennArrival::", 1)[0]
 assert "setvar VAR_LITTLEROOT_INTRO_STATE, 0" in arrival
 assert "setvar VAR_LITTLEROOT_TOWN_STATE, 0" in arrival
+assert "setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0" in arrival
+
+# Town and lab are the only newly enabled Hoenn maps. Reject new script
+# warps to excluded locations. Vanilla truck-only house warps remain in
+# source for Emerald, but are unreachable in FireRed after the arrival-state
+# reset; their *door tiles* are independently disabled in the compiled ROM.
+script_warp = re.compile(r"\\b(?:warp|warpsilent|setwarp|setdynamicwarp|setescapewarp|setholewarp)\\s+(MAP_[A-Z0-9_]+)")
+town_scripts = (ROOT / "data/maps/LittlerootTown/scripts.inc").read_text()
+lab_scripts = (ROOT / "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc").read_text()
+town_targets = set(script_warp.findall(town_scripts))
+lab_targets = set(script_warp.findall(lab_scripts))
+assert town_targets <= {
+    "MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB",
+    "MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F",  # original Emerald truck cutscene
+    "MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F",      # original Emerald truck cutscene
+}, f"unsafe Littleroot script warp: {town_targets}"
+assert lab_targets <= {"MAP_VERMILION_CITY"}, f"unsafe Birch lab script warp: {lab_targets}"
+assert not (byte(town + 0x1A) & 0x02), "Dig/Escape Rope unexpectedly enabled in town"
+assert not (byte(lab + 0x1A) & 0x02), "Dig/Escape Rope unexpectedly enabled in lab"
 print(f"PASS PR88 bridge: no Route 101 connection, house doors disabled, lab warp stable; checked {connection_count} compiled connections.")
