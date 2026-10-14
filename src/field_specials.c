@@ -5775,23 +5775,118 @@ u16 PRLHasKantoHallOfFameRecord(void)
     return FlagGet(FLAG_PRL_KANTO_CHAMPION) || GetGameStat(GAME_STAT_ENTERED_HOF) != 0;
 }
 
-// Read-only boarding preflight. Do not move any boxed/party Pokémon here.
-// A full, save-compatible migration must be available before making the
-// actual trip (including a validated slot-by-slot rollback strategy).
+// The PRL region transfer keeps the existing 14 x 30 PC layout (420 slots).
+// No SaveBlock or PokemonStorage layout changes. Build the ENTIRE manifest
+// before touching a single Pokémon. Boxes 0..9 = levels 1-100 in 10-level
+// intervals; 10..12 = overflow; 13 = Legends. When a tier is overloaded,
+// spill into an overflow box, then any free remaining box (never discard).
+// Return FALSE only when all 420 places are allocated.
+//
+// IMPORTANT: A manifest validates a possible arrangement, not the actual
+// migration. Do not enable the voyage until the complete copy/rollback,
+// money bank, Bag handover and Hoenn arrival have been emulator-tested.
+#define PRL_HOENN_LEVEL_BOXES      10
+#define PRL_HOENN_OVERFLOW_START   10
+#define PRL_HOENN_OVERFLOW_END     13
+#define PRL_HOENN_LEGENDS_BOX      13
+
+static bool32 PRLHoennPlaceInManifest(u8 boxUsed[TOTAL_BOXES_COUNT], enum Species species, u8 level, u16 *fallbackCount)
+{
+    u8 preferredBox;
+    u8 box;
+
+    if (species == SPECIES_NONE)
+        return TRUE;
+
+    // Egg contents are kept whole; do not discard or hatch them.
+    if (species < NUM_SPECIES
+     && (gSpeciesInfo[species].isRestrictedLegendary
+      || gSpeciesInfo[species].isSubLegendary
+      || gSpeciesInfo[species].isMythical))
+        preferredBox = PRL_HOENN_LEGENDS_BOX;
+    else
+        preferredBox = level == 0 ? 0 : (level - 1) / 10;
+
+    if (preferredBox >= PRL_HOENN_LEVEL_BOXES && preferredBox != PRL_HOENN_LEGENDS_BOX)
+        preferredBox = PRL_HOENN_LEVEL_BOXES - 1;
+    if (boxUsed[preferredBox] < IN_BOX_COUNT)
+    {
+        boxUsed[preferredBox]++;
+        return TRUE;
+    }
+
+    (*fallbackCount)++;
+    for (box = PRL_HOENN_OVERFLOW_START; box < PRL_HOENN_OVERFLOW_END; box++)
+    {
+        if (boxUsed[box] < IN_BOX_COUNT)
+        {
+            boxUsed[box]++;
+            return TRUE;
+        }
+    }
+
+    // Even a very skewed level distribution must not lose a Pokémon.
+    for (box = 0; box < TOTAL_BOXES_COUNT; box++)
+    {
+        if (boxUsed[box] < IN_BOX_COUNT)
+        {
+            boxUsed[box]++;
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
+// Read-only boarding preflight. No party, storage, item, money or flag writes.
 u16 PRLHoennCheckPCSpaceForParty(void)
 {
-    u16 freeSlots = 0;
-    u8 box;
+    u8 used[TOTAL_BOXES_COUNT] = {0};
+    u16 occupied = 0;
+    u16 fallbackCount = 0;
+    u16 freeSlots;
+    u8 box, slot, i;
     u8 partyCount = CountPartyMons();
 
     gSpecialVar_0x8004 = 0;
     gSpecialVar_0x8005 = partyCount;
+    gSpecialVar_0x8006 = 0;
     if (gPokemonStoragePtr == NULL)
         return FALSE;
 
+    // Include EVERY boxed creature and Egg before planning space for the party.
     for (box = 0; box < TOTAL_BOXES_COUNT; box++)
-        freeSlots += IN_BOX_COUNT - CountMonsInBox(box);
+    {
+        for (slot = 0; slot < IN_BOX_COUNT; slot++)
+        {
+            struct BoxPokemon *mon = GetBoxedMonPtr(box, slot);
+            enum Species species = GetBoxMonData(mon, MON_DATA_SPECIES);
 
+            if (species != SPECIES_NONE)
+            {
+                occupied++;
+                if (!PRLHoennPlaceInManifest(used, species, GetBoxMonData(mon, MON_DATA_LEVEL), &fallbackCount))
+                    return FALSE;
+            }
+        }
+    }
+
+    freeSlots = (TOTAL_BOXES_COUNT * IN_BOX_COUNT) - occupied;
     gSpecialVar_0x8004 = freeSlots;
-    return freeSlots >= partyCount;
+    if (partyCount > freeSlots)
+        return FALSE;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        enum Species species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES);
+        if (species != SPECIES_NONE)
+        {
+            if (!PRLHoennPlaceInManifest(used, species, GetMonData(&gPlayerParty[i], MON_DATA_LEVEL), &fallbackCount))
+                return FALSE;
+        }
+    }
+
+    // Diagnostic only; the sailor's existing dialogue/result are unchanged.
+    gSpecialVar_0x8006 = fallbackCount;
+    return TRUE;
 }
