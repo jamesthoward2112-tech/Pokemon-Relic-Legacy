@@ -54,12 +54,27 @@ PalletTown_PlayersHouse_1F_EventScript_PRLMomPostLeague::
 	goto PalletTown_PlayersHouse_1F_EventScript_PRLCheckDeparturePrep
 
 PalletTown_PlayersHouse_1F_EventScript_PRLCheckDeparturePrep::
-	@ This is information only. NEVER touch bag, money or PC until boarding.
-	goto_if_unset FLAG_PRL_POSTHOF_OAK_TICKET, PalletTown_PlayersHouse_1F_EventScript_MomHeal
-	goto_if_set FLAG_PRL_POSTHOF_MOM_PREP_BRIEFED, PalletTown_PlayersHouse_1F_EventScript_MomHeal
+	@ Always repeat the Hoenn preparation details, even if an old save has
+	@ the "briefed" flag. The flag is historical, never a dialogue gate.
+	@ Do NOT bank any money, remove items or touch storage until boarding.
+	goto_if_unset FLAG_PRL_POSTHOF_OAK_TICKET, PalletTown_PlayersHouse_1F_EventScript_PRLAskVisitOak
 	msgbox PalletTown_PlayersHouse_1F_Text_PRLDeparturePrep
 	setflag FLAG_PRL_POSTHOF_MOM_PREP_BRIEFED
+	msgbox PalletTown_PlayersHouse_1F_Text_PRLAskRest, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, PalletTown_PlayersHouse_1F_EventScript_PRLRestAfterHoenn
+	release
+	end
+
+PalletTown_PlayersHouse_1F_EventScript_PRLAskVisitOak::
+	msgbox PalletTown_PlayersHouse_1F_Text_PRLVisitOakFirst
 	goto PalletTown_PlayersHouse_1F_EventScript_MomHeal
+
+PalletTown_PlayersHouse_1F_EventScript_PRLRestAfterHoenn::
+	closemessage
+	call Common_EventScript_OutOfCenterPartyHeal
+	msgbox PalletTown_PlayersHouse_1F_Text_LookingGreatTakeCare
+	release
+	end
 
 PalletTown_PlayersHouse_1F_EventScript_MomHeal::
 	msgbox PalletTown_PlayersHouse_1F_Text_YouShouldTakeQuickRest
@@ -143,14 +158,27 @@ PalletTown_PlayersHouse_1F_Text_PRLHomecoming::
 
 
 PalletTown_PlayersHouse_1F_Text_PRLDeparturePrep::
-	.string "MOM: OAK told me about HOENN!\p"
-	.string "When you're ready to sail,\n"
-	.string "I'll look after your money.\p"
+	.string "MOM: My KANTO CHAMPION!\n"
+	.string "OAK told me about HOENN!\p"
+	.string "When you leave, I'll safely\n"
+	.string "keep all your KANTO money.\p"
 	.string "You'll get it all back when\n"
 	.string "you return to KANTO.\p"
 	.string "Every BAG item, even TMs,\n"
 	.string "goes to the TRAINING SCHOOL.\p"
 	.string "Only EXP SHARE and REMOTE PC\n"
-	.string "Held items stay with POKéMON.\p"
+	.string "will travel with you.\p"
+	.string "POKéMON keep their held items,\n"
+	.string "including evolution stones.\p"
 	.string "Nothing will be taken until\n"
 	.string "you actually board the ship!$"
+
+PalletTown_PlayersHouse_1F_Text_PRLVisitOakFirst::
+	.string "MOM: My CHAMPION! PROF. OAK\n"
+	.string "has an invitation for you.\p"
+	.string "Ask him about HOENN first;\n"
+	.string "we'll plan your departure.$"
+
+PalletTown_PlayersHouse_1F_Text_PRLAskRest::
+	.string "MOM: Would you like to rest\n"
+	.string "before exploring KANTO?$"
