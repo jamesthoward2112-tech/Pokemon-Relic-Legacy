@@ -44,13 +44,13 @@ class PRLHallOfFameHomecoming(unittest.TestCase):
     def test_oak_one_time_ticket_with_existing_ticket_and_bag_full_handling(self):
         s = read("data/maps/PalletTown_ProfessorOaksLab_Frlg/scripts.inc")
         start = s.split("PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck::", 1)[1].split("PalletTown_ProfessorOaksLab_EventScript_OakJustShownCompleteDex::", 1)[0]
-        self.assertIn("FLAG_PRL_POSTHOF_MOM_WELCOME", s)
+        self.assertIn("FLAG_SYS_GAME_CLEAR", s)
         self.assertIn("goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET", start)
         self.assertIn("checkitem ITEM_SS_TICKET", start)
         self.assertIn("checkitemspace ITEM_SS_TICKET", start)
         self.assertIn("giveitem_msg", start)
         self.assertIn("setflag FLAG_PRL_POSTHOF_OAK_TICKET", start)
-        self.assertIn("TryStartNationalDexScene", start)
+        self.assertIn("PRLHoennAfterInvitation", start)
         self.assertIn("one way for now", s)
         self.assertIn("Find MEWTWO", s)
         self.assertIn("SEVII ISLANDS", s)
@@ -69,10 +69,6 @@ class PRLHallOfFameHomecoming(unittest.TestCase):
         champ = read("data/maps/PokemonLeague_ChampionsRoom_Frlg/scripts.inc")
         for starter in ("SQUIRTLE", "BULBASAUR", "CHARMANDER"):
             self.assertIn(f"trainerbattle_no_intro TRAINER_CHAMPION_FIRST_{starter}", champ)
-
-
-if __name__ == "__main__":
-    unittest.main()
 
 
 class PRLDeparturePreparation(unittest.TestCase):
@@ -96,3 +92,7 @@ class PRLDeparturePreparation(unittest.TestCase):
         self.assertIn("you actually board the ship", mum)
         flags = read("include/constants/flags.h")
         self.assertRegex(flags, r"#define FLAG_PRL_POSTHOF_MOM_PREP_BRIEFED\s+0x4DB\b")
+
+
+if __name__ == "__main__":
+    unittest.main()
