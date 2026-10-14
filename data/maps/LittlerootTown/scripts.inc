@@ -102,10 +102,29 @@ LittlerootTown_EventScript_SetMomInFrontOfDoorFemale::
 	return
 
 LittlerootTown_OnFrame:
+	@ PR85: intermediate outdoor landing. If this screen loads, the cross-
+	@ region warp works and the previous crash came from Birch's lab entry.
+	map_script_2 VAR_PRL_REGION_STAGE, 1, LittlerootTown_EventScript_PRLOutdoorDockArrival
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 1, LittlerootTown_EventScript_StepOffTruckMale
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_StepOffTruckFemale
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_EventScript_BeginDexUpgradeScene
 	.2byte 0
+
+LittlerootTown_EventScript_PRLOutdoorDockArrival::
+	lockall
+	@ First verify Hoenn's outdoor tiles/music/scripts work before
+	@ activating Birch's more complex interior story.
+	setvar VAR_PRL_REGION_STAGE, 3
+	msgbox LittlerootTown_Text_PRLSafeHoennArrival
+	releaseall
+	end
+
+LittlerootTown_Text_PRLSafeHoennArrival::
+	.string "S.S. LEGACY: HOENN AT LAST!\p"
+	.string "Your KANTO team is still\n"
+	.string "safe with you for now.\p"
+	.string "Enter PROF. BIRCH's lab to\n"
+	.string "choose a HOENN partner.$"
 
 LittlerootTown_EventScript_StepOffTruckMale::
 	lockall

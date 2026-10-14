@@ -17,6 +17,9 @@ class PR84Safety(unittest.TestCase):
             "VermilionCity_EventScript_PRLHoennNoRoom::", 1)[0]
         self.assertIn("PRLHoennCheckPCSpaceForParty", s)
         self.assertIn("setvar VAR_PRL_REGION_STAGE, 1", s)
+        town = read("data/maps/LittlerootTown/scripts.inc")
+        self.assertIn("map_script_2 VAR_PRL_REGION_STAGE, 1, LittlerootTown_EventScript_PRLOutdoorDockArrival", town)
+        self.assertIn("setvar VAR_PRL_REGION_STAGE, 3", town)
         self.assertNotIn("PRLHoennCommitKantoTransfer", s)
         self.assertLess(s.index("setvar VAR_PRL_REGION_STAGE, 1"), s.index("warp MAP_LITTLEROOT_TOWN"))
 
@@ -32,11 +35,11 @@ class PR84Safety(unittest.TestCase):
 
     def test_map_arrival_precedes_atomic_transfer_and_starter(self):
         lab = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
-        self.assertIn("map_script_2 VAR_PRL_REGION_STAGE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival", lab)
+        self.assertIn("map_script_2 VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival", lab)
         self.assertIn("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer", lab)
         self.assertIn("warp MAP_VERMILION_CITY, 24, 32", lab)
         source = read("src/field_specials.c").split("u16 PRLHoennCommitKantoTransfer(void)", 1)[1]
-        self.assertIn("VarGet(VAR_PRL_REGION_STAGE) != 1", source)
+        self.assertIn("VarGet(VAR_PRL_REGION_STAGE) != 3", source)
         self.assertIn("u16 starterChoice = gSpecialVar_0x8004;", source)
         self.assertIn("CreateRandomMon(&gParties[B_TRAINER_PLAYER][0], starterSpecies, 5);", source)
         self.assertIn("gPartiesCount[B_TRAINER_PLAYER] = 1;", source)
