@@ -811,7 +811,7 @@ static void CB2_Credits(void)
         sCreditsMgr = NULL;
         SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN_PLAYERS_HOUSE_1F),
                            MAP_NUM(MAP_PALLET_TOWN_PLAYERS_HOUSE_1F), -1, 6, 6);
-        DoWarp();
+        WarpIntoMap();
         ResetInitialPlayerAvatarState();
         gMain.state = 0;
         SetMainCallback2(CB2_LoadMap);
