@@ -41,6 +41,69 @@ static void CB2_PRLTitleRun(void);
 static void VBlankCB_PRLTitle(void);
 static void Task_PRLTitle(u8 taskId);
 
+
+ 
+// Restore the original PRL Jirachi/Celebi title animation from PR24.
+// Software composite onto the existing approved Mode 3 title: NO art redesign.
+static const u32 sPRLJirachiIconTiles[] = INCGFX_U32("graphics/pokemon/jirachi/icon.png", ".4bpp");
+static const u16 sPRLJirachiIconPalette[] = INCGFX_U16("graphics/pokemon/jirachi/icon.png", ".gbapal");
+static const u32 sPRLCelebiIconTiles[] = INCGFX_U32("graphics/pokemon/celebi/icon.png", ".4bpp");
+static const u16 sPRLCelebiIconPalette[] = INCGFX_U16("graphics/pokemon/celebi/icon.png", ".gbapal");
+#define PRL_TITLE_ICON_SIZE 32
+#define PRL_TITLE_LEFT_X 16
+#define PRL_TITLE_RIGHT_X 192
+#define PRL_TITLE_ICON_Y 92
+#define PRL_TITLE_ICON_REGION_X_PAD 3
+#define PRL_TITLE_ICON_REGION_Y_PAD 5
+#define PRL_TITLE_ICON_REGION_W 38
+#define PRL_TITLE_ICON_REGION_H 44
+
+static void PRLRestoreIconRegion(s16 left)
+{
+    s16 y;
+    const s16 startX = left - PRL_TITLE_ICON_REGION_X_PAD;
+    const s16 startY = PRL_TITLE_ICON_Y - PRL_TITLE_ICON_REGION_Y_PAD;
+    for (y = 0; y < PRL_TITLE_ICON_REGION_H; y++)
+    {
+        const u16 *source = sPRLTitleMode3 + (startY + y) * DISPLAY_WIDTH + startX;
+        u16 *dest = (u16 *)VRAM + (startY + y) * DISPLAY_WIDTH + startX;
+        CpuCopy16(source, dest, PRL_TITLE_ICON_REGION_W * sizeof(u16));
+    }
+}
+
+static void PRLDrawAnimatedMonIcon(const u8 *src, const u16 *pal, s16 left, s16 top, u8 frame)
+{
+    s16 row;
+    if (src == NULL || pal == NULL)
+        return;
+    src += frame * (PRL_TITLE_ICON_SIZE * PRL_TITLE_ICON_SIZE / 2);
+    for (row = 0; row < PRL_TITLE_ICON_SIZE; row++)
+    {
+        s16 col;
+        for (col = 0; col < PRL_TITLE_ICON_SIZE; col++)
+        {
+            u32 tile = (row / 8) * 4 + (col / 8);
+            u32 offset = tile * 32 + (row % 8) * 4 + (col % 8) / 2;
+            u8 packed = src[offset];
+            u8 color = (col & 1) ? (packed >> 4) : (packed & 0x0F);
+            if (color != 0)
+                ((u16 *)VRAM)[(top + row) * DISPLAY_WIDTH + left + col] = pal[color];
+        }
+    }
+}
+
+static void PRLUpdateCelebiJirachiTitleAnimation(u16 tick)
+{
+    u8 iconFrame = (tick / 10) & 1;
+    s16 hover = ((tick / 6) & 3);
+    PRLRestoreIconRegion(PRL_TITLE_LEFT_X);
+    PRLRestoreIconRegion(PRL_TITLE_RIGHT_X);
+    PRLDrawAnimatedMonIcon((const u8 *)sPRLJirachiIconTiles, sPRLJirachiIconPalette,
+                           PRL_TITLE_LEFT_X, PRL_TITLE_ICON_Y - hover, iconFrame);
+    PRLDrawAnimatedMonIcon((const u8 *)sPRLCelebiIconTiles, sPRLCelebiIconPalette,
+                           PRL_TITLE_RIGHT_X, PRL_TITLE_ICON_Y + hover - 3, iconFrame);
+}
+
 // Bitmap Mode 3 has no indexed palette to fade, so darken BG2 in hardware.
 // This keeps every pixel of the approved 240x160 title artwork intact.
 #define PRL_TITLE_SPARKLE_RADIUS 8
@@ -188,6 +251,11 @@ static void Task_PRLTitle(u8 taskId)
     if (data[3] <= (ARRAY_COUNT(sPRLTitleSparklePositions) - 1)
                        * PRL_TITLE_SPARKLE_GAP + PRL_TITLE_SPARKLE_DURATION)
         PRLUpdateTitleSparkles(data[3]++);
+
+    // Animate both original PRL icons independently of the approved sparkle/fade.
+    // data[5] is reserved for this animation; brightness remains in data[2].
+    if ((++data[5] % 6) == 0)
+        PRLUpdateCelebiJirachiTitleAnimation(data[5]);
 
     if (JOY_NEW(A_BUTTON | START_BUTTON))
     {
