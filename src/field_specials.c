@@ -5944,10 +5944,29 @@ u16 PRLHoennCommitKantoTransfer(void)
     u16 fallbackCount = 0;
     u8 box, slot, partySlot, destination;
     u16 expShareQuantity;
+    u16 starterChoice = gSpecialVar_0x8004;
+    enum Species starterSpecies;
     u32 money;
 
-    if (VarGet(VAR_PRL_REGION_STAGE) != 0 || !FlagGet(FLAG_PRL_POSTHOF_OAK_TICKET))
+    // The player is ALREADY safely on the Hoenn map. Never clear the
+    // Kanto party just before a cross-region warp: follower/map loading code
+    // still expects a non-empty party there.
+    if (VarGet(VAR_PRL_REGION_STAGE) != 1 || !FlagGet(FLAG_PRL_POSTHOF_OAK_TICKET))
         return FALSE;
+    switch (starterChoice)
+    {
+    case 1:
+        starterSpecies = SPECIES_RALTS;
+        break;
+    case 2:
+        starterSpecies = SPECIES_POOCHYENA;
+        break;
+    case 3:
+        starterSpecies = SPECIES_SABLEYE;
+        break;
+    default:
+        return FALSE;
+    }
     if (!PRLHasKantoHallOfFameRecord() || !PRLHoennCheckPCSpaceForParty())
         return FALSE;
 
@@ -6005,7 +6024,11 @@ u16 PRLHoennCommitKantoTransfer(void)
 
     for (partySlot = 0; partySlot < PARTY_SIZE; partySlot++)
         ZeroMonData(&gParties[B_TRAINER_PLAYER][partySlot]);
-    gPartiesCount[B_TRAINER_PLAYER] = 0;
+
+    // Create the chosen Lv5 Hoenn starter in the SAME committed operation:
+    // the field engine never sees a zero-Pokémon player after this returns.
+    CreateRandomMon(&gParties[B_TRAINER_PLAYER][0], starterSpecies, 5);
+    gPartiesCount[B_TRAINER_PLAYER] = 1;
 
     for (box = 0; box < PRL_HOENN_LEVEL_BOXES; box++)
         StringCopy(GetBoxNamePtr(box), sPRLHoennLevelBoxNames[box]);
@@ -6041,8 +6064,8 @@ u16 PRLHoennCommitKantoTransfer(void)
     VarSet(VAR_BIRCH_LAB_STATE, 0);
     VarSet(VAR_LITTLEROOT_TOWN_STATE, 0);
     VarSet(VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0);
-    VarSet(VAR_PRL_HOENN_STARTER, 0);
-    VarSet(VAR_PRL_REGION_STAGE, 1);
+    VarSet(VAR_PRL_HOENN_STARTER, starterChoice);
+    VarSet(VAR_PRL_REGION_STAGE, 2);
     FlagClear(FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH);
     return TRUE;
 }

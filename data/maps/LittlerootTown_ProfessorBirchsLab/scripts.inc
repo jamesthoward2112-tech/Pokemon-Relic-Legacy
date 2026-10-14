@@ -124,41 +124,38 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLChooseRalts::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveRalts::
-	givemon SPECIES_RALTS, 5
-	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGotRalts
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterFailed
-	end
-
-LittlerootTown_ProfessorBirchsLab_EventScript_PRLGotRalts::
-	setvar VAR_PRL_HOENN_STARTER, 1
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete
+	setvar VAR_0x8004, 1
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLCommitChosenStarter
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLGivePoochyena::
-	givemon SPECIES_POOCHYENA, 5
-	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGotPoochyena
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterFailed
-	end
-
-LittlerootTown_ProfessorBirchsLab_EventScript_PRLGotPoochyena::
-	setvar VAR_PRL_HOENN_STARTER, 2
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete
+	setvar VAR_0x8004, 2
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLCommitChosenStarter
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveSableye::
-	givemon SPECIES_SABLEYE, 5
-	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGotSableye
+	setvar VAR_0x8004, 3
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLCommitChosenStarter
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLCommitChosenStarter::
+	@ The whole KANTO party stays active throughout the ocean crossing.
+	@ Only here (after the Hoenn map loads) do we atomically box the
+	@ KANTO team and put one new Lv5 HOENN starter into the party.
+	specialvar VAR_RESULT, PRLHoennCommitKantoTransfer
+	goto_if_eq VAR_RESULT, TRUE, LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete
 	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterFailed
 	end
 
-LittlerootTown_ProfessorBirchsLab_EventScript_PRLGotSableye::
-	setvar VAR_PRL_HOENN_STARTER, 3
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete
-	end
-
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterFailed::
+	@ Allocation/capacity failure leaves all Kanto Pokémon, money and
+	@ Bag untouched. Set stage 0 and sail home rather than strand the user.
+	setvar VAR_PRL_REGION_STAGE, 0
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLStarterFailed
-	releaseall
+	closemessage
+	fadescreen FADE_TO_BLACK
+	warp MAP_VERMILION_CITY, 24, 32
+	waitstate
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::
@@ -178,8 +175,8 @@ LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome::
 	.string "BIRCH: The KANTO CHAMPION!\n"
 	.string "PROF. OAK said you'd arrive.\p"
 	.string "Welcome to HOENN, {PLAYER}!\p"
-	.string "Your KANTO team is safe in\n"
-	.string "the PC, ready for later.\p"
+	.string "Choose a partner before we\n"
+	.string "box your KANTO team.\p"
 	.string "Your uncle FRANK lives in\n"
 	.string "PETALBURG CITY.\p"
 	.string "First, choose a partner for\n"
@@ -199,8 +196,9 @@ LittlerootTown_ProfessorBirchsLab_Text_PRLChooseCarefully::
 	.string "One partner will join you!$"
 
 LittlerootTown_ProfessorBirchsLab_Text_PRLStarterFailed::
-	.string "BIRCH: Something went wrong.\n"
-	.string "Please talk to me again.$"
+	.string "BIRCH: Transfer failed safely.\n"
+	.string "Your KANTO team is unchanged.\p"
+	.string "Returning to VERMILION...$"
 
 LittlerootTown_ProfessorBirchsLab_Text_PRLHoennNext::
 	.string "BIRCH: Excellent choice!\p"

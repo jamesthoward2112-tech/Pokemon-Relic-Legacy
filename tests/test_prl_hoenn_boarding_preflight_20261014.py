@@ -34,8 +34,8 @@ class PRLHoennPreflight(unittest.TestCase):
         self.assertIn("VermilionCity_EventScript_PRLHoennNoRoom", sailor)
         self.assertIn("VermilionCity_EventScript_PRLHoennBoardingDeclined", sailor)
         self.assertIn("VermilionCity_EventScript_CheckSeagallopPresent", sailor)
-        self.assertIn("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer", sailor)
-        self.assertIn("goto_if_eq VAR_RESULT, FALSE, VermilionCity_EventScript_PRLHoennTransferFailed", sailor)
+        self.assertIn("setvar VAR_PRL_REGION_STAGE, 1", sailor)
+        self.assertNotIn("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer", sailor)
         self.assertIn("warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 6, 9", sailor)
         for command in ("\tremoveitem ", "\tsetmoney ", "\tsetflag FLAG_PRL_", "\tremoveobject "):
             self.assertNotIn(command, sailor)

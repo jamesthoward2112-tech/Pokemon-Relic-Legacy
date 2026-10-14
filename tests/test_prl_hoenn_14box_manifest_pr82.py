@@ -42,8 +42,8 @@ class TestPR82FourteenBoxManifest(unittest.TestCase):
             "VermilionCity_EventScript_PRLHoennNoRoom::", 1)[0]
         self.assertIn("PRLHoennCheckPCSpaceForParty", board)
         self.assertIn("VermilionCity_Text_PRLHoennFinalConfirm", board)
-        self.assertIn("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer", board)
-        self.assertIn("VermilionCity_EventScript_PRLHoennTransferFailed", board)
+        self.assertIn("setvar VAR_PRL_REGION_STAGE, 1", board)
+        self.assertNotIn("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer", board)
         self.assertIn("warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB", board)
         for unsafe in ("\tremoveitem ", "\tsetmoney ", "\tgivemon "):
             self.assertNotIn(unsafe, board)

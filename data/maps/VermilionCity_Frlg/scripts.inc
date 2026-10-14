@@ -64,9 +64,10 @@ VermilionCity_EventScript_PRLHoennBoardingPreflight::
 	goto_if_eq VAR_RESULT, FALSE, VermilionCity_EventScript_PRLHoennNoRoom
 	msgbox VermilionCity_Text_PRLHoennFinalConfirm, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, VermilionCity_EventScript_PRLHoennBoardingDeclined
-	@ A capacity or heap failure MUST leave everything unchanged in Kanto.
-	specialvar VAR_RESULT, PRLHoennCommitKantoTransfer
-	goto_if_eq VAR_RESULT, FALSE, VermilionCity_EventScript_PRLHoennTransferFailed
+	@ PR84: depart with the entire party/PC/Bag still intact.
+	@ Actual transfer occurs in Birch's lab after the new map has loaded
+	@ and after the player selects the Hoenn starter.
+	setvar VAR_PRL_REGION_STAGE, 1
 	msgbox VermilionCity_Text_PRLHoennSailAway
 	closemessage
 	fadescreen FADE_TO_BLACK
@@ -98,14 +99,15 @@ VermilionCity_Text_PRLHoennCheckDeparture::
 	.string "ready to board the S.S. LEGACY?$"
 
 VermilionCity_Text_PRLHoennFinalConfirm::
-	.string "SAILOR: This voyage is ONE WAY.\p"
-	.string "Your KANTO team will be boxed,\n"
-	.string "and your money banked safely.\p"
-	.string "Your Bag goes to HOENN's\n"
-	.string "Training School, except the\n"
-	.string "EXP SHARE and REMOTE PC.\p"
-	.string "Please SAVE before boarding!\p"
-	.string "Sail aboard the S.S. LEGACY?$"
+	.string "SAILOR: This is ONE WAY.\p"
+	.string "Your KANTO POKéMON go to the\n"
+	.string "PC, keeping held items.\p"
+	.string "Your KANTO money is banked.\p"
+	.string "Your Bag items are donated,\n"
+	.string "except the EXP SHARE.\p"
+	.string "REMOTE PC will still work.\p"
+	.string "Please SAVE before leaving!\p"
+	.string "Board the S.S. LEGACY?$"
 
 VermilionCity_Text_PRLHoennTransferFailed::
 	.string "SAILOR: The transfer could not\n"
