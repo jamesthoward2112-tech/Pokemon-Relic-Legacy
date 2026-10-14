@@ -71,15 +71,6 @@ jobs:
           fi
           exit "$status"
 
-      - name: Diagnose Lorelei invalid trainer 805 blue screens
-        run: |
-          echo "Lorelei invalid trainer 805: mapping ROM return PCs to ELF functions"
-          test -f pokefirered.elf
-          for pc in 080591C8 081584A6 0808A29A 08158622 0808A096 0815855A; do
-            echo "=== 0x$pc ==="
-            arm-none-eabi-addr2line -f -p -C -e pokefirered.elf 0x$pc || true
-            arm-none-eabi-nm -n -C pokefirered.elf | awk -v addr="$pc" '/^[0-9a-fA-F]+ [tTwW] / { n = tolower($1); t = tolower(addr); if (n <= t) hit = $0; if (n > t) { print "Nearest symbol: " hit; exit } }' || true
-          done
       - name: Upload FireRed test ROM
         uses: actions/upload-artifact@v4
         with:
