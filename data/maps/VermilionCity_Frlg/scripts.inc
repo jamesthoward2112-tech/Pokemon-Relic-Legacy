@@ -52,6 +52,10 @@ VermilionCity_EventScript_FerrySailor::
 	@ The PRL Champion's ticket takes priority over the original SS Anne
 	@ story, but Sevii routes remain available before the ticket is issued.
 	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, VermilionCity_EventScript_PRLHoennBoardingPreflight
+	@ Old Champion saves may lack the newly allocated Oak ticket bit.
+	@ The Hall of Fame record is authoritative, not the overlapping old flag.
+	specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord
+	goto_if_eq VAR_RESULT, TRUE, VermilionCity_EventScript_PRLHoennBoardingPreflight
 	goto_if_eq VAR_MAP_SCENE_VERMILION_CITY, 3, VermilionCity_EventScript_CheckSeagallopPresent
 	msgbox VermilionCity_Text_WelcomeToTheSSAnne
 	release
@@ -240,6 +244,9 @@ VermilionCity_EventScript_CheckTicket::
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	goto_if_eq VAR_MAP_SCENE_VERMILION_CITY, 3, VermilionCity_EventScript_PRLPierAccess
+	@ Champion saves must not be stopped by legacy ticket/scene flags.
+	specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord
+	goto_if_eq VAR_RESULT, TRUE, VermilionCity_EventScript_PRLPierAccess
 	msgbox VermilionCity_Text_DoYouHaveATicket
 	goto_if_unset FLAG_GOT_SS_TICKET, VermilionCity_EventScript_DontHaveSSTicket
 	msgbox VermilionCity_Text_FlashedSSTicket
