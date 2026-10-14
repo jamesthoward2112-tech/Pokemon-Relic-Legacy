@@ -127,7 +127,7 @@ def test_actual_starter_dispatch_is_preserved():
     script = (ROOT / 'data/maps/PokemonLeague_ChampionsRoom_Frlg/scripts.inc').read_text()
     for index, suffix in enumerate(['Squirtle', 'Bulbasaur', 'Charmander']):
         assert f'call_if_eq VAR_STARTER_MON, {index}, PokemonLeague_ChampionsRoom_EventScript_Battle{suffix}' in script
-        assert f'trainerbattle_double TRAINER_CHAMPION_FIRST_{suffix.upper()}' in script
+        assert f'trainerbattle_no_intro TRAINER_CHAMPION_FIRST_{suffix.upper()}' in script
     assert 'PokemonLeague_ChampionsRoom_EventScript_BattleComplete' in script
 
 

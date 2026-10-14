@@ -1,4 +1,4 @@
-"""PRL Kanto HM field use: badge + HM in Bag, no taught or compatible Pokémon needed."""
+"""PRL Kanto map HMs use the bag/badge, and party shortcuts check species compatibility."""
 from pathlib import Path
 import re
 import unittest
@@ -21,15 +21,23 @@ class TestHMBagBadge(unittest.TestCase):
         self.assertIn("gSpecialVar_Result = PARTY_SIZE;", body)
         self.assertIn("gSpecialVar_Result = i;", body)
 
-    def test_virtual_flash_fly_require_hm_badge_not_learnset(self):
-        body = read("src/party_menu.c").split("// Flash and Fly remain optional untaught field actions;",1)[1].split("if (!InBattlePike())",1)[0]
-        self.assertIn("FIELD_MOVE_FLASH", body)
-        self.assertIn("FIELD_MOVE_FLY", body)
-        self.assertIn("IsFieldMoveUnlocked(fieldMove)",body)
-        self.assertIn("CheckBagHasItem(hmItem, 1)",body)
-        self.assertNotIn("CanLearnTeachableMove",body)
-        menu = read("src/party_menu.c").split("static void CursorCb_FieldMove(u8 taskId)\n{",1)[1].split("static void DisplayFieldMoveExitAreaMessage",1)[0]
-        self.assertIn("!CheckBagHasItem(GetTMHMItemIdFromMoveId(FieldMove_GetMoveId(fieldMove)), 1)",menu)
+    def test_virtual_hm_menu_requires_badge_bag_and_species_compatibility(self):
+        # Map field actions stay HM-in-bag only; the party menu must not
+        # claim every Pokémon is able to Fly or Surf.
+        body = read("src/party_menu.c").split(
+            "// HM-in-bag and badge still unlock map-based field moves", 1
+        )[1].split("if (!InBattlePike())", 1)[0]
+        for action in ("FIELD_MOVE_FLASH", "FIELD_MOVE_FLY", "FIELD_MOVE_SURF"):
+            self.assertIn(action, body)
+        self.assertIn("IsFieldMoveUnlocked(fieldMove)", body)
+        self.assertIn("CheckBagHasItem(hmItem, 1)", body)
+        self.assertIn("GetSpeciesTeachableLearnset(species)", body)
+        self.assertIn("teachableMoves[j] == move", body)
+        self.assertIn("if (compatible)", body)
+        menu = read("src/party_menu.c").split("static void CursorCb_FieldMove(u8 taskId)", 1)[1].split(
+            "static void DisplayFieldMoveExitAreaMessage", 1
+        )[0]
+        self.assertIn("!CheckBagHasItem(GetTMHMItemIdFromMoveId(FieldMove_GetMoveId(fieldMove)), 1)", menu)
 
     def test_map_fly_needs_only_badge_and_hm_in_bag(self):
         src = read("src/field_region_map.c")

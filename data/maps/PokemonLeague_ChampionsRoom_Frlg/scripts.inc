@@ -129,7 +129,11 @@ PokemonLeague_ChampionsRoom_EventScript_RematchIntro::
 	return
 
 PokemonLeague_ChampionsRoom_EventScript_BattleSquirtle::
-	trainerbattle_double TRAINER_CHAMPION_FIRST_SQUIRTLE, PokemonLeague_ChampionsRoom_Text_FirstBattleIntro, PokemonLeague_ChampionsRoom_Text_Defeat, PokemonLeague_ChampionsRoom_Text_NotEnoughMons
+	@ This event runs from MAP_SCRIPT_ON_FRAME, which has player context, not an NPC.
+	@ The team is defined as Double Battle: Yes; the no-intro opcode preserves doubles
+	@ without executing SetTrainerFacingDirection on LOCALID_PLAYER.
+	msgbox PokemonLeague_ChampionsRoom_Text_FirstBattleIntro
+	trainerbattle_no_intro TRAINER_CHAMPION_FIRST_SQUIRTLE, PokemonLeague_ChampionsRoom_Text_Defeat
 	goto_if_defeated TRAINER_CHAMPION_FIRST_SQUIRTLE, PokemonLeague_ChampionsRoom_EventScript_BattleComplete
 	setvar VAR_TEMP_1, 1
 	releaseall
@@ -137,7 +141,11 @@ PokemonLeague_ChampionsRoom_EventScript_BattleSquirtle::
 	return
 
 PokemonLeague_ChampionsRoom_EventScript_BattleBulbasaur::
-	trainerbattle_double TRAINER_CHAMPION_FIRST_BULBASAUR, PokemonLeague_ChampionsRoom_Text_FirstBattleIntro, PokemonLeague_ChampionsRoom_Text_Defeat, PokemonLeague_ChampionsRoom_Text_NotEnoughMons
+	@ This event runs from MAP_SCRIPT_ON_FRAME, which has player context, not an NPC.
+	@ The team is defined as Double Battle: Yes; the no-intro opcode preserves doubles
+	@ without executing SetTrainerFacingDirection on LOCALID_PLAYER.
+	msgbox PokemonLeague_ChampionsRoom_Text_FirstBattleIntro
+	trainerbattle_no_intro TRAINER_CHAMPION_FIRST_BULBASAUR, PokemonLeague_ChampionsRoom_Text_Defeat
 	goto_if_defeated TRAINER_CHAMPION_FIRST_BULBASAUR, PokemonLeague_ChampionsRoom_EventScript_BattleComplete
 	setvar VAR_TEMP_1, 1
 	releaseall
@@ -145,7 +153,11 @@ PokemonLeague_ChampionsRoom_EventScript_BattleBulbasaur::
 	return
 
 PokemonLeague_ChampionsRoom_EventScript_BattleCharmander::
-	trainerbattle_double TRAINER_CHAMPION_FIRST_CHARMANDER, PokemonLeague_ChampionsRoom_Text_FirstBattleIntro, PokemonLeague_ChampionsRoom_Text_Defeat, PokemonLeague_ChampionsRoom_Text_NotEnoughMons
+	@ This event runs from MAP_SCRIPT_ON_FRAME, which has player context, not an NPC.
+	@ The team is defined as Double Battle: Yes; the no-intro opcode preserves doubles
+	@ without executing SetTrainerFacingDirection on LOCALID_PLAYER.
+	msgbox PokemonLeague_ChampionsRoom_Text_FirstBattleIntro
+	trainerbattle_no_intro TRAINER_CHAMPION_FIRST_CHARMANDER, PokemonLeague_ChampionsRoom_Text_Defeat
 	goto_if_defeated TRAINER_CHAMPION_FIRST_CHARMANDER, PokemonLeague_ChampionsRoom_EventScript_BattleComplete
 	setvar VAR_TEMP_1, 1
 	releaseall
