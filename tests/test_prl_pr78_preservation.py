@@ -7,11 +7,17 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class PR78Preservation(unittest.TestCase):
-    def test_unskippable_full_celebi_jirachi_sequence(self):
+    def test_manual_skip_and_original_full_celebi_jirachi_sequence(self):
         forest = (ROOT / "src/prl_intro_trial.c").read_text(encoding="utf-8")
         main = forest.split("static void Task_Scene0_Main(u8 taskId)\n{", 1)[1].split(
             "\n#undef tState", 1)[0]
-        self.assertNotIn("gMain.newKeys", main)
+        # Only newly pressed A/B/START after the Porygon splash guard may skip.
+        self.assertIn("gMain.newKeys & (A_BUTTON | B_BUTTON | START_BUTTON)", main)
+        self.assertIn("task->tSkipReady < 12", main)
+        self.assertIn("task->tState != S0_SKIP_FADE", main)
+        self.assertIn("BeginNormalPaletteFade(PALETTES_ALL, 3, 0, 16, RGB_BLACK)", main)
+        self.assertIn("case S0_SKIP_FADE:", main)
+        self.assertIn("SetMainCallback2(CB2_InitTitleScreen)", main)
         for name in ("celebi", "jirachi", "celebi2", "jirachi2"):
             self.assertIn('INCGFX_U32("graphics/intro/prl_hwl/' + name + '.png"', forest)
             self.assertIn('INCGFX_U16("graphics/intro/prl_hwl/' + name + '.png"', forest)
