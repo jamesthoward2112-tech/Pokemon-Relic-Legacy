@@ -436,6 +436,8 @@ void process_event_constants(const vector<string> &map_filepaths, string output_
     ostringstream ids_file_text;
     ids_file_text << get_include_guard_start(guard_name) << warning;
 
+    // PRL FireRed is a Kanto + Hoenn journey. Both map families must be
+    // present at runtime; the generator previously wrote NULL Hoenn pointers.
     for (const string &filepath : map_filepaths) {
         string err;
         string map_json_text = read_text_file(filepath);
@@ -491,8 +493,16 @@ string generate_groups_text(Json groups_data, vector<string> &invalid_maps) {
 
         if (valid_maps.size() > 0) {
             text << group << "::\n";
-            for (string map : valid_maps)
-                text << "\t.4byte " << map << "\n";
+            // Preserve ORIGINAL JSON map indexes. Filtered-out maps need
+            // NULL placeholders, not a compressed pointer array: map IDs are
+            // stable in existing PRL save files and compiled warp scripts.
+            for (Json &map_name : maps) {
+                string map = json_to_string(map_name);
+                if (find(invalid_maps.begin(), invalid_maps.end(), map) == invalid_maps.end())
+                    text << "\t.4byte " << map << "\n";
+                else
+                    text << "\t.4byte NULL\n";
+            }
             text << "\n";
             valid_groups.push_back(group);
         }
@@ -750,8 +760,14 @@ void process_groups(string groups_filepath, vector<string> &map_filepaths, strin
         }
         string map_name = json_to_string(map_data, "name");
 
+        // PR87 first safe bridge: compile Littleroot's landing and Birch's lab
+        // alongside ALL existing Kanto maps. Other Hoenn map events include
+        // Emerald-only hidden item flags and need a separate migration audit.
+        // Keep map group / numeric map IDs stable for existing Kanto saves.
+        bool prlHoennLanding = map_name == "LittlerootTown"
+                           || map_name == "LittlerootTown_ProfessorBirchsLab";
         if ((version == "emerald" && region != "REGION_HOENN")
-         || (version == "firered" && region != "REGION_KANTO")) {
+         || (version == "firered" && region != "REGION_KANTO" && !prlHoennLanding)) {
             invalid_maps.push_back(map_name);
         }
     }
@@ -773,6 +789,7 @@ void process_groups(string groups_filepath, vector<string> &map_filepaths, strin
     write_text_file(output_c + sep + "map_groups.h", map_header_text);
 }
 
+// Include Emerald layouts in PRL FireRed without renumbering any layouts.
 string generate_layout_headers_text(Json layouts_data) {
     ostringstream text;
 
@@ -791,7 +808,10 @@ string generate_layout_headers_text(Json layouts_data) {
                 layout_version = "frlg";
         }
         if ((version == "emerald" && layout_version != "emerald")
-         || (version == "firered" && layout_version != "frlg"))
+         || (version == "firered" && layout_version != "frlg" &&
+              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN" &&
+              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB" &&
+              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE"))
             continue;
         string layoutName = json_to_string(layout, "name");
         string border_label = layoutName + "_Border";
@@ -848,7 +868,10 @@ string generate_layouts_table_text(Json layouts_data) {
             else if (version == "firered")
                 layout_version = "frlg";
         }
-        if ((version == "emerald" && layout_version != "emerald") || (version == "firered" && layout_version != "frlg")) {
+        if ((version == "emerald" && layout_version != "emerald") || (version == "firered" && layout_version != "frlg" &&
+              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN" &&
+              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB" &&
+              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE")) {
             text << "\t.4byte NULL\n";
         } else {
             string layout_name = json_to_string(layout, "name", true);
