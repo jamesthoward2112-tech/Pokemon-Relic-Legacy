@@ -570,6 +570,7 @@ gSpecials::
 	def_special ObjectEventInteractionGetApricornTreeData
 	def_special ObjectEventInteractionPickApricornTree
 	def_special PRLHasKantoHallOfFameRecord
+	def_special PRLHoennCheckPCSpaceForParty
 	def_special GetFrlgPokedexCount
 	def_special HasAllMons
 	def_special GetProfOaksRatingMessage
