@@ -528,6 +528,7 @@ static const struct SpriteTemplate sSpriteTemplate_Scene0Sparkle =
 //   data[7] = tCometId
 //   data[8] = tCloudScroll  — sub-pixel scroll das nuvens (1/2 pixel por frame)
 //   data[9] = tSparkleTimer — frame counter para spawn de sparkles
+//   data[10] = tSkipReady    — delay to reject leftover splash-screen inputs
 // =========================================================================
 #define tState        data[0]
 #define tTimer        data[1]
@@ -539,6 +540,7 @@ static const struct SpriteTemplate sSpriteTemplate_Scene0Sparkle =
 #define tCometId      data[7]
 #define tCloudScroll  data[8]
 #define tSparkleTimer data[9]
+#define tSkipReady    data[10]
 
 enum {
     S0_FADE_IN_SET00 = 0,
@@ -824,6 +826,7 @@ void Task_Scene0_Load(u8 taskId)
     gTasks[taskId].tBgSet       = 0;
     gTasks[taskId].tCloudScroll = 0;
     gTasks[taskId].tSparkleTimer = 0;
+    gTasks[taskId].tSkipReady = 0;
 
     BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
     SetVBlankCallback(VBlankCB_PRLHwlScene0);
@@ -844,11 +847,19 @@ static void Task_Scene0_Main(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
 
-    // PR78 approved cinematic lock: the complete original Celebi/Jirachi
-    // forest sequence must play before the PRL title, even if A/START was
-    // pressed on the preceding Porygon splash or an emulator repeats input.
-    // A generic newKeys check used to skip *every* forest stage instantly.
-    // Keep source assets/timings and approved Mode 3 title entirely unchanged.
+    // PR81: let the player skip *deliberately* with A, B or START.
+    // Ignore the first 12 frames so leftover input from the Porygon splash
+    // cannot instantly skip the approved original Celebi/Jirachi animation.
+    // Both manual and natural endings share the existing safe S0_DONE cleanup.
+    if (task->tSkipReady < 12)
+        task->tSkipReady++;
+    else if ((gMain.newKeys & (A_BUTTON | B_BUTTON | START_BUTTON))
+          && task->tState != S0_SKIP_FADE && task->tState != S0_DONE)
+    {
+        BeginNormalPaletteFade(PALETTES_ALL, 3, 0, 16, RGB_BLACK);
+        task->tState = S0_SKIP_FADE;
+    }
+
     switch (task->tState)
     {
     // ------------------------------------------------------------------
@@ -1226,6 +1237,7 @@ static void Task_Scene0_Main(u8 taskId)
 #undef tCometId
 #undef tCloudScroll
 #undef tSparkleTimer
+#undef tSkipReady
 
 // =========================================================================
 // CB2_Scene0Intro
