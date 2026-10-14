@@ -199,6 +199,7 @@ EWRAM_DATA bool8 gHasHallOfFameRecords = 0;
 static EWRAM_DATA struct CreditsResources * sCreditsMgr = NULL;
 
 static void CB2_Credits(void);
+static void DestroyCreditsWindow(void);
 static s32 RollCredits(void);
 static bool32 DoCreditsMonScene(void);
 static bool32 DoCopyrightOrTheEndGfxScene(void);
