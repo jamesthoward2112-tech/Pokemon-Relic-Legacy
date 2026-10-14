@@ -24,8 +24,9 @@ class PR84Safety(unittest.TestCase):
         sailor = read("data/maps/VermilionCity_Frlg/scripts.inc")
         msg = sailor.split("VermilionCity_Text_PRLHoennFinalConfirm::", 1)[1].split(
             "VermilionCity_Text_PRLHoennTransferFailed::", 1)[0]
-        pages = msg.replace('\\n"', '').split(r"\p")
-        for page in pages:
+        import re
+        text = "".join(re.findall(r'\\.string "([^"]*)"', msg))
+        for page in text.split(r"\p"):
             self.assertLessEqual(page.count(r"\n"), 1, page)
         self.assertIn("EXP SHARE", msg)
 
