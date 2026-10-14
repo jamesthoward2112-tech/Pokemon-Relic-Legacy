@@ -114,6 +114,10 @@ LittlerootTown_EventScript_PRLOutdoorDockArrival::
 	lockall
 	@ First verify Hoenn's outdoor tiles/music/scripts work before
 	@ activating Birch's more complex interior story.
+	@ Reset old Emerald truck/town variables so a Kanto save cannot
+	@ accidentally run a house warp or the vanilla moving-truck cutscene.
+	setvar VAR_LITTLEROOT_INTRO_STATE, 0
+	setvar VAR_LITTLEROOT_TOWN_STATE, 0
 	setvar VAR_PRL_REGION_STAGE, 3
 	msgbox LittlerootTown_Text_PRLSafeHoennArrival
 	releaseall
