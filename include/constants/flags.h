@@ -38,6 +38,9 @@
 #define FLAG_PRL_CINNABAR_OAK_FOSSIL_GIFT                 0x4AC
 // Save-persistent Erika reward fix: 0x4D8 previously unused; no SaveBlock changes.
 #define FLAG_PRL_ERIKA_BIG_ROOT_CORRECTION               0x4D8
+// Persistent Kanto -> Hoenn story hand-off (unused save-compatible flags).
+#define FLAG_PRL_POSTHOF_MOM_WELCOME                       0x4D9
+#define FLAG_PRL_POSTHOF_OAK_TICKET                        0x4DA
 
 // Temporary Flags
 // These temporary flags are are cleared every time a map is loaded. They are used
