@@ -46,11 +46,18 @@ PalletTown_PlayersHouse_1F_EventScript_MomOakLookingForYouFemale::
 @ Direct talk fallback for anyone loading a save at Pallet Town instead
 @ of reaching the house through the credits.
 PalletTown_PlayersHouse_1F_EventScript_PRLMomPostLeague::
-	goto_if_set FLAG_PRL_POSTHOF_MOM_WELCOME, PalletTown_PlayersHouse_1F_EventScript_MomHeal
+	goto_if_set FLAG_PRL_POSTHOF_MOM_WELCOME, PalletTown_PlayersHouse_1F_EventScript_PRLCheckDeparturePrep
 	msgbox PalletTown_PlayersHouse_1F_Text_PRLHomecoming
 	setflag FLAG_PRL_POSTHOF_MOM_WELCOME
-	release
-	end
+	goto PalletTown_PlayersHouse_1F_EventScript_PRLCheckDeparturePrep
+
+PalletTown_PlayersHouse_1F_EventScript_PRLCheckDeparturePrep::
+	@ This is information only. NEVER touch bag, money or PC until boarding.
+	goto_if_unset FLAG_PRL_POSTHOF_OAK_TICKET, PalletTown_PlayersHouse_1F_EventScript_MomHeal
+	goto_if_set FLAG_PRL_POSTHOF_MOM_PREP_BRIEFED, PalletTown_PlayersHouse_1F_EventScript_MomHeal
+	msgbox PalletTown_PlayersHouse_1F_Text_PRLDeparturePrep
+	setflag FLAG_PRL_POSTHOF_MOM_PREP_BRIEFED
+	goto PalletTown_PlayersHouse_1F_EventScript_MomHeal
 
 PalletTown_PlayersHouse_1F_EventScript_MomHeal::
 	msgbox PalletTown_PlayersHouse_1F_Text_YouShouldTakeQuickRest
@@ -131,3 +138,17 @@ PalletTown_PlayersHouse_1F_Text_PRLHomecoming::
 	.string "visit PROF. OAK in his LAB.\p"
 	.string "He has news of a faraway place\n"
 	.string "called HOENN!$"
+
+
+PalletTown_PlayersHouse_1F_Text_PRLDeparturePrep::
+	.string "MOM: OAK told me about HOENN!\p"
+	.string "When you're ready to sail,\n"
+	.string "I'll look after your money.\p"
+	.string "You'll get it all back when\n"
+	.string "you return to KANTO.\p"
+	.string "Every BAG item, even TMs,\n"
+	.string "goes to the TRAINING SCHOOL.\p"
+	.string "Only EXP SHARE and REMOTE PC\n"
+	.string "Held items stay with POKéMON.\p"
+	.string "Nothing will be taken until\n"
+	.string "you actually board the ship!$"

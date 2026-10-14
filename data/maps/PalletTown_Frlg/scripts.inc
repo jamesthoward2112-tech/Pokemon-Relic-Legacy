@@ -5,7 +5,14 @@ PalletTown_Frlg_MapScripts::
 
 PalletTown_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_PALLET_TOWN
+	@ Older save files may still carry scene 2 from vanilla FRLG.
+	@ Retire the automatic Dex-count ambush on every Champion return.
+	call_if_set FLAG_SYS_GAME_CLEAR, PalletTown_EventScript_PRLDisableAutomaticOakDexCheck
 	end
+
+PalletTown_EventScript_PRLDisableAutomaticOakDexCheck::
+	setvar VAR_MAP_SCENE_PALLET_TOWN_OAK, 3
+	return
 
 PalletTown_OnFrame::
 	map_script_2 VAR_MAP_SCENE_PALLET_TOWN_OAK, 2, PalletTown_EventScript_OakRatingScene
@@ -13,6 +20,9 @@ PalletTown_OnFrame::
 
 @ Oak approaches player after exiting their house post Elite Four to check if they should receieve the National Dex
 PalletTown_EventScript_OakRatingScene::
+	@ Extra safety for old saves resumed outside the house without an
+	@ OnTransition event: do not force a Dex-count approach on Champions.
+	goto_if_set FLAG_SYS_GAME_CLEAR, PalletTown_EventScript_PRLDisableAutoOakOnFrame
 	lockall
 	textcolor NPC_TEXT_COLOR_MALE
 	setobjectxyperm LOCALID_PALLET_PROF_OAK, 14, 14
@@ -48,6 +58,10 @@ PalletTown_EventScript_OakRatingScene::
 	warp MAP_PALLET_TOWN_PROFESSOR_OAKS_LAB, 6, 12
 	waitstate
 	releaseall
+	end
+
+PalletTown_EventScript_PRLDisableAutoOakOnFrame::
+	setvar VAR_MAP_SCENE_PALLET_TOWN_OAK, 3
 	end
 
 PalletTown_EventScript_EndOakRatingScene::

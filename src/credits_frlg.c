@@ -804,19 +804,16 @@ static void CB2_Credits(void)
     case 2:
         FlagClear(FLAG_HIDE_MAP_NAME_POPUP);
         gDisableMapMusicChangeOnMapLoad = MUSIC_DISABLE_OFF;
-        // Do NOT soft-reset to the title or play the broken red closing
-        // screen. Keep the live post-League save in memory and return home
-        // so Mum's one-off Hoenn dialogue can begin immediately.
+        // PR70 playtest: jumping from the credits' special overworld
+        // into CB2_LoadMap left a persistent black screen. The Hall of Fame
+        // has already saved the champion and Pallet Town return position.
+        // Use the proven FRLG end-of-credits reset until a direct field
+        // transition is fully validated in an emulator.
         DestroyCreditsWindow();
         Free(sCreditsMgr);
         sCreditsMgr = NULL;
-        SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN_PLAYERS_HOUSE_1F),
-                           MAP_NUM(MAP_PALLET_TOWN_PLAYERS_HOUSE_1F), -1, 6, 6);
-        WarpIntoMap();
-        ResetInitialPlayerAvatarState();
-        gMain.state = 0;
-        SetMainCallback2(CB2_LoadMap);
-        break;
+        SoftReset(RESET_ALL);
+        return;
     }
 }
 
@@ -1104,8 +1101,10 @@ static s32 RollCredits(void)
         }
         return 0;
     case CREDITSSCENE_TERMINATE:
-        if (!gPaletteFade.active)
-            DestroyCreditsWindow();
+        // Let the final fade finish before cleaning up and resetting.
+        if (gPaletteFade.active)
+            return 0;
+        DestroyCreditsWindow();
         break;
     }
     return 2;
