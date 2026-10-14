@@ -6066,6 +6066,17 @@ u16 PRLHoennCommitKantoTransfer(void)
     VarSet(VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0);
     VarSet(VAR_PRL_HOENN_STARTER, starterChoice);
     VarSet(VAR_PRL_REGION_STAGE, 2);
+    // Until Hoenn Centers/houses are compiled, whiteout, Teleport and the
+    // last-heal map must not resolve to a removed house or back to Kanto.
+    // Save-safe: use the already compiled outdoor Littleroot map, and only
+    // change this after the atomic starter/PC transfer has succeeded.
+#if IS_FRLG
+    gSaveBlock1Ptr->lastHealLocation.mapGroup = MAP_GROUP(MAP_LITTLEROOT_TOWN);
+    gSaveBlock1Ptr->lastHealLocation.mapNum = MAP_NUM(MAP_LITTLEROOT_TOWN);
+    gSaveBlock1Ptr->lastHealLocation.warpId = WARP_ID_NONE;
+    gSaveBlock1Ptr->lastHealLocation.x = 7;
+    gSaveBlock1Ptr->lastHealLocation.y = 18;
+#endif
     FlagClear(FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH);
     return TRUE;
 }
