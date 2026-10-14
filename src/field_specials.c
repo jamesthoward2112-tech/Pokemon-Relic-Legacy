@@ -5774,3 +5774,24 @@ u16 PRLHasKantoHallOfFameRecord(void)
 {
     return FlagGet(FLAG_PRL_KANTO_CHAMPION) || GetGameStat(GAME_STAT_ENTERED_HOF) != 0;
 }
+
+// Read-only boarding preflight. Do not move any boxed/party Pokémon here.
+// A full, save-compatible migration must be available before making the
+// actual trip (including a validated slot-by-slot rollback strategy).
+u16 PRLHoennCheckPCSpaceForParty(void)
+{
+    u16 freeSlots = 0;
+    u8 box;
+    u8 partyCount = CountPartyMons();
+
+    gSpecialVar_0x8004 = 0;
+    gSpecialVar_0x8005 = partyCount;
+    if (gPokemonStoragePtr == NULL)
+        return FALSE;
+
+    for (box = 0; box < TOTAL_BOXES_COUNT; box++)
+        freeSlots += IN_BOX_COUNT - CountMonsInBox(box);
+
+    gSpecialVar_0x8004 = freeSlots;
+    return freeSlots >= partyCount;
+}

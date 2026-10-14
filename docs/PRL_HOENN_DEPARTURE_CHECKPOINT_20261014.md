@@ -38,3 +38,16 @@ On entry to Hoenn, box withdrawal of Kanto-owned Pokémon is limited by badges (
 5. **Later:** Hoenn → Johto move and, eventually, 24-badge cross-region free travel and level-100 regional Elite Four rematches.
 
 No automatic migration, no deletion of a user's old saves and no source-changing content copy without compatibility checks.
+
+## PR74 stage A — non-destructive boarding preflight
+The post-PR73 Vermilion ferry sailor recognises Oak's Hoenn ticket. Talking to the sailor offers a **yes/no storage readiness check** for the S.S. Anne, uses `PRLHoennCheckPCSpaceForParty` to count free slots against every occupied party slot (including Eggs), and says if there is not enough room. The preview performs no transfer or warp. It must not take money, donate Bag contents, reorganise boxes, or move/remove Pokémon. This is an explicit temporary safeguard **until real migration is validated**, not a claim that Hoenn is playable.
+The real departure must also preserve Sevii Island ferry access; existing Seagallop routes must not be regressed by this new sailor branch (declining the Hoenn check routes to the pre-existing Seagallop menu after the original ship departs, preserving travel; manually playtest route selection).
+Do not convert this non-destructive checkpoint into an actual sail merely by changing its last message. It requires independent Kanto/Hoenn story flags, PC save migration, atomic cash/Bag transfer, Hoenn arrival/starter, and end-to-end emulation first.
+
+## Exact GBA save constraints from source audit
+- `include/save.h` divides the 128-KB Flash into **two 14-sector save slots** (28 sectors), Hall of Fame sectors (28–29), Trainer Hill (30), and recorded battle (31).
+- Each 4-KB sector holds **3968 bytes** of SaveBlock data + 116 bytes SaveBlock3 + 12 bytes footer. Storage uses **9 sectors**, so total fixed storage capacity is `9 * 3968 = 35,712` bytes.
+- `include/pokemon_storage_system.h` currently allocates 14 boxes × 30 BoxPokemon (80 bytes each) = **33,600 bytes** just for Pokémon, with box names/wallpapers/fusions using more storage.
+- The proposed **21 boxes × 30 × 80 = 50,400 bytes** for Pokémon alone cannot fit the fixed 35,712-byte storage partition. Simply changing `TOTAL_BOXES_COUNT` is structurally unsafe and breaks existing .sav files.
+- **Safe near-term implementation option:** preserve the 14 physical boxes/420 slots. Label 10 as level tiers, 3 as overflow, 1 as LEGENDS; sort all occupied Pokémon by level at departure using in-place scratch/storage and preserve everything, especially held items. This is a possible compromise requiring user agreement for fewer overflow slots; it is **not yet implemented**.
+- The 21-box architecture needs verified data compression, separately versioned extended-save layout, or an equivalent migration; standard 128 KB Pizza Boy A save compatibility must be empirically checked.
