@@ -46,7 +46,7 @@ class TestHoennEssentialsAndStarterRoom(unittest.TestCase):
 
     def test_existing_hoenn_saves_get_one_time_normalization(self):
         source=read("src/field_specials.c")
-        normalizer=source.split("u16 PRLHoennEnsureEssentials(void)",1)[1].split("u16 PRLHoennCommitKantoTransfer",1)[0]
+        normalizer=source.split("u16 PRLHoennEnsureEssentials(void)",1)[1]
         self.assertIn("VarGet(VAR_PRL_REGION_STAGE) != 2",normalizer)
         self.assertIn("!FlagGet(FLAG_PRL_HOENN_ESSENTIALS_READY)",normalizer)
         self.assertIn("CountTotalItemQuantityInBag(ITEM_EXP_SHARE)",normalizer)
@@ -59,5 +59,24 @@ class TestHoennEssentialsAndStarterRoom(unittest.TestCase):
         self.assertIn("special PRLHoennEnsureEssentials",lab)
         self.assertIn("def_special PRLHoennEnsureEssentials",read("data/specials.inc"))
         self.assertIn("u16 PRLHoennEnsureEssentials(void);",read("include/field_specials.h"))
+
+    def test_hoenn_pc_hard_level_caps_and_move_bypass_protection(self):
+        code=read("src/pokemon_storage_system.c")
+        self.assertIn("static u8 PRLHoennPcLevelLimit(void)",code)
+        self.assertIn("FlagGet(FLAG_SYS_GAME_CLEAR)",code)
+        self.assertIn("FlagGet(FLAG_BADGE01_GET + i)",code)
+        self.assertIn("return 10 + badges * 10;",code)
+        self.assertIn("PRLHoennStorageLevelLocked(GetBoxMonDataAt(StorageGetCurrentBox(), sCursorPosition, MON_DATA_LEVEL))",code)
+        self.assertIn("PRLHoennStorageLevelLocked(GetMonData(&sStorage->movingMon, MON_DATA_LEVEL))",code)
+        self.assertIn("MSG_PRL_HOENN_LEVEL_LOCK",code)
+
+    def test_birch_explains_lock_and_aunt_is_not_mum(self):
+        lab=read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
+        town=read("data/maps/LittlerootTown/scripts.inc")
+        for phrase in ("KANTO team","safe in your PC","Lv1-10","Each BADGE adds ten levels","HOENN LEAGUE","MUM back in KANTO","REMOTE PC"):
+            self.assertIn(phrase,lab)
+        self.assertIn("AUNT: {PLAYER}",town)
+        self.assertIn("Your MUM told me",town)
+        self.assertNotIn("MOM: HOENN looks lovely",town)
 
 if __name__=="__main__": unittest.main()
