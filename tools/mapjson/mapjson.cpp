@@ -281,15 +281,9 @@ string generate_map_events_text(Json map_data) {
                 bool prlArrivalTruck = version == "firered"
                                      && mapName == "LittlerootTown"
                                      && (i == 4 || i == 5);
-                // PR100: Birch's three gifts were one tile LEFT of the
-                // actual three lab display pedestals (x=8..10) in PR99.
-                // Preserve native Emerald coordinates on non-FireRed builds.
-                bool prlHoennStarterBall = version == "firered"
-                                         && mapName == "LittlerootTown_ProfessorBirchsLab"
-                                         && (i == 3 || i == 4 || i == 5);
                 text << "\tobject_event " << i + 1 << ", "
                      << json_to_string(obj_event, "graphics_id") << ", "
-                     << (prlHoennStarterBall ? std::to_string(8 + i - 3) : json_to_string(obj_event, "x")) << ", "
+                     << json_to_string(obj_event, "x") << ", "
                      << json_to_string(obj_event, "y") << ", "
                      << (prlArrivalTruck ? "3" : json_to_string(obj_event, "elevation")) << ", "
                      << json_to_string(obj_event, "movement_type") << ", "
