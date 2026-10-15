@@ -289,7 +289,7 @@ string generate_map_events_text(Json map_data) {
                                          && (i == 3 || i == 4 || i == 5);
                 text << "\tobject_event " << i + 1 << ", "
                      << json_to_string(obj_event, "graphics_id") << ", "
-                     << (prlHoennStarterBall ? to_string(9 + i - 3) : json_to_string(obj_event, "x")) << ", "
+                     << (prlHoennStarterBall ? std::to_string(9 + i - 3) : json_to_string(obj_event, "x")) << ", "
                      << json_to_string(obj_event, "y") << ", "
                      << (prlArrivalTruck ? "3" : json_to_string(obj_event, "elevation")) << ", "
                      << json_to_string(obj_event, "movement_type") << ", "
