@@ -1,8 +1,59 @@
 LittlerootTown_MaysHouse_1F_MapScripts::
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, LittlerootTown_MaysHouse_1F_OnWarp
 	map_script MAP_SCRIPT_ON_LOAD, LittlerootTown_MaysHouse_1F_OnLoad
 	map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_MaysHouse_1F_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, LittlerootTown_MaysHouse_1F_OnFrame
 	.byte 0
+
+LittlerootTown_MaysHouse_1F_OnWarp:
+	map_script_2 VAR_PRL_REGION_STAGE, 2, LittlerootTown_MaysHouse_1F_EventScript_PRLCleanNPCs
+	map_script_2 VAR_PRL_REGION_STAGE, 3, LittlerootTown_MaysHouse_1F_EventScript_PRLCleanNPCs
+	map_script_2 VAR_PRL_REGION_STAGE, 4, LittlerootTown_MaysHouse_1F_EventScript_PRLCleanNPCs
+	.2byte 0
+
+LittlerootTown_MaysHouse_1F_EventScript_PRLCleanNPCs::
+	@ OnTransition flag edits can be too late for sprites already loaded.
+	@ Erase the noninteractive Norman/moving-men objects unconditionally.
+	setflag FLAG_HIDE_PLAYERS_HOUSE_DAD
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_1
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_2
+	hideobjectat 2, MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F
+	hideobjectat 3, MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F
+	hideobjectat 5, MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F
+	removeobject 2
+	removeobject 3
+	removeobject 5
+	checkplayergender
+	goto_if_eq VAR_RESULT, FEMALE, LittlerootTown_MaysHouse_1F_EventScript_PRLCleanRosieHome
+	goto LittlerootTown_MaysHouse_1F_EventScript_PRLCleanBirchHome
+
+LittlerootTown_MaysHouse_1F_EventScript_PRLCleanRosieHome::
+	@ Rosie lives in the player's house. The rival family is not here.
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_MOM
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_SIBLING
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MAY
+	hideobjectat 4, MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F
+	hideobjectat 6, MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F
+	hideobjectat 7, MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F
+	removeobject 4
+	removeobject 6
+	removeobject 7
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MOM
+	addobject 1
+	end
+
+LittlerootTown_MaysHouse_1F_EventScript_PRLCleanBirchHome::
+	@ In the other house, show Birch's family and talkable daughter/son.
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MOM
+	hideobjectat 1, MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F
+	removeobject 1
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_MOM
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_SIBLING
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MAY
+	addobject 4
+	addobject 6
+	addobject 7
+	end
 
 LittlerootTown_MaysHouse_1F_OnLoad:
 	@ PRL players arrived by Birch's truck, not the native unpacking scene.
@@ -427,19 +478,20 @@ LittlerootTown_MaysHouse_1F_EventScript_PRLMakeAuntAvailable::
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_1
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_2
 	setflag FLAG_HIDE_PLAYERS_HOUSE_DAD
-	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MAY
 	checkplayergender
 	goto_if_eq VAR_RESULT, FEMALE, LittlerootTown_MaysHouse_1F_EventScript_PRLRosiesHouse
 	@ Opposite house belongs to Birch's family, never a duplicate Rosie.
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MOM
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_MOM
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_SIBLING
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MAY
 	return
 
 LittlerootTown_MaysHouse_1F_EventScript_PRLRosiesHouse::
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MOM
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_MOM
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_SIBLING
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MAY
 	return
 
 LittlerootTown_MaysHouse_1F_EventScript_PRLAunt::
@@ -495,3 +547,13 @@ LittlerootTown_MaysHouse_1F_Text_PRLBirchFamily::
 	.string "is usually at his LAB.\p"
 	.string "We're glad to welcome\n"
 	.string "another researcher to HOENN!$"
+
+LittlerootTown_MaysHouse_1F_EventScript_PRLRivalChat::
+	msgbox LittlerootTown_MaysHouse_1F_Text_PRLRivalChat, MSGBOX_NPC
+	end
+
+LittlerootTown_MaysHouse_1F_Text_PRLRivalChat::
+	.string "MAY: Dad spends\n"
+	.string "so much time researching!\p"
+	.string "Are you studying the\n"
+	.string "relics with him, too?$"
