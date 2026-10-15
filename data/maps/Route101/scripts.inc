@@ -4,7 +4,25 @@ Route101_MapScripts::
 	.byte 0
 
 Route101_OnTransition:
+	@ PRL's Kanto Champion has already met Birch and received the Hoenn
+	@ starter in his lab. Never re-stage Emerald's Zigzagoon rescue.
+	goto_if_eq VAR_PRL_REGION_STAGE, 1, Route101_EventScript_PRLRescueAlreadyComplete
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, Route101_EventScript_PRLRescueAlreadyComplete
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, Route101_EventScript_PRLRescueAlreadyComplete
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, Route101_EventScript_PRLRescueAlreadyComplete
 	call ProfBirch_EventScript_UpdateLocation
+	end
+
+Route101_EventScript_PRLRescueAlreadyComplete::
+	@ No rescue state, no bag to click, and no second starter. These
+	@ flags also repair an older Hoenn save reaching Route 101 for the
+	@ first time, regardless of the original Emerald route variable.
+	setvar VAR_ROUTE101_STATE, 3
+	setflag FLAG_RESCUED_BIRCH
+	setflag FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE
+	setflag FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG
+	setflag FLAG_HIDE_ROUTE_101_ZIGZAGOON
+	setflag FLAG_HIDE_ROUTE_101_BIRCH
 	end
 
 Route101_OnFrame:
