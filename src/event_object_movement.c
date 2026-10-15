@@ -1904,9 +1904,14 @@ static bool8 PRLRejectHoennBridgeObject(const struct ObjectEventTemplate *obj, u
             return TRUE;
         if (obj->localId == 5 || obj->localId == 6)
         {
-            if (stage == 2 || stage == 4)
+            // Stage 1 is the one-time arrival scene. Stage 3 means the
+            // player has stepped out of the lorry; preserve its already
+            // spawned sprite until the first map unload, but NEVER
+            // respawn it on returning from Birch's lab (even before the
+            // starter is claimed, when stage remains 3).
+            if (stage != 1)
                 return TRUE;
-            // At stage 1/3 leave only this trainer's delivery lorry.
+            // During arrival only this trainer's delivery lorry exists.
             return obj->localId != (gSaveBlock2Ptr->playerGender == MALE ? 5 : 6);
         }
     }
