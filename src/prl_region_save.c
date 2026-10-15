@@ -1,5 +1,6 @@
 #include "global.h"
 #include "save.h"
+#include "pokemon_storage_system.h"
 #include "prl_region_save.h"
 #include "string.h"
 
