@@ -6220,50 +6220,147 @@ u16 PRLHoennCommitKantoTransfer(void)
 // past that step. A Birch conversation now offers a NON-DESTRUCTIVE resort.
 // No current party, money, Bag, boxes or save flags are changed on failure.
 // Every boxed creature (including Eggs) is copied in full before commit.
+// A compact permutation plan replaces PR97's 33,600-byte full PC copy.
+// The old allocation could fail under real-world heap pressure after a PC
+// session, leaving the displayed level boxes silently unsorted.
+struct PRLHoennSortPlan
+{
+    u16 sourceOrder[TOTAL_BOXES_COUNT * IN_BOX_COUNT];
+    u16 destToSource[TOTAL_BOXES_COUNT * IN_BOX_COUNT];
+    u8 boxForSource[TOTAL_BOXES_COUNT * IN_BOX_COUNT];
+    u8 levelForSource[TOTAL_BOXES_COUNT * IN_BOX_COUNT];
+};
+
+static u8 PRLHoennSortGroup(u8 box)
+{
+    return (box >= PRL_HOENN_OVERFLOW_START && box < PRL_HOENN_OVERFLOW_END)
+        ? PRL_HOENN_OVERFLOW_START : box;
+}
+
+// A permutation is planned and fully validated before a single boxed
+// Pokemon changes. Each cycle copies original BoxPokemon bytes, retaining
+// personality, encrypted data, eggs, OT, held items and ribbons as-is.
 u16 PRLHoennResortExistingPC(void)
 {
-    struct BoxPokemon (*planned)[IN_BOX_COUNT];
-    u8 used[TOTAL_BOXES_COUNT] = {0};
+    struct PRLHoennSortPlan *plan;
     bool8 mixed[PRL_HOENN_LEVEL_BOXES] = {FALSE};
+    u8 used[TOTAL_BOXES_COUNT] = {0};
+    u8 nextSlot[TOTAL_BOXES_COUNT] = {0};
     u16 fallbackCount = 0;
-    u8 box, slot, destination;
+    u16 occupied = 0;
+    u16 overflowSlot = 0;
+    u16 total = TOTAL_BOXES_COUNT * IN_BOX_COUNT;
+    u16 i, j, src, dst, emptySrc = 0;
+    u8 destination;
 
     if (VarGet(VAR_PRL_REGION_STAGE) != 2 || gPokemonStoragePtr == NULL)
         return FALSE;
 
-    planned = AllocZeroed(sizeof(*planned) * TOTAL_BOXES_COUNT);
-    if (planned == NULL)
+    plan = AllocZeroed(sizeof(*plan));
+    if (plan == NULL)
         return FALSE;
+    memset(plan->boxForSource, 0xFF, sizeof(plan->boxForSource));
+    memset(plan->destToSource, 0xFF, sizeof(plan->destToSource));
 
-    for (box = 0; box < TOTAL_BOXES_COUNT; box++)
+    // Phase 1: place each species in exactly one level/overflow/legend tier.
+    // This only READS box storage. Every failure exits without mutation.
+    for (i = 0; i < total; i++)
     {
-        for (slot = 0; slot < IN_BOX_COUNT; slot++)
+        struct BoxPokemon *mon = GetBoxedMonPtr(i / IN_BOX_COUNT, i % IN_BOX_COUNT);
+        enum Species species = GetBoxMonData(mon, MON_DATA_SPECIES);
+        u8 level;
+        if (species == SPECIES_NONE)
+            continue;
+        level = GetBoxMonData(mon, MON_DATA_LEVEL);
+        if (!PRLHoennPlaceInManifest(used, species, level, &fallbackCount, &destination))
         {
-            struct BoxPokemon *mon = GetBoxedMonPtr(box, slot);
-            enum Species species = GetBoxMonData(mon, MON_DATA_SPECIES);
-            u8 level;
-            if (species == SPECIES_NONE)
-                continue;
-
-            level = GetBoxMonData(mon, MON_DATA_LEVEL);
-            if (!PRLHoennPlaceInManifest(used, species, level, &fallbackCount, &destination))
-            {
-                Free(planned);
-                return FALSE;
-            }
-            planned[destination][used[destination] - 1] = *mon;
-            PRLHoennNoteBoxMismatch(mixed, destination, species, level);
+            Free(plan);
+            return FALSE;
         }
+        plan->boxForSource[i] = destination;
+        plan->levelForSource[i] = level;
+        plan->sourceOrder[occupied++] = i;
+        PRLHoennNoteBoxMismatch(mixed, destination, species, level);
     }
 
-    PRLHoennSortEachBoxAscending(planned, used);
-    // All 14 boxes have been validated and snapshotted; no further
-    // allocations or failure exits occur while committing their contents.
-    for (box = 0; box < TOTAL_BOXES_COUNT; box++)
-        for (slot = 0; slot < IN_BOX_COUNT; slot++)
-            SetBoxMonAt(box, slot, &planned[box][slot]);
+    // Phase 2: sort SOURCE INDEXES, never the Pokémon themselves. Tiers
+    // remain separate; EXTRA 1-3 are sorted as one continuous overflow.
+    for (i = 1; i < occupied; i++)
+    {
+        u16 value = plan->sourceOrder[i];
+        u8 group = PRLHoennSortGroup(plan->boxForSource[value]);
+        u8 level = plan->levelForSource[value];
+        j = i;
+        while (j > 0)
+        {
+            u16 earlier = plan->sourceOrder[j - 1];
+            u8 earlierGroup = PRLHoennSortGroup(plan->boxForSource[earlier]);
+            if (earlierGroup < group || (earlierGroup == group && plan->levelForSource[earlier] <= level))
+                break;
+            plan->sourceOrder[j] = earlier;
+            j--;
+        }
+        plan->sourceOrder[j] = value;
+    }
 
-    Free(planned);
+    // Phase 3: assign each occupied source its exact destination. Empty
+    // sources fill remaining destinations to make a complete permutation.
+    for (i = 0; i < occupied; i++)
+    {
+        src = plan->sourceOrder[i];
+        destination = plan->boxForSource[src];
+        if (destination >= PRL_HOENN_OVERFLOW_START && destination < PRL_HOENN_OVERFLOW_END)
+        {
+            dst = PRL_HOENN_OVERFLOW_START * IN_BOX_COUNT + overflowSlot++;
+        }
+        else
+        {
+            dst = destination * IN_BOX_COUNT + nextSlot[destination]++;
+        }
+        if (dst >= total || plan->destToSource[dst] != 0xFFFF)
+        {
+            Free(plan);
+            return FALSE;
+        }
+        plan->destToSource[dst] = src;
+    }
+    for (dst = 0; dst < total; dst++)
+    {
+        if (plan->destToSource[dst] != 0xFFFF)
+            continue;
+        while (emptySrc < total && plan->boxForSource[emptySrc] != 0xFF)
+            emptySrc++;
+        if (emptySrc == total)
+        {
+            Free(plan);
+            return FALSE;
+        }
+        plan->destToSource[dst] = emptySrc++;
+    }
+
+    // Phase 4: the permutation is total, valid and bijective. In-place
+    // cycle shifts require only two BoxPokemon temporaries (~160 bytes).
+    // No allocation or failure-return is possible during this commit.
+    for (i = 0; i < total; i++)
+    {
+        u16 current = i;
+        struct BoxPokemon saved;
+        if (plan->destToSource[current] == current)
+            continue;
+        saved = *GetBoxedMonPtr(current / IN_BOX_COUNT, current % IN_BOX_COUNT);
+        while (plan->destToSource[current] != i)
+        {
+            u16 next = plan->destToSource[current];
+            struct BoxPokemon moving = *GetBoxedMonPtr(next / IN_BOX_COUNT, next % IN_BOX_COUNT);
+            SetBoxMonAt(current / IN_BOX_COUNT, current % IN_BOX_COUNT, &moving);
+            plan->destToSource[current] = current;
+            current = next;
+        }
+        SetBoxMonAt(current / IN_BOX_COUNT, current % IN_BOX_COUNT, &saved);
+        plan->destToSource[current] = current;
+    }
+
+    Free(plan);
     PRLHoennNameSortedBoxes(mixed);
     return TRUE;
 }
