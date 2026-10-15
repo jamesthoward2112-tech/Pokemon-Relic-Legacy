@@ -24,6 +24,7 @@ LittlerootTown_MaysHouse_1F_EventScript_ShowRunningShoesManual::
 	return
 
 LittlerootTown_MaysHouse_1F_OnTransition:
+	call_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_MaysHouse_1F_EventScript_PRLMakeAuntAvailable
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 3, LittlerootTown_MaysHouse_1F_EventScript_MoveMomToDoor
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 5, LittlerootTown_MaysHouse_1F_EventScript_MoveMomToStairs
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_MaysHouse_1F_EventScript_MoveMomToTV
@@ -407,6 +408,13 @@ RivalsHouse_1F_Text_DoYouHavePokemon:
 
 @ PRL continuity: Hoenn's guardian is the player's AUNT.
 @ Kanto MUM remains back in Pallet Town, watching the saved money.
+LittlerootTown_MaysHouse_1F_EventScript_PRLMakeAuntAvailable::
+	checkplayergender
+	goto_if_ne VAR_RESULT, FEMALE, LittlerootTown_MaysHouse_1F_EventScript_PRLKeepOtherHouse
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MOM
+LittlerootTown_MaysHouse_1F_EventScript_PRLKeepOtherHouse::
+	return
+
 LittlerootTown_MaysHouse_1F_EventScript_PRLAunt::
 	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_MaysHouse_1F_EventScript_PRLAuntTalk
 	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_MaysHouse_1F_EventScript_PRLAuntTalk
@@ -417,8 +425,27 @@ LittlerootTown_MaysHouse_1F_EventScript_PRLAuntTalk::
 	lock
 	faceplayer
 	msgbox LittlerootTown_MaysHouse_1F_Text_PRLAuntHome
+	@ Give the Hoenn Town Map only after Birch's starter transaction.
+	goto_if_ne VAR_PRL_REGION_STAGE, 2, LittlerootTown_MaysHouse_1F_EventScript_PRLAuntFinished
+	checkitem ITEM_TOWN_MAP
+	goto_if_eq VAR_RESULT, TRUE, LittlerootTown_MaysHouse_1F_EventScript_PRLAuntFinished
+	msgbox LittlerootTown_MaysHouse_1F_Text_PRLAuntMap
+	giveitem ITEM_TOWN_MAP
+	goto_if_eq VAR_RESULT, FALSE, LittlerootTown_MaysHouse_1F_EventScript_PRLAuntMapFull
+LittlerootTown_MaysHouse_1F_EventScript_PRLAuntFinished::
 	release
 	end
+
+LittlerootTown_MaysHouse_1F_EventScript_PRLAuntMapFull::
+	msgbox gText_TooBadBagIsFull
+	release
+	end
+
+LittlerootTown_MaysHouse_1F_Text_PRLAuntMap::
+	.string "AUNT ROSIE: I've got an\\n"
+	.string "old Town Map for you!\\p"
+	.string "It shows all of HOENN.\\n"
+	.string "Keep it handy, dear!$"
 
 LittlerootTown_MaysHouse_1F_Text_PRLAuntHome::
 	.string "AUNT ROSIE: Welcome to\n"
