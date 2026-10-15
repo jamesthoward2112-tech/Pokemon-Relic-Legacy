@@ -573,6 +573,8 @@ gSpecials::
 	def_special PRLHoennCheckPCSpaceForParty
 	def_special PRLHoennCommitKantoTransfer
 	def_special PRLHoennResortExistingPC
+	def_special PRLHoennBankArrivalFunds
+	def_special PRLHoennRestoreKantoFunds
 	def_special PRLHoennEnsureEssentials
 	def_special GetFrlgPokedexCount
 	def_special HasAllMons
