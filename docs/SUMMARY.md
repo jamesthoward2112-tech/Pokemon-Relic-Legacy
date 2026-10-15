@@ -7,6 +7,7 @@
 
 - [PRL PJR registered items](./PRL_PJR_REGISTERED_ITEMS_20261011.md)
 - [PRL PJR and PHR QoL migration](./PRL_PJR_PHR_QOL_MIGRATION.md)
+- [PRL/PHR Hoenn migration source and dependency manifest](./PRL_PHR_HOENN_MIGRATION.md)
 - [PRL Eeveeon and Nimbeon build status](./prl-eeveeon-nimbeon-build-status.md)
 - [PRL move order and Crystal Redux QA](./qa/restore-move-order-crystal-20261011.md)
 

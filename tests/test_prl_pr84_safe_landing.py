@@ -35,7 +35,7 @@ class PR84Safety(unittest.TestCase):
 
     def test_map_arrival_precedes_atomic_transfer_and_starter(self):
         lab = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
-        self.assertIn("map_script_2 VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival", lab)
+        self.assertIn("goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival", lab)
         self.assertIn("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer", lab)
         self.assertIn("warp MAP_VERMILION_CITY, 24, 32", lab)
         source = read("src/field_specials.c").split("u16 PRLHoennCommitKantoTransfer(void)", 1)[1]

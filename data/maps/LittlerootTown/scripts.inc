@@ -45,6 +45,8 @@ LittlerootTown_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_MoveMomToMaysDoor
 	call_if_unset FLAG_RESCUED_BIRCH, LittlerootTown_EventScript_SetTwinPos
+	@ Normalize existing PR89 Hoenn saves too (they may still be at state 3).
+	call_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_EventScript_PRLKeepKantoRunningShoes
 	call_if_eq VAR_LITTLEROOT_TOWN_STATE, 3, LittlerootTown_EventScript_SetMomStandingInFrontOfDoorPos
 	call_if_eq VAR_LITTLEROOT_HOUSES_STATE_MAY, 4, LittlerootTown_EventScript_SetExitedHouseAfterLatiSSTicketEvent
 	call_if_eq VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 4, LittlerootTown_EventScript_SetExitedHouseAfterLatiSSTicketEvent
@@ -107,9 +109,18 @@ LittlerootTown_EventScript_SetMomInFrontOfDoorFemale::
 	setobjectxyperm LOCALID_LITTLEROOT_MOM, 14, 9
 	return
 
+LittlerootTown_EventScript_PRLKeepKantoRunningShoes::
+	setflag FLAG_RECEIVED_RUNNING_SHOES
+	setflag FLAG_SYS_B_DASH
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	setvar VAR_LITTLEROOT_TOWN_STATE, 4
+	return
+
 LittlerootTown_EventScript_PRLHideTrucks::
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
+	@ This is not the Emerald moving-house intro. Do not spawn its MOM.
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
 	return
 
 LittlerootTown_OnFrame:
@@ -129,11 +140,13 @@ LittlerootTown_EventScript_PRLOutdoorDockArrival::
 	@ accidentally run a house warp or the vanilla moving-truck cutscene.
 	setvar VAR_LITTLEROOT_INTRO_STATE, 0
 	setvar VAR_LITTLEROOT_TOWN_STATE, 0
+	setvar VAR_BIRCH_LAB_STATE, 0
 	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0
 	@ Remove any already-spawned old truck objects from this arrival.
 	@ Object IDs 5 and 6 are the two trucks in LittlerootTown/map.json.
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
 	removeobject 5
 	removeobject 6
 	setvar VAR_PRL_REGION_STAGE, 3
@@ -142,11 +155,14 @@ LittlerootTown_EventScript_PRLOutdoorDockArrival::
 	end
 
 LittlerootTown_Text_PRLSafeHoennArrival::
-	.string "S.S. LEGACY: HOENN AT LAST!\p"
-	.string "Your KANTO team is still\n"
-	.string "safe with you for now.\p"
-	.string "Enter PROF. BIRCH's lab to\n"
-	.string "choose a HOENN partner.$"
+	.string "HOENN REGION - LITTLEROOT\n"
+	.string "TOWN.\p"
+	.string "A new land, but the same\n"
+	.string "mysterious relic pulse...\p"
+	.string "OAK asked me to find PROF.\n"
+	.string "BIRCH at his laboratory.\p"
+	.string "My KANTO team is safe.\n"
+	.string "Time to begin again!$"
 
 LittlerootTown_EventScript_StepOffTruckMale::
 	lockall
@@ -507,6 +523,8 @@ LittlerootTown_EventScript_GiveRunningShoesTrigger5::
 	end
 
 LittlerootTown_EventScript_GiveRunningShoesTrigger::
+	@ Champions already earned the Running Shoes in KANTO.
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_EventScript_SetReceivedRunningShoes
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_MomNoticePlayerMale
 	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_MomNoticePlayerFemale
@@ -910,6 +928,9 @@ LittlerootTown_Movement_MomExitThroughDoor:
 LittlerootTown_EventScript_Mom::
 	lock
 	faceplayer
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_EventScript_PRLMomAlreadyHasShoes
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLMomAlreadyHasShoes
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_EventScript_PRLMomAlreadyHasShoes
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_SetHomeDoorCoordsMale
 	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_SetHomeDoorCoordsFemale
@@ -925,6 +946,15 @@ LittlerootTown_EventScript_Mom::
 	waitdooranim
 	goto LittlerootTown_EventScript_SetReceivedRunningShoes
 	end
+
+LittlerootTown_EventScript_PRLMomAlreadyHasShoes::
+	msgbox LittlerootTown_Text_PRLMomAlreadyHasShoes
+	release
+	end
+
+LittlerootTown_Text_PRLMomAlreadyHasShoes::
+	.string "MOM: Those Running Shoes\n"
+	.string "have served you well!$"
 
 LittlerootTown_EventScript_SetReceivedRunningShoes::
 	removeobject LOCALID_LITTLEROOT_MOM

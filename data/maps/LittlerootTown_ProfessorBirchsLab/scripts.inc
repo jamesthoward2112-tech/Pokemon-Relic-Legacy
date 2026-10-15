@@ -24,12 +24,21 @@ LittlerootTown_ProfessorBirchsLab_OnTransition:
 	call ProfBirch_EventScript_UpdateLocation
 	@ PR89: Hoenn's three starter balls replace Emerald's Johto gift
 	@ while this FireRed bridge is active; no vanilla gift may fire.
-	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLWaitForBirch
 	goto_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom
 	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHideStarterRoom
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_SetAfterJohtoStarterLayout
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_SetJohtoStarterLayout
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_CheckReadyForJohtoStarter
+	end
+
+@ The Champion must actually walk up to Birch first. No off-screen dialogue.
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLWaitForBirch::
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom::
@@ -69,7 +78,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_SetAfterJohtoStarterLayout::
 	end
 
 LittlerootTown_ProfessorBirchsLab_OnWarp:
-	map_script_2 VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLPlaceStarterBalls
 	map_script_2 VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLPlaceStarterBalls
 	map_script_2 VAR_BIRCH_LAB_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_SetPlayerPosForReceiveStarter
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForDexUpgrade
@@ -130,8 +138,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForJohtoStarters::
 	end
 
 LittlerootTown_ProfessorBirchsLab_OnFrame:
-	@ PR83: one-shot return-safe arrival for the Kanto Champion.
-	map_script_2 VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival
+	@ PR90: Birch's welcome is interaction-only, not a room-wide OnFrame event.
 	map_script_2 VAR_BIRCH_LAB_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_GiveStarterEvent
 	map_script_2 VAR_BIRCH_LAB_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_GivePokedexEvent
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_UpgradeToNationalDex
@@ -142,14 +149,17 @@ LittlerootTown_ProfessorBirchsLab_OnFrame:
 @ their national Pokédex and Trainer ID. Never replay Emerald's old truck.
 @ The party was boxed during the Kanto departure transaction.
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival::
-	lockall
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
-	addobject LOCALID_BIRCHS_LAB_BIRCH
-	@ Advance before giving control back: the welcome runs once only.
-	@ 4 = inspecting balls; 2 = completed region transfer.
+	@ Entered via Birch's object interaction after lock + faceplayer.
+	@ Stage 4 remains persisted even if the player exits before choosing.
 	setvar VAR_PRL_REGION_STAGE, 4
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome
-	releaseall
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA
+	addobject LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL
+	addobject LOCALID_BIRCHS_LAB_TOTODILE_BALL
+	addobject LOCALID_BIRCHS_LAB_CHIKORITA_BALL
+	release
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLRaltsBall::
@@ -220,7 +230,11 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterFailed::
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::
 	@ Trigger no vanilla Birch-starter duplicate, dex-upgrade or Johto cutscene.
 	setvar VAR_BIRCH_LAB_STATE, 5
-	setvar VAR_LITTLEROOT_TOWN_STATE, 3
+	@ Entered from KANTO with Running Shoes; skip Emerald's MOM gift event.
+	setflag FLAG_SYS_B_DASH
+	setflag FLAG_RECEIVED_RUNNING_SHOES
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	setvar VAR_LITTLEROOT_TOWN_STATE, 4
 	setvar VAR_LITTLEROOT_RIVAL_STATE, 4
 	setvar VAR_OLDALE_TOWN_STATE, 1
 	setflag FLAG_RESCUED_BIRCH
@@ -238,9 +252,14 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::
 	end
 
 LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome::
-	.string "BIRCH: The KANTO CHAMPION!\n"
-	.string "PROF. OAK said you'd arrive.\p"
-	.string "Welcome to HOENN, {PLAYER}!\p"
+	.string "BIRCH: {PLAYER}! OAK told\n"
+	.string "me you were coming.\p"
+	.string "What happened in KANTO\n"
+	.string "was no isolated event.\p"
+	.string "A strange RESONANCE is\n"
+	.string "awakening HOENN's relics.\p"
+	.string "That is why OAK sent you\n"
+	.string "to study this region.\p"
 	.string "Choose a partner before we\n"
 	.string "box your KANTO team.\p"
 	.string "Your uncle FRANK lives in\n"
@@ -658,12 +677,33 @@ LittlerootTown_ProfessorBirchsLab_EventScript_ReceivedJohtoStarter::
 LittlerootTown_ProfessorBirchsLab_EventScript_Birch::
 	lock
 	faceplayer
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchWaiting
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchResearch
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 5, LittlerootTown_ProfessorBirchsLab_EventScript_CanHaveAnyOneOfRarePokemon
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_GrassyPatchWaiting
 	goto_if_unset FLAG_HAS_MATCH_CALL, LittlerootTown_ProfessorBirchsLab_EventScript_TryRatePokedexOrRegister
 	goto_if_unset FLAG_ENABLE_PROF_BIRCH_MATCH_CALL, EventScript_RegisterProfBirch
 	goto LittlerootTown_ProfessorBirchsLab_EventScript_TryRatePokedexOrRegister
 	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchWaiting::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLChooseCarefully
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchResearch::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLBirchResearch
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLBirchResearch::
+	.string "BIRCH: OAK was right about\n"
+	.string "the KANTO resonance.\p"
+	.string "HOENN's ancient sites are\n"
+	.string "responding to the same pulse.\p"
+	.string "Keep your field notes close.\n"
+	.string "Your journey has just begun!$"
 
 LittlerootTown_ProfessorBirchsLab_EventScript_CanHaveAnyOneOfRarePokemon::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_CanHaveAnyOneOfRarePokemon, MSGBOX_DEFAULT
