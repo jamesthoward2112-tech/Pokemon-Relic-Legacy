@@ -10101,8 +10101,6 @@ bool32 AreMultiPartiesFullTeams(void)
         return FALSE;
     }
 #else
-    enum DifficultyLevel difficulty = GetCurrentDifficultyLevel();
-
     if (B_MULTI_HALF_TEAMS)
     {
         gSpecialVar_Result = FALSE;
