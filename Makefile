@@ -70,6 +70,14 @@ ifneq ($(PRL_MERCURY_ART_READY),yes)
   $(error Could not unpack Pokémon Mercury approved donor art)
 endif
 
+# Deterministically restore the user-approved TRE Primal legendary bird
+# battle artwork. The source is checked-in, digest-verified 4bpp donor data.
+# This does NOT change species mechanics or copy the mislabelled donor icons.
+PRL_TRE_BIRDS_ART_READY := $(shell python3 tools/prl_tre_bird_assets.py && echo yes)
+ifneq ($(PRL_TRE_BIRDS_ART_READY),yes)
+  $(error Could not restore verified TRE Primal Articuno/Zapdos/Moltres artwork)
+endif
+
 # Decode the pinned, approved Crystal Redux presentation bank.
 PRL_CRYSTAL_ART_READY := $(shell python3 tools/prl_crystal_presentation_assets.py && python3 tools/prl_duo_20261011_assets.py && python3 tools/prl_rocket_dark_20261011_assets.py && echo yes)
 ifneq ($(PRL_CRYSTAL_ART_READY),yes)
