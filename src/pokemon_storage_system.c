@@ -8,6 +8,7 @@
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "field_screen_effect.h"
+#include "field_specials.h"
 #include "field_weather.h"
 #include "fldeff_misc.h"
 #include "gpu_regs.h"
@@ -1667,6 +1668,10 @@ static void CreateMainMenu(u8 whichMenu, s16 *windowIdPtr)
 
 static void CB2_ExitPokeStorage(void)
 {
+    // Sorting on the way OUT avoids shuffling slots while the cursor is
+    // holding a Pokemon. Treat manually moved high-level mons just like
+    // migrated ones, and preserve exact boxed-mon bytes if resort fails.
+    PRLHoennResortExistingPC();
     sPreviousBoxOption = GetCurrentBoxOption();
     gFieldCallback = FieldTask_ReturnToPcMenu;
     SetMainCallback2(CB2_ReturnToField);
