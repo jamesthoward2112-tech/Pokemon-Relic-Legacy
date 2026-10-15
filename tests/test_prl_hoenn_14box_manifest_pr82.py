@@ -44,7 +44,8 @@ class TestPR82FourteenBoxManifest(unittest.TestCase):
         self.assertIn("VermilionCity_Text_PRLHoennFinalConfirm", board)
         self.assertIn("setvar VAR_PRL_REGION_STAGE, 1", board)
         self.assertNotIn("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer", board)
-        self.assertIn("warp MAP_LITTLEROOT_TOWN", board)
+        self.assertIn("special DoSeagallopFerryScene", board)
+        self.assertIn("SEAGALLOP_PRL_SLATEPORT_TRANSFER", board)
         for unsafe in ("\tremoveitem ", "\tsetmoney ", "\tgivemon "):
             self.assertNotIn(unsafe, board)
 

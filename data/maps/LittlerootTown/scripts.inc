@@ -35,9 +35,10 @@ LittlerootTown_MapScripts::
 
 
 LittlerootTown_OnTransition:
-	@ The Champion arrives by S.S. LEGACY, never by moving truck.
-	@ Hiding these old Emerald props also removes their pass-through graphics.
-	call_if_eq VAR_PRL_REGION_STAGE, 1, LittlerootTown_EventScript_PRLHideTrucks
+	@ S.S. LEGACY docks at Slateport; Birch's truck handles the final leg.
+	@ Only the first PRL crossing reveals a delivery truck; older Hoenn saves
+	@ and subsequent visits keep both trucks and vanilla Mom hidden.
+	call_if_eq VAR_PRL_REGION_STAGE, 1, LittlerootTown_EventScript_PRLPrepareShuttleTruck
 	call_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_EventScript_PRLHideTrucks
 	call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLHideTrucks
 	call_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_EventScript_PRLHideTrucks
@@ -126,6 +127,24 @@ LittlerootTown_EventScript_PRLKeepKantoRunningShoes::
 	setvar VAR_LITTLEROOT_TOWN_STATE, 4
 	return
 
+LittlerootTown_EventScript_PRLPrepareShuttleTruck::
+	goto_if_ne VAR_LITTLEROOT_INTRO_STATE, 8, LittlerootTown_EventScript_PRLHideTrucks
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_PRLShowMaleShuttle
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_PRLShowFemaleShuttle
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	return
+
+LittlerootTown_EventScript_PRLShowMaleShuttle::
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
+	return
+
+LittlerootTown_EventScript_PRLShowFemaleShuttle::
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
+	return
+
 LittlerootTown_EventScript_PRLHideTrucks::
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
@@ -143,6 +162,7 @@ LittlerootTown_OnFrame:
 	.2byte 0
 
 LittlerootTown_EventScript_PRLOutdoorDockArrival::
+	goto_if_eq VAR_LITTLEROOT_INTRO_STATE, 8, LittlerootTown_EventScript_PRLFinishShuttleArrival
 	lockall
 	@ First verify Hoenn's outdoor tiles/music/scripts work before
 	@ activating Birch's more complex interior story.
@@ -163,6 +183,35 @@ LittlerootTown_EventScript_PRLOutdoorDockArrival::
 	msgbox LittlerootTown_Text_PRLSafeHoennArrival
 	releaseall
 	end
+
+// Reuse Emerald's step-off-truck jump, but never its Mum/house/clock chain.
+LittlerootTown_EventScript_PRLFinishShuttleArrival::
+	lockall
+	playse SE_LEDGE
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerStepOffTruck
+	waitmovement 0
+	setvar VAR_LITTLEROOT_INTRO_STATE, 0
+	setvar VAR_LITTLEROOT_TOWN_STATE, 0
+	setvar VAR_BIRCH_LAB_STATE, 0
+	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	removeobject 5
+	removeobject 6
+	setvar VAR_PRL_REGION_STAGE, 3
+	msgbox LittlerootTown_Text_PRLShuttleArrival
+	clearflag FLAG_HIDE_MAP_NAME_POPUP
+	releaseall
+	end
+
+LittlerootTown_Text_PRLShuttleArrival::
+	.string "The S.S. LEGACY docked at\n"
+	.string "SLATEPORT CITY.\p"
+	.string "PROF. BIRCH arranged a\n"
+	.string "truck ride inland.\p"
+	.string "Welcome to LITTLEROOT!\n"
+	.string "The relic journey begins!$"
 
 LittlerootTown_Text_PRLSafeHoennArrival::
 	.string "HOENN REGION - LITTLEROOT\n"

@@ -12,6 +12,8 @@
 #define SEAGALLOP_CINNABAR_ISLAND  8
 #define SEAGALLOP_NAVEL_ROCK       9
 #define SEAGALLOP_BIRTH_ISLAND    10
+// PRL only: scripted voyage destination, not selectable via Sevii ferry menus.
+#define SEAGALLOP_PRL_SLATEPORT_TRANSFER 11
 
 #define SEAGALLOP_MORE           254
 

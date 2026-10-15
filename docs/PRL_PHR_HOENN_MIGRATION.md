@@ -8,6 +8,12 @@
 
 Actual source donor: [Pokemon-Hoenn-Relics](https://github.com/jamesthoward2112-tech/Pokemon-Hoenn-Relics), **branch `feature/h022-postgame-rematches`**. The `main` branch is a scaffold; the H022 branch contains PHR's H005–H022 source overlays, assets, `data/hoennmon_*_v0.15` and design documentation. Its `engine/pokeemerald-expansion` is a pinned expansion **1.17.0 submodule** at `e8bd1cd7b03fc032ea37e3ecd38b379b5d01a1e7`. PRL's build is a different revision/configuration. All PHR `tools/apply_*.py` assume that original engine SHA, so NEVER run them directly against PRL or copy a PHR ROM binary over the PRL ROM. Port intended behavior with separate patches and compatibility tests.
 
+## PR95 ship and lorry cutscene (based on PR94)
+
+S.S. LEGACY sails from Vermilion to **Slateport** in the established FRLG boat-on-water animation, using a dedicated scripted travel destination outside ordinary Sevii menus. The **Slateport Harbour is not loaded** until its maps and scripts are ported. Birch has instead arranged an inland delivery truck to Littleroot. The truck uses Emerald's original `ExecuteTruckSequence` with camera movement, boxes and door opening. The player steps out into Littleroot, but Emerald's original Mum/house/clock chain is **not invoked**. Truck script stage 8 excludes vanilla intro triggers and preserves the Kanto Champion's save, party and identification. Prior PR89–94 converted Hoenn saves keep their existing direct arrival and will not replay the cutscene. The stock FRLG boat silhouette is a temporary visual stand-in for the larger S.S. LEGACY, not a new bespoke ship asset.
+
+**Validation:** Both genders' first crossings, Save/Continue inside truck, old converted saves, all Sevii travel, no vanished player/avatar, no house warp, Birch's one-time starter and Kanto box transfer, and title-screen preservation. CI cannot substitute for actual emulator checks.
+
 ## Sequenced import gates
 
 1. **PR90 entry repair:** new Hoenn relic narration; Birch greets only when approached; only then spawn Ralts/Poochyena/Gemlin balls at original map coordinates on the lab table; prevent repeatedly receiving Running Shoes from Mom even on an existing PR89 Hoenn save. Retain full Kanto party until one Hoenn starter chosen. 

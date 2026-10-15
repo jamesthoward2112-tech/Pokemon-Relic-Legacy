@@ -21,7 +21,8 @@ class PR84Safety(unittest.TestCase):
         self.assertIn("map_script_2 VAR_PRL_REGION_STAGE, 1, LittlerootTown_EventScript_PRLOutdoorDockArrival", town)
         self.assertIn("setvar VAR_PRL_REGION_STAGE, 3", town)
         self.assertNotIn("PRLHoennCommitKantoTransfer", s)
-        self.assertLess(s.index("setvar VAR_PRL_REGION_STAGE, 1"), s.index("warp MAP_LITTLEROOT_TOWN"))
+        self.assertLess(s.index("setvar VAR_PRL_REGION_STAGE, 1"), s.index("special DoSeagallopFerryScene"))
+        self.assertIn("SEAGALLOP_PRL_SLATEPORT_TRANSFER", s)
 
     def test_sailor_pages_use_at_most_two_lines(self):
         sailor = read("data/maps/VermilionCity_Frlg/scripts.inc")
