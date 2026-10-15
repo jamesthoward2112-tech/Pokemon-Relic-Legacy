@@ -14,7 +14,7 @@ def read(relative):
 class PR100RuntimeRootCauses(unittest.TestCase):
     def test_every_box_level_read_uses_xp_not_party_level_field(self):
         code = read("src/field_specials.c")
-        self.assertNotRegex(code, r"GetBoxMonData\\([^;]*?MON_DATA_LEVEL\\)")
+        self.assertNotRegex(code, r"GetBoxMonData\([^;]*?MON_DATA_LEVEL\)")
         self.assertIn("GetLevelFromBoxMonExp(mon)", code)
         self.assertIn("GetLevelFromBoxMonExp(&planned[box][right])", code)
         self.assertIn("GetLevelFromBoxMonExp(&planned[laterBox][laterSlot])", code)
