@@ -142,11 +142,12 @@ LittlerootTown_EventScript_PRLEnsureArrivalBank::
 	return
 
 LittlerootTown_EventScript_PRLPlaceAuntNearBrendansHouse::
-	setobjectxyperm LOCALID_LITTLEROOT_MOM, 5, 9
+	@ Adjacent to (not blocking) her front door.
+	setobjectxyperm LOCALID_LITTLEROOT_MOM, 6, 9
 	return
 
 LittlerootTown_EventScript_PRLPlaceAuntNearMaysHouse::
-	setobjectxyperm LOCALID_LITTLEROOT_MOM, 14, 9
+	setobjectxyperm LOCALID_LITTLEROOT_MOM, 13, 9
 	return
 
 LittlerootTown_EventScript_PRLPrepareShuttleTruck::
