@@ -39,8 +39,9 @@ class PR83Journey(unittest.TestCase):
     def test_arrival_starter_once_and_uncle_frank(self):
         sc=read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
         self.assertIn("map_script_2 VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival", sc)
-        for species in ("RALTS", "POOCHYENA", "SABLEYE"):
+        for species in ("RALTS", "POOCHYENA", "GEMLIN"):
             self.assertIn("starterSpecies = SPECIES_"+species+";", read("src/field_specials.c"))
+        self.assertIn("setvar VAR_PRL_REGION_STAGE, 4", sc)
         for phrase in ("setvar VAR_PRL_REGION_STAGE, 2", "setflag FLAG_RESCUED_BIRCH",
                        "uncle FRANK", "BIRCH: The KANTO CHAMPION"):
             self.assertIn(phrase,sc)

@@ -39,7 +39,8 @@ class PR84Safety(unittest.TestCase):
         self.assertIn("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer", lab)
         self.assertIn("warp MAP_VERMILION_CITY, 24, 32", lab)
         source = read("src/field_specials.c").split("u16 PRLHoennCommitKantoTransfer(void)", 1)[1]
-        self.assertIn("VarGet(VAR_PRL_REGION_STAGE) != 3", source)
+        self.assertIn("VarGet(VAR_PRL_REGION_STAGE) != 4", source)
+        self.assertIn("setvar VAR_PRL_REGION_STAGE, 4", lab)
         self.assertIn("u16 starterChoice = gSpecialVar_0x8004;", source)
         self.assertIn("CreateRandomMon(&gParties[B_TRAINER_PLAYER][0], starterSpecies, 5);", source)
         self.assertIn("gPartiesCount[B_TRAINER_PLAYER] = 1;", source)
