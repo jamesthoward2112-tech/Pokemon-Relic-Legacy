@@ -1977,6 +1977,11 @@ static void CB2_PokeStorage(void)
 
 static void EnterPokeStorage(u8 boxOption)
 {
+    // Also repair older Hoenn saves as the storage UI opens. The compact
+    // PR100 plan can run before large PC sprite buffers are allocated.
+    // Scripted one-Pokemon selectors must retain the caller's slot IDs.
+    if (VarGet(VAR_PRL_REGION_STAGE) == 2 && boxOption != OPTION_SELECT_MON)
+        PRLHoennResortExistingPC();
     ResetTasks();
     sCurrentBoxOption = boxOption;
     sStorage = Alloc(sizeof(*sStorage));
