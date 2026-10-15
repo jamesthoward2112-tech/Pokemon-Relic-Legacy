@@ -1318,18 +1318,18 @@ RustboroCity_Text_YouCanHave2On2Battle:
 
 
 RustboroCity_Text_PRLKiriWelcome::
-	.string "KIRI: Birch asked me\\n"
-	.string "to find a good trainer.\\p"
-	.string "This TORCHIC is Lv10\\n"
-	.string "and holding CHARCOAL.\\p"
+	.string "KIRI: Birch asked me\n"
+	.string "to find a good trainer.\p"
+	.string "This TORCHIC is Lv10\n"
+	.string "and holding CHARCOAL.\p"
 	.string "Will you look after it?$"
 
 RustboroCity_Text_PRLKiriNoRoom::
-	.string "KIRI: Make room in\\n"
+	.string "KIRI: Make room in\n"
 	.string "your party or PC first.$"
 
 RustboroCity_Text_PRLKiriReceived::
-	.string "KIRI: Take good care\\n"
+	.string "KIRI: Take good care\n"
 	.string "of TORCHIC!$"
 
 RustboroCity_Text_PRLKiriAfter::
