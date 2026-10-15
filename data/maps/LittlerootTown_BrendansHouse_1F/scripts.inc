@@ -1,6 +1,7 @@
 LittlerootTown_BrendansHouse_1F_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, LittlerootTown_BrendansHouse_1F_OnLoad
 	map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_BrendansHouse_1F_OnTransition
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, LittlerootTown_BrendansHouse_1F_PRLOnWarp
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, LittlerootTown_BrendansHouse_1F_OnFrame
 	.byte 0
 
@@ -39,6 +40,45 @@ LittlerootTown_BrendansHouse_1F_OnTransition:
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 5, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToStairs
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToTV
 	end
+
+@ After object spawning, explicitly remove NPCs which older saves had
+@ already loaded before OnTransition changed their flags.
+LittlerootTown_BrendansHouse_1F_PRLOnWarp:
+	map_script_2 VAR_PRL_REGION_STAGE, 2, LittlerootTown_BrendansHouse_1F_PRLRepairNPCs
+	map_script_2 VAR_PRL_REGION_STAGE, 3, LittlerootTown_BrendansHouse_1F_PRLRepairNPCs
+	map_script_2 VAR_PRL_REGION_STAGE, 4, LittlerootTown_BrendansHouse_1F_PRLRepairNPCs
+	.2byte 0
+
+LittlerootTown_BrendansHouse_1F_PRLRepairNPCs::
+	@ Local ID order is stable in Emerald and PRL (do not renumber):
+	@ 1 Rosie, 2/3 old Vigoroth, 4 Birch-family adult, 5 old
+	@ noninteractive Norman, 6 Birch-family sibling, 7 rival at exit.
+	hideobjectat 2, MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F
+	removeobject 2
+	hideobjectat 3, MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F
+	removeobject 3
+	hideobjectat LOCALID_PLAYERS_HOUSE_1F_DAD, MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F
+	removeobject LOCALID_PLAYERS_HOUSE_1F_DAD
+	hideobjectat LOCALID_RIVALS_HOUSE_1F_RIVAL, MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F
+	removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, LittlerootTown_BrendansHouse_1F_PRLRepairRosiesHome
+	@ This is Birch's house. Never show a second Rosie.
+	hideobjectat LOCALID_PLAYERS_HOUSE_1F_MOM, MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F
+	removeobject LOCALID_PLAYERS_HOUSE_1F_MOM
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_MOM
+	addobject LOCALID_RIVALS_HOUSE_1F_MOM
+	return
+
+LittlerootTown_BrendansHouse_1F_PRLRepairRosiesHome::
+	@ Aunt lives here; hide the extra Birch-family characters.
+	hideobjectat LOCALID_RIVALS_HOUSE_1F_MOM, MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F
+	removeobject LOCALID_RIVALS_HOUSE_1F_MOM
+	hideobjectat 6, MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F
+	removeobject 6
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_MOM
+	addobject LOCALID_PLAYERS_HOUSE_1F_MOM
+	return
 
 LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToStairs::
 	setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 8, 4
@@ -450,6 +490,11 @@ PlayersHouse_1F_Text_StillUnknownPokemon:
 @ PRL continuity: Hoenn's guardian is the player's AUNT.
 @ Kanto MUM remains back in Pallet Town, watching the saved money.
 LittlerootTown_BrendansHouse_1F_EventScript_PRLMakeAuntAvailable::
+	@ Stop native Emerald first-visit and rival intro triggers on Hoenn
+	@ saves transferred from Kanto, even when their old vars were reused.
+	setvar VAR_LITTLEROOT_INTRO_STATE, 0
+	setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 0
+	setvar VAR_LITTLEROOT_HOUSES_STATE_MAY, 0
 	@ On every Hoenn house entry remove the vanilla moving-in props, the
 	@ inert father, and the rival sprite which blocked the door tile.
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_1
