@@ -22,9 +22,29 @@ LittlerootTown_ProfessorBirchsLab_MapScripts::
 LittlerootTown_ProfessorBirchsLab_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call ProfBirch_EventScript_UpdateLocation
+	@ PR89: Hoenn's three starter balls replace Emerald's Johto gift
+	@ while this FireRed bridge is active; no vanilla gift may fire.
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHideStarterRoom
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_SetAfterJohtoStarterLayout
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_SetJohtoStarterLayout
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_CheckReadyForJohtoStarter
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom::
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLHideStarterRoom::
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_CheckReadyForJohtoStarter::
@@ -49,6 +69,8 @@ LittlerootTown_ProfessorBirchsLab_EventScript_SetAfterJohtoStarterLayout::
 	end
 
 LittlerootTown_ProfessorBirchsLab_OnWarp:
+	map_script_2 VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLPlaceStarterBalls
+	map_script_2 VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLPlaceStarterBalls
 	map_script_2 VAR_BIRCH_LAB_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_SetPlayerPosForReceiveStarter
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForDexUpgrade
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForDexUpgrade
@@ -57,6 +79,18 @@ LittlerootTown_ProfessorBirchsLab_OnWarp:
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForJohtoStarters
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 5, LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForJohtoStarters
 	.2byte 0
+
+@ Reuse the three existing object slots only for FireRed Hoenn selection.
+@ They still retain their original Johto IDs for Emerald compatibility.
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLPlaceStarterBalls::
+	addobject LOCALID_BIRCHS_LAB_BIRCH
+	addobject LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL
+	addobject LOCALID_BIRCHS_LAB_TOTODILE_BALL
+	addobject LOCALID_BIRCHS_LAB_CHIKORITA_BALL
+	setobjectxy LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL, 8, 4
+	setobjectxy LOCALID_BIRCHS_LAB_TOTODILE_BALL, 9, 4
+	setobjectxy LOCALID_BIRCHS_LAB_CHIKORITA_BALL, 10, 4
+	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_SetPlayerPosForReceiveStarter::
 	turnobject LOCALID_PLAYER, DIR_NORTH
@@ -111,29 +145,54 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival::
 	lockall
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
 	addobject LOCALID_BIRCHS_LAB_BIRCH
+	@ Advance before giving control back: the welcome runs once only.
+	@ 4 = inspecting balls; 2 = completed region transfer.
+	setvar VAR_PRL_REGION_STAGE, 4
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome
-LittlerootTown_ProfessorBirchsLab_EventScript_PRLChooseRalts::
+	releaseall
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLRaltsBall::
+	lockall
+	showmonpic SPECIES_RALTS, 10, 3
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLWantRalts, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveRalts
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLDeclineStarter
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLPoochyenaBall::
+	lockall
+	showmonpic SPECIES_POOCHYENA, 10, 3
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLWantPoochyena, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGivePoochyena
-	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLWantSableye, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveSableye
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLDeclineStarter
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLGemlinBall::
+	lockall
+	showmonpic SPECIES_GEMLIN, 10, 3
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLWantGemlin, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveGemlin
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLDeclineStarter
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLDeclineStarter::
+	hidemonpic
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLChooseCarefully
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLChooseRalts
+	releaseall
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveRalts::
+	hidemonpic
 	setvar VAR_0x8004, 1
 	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLCommitChosenStarter
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLGivePoochyena::
+	hidemonpic
 	setvar VAR_0x8004, 2
 	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLCommitChosenStarter
 	end
 
-LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveSableye::
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveGemlin::
+	hidemonpic
 	setvar VAR_0x8004, 3
 	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLCommitChosenStarter
 	end
@@ -167,6 +226,13 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::
 	setflag FLAG_RESCUED_BIRCH
 	setflag FLAG_ADVENTURE_STARTED
 	setvar VAR_PRL_REGION_STAGE, 2
+	@ No remaining gift may be taken, including the old Johto trio.
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA
+	removeobject LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL
+	removeobject LOCALID_BIRCHS_LAB_TOTODILE_BALL
+	removeobject LOCALID_BIRCHS_LAB_CHIKORITA_BALL
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLHoennNext
 	releaseall
 	end
@@ -180,7 +246,9 @@ LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome::
 	.string "Your uncle FRANK lives in\n"
 	.string "PETALBURG CITY.\p"
 	.string "First, choose a partner for\n"
-	.string "your new adventure!$"
+	.string "your new adventure!\p"
+	.string "Inspect the three POKé BALLS\n"
+	.string "and choose just one.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_PRLWantRalts::
 	.string "Will you begin with RALTS?$"
@@ -188,8 +256,8 @@ LittlerootTown_ProfessorBirchsLab_Text_PRLWantRalts::
 LittlerootTown_ProfessorBirchsLab_Text_PRLWantPoochyena::
 	.string "How about POOCHYENA?$"
 
-LittlerootTown_ProfessorBirchsLab_Text_PRLWantSableye::
-	.string "Or would you choose SABLEYE?$"
+LittlerootTown_ProfessorBirchsLab_Text_PRLWantGemlin::
+	.string "Will you begin with GEMLIN?$"
 
 LittlerootTown_ProfessorBirchsLab_Text_PRLChooseCarefully::
 	.string "BIRCH: Take your time.\n"
@@ -392,6 +460,10 @@ LittlerootTown_ProfessorBirchsLab_EventScript_AideReceivedStarter::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_Cyndaquil::
+	@ Prevent the old Johto starter gift in the Kanto-to-Hoenn bridge.
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLRaltsBall
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLRaltsBall
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAlreadyChoseStarter
 	release
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_AlreadyChoseJohtoStarter
 	applymovement LOCALID_BIRCHS_LAB_BIRCH, Common_Movement_WalkInPlaceFasterRight
@@ -403,6 +475,10 @@ LittlerootTown_ProfessorBirchsLab_EventScript_Cyndaquil::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_Totodile::
+	@ Prevent the old Johto starter gift in the Kanto-to-Hoenn bridge.
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLPoochyenaBall
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLPoochyenaBall
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAlreadyChoseStarter
 	release
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_AlreadyChoseJohtoStarter
 	applymovement LOCALID_BIRCHS_LAB_BIRCH, Common_Movement_WalkInPlaceFasterRight
@@ -414,6 +490,10 @@ LittlerootTown_ProfessorBirchsLab_EventScript_Totodile::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_Chikorita::
+	@ Prevent the old Johto starter gift in the Kanto-to-Hoenn bridge.
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGemlinBall
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGemlinBall
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAlreadyChoseStarter
 	release
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_AlreadyChoseJohtoStarter
 	applymovement LOCALID_BIRCHS_LAB_BIRCH, Common_Movement_WalkInPlaceFasterRight
@@ -423,6 +503,16 @@ LittlerootTown_ProfessorBirchsLab_EventScript_Chikorita::
 	goto_if_eq VAR_RESULT, NO, LittlerootTown_ProfessorBirchsLab_EventScript_TakeYourTime
 	goto LittlerootTown_ProfessorBirchsLab_EventScript_GiveChikorita
 	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLAlreadyChoseStarter::
+	lockall
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLAlreadyChoseStarter
+	releaseall
+	end
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLAlreadyChoseStarter::
+	.string "BIRCH: You already chose\n"
+	.string "your HOENN partner!$"
 
 LittlerootTown_ProfessorBirchsLab_EventScript_AlreadyChoseJohtoStarter::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_BetterLeaveOthersAlone, MSGBOX_DEFAULT
