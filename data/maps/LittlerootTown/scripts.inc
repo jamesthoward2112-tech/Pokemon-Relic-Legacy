@@ -46,8 +46,7 @@ LittlerootTown_OnTransition:
 	call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLEnsureArrivalBank
 	call_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_EventScript_PRLHideTrucks
 	@ Rosie remains a real, talkable NPC even before the starter is selected.
-	call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLPlaceWaitingAunt
-	call_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_EventScript_PRLPlaceWaitingAunt
+	@ Rosie stays in the house after her one-time welcome.
 	setflag FLAG_VISITED_LITTLEROOT_TOWN
 	call Common_EventScript_SetupRivalGfxId
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_MoveMomToMaysDoor
@@ -121,12 +120,8 @@ LittlerootTown_EventScript_PRLKeepKantoRunningShoes::
 	special PRLHoennEnsureEssentials
 	@ First post-starter town load: repair box labels/order on PR97 saves.
 	special PRLHoennAutoSortPCOnce
-	@ Aunt Rosie is a real town resident, NOT the player's Kanto Mum.
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
-	setobjectmovementtype LOCALID_LITTLEROOT_MOM, MOVEMENT_TYPE_FACE_DOWN
-	checkplayergender
-	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_PRLPlaceAuntNearBrendansHouse
-	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_PRLPlaceAuntNearMaysHouse
+	@ After welcoming the player, Rosie is indoors, not outside.
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
 	@ PR94: ensure the old Route101 rescue props are hidden BEFORE the
 	@ player crosses the north border, even on older converted saves.
 	setvar VAR_ROUTE101_STATE, 3
@@ -313,8 +308,40 @@ LittlerootTown_EventScript_PRLRosieWelcomeOnArrival::
 	msgbox LittlerootTown_Text_PRLRosieArrival
 	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_PRLRosieReturn
 	waitmovement 0
-	setobjectmovementtype LOCALID_LITTLEROOT_MOM, MOVEMENT_TYPE_FACE_DOWN
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_PRLRosieAlignMaleDoor
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_PRLRosieAlignFemaleDoor
+	opendoor VAR_0x8009, VAR_0x800A
+	waitdooranim
+	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_MomExitThroughDoor
+	waitmovement 0
+	hideobjectat LOCALID_LITTLEROOT_MOM, MAP_LITTLEROOT_TOWN
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	closedoor VAR_0x8009, VAR_0x800A
+	waitdooranim
 	return
+
+LittlerootTown_EventScript_PRLRosieAlignMaleDoor::
+	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_PRLRosieOneLeft
+	waitmovement 0
+	call LittlerootTown_EventScript_SetHomeDoorCoordsMale
+	return
+
+LittlerootTown_EventScript_PRLRosieAlignFemaleDoor::
+	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_PRLRosieOneRight
+	waitmovement 0
+	call LittlerootTown_EventScript_SetHomeDoorCoordsFemale
+	return
+
+LittlerootTown_Movement_PRLRosieOneLeft:
+	walk_left
+	walk_in_place_faster_up
+	step_end
+
+LittlerootTown_Movement_PRLRosieOneRight:
+	walk_right
+	walk_in_place_faster_up
+	step_end
 
 LittlerootTown_EventScript_PRLRosieFaceMalePlayer::
 	turnobject LOCALID_LITTLEROOT_MOM, DIR_WEST
@@ -337,23 +364,15 @@ LittlerootTown_Movement_PRLRosieReturn:
 
 LittlerootTown_Text_PRLRosieArrival::
 	.string "AUNT ROSIE: {PLAYER}!\n"
-	.string "Your MUM asked me to help.\p"
-	.string "Welcome to HOENN!\n"
-	.string "Your KANTO team is safe.\p"
-	.string "Your BAG and POKéMON\n"
-	.string "aren't available just yet.\p"
-	.string "When you pick a starter,\n"
-	.string "BIRCH will box your team.\p"
-	.string "Your old BAG stays behind,\n"
-	.string "but some items come along.\p"
-	.string "MUM's keeping your KANTO\n"
-	.string "savings safe for later.\p"
-	.string "BIRCH will give you money\n"
-	.string "to start your HOENN journey.\p"
-	.string "Until then, avoid wild\n"
-	.string "POKéMON without a partner!\p"
-	.string "BIRCH's LAB is south.\n"
-	.string "I'll be outside my house!$"
+	.string "MUM sent me to greet you.\p"
+	.string "She is keeping your\n"
+	.string "KANTO savings safe.\p"
+	.string "If you return home,\n"
+	.string "your money will be there.\p"
+	.string "PROF. BIRCH is waiting\n"
+	.string "at his LAB to the south.\p"
+	.string "Come visit me at home!\n"
+	.string "I would love to help.$"
 
 LittlerootTown_Text_PRLShuttleArrival::
 	.string "The S.S. LEGACY docked at\n"

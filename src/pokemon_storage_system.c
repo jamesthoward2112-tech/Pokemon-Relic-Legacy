@@ -113,6 +113,7 @@ enum {
     MSG_CHANGED_TO_ITEM,
     MSG_CANT_STORE_MAIL,
     MSG_PRL_HOENN_LEVEL_LOCK,
+    MSG_PRL_HOENN_LEAGUE_LOCK,
 };
 
 // IDs for how to resolve variables in the above messages
@@ -125,6 +126,7 @@ enum {
     MSG_VAR_RELEASE_MON_2, // Unused
     MSG_VAR_RELEASE_MON_3,
     MSG_VAR_ITEM_NAME,
+    MSG_VAR_PRL_BADGES,
 };
 
 // IDs for menu selection items. See SetMenuText, HandleMenuInput, etc
@@ -1084,7 +1086,8 @@ static const struct StorageMessage sMessages[] =
     [MSG_ITEM_IS_HELD]         = {COMPOUND_STRING("{DYNAMIC 0} is now held."),   MSG_VAR_ITEM_NAME},
     [MSG_CHANGED_TO_ITEM]      = {COMPOUND_STRING("Changed to {DYNAMIC 0}."),    MSG_VAR_ITEM_NAME},
     [MSG_CANT_STORE_MAIL]      = {COMPOUND_STRING("MAIL can't be stored!"),      MSG_VAR_NONE},
-    [MSG_PRL_HOENN_LEVEL_LOCK] = {COMPOUND_STRING("Higher levels need more\nHOENN Gym Badges!"), MSG_VAR_NONE},
+    [MSG_PRL_HOENN_LEVEL_LOCK]  = {COMPOUND_STRING("Need {DYNAMIC 0} more badges!"), MSG_VAR_PRL_BADGES},
+    [MSG_PRL_HOENN_LEAGUE_LOCK] = {COMPOUND_STRING("Beat HOENN LEAGUE!"), MSG_VAR_NONE},
 };
 
 static const struct WindowTemplate sYesNoWindowTemplate =
@@ -2786,6 +2789,25 @@ static bool32 PRLHoennStorageLevelLocked(u8 level)
     return VarGet(VAR_PRL_REGION_STAGE) == 2 && level > PRLHoennPcLevelLimit();
 }
 
+// The storage window has room for a short single-line warning. Report
+// the number of additional HOENN badges required for the chosen Pokémon,
+// without suggesting that a ninth badge exists for Lv91-100.
+static void PRLHoennPrintLevelLock(u8 level)
+{
+    u8 badgesOwned = (PRLHoennPcLevelLimit() - 10) / 10;
+    u8 badgesNeeded;
+
+    if (level > 90)
+    {
+        PrintMessage(MSG_PRL_HOENN_LEAGUE_LOCK);
+        return;
+    }
+
+    badgesNeeded = (level - 1) / 10;
+    ConvertIntToDecimalStringN(gStringVar1, badgesNeeded - badgesOwned, STR_CONV_MODE_LEFT_ALIGN, 2);
+    PrintMessage(MSG_PRL_HOENN_LEVEL_LOCK);
+}
+
 static void Task_PlaceMon(u8 taskId)
 {
     switch (sStorage->state)
@@ -2795,7 +2817,7 @@ static void Task_PlaceMon(u8 taskId)
         if (sCursorArea == CURSOR_AREA_IN_PARTY && sIsMonBeingMoved
          && PRLHoennStorageLevelLocked(GetMonData(&sStorage->movingMon, MON_DATA_LEVEL)))
         {
-            PrintMessage(MSG_PRL_HOENN_LEVEL_LOCK);
+            PRLHoennPrintLevelLock(GetMonData(&sStorage->movingMon, MON_DATA_LEVEL));
             sStorage->state = 2;
             break;
         }
@@ -2830,7 +2852,7 @@ static void Task_ShiftMon(u8 taskId)
         if (sCursorArea == CURSOR_AREA_IN_PARTY && sIsMonBeingMoved
          && PRLHoennStorageLevelLocked(GetMonData(&sStorage->movingMon, MON_DATA_LEVEL)))
         {
-            PrintMessage(MSG_PRL_HOENN_LEVEL_LOCK);
+            PRLHoennPrintLevelLock(GetMonData(&sStorage->movingMon, MON_DATA_LEVEL));
             sStorage->state = 2;
             break;
         }
@@ -2863,7 +2885,7 @@ static void Task_WithdrawMon(u8 taskId)
         // Never make the badge lock contingent on what the UI reports.
         if (PRLHoennStorageLevelLocked(GetLevelFromBoxMonExp(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition))))
         {
-            PrintMessage(MSG_PRL_HOENN_LEVEL_LOCK);
+            PRLHoennPrintLevelLock(GetLevelFromBoxMonExp(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition)));
             sStorage->state = 1;
         }
         else if (CalculatePlayerPartyCount() == PARTY_SIZE)
@@ -2900,7 +2922,7 @@ static void Task_WithdrawMon(u8 taskId)
             // selection/cursor updates after the initial WITHDRAW command.
             if (PRLHoennStorageLevelLocked(GetMonData(&sStorage->movingMon, MON_DATA_LEVEL)))
             {
-                PrintMessage(MSG_PRL_HOENN_LEVEL_LOCK);
+                PRLHoennPrintLevelLock(GetMonData(&sStorage->movingMon, MON_DATA_LEVEL));
                 SetPokeStorageTask(Task_PokeStorageMain);
                 break;
             }
@@ -4389,6 +4411,9 @@ static void PrintMessage(u8 id)
     switch (sMessages[id].format)
     {
     case MSG_VAR_NONE:
+        break;
+    case MSG_VAR_PRL_BADGES:
+        DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gStringVar1);
         break;
     case MSG_VAR_MON_NAME_1:
     case MSG_VAR_MON_NAME_2:

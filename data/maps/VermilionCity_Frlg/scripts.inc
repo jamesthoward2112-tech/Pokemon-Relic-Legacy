@@ -104,8 +104,14 @@ VermilionCity_Text_PRLHoennCheckDeparture::
 	.string "ready to board the S.S. LEGACY?$"
 
 VermilionCity_Text_PRLHoennFinalConfirm::
-	.string "SAILOR: HOENN is a one-way\n"
-	.string "journey for now.\p"
+	.string "SAILOR: HOENN is one-way\n"
+	.string "for now.\p"
+	.string "Your KANTO POKéMON will\n"
+	.string "be boxed in HOENN.\p"
+	.string "Your old BAG items will\n"
+	.string "go to the TRAINER SCHOOL.\p"
+	.string "Your MUM will guard your\n"
+	.string "KANTO savings for later.\p"
 	.string "Please SAVE before leaving!\p"
 	.string "Board the S.S. LEGACY?$"
 

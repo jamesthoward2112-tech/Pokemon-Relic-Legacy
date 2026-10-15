@@ -12,10 +12,10 @@ class HoennPHRFoundation(unittest.TestCase):
         npc=lab.split("LittlerootTown_ProfessorBirchsLab_EventScript_Birch::",1)[1].split("\n\n",1)[0]
         self.assertIn("goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival",npc)
         self.assertIn("goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchResearch",npc)
-        self.assertIn("A strange RESONANCE",lab)
+        self.assertIn("I call it RESONANCE",lab)
         self.assertNotIn("uncle FRANK",lab)
         self.assertIn("KANTO team",lab)
-        self.assertIn("safe in your PC",lab)
+        self.assertIn("safely into the PC",lab)
         self.assertIn("Lv1-10",lab)
     def test_three_starters_stay_on_lab_table_and_only_after_birch(self):
         lab=read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")

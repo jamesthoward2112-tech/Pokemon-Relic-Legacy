@@ -19,7 +19,7 @@ class HoennCriticalFindings(unittest.TestCase):
                         fn.index("InitMonPlaceChange(CHANGE_GRAB)"))
         self.assertLess(fn.index("PRLHoennStorageLevelLocked(GetMonData(&sStorage->movingMon"),
                         fn.index("InitMonPlaceChange(CHANGE_PLACE)"))
-        self.assertIn("MSG_PRL_HOENN_LEVEL_LOCK", fn)
+        self.assertIn("PRLHoennPrintLevelLock(", fn)
         self.assertIn("static void Task_PlaceMon(u8 taskId)",code)
         self.assertIn("static void Task_ShiftMon(u8 taskId)",code)
 
