@@ -6006,6 +6006,34 @@ static void PRLHoennSortEachBoxAscending(struct BoxPokemon (*planned)[IN_BOX_COU
     }
 }
 
+// Called after the Hoenn map successfully loaded, before Birch's starter
+// choice. A save made immediately outside the truck already shows £0 and
+// preserves the entire Kanto purse in the two existing bank variables.
+u16 PRLHoennBankArrivalFunds(void)
+{
+    u32 money;
+    if (VarGet(VAR_PRL_REGION_STAGE) != 3 || FlagGet(FLAG_PRL_HOENN_FUNDS_BANKED))
+        return FALSE;
+    money = GetMoney(&gSaveBlock1Ptr->money);
+    VarSet(VAR_PRL_BANK_KANTO_MONEY_LO, money & 0xFFFF);
+    VarSet(VAR_PRL_BANK_KANTO_MONEY_HI, money >> 16);
+    FlagSet(FLAG_PRL_HOENN_FUNDS_BANKED);
+    SetMoney(&gSaveBlock1Ptr->money, 0);
+    return TRUE;
+}
+
+u16 PRLHoennRestoreKantoFunds(void)
+{
+    u32 money;
+    if (!FlagGet(FLAG_PRL_HOENN_FUNDS_BANKED))
+        return FALSE;
+    money = VarGet(VAR_PRL_BANK_KANTO_MONEY_LO);
+    money |= (u32)VarGet(VAR_PRL_BANK_KANTO_MONEY_HI) << 16;
+    SetMoney(&gSaveBlock1Ptr->money, money);
+    FlagClear(FLAG_PRL_HOENN_FUNDS_BANKED);
+    return TRUE;
+}
+
 // Return FALSE without mutating save data on insufficient PC room / heap.
 // The boarding script calls this only after the explicit final confirmation.
 
@@ -6088,6 +6116,8 @@ u16 PRLHoennCommitKantoTransfer(void)
     // All safety checks passed. The following commit has no remaining
     // allocations or failure-return branches.
     PRLHoennSortEachBoxAscending(planned, used);
+    // KANTO funds were banked by Mum when the lorry reached Littleroot.
+    // Do not overwrite that balance with the temporary Hoenn £0.
     money = GetMoney(&gSaveBlock1Ptr->money);
     expShareQuantity = CountTotalItemQuantityInBag(ITEM_EXP_SHARE);
 
@@ -6108,9 +6138,14 @@ u16 PRLHoennCommitKantoTransfer(void)
 
     PRLHoennNameSortedBoxes(mixed);
 
-    // Preserve the whole Kanto bankroll in 2x16-bit pre-existing save vars.
-    VarSet(VAR_PRL_BANK_KANTO_MONEY_LO, money & 0xFFFF);
-    VarSet(VAR_PRL_BANK_KANTO_MONEY_HI, money >> 16);
+    // Kanto bank variables were set on arrival, BEFORE meeting Birch.
+    // Legacy converted saves that skipped the arrival bank still need it.
+    if (!FlagGet(FLAG_PRL_HOENN_FUNDS_BANKED))
+    {
+        VarSet(VAR_PRL_BANK_KANTO_MONEY_LO, money & 0xFFFF);
+        VarSet(VAR_PRL_BANK_KANTO_MONEY_HI, money >> 16);
+        FlagSet(FLAG_PRL_HOENN_FUNDS_BANKED);
+    }
     SetMoney(&gSaveBlock1Ptr->money, 3000);
 
     // The Kanto Bag is donated; three permanent QoL benefits cross regions.
