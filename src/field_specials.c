@@ -5938,42 +5938,6 @@ static void PRLHoennSortEachBoxAscending(struct BoxPokemon (*planned)[IN_BOX_COU
 // Return FALSE without mutating save data on insufficient PC room / heap.
 // The boarding script calls this only after the explicit final confirmation.
 
-// Repair one-time region inventory state for legacy PR89/90/92 Hoenn saves.
-// Those saves could still show the full Kanto Bag after the region hand-off.
-// Do NOT clear on every map entry, or legitimate later Hoenn items are lost.
-u16 PRLHoennEnsureEssentials(void)
-{
-    u16 expShareQuantity;
-
-    if (VarGet(VAR_PRL_REGION_STAGE) != 2)
-        return FALSE;
-
-    if (!FlagGet(FLAG_PRL_HOENN_ESSENTIALS_READY))
-    {
-        expShareQuantity = CountTotalItemQuantityInBag(ITEM_EXP_SHARE);
-        ClearBag();
-        if (expShareQuantity != 0)
-            AddBagItem(ITEM_EXP_SHARE, expShareQuantity);
-        AddBagItem(ITEM_POKEMON_BOX_LINK, 1);
-        gSaveBlock1Ptr->registeredItem = ITEM_NONE;
-        VarSet(VAR_PRL_REGISTERED_ITEM_HOLD, ITEM_NONE);
-        FlagSet(FLAG_PRL_HOENN_ESSENTIALS_READY);
-        LoadPlayerBag();
-        SyncPrlInventoryLegacyBackup();
-    }
-    else if (!CheckBagHasItem(ITEM_POKEMON_BOX_LINK, 1))
-    {
-        AddBagItem(ITEM_POKEMON_BOX_LINK, 1);
-        LoadPlayerBag();
-        SyncPrlInventoryLegacyBackup();
-    }
-
-    // Hoenn keeps the player's previously earned Running Shoes.
-    FlagSet(FLAG_SYS_B_DASH);
-    FlagSet(FLAG_RECEIVED_RUNNING_SHOES);
-    return TRUE;
-}
-
 u16 PRLHoennCommitKantoTransfer(void)
 {
     struct BoxPokemon (*planned)[IN_BOX_COUNT];
@@ -6122,5 +6086,41 @@ u16 PRLHoennCommitKantoTransfer(void)
     gSaveBlock1Ptr->lastHealLocation.y = 18;
 #endif
     FlagClear(FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH);
+    return TRUE;
+}
+
+// Repair one-time region inventory state for legacy PR89/90/92 Hoenn saves.
+// Those saves could still show the full Kanto Bag after the region hand-off.
+// Do NOT clear on every map entry, or legitimate later Hoenn items are lost.
+u16 PRLHoennEnsureEssentials(void)
+{
+    u16 expShareQuantity;
+
+    if (VarGet(VAR_PRL_REGION_STAGE) != 2)
+        return FALSE;
+
+    if (!FlagGet(FLAG_PRL_HOENN_ESSENTIALS_READY))
+    {
+        expShareQuantity = CountTotalItemQuantityInBag(ITEM_EXP_SHARE);
+        ClearBag();
+        if (expShareQuantity != 0)
+            AddBagItem(ITEM_EXP_SHARE, expShareQuantity);
+        AddBagItem(ITEM_POKEMON_BOX_LINK, 1);
+        gSaveBlock1Ptr->registeredItem = ITEM_NONE;
+        VarSet(VAR_PRL_REGISTERED_ITEM_HOLD, ITEM_NONE);
+        FlagSet(FLAG_PRL_HOENN_ESSENTIALS_READY);
+        LoadPlayerBag();
+        SyncPrlInventoryLegacyBackup();
+    }
+    else if (!CheckBagHasItem(ITEM_POKEMON_BOX_LINK, 1))
+    {
+        AddBagItem(ITEM_POKEMON_BOX_LINK, 1);
+        LoadPlayerBag();
+        SyncPrlInventoryLegacyBackup();
+    }
+
+    // Hoenn keeps the player's previously earned Running Shoes.
+    FlagSet(FLAG_SYS_B_DASH);
+    FlagSet(FLAG_RECEIVED_RUNNING_SHOES);
     return TRUE;
 }
