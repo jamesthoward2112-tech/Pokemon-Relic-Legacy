@@ -32,7 +32,9 @@ class PR84Safety(unittest.TestCase):
         text = "".join(re.findall(r'\\.string "([^"]*)"', msg))
         for page in text.split(r"\p"):
             self.assertLessEqual(page.count(r"\n"), 1, page)
-        self.assertIn("EXP SHARE", msg)
+        self.assertIn("one-way", msg)
+        self.assertNotIn("Your KANTO POKéMON", msg)
+        self.assertNotIn("Your Bag items", msg)
 
     def test_map_arrival_precedes_atomic_transfer_and_starter(self):
         lab = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
