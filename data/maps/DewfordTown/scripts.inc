@@ -54,8 +54,35 @@ DewfordTown_EventScript_SailBackToPetalburg::
 	end
 
 DewfordTown_EventScript_Woman::
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, DewfordTown_EventScript_PRLNeris
 	msgbox DewfordTown_Text_TinyIslandCommunity, MSGBOX_NPC
 	end
+
+DewfordTown_EventScript_PRLNeris::
+	lock
+	faceplayer
+	goto_if_set FLAG_PRL_HOENN_NERIS_MUDKIP_GIFT, DewfordTown_EventScript_PRLNerisDone
+	msgbox DewfordTown_Text_PRLNerisWelcome
+	givemon SPECIES_MUDKIP, 10, ITEM_MYSTIC_WATER
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, DewfordTown_EventScript_PRLNerisReceived
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PC, DewfordTown_EventScript_PRLNerisReceived
+	msgbox DewfordTown_Text_PRLNerisNoRoom
+	release
+	end
+
+DewfordTown_EventScript_PRLNerisReceived::
+	setflag FLAG_PRL_HOENN_NERIS_MUDKIP_GIFT
+	hideobjectat LOCALID_PRL_HOENN_MUDKIP, MAP_DEWFORD_TOWN
+	removeobject LOCALID_PRL_HOENN_MUDKIP
+	msgbox DewfordTown_Text_PRLNerisReceived
+	release
+	end
+
+DewfordTown_EventScript_PRLNerisDone::
+	msgbox DewfordTown_Text_PRLNerisAfter
+	release
+	end
+
 
 DewfordTown_EventScript_TownSign::
 	msgbox DewfordTown_Text_TownSign, MSGBOX_SIGN
@@ -789,3 +816,23 @@ DewfordTown_Text_YeahDefinitionOfInRightNow:
 	.string "Yeah, absolutely right!\p"
 	.string "“{STR_VAR_1}” is the\n"
 	.string "definition of “in” right now.$"
+
+
+DewfordTown_Text_PRLNerisWelcome::
+	.string "NERIS: Birch asked me\\n"
+	.string "to find a good trainer.\\p"
+	.string "This MUDKIP is Lv10\\n"
+	.string "and holding MYSTIC WATER.\\p"
+	.string "Will you look after it?$"
+
+DewfordTown_Text_PRLNerisNoRoom::
+	.string "NERIS: Make room in\\n"
+	.string "your party or PC first.$"
+
+DewfordTown_Text_PRLNerisReceived::
+	.string "NERIS: Take good care\\n"
+	.string "of MUDKIP!$"
+
+DewfordTown_Text_PRLNerisAfter::
+	.string "NERIS: Your new\\n"
+	.string "partner trusts you!$"
