@@ -12,10 +12,10 @@ class HoennCriticalFindings(unittest.TestCase):
         code = read("src/pokemon_storage_system.c")
         fn = code.split("static void Task_WithdrawMon(u8 taskId)\n{", 1)[1].split(
             "static void Task_DepositMenu", 1)[0]
-        self.assertIn("if (PRLHoennStorageLevelLocked(GetBoxMonDataAt", fn)
+        self.assertIn("if (PRLHoennStorageLevelLocked(GetLevelFromBoxMonExp(GetBoxedMonPtr", fn)
         self.assertNotIn("if (sCursorArea == CURSOR_AREA_IN_BOX", fn)
         self.assertIn("PRLHoennStorageLevelLocked(GetMonData(&sStorage->movingMon, MON_DATA_LEVEL))", fn)
-        self.assertLess(fn.index("PRLHoennStorageLevelLocked(GetBoxMonDataAt"),
+        self.assertLess(fn.index("PRLHoennStorageLevelLocked(GetLevelFromBoxMonExp(GetBoxedMonPtr"),
                         fn.index("InitMonPlaceChange(CHANGE_GRAB)"))
         self.assertLess(fn.index("PRLHoennStorageLevelLocked(GetMonData(&sStorage->movingMon"),
                         fn.index("InitMonPlaceChange(CHANGE_PLACE)"))

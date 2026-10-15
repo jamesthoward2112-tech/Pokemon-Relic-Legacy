@@ -45,6 +45,9 @@ LittlerootTown_OnTransition:
 	@ Kanto purse the first time this town transition runs in PR98.
 	call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLEnsureArrivalBank
 	call_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_EventScript_PRLHideTrucks
+	@ Rosie remains a real, talkable NPC even before the starter is selected.
+	call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLPlaceWaitingAunt
+	call_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_EventScript_PRLPlaceWaitingAunt
 	setflag FLAG_VISITED_LITTLEROOT_TOWN
 	call Common_EventScript_SetupRivalGfxId
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_MoveMomToMaysDoor
@@ -137,6 +140,16 @@ LittlerootTown_EventScript_PRLKeepKantoRunningShoes::
 	setvar VAR_LITTLEROOT_TOWN_STATE, 4
 	return
 
+LittlerootTown_EventScript_PRLPlaceWaitingAunt::
+	@ For a return visit at the pre-starter stage, keep Rosie beside the
+	@ correct house. The animated greeting below runs ONLY after the truck.
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	setobjectmovementtype LOCALID_LITTLEROOT_MOM, MOVEMENT_TYPE_FACE_DOWN
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_PRLPlaceAuntNearBrendansHouse
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_PRLPlaceAuntNearMaysHouse
+	return
+
 LittlerootTown_EventScript_PRLEnsureArrivalBank::
 	special PRLHoennBankArrivalFunds
 	return
@@ -177,19 +190,28 @@ LittlerootTown_EventScript_PRLRemoveOtherShuttle::
 	return
 
 LittlerootTown_EventScript_PRLHideFemaleShuttle::
+	@ Objects outside the camera spawn later, so removing only the live
+	@ sprite was not enough (second lorry appeared on camera scroll).
+	hideobjectat 6, MAP_LITTLEROOT_TOWN
+	setobjectxyperm 6, 255, 255
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
 	removeobject 6
 	return
 
 LittlerootTown_EventScript_PRLHideMaleShuttle::
+	hideobjectat 5, MAP_LITTLEROOT_TOWN
+	setobjectxyperm 5, 255, 255
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
 	removeobject 5
 	return
 
 LittlerootTown_EventScript_PRLRemoveInertOutdoorProps::
-	@ These two placeholders have no dialogue in the Hoenn bridge.
-	@ Set flags AND remove loaded objects: a transition flag alone did
-	@ not remove them from the user's existing-save video.
+	@ These placeholders are never talking characters in the PRL bridge.
+	@ Visibility flags alone and removeobject miss late camera spawns.
+	hideobjectat LOCALID_LITTLEROOT_RIVAL, MAP_LITTLEROOT_TOWN
+	hideobjectat LOCALID_LITTLEROOT_BIRCH, MAP_LITTLEROOT_TOWN
+	setobjectxyperm LOCALID_LITTLEROOT_RIVAL, 255, 255
+	setobjectxyperm LOCALID_LITTLEROOT_BIRCH, 255, 255
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_RIVAL
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCH
 	removeobject LOCALID_LITTLEROOT_RIVAL
@@ -270,11 +292,68 @@ LittlerootTown_EventScript_PRLFinishShuttleArrival::
 	setvar VAR_PRL_REGION_STAGE, 3
 	special PRLHoennBlockArrivalTruckFootprint
 	special PRLHoennBankArrivalFunds
-	msgbox LittlerootTown_Text_PRLShuttleArrival
+	@ The first Hoenn welcome comes from the player's AUNT, not a generic
+	@ narration box. Let Littleroot appear as the trainer steps off.
 	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	special ShowMapNamePopup
+	call LittlerootTown_EventScript_PRLRosieWelcomeOnArrival
 	releaseall
 	end
+
+LittlerootTown_EventScript_PRLRosieWelcomeOnArrival::
+	@ Reuse the existing Mom object ID but give her the persistent name
+	@ Aunt Rosie. Spawn and approach on both gender-specific truck exits.
+	call LittlerootTown_EventScript_PRLPlaceWaitingAunt
+	addobject LOCALID_LITTLEROOT_MOM
+	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_PRLRosieApproach
+	waitmovement 0
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_PRLRosieFaceMalePlayer
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_PRLRosieFaceFemalePlayer
+	msgbox LittlerootTown_Text_PRLRosieArrival
+	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_PRLRosieReturn
+	waitmovement 0
+	setobjectmovementtype LOCALID_LITTLEROOT_MOM, MOVEMENT_TYPE_FACE_DOWN
+	return
+
+LittlerootTown_EventScript_PRLRosieFaceMalePlayer::
+	turnobject LOCALID_LITTLEROOT_MOM, DIR_WEST
+	turnobject LOCALID_PLAYER, DIR_EAST
+	return
+
+LittlerootTown_EventScript_PRLRosieFaceFemalePlayer::
+	turnobject LOCALID_LITTLEROOT_MOM, DIR_EAST
+	turnobject LOCALID_PLAYER, DIR_WEST
+	return
+
+LittlerootTown_Movement_PRLRosieApproach:
+	walk_down
+	step_end
+
+LittlerootTown_Movement_PRLRosieReturn:
+	walk_up
+	walk_in_place_faster_down
+	step_end
+
+LittlerootTown_Text_PRLRosieArrival::
+	.string "AUNT ROSIE: {PLAYER}!\n"
+	.string "Your MUM asked me to help.\p"
+	.string "Welcome to HOENN!\n"
+	.string "Your KANTO team is safe.\p"
+	.string "Your BAG and POKéMON\n"
+	.string "aren't available just yet.\p"
+	.string "When you pick a starter,\n"
+	.string "BIRCH will box your team.\p"
+	.string "Your old BAG stays behind,\n"
+	.string "but some items come along.\p"
+	.string "MUM's keeping your KANTO\n"
+	.string "savings safe for later.\p"
+	.string "BIRCH will give you money\n"
+	.string "to start your HOENN journey.\p"
+	.string "Until then, avoid wild\n"
+	.string "POKéMON without a partner!\p"
+	.string "BIRCH's LAB is south.\n"
+	.string "I'll be outside my house!$"
 
 LittlerootTown_Text_PRLShuttleArrival::
 	.string "The S.S. LEGACY docked at\n"

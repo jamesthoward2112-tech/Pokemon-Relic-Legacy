@@ -4,8 +4,11 @@ Route101_MapScripts::
 	.byte 0
 
 Route101_OnTransition:
-	@ PRL's Kanto Champion has already met Birch and received the Hoenn
-	@ starter in his lab. Never re-stage Emerald's Zigzagoon rescue.
+	@ For PRL's Kanto Champion, Birch already handed over the Hoenn
+	@ starter in his lab; the original Emerald rescue must never run.
+	@ A Hall of Fame traveller's saved stage may be stale, so also
+	@ honour Oak's already-issued voyage ticket independently.
+	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, Route101_EventScript_PRLRescueAlreadyComplete
 	goto_if_eq VAR_PRL_REGION_STAGE, 1, Route101_EventScript_PRLRescueAlreadyComplete
 	goto_if_eq VAR_PRL_REGION_STAGE, 2, Route101_EventScript_PRLRescueAlreadyComplete
 	goto_if_eq VAR_PRL_REGION_STAGE, 3, Route101_EventScript_PRLRescueAlreadyComplete
@@ -35,6 +38,12 @@ Route101_EventScript_HideMapNamePopup::
 	end
 
 Route101_EventScript_StartBirchRescue::
+	@ Defensive runtime gate: transition/map-state normalization alone did
+	@ not prevent the second starter screen in the PR100 gameplay video.
+	@ Never trigger Emerald's Birch rescue during/after the PRL voyage.
+	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, Route101_EventScript_PRLRescueAlreadyComplete
+	goto_if_ne VAR_PRL_REGION_STAGE, 0, Route101_EventScript_PRLRescueAlreadyComplete
+	goto_if_set FLAG_RESCUED_BIRCH, Route101_EventScript_PRLRescueAlreadyComplete
 	lockall
 	playbgm MUS_HELP, TRUE
 	msgbox Route101_Text_HelpMe, MSGBOX_DEFAULT
@@ -60,6 +69,9 @@ Route101_EventScript_StartBirchRescue::
 	end
 
 Route101_EventScript_PreventExitSouth::
+	@ A stale Route 101 variable must not trap PRL Hoenn trainers.
+	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, Route101_EventScript_PRLRescueAlreadyComplete
+	goto_if_ne VAR_PRL_REGION_STAGE, 0, Route101_EventScript_PRLRescueAlreadyComplete
 	lockall
 	msgbox Route101_Text_DontLeaveMe, MSGBOX_DEFAULT
 	closemessage
@@ -69,6 +81,9 @@ Route101_EventScript_PreventExitSouth::
 	end
 
 Route101_EventScript_PreventExitWest::
+	@ A stale Route 101 variable must not trap PRL Hoenn trainers.
+	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, Route101_EventScript_PRLRescueAlreadyComplete
+	goto_if_ne VAR_PRL_REGION_STAGE, 0, Route101_EventScript_PRLRescueAlreadyComplete
 	lockall
 	msgbox Route101_Text_DontLeaveMe, MSGBOX_DEFAULT
 	closemessage
@@ -78,6 +93,9 @@ Route101_EventScript_PreventExitWest::
 	end
 
 Route101_EventScript_PreventExitNorth::
+	@ A stale Route 101 variable must not trap PRL Hoenn trainers.
+	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, Route101_EventScript_PRLRescueAlreadyComplete
+	goto_if_ne VAR_PRL_REGION_STAGE, 0, Route101_EventScript_PRLRescueAlreadyComplete
 	lockall
 	msgbox Route101_Text_DontLeaveMe, MSGBOX_DEFAULT
 	closemessage
@@ -234,6 +252,11 @@ Route101_EventScript_RouteSign::
 	end
 
 Route101_EventScript_BirchsBag::
+	@ Even if an old save contains a visible bag object, never call
+	@ ChooseStarter or overwrite the party after Birch's lab gift.
+	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, Route101_EventScript_PRLRescueAlreadyComplete
+	goto_if_ne VAR_PRL_REGION_STAGE, 0, Route101_EventScript_PRLRescueAlreadyComplete
+	goto_if_set FLAG_RESCUED_BIRCH, Route101_EventScript_PRLRescueAlreadyComplete
 	lock
 	faceplayer
 	setflag FLAG_SYS_POKEMON_GET

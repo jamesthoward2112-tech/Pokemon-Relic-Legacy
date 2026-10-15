@@ -21,15 +21,18 @@ class PR99GameplayRegressions(unittest.TestCase):
 
     def test_pc_resorts_after_normal_close_not_while_cursor_is_moving(self):
         storage = read("src/pokemon_storage_system.c")
-        exit_fn = storage.split("static void CB2_ExitPokeStorage(void)\n{", 1)[1].split("\n}", 1)[0]
+        exit_fn = storage.split("static void Task_ChangeScreen(u8 taskId)\n{", 1)[1].split("\n}", 1)[0]
         self.assertIn("PRLHoennResortExistingPC();", exit_fn)
+        self.assertLess(exit_fn.index("PRLHoennResortExistingPC();"),
+                        exit_fn.index("FreePokeStorageData();"))
         self.assertNotIn("PRLHoennResortExistingPC();", storage.split("static void Task_PlaceMon(u8 taskId)\n{", 1)[1].split("static void Task_ShiftMon", 1)[0])
         # Guarded and transactional: nothing committed if the snapshot cannot be built.
         special = read("src/field_specials.c")
         sorter = special.split("u16 PRLHoennResortExistingPC(void)\n{", 1)[1].split("u16 PRLHoennAutoSortPCOnce", 1)[0]
         self.assertIn("VarGet(VAR_PRL_REGION_STAGE) != 2", sorter)
-        self.assertIn("if (planned == NULL)", sorter)
-        self.assertIn("PRLHoennSortEachBoxAscending", sorter)
+        self.assertIn("if (plan == NULL)", sorter)
+        self.assertIn("plan->destToSource", sorter)
+        self.assertIn("PRLHoennSortGroup", sorter)
 
     def test_one_truck_and_collision_only_during_arrival(self):
         town = read("data/maps/LittlerootTown/scripts.inc")
@@ -52,17 +55,19 @@ class PR99GameplayRegressions(unittest.TestCase):
         self.assertIn("setobjectxyperm LOCALID_LITTLEROOT_MOM, 13, 9", town)
         self.assertIn("AUNT ROSIE:", town)
 
-    def test_starter_table_and_reload_clear_baked_balls(self):
+    def test_starter_offered_through_birch_without_table_warp(self):
         lab = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
         before = lab.split("EventScript_PRLSetupStarterRoom::", 1)[1].split("\n\n", 1)[0]
-        after = lab.split("EventScript_PRLStarterComplete::", 1)[1].split("LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome::", 1)[0]
-        self.assertIn("LAB_WITH_TABLE", before)
-        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB\n", after)
-        self.assertIn("warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 7, 5", after)
+        after = lab.split("EventScript_PRLStarterComplete::", 1)[1].split(
+            "LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome::", 1)[0]
+        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB",before)
+        self.assertNotIn("LAB_WITH_TABLE",before)
+        self.assertNotIn("warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 7, 5",after)
+        self.assertIn("goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLOfferRalts",lab)
+        for mon in ("RALTS","POOCHYENA","GEMLIN"):
+            self.assertIn("showmonpic SPECIES_"+mon,lab)
         for ball in ("CYNDAQUIL", "TOTODILE", "CHIKORITA"):
             self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_" + ball, after)
-        storage = read("src/pokemon_storage_system.c")
-        self.assertIn("PRLHoennStorageLevelLocked(GetBoxMonDataAt", storage)
 
 if __name__ == "__main__":
     unittest.main()

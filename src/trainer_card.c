@@ -288,6 +288,8 @@ static const u16 *const sKantoTrainerCardPals[] =
 
 static const u8 sTrainerCardTextColors[] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_LIGHT_GRAY};
 static const u8 sTrainerCardStatColors[] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_RED, TEXT_COLOR_LIGHT_RED};
+// Kanto red contrasts with the regular dark Hoenn card label.
+static const u8 sPRLKantoRegionColors[] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_RED, TEXT_COLOR_LIGHT_RED};
 static const u8 sTimeColonInvisibleTextColors[6] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_TRANSPARENT, TEXT_COLOR_TRANSPARENT};
 
 static const u8 sTrainerPicOffset[2][GENDER_COUNT][2] =
@@ -990,9 +992,14 @@ static bool8 PrintAllOnCardFront(void)
         break;
     case 6:
         if (!sData->isLink && IS_FRLG)
-            AddTextPrinterParameterized3(WIN_CARD_TEXT, FONT_SMALL, 23, 113,
-                sTrainerCardTextColors, TEXT_SKIP_DRAW,
+        {
+            // Beneath the ID number, away from the first badge (y=113).
+            // KANTO is red and HOENN stays charcoal, for instant distinction.
+            AddTextPrinterParameterized3(WIN_CARD_TEXT, FONT_SMALL, 174, 27,
+                sData->isHoenn ? sTrainerCardTextColors : sPRLKantoRegionColors,
+                TEXT_SKIP_DRAW,
                 sData->isHoenn ? sPRLHoennCardLabel : sPRLKantoCardLabel);
+        }
         break;
     default:
         sData->printState = 0;

@@ -8,15 +8,13 @@ def read(path):
     return (ROOT / path).read_text(encoding="utf-8")
 
 class PR89HoennStarterSelection(unittest.TestCase):
-    def test_three_individual_preview_balls(self):
+    def test_birch_offers_three_individual_sprite_previews(self):
         script = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
         for species in ("RALTS", "POOCHYENA", "GEMLIN"):
             self.assertIn("showmonpic SPECIES_" + species, script)
-            self.assertIn("PRLWant" + species.title().capitalize(), script)
-        self.assertIn("EventScript_PRLPlaceStarterBalls::", script)
-        self.assertIn("setobjectxy LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL, 8, 4", script)
-        self.assertIn("setobjectxy LOCALID_BIRCHS_LAB_TOTODILE_BALL, 9, 4", script)
-        self.assertIn("setobjectxy LOCALID_BIRCHS_LAB_CHIKORITA_BALL, 10, 4", script)
+            self.assertIn("PRLOffer" + species.title().capitalize(), script)
+        self.assertIn("LittlerootTown_ProfessorBirchsLab_Text_PRLOfferPartner::", script)
+        self.assertNotIn("EventScript_PRLPlaceStarterBalls::", script)
         self.assertNotIn("PRLWantSableye", script)
 
     def test_one_time_transfer_and_old_gifts_blocked(self):
@@ -28,7 +26,7 @@ class PR89HoennStarterSelection(unittest.TestCase):
         self.assertIn("VarSet(VAR_PRL_REGION_STAGE, 2);", c)
         for old, new in (("Cyndaquil","Ralts"),("Totodile","Poochyena"),("Chikorita","Gemlin")):
             event = lab.split("LittlerootTown_ProfessorBirchsLab_EventScript_" + old + "::", 1)[1].split("\n\n",1)[0]
-            self.assertIn("VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRL" + new + "Ball", event)
+            self.assertIn("VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchWaiting", event)
             self.assertIn("VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAlreadyChoseStarter", event)
         for flag in ("CYNDAQUIL", "TOTODILE", "CHIKORITA"):
             self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_" + flag, lab)

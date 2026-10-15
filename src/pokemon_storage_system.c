@@ -1668,10 +1668,6 @@ static void CreateMainMenu(u8 whichMenu, s16 *windowIdPtr)
 
 static void CB2_ExitPokeStorage(void)
 {
-    // Sorting on the way OUT avoids shuffling slots while the cursor is
-    // holding a Pokemon. Treat manually moved high-level mons just like
-    // migrated ones, and preserve exact boxed-mon bytes if resort fails.
-    PRLHoennResortExistingPC();
     sPreviousBoxOption = GetCurrentBoxOption();
     gFieldCallback = FieldTask_ReturnToPcMenu;
     SetMainCallback2(CB2_ReturnToField);
@@ -1981,6 +1977,11 @@ static void CB2_PokeStorage(void)
 
 static void EnterPokeStorage(u8 boxOption)
 {
+    // Also repair older Hoenn saves as the storage UI opens. The compact
+    // PR100 plan can run before large PC sprite buffers are allocated.
+    // Scripted one-Pokemon selectors must retain the caller's slot IDs.
+    if (VarGet(VAR_PRL_REGION_STAGE) == 2 && boxOption != OPTION_SELECT_MON)
+        PRLHoennResortExistingPC();
     ResetTasks();
     sCurrentBoxOption = boxOption;
     sStorage = Alloc(sizeof(*sStorage));
@@ -2860,7 +2861,7 @@ static void Task_WithdrawMon(u8 taskId)
     case 0:
         // The direct WITHDRAW menu may have switched cursor-area state.
         // Never make the badge lock contingent on what the UI reports.
-        if (PRLHoennStorageLevelLocked(GetBoxMonDataAt(StorageGetCurrentBox(), sCursorPosition, MON_DATA_LEVEL)))
+        if (PRLHoennStorageLevelLocked(GetLevelFromBoxMonExp(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition))))
         {
             PrintMessage(MSG_PRL_HOENN_LEVEL_LOCK);
             sStorage->state = 1;
@@ -3843,6 +3844,13 @@ static void Task_ChangeScreen(u8 taskId)
     {
     case SCREEN_CHANGE_EXIT_BOX:
     default:
+        // The previous PR99 callback ran AFTER storage display teardown and
+        // missed OPTION_SELECT_MON (Remote PC) exits entirely. Commit this
+        // all-box, save-preserving re-bucket while storage is still alive,
+        // but never in the middle of moving/holding a Pokémon.
+        if (VarGet(VAR_PRL_REGION_STAGE) == 2 && !sIsMonBeingMoved
+         && sStorage->boxOption != OPTION_SELECT_MON)
+            PRLHoennResortExistingPC();
         if (sStorage->boxOption == OPTION_SELECT_MON)
             SetMainCallback2(CB2_ReturnToFieldContinueScript);
         else
