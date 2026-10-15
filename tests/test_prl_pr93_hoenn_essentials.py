@@ -76,7 +76,7 @@ class TestHoennEssentialsAndStarterRoom(unittest.TestCase):
         town=read("data/maps/LittlerootTown/scripts.inc")
         for phrase in ("KANTO team","safe in your PC","Lv1-10","Each BADGE adds ten levels","HOENN LEAGUE","MUM back in KANTO","REMOTE PC"):
             self.assertIn(phrase,lab)
-        self.assertIn("AUNT: {PLAYER}",town)
+        self.assertIn("AUNT ROSIE: {PLAYER}",town)
         self.assertIn("Your MUM told me",town)
         self.assertNotIn("MOM: HOENN looks lovely",town)
 
@@ -88,7 +88,7 @@ class TestHoennEssentialsAndStarterRoom(unittest.TestCase):
             guardian = next(obj for obj in setting["object_events"] if obj.get("local_id") == "LOCALID_PLAYERS_HOUSE_1F_MOM")
             self.assertEqual(guardian["script"], "LittlerootTown_" + name + "House_1F_EventScript_PRLAunt")
             events = read(prefix + "scripts.inc")
-            self.assertIn('AUNT: Welcome to HOENN', events)
+            self.assertIn('AUNT ROSIE: Welcome to', events)
             self.assertIn('Your MUM is keeping your', events)
             self.assertIn("goto PlayersHouse_1F_EventScript_Mom", events)
         lab = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
