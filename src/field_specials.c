@@ -6009,6 +6009,25 @@ static void PRLHoennSortEachBoxAscending(struct BoxPokemon (*planned)[IN_BOX_COU
 // Called after the Hoenn map successfully loaded, before Birch's starter
 // choice. A save made immediately outside the truck already shows £0 and
 // preserves the entire Kanto purse in the two existing bank variables.
+// Only the parked arrival lorry occupies these metatiles. Object sprites
+// collide at one anchor tile; the artwork is several tiles wide, so reserve
+// the footprint AFTER the player has stepped off. The map grid is rebuilt on
+// re-entry, and no collision is saved into the player's permanent map.
+u16 PRLHoennBlockArrivalTruckFootprint(void)
+{
+    // Truck gfx are 4 tiles wide, centred one tile left of the graphic's
+    // object-event anchor. Do NOT reserve the tile immediately right of the
+    // lorry: the player uses that tile when stepping out.
+    u8 x = gSaveBlock2Ptr->playerGender == MALE ? 1 : 10;
+    u8 dx, dy;
+    if (VarGet(VAR_PRL_REGION_STAGE) != 3)
+        return FALSE;
+    for (dy = 0; dy < 3; dy++)
+        for (dx = 0; dx < 4; dx++)
+            MapGridSetMetatileImpassabilityAt(MAP_OFFSET + x + dx, MAP_OFFSET + 9 + dy, TRUE);
+    return TRUE;
+}
+
 u16 PRLHoennBankArrivalFunds(void)
 {
     u32 money;

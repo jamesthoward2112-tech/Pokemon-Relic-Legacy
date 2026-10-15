@@ -183,7 +183,26 @@ assert town_targets <= {
     "MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F",  # original Emerald truck cutscene
     "MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F",      # original Emerald truck cutscene
 }, f"unsafe Littleroot script warp: {town_targets}"
-assert lab_targets <= {"MAP_VERMILION_CITY"}, f"unsafe Birch lab script warp: {lab_targets}"
+# PR99 intentionally reloads this *same enabled map* once on starter
+# confirmation to discard already-rendered old starter-ball metatiles.
+# Keep every other Hoenn destination forbidden and require the reload to
+# be scoped to the successful starter-completion script.
+safe_lab_warps = {"MAP_VERMILION_CITY", "MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB"}
+assert lab_targets <= safe_lab_warps, f"unsafe Birch lab script warp: {lab_targets}"
+if "MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB" in lab_targets:
+    complete = lab_scripts.split("LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::", 1)[1]
+    complete = complete.split("LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome::", 1)[0]
+    required = (
+        "setvar VAR_PRL_REGION_STAGE, 2",
+        "setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB",
+        "setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL",
+        "setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE",
+        "setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA",
+        "warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 7, 5",
+        "waitstate",
+    )
+    assert all(token in complete for token in required), "unsafe starter-room reload sequence"
+    assert lab_scripts.count("warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB,") == 1, "unreviewed extra lab reload"
 assert not (byte(town + 0x1A) & 0x02), "Dig/Escape Rope unexpectedly enabled in town"
 assert not (byte(lab + 0x1A) & 0x02), "Dig/Escape Rope unexpectedly enabled in lab"
 route_source = (ROOT / "data/maps/Route101/scripts.inc").read_text()

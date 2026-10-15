@@ -50,7 +50,9 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLWaitForBirch::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom::
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
+	@ Use the existing Emerald display table during the actual choice.
+	@ The ordinary lab puts item sprites beside yellow cabinets/floor.
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
@@ -307,7 +309,14 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::
 	removeobject LOCALID_BIRCHS_LAB_TOTODILE_BALL
 	removeobject LOCALID_BIRCHS_LAB_CHIKORITA_BALL
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLHoennNext
-	releaseall
+	@ setmaplayoutindex changes the next map load's tiles, not the
+	@ already rendered background. Re-enter this SAME lab once so the
+	@ choice table and all three now-hidden ball objects are gone for
+	@ good, without requiring the trainer to walk out and back in.
+	closemessage
+	fadescreen FADE_TO_BLACK
+	warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 7, 5
+	waitstate
 	end
 
 LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome::
