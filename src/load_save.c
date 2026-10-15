@@ -5,6 +5,7 @@
 #include "follower_npc.h"
 #include "item.h"
 #include "load_save.h"
+#include "prl_region_save.h"
 #include "main.h"
 #include "overworld.h"
 #include "pokemon.h"
@@ -63,6 +64,7 @@ void CheckForFlashMemory(void)
 void ClearSav3(void)
 {
     CpuFill16(0, &gSaveblock3, sizeof(struct SaveBlock3));
+    PrlClearRegionSave();
     FakeRtc_Reset();
 }
 
