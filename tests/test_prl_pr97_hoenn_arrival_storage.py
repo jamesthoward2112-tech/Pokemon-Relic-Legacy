@@ -36,9 +36,9 @@ class PR97HoennFixes(unittest.TestCase):
         sc = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
         def block(name):
             return sc.split("LittlerootTown_ProfessorBirchsLab_EventScript_" + name + "::",1)[1].split("\n\n",1)[0]
-        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB\n", block("PRLWaitForBirch"))
+        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE", block("PRLWaitForBirch"))
         self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE", block("PRLSetupStarterRoom"))
-        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB\n", block("PRLHideStarterRoom"))
+        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE", block("PRLHideStarterRoom"))
         done = sc.split("LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::",1)[1].split("\n\n",1)[0]
         self.assertIn("setvar VAR_PRL_REGION_STAGE, 2",done)
         for ball in ("CYNDAQUIL","TOTODILE","CHIKORITA"):
@@ -54,7 +54,7 @@ class PR97HoennFixes(unittest.TestCase):
         self.assertIn("if (dest < PRL_HOENN_LEVEL_BOXES && preferred != dest)",c)
         self.assertIn("mixed[dest] = TRUE",c)
         self.assertIn("sPRLHoennMixedBoxName",c)
-        self.assertIn("GetBoxMonData(&planned[laterBox][laterSlot], MON_DATA_LEVEL)",c)
+        self.assertIn("GetLevelFromBoxMonExp(&planned[laterBox][laterSlot])",c)
 
     def test_birch_can_resort_existing_hoenn_save_without_touching_party_or_money(self):
         sc = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
