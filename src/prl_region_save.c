@@ -1,6 +1,8 @@
 #include "global.h"
 #include "save.h"
 #include "pokemon_storage_system.h"
+#include "event_data.h"
+#include "constants/opponents.h"
 #include "prl_region_save.h"
 #include "string.h"
 
@@ -71,4 +73,21 @@ void PrlWriteRegionSaveSector(u8 *data)
     gPrlRegionSave.size = sizeof(gPrlRegionSave);
     gPrlRegionSave.checksum = GetPrlRegionSaveChecksum(&gPrlRegionSave);
     memcpy(data + PRL_REGION_SAVE_OFFSET, &gPrlRegionSave, sizeof(gPrlRegionSave));
+}
+
+// Only the dedicated Route102 IDs 659..662 from PR107 can be migrated
+// unambiguously. The older Emerald 615 collision with Kanto Melissa cannot
+// be auto-migrated because both games used exactly the same defeated bit.
+void PrlMigrateLegacyHoennRoute102Flags(void)
+{
+#if IS_FRLG
+    static const u16 sOldTrainerIds[] = {659, 660, 661, 662};
+    static const u16 sNewLocalIds[] = {TRAINER_CALVIN_1, TRAINER_RICK, TRAINER_TIANA, TRAINER_ALLEN};
+    u32 i;
+    for (i = 0; i < ARRAY_COUNT(sOldTrainerIds); ++i)
+    {
+        if (FlagGet(TRAINER_FLAGS_START + sOldTrainerIds[i]))
+            FlagSet(PRL_HOENN_TRAINER_FLAGS_START + sNewLocalIds[i]);
+    }
+#endif
 }
