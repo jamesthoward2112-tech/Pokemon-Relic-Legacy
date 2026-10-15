@@ -461,6 +461,15 @@ static void Task_TrainerCard(u8 taskId)
             // Local display-only toggle: never mutate saved regional badges.
             sData->prlShowKantoCard = !sData->prlShowKantoCard;
             sData->trainerCard.version = sData->prlShowKantoCard ? VERSION_FIRE_RED : VERSION_EMERALD;
+            // A trainer card is already open here. PR98 called InitWindows
+            // again without freeing the original buffers (8192-byte malloc
+            // failure/red screen on the second card). Rebuild the existing
+            // display rather than allocating another set on top of it.
+            SetVBlankCallback(NULL);
+            SetHBlankCallback(NULL);
+            FreeAllWindowBuffers();
+            sData->gfxLoadState = 0;
+            sData->bgPalLoadState = 0;
             gMain.state = 0;
             SetMainCallback2(CB2_InitTrainerCard);
         }
