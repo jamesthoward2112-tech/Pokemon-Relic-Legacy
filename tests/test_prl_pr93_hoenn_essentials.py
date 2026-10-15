@@ -8,14 +8,14 @@ def script_block(source,label):
     return source.split(label+"::",1)[1].split("\n\n",1)[0]
 
 class TestHoennEssentialsAndStarterRoom(unittest.TestCase):
-    def test_starter_table_is_not_left_in_completed_hoenn_room(self):
+    def test_starter_balls_hidden_and_furniture_remains_after_choice(self):
         lab=read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
         before=script_block(lab,"LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom")
         after=script_block(lab,"LittlerootTown_ProfessorBirchsLab_EventScript_PRLHideStarterRoom")
         self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE",before)
-        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB\n",after)
+        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE\n",after)
         complete=script_block(lab,"LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete")
-        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB\n",complete)
+        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE\n",complete)
         self.assertIn("removeobject LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL",complete)
         self.assertIn("removeobject LOCALID_BIRCHS_LAB_TOTODILE_BALL",complete)
         self.assertIn("removeobject LOCALID_BIRCHS_LAB_CHIKORITA_BALL",complete)
@@ -66,7 +66,7 @@ class TestHoennEssentialsAndStarterRoom(unittest.TestCase):
         self.assertIn("FlagGet(FLAG_SYS_GAME_CLEAR)",code)
         self.assertIn("FlagGet(FLAG_BADGE01_GET + i)",code)
         self.assertIn("return 10 + badges * 10;",code)
-        self.assertIn("PRLHoennStorageLevelLocked(GetBoxMonDataAt(StorageGetCurrentBox(), sCursorPosition, MON_DATA_LEVEL))",code)
+        self.assertIn("PRLHoennStorageLevelLocked(GetLevelFromBoxMonExp(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition)))",code)
         self.assertIn("PRLHoennStorageLevelLocked(GetMonData(&sStorage->movingMon, MON_DATA_LEVEL))",code)
         self.assertIn("MSG_PRL_HOENN_LEVEL_LOCK",code)
 
