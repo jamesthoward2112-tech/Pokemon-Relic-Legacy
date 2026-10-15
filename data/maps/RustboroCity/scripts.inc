@@ -233,11 +233,38 @@ RustboroCity_EventScript_LittleGirl::
 	end
 
 RustboroCity_EventScript_Man2::
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, RustboroCity_EventScript_PRLKiri
 	lock
 	faceplayer
 	msgbox RustboroCity_Text_TradePokemonGrowFast, MSGBOX_DEFAULT
 	release
 	end
+
+RustboroCity_EventScript_PRLKiri::
+	lock
+	faceplayer
+	goto_if_set FLAG_PRL_HOENN_KIRI_TORCHIC_GIFT, RustboroCity_EventScript_PRLKiriDone
+	msgbox RustboroCity_Text_PRLKiriWelcome
+	givemon SPECIES_TORCHIC, 10, ITEM_CHARCOAL
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, RustboroCity_EventScript_PRLKiriReceived
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PC, RustboroCity_EventScript_PRLKiriReceived
+	msgbox RustboroCity_Text_PRLKiriNoRoom
+	release
+	end
+
+RustboroCity_EventScript_PRLKiriReceived::
+	setflag FLAG_PRL_HOENN_KIRI_TORCHIC_GIFT
+	hideobjectat LOCALID_PRL_HOENN_TORCHIC, MAP_RUSTBORO_CITY
+	removeobject LOCALID_PRL_HOENN_TORCHIC
+	msgbox RustboroCity_Text_PRLKiriReceived
+	release
+	end
+
+RustboroCity_EventScript_PRLKiriDone::
+	msgbox RustboroCity_Text_PRLKiriAfter
+	release
+	end
+
 
 RustboroCity_EventScript_StolenGoodsTrigger0::
 	lockall
@@ -1288,3 +1315,23 @@ RustboroCity_Text_YouCanHave2On2Battle:
 	.string "they'll both challenge you.\p"
 	.string "Don't you think it'd be cool if you\n"
 	.string "could beat two TRAINERS by yourself?$"
+
+
+RustboroCity_Text_PRLKiriWelcome::
+	.string "KIRI: Birch asked me\\n"
+	.string "to find a good trainer.\\p"
+	.string "This TORCHIC is Lv10\\n"
+	.string "and holding CHARCOAL.\\p"
+	.string "Will you look after it?$"
+
+RustboroCity_Text_PRLKiriNoRoom::
+	.string "KIRI: Make room in\\n"
+	.string "your party or PC first.$"
+
+RustboroCity_Text_PRLKiriReceived::
+	.string "KIRI: Take good care\\n"
+	.string "of TORCHIC!$"
+
+RustboroCity_Text_PRLKiriAfter::
+	.string "KIRI: Your new\\n"
+	.string "partner trusts you!$"
