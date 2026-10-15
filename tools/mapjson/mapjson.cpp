@@ -156,7 +156,11 @@ string generate_map_header_text(Json map_data, Json layouts_data) {
     else
         text << "\t.4byte " << mapName << "_MapScripts\n";
 
-    if (map_data.object_items().find("connections") != map_data.object_items().end()
+    // The PRL FireRed bridge only includes Littleroot and Birch's lab.
+    // Do not load Route 101's excluded header when drawing the town border.
+    // Leave the original Emerald map JSON and map connections untouched.
+    if (!(version == "firered" && json_to_string(map_data, "name") == "LittlerootTown")
+     && map_data.object_items().find("connections") != map_data.object_items().end()
      && map_data["connections"].array_items().size() > 0 && json_to_string(map_data, "connections_no_include", true) != "TRUE")
         text << "\t.4byte " << mapName << "_MapConnections\n";
     else
@@ -216,6 +220,10 @@ vector<string> get_existing_maps() {
 }
 
 string generate_map_connections_text(Json map_data) {
+    // Temporary PRL FireRed Hoenn bridge: a solid edge, not a dangling
+    // connection to the excluded Route 101 layout/header.
+    if (version == "firered" && json_to_string(map_data, "name") == "LittlerootTown")
+        return string("\n");
     if (map_data["connections"] == Json())
         return string("\n");
 
@@ -295,13 +303,23 @@ string generate_map_events_text(Json map_data) {
     if (map_data["warp_events"].array_items().size() > 0) {
         warps_label = mapName + "_MapWarps";
         text << warps_label << ":\n";
-        for (auto &warp_event : map_data["warp_events"].array_items()) {
-            text << "\twarp_def "
-                 << json_to_string(warp_event, "x") << ", "
-                 << json_to_string(warp_event, "y") << ", "
-                 << json_to_string(warp_event, "elevation") << ", "
-                 << json_to_string(warp_event, "dest_warp_id") << ", "
-                 << json_to_string(warp_event, "dest_map") << "\n";
+        if (version == "firered" && mapName == "LittlerootTown") {
+            // PR88: emit a fixed three-entry FireRed bridge. Two unbuilt
+            // house destinations are replaced by permanently unreachable
+            // coordinates, keeping Birch's laboratory at warp index 2.
+            // Never modify the original Emerald source map.
+            text << "\twarp_def 255, 255, 0, 0, MAP_LITTLEROOT_TOWN\n";
+            text << "\twarp_def 255, 255, 0, 0, MAP_LITTLEROOT_TOWN\n";
+            text << "\twarp_def 7, 16, 0, 0, MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB\n";
+        } else {
+            for (auto &warp_event : map_data["warp_events"].array_items()) {
+                text << "\twarp_def "
+                     << json_to_string(warp_event, "x") << ", "
+                     << json_to_string(warp_event, "y") << ", "
+                     << json_to_string(warp_event, "elevation") << ", "
+                     << json_to_string(warp_event, "dest_warp_id") << ", "
+                     << json_to_string(warp_event, "dest_map") << "\n";
+            }
         }
         text << "\n";
     } else {

@@ -1420,8 +1420,41 @@ static void RegionMap_InitializeStateBasedOnSSTidalLocation(void)
     sRegionMap->cursorPosY = gRegionMapEntries[sRegionMap->mapSecId].y + y + MAPCURSOR_Y_MIN;
 }
 
+// The PR87/88 FireRed bridge only contains Littleroot + Birch's lab.
+// Never expose Fly destinations for uncompiled Hoenn town headers.
+#if IS_FRLG
+static bool32 PRLIsUnavailableHoennFlyMapSec(mapsec_u16_t mapSecId)
+{
+    switch (mapSecId)
+    {
+    case MAPSEC_OLDALE_TOWN:
+    case MAPSEC_DEWFORD_TOWN:
+    case MAPSEC_LAVARIDGE_TOWN:
+    case MAPSEC_FALLARBOR_TOWN:
+    case MAPSEC_VERDANTURF_TOWN:
+    case MAPSEC_PACIFIDLOG_TOWN:
+    case MAPSEC_PETALBURG_CITY:
+    case MAPSEC_SLATEPORT_CITY:
+    case MAPSEC_MAUVILLE_CITY:
+    case MAPSEC_RUSTBORO_CITY:
+    case MAPSEC_FORTREE_CITY:
+    case MAPSEC_LILYCOVE_CITY:
+    case MAPSEC_MOSSDEEP_CITY:
+    case MAPSEC_SOOTOPOLIS_CITY:
+    case MAPSEC_EVER_GRANDE_CITY:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+#endif
+
 static u8 GetMapsecType(mapsec_u16_t mapSecId)
 {
+#if IS_FRLG
+    if (PRLIsUnavailableHoennFlyMapSec(mapSecId))
+        return MAPSECTYPE_CITY_CANTFLY;
+#endif
     switch (mapSecId)
     {
     case MAPSEC_NONE:
@@ -2508,7 +2541,13 @@ u32 FilterFlyDestination(struct RegionMap* regionMap)
     case MAPSEC_BATTLE_FRONTIER:
         return HEAL_LOCATION_BATTLE_FRONTIER_OUTSIDE_EAST;
     case MAPSEC_LITTLEROOT_TOWN:
+#if IS_FRLG
+        // Do not Fly into a house map which is deliberately not built yet.
+        // WARP_ID_NONE takes the safe town/map fallback in SetFlyDestination.
+        return WARP_ID_NONE;
+#else
         return (gSaveBlock2Ptr->playerGender == MALE ? HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE : HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE);
+#endif
     case MAPSEC_EVER_GRANDE_CITY:
         return (FlagGet(FLAG_LANDMARK_POKEMON_LEAGUE) && regionMap->posWithinMapSec == 0 ? HEAL_LOCATION_EVER_GRANDE_CITY_POKEMON_LEAGUE : HEAL_LOCATION_EVER_GRANDE_CITY);
     default:
@@ -2521,6 +2560,19 @@ u32 FilterFlyDestination(struct RegionMap* regionMap)
 
 void SetFlyDestination(struct RegionMap* regionMap)
 {
+#if IS_FRLG
+    // Defense in depth: no out-of-region menu path may select a NULL map.
+    if (PRLIsUnavailableHoennFlyMapSec(regionMap->mapSecId))
+        return;
+    if (regionMap->mapSecId == MAPSEC_LITTLEROOT_TOWN)
+    {
+        // A known walkable outdoor arrival position, rather than the
+        // default map center (which may be inside a house/obstacle).
+        SetWarpDestination(MAP_GROUP(MAP_LITTLEROOT_TOWN),
+                           MAP_NUM(MAP_LITTLEROOT_TOWN), WARP_ID_NONE, 7, 18);
+        return;
+    }
+#endif
     u32 flyDestination = FilterFlyDestination(regionMap);
 
     if (flyDestination != WARP_ID_NONE)

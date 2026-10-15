@@ -613,7 +613,17 @@ static void InitMapView(void)
 
 const struct MapLayout *GetMapLayout(u16 mapLayoutId)
 {
-    return gMapLayouts[mapLayoutId - 1];
+    const struct MapLayout *layout = gMapLayouts[mapLayoutId - 1];
+#ifdef DEBUG
+    // Missing PRL region layouts must fail clearly in debug builds instead
+    // of reaching the tileset upload or temp-buffer heap allocator.
+    if (layout == NULL)
+    {
+        errorf("PRL map loader: NULL layout ID %u", mapLayoutId);
+        __builtin_trap();
+    }
+#endif
+    return layout;
 }
 
 void ApplyCurrentWarp(void)
@@ -687,6 +697,15 @@ static bool32 IsDummyWarp(struct WarpData *warp)
 
 struct MapHeader const *const Overworld_GetMapHeaderByGroupAndId(u16 mapGroup, u16 mapNum)
 {
+#ifdef DEBUG
+    // Build-time validator is primary; this catches unexpected runtime warps
+    // to a disabled Hoenn group/map while debugging in mGBA.
+    if (gMapGroups[mapGroup] == NULL || gMapGroups[mapGroup][mapNum] == NULL)
+    {
+        errorf("PRL map loader: NULL header group %u map %u", mapGroup, mapNum);
+        __builtin_trap();
+    }
+#endif
     return gMapGroups[mapGroup][mapNum];
 }
 
