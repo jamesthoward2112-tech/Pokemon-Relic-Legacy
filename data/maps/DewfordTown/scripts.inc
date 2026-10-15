@@ -834,5 +834,5 @@ DewfordTown_Text_PRLNerisReceived::
 	.string "of MUDKIP!$"
 
 DewfordTown_Text_PRLNerisAfter::
-	.string "NERIS: Your new\\n"
+	.string "NERIS: Your new\n"
 	.string "partner trusts you!$"
