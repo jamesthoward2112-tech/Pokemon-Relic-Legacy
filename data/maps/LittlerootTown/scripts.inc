@@ -142,11 +142,11 @@ LittlerootTown_EventScript_PRLEnsureArrivalBank::
 	return
 
 LittlerootTown_EventScript_PRLPlaceAuntNearBrendansHouse::
-	setobjectxyperm LOCALID_LITTLEROOT_MOM, 5, 10
+	setobjectxyperm LOCALID_LITTLEROOT_MOM, 5, 9
 	return
 
 LittlerootTown_EventScript_PRLPlaceAuntNearMaysHouse::
-	setobjectxyperm LOCALID_LITTLEROOT_MOM, 14, 10
+	setobjectxyperm LOCALID_LITTLEROOT_MOM, 14, 9
 	return
 
 LittlerootTown_EventScript_PRLPrepareShuttleTruck::
@@ -168,6 +168,45 @@ LittlerootTown_EventScript_PRLShowMaleShuttle::
 LittlerootTown_EventScript_PRLShowFemaleShuttle::
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
 	return
+
+LittlerootTown_EventScript_PRLRemoveOtherShuttle::
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_PRLHideFemaleShuttle
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_PRLHideMaleShuttle
+	return
+
+LittlerootTown_EventScript_PRLHideFemaleShuttle::
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
+	removeobject 6
+	return
+
+LittlerootTown_EventScript_PRLHideMaleShuttle::
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
+	removeobject 5
+	return
+
+LittlerootTown_EventScript_PRLRemoveInertOutdoorProps::
+	@ These two placeholders have no dialogue in the Hoenn bridge.
+	@ Set flags AND remove loaded objects: a transition flag alone did
+	@ not remove them from the user's existing-save video.
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_RIVAL
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCH
+	removeobject LOCALID_LITTLEROOT_RIVAL
+	removeobject LOCALID_LITTLEROOT_BIRCH
+	return
+
+LittlerootTown_EventScript_PRLRepairArrivalProps::
+	call LittlerootTown_EventScript_PRLRemoveInertOutdoorProps
+	call LittlerootTown_EventScript_PRLRemoveOtherShuttle
+	end
+
+LittlerootTown_EventScript_PRLRepairHoennProps::
+	call LittlerootTown_EventScript_PRLRemoveInertOutdoorProps
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
+	removeobject 5
+	removeobject 6
+	end
 
 LittlerootTown_EventScript_PRLHideTrucks::
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
@@ -216,6 +255,10 @@ LittlerootTown_EventScript_PRLFinishShuttleArrival::
 	playse SE_LEDGE
 	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerStepOffTruck
 	waitmovement 0
+	@ Keep only this trainer's shuttle. Block the entire parked sprite,
+	@ not merely its one-tile object anchor, after the step-off finishes.
+	call LittlerootTown_EventScript_PRLRemoveOtherShuttle
+	call LittlerootTown_EventScript_PRLRemoveInertOutdoorProps
 	setvar VAR_LITTLEROOT_INTRO_STATE, 0
 	setvar VAR_LITTLEROOT_TOWN_STATE, 0
 	setvar VAR_BIRCH_LAB_STATE, 0
@@ -224,6 +267,7 @@ LittlerootTown_EventScript_PRLFinishShuttleArrival::
 	@ Keep the correct gender's truck visibly parked while the Champion
 	@ explores this map. It is hidden on the NEXT map load, not right now.
 	setvar VAR_PRL_REGION_STAGE, 3
+	special PRLHoennBlockArrivalTruckFootprint
 	special PRLHoennBankArrivalFunds
 	msgbox LittlerootTown_Text_PRLShuttleArrival
 	clearflag FLAG_HIDE_MAP_NAME_POPUP
@@ -362,6 +406,11 @@ LittlerootTown_EventScript_BeginDexUpgradeScene::
 	end
 
 LittlerootTown_OnWarp:
+	@ Run after the outdoor objects have spawned, unlike ON_TRANSITION.
+	map_script_2 VAR_PRL_REGION_STAGE, 1, LittlerootTown_EventScript_PRLRepairArrivalProps
+	map_script_2 VAR_PRL_REGION_STAGE, 2, LittlerootTown_EventScript_PRLRepairHoennProps
+	map_script_2 VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLRepairHoennProps
+	map_script_2 VAR_PRL_REGION_STAGE, 4, LittlerootTown_EventScript_PRLRepairHoennProps
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_EventScript_SetRivalBirchPosForDexUpgrade
 	.2byte 0
 
