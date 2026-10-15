@@ -6138,6 +6138,7 @@ u16 PRLHoennCommitKantoTransfer(void)
     gPartiesCount[B_TRAINER_PLAYER] = 1;
 
     PRLHoennNameSortedBoxes(mixed);
+    FlagSet(FLAG_PRL_HOENN_PC_LEVEL_SORTED);
 
     // Kanto bank variables were set on arrival, BEFORE meeting Birch.
     // Legacy converted saves that skipped the arrival bank still need it.
@@ -6245,6 +6246,19 @@ u16 PRLHoennResortExistingPC(void)
 
     Free(planned);
     PRLHoennNameSortedBoxes(mixed);
+    return TRUE;
+}
+
+// PR97 saves are already past the original one-time Kanto -> Hoenn
+// transfer. Rebuild their sorted box layout once when first loading
+// the stage2 town; Birch still offers a repeatable resort on request.
+u16 PRLHoennAutoSortPCOnce(void)
+{
+    if (VarGet(VAR_PRL_REGION_STAGE) != 2 || FlagGet(FLAG_PRL_HOENN_PC_LEVEL_SORTED))
+        return FALSE;
+    if (!PRLHoennResortExistingPC())
+        return FALSE;
+    FlagSet(FLAG_PRL_HOENN_PC_LEVEL_SORTED);
     return TRUE;
 }
 
