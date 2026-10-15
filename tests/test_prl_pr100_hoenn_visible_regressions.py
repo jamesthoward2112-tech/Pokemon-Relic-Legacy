@@ -30,8 +30,8 @@ class PR100HoennRegressions(unittest.TestCase):
         gen=read("tools/mapjson/mapjson.cpp")
         lab=read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
         self.assertIn('mapName == "LittlerootTown_ProfessorBirchsLab"',gen)
-        self.assertIn('prlHoennStarterBall ? std::to_string(9 + i - 3)',gen)
-        for localid,x in (("CYNDAQUIL",9),("TOTODILE",10),("CHIKORITA",11)):
+        self.assertIn('prlHoennStarterBall ? std::to_string(8 + i - 3)',gen)
+        for localid,x in (("CYNDAQUIL",8),("TOTODILE",9),("CHIKORITA",10)):
             self.assertIn("setobjectxy LOCALID_BIRCHS_LAB_"+localid+"_BALL, "+str(x)+", 4",lab)
         self.assertIn("setvar VAR_PRL_REGION_STAGE, 2", lab)
         self.assertIn("hideobjectat LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL",lab)
