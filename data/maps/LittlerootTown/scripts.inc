@@ -955,11 +955,13 @@ LittlerootTown_EventScript_PRLMomAlreadyHasShoes::
 	end
 
 LittlerootTown_Text_PRLMomAlreadyHasShoes::
-	.string "MOM: HOENN looks lovely,\n"
-	.string "doesn't it?\p"
-	.string "I'm proud of all you did\n"
-	.string "in KANTO.\p"
-	.string "Enjoy this new adventure!$"
+	@ The Littleroot guardian is the player's AUNT; MUM stayed in KANTO.
+	.string "AUNT: {PLAYER}! Welcome\n"
+	.string "to HOENN, dear!\p"
+	.string "Your MUM told me all about\n"
+	.string "your KANTO adventures.\p"
+	.string "She'll guard your savings.\n"
+	.string "I'll look after you here!$"
 
 LittlerootTown_EventScript_SetReceivedRunningShoes::
 	removeobject LOCALID_LITTLEROOT_MOM
