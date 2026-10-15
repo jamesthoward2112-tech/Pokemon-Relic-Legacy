@@ -5890,7 +5890,7 @@ u16 PRLHoennCheckPCSpaceForParty(void)
             if (species != SPECIES_NONE)
             {
                 occupied++;
-                if (!PRLHoennPlaceInManifest(used, species, GetBoxMonData(mon, MON_DATA_LEVEL), &fallbackCount, NULL))
+                if (!PRLHoennPlaceInManifest(used, species, GetLevelFromBoxMonExp(mon), &fallbackCount, NULL))
                     return FALSE;
             }
         }
@@ -5970,8 +5970,8 @@ static void PRLHoennSortEachBoxAscending(struct BoxPokemon (*planned)[IN_BOX_COU
         {
             for (right = left + 1; right < used[box]; right++)
             {
-                if (GetBoxMonData(&planned[box][right], MON_DATA_LEVEL)
-                  < GetBoxMonData(&planned[box][left], MON_DATA_LEVEL))
+                if (GetLevelFromBoxMonExp(&planned[box][right])
+                  < GetLevelFromBoxMonExp(&planned[box][left]))
                 {
                     struct BoxPokemon temp = planned[box][left];
                     planned[box][left] = planned[box][right];
@@ -5993,8 +5993,8 @@ static void PRLHoennSortEachBoxAscending(struct BoxPokemon (*planned)[IN_BOX_COU
             {
                 for (laterSlot = (laterBox == box ? left + 1 : 0); laterSlot < used[laterBox]; laterSlot++)
                 {
-                    if (GetBoxMonData(&planned[laterBox][laterSlot], MON_DATA_LEVEL)
-                      < GetBoxMonData(&planned[box][left], MON_DATA_LEVEL))
+                    if (GetLevelFromBoxMonExp(&planned[laterBox][laterSlot])
+                      < GetLevelFromBoxMonExp(&planned[box][left]))
                     {
                         struct BoxPokemon temp = planned[box][left];
                         planned[box][left] = planned[laterBox][laterSlot];
@@ -6106,13 +6106,13 @@ u16 PRLHoennCommitKantoTransfer(void)
             enum Species species = GetBoxMonData(mon, MON_DATA_SPECIES);
             if (species != SPECIES_NONE)
             {
-                if (!PRLHoennPlaceInManifest(used, species, GetBoxMonData(mon, MON_DATA_LEVEL), &fallbackCount, &destination))
+                if (!PRLHoennPlaceInManifest(used, species, GetLevelFromBoxMonExp(mon), &fallbackCount, &destination))
                 {
                     Free(planned);
                     return FALSE;
                 }
                 planned[destination][used[destination] - 1] = *mon;
-                PRLHoennNoteBoxMismatch(mixed, destination, species, GetBoxMonData(mon, MON_DATA_LEVEL));
+                PRLHoennNoteBoxMismatch(mixed, destination, species, GetLevelFromBoxMonExp(mon));
             }
         }
     }
@@ -6271,7 +6271,7 @@ u16 PRLHoennResortExistingPC(void)
         u8 level;
         if (species == SPECIES_NONE)
             continue;
-        level = GetBoxMonData(mon, MON_DATA_LEVEL);
+        level = GetLevelFromBoxMonExp(mon);
         if (!PRLHoennPlaceInManifest(used, species, level, &fallbackCount, &destination))
         {
             Free(plan);
