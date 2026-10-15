@@ -1087,7 +1087,7 @@ static const struct StorageMessage sMessages[] =
     [MSG_CHANGED_TO_ITEM]      = {COMPOUND_STRING("Changed to {DYNAMIC 0}."),    MSG_VAR_ITEM_NAME},
     [MSG_CANT_STORE_MAIL]      = {COMPOUND_STRING("MAIL can't be stored!"),      MSG_VAR_NONE},
     [MSG_PRL_HOENN_LEVEL_LOCK]  = {COMPOUND_STRING("Need {DYNAMIC 0} more badges!"), MSG_VAR_PRL_BADGES},
-    [MSG_PRL_HOENN_LEAGUE_LOCK] = {COMPOUND_STRING("Beat HOENN League first!"), MSG_VAR_NONE},
+    [MSG_PRL_HOENN_LEAGUE_LOCK] = {COMPOUND_STRING("Beat HOENN LEAGUE!"), MSG_VAR_NONE},
 };
 
 static const struct WindowTemplate sYesNoWindowTemplate =
