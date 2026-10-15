@@ -13,13 +13,13 @@ class PR97HoennFixes(unittest.TestCase):
             "VermilionCity_Text_PRLHoennTransferFailed::",1)[0]
         self.assertIn("one-way",text)
         self.assertIn("SAVE",text)
-        self.assertNotIn("Your KANTO POKéMON",text)
-        self.assertNotIn("Your Bag items",text)
+        self.assertIn("Your KANTO POKéMON",text)
+        self.assertIn("TRAINER SCHOOL",text)
         self.assertNotIn("REMOTE PC",text)
         self.assertIn("specialvar VAR_RESULT, PRLHoennCheckPCSpaceForParty",script)
         lab = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
-        self.assertIn("When you choose a partner",lab)
-        self.assertIn("Your old Bag goes to the",lab)
+        self.assertIn("Your KANTO team will go",lab)
+        self.assertIn("Choose ONE of these",lab)
 
     def test_firered_truck_objects_collide_at_original_locations(self):
         src = read("tools/mapjson/mapjson.cpp")
