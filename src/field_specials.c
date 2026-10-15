@@ -5937,6 +5937,43 @@ static void PRLHoennSortEachBoxAscending(struct BoxPokemon (*planned)[IN_BOX_COU
 
 // Return FALSE without mutating save data on insufficient PC room / heap.
 // The boarding script calls this only after the explicit final confirmation.
+
+// Repair one-time region inventory state for legacy PR89/90/92 Hoenn saves.
+// Those saves could still show the full Kanto Bag after the region hand-off.
+// Do NOT clear on every map entry, or legitimate later Hoenn items are lost.
+u16 PRLHoennEnsureEssentials(void)
+{
+    u16 expShareQuantity;
+
+    if (VarGet(VAR_PRL_REGION_STAGE) != 2)
+        return FALSE;
+
+    if (!FlagGet(FLAG_PRL_HOENN_ESSENTIALS_READY))
+    {
+        expShareQuantity = CountTotalItemQuantityInBag(ITEM_EXP_SHARE);
+        ClearBag();
+        if (expShareQuantity != 0)
+            AddBagItem(ITEM_EXP_SHARE, expShareQuantity);
+        AddBagItem(ITEM_POKEMON_BOX_LINK, 1);
+        gSaveBlock1Ptr->registeredItem = ITEM_NONE;
+        VarSet(VAR_PRL_REGISTERED_ITEM_HOLD, ITEM_NONE);
+        FlagSet(FLAG_PRL_HOENN_ESSENTIALS_READY);
+        LoadPlayerBag();
+        SyncPrlInventoryLegacyBackup();
+    }
+    else if (!CheckBagHasItem(ITEM_POKEMON_BOX_LINK, 1))
+    {
+        AddBagItem(ITEM_POKEMON_BOX_LINK, 1);
+        LoadPlayerBag();
+        SyncPrlInventoryLegacyBackup();
+    }
+
+    // Hoenn keeps the player's previously earned Running Shoes.
+    FlagSet(FLAG_SYS_B_DASH);
+    FlagSet(FLAG_RECEIVED_RUNNING_SHOES);
+    return TRUE;
+}
+
 u16 PRLHoennCommitKantoTransfer(void)
 {
     struct BoxPokemon (*planned)[IN_BOX_COUNT];
@@ -6042,12 +6079,14 @@ u16 PRLHoennCommitKantoTransfer(void)
     VarSet(VAR_PRL_BANK_KANTO_MONEY_HI, money >> 16);
     SetMoney(&gSaveBlock1Ptr->money, 3000);
 
-    // The Bag is donated to the Hoenn Training School, not held Pokémon items.
-    // EXP SHARE is the one material Bag exception. Remote PC is a PRL start
-    // menu feature, not an item, so its access is retained without migration.
+    // The Kanto Bag is donated; three permanent QoL benefits cross regions.
+    // Running Shoes are a system flag, not a physical item. The actual
+    // Remote PC is ITEM_POKEMON_BOX_LINK (a functional Key Item).
     ClearBag();
     if (expShareQuantity != 0)
         AddBagItem(ITEM_EXP_SHARE, expShareQuantity);
+    AddBagItem(ITEM_POKEMON_BOX_LINK, 1);
+    FlagSet(FLAG_PRL_HOENN_ESSENTIALS_READY);
     gSaveBlock1Ptr->registeredItem = ITEM_NONE;
     VarSet(VAR_PRL_REGISTERED_ITEM_HOLD, ITEM_NONE);
     // SavePlayerBag() later copies this runtime Bag snapshot back into the
