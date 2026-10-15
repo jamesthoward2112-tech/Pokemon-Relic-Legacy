@@ -32,17 +32,17 @@ class PR97HoennFixes(unittest.TestCase):
         self.assertIn("ExecuteTruckSequence", read("src/seagallop.c"))
         self.assertIn("MAP_INSIDE_OF_TRUCK", read("data/maps/InsideOfTruck/map.json"))
 
-    def test_lab_starter_table_only_visible_during_champion_choice(self):
+    def test_lab_starter_choice_is_offered_by_birch_not_table(self):
         sc = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
-        def block(name):
-            return sc.split("LittlerootTown_ProfessorBirchsLab_EventScript_" + name + "::",1)[1].split("\n\n",1)[0]
-        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE", block("PRLWaitForBirch"))
-        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE", block("PRLSetupStarterRoom"))
-        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE", block("PRLHideStarterRoom"))
-        done = sc.split("LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::",1)[1].split("\n\n",1)[0]
-        self.assertIn("setvar VAR_PRL_REGION_STAGE, 2",done)
-        for ball in ("CYNDAQUIL","TOTODILE","CHIKORITA"):
-            self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_"+ball,done)
+        for name in ("PRLWaitForBirch", "PRLSetupStarterRoom", "PRLHideStarterRoom"):
+            block = sc.split("LittlerootTown_ProfessorBirchsLab_EventScript_"+name+"::",1)[1].split("\n\n",1)[0]
+            self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB",block)
+            self.assertNotIn("_WITH_TABLE",block)
+        self.assertNotIn("LittlerootTown_ProfessorBirchsLab_EventScript_PRLPlaceStarterBalls::",sc)
+        self.assertIn("goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLOfferRalts",sc)
+        self.assertIn("showmonpic SPECIES_RALTS",sc)
+        self.assertIn("showmonpic SPECIES_POOCHYENA",sc)
+        self.assertIn("showmonpic SPECIES_GEMLIN",sc)
 
     def test_safe_sort_reserves_lowest_level_box_and_does_not_mislabel_spill(self):
         c = read("src/field_specials.c")
