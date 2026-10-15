@@ -67,7 +67,10 @@ LittlerootTown_OnTransition:
 	end
 
 LittlerootTown_EventScript_PRLKeepRosieInside::
+	@ Some carried-over saves previously left Rosie standing at the door.
+	@ Reset both flag and cached template position before outdoor spawn.
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	setobjectxyperm LOCALID_LITTLEROOT_MOM, 255, 255
 	return
 
 LittlerootTown_EventScript_LeftLabAfterDexUpgrade::
@@ -232,6 +235,7 @@ LittlerootTown_EventScript_PRLRepairHoennProps::
 	@ Force-hide the already spawned outdoor Rosie, never re-spawn her.
 	hideobjectat LOCALID_LITTLEROOT_MOM, MAP_LITTLEROOT_TOWN
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	setobjectxyperm LOCALID_LITTLEROOT_MOM, 255, 255
 	removeobject LOCALID_LITTLEROOT_MOM
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
@@ -330,6 +334,7 @@ LittlerootTown_EventScript_PRLRosieWelcomeOnArrival::
 	waitmovement 0
 	hideobjectat LOCALID_LITTLEROOT_MOM, MAP_LITTLEROOT_TOWN
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	setobjectxyperm LOCALID_LITTLEROOT_MOM, 255, 255
 	removeobject LOCALID_LITTLEROOT_MOM
 	closedoor VAR_0x8009, VAR_0x800A
 	waitdooranim
