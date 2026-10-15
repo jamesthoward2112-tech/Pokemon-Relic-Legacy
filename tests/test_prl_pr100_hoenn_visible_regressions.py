@@ -21,6 +21,7 @@ class PR100HoennRegressions(unittest.TestCase):
         self.assertIn("MAP_LITTLEROOT_TOWN",helper)
         self.assertIn("obj->localId == 7 || obj->localId == 8",helper)
         self.assertIn("obj->localId == 5 || obj->localId == 6",helper)
+        self.assertIn("if (stage != 1)",helper)
         self.assertIn("stage == 2 || stage == 3",helper)
         self.assertIn("obj->localId >= 4 && obj->localId <= 6",helper)
         self.assertIn("PRLRejectHoennBridgeObject(&objectEventTemplateLocal, mapNum, mapGroup)",code)
@@ -55,7 +56,7 @@ class PR100HoennRegressions(unittest.TestCase):
         self.assertIn("PRLHoennResortExistingPC();",exit)
         self.assertLess(exit.index("PRLHoennResortExistingPC();"),exit.index("FreePokeStorageData();"))
         self.assertIn("sStorage->boxOption != OPTION_SELECT_MON",exit)
-        self.assertIn("PRLHoennStorageLevelLocked(GetBoxMonDataAt",storage)
+        self.assertIn("PRLHoennStorageLevelLocked(GetLevelFromBoxMonExp(GetBoxedMonPtr",storage)
 
 if __name__=="__main__":
     unittest.main()
