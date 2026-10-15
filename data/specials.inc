@@ -575,6 +575,7 @@ gSpecials::
 	def_special PRLHoennResortExistingPC
 	def_special PRLHoennBankArrivalFunds
 	def_special PRLHoennRestoreKantoFunds
+	def_special PRLHoennAutoSortPCOnce
 	def_special PRLHoennEnsureEssentials
 	def_special GetFrlgPokedexCount
 	def_special HasAllMons
