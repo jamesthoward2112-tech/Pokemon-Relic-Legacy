@@ -116,6 +116,8 @@ LittlerootTown_EventScript_SetMomInFrontOfDoorFemale::
 LittlerootTown_EventScript_PRLKeepKantoRunningShoes::
 	@ Keep QoL items on the region transfer, including old PR92 saves.
 	special PRLHoennEnsureEssentials
+	@ First post-starter town load: repair box labels/order on PR97 saves.
+	special PRLHoennAutoSortPCOnce
 	@ Aunt Rosie is a real town resident, NOT the player's Kanto Mum.
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
 	setobjectmovementtype LOCALID_LITTLEROOT_MOM, MOVEMENT_TYPE_FACE_DOWN
