@@ -22,6 +22,10 @@ LittlerootTown_ProfessorBirchsLab_MapScripts::
 LittlerootTown_ProfessorBirchsLab_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call ProfBirch_EventScript_UpdateLocation
+	@ The delivery truck leaves as soon as the player enters Birch's lab,
+	@ whether Birch is spoken to or not. It stays visible outdoors until
+	@ this first indoor transition, and cannot respawn when leaving the lab.
+	call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLTruckDeparted
 	@ PR89: Hoenn's three starter balls replace Emerald's Johto gift
 	@ while this FireRed bridge is active; no vanilla gift may fire.
 	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLWaitForBirch
@@ -33,6 +37,13 @@ LittlerootTown_ProfessorBirchsLab_OnTransition:
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_SetJohtoStarterLayout
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_CheckReadyForJohtoStarter
 	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLTruckDeparted::
+	@ Mark both exterior truck slots gone on the FIRST lab visit, rather
+	@ than waiting for starter choice or the next stage transition.
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
+	return
 
 @ The Champion must actually walk up to Birch first. No off-screen dialogue.
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLEnsureArrivalFundsBanked::
