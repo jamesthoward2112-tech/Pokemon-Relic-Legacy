@@ -786,7 +786,8 @@ void process_groups(string groups_filepath, vector<string> &map_filepaths, strin
         // Keep map group / numeric map IDs stable for existing Kanto saves.
         bool prlHoennLanding = map_name == "LittlerootTown"
                            || map_name == "LittlerootTown_ProfessorBirchsLab"
-                           || map_name == "Route101";
+                           || map_name == "Route101"
+                           || map_name == "InsideOfTruck";
         if ((version == "emerald" && region != "REGION_HOENN")
          || (version == "firered" && region != "REGION_KANTO" && !prlHoennLanding)) {
             invalid_maps.push_back(map_name);
@@ -833,7 +834,8 @@ string generate_layout_headers_text(Json layouts_data) {
               json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN" &&
               json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB" &&
               json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE" &&
-              json_to_string(layout, "id", true) != "LAYOUT_ROUTE101"))
+              json_to_string(layout, "id", true) != "LAYOUT_ROUTE101" &&
+              json_to_string(layout, "id", true) != "LAYOUT_INSIDE_OF_TRUCK"))
             continue;
         string layoutName = json_to_string(layout, "name");
         string border_label = layoutName + "_Border";
@@ -894,7 +896,8 @@ string generate_layouts_table_text(Json layouts_data) {
               json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN" &&
               json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB" &&
               json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE" &&
-              json_to_string(layout, "id", true) != "LAYOUT_ROUTE101")) {
+              json_to_string(layout, "id", true) != "LAYOUT_ROUTE101" &&
+              json_to_string(layout, "id", true) != "LAYOUT_INSIDE_OF_TRUCK")) {
             text << "\t.4byte NULL\n";
         } else {
             string layout_name = json_to_string(layout, "name", true);

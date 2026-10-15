@@ -36,7 +36,12 @@ class PRLHoennPreflight(unittest.TestCase):
         self.assertIn("VermilionCity_EventScript_CheckSeagallopPresent", sailor)
         self.assertIn("setvar VAR_PRL_REGION_STAGE, 1", sailor)
         self.assertNotIn("specialvar VAR_RESULT, PRLHoennCommitKantoTransfer", sailor)
-        self.assertIn("warp MAP_LITTLEROOT_TOWN, 7, 18", sailor)
+        # PR95 crosses with the existing ferry cinematic and walks out of
+        # the Emerald truck after its original driving animation.
+        self.assertIn("special DoSeagallopFerryScene", sailor)
+        self.assertIn("setvar VAR_0x8006, SEAGALLOP_PRL_HOENN_TRUCK", sailor)
+        self.assertIn("setdynamicwarp MAP_LITTLEROOT_TOWN, 3, 10", sailor)
+        self.assertIn("setdynamicwarp MAP_LITTLEROOT_TOWN, 12, 10", sailor)
         for command in ("\tremoveitem ", "\tsetmoney ", "\tsetflag FLAG_PRL_", "\tremoveobject "):
             self.assertNotIn(command, sailor)
 

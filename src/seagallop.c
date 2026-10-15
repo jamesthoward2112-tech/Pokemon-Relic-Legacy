@@ -2,6 +2,7 @@
 #include "bg.h"
 #include "event_data.h"
 #include "field_screen_effect.h"
+#include "field_special_scene.h"
 #include "field_weather.h"
 #include "gpu_regs.h"
 #include "main.h"
@@ -76,7 +77,9 @@ static const s8 sSeag[][4] = {
     [SEAGALLOP_SEVEN_ISLAND]    = {MAP_GROUP(MAP_SEVEN_ISLAND_HARBOR), MAP_NUM(MAP_SEVEN_ISLAND_HARBOR), 0x08, 0x05},
     [SEAGALLOP_CINNABAR_ISLAND] = {MAP_GROUP(MAP_CINNABAR_ISLAND), MAP_NUM(MAP_CINNABAR_ISLAND),     0x15, 0x07},
     [SEAGALLOP_NAVEL_ROCK]      = {MAP_GROUP(MAP_NAVEL_ROCK_HARBOR_FRLG), MAP_NUM(MAP_NAVEL_ROCK_HARBOR_FRLG),   0x08, 0x05},
-    [SEAGALLOP_BIRTH_ISLAND]    = {MAP_GROUP(MAP_BIRTH_ISLAND_HARBOR_FRLG), MAP_NUM(MAP_BIRTH_ISLAND_HARBOR_FRLG), 0x08, 0x05}
+    [SEAGALLOP_BIRTH_ISLAND]    = {MAP_GROUP(MAP_BIRTH_ISLAND_HARBOR_FRLG), MAP_NUM(MAP_BIRTH_ISLAND_HARBOR_FRLG), 0x08, 0x05},
+    // Only PRL's ship-to-Hoenn voyage lands in Emerald's animated truck.
+    [SEAGALLOP_PRL_HOENN_TRUCK] = {MAP_GROUP(MAP_INSIDE_OF_TRUCK), MAP_NUM(MAP_INSIDE_OF_TRUCK), 0x02, 0x02}
 };
 
 // Bitpacked array.  In the commented section, right-most bit is the
@@ -316,7 +319,10 @@ static void Task_Seagallop_3(void)
     SetWarpDestination(warpInfo[0], warpInfo[1], -1, warpInfo[2], warpInfo[3]);
     PlayRainStoppingSoundEffect();
     PlaySE(SE_EXIT);
-    gFieldCallback = FieldCB_DefaultWarpExit;
+    // The normal Sevii ferries remain unchanged; PRL plays Emerald\'s
+    // original lorry animation after the Slateport-bound ship crossing.
+    gFieldCallback = (gSpecialVar_0x8006 == SEAGALLOP_PRL_HOENN_TRUCK)
+                   ? ExecuteTruckSequence : FieldCB_DefaultWarpExit;
     WarpIntoMap();
     SetMainCallback2(CB2_LoadMap);
     ResetInitialPlayerAvatarState();
@@ -446,6 +452,9 @@ static void SpriteCB_Wake(struct Sprite *sprite)
 
 static bool8 GetDirectionOfTravel(void)
 {
+    // Kanto to Hoenn uses the eastbound ferry graphic.
+    if (gSpecialVar_0x8006 == SEAGALLOP_PRL_HOENN_TRUCK)
+        return DIRN_EASTBOUND;
     if (gSpecialVar_0x8004 >= NELEMS(sTravelDirectionMatrix))
     {
         return DIRN_EASTBOUND;
