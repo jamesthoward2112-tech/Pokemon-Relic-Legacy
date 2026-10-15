@@ -311,14 +311,13 @@ LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome::
 	.string "was no isolated event.\p"
 	.string "I call it RESONANCE.\n"
 	.string "It awakens lost relics!\p"
-	.string "These three POKéMON all\n"
-	.string "have relic potential.\p"
-	.string "RALTS can become the\n"
-	.string "mystical VALKYVOIR.\p"
-	.string "POOCHYENA may awaken\n"
-	.string "as fierce SKULBERUS.\p"
-	.string "GEMLIN's ancient lineage\n"
-	.string "holds its own secrets.\p"
+	.string "My research suggests\n"
+	.string "these three POKéMON\p"
+	.string "carry unusual potential.\p"
+	.string "There may be something\n"
+	.string "special in their future.\p"
+	.string "What they could become\n"
+	.string "is still a mystery.\p"
 	.string "Your KANTO team will go\n"
 	.string "safely into the PC.\p"
 	.string "Hoenn BADGES unlock your\n"
@@ -530,6 +529,11 @@ LittlerootTown_ProfessorBirchsLab_Movement_PlayerEnterLabForJohtoStarter:
 LittlerootTown_ProfessorBirchsLab_EventScript_Aide::
 	lock
 	faceplayer
+	@ PR103: Emerald's vanilla rival/fieldwork messages contradict this
+	@ PRL Hoenn arrival (Birch is here and the rival has not met us yet).
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAide
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAide
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAide
 	goto_if_ge VAR_BIRCH_LAB_STATE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_AideReceivedStarter
 	goto_if_set FLAG_BIRCH_AIDE_MET, LittlerootTown_ProfessorBirchsLab_EventScript_AideAlreadyMet
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchAwayOnFieldwork, MSGBOX_DEFAULT
@@ -546,6 +550,19 @@ LittlerootTown_ProfessorBirchsLab_EventScript_AideReceivedStarter::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchEnjoysRivalsHelpToo, MSGBOX_DEFAULT
 	release
 	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLAide::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLAide
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLAide::
+	.string "BIRCH's AIDE: We're studying\n"
+	.string "ancient sites in HOENN.\p"
+	.string "Some POKéMON respond to\n"
+	.string "a strange relic energy.\p"
+	.string "Keep exploring! Even the\n"
+	.string "Professor has questions.$"
 
 LittlerootTown_ProfessorBirchsLab_EventScript_Cyndaquil::
 	@ Prevent the old Johto starter gift in the Kanto-to-Hoenn bridge.
