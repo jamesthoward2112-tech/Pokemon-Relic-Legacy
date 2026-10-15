@@ -668,7 +668,13 @@
 #define TRAINER_PRL_CHANSEY_SIX_ISLAND                657
 #define TRAINER_PRL_CHANSEY_SEVEN_ISLAND              658
 
-#define TRAINERS_COUNT_FRLG                      659
+// PR106: Hoenn-only Route 102 trainers use free FRLG slots; never
+// reinterpret a Kanto ID as an Emerald trainer on cross-region maps.
+#define TRAINER_PRL_HOENN_CALVIN_102                  659
+#define TRAINER_PRL_HOENN_RICK_102                    660
+#define TRAINER_PRL_HOENN_TIANA_102                   661
+#define TRAINER_PRL_HOENN_ALLEN_102                   662
+#define TRAINERS_COUNT_FRLG                      663
 #define MAX_TRAINERS_COUNT_FRLG                  768
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_FRLG_H

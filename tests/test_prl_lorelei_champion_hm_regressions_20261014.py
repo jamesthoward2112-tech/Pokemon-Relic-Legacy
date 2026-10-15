@@ -26,7 +26,7 @@ class LoreleiChampionPartyHmRegression(unittest.TestCase):
         self.assertIn("TRAINER_FRONTIER_BRAIN              0x02F1", special_block)
         self.assertIn("TRAINER_PLAYER                      0x02F2", special_block)
         self.assertIn("(TRAINER_EREADER + 1)", specials.split("#else", 1)[1])
-        self.assertIn("#define TRAINERS_COUNT_FRLG                      659", opponents)
+        self.assertIn("#define TRAINERS_COUNT_FRLG                      663", opponents)
         self.assertIn("#define MAX_TRAINERS_COUNT_FRLG                  768", opponents)
         self.assertTrue(all(659 <= x < 768 for x in (0x02F0, 0x02F1, 0x02F2)))
 

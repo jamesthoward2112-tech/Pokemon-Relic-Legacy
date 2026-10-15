@@ -169,7 +169,13 @@ class WildEncounterAssembler:
             elif "LeafGreen" in shared_label:
                 version = "LEAFGREEN"
             
-            self.WriteLine(f"#ifdef {version}")
+            # PR106: FRLG is the Kanto engine, but the first Hoenn
+            # routes are enabled there too. Keep every other Emerald
+            # table disabled until its actual map is enabled.
+            if version == "EMERALD" and shared_label in ("gRoute101", "gRoute102"):
+                self.WriteLine("#if defined(EMERALD) || defined(FIRERED)")
+            else:
+                self.WriteLine(f"#ifdef {version}")
 
             self.WriteLine("{", 1)
             self.WriteLine(f".mapGroup = {map_group},", 2)
@@ -241,7 +247,12 @@ class WildEncounterAssembler:
                     version = "FIRERED"
                 elif "LeafGreen" in shared_label:
                     version = "LEAFGREEN"
-                self.WriteLine(f"#ifdef {version}")
+                # The earliest native Hoenn wild tables must also compile
+                # into the FireRed PRL binary, not only the Emerald engine.
+                if version == "EMERALD" and shared_label in ("gRoute101", "gRoute102"):
+                    self.WriteLine("#if defined(EMERALD) || defined(FIRERED)")
+                else:
+                    self.WriteLine(f"#ifdef {version}")
                 for mon_type in self.config.mon_types:
                     if mon_type not in map_encounters:
                         headers["data"][shared_label][mon_type] = "NULL"

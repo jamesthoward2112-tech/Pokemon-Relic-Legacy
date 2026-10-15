@@ -337,17 +337,34 @@ string generate_map_events_text(Json map_data) {
                 bool prlArrivalTruck = version == "firered"
                                      && mapName == "LittlerootTown"
                                      && (i == 4 || i == 5);
+                // PR106: Emerald's mirrored player/rival houses contain
+                // moving-in Vigoroth, an inert Norman, and an untalkable
+                // May/Brendan standing on a warp tile. Keep numeric object
+                // IDs, but park unused props off-map in the FireRed bridge.
+                bool prlHouse = version == "firered"
+                     && (mapName == "LittlerootTown_BrendansHouse_1F"
+                      || mapName == "LittlerootTown_MaysHouse_1F");
+                bool prlHouseInert = prlHouse && (i == 1 || i == 2 || i == 4);
+                bool prlHouseRival = prlHouse && i == 6;
+                string prlObjX = prlHouseInert ? "255" : (prlHouseRival
+                    ? (mapName == "LittlerootTown_MaysHouse_1F" ? "5" : "6")
+                    : json_to_string(obj_event, "x"));
+                string prlObjY = prlHouseInert ? "255" : (prlHouseRival
+                    ? "4" : json_to_string(obj_event, "y"));
+                string prlObjScript = prlHouseRival
+                    ? (mapName + "_EventScript_PRLRivalChat")
+                    : json_to_string(obj_event, "script");
                 text << "\tobject_event " << i + 1 << ", "
                      << json_to_string(obj_event, "graphics_id") << ", "
-                     << json_to_string(obj_event, "x") << ", "
-                     << json_to_string(obj_event, "y") << ", "
+                     << prlObjX << ", "
+                     << prlObjY << ", "
                      << (prlArrivalTruck ? "3" : json_to_string(obj_event, "elevation")) << ", "
                      << json_to_string(obj_event, "movement_type") << ", "
                      << json_to_string(obj_event, "movement_range_x") << ", "
                      << json_to_string(obj_event, "movement_range_y") << ", "
                      << json_to_string(obj_event, "trainer_type") << ", "
                      << json_to_string(obj_event, "trainer_sight_or_berry_tree_id") << ", "
-                     << json_to_string(obj_event, "script") << ", "
+                     << prlObjScript << ", "
                      << json_to_string(obj_event, "flag") << "\n";
             } else if (type == "clone") {
                 text << "\tclone_event " << i + 1 << ", "

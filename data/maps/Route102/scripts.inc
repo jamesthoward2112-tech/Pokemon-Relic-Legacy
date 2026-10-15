@@ -18,6 +18,9 @@ Route102_EventScript_Boy::
 	end
 
 Route102_EventScript_Calvin::
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, Route102_EventScript_PRLCalvin
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, Route102_EventScript_PRLCalvin
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, Route102_EventScript_PRLCalvin
 	trainerbattle_single TRAINER_CALVIN_1, Route102_Text_CalvinIntro, Route102_Text_CalvinDefeated, Route102_EventScript_CalvinRegisterMatchCallAfterBattle
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, Route102_EventScript_CalvinRematch
@@ -59,16 +62,25 @@ Route102_EventScript_CalvinRematch::
 	end
 
 Route102_EventScript_Rick::
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, Route102_EventScript_PRLRick
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, Route102_EventScript_PRLRick
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, Route102_EventScript_PRLRick
 	trainerbattle_single TRAINER_RICK, Route102_Text_RickIntro, Route102_Text_RickDefeated
 	msgbox Route102_Text_RickPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route102_EventScript_Tiana::
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, Route102_EventScript_PRLTiana
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, Route102_EventScript_PRLTiana
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, Route102_EventScript_PRLTiana
 	trainerbattle_single TRAINER_TIANA, Route102_Text_TianaIntro, Route102_Text_TianaDefeated
 	msgbox Route102_Text_TianaPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route102_EventScript_Allen::
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, Route102_EventScript_PRLAllen
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, Route102_EventScript_PRLAllen
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, Route102_EventScript_PRLAllen
 	trainerbattle_single TRAINER_ALLEN, Route102_Text_AllenIntro, Route102_Text_AllenDefeated
 	msgbox Route102_Text_AllenPostBattle, MSGBOX_AUTOCLOSE
 	end
@@ -107,3 +119,26 @@ Route102_Text_RouteSignOldale:
 Route102_Text_RouteSignPetalburg:
 	.string "ROUTE 102\n"
 	.string "{LEFT_ARROW} PETALBURG CITY$"
+
+
+@ PR106: Hoenn trainer IDs in Emerald overlap FRLG IDs in this engine.
+@ Route 102 must use separate trainers with native low-level Hoenn teams.
+Route102_EventScript_PRLCalvin::
+	trainerbattle_single TRAINER_PRL_HOENN_CALVIN_102, Route102_Text_CalvinIntro, Route102_Text_CalvinDefeated
+	msgbox Route102_Text_CalvinPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route102_EventScript_PRLRick::
+	trainerbattle_single TRAINER_PRL_HOENN_RICK_102, Route102_Text_RickIntro, Route102_Text_RickDefeated
+	msgbox Route102_Text_RickPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route102_EventScript_PRLTiana::
+	trainerbattle_single TRAINER_PRL_HOENN_TIANA_102, Route102_Text_TianaIntro, Route102_Text_TianaDefeated
+	msgbox Route102_Text_TianaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route102_EventScript_PRLAllen::
+	trainerbattle_single TRAINER_PRL_HOENN_ALLEN_102, Route102_Text_AllenIntro, Route102_Text_AllenDefeated
+	msgbox Route102_Text_AllenPostBattle, MSGBOX_AUTOCLOSE
+	end
