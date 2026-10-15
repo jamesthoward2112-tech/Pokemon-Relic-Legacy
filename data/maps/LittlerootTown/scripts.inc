@@ -112,6 +112,14 @@ LittlerootTown_EventScript_SetMomInFrontOfDoorFemale::
 LittlerootTown_EventScript_PRLKeepKantoRunningShoes::
 	@ Keep QoL items on the region transfer, including old PR92 saves.
 	special PRLHoennEnsureEssentials
+	@ PR94: ensure the old Route101 rescue props are hidden BEFORE the
+	@ player crosses the north border, even on older converted saves.
+	setvar VAR_ROUTE101_STATE, 3
+	setflag FLAG_RESCUED_BIRCH
+	setflag FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE
+	setflag FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG
+	setflag FLAG_HIDE_ROUTE_101_ZIGZAGOON
+	setflag FLAG_HIDE_ROUTE_101_BIRCH
 	setflag FLAG_RECEIVED_RUNNING_SHOES
 	setflag FLAG_SYS_B_DASH
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
