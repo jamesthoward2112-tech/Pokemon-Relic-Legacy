@@ -39,5 +39,6 @@ u8 *PrlGetRegionFlagPointer(u16 id);
 void PrlClearRegionSave(void);
 void PrlReadRegionSaveSector(const u8 *data);
 void PrlWriteRegionSaveSector(u8 *data);
+void PrlMigrateLegacyHoennRoute102Flags(void);
 
 #endif // GUARD_PRL_REGION_SAVE_H
