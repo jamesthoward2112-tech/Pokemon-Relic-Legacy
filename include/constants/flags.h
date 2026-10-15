@@ -50,13 +50,15 @@
 #define FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT                 0x4EE
 #define FLAG_PRL_SSANNE_TRUCK_MEW_CAPTURE_CONFIRMED      0x4EF
 // Hoenn Bag normalization applied once, including to PR89/90/92 converted saves.
-#define FLAG_PRL_HOENN_ESSENTIALS_READY                   0x4E0
-#define FLAG_PRL_HOENN_FUNDS_BANKED                       0x4E1
-#define FLAG_PRL_HOENN_PC_LEVEL_SORTED                    0x4E2
+// PR108: previously these aliases reused Kanto Badge Heist bits 0x4E0-0x4E5.
+// Region save flags must NEVER be located in existing FRLG flags.
+#define FLAG_PRL_HOENN_ESSENTIALS_READY                   0xA000
+#define FLAG_PRL_HOENN_FUNDS_BANKED                       0xA001
+#define FLAG_PRL_HOENN_PC_LEVEL_SORTED                    0xA002
 // Hoenn Birch aide gifts: save-persistent and independent of badges.
-#define FLAG_PRL_HOENN_ROWAN_TREECKO_GIFT                0x4E3
-#define FLAG_PRL_HOENN_KIRI_TORCHIC_GIFT                 0x4E4
-#define FLAG_PRL_HOENN_NERIS_MUDKIP_GIFT                 0x4E5
+#define FLAG_PRL_HOENN_ROWAN_TREECKO_GIFT                0xA003
+#define FLAG_PRL_HOENN_KIRI_TORCHIC_GIFT                 0xA004
+#define FLAG_PRL_HOENN_NERIS_MUDKIP_GIFT                 0xA005
 
 // Temporary Flags
 // These temporary flags are are cleared every time a map is loaded. They are used
