@@ -274,18 +274,18 @@ string generate_map_events_text(Json map_data) {
 
             // If no type field is present, assume it's a regular object event.
             if (type == "" || type == "object") {
-                // Emerald's two parked removal trucks become ghost sprites on
-                // the PRL FireRed bridge after the arrival cutscene. Keep BOTH
-                // object indices intact for scripted local IDs and vanilla
-                // Emerald builds, but position their FireRed copies off-grid.
-                bool prlUnusedTownTruck = version == "firered"
-                                        && mapName == "LittlerootTown"
-                                        && (i == 4 || i == 5);
+                // Retain one parked shuttle after the original Hoenn truck
+                // animation. Both map object IDs are unchanged, and only
+                // FireRed's PRL bridge makes the vehicle blocking at the
+                // player's ground elevation (Emerald remains untouched).
+                bool prlArrivalTruck = version == "firered"
+                                     && mapName == "LittlerootTown"
+                                     && (i == 4 || i == 5);
                 text << "\tobject_event " << i + 1 << ", "
                      << json_to_string(obj_event, "graphics_id") << ", "
-                     << (prlUnusedTownTruck ? "255" : json_to_string(obj_event, "x")) << ", "
-                     << (prlUnusedTownTruck ? "255" : json_to_string(obj_event, "y")) << ", "
-                     << json_to_string(obj_event, "elevation") << ", "
+                     << json_to_string(obj_event, "x") << ", "
+                     << json_to_string(obj_event, "y") << ", "
+                     << (prlArrivalTruck ? "3" : json_to_string(obj_event, "elevation")) << ", "
                      << json_to_string(obj_event, "movement_type") << ", "
                      << json_to_string(obj_event, "movement_range_x") << ", "
                      << json_to_string(obj_event, "movement_range_y") << ", "

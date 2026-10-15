@@ -25,6 +25,8 @@ LittlerootTown_ProfessorBirchsLab_OnTransition:
 	@ PR89: Hoenn's three starter balls replace Emerald's Johto gift
 	@ while this FireRed bridge is active; no vanilla gift may fire.
 	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLWaitForBirch
+	@ Repair pre-starter Hoenn saves created before funds were banked.
+	call_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLEnsureArrivalFundsBanked
 	goto_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom
 	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHideStarterRoom
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_SetAfterJohtoStarterLayout
@@ -33,6 +35,10 @@ LittlerootTown_ProfessorBirchsLab_OnTransition:
 	end
 
 @ The Champion must actually walk up to Birch first. No off-screen dialogue.
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLEnsureArrivalFundsBanked::
+	special PRLHoennBankArrivalFunds
+	return
+
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLWaitForBirch::
 	@ The gift-version map bakes three Poké Balls into the FLOOR itself.
 	@ Use the normal lab and show only the three real object sprites.
@@ -101,9 +107,15 @@ LittlerootTown_ProfessorBirchsLab_OnWarp:
 @ Reuse the three existing object slots only for FireRed Hoenn selection.
 @ They still retain their original Johto IDs for Emerald compatibility.
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls::
+	@ Persistent hide must take precedence over any later vanilla Johto
+	@ map/object script. hideobjectat also removes the live object, unlike
+	@ a bare flag when an existing save already spawned the sprite.
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA
+	hideobjectat LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL, MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
+	hideobjectat LOCALID_BIRCHS_LAB_TOTODILE_BALL, MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
+	hideobjectat LOCALID_BIRCHS_LAB_CHIKORITA_BALL, MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
 	removeobject LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL
 	removeobject LOCALID_BIRCHS_LAB_TOTODILE_BALL
 	removeobject LOCALID_BIRCHS_LAB_CHIKORITA_BALL
@@ -140,6 +152,9 @@ LittlerootTown_ProfessorBirchsLab_EventScript_AddRivalObject::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForJohtoStarters::
+	@ Old Emerald state must never respawn balls on a PRL Hoenn save.
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls
 	addobject LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL
 	addobject LOCALID_BIRCHS_LAB_TOTODILE_BALL
 	addobject LOCALID_BIRCHS_LAB_CHIKORITA_BALL
@@ -253,8 +268,8 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLCommitChosenStarter::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterFailed::
-	@ Allocation/capacity failure leaves all Kanto Pokémon, money and
-	@ Bag untouched. Set stage 0 and sail home rather than strand the user.
+	@ Failure must restore Kanto funds which Mum banked on arrival.
+	special PRLHoennRestoreKantoFunds
 	setvar VAR_PRL_REGION_STAGE, 0
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLStarterFailed
 	closemessage
@@ -284,6 +299,10 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA
+	@ Hide actual object-events as well as the map/layout.
+	hideobjectat LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL, MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
+	hideobjectat LOCALID_BIRCHS_LAB_TOTODILE_BALL, MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
+	hideobjectat LOCALID_BIRCHS_LAB_CHIKORITA_BALL, MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
 	removeobject LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL
 	removeobject LOCALID_BIRCHS_LAB_TOTODILE_BALL
 	removeobject LOCALID_BIRCHS_LAB_CHIKORITA_BALL
@@ -499,6 +518,8 @@ LittlerootTown_ProfessorBirchsLab_Movement_BirchReturnPokedex:
 	step_end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_ChooseJohtoStarter::
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls
 	lockall
 	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_PlayerEnterLabForJohtoStarter
 	waitmovement 0

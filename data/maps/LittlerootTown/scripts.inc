@@ -41,6 +41,9 @@ LittlerootTown_OnTransition:
 	call_if_eq VAR_PRL_REGION_STAGE, 1, LittlerootTown_EventScript_PRLPrepareShuttleTruck
 	call_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_EventScript_PRLHideTrucks
 	call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLHideTrucks
+	@ PR97 saves made just after disembarking are still valid: bank their
+	@ Kanto purse the first time this town transition runs in PR98.
+	call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLEnsureArrivalBank
 	call_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_EventScript_PRLHideTrucks
 	setflag FLAG_VISITED_LITTLEROOT_TOWN
 	call Common_EventScript_SetupRivalGfxId
@@ -113,6 +116,14 @@ LittlerootTown_EventScript_SetMomInFrontOfDoorFemale::
 LittlerootTown_EventScript_PRLKeepKantoRunningShoes::
 	@ Keep QoL items on the region transfer, including old PR92 saves.
 	special PRLHoennEnsureEssentials
+	@ First post-starter town load: repair box labels/order on PR97 saves.
+	special PRLHoennAutoSortPCOnce
+	@ Aunt Rosie is a real town resident, NOT the player's Kanto Mum.
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	setobjectmovementtype LOCALID_LITTLEROOT_MOM, MOVEMENT_TYPE_FACE_DOWN
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_PRLPlaceAuntNearBrendansHouse
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_PRLPlaceAuntNearMaysHouse
 	@ PR94: ensure the old Route101 rescue props are hidden BEFORE the
 	@ player crosses the north border, even on older converted saves.
 	setvar VAR_ROUTE101_STATE, 3
@@ -123,12 +134,25 @@ LittlerootTown_EventScript_PRLKeepKantoRunningShoes::
 	setflag FLAG_HIDE_ROUTE_101_BIRCH
 	setflag FLAG_RECEIVED_RUNNING_SHOES
 	setflag FLAG_SYS_B_DASH
-	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
 	setvar VAR_LITTLEROOT_TOWN_STATE, 4
+	return
+
+LittlerootTown_EventScript_PRLEnsureArrivalBank::
+	special PRLHoennBankArrivalFunds
+	return
+
+LittlerootTown_EventScript_PRLPlaceAuntNearBrendansHouse::
+	setobjectxyperm LOCALID_LITTLEROOT_MOM, 5, 10
+	return
+
+LittlerootTown_EventScript_PRLPlaceAuntNearMaysHouse::
+	setobjectxyperm LOCALID_LITTLEROOT_MOM, 14, 10
 	return
 
 LittlerootTown_EventScript_PRLPrepareShuttleTruck::
 	goto_if_ne VAR_LITTLEROOT_INTRO_STATE, 8, LittlerootTown_EventScript_PRLHideTrucks
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_RIVAL
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCH
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
 	checkplayergender
@@ -148,8 +172,9 @@ LittlerootTown_EventScript_PRLShowFemaleShuttle::
 LittlerootTown_EventScript_PRLHideTrucks::
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
-	@ This is not the Emerald moving-house intro. Do not spawn its MOM.
-	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	@ Birch and May/Brendan were inert placeholders, not talking NPCs.
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_RIVAL
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCH
 	return
 
 LittlerootTown_OnFrame:
@@ -180,6 +205,7 @@ LittlerootTown_EventScript_PRLOutdoorDockArrival::
 	removeobject 5
 	removeobject 6
 	setvar VAR_PRL_REGION_STAGE, 3
+	special PRLHoennBankArrivalFunds
 	msgbox LittlerootTown_Text_PRLSafeHoennArrival
 	releaseall
 	end
@@ -194,14 +220,14 @@ LittlerootTown_EventScript_PRLFinishShuttleArrival::
 	setvar VAR_LITTLEROOT_TOWN_STATE, 0
 	setvar VAR_BIRCH_LAB_STATE, 0
 	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0
-	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
-	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
-	removeobject 5
-	removeobject 6
+	@ Keep the correct gender's truck visibly parked while the Champion
+	@ explores this map. It is hidden on the NEXT map load, not right now.
 	setvar VAR_PRL_REGION_STAGE, 3
+	special PRLHoennBankArrivalFunds
 	msgbox LittlerootTown_Text_PRLShuttleArrival
 	clearflag FLAG_HIDE_MAP_NAME_POPUP
+	special ShowMapNamePopup
 	releaseall
 	end
 
@@ -1013,13 +1039,12 @@ LittlerootTown_EventScript_PRLMomAlreadyHasShoes::
 
 LittlerootTown_Text_PRLMomAlreadyHasShoes::
 	@ The Littleroot guardian is the player's AUNT; MUM stayed in KANTO.
-	.string "AUNT: {PLAYER}! Welcome\n"
-	.string "to HOENN, dear!\p"
+	.string "AUNT ROSIE: {PLAYER}!\n"
+	.string "Welcome to HOENN, dear!\p"
 	.string "Your MUM told me all about\n"
 	.string "your KANTO adventures.\p"
 	.string "She'll guard your savings.\n"
 	.string "I'll look after you here!$"
-
 LittlerootTown_EventScript_SetReceivedRunningShoes::
 	removeobject LOCALID_LITTLEROOT_MOM
 	setflag FLAG_SYS_B_DASH

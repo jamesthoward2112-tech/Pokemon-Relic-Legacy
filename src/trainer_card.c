@@ -33,6 +33,8 @@
 #include "constants/rgb.h"
 #include "constants/trainers.h"
 #include "constants/union_room.h"
+#include "constants/flags.h"
+#include "constants/vars.h"
 
 enum {
     WIN_MSG,
@@ -77,6 +79,7 @@ struct TrainerCardData
     bool8 timeColonNeedDraw;
     u8 cardType;
     bool8 isHoenn;
+    bool8 prlShowKantoCard;
     u16 blendColor;
     MainCallback callback2;
     struct TrainerCard trainerCard;
@@ -167,6 +170,9 @@ static bool8 Task_AnimateCardFlipUp(struct Task *task);
 static bool8 Task_EndCardFlip(struct Task *task);
 static void UpdateCardFlipRegs(u16);
 static void LoadMonIconGfx(void);
+
+static const u8 sPRLKantoCardLabel[] = _("KANTO");
+static const u8 sPRLHoennCardLabel[] = _("HOENN");
 
 static const u32 sTrainerCardStickers_Gfx[]      = INCGFX_U32("graphics/trainer_card/frlg/stickers.png", ".4bpp.smol");
 static const u16 sUnused_Pal[]                   = INCGFX_U16("graphics/trainer_card/unused.pal", ".gbapal");
@@ -448,6 +454,15 @@ static void Task_TrainerCard(u8 taskId)
             FlipTrainerCard();
             PlaySE(SE_RG_CARD_FLIP);
             sData->mainState = STATE_WAIT_FLIP_TO_BACK;
+        }
+        else if (JOY_NEW(SELECT_BUTTON) && !sData->isLink
+              && VarGet(VAR_PRL_REGION_STAGE) == 2)
+        {
+            // Local display-only toggle: never mutate saved regional badges.
+            sData->prlShowKantoCard = !sData->prlShowKantoCard;
+            sData->trainerCard.version = sData->prlShowKantoCard ? VERSION_FIRE_RED : VERSION_EMERALD;
+            gMain.state = 0;
+            SetMainCallback2(CB2_InitTrainerCard);
         }
         else if (JOY_NEW(B_BUTTON))
         {
@@ -769,8 +784,11 @@ static void SetPlayerCardData(struct TrainerCard *trainerCard, u8 cardType)
 static void TrainerCard_GenerateCardForPlayer(struct TrainerCard *trainerCard)
 {
     memset(trainerCard, 0, sizeof(struct TrainerCard));
-    trainerCard->version = GAME_VERSION;
-    SetPlayerCardData(trainerCard, VersionToCardType(GAME_VERSION));
+    // Show authentic Emerald card artwork during HOENN, not a Kanto badge
+    // layout with the eight Hoenn badge bits merely cleared.
+    trainerCard->version = (IS_FRLG && VarGet(VAR_PRL_REGION_STAGE) == 2)
+                            ? VERSION_EMERALD : GAME_VERSION;
+    SetPlayerCardData(trainerCard, VersionToCardType(trainerCard->version));
 
     if (!IS_FRLG)
     {
@@ -854,7 +872,15 @@ static void SetDataFromTrainerCard(void)
 
     for (i = 0, badgeFlag = FLAG_BADGE01_GET; badgeFlag < FLAG_BADGE01_GET + NUM_BADGES; badgeFlag++, i++)
     {
-        if (FlagGet(badgeFlag))
+        // The eight shared live badge bits now represent HOENN. KANTO
+        // medals remain safely recorded in their separate PRL history flags.
+        if (!sData->isLink && VarGet(VAR_PRL_REGION_STAGE) == 2
+         && sData->prlShowKantoCard)
+        {
+            if (FlagGet(FLAG_PRL_BADGE_KANTO_BROCK + i))
+                sData->badgeCount[i]++;
+        }
+        else if (FlagGet(badgeFlag))
             sData->badgeCount[i]++;
     }
 }
@@ -952,6 +978,12 @@ static bool8 PrintAllOnCardFront(void)
         break;
     case 5:
         PrintProfilePhraseOnCard();
+        break;
+    case 6:
+        if (!sData->isLink && IS_FRLG)
+            AddTextPrinterParameterized3(WIN_CARD_TEXT, FONT_SMALL, 23, 113,
+                sTrainerCardTextColors, TEXT_SKIP_DRAW,
+                sData->isHoenn ? sPRLHoennCardLabel : sPRLKantoCardLabel);
         break;
     default:
         sData->printState = 0;

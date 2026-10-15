@@ -2853,8 +2853,9 @@ static void Task_WithdrawMon(u8 taskId)
     switch (sStorage->state)
     {
     case 0:
-        if (sCursorArea == CURSOR_AREA_IN_BOX
-         && PRLHoennStorageLevelLocked(GetBoxMonDataAt(StorageGetCurrentBox(), sCursorPosition, MON_DATA_LEVEL)))
+        // The direct WITHDRAW menu may have switched cursor-area state.
+        // Never make the badge lock contingent on what the UI reports.
+        if (PRLHoennStorageLevelLocked(GetBoxMonDataAt(StorageGetCurrentBox(), sCursorPosition, MON_DATA_LEVEL)))
         {
             PrintMessage(MSG_PRL_HOENN_LEVEL_LOCK);
             sStorage->state = 1;
@@ -2889,6 +2890,14 @@ static void Task_WithdrawMon(u8 taskId)
     case 3:
         if (!DoShowPartyMenu())
         {
+            // A second check on the actual grabbed monster protects against
+            // selection/cursor updates after the initial WITHDRAW command.
+            if (PRLHoennStorageLevelLocked(GetMonData(&sStorage->movingMon, MON_DATA_LEVEL)))
+            {
+                PrintMessage(MSG_PRL_HOENN_LEVEL_LOCK);
+                SetPokeStorageTask(Task_PokeStorageMain);
+                break;
+            }
             InitMonPlaceChange(CHANGE_PLACE);
             sStorage->state++;
         }

@@ -50,7 +50,7 @@ class TestPR82FourteenBoxManifest(unittest.TestCase):
             self.assertNotIn(unsafe, board)
 
     def test_preflight_does_not_change_save_data(self):
-        check = SOURCE.split("u16 PRLHoennCheckPCSpaceForParty(void)", 1)[1].split("u16 PRLHoennCommitKantoTransfer(void)", 1)[0]
+        check = SOURCE.split("u16 PRLHoennCheckPCSpaceForParty(void)", 1)[1].split("// PR83 departure:", 1)[0]
         writes = ("ClearBag(", "ZeroBoxMonAt(", "SetBoxMonAt(", "FlagSet(", "VarSet(",
                   "gSaveBlock1Ptr->money =", "gParties[B_TRAINER_PLAYER][i] =")
         for unsafe in writes:

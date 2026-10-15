@@ -421,7 +421,8 @@ LittlerootTown_MaysHouse_1F_EventScript_PRLAuntTalk::
 	end
 
 LittlerootTown_MaysHouse_1F_Text_PRLAuntHome::
-	.string "AUNT: Welcome to HOENN,\n"
+	.string "AUNT ROSIE: Welcome to\n"
+	.string "HOENN, dear!\p"
 	.string "{PLAYER}! Make yourself at home.\p"
 	.string "Your MUM is keeping your\n"
 	.string "KANTO savings safe.\p"

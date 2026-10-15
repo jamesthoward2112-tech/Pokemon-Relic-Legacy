@@ -21,11 +21,12 @@ class PR97HoennFixes(unittest.TestCase):
         self.assertIn("When you choose a partner",lab)
         self.assertIn("Your old Bag goes to the",lab)
 
-    def test_firered_unused_truck_objects_offgrid_preserving_map_slots(self):
+    def test_firered_truck_objects_collide_at_original_locations(self):
         src = read("tools/mapjson/mapjson.cpp")
         self.assertIn('mapName == "LittlerootTown"',src)
         self.assertIn("i == 4 || i == 5",src)
-        self.assertIn('prlUnusedTownTruck ? "255"',src)
+        self.assertIn('bool prlArrivalTruck = version == "firered"',src)
+        self.assertIn('(prlArrivalTruck ? "3" : json_to_string(obj_event, "elevation"))',src)
         self.assertIn('text << "\\tobject_event " << i + 1',src)
         # The animated interior remains compiled and uses the original engine.
         self.assertIn("ExecuteTruckSequence", read("src/seagallop.c"))
