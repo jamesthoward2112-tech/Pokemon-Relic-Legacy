@@ -9,30 +9,27 @@ def block(src,label,next_label=None):
     return after.split("\n\n",1)[0] if next_label is None else after.split(next_label+"::",1)[0]
 
 class PR92HoennRegressions(unittest.TestCase):
-    def test_starter_ball_interaction_rejected_until_birch(self):
+    def test_starters_are_offered_by_birch_never_by_hidden_lab_balls(self):
         s=read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
-        for old,new in (("Cyndaquil","Ralts"),("Totodile","Poochyena"),("Chikorita","Gemlin")):
+        for old in ("Cyndaquil","Totodile","Chikorita"):
             v=block(s,"LittlerootTown_ProfessorBirchsLab_EventScript_"+old)
             self.assertIn("VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAskBirchFirst",v)
-            self.assertIn("VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRL"+new+"Ball",v)
-            v=block(s,"LittlerootTown_ProfessorBirchsLab_EventScript_PRL"+new+"Ball")
-            self.assertIn("VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAskBirchFirst",v)
+            self.assertIn("VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchWaiting",v)
+        self.assertIn("goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival",s)
+        self.assertIn("goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLOfferRalts",s)
         self.assertIn("Speak to him first",s)
 
-    def test_post_starter_ball_visibility_is_persistently_hidden(self):
+    def test_legacy_ball_objects_remain_hidden_after_starter(self):
         s=read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
-        self.assertIn("map_script_2 VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls",s)
-        self.assertIn("map_script_2 VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls",s)
+        for stage in (2,3,4):
+            self.assertIn("map_script_2 VAR_PRL_REGION_STAGE, "+str(stage)+", LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls",s)
         complete=block(s,"LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete")
         remove=block(s,"LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls")
         for token in ("CYNDAQUIL","TOTODILE","CHIKORITA"):
             self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_"+token,complete)
             self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_"+token,remove)
         self.assertIn("setvar VAR_PRL_REGION_STAGE, 2",complete)
-        # PR99 re-enters the same map to purge the old rendered ball
-        # metatiles after changing layout; waitstate safely terminates that warp.
-        self.assertIn("warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB", complete)
-        self.assertIn("waitstate", complete)
+        self.assertNotIn("warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB",complete)
         self.assertIn("PRLHoennCommitKantoTransfer",s)
 
     def test_reset_kanto_inventory_in_live_bag_and_runtime_save_cache(self):
