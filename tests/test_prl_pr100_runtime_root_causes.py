@@ -62,5 +62,21 @@ class PR100RuntimeRootCauses(unittest.TestCase):
             self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_"+ball,code)
 
 
+    def test_aunt_rosie_text_never_exceeds_two_lines_or_28_chars_per_page(self):
+        town = read("data/maps/LittlerootTown/scripts.inc")
+        dialogue = town.split("LittlerootTown_Text_PRLRosieArrival::", 1)[1].split(
+            "LittlerootTown_Text_PRLShuttleArrival::", 1)[0]
+        chunks = re.findall(r'\.string "([^"]+)"', dialogue)
+        self.assertTrue(chunks)
+        message = "".join(chunks).replace("{PLAYER}", "ABCDEFG")
+        self.assertTrue(message.endswith("$"))
+        for page in message.rstrip("$").split(r"\p"):
+            lines = page.split(r"\n")
+            self.assertLessEqual(len(lines), 2, lines)
+            for line in lines:
+                self.assertLessEqual(len(line), 28, line)
+
+
+
 if __name__ == "__main__":
     unittest.main()
