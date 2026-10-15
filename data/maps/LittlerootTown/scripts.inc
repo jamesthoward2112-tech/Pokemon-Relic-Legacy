@@ -211,8 +211,6 @@ LittlerootTown_EventScript_PRLFinishShuttleArrival::
 	setvar VAR_LITTLEROOT_TOWN_STATE, 0
 	setvar VAR_BIRCH_LAB_STATE, 0
 	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0
-	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
-	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
 	@ Keep the correct gender's truck visibly parked while the Champion
 	@ explores this map. It is hidden on the NEXT map load, not right now.
@@ -1038,15 +1036,6 @@ LittlerootTown_Text_PRLMomAlreadyHasShoes::
 	.string "your KANTO adventures.\p"
 	.string "She'll guard your savings.\n"
 	.string "I'll look after you here!$"
-@ PR98_AUNT_ROSIE_REPLACED
-LittlerootTown_Text_OLD_AUNT_DISABLED:
-	.string "AUNT: {PLAYER}! Welcome\n"
-	.string "to HOENN, dear!\p"
-	.string "Your MUM told me all about\n"
-	.string "your KANTO adventures.\p"
-	.string "She'll guard your savings.\n"
-	.string "I'll look after you here!$"
-
 LittlerootTown_EventScript_SetReceivedRunningShoes::
 	removeobject LOCALID_LITTLEROOT_MOM
 	setflag FLAG_SYS_B_DASH
