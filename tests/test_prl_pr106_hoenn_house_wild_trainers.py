@@ -26,7 +26,7 @@ class EarlyHoennPR106(unittest.TestCase):
             key = f"TRAINER_PRL_HOENN_{name}_102"
             self.assertRegex(frlg, rf"#define\s+{key}\s+{num}\b")
             self.assertIn(f"=== {key} ===", party)
-            self.assertIn(f"trainerbattle_single {key}", scripts)
+            self.assertIn("trainerbattle_single TRAINER_HOENN_" + name + ("_1" if name == "CALVIN" else ""), scripts)
             self.assertIn("Level: " + str(level), party.split(f"=== {key} ===", 1)[1].split("=== TRAINER_",1)[0])
         self.assertIn("TRAINERS_COUNT_FRLG                      663", frlg)
         self.assertIn("MAX_TRAINERS_COUNT_FRLG                  768", frlg)

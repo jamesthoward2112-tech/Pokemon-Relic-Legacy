@@ -57,6 +57,8 @@
 #include "constants/items.h"
 #include "constants/songs.h"
 #include "constants/trainers.h"
+#include "prl_region_save.h"
+#include "prl_trainer_ids.h"
 #include "constants/trainer_hill.h"
 #include "constants/weather.h"
 
@@ -1086,14 +1088,25 @@ static void TryUpdateGymLeaderRematchFromTrainer(void)
         UpdateGymLeaderRematch();
 }
 
+static u16 PRLGetTrainerFlagId(u16 trainerId)
+{
+#if IS_FRLG
+    if (PRL_IS_HOENN_TRAINER(trainerId))
+        return PRL_HOENN_TRAINER_FLAGS_START + trainerId - PRL_TRAINER_HOENN_BASE;
+    if (PRL_IS_JOHTO_TRAINER(trainerId))
+        return PRL_JOHTO_TRAINER_FLAGS_START + trainerId - PRL_TRAINER_JOHTO_BASE;
+#endif
+    return TRAINER_FLAGS_START + trainerId;
+}
+
 static u16 GetTrainerAFlag(void)
 {
-    return TRAINER_FLAGS_START + TRAINER_BATTLE_PARAM.opponentA;
+    return PRLGetTrainerFlagId(TRAINER_BATTLE_PARAM.opponentA);
 }
 
 static u16 GetTrainerBFlag(void)
 {
-    return TRAINER_FLAGS_START + TRAINER_BATTLE_PARAM.opponentB;
+    return PRLGetTrainerFlagId(TRAINER_BATTLE_PARAM.opponentB);
 }
 
 static bool32 IsPlayerDefeated(u32 battleOutcome)
@@ -1403,7 +1416,7 @@ void ConfigureApproachingFacilityTrainerBattle(struct ApproachingTrainer *approa
 bool32 GetTrainerFlagFromScriptPointer(const u8 *data)
 {
     TrainerBattleParameter *temp = (TrainerBattleParameter*)(data + TRAINERBATTLE_OPCODE_OFFSET);
-    return FlagGet(TRAINER_FLAGS_START + temp->params.opponentA);
+    return FlagGet(PRLGetTrainerFlagId(temp->params.opponentA));
 }
 
 bool32 GetRematchFromScriptPointer(const u8 *data)
@@ -1458,17 +1471,17 @@ static void UNUSED SetBattledTrainerFlag(void)
 
 bool8 HasTrainerBeenFought(u16 trainerId)
 {
-    return FlagGet(TRAINER_FLAGS_START + trainerId);
+    return FlagGet(PRLGetTrainerFlagId(trainerId));
 }
 
 void SetTrainerFlag(u16 trainerId)
 {
-    FlagSet(TRAINER_FLAGS_START + trainerId);
+    FlagSet(PRLGetTrainerFlagId(trainerId));
 }
 
 void ClearTrainerFlag(u16 trainerId)
 {
-    FlagClear(TRAINER_FLAGS_START + trainerId);
+    FlagClear(PRLGetTrainerFlagId(trainerId));
 }
 
 void BattleSetup_StartTrainerBattle(void)

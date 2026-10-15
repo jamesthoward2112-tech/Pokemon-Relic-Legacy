@@ -6,6 +6,7 @@
 #include "constants/battle.h"
 #include "constants/pokeball.h"
 #include "difficulty.h"
+#include "prl_trainer_ids.h"
 #include "debug.h"
 
 #define MAX_TRAINER_ITEMS 4
@@ -218,6 +219,9 @@ extern const union AnimCmd *const gAnims_Trainer[];
 extern const struct TrainerPicInfo gTrainerPicInfo[TRAINER_PIC_COUNT];
 
 extern const struct Trainer gTrainers[DIFFICULTY_COUNT][TRAINERS_COUNT];
+#if IS_FRLG
+extern const struct Trainer gPrlHoennTrainers[DIFFICULTY_COUNT][TRAINERS_COUNT_EMERALD];
+#endif
 extern const struct Trainer gBattlePartners[DIFFICULTY_COUNT][PARTNER_COUNT];
 
 extern const struct TrainerClass gTrainerClasses[TRAINER_CLASS_COUNT];
@@ -257,6 +261,8 @@ static inline bool32 IsSpecialTrainer(u16 trainerId)
 
 static inline u16 SanitizeTrainerId(u16 trainerId)
 {
+    if (IS_FRLG && PRL_IS_HOENN_TRAINER(trainerId))
+        return trainerId;
     assertf(trainerId < TRAINERS_COUNT, "invalid trainer: %d", trainerId)
     {
         return TRAINER_NONE;
@@ -281,6 +287,13 @@ static inline const struct Trainer *GetTrainerStructFromId(u16 trainerId)
     if (gIsDebugBattle) return GetDebugAiTrainer();
     enum DifficultyLevel difficulty;
 
+#if IS_FRLG
+    if (PRL_IS_HOENN_TRAINER(trainerId))
+    {
+        difficulty = GetTrainerDifficultyLevel(trainerId);
+        return &gPrlHoennTrainers[difficulty][trainerId - PRL_TRAINER_HOENN_BASE];
+    }
+#endif
     if (IsPartnerTrainerId(trainerId))
     {
         difficulty = GetBattlePartnerDifficultyLevel(trainerId);

@@ -235,6 +235,14 @@ const struct Trainer gTrainers[DIFFICULTY_COUNT][TRAINERS_COUNT] =
 #include "data/trainers.h"
 #endif
 };
+#if IS_FRLG
+// Preserve Kanto's original gTrainers table and compile Emerald parties as
+// an independent region. The same symbol numbers now refer to separate tables.
+const struct Trainer gPrlHoennTrainers[DIFFICULTY_COUNT][TRAINERS_COUNT_EMERALD] =
+{
+#include "data/trainers.h"
+};
+#endif
 #endif
 
 #include "data/text/follower_messages.h"

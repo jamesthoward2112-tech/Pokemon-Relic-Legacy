@@ -124,21 +124,21 @@ Route102_Text_RouteSignPetalburg:
 @ PR106: Hoenn trainer IDs in Emerald overlap FRLG IDs in this engine.
 @ Route 102 must use separate trainers with native low-level Hoenn teams.
 Route102_EventScript_PRLCalvin::
-	trainerbattle_single TRAINER_PRL_HOENN_CALVIN_102, Route102_Text_CalvinIntro, Route102_Text_CalvinDefeated
+	trainerbattle_single TRAINER_HOENN_CALVIN_1, Route102_Text_CalvinIntro, Route102_Text_CalvinDefeated
 	msgbox Route102_Text_CalvinPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route102_EventScript_PRLRick::
-	trainerbattle_single TRAINER_PRL_HOENN_RICK_102, Route102_Text_RickIntro, Route102_Text_RickDefeated
+	trainerbattle_single TRAINER_HOENN_RICK, Route102_Text_RickIntro, Route102_Text_RickDefeated
 	msgbox Route102_Text_RickPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route102_EventScript_PRLTiana::
-	trainerbattle_single TRAINER_PRL_HOENN_TIANA_102, Route102_Text_TianaIntro, Route102_Text_TianaDefeated
+	trainerbattle_single TRAINER_HOENN_TIANA, Route102_Text_TianaIntro, Route102_Text_TianaDefeated
 	msgbox Route102_Text_TianaPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route102_EventScript_PRLAllen::
-	trainerbattle_single TRAINER_PRL_HOENN_ALLEN_102, Route102_Text_AllenIntro, Route102_Text_AllenDefeated
+	trainerbattle_single TRAINER_HOENN_ALLEN, Route102_Text_AllenIntro, Route102_Text_AllenDefeated
 	msgbox Route102_Text_AllenPostBattle, MSGBOX_AUTOCLOSE
 	end

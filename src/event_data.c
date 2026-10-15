@@ -1,5 +1,6 @@
 #include "global.h"
 #include "event_data.h"
+#include "prl_region_save.h"
 #include "pokedex.h"
 
 #define SPECIAL_FLAGS_SIZE  (NUM_SPECIAL_FLAGS / 8)  // 8 flags per byte
@@ -208,6 +209,8 @@ u8 *GetFlagPointer(u16 id)
 {
     if (id == 0)
         return NULL;
+    else if (id >= PRL_HOENN_EVENT_FLAGS_START)
+        return PrlGetRegionFlagPointer(id);
     else if (id < SPECIAL_FLAGS_START)
         return &gSaveBlock1Ptr->flags[id / 8];
 #if TESTING

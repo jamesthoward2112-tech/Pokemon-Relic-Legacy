@@ -3,6 +3,7 @@
 #include "gba/flash_internal.h"
 #include "fieldmap.h"
 #include "save.h"
+#include "prl_region_save.h"
 #include "item.h" // expanded inventory migration / legacy backup
 #include "task.h"
 #include "decompress.h"
@@ -205,6 +206,9 @@ static u8 HandleWriteSector(u16 sectorId, const struct SaveSectorLocation *locat
         gReadWriteSector->data[i] = data[i];
 
     CopyFromSaveBlock3(sectorId, gReadWriteSector);
+    // This extension occupies only unallocated PokemonStorage sector data.
+    if (sectorId == SECTOR_ID_PKMN_STORAGE_END)
+        PrlWriteRegionSaveSector(gReadWriteSector->data);
 
     gReadWriteSector->checksum = CalculateChecksum(data, size);
 
@@ -341,6 +345,9 @@ static u8 HandleReplaceSector(u16 sectorId, const struct SaveSectorLocation *loc
         gReadWriteSector->data[i] = data[i];
 
     CopyFromSaveBlock3(sectorId, gReadWriteSector);
+    // This extension occupies only unallocated PokemonStorage sector data.
+    if (sectorId == SECTOR_ID_PKMN_STORAGE_END)
+        PrlWriteRegionSaveSector(gReadWriteSector->data);
 
     gReadWriteSector->checksum = CalculateChecksum(data, size);
 
@@ -495,6 +502,8 @@ static u8 CopySaveSlotData(u16 sectorId, struct SaveSectorLocation *locations)
     u16 slotOffset = NUM_SECTORS_PER_SLOT * (gSaveCounter % NUM_SAVE_SLOTS);
     u16 id;
 
+    PrlClearRegionSave(); // old saves have no region extension
+
     for (i = 0; i < NUM_SECTORS_PER_SLOT; i++)
     {
         ReadFlashSector(i + slotOffset, gReadWriteSector);
@@ -512,9 +521,12 @@ static u8 CopySaveSlotData(u16 sectorId, struct SaveSectorLocation *locations)
             for (j = 0; j < locations[id].size; j++)
                 ((u8 *)locations[id].data)[j] = gReadWriteSector->data[j];
             CopyToSaveBlock3(id, gReadWriteSector);
+            if (id == SECTOR_ID_PKMN_STORAGE_END)
+                PrlReadRegionSaveSector(gReadWriteSector->data);
         }
     }
 
+    PrlMigrateLegacyHoennRoute102Flags();
     return SAVE_STATUS_OK;
 }
 
