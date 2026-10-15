@@ -75,9 +75,11 @@ class TestHoennEssentialsAndStarterRoom(unittest.TestCase):
     def test_birch_explains_lock_and_aunt_is_not_mum(self):
         lab=read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
         town=read("data/maps/LittlerootTown/scripts.inc")
-        for phrase in ("KANTO team","safely into the PC","Lv1-10","Each BADGE adds ten levels","HOENN LEAGUE","VALKYVOIR","SKULBERUS"):
+        for phrase in ("KANTO team","safely into the PC","Lv1-10","Each BADGE adds ten levels","HOENN LEAGUE","potential","mystery"):
             self.assertIn(phrase,lab)
         self.assertIn("AUNT ROSIE: {PLAYER}",town)
+        self.assertNotIn("VALKYVOIR",lab)
+        self.assertNotIn("SKULBERUS",lab)
         self.assertIn("MUM sent me to greet you",town)
         self.assertNotIn("MOM: HOENN looks lovely",town)
 
