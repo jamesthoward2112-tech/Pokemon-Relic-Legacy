@@ -217,6 +217,53 @@ vector<string> get_existing_maps() {
     return v;
 }
 
+// PR102 first safe Hoenn corridor, preserving all original FRLG map numbers.
+// Expand only after validating the new map's destinations and its layouts.
+static bool prlHoennMapEnabled(const string &name)
+{
+    static const vector<string> sMaps = {
+        "LittlerootTown", "LittlerootTown_ProfessorBirchsLab",
+        "LittlerootTown_BrendansHouse_1F", "LittlerootTown_BrendansHouse_2F",
+        "LittlerootTown_MaysHouse_1F", "LittlerootTown_MaysHouse_2F",
+        "InsideOfTruck", "Route101",
+        "OldaleTown", "OldaleTown_Mart", "OldaleTown_House1",
+        "OldaleTown_House2", "OldaleTown_PokemonCenter_1F",
+        "OldaleTown_PokemonCenter_2F",
+    };
+    return find(sMaps.begin(), sMaps.end(), name) != sMaps.end();
+}
+
+static bool prlHoennDestinationEnabled(const string &mapId)
+{
+    static const vector<string> sMapIds = {
+        "MAP_LITTLEROOT_TOWN", "MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB",
+        "MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F", "MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F",
+        "MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F", "MAP_LITTLEROOT_TOWN_MAYS_HOUSE_2F",
+        "MAP_INSIDE_OF_TRUCK", "MAP_ROUTE101",
+        "MAP_OLDALE_TOWN", "MAP_OLDALE_TOWN_MART", "MAP_OLDALE_TOWN_HOUSE1",
+        "MAP_OLDALE_TOWN_HOUSE2", "MAP_OLDALE_TOWN_POKEMON_CENTER_1F",
+        "MAP_OLDALE_TOWN_POKEMON_CENTER_2F",
+    };
+    return find(sMapIds.begin(), sMapIds.end(), mapId) != sMapIds.end();
+}
+
+static bool prlHoennLayoutEnabled(const string &layout)
+{
+    static const vector<string> sLayouts = {
+        "LAYOUT_LITTLEROOT_TOWN",
+        "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB",
+        "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE",
+        "LAYOUT_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F",
+        "LAYOUT_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F",
+        "LAYOUT_LITTLEROOT_TOWN_MAYS_HOUSE_1F",
+        "LAYOUT_LITTLEROOT_TOWN_MAYS_HOUSE_2F",
+        "LAYOUT_INSIDE_OF_TRUCK", "LAYOUT_ROUTE101",
+        "LAYOUT_OLDALE_TOWN", "LAYOUT_MART", "LAYOUT_HOUSE1", "LAYOUT_HOUSE2",
+        "LAYOUT_POKEMON_CENTER_1F", "LAYOUT_POKEMON_CENTER_2F",
+    };
+    return find(sLayouts.begin(), sLayouts.end(), layout) != sLayouts.end();
+}
+
 string generate_map_connections_text(Json map_data) {
     // PR94: Route 101 connects south to Littleroot only. Do not include
     // the uncompiled Oldale header when assembling the border grid.
@@ -233,8 +280,10 @@ string generate_map_connections_text(Json map_data) {
     size_t enabled_count = 0;
     for (auto &connection : map_data["connections"].array_items()) {
         string destination = json_to_string(connection, "map");
-        if (version == "firered" && mapName == "Route101"
-         && destination != "MAP_LITTLEROOT_TOWN")
+        // Never resolve a Hoenn border to one of FireRed's NULL map slots.
+        // Route101<->Oldale is now live; Route103/102 open in a later slice.
+        if (version == "firered" && prlHoennMapEnabled(mapName)
+         && !prlHoennDestinationEnabled(destination))
             continue;
         auto it = find(existing_maps.begin(), existing_maps.end(), destination);
         if (it == existing_maps.end())
@@ -247,7 +296,7 @@ string generate_map_connections_text(Json map_data) {
     }
 
     text << "\n" << mapName << "_MapConnections:\n"
-         << "\t.4byte " << (version == "firered" && mapName == "Route101" ? enabled_count : map_data["connections"].array_items().size()) << "\n"
+         << "\t.4byte " << (version == "firered" && prlHoennMapEnabled(mapName) ? enabled_count : map_data["connections"].array_items().size()) << "\n"
          << "\t.4byte " << mapName << "_MapConnectionsList\n\n";
 
     return text.str();
@@ -312,23 +361,22 @@ string generate_map_events_text(Json map_data) {
     if (map_data["warp_events"].array_items().size() > 0) {
         warps_label = mapName + "_MapWarps";
         text << warps_label << ":\n";
-        if (version == "firered" && mapName == "LittlerootTown") {
-            // PR88: emit a fixed three-entry FireRed bridge. Two unbuilt
-            // house destinations are replaced by permanently unreachable
-            // coordinates, keeping Birch's laboratory at warp index 2.
-            // Never modify the original Emerald source map.
-            text << "\twarp_def 255, 255, 0, 0, MAP_LITTLEROOT_TOWN\n";
-            text << "\twarp_def 255, 255, 0, 0, MAP_LITTLEROOT_TOWN\n";
-            text << "\twarp_def 7, 16, 0, 0, MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB\n";
-        } else {
-            for (auto &warp_event : map_data["warp_events"].array_items()) {
-                text << "\twarp_def "
-                     << json_to_string(warp_event, "x") << ", "
-                     << json_to_string(warp_event, "y") << ", "
-                     << json_to_string(warp_event, "elevation") << ", "
-                     << json_to_string(warp_event, "dest_warp_id") << ", "
-                     << json_to_string(warp_event, "dest_map") << "\n";
+        for (auto &warp_event : map_data["warp_events"].array_items()) {
+            string destination = json_to_string(warp_event, "dest_map");
+            // Keep original warp indexes stable. A disabled destination
+            // becomes an unreachable dummy rather than a NULL-header warp.
+            // Example: Oldale Center 2F's unused link-room doors.
+            if (version == "firered" && prlHoennMapEnabled(mapName)
+             && !prlHoennDestinationEnabled(destination)) {
+                text << "\twarp_def 255, 255, 0, 0, " << json_to_string(map_data, "id") << "\n";
+                continue;
             }
+            text << "\twarp_def "
+                 << json_to_string(warp_event, "x") << ", "
+                 << json_to_string(warp_event, "y") << ", "
+                 << json_to_string(warp_event, "elevation") << ", "
+                 << json_to_string(warp_event, "dest_warp_id") << ", "
+                 << destination << "\n";
         }
         text << "\n";
     } else {
@@ -791,10 +839,7 @@ void process_groups(string groups_filepath, vector<string> &map_filepaths, strin
         // connections omitted. Other Hoenn map events include
         // Emerald-only hidden item flags and need a separate migration audit.
         // Keep map group / numeric map IDs stable for existing Kanto saves.
-        bool prlHoennLanding = map_name == "LittlerootTown"
-                           || map_name == "LittlerootTown_ProfessorBirchsLab"
-                           || map_name == "Route101"
-                           || map_name == "InsideOfTruck";
+        bool prlHoennLanding = prlHoennMapEnabled(map_name);
         if ((version == "emerald" && region != "REGION_HOENN")
          || (version == "firered" && region != "REGION_KANTO" && !prlHoennLanding)) {
             invalid_maps.push_back(map_name);
@@ -838,11 +883,7 @@ string generate_layout_headers_text(Json layouts_data) {
         }
         if ((version == "emerald" && layout_version != "emerald")
          || (version == "firered" && layout_version != "frlg" &&
-              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN" &&
-              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB" &&
-              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE" &&
-              json_to_string(layout, "id", true) != "LAYOUT_ROUTE101" &&
-              json_to_string(layout, "id", true) != "LAYOUT_INSIDE_OF_TRUCK"))
+              !prlHoennLayoutEnabled(json_to_string(layout, "id", true))))
             continue;
         string layoutName = json_to_string(layout, "name");
         string border_label = layoutName + "_Border";
@@ -900,11 +941,7 @@ string generate_layouts_table_text(Json layouts_data) {
                 layout_version = "frlg";
         }
         if ((version == "emerald" && layout_version != "emerald") || (version == "firered" && layout_version != "frlg" &&
-              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN" &&
-              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB" &&
-              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE" &&
-              json_to_string(layout, "id", true) != "LAYOUT_ROUTE101" &&
-              json_to_string(layout, "id", true) != "LAYOUT_INSIDE_OF_TRUCK")) {
+              !prlHoennLayoutEnabled(json_to_string(layout, "id", true)))) {
             text << "\t.4byte NULL\n";
         } else {
             string layout_name = json_to_string(layout, "name", true);
