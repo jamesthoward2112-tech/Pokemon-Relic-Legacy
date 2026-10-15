@@ -70,9 +70,13 @@ VermilionCity_EventScript_PRLHoennBoardingPreflight::
 	setvar VAR_PRL_REGION_STAGE, 1
 	msgbox VermilionCity_Text_PRLHoennSailAway
 	closemessage
+	delay 20
 	fadescreen FADE_TO_BLACK
-	@ First enter the outdoor HOENN map; do not run Birch lab scripts mid-voyage.
-	warp MAP_LITTLEROOT_TOWN, 7, 18
+	@ Existing sea animation; scripted destination is Birch's inland shuttle.
+	@ Never warp directly to the still-disabled Slateport Harbour.
+	setvar VAR_0x8004, SEAGALLOP_VERMILION_CITY
+	setvar VAR_0x8006, SEAGALLOP_PRL_SLATEPORT_TRANSFER
+	special DoSeagallopFerryScene
 	waitstate
 	end
 
@@ -119,7 +123,7 @@ VermilionCity_Text_PRLHoennTransferFailed::
 VermilionCity_Text_PRLHoennSailAway::
 	.string "SAILOR: All aboard!\p"
 	.string "The S.S. LEGACY sets sail\n"
-	.string "across the ocean to HOENN...$"
+	.string "for SLATEPORT CITY...$"
 
 VermilionCity_Text_PRLHoennNeedBoxRoom::
 	.string "SAILOR: Your PC needs enough\n"
