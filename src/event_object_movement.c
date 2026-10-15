@@ -1915,6 +1915,17 @@ static bool8 PRLRejectHoennBridgeObject(const struct ObjectEventTemplate *obj, u
             return obj->localId != (gSaveBlock2Ptr->playerGender == MALE ? 5 : 6);
         }
     }
+    if (mapGroup == MAP_GROUP(MAP_ROUTE101)
+     && mapNum == MAP_NUM(MAP_ROUTE101)
+     && (stage != 0 || FlagGet(FLAG_PRL_POSTHOF_OAK_TICKET)))
+    {
+        // PR100 gameplay exposed the original Route 101 rescue bag
+        // and Birch/Zigzagoon props after the Hoenn lab gift. Their object
+        // IDs are 2 Birch, 3 bag, 4 Zigzagoon, 5 second Birch.
+        // Prevent spawning independently of the saved Route 101 variable
+        // or late flag changes; preserve normal Emerald behavior.
+        return obj->localId >= 2 && obj->localId <= 5;
+    }
     if (mapGroup == MAP_GROUP(MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB)
      && mapNum == MAP_NUM(MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB)
      && (stage == 2 || stage == 3 || stage == 4))
