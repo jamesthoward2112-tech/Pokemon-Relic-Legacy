@@ -108,6 +108,10 @@ LittlerootTown_EventScript_SetTwinGuardingRoutePos::
 	return
 
 LittlerootTown_EventScript_SetMomStandingInFrontOfDoorPos::
+	@ PR106: vanilla Mom's return path re-exposed Rosie outside the door.
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_EventScript_PRLMomAlreadyInside
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLMomAlreadyInside
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_EventScript_PRLMomAlreadyInside
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
 	setobjectmovementtype LOCALID_LITTLEROOT_MOM, MOVEMENT_TYPE_FACE_DOWN
 	checkplayergender
@@ -121,6 +125,10 @@ LittlerootTown_EventScript_SetMomInFrontOfDoorMale::
 
 LittlerootTown_EventScript_SetMomInFrontOfDoorFemale::
 	setobjectxyperm LOCALID_LITTLEROOT_MOM, 14, 9
+	return
+
+LittlerootTown_EventScript_PRLMomAlreadyInside::
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
 	return
 
 LittlerootTown_EventScript_PRLKeepKantoRunningShoes::
@@ -232,6 +240,7 @@ LittlerootTown_EventScript_PRLRepairHoennProps::
 	@ Force-hide the already spawned outdoor Rosie, never re-spawn her.
 	hideobjectat LOCALID_LITTLEROOT_MOM, MAP_LITTLEROOT_TOWN
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	setobjectxyperm LOCALID_LITTLEROOT_MOM, 255, 255
 	removeobject LOCALID_LITTLEROOT_MOM
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
