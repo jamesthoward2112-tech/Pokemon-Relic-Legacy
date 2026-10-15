@@ -104,13 +104,8 @@ VermilionCity_Text_PRLHoennCheckDeparture::
 	.string "ready to board the S.S. LEGACY?$"
 
 VermilionCity_Text_PRLHoennFinalConfirm::
-	.string "SAILOR: This is ONE WAY.\p"
-	.string "Your KANTO POKéMON go to the\n"
-	.string "PC, keeping held items.\p"
-	.string "Your KANTO money is banked.\p"
-	.string "Your Bag items are donated,\n"
-	.string "except the EXP SHARE.\p"
-	.string "REMOTE PC will still work.\p"
+	.string "SAILOR: HOENN is a one-way\n"
+	.string "journey for now.\p"
 	.string "Please SAVE before leaving!\p"
 	.string "Board the S.S. LEGACY?$"
 
