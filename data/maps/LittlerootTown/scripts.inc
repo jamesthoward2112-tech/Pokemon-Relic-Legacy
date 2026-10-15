@@ -206,11 +206,11 @@ LittlerootTown_EventScript_PRLFinishShuttleArrival::
 	end
 
 LittlerootTown_Text_PRLShuttleArrival::
-	.string "The S.S. LEGACY docked at\\n"
-	.string "SLATEPORT CITY.\\p"
-	.string "PROF. BIRCH arranged a\\n"
-	.string "truck ride inland.\\p"
-	.string "Welcome to LITTLEROOT!\\n"
+	.string "The S.S. LEGACY docked at\n"
+	.string "SLATEPORT CITY.\p"
+	.string "PROF. BIRCH arranged a\n"
+	.string "truck ride inland.\p"
+	.string "Welcome to LITTLEROOT!\n"
 	.string "The relic journey begins!$"
 
 LittlerootTown_Text_PRLSafeHoennArrival::
