@@ -177,19 +177,28 @@ LittlerootTown_EventScript_PRLRemoveOtherShuttle::
 	return
 
 LittlerootTown_EventScript_PRLHideFemaleShuttle::
+	@ Objects outside the camera spawn later, so removing only the live
+	@ sprite was not enough (second lorry appeared on camera scroll).
+	hideobjectat 6, MAP_LITTLEROOT_TOWN
+	setobjectxyperm 6, 255, 255
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
 	removeobject 6
 	return
 
 LittlerootTown_EventScript_PRLHideMaleShuttle::
+	hideobjectat 5, MAP_LITTLEROOT_TOWN
+	setobjectxyperm 5, 255, 255
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
 	removeobject 5
 	return
 
 LittlerootTown_EventScript_PRLRemoveInertOutdoorProps::
-	@ These two placeholders have no dialogue in the Hoenn bridge.
-	@ Set flags AND remove loaded objects: a transition flag alone did
-	@ not remove them from the user's existing-save video.
+	@ These placeholders are never talking characters in the PRL bridge.
+	@ Visibility flags alone and removeobject miss late camera spawns.
+	hideobjectat LOCALID_LITTLEROOT_RIVAL, MAP_LITTLEROOT_TOWN
+	hideobjectat LOCALID_LITTLEROOT_BIRCH, MAP_LITTLEROOT_TOWN
+	setobjectxyperm LOCALID_LITTLEROOT_RIVAL, 255, 255
+	setobjectxyperm LOCALID_LITTLEROOT_BIRCH, 255, 255
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_RIVAL
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCH
 	removeobject LOCALID_LITTLEROOT_RIVAL
