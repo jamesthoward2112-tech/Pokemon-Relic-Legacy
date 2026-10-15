@@ -54,7 +54,7 @@ class ChanseyCenterTests(unittest.TestCase):
         self.assertIn('.include "data/scripts/prl_center_chansey_training.inc"', (ROOT / 'data/event_scripts.s').read_text())
         source = (ROOT / 'src/battle_script_commands.c').read_text()
         self.assertIn('trainerId >= TRAINER_PRL_CHANSEY_VIRIDIAN && trainerId <= TRAINER_PRL_CHANSEY_SEVEN_ISLAND', source)
-        self.assertIn('#define TRAINERS_COUNT_FRLG                      659', self.trainer_ids)
+        self.assertIn('#define TRAINERS_COUNT_FRLG                      663', self.trainer_ids)
         self.assertIn('#define MAX_TRAINERS_COUNT_FRLG                  768', self.trainer_ids)
 
 if __name__ == '__main__':
