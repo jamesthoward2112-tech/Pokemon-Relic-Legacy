@@ -6015,16 +6015,17 @@ static void PRLHoennSortEachBoxAscending(struct BoxPokemon (*planned)[IN_BOX_COU
 // re-entry, and no collision is saved into the player's permanent map.
 u16 PRLHoennBlockArrivalTruckFootprint(void)
 {
-    // Truck gfx are 4 tiles wide, centred one tile left of the graphic's
-    // object-event anchor. Do NOT reserve the tile immediately right of the
-    // lorry: the player uses that tile when stepping out.
+    // The lorry is a 48x48 sprite: exactly three metatiles across and
+    // three high, centred on object x=2 (male) or x=11 (female), with its
+    // feet on object y=10. The old 4x3 offset rectangle blocked an
+    // unrelated path and left part of the visible truck passable.
     u8 x = gSaveBlock2Ptr->playerGender == MALE ? 1 : 10;
     u8 dx, dy;
     if (VarGet(VAR_PRL_REGION_STAGE) != 3)
         return FALSE;
     for (dy = 0; dy < 3; dy++)
-        for (dx = 0; dx < 4; dx++)
-            MapGridSetMetatileImpassabilityAt(MAP_OFFSET + x + dx, MAP_OFFSET + 9 + dy, TRUE);
+        for (dx = 0; dx < 3; dx++)
+            MapGridSetMetatileImpassabilityAt(MAP_OFFSET + x + dx, MAP_OFFSET + 8 + dy, TRUE);
     return TRUE;
 }
 
