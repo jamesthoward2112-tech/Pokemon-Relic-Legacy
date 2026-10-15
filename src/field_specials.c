@@ -5980,6 +5980,30 @@ static void PRLHoennSortEachBoxAscending(struct BoxPokemon (*planned)[IN_BOX_COU
             }
         }
     }
+
+    // EXTRA 1-3 together are one overflow sequence. Sort across the three
+    // boxes, not just inside each individual box, so browsing left to right
+    // still runs from lower levels toward higher levels.
+    for (box = PRL_HOENN_OVERFLOW_START; box < PRL_HOENN_OVERFLOW_END; box++)
+    {
+        for (left = 0; left < used[box]; left++)
+        {
+            u8 laterBox, laterSlot;
+            for (laterBox = box; laterBox < PRL_HOENN_OVERFLOW_END; laterBox++)
+            {
+                for (laterSlot = (laterBox == box ? left + 1 : 0); laterSlot < used[laterBox]; laterSlot++)
+                {
+                    if (GetBoxMonData(&planned[laterBox][laterSlot], MON_DATA_LEVEL)
+                      < GetBoxMonData(&planned[box][left], MON_DATA_LEVEL))
+                    {
+                        struct BoxPokemon temp = planned[box][left];
+                        planned[box][left] = planned[laterBox][laterSlot];
+                        planned[laterBox][laterSlot] = temp;
+                    }
+                }
+            }
+        }
+    }
 }
 
 // Return FALSE without mutating save data on insufficient PC room / heap.
