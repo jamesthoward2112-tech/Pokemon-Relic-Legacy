@@ -64,10 +64,12 @@ class PR97HoennFixes(unittest.TestCase):
         c = read("src/field_specials.c")
         op = c.split("u16 PRLHoennResortExistingPC(void)",1)[1].split(
             "// Repair one-time region inventory",1)[0]
-        self.assertIn("AllocZeroed(sizeof(*planned) * TOTAL_BOXES_COUNT)",op)
-        self.assertLess(op.index("PRLHoennSortEachBoxAscending(planned, used)"),
-                        op.index("SetBoxMonAt(box, slot, &planned[box][slot])"))
-        self.assertIn("Free(planned)",op)
+        self.assertIn("AllocZeroed(sizeof(*plan))",op)
+        self.assertLess(op.index("PRLHoennPlaceInManifest(used, species, level"),
+                        op.index("// Phase 4: the permutation"))
+        self.assertLess(op.index("if (dst >= total"), op.index("// Phase 4: the permutation"))
+        self.assertIn("plan->destToSource",op)
+        self.assertIn("Free(plan)",op)
         self.assertNotIn("ZeroMonData(",op)
         self.assertNotIn("ClearBag(",op)
         self.assertNotIn("SetMoney(",op)
