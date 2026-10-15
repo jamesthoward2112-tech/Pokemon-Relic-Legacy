@@ -22,19 +22,25 @@ class PR100HoennRegressions(unittest.TestCase):
         self.assertIn("obj->localId == 7 || obj->localId == 8",helper)
         self.assertIn("obj->localId == 5 || obj->localId == 6",helper)
         self.assertIn("if (stage != 1)",helper)
-        self.assertIn("stage == 2 || stage == 3",helper)
+        self.assertIn("stage == 2 || stage == 3 || stage == 4",helper)
         self.assertIn("obj->localId >= 4 && obj->localId <= 6",helper)
         self.assertIn("PRLRejectHoennBridgeObject(&objectEventTemplateLocal, mapNum, mapGroup)",code)
         self.assertIn("!PRLRejectHoennBridgeObject(template, gSaveBlock1Ptr->location.mapNum",code)
 
-    def test_starter_balls_aligned_to_furniture_and_post_choice_blocked(self):
+    def test_birch_offers_all_three_with_sprite_and_no_physical_ball_objects(self):
         gen=read("tools/mapjson/mapjson.cpp")
         lab=read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
-        self.assertIn('mapName == "LittlerootTown_ProfessorBirchsLab"',gen)
-        self.assertIn('prlHoennStarterBall ? std::to_string(8 + i - 3)',gen)
-        for localid,x in (("CYNDAQUIL",8),("TOTODILE",9),("CHIKORITA",10)):
-            self.assertIn("setobjectxy LOCALID_BIRCHS_LAB_"+localid+"_BALL, "+str(x)+", 4",lab)
-        self.assertIn("setvar VAR_PRL_REGION_STAGE, 2", lab)
+        self.assertNotIn("prlHoennStarterBall",gen)
+        self.assertNotIn("LittlerootTown_ProfessorBirchsLab_EventScript_PRLPlaceStarterBalls::",lab)
+        self.assertIn("map_script_2 VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls",lab)
+        for stage in ("PRLWaitForBirch", "PRLSetupStarterRoom", "PRLHideStarterRoom"):
+            block=lab.split("EventScript_"+stage+"::",1)[1].split("\n\n",1)[0]
+            self.assertNotIn("WITH_TABLE",block)
+        for species in ("RALTS","POOCHYENA","GEMLIN"):
+            self.assertIn("showmonpic SPECIES_"+species,lab)
+        self.assertIn("MSGBOX_YESNO",lab)
+        self.assertIn("goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLOfferRalts",lab)
+        self.assertIn("setvar VAR_PRL_REGION_STAGE, 2",lab)
         self.assertIn("hideobjectat LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL",lab)
 
     def test_no_large_storage_snapshot_and_no_midmove_sort(self):
