@@ -49,6 +49,8 @@
 // Quiet-after-capture requires BOTH of these new, independently assigned bits.
 #define FLAG_PRL_SSANNE_TRUCK_MEW_CAUGHT                 0x4EE
 #define FLAG_PRL_SSANNE_TRUCK_MEW_CAPTURE_CONFIRMED      0x4EF
+// Hoenn Bag normalization applied once, including to PR89/90/92 converted saves.
+#define FLAG_PRL_HOENN_ESSENTIALS_READY                   0x4E0
 
 // Temporary Flags
 // These temporary flags are are cleared every time a map is loaded. They are used
