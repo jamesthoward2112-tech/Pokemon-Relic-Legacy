@@ -473,9 +473,9 @@ LittlerootTown_BrendansHouse_1F_EventScript_PRLAuntMapFull::
 	end
 
 LittlerootTown_BrendansHouse_1F_Text_PRLAuntMap::
-	.string "AUNT ROSIE: I've got an\\n"
-	.string "old Town Map for you!\\p"
-	.string "It shows all of HOENN.\\n"
+	.string "AUNT ROSIE: I've got an\n"
+	.string "old Town Map for you!\p"
+	.string "It shows all of HOENN.\n"
 	.string "Keep it handy, dear!$"
 
 LittlerootTown_BrendansHouse_1F_Text_PRLAuntHome::
