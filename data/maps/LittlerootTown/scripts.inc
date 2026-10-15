@@ -110,6 +110,8 @@ LittlerootTown_EventScript_SetMomInFrontOfDoorFemale::
 	return
 
 LittlerootTown_EventScript_PRLKeepKantoRunningShoes::
+	@ Keep QoL items on the region transfer, including old PR92 saves.
+	special PRLHoennEnsureEssentials
 	setflag FLAG_RECEIVED_RUNNING_SHOES
 	setflag FLAG_SYS_B_DASH
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
