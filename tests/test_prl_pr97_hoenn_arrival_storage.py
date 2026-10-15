@@ -32,12 +32,13 @@ class PR97HoennFixes(unittest.TestCase):
         self.assertIn("ExecuteTruckSequence", read("src/seagallop.c"))
         self.assertIn("MAP_INSIDE_OF_TRUCK", read("data/maps/InsideOfTruck/map.json"))
 
-    def test_lab_never_renders_fixed_ball_metatiles_in_prl_stage(self):
+    def test_lab_starter_table_only_visible_during_champion_choice(self):
         sc = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
-        for name in ("PRLWaitForBirch", "PRLSetupStarterRoom", "PRLHideStarterRoom"):
-            part = sc.split("LittlerootTown_ProfessorBirchsLab_EventScript_" + name + "::",1)[1].split("\n\n",1)[0]
-            self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB",part)
-            self.assertNotIn("LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE",part)
+        def block(name):
+            return sc.split("LittlerootTown_ProfessorBirchsLab_EventScript_" + name + "::",1)[1].split("\n\n",1)[0]
+        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB\n", block("PRLWaitForBirch"))
+        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE", block("PRLSetupStarterRoom"))
+        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB\n", block("PRLHideStarterRoom"))
         done = sc.split("LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::",1)[1].split("\n\n",1)[0]
         self.assertIn("setvar VAR_PRL_REGION_STAGE, 2",done)
         for ball in ("CYNDAQUIL","TOTODILE","CHIKORITA"):
