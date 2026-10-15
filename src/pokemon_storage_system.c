@@ -2861,7 +2861,7 @@ static void Task_WithdrawMon(u8 taskId)
     case 0:
         // The direct WITHDRAW menu may have switched cursor-area state.
         // Never make the badge lock contingent on what the UI reports.
-        if (PRLHoennStorageLevelLocked(GetBoxMonDataAt(StorageGetCurrentBox(), sCursorPosition, MON_DATA_LEVEL)))
+        if (PRLHoennStorageLevelLocked(GetLevelFromBoxMonExp(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition))))
         {
             PrintMessage(MSG_PRL_HOENN_LEVEL_LOCK);
             sStorage->state = 1;
