@@ -6012,7 +6012,8 @@ static void PRLHoennSortEachBoxAscending(struct BoxPokemon (*planned)[IN_BOX_COU
 u16 PRLHoennBankArrivalFunds(void)
 {
     u32 money;
-    if (VarGet(VAR_PRL_REGION_STAGE) != 3 || FlagGet(FLAG_PRL_HOENN_FUNDS_BANKED))
+    if ((VarGet(VAR_PRL_REGION_STAGE) != 3 && VarGet(VAR_PRL_REGION_STAGE) != 4)
+     || FlagGet(FLAG_PRL_HOENN_FUNDS_BANKED))
         return FALSE;
     money = GetMoney(&gSaveBlock1Ptr->money);
     VarSet(VAR_PRL_BANK_KANTO_MONEY_LO, money & 0xFFFF);
