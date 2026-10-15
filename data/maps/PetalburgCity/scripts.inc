@@ -226,8 +226,35 @@ PetalburgCity_EventScript_CitySign::
 	end
 
 PetalburgCity_EventScript_Gentleman::
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, PetalburgCity_EventScript_PRLRowan
 	msgbox PetalburgCity_Text_FullPartyExplanation, MSGBOX_NPC
 	end
+
+PetalburgCity_EventScript_PRLRowan::
+	lock
+	faceplayer
+	goto_if_set FLAG_PRL_HOENN_ROWAN_TREECKO_GIFT, PetalburgCity_EventScript_PRLRowanDone
+	msgbox PetalburgCity_Text_PRLRowanWelcome
+	givemon SPECIES_TREECKO, 10, ITEM_MIRACLE_SEED
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, PetalburgCity_EventScript_PRLRowanReceived
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PC, PetalburgCity_EventScript_PRLRowanReceived
+	msgbox PetalburgCity_Text_PRLRowanNoRoom
+	release
+	end
+
+PetalburgCity_EventScript_PRLRowanReceived::
+	setflag FLAG_PRL_HOENN_ROWAN_TREECKO_GIFT
+	hideobjectat LOCALID_PRL_HOENN_TREECKO, MAP_PETALBURG_CITY
+	removeobject LOCALID_PRL_HOENN_TREECKO
+	msgbox PetalburgCity_Text_PRLRowanReceived
+	release
+	end
+
+PetalburgCity_EventScript_PRLRowanDone::
+	msgbox PetalburgCity_Text_PRLRowanAfter
+	release
+	end
+
 
 PetalburgCity_EventScript_WallyHouseSign::
 	msgbox PetalburgCity_Text_WallyHouseSign, MSGBOX_SIGN
@@ -758,3 +785,23 @@ PetalburgCity_Text_ImLookingForTalentedTrainers:
 	.string "I'm roaming the land in search of\n"
 	.string "talented TRAINERS.\p"
 	.string "I'm sorry to have taken your time.$"
+
+
+PetalburgCity_Text_PRLRowanWelcome::
+	.string "ROWAN: Birch asked me\\n"
+	.string "to find a good trainer.\\p"
+	.string "This TREECKO is Lv10\\n"
+	.string "and holding MIRACLE SEED.\\p"
+	.string "Will you look after it?$"
+
+PetalburgCity_Text_PRLRowanNoRoom::
+	.string "ROWAN: Make room in\\n"
+	.string "your party or PC first.$"
+
+PetalburgCity_Text_PRLRowanReceived::
+	.string "ROWAN: Take good care\\n"
+	.string "of TREECKO!$"
+
+PetalburgCity_Text_PRLRowanAfter::
+	.string "ROWAN: Your new\\n"
+	.string "partner trusts you!$"
