@@ -35,6 +35,12 @@ LittlerootTown_MapScripts::
 
 
 LittlerootTown_OnTransition:
+	@ The Champion arrives by S.S. LEGACY, never by moving truck.
+	@ Hiding these old Emerald props also removes their pass-through graphics.
+	call_if_eq VAR_PRL_REGION_STAGE, 1, LittlerootTown_EventScript_PRLHideTrucks
+	call_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_EventScript_PRLHideTrucks
+	call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLHideTrucks
+	call_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_EventScript_PRLHideTrucks
 	setflag FLAG_VISITED_LITTLEROOT_TOWN
 	call Common_EventScript_SetupRivalGfxId
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_MoveMomToMaysDoor
@@ -101,6 +107,11 @@ LittlerootTown_EventScript_SetMomInFrontOfDoorFemale::
 	setobjectxyperm LOCALID_LITTLEROOT_MOM, 14, 9
 	return
 
+LittlerootTown_EventScript_PRLHideTrucks::
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
+	return
+
 LittlerootTown_OnFrame:
 	@ PR85: intermediate outdoor landing. If this screen loads, the cross-
 	@ region warp works and the previous crash came from Birch's lab entry.
@@ -119,6 +130,12 @@ LittlerootTown_EventScript_PRLOutdoorDockArrival::
 	setvar VAR_LITTLEROOT_INTRO_STATE, 0
 	setvar VAR_LITTLEROOT_TOWN_STATE, 0
 	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0
+	@ Remove any already-spawned old truck objects from this arrival.
+	@ Object IDs 5 and 6 are the two trucks in LittlerootTown/map.json.
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
+	removeobject 5
+	removeobject 6
 	setvar VAR_PRL_REGION_STAGE, 3
 	msgbox LittlerootTown_Text_PRLSafeHoennArrival
 	releaseall

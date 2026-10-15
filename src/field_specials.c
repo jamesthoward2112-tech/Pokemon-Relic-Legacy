@@ -5951,7 +5951,8 @@ u16 PRLHoennCommitKantoTransfer(void)
     // The player is ALREADY safely on the Hoenn map. Never clear the
     // Kanto party just before a cross-region warp: follower/map loading code
     // still expects a non-empty party there.
-    if (VarGet(VAR_PRL_REGION_STAGE) != 3 || !FlagGet(FLAG_PRL_POSTHOF_OAK_TICKET))
+    // 4 = Birch has welcomed the Champion and the three balls can be inspected.
+    if (VarGet(VAR_PRL_REGION_STAGE) != 4 || !FlagGet(FLAG_PRL_POSTHOF_OAK_TICKET))
         return FALSE;
     switch (starterChoice)
     {
@@ -5962,7 +5963,7 @@ u16 PRLHoennCommitKantoTransfer(void)
         starterSpecies = SPECIES_POOCHYENA;
         break;
     case 3:
-        starterSpecies = SPECIES_SABLEYE;
+        starterSpecies = SPECIES_GEMLIN;
         break;
     default:
         return FALSE;
