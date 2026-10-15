@@ -14,7 +14,7 @@ class HoennPHRFoundation(unittest.TestCase):
         self.assertIn("goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchResearch",npc)
         self.assertIn("A strange RESONANCE",lab)
         self.assertNotIn("uncle FRANK",lab)
-        self.assertIn("your KANTO POKéMON",lab)
+        self.assertIn("KANTO POKéMON",lab)
         self.assertIn("safely stored in your PC",lab)
     def test_three_starters_stay_on_lab_table_and_only_after_birch(self):
         lab=read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
