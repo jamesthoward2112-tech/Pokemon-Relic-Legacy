@@ -46,6 +46,14 @@ enum DifficultyLevel GetTrainerDifficultyLevel(u16 trainerId)
     if (difficulty == DIFFICULTY_NORMAL)
         return DIFFICULTY_NORMAL;
 
+#if IS_FRLG
+    if (PRL_IS_HOENN_TRAINER(trainerId))
+    {
+        if (gPrlHoennTrainers[difficulty][trainerId - PRL_TRAINER_HOENN_BASE].party == NULL)
+            return DIFFICULTY_NORMAL;
+        return difficulty;
+    }
+#endif
     if (gTrainers[difficulty][trainerId].party == NULL)
         return DIFFICULTY_NORMAL;
 
