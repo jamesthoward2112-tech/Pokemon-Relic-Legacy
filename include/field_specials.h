@@ -46,6 +46,7 @@ u16 PRLHasKantoHallOfFameRecord(void);
 u16 PRLHoennCheckPCSpaceForParty(void);
 u16 PRLHoennCommitKantoTransfer(void);
 u16 PRLHoennResortExistingPC(void);
+u16 PRLHoennBlockArrivalTruckFootprint(void);
 u16 PRLHoennBankArrivalFunds(void);
 u16 PRLHoennRestoreKantoFunds(void);
 u16 PRLHoennAutoSortPCOnce(void);
