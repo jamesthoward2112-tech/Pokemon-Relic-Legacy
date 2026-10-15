@@ -202,32 +202,50 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival::
 	release
 	end
 
+@ The same three physical object-event Poké Balls used by Oak's Kanto
+@ starter table. Selecting a ball sets the species and choice, previews
+@ the Pokémon and waits for confirmation. Birch alone enables the table.
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLRaltsBall::
-	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAskBirchFirst
-	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAlreadyChoseStarter
-	lockall
-	showmonpic SPECIES_RALTS, 10, 3
-	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLWantRalts, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveRalts
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLDeclineStarter
+	setvar VAR_TEMP_1, 1
+	setvar VAR_TEMP_2, SPECIES_RALTS
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLInspectStarterBall
+	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLPoochyenaBall::
-	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAskBirchFirst
-	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAlreadyChoseStarter
-	lockall
-	showmonpic SPECIES_POOCHYENA, 10, 3
-	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLWantPoochyena, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGivePoochyena
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLDeclineStarter
+	setvar VAR_TEMP_1, 2
+	setvar VAR_TEMP_2, SPECIES_POOCHYENA
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLInspectStarterBall
+	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLGemlinBall::
+	setvar VAR_TEMP_1, 3
+	setvar VAR_TEMP_2, SPECIES_GEMLIN
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLInspectStarterBall
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLInspectStarterBall::
 	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAskBirchFirst
 	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAlreadyChoseStarter
-	lockall
-	showmonpic SPECIES_GEMLIN, 10, 3
-	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLWantGemlin, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveGemlin
+	goto_if_ne VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAskBirchFirst
+	lock
+	faceplayer
+	showmonpic VAR_TEMP_2, 10, 3
+	bufferspeciesname STR_VAR_1, VAR_TEMP_2
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLConfirmKantoStyleBall, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLChooseKantoStyleBall
 	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLDeclineStarter
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLChooseKantoStyleBall::
+	hidemonpic
+	copyvar VAR_0x8004, VAR_TEMP_1
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLCommitChosenStarter
+	end
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLConfirmKantoStyleBall::
+	.string "So, {STR_VAR_1} is your\\n"
+	.string "HOENN partner?\\p"
+	.string "Choose this POKéMON?$"
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLAskBirchFirst::
 	lockall
