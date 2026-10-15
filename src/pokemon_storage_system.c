@@ -1668,10 +1668,6 @@ static void CreateMainMenu(u8 whichMenu, s16 *windowIdPtr)
 
 static void CB2_ExitPokeStorage(void)
 {
-    // Sorting on the way OUT avoids shuffling slots while the cursor is
-    // holding a Pokemon. Treat manually moved high-level mons just like
-    // migrated ones, and preserve exact boxed-mon bytes if resort fails.
-    PRLHoennResortExistingPC();
     sPreviousBoxOption = GetCurrentBoxOption();
     gFieldCallback = FieldTask_ReturnToPcMenu;
     SetMainCallback2(CB2_ReturnToField);
@@ -3843,6 +3839,12 @@ static void Task_ChangeScreen(u8 taskId)
     {
     case SCREEN_CHANGE_EXIT_BOX:
     default:
+        // The previous PR99 callback ran AFTER storage display teardown and
+        // missed OPTION_SELECT_MON (Remote PC) exits entirely. Commit this
+        // all-box, save-preserving re-bucket while storage is still alive,
+        // but never in the middle of moving/holding a Pokémon.
+        if (VarGet(VAR_PRL_REGION_STAGE) == 2 && !sIsMonBeingMoved)
+            PRLHoennResortExistingPC();
         if (sStorage->boxOption == OPTION_SELECT_MON)
             SetMainCallback2(CB2_ReturnToFieldContinueScript);
         else
