@@ -5830,9 +5830,27 @@ static bool32 PRLHoennPlaceInManifest(u8 boxUsed[TOTAL_BOXES_COUNT], enum Specie
         }
     }
 
-    // Even a very skewed level distribution must not lose a Pokémon.
+    // Keep LV01-10 pure if at all possible. The old ascending fallback
+    // filled box zero first with powerful Kanto Pokémon as soon as EXTRA
+    // 1-3 were full. Consume spare higher-tier boxes before touching it.
+    for (box = PRL_HOENN_LEVEL_BOXES - 1; box > 0; box--)
+    {
+        if (boxUsed[box] < IN_BOX_COUNT)
+        {
+            boxUsed[box]++;
+            if (destinationBox != NULL)
+                *destinationBox = box;
+            return TRUE;
+        }
+    }
+
+    // Extremely skewed collections may still require every free slot.
+    // Keep the designated LEGENDS box free of non-legend overflow unless
+    // the Pokémon itself is a legendary that already needed spill space.
     for (box = 0; box < TOTAL_BOXES_COUNT; box++)
     {
+        if (box == PRL_HOENN_LEGENDS_BOX)
+            continue;
         if (boxUsed[box] < IN_BOX_COUNT)
         {
             boxUsed[box]++;
@@ -5913,6 +5931,35 @@ static const u8 sPRLHoennOverflowBoxNames[3][BOX_NAME_LENGTH + 1] =
     _("EXTRA 1"), _("EXTRA 2"), _("EXTRA 3")
 };
 static const u8 sPRLHoennLegendsBoxName[] = _("LEGENDS");
+static const u8 sPRLHoennMixedBoxName[] = _("MIXED");
+
+// Never claim a box contains only a fixed level tier after another tier's
+// spillover has entered it. We retain all mons, held items and metadata.
+static void PRLHoennNoteBoxMismatch(bool8 mixed[PRL_HOENN_LEVEL_BOXES], u8 dest, enum Species species, u8 level)
+{
+    u8 preferred = level == 0 ? 0 : (level - 1) / 10;
+
+    if (species < NUM_SPECIES
+     && (gSpeciesInfo[species].isRestrictedLegendary
+      || gSpeciesInfo[species].isSubLegendary
+      || gSpeciesInfo[species].isMythical))
+        preferred = PRL_HOENN_LEGENDS_BOX;
+    else if (preferred >= PRL_HOENN_LEVEL_BOXES)
+        preferred = PRL_HOENN_LEVEL_BOXES - 1;
+
+    if (dest < PRL_HOENN_LEVEL_BOXES && preferred != dest)
+        mixed[dest] = TRUE;
+}
+
+static void PRLHoennNameSortedBoxes(const bool8 mixed[PRL_HOENN_LEVEL_BOXES])
+{
+    u8 box;
+    for (box = 0; box < PRL_HOENN_LEVEL_BOXES; box++)
+        StringCopy(GetBoxNamePtr(box), mixed[box] ? sPRLHoennMixedBoxName : sPRLHoennLevelBoxNames[box]);
+    for (box = 0; box < 3; box++)
+        StringCopy(GetBoxNamePtr(box + PRL_HOENN_OVERFLOW_START), sPRLHoennOverflowBoxNames[box]);
+    StringCopy(GetBoxNamePtr(PRL_HOENN_LEGENDS_BOX), sPRLHoennLegendsBoxName);
+}
 
 static void PRLHoennSortEachBoxAscending(struct BoxPokemon (*planned)[IN_BOX_COUNT], const u8 *used)
 {
@@ -5943,6 +5990,7 @@ u16 PRLHoennCommitKantoTransfer(void)
     struct BoxPokemon (*planned)[IN_BOX_COUNT];
     u8 used[TOTAL_BOXES_COUNT] = {0};
     u16 fallbackCount = 0;
+    bool8 mixed[PRL_HOENN_LEVEL_BOXES] = {FALSE};
     u8 box, slot, partySlot, destination;
     u16 expShareQuantity;
     u16 starterChoice = gSpecialVar_0x8004;
@@ -5992,6 +6040,7 @@ u16 PRLHoennCommitKantoTransfer(void)
                     return FALSE;
                 }
                 planned[destination][used[destination] - 1] = *mon;
+                PRLHoennNoteBoxMismatch(mixed, destination, species, GetBoxMonData(mon, MON_DATA_LEVEL));
             }
         }
     }
@@ -6008,6 +6057,7 @@ u16 PRLHoennCommitKantoTransfer(void)
                 return FALSE;
             }
             planned[destination][used[destination] - 1] = mon->box;
+            PRLHoennNoteBoxMismatch(mixed, destination, species, GetMonData(mon, MON_DATA_LEVEL));
         }
     }
 
@@ -6032,11 +6082,7 @@ u16 PRLHoennCommitKantoTransfer(void)
     CreateRandomMon(&gParties[B_TRAINER_PLAYER][0], starterSpecies, 5);
     gPartiesCount[B_TRAINER_PLAYER] = 1;
 
-    for (box = 0; box < PRL_HOENN_LEVEL_BOXES; box++)
-        StringCopy(GetBoxNamePtr(box), sPRLHoennLevelBoxNames[box]);
-    for (box = 0; box < 3; box++)
-        StringCopy(GetBoxNamePtr(box + PRL_HOENN_OVERFLOW_START), sPRLHoennOverflowBoxNames[box]);
-    StringCopy(GetBoxNamePtr(PRL_HOENN_LEGENDS_BOX), sPRLHoennLegendsBoxName);
+    PRLHoennNameSortedBoxes(mixed);
 
     // Preserve the whole Kanto bankroll in 2x16-bit pre-existing save vars.
     VarSet(VAR_PRL_BANK_KANTO_MONEY_LO, money & 0xFFFF);
@@ -6086,6 +6132,59 @@ u16 PRLHoennCommitKantoTransfer(void)
     gSaveBlock1Ptr->lastHealLocation.y = 18;
 #endif
     FlagClear(FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH);
+    return TRUE;
+}
+
+// Explicit, repeatable repair for converted Hoenn saves. The original PR83
+// sorting ran once at Birch's starter choice; older PR96 saves are already
+// past that step. A Birch conversation now offers a NON-DESTRUCTIVE resort.
+// No current party, money, Bag, boxes or save flags are changed on failure.
+// Every boxed creature (including Eggs) is copied in full before commit.
+u16 PRLHoennResortExistingPC(void)
+{
+    struct BoxPokemon (*planned)[IN_BOX_COUNT];
+    u8 used[TOTAL_BOXES_COUNT] = {0};
+    bool8 mixed[PRL_HOENN_LEVEL_BOXES] = {FALSE};
+    u16 fallbackCount = 0;
+    u8 box, slot, destination;
+
+    if (VarGet(VAR_PRL_REGION_STAGE) != 2 || gPokemonStoragePtr == NULL)
+        return FALSE;
+
+    planned = AllocZeroed(sizeof(*planned) * TOTAL_BOXES_COUNT);
+    if (planned == NULL)
+        return FALSE;
+
+    for (box = 0; box < TOTAL_BOXES_COUNT; box++)
+    {
+        for (slot = 0; slot < IN_BOX_COUNT; slot++)
+        {
+            struct BoxPokemon *mon = GetBoxedMonPtr(box, slot);
+            enum Species species = GetBoxMonData(mon, MON_DATA_SPECIES);
+            u8 level;
+            if (species == SPECIES_NONE)
+                continue;
+
+            level = GetBoxMonData(mon, MON_DATA_LEVEL);
+            if (!PRLHoennPlaceInManifest(used, species, level, &fallbackCount, &destination))
+            {
+                Free(planned);
+                return FALSE;
+            }
+            planned[destination][used[destination] - 1] = *mon;
+            PRLHoennNoteBoxMismatch(mixed, destination, species, level);
+        }
+    }
+
+    PRLHoennSortEachBoxAscending(planned, used);
+    // All 14 boxes have been validated and snapshotted; no further
+    // allocations or failure exits occur while committing their contents.
+    for (box = 0; box < TOTAL_BOXES_COUNT; box++)
+        for (slot = 0; slot < IN_BOX_COUNT; slot++)
+            SetBoxMonAt(box, slot, &planned[box][slot]);
+
+    Free(planned);
+    PRLHoennNameSortedBoxes(mixed);
     return TRUE;
 }
 
