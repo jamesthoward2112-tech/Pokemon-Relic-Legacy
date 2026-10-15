@@ -10,13 +10,13 @@ def read(path):
 class PR94Route101Bridge(unittest.TestCase):
     def test_firered_compiles_route_101_without_renumbering(self):
         src = read("tools/mapjson/mapjson.cpp")
-        self.assertIn('|| map_name == "Route101"', src)
-        self.assertEqual(src.count('json_to_string(layout, "id", true) != "LAYOUT_ROUTE101"'), 2)
-        self.assertIn('destination != "MAP_LITTLEROOT_TOWN"', src)
+        self.assertIn('"Route101",', src)
+        self.assertIn('"LAYOUT_ROUTE101"', src)
+        self.assertIn('!prlHoennDestinationEnabled(destination)', src)
         # The compiled binary verifier checks all real pointer and connection targets.
         check = read("tools/prl/verify_dual_region_binary.py")
         self.assertIn('("gMapGroup_TownsAndRoutes", "Route101", "LAYOUT_ROUTE101", True)', check)
-        self.assertIn('Route101 must connect ONLY to Littleroot', check)
+        self.assertIn('Route101 must connect north to Oldale', check)
 
     def test_original_emerald_connections_are_not_mutated(self):
         route = json.loads(read("data/maps/Route101/map.json"))
