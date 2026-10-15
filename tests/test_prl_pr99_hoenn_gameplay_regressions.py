@@ -21,8 +21,10 @@ class PR99GameplayRegressions(unittest.TestCase):
 
     def test_pc_resorts_after_normal_close_not_while_cursor_is_moving(self):
         storage = read("src/pokemon_storage_system.c")
-        exit_fn = storage.split("static void CB2_ExitPokeStorage(void)\n{", 1)[1].split("\n}", 1)[0]
+        exit_fn = storage.split("static void Task_ChangeScreen(u8 taskId)\n{", 1)[1].split("\n}", 1)[0]
         self.assertIn("PRLHoennResortExistingPC();", exit_fn)
+        self.assertLess(exit_fn.index("PRLHoennResortExistingPC();"),
+                        exit_fn.index("FreePokeStorageData();"))
         self.assertNotIn("PRLHoennResortExistingPC();", storage.split("static void Task_PlaceMon(u8 taskId)\n{", 1)[1].split("static void Task_ShiftMon", 1)[0])
         # Guarded and transactional: nothing committed if the snapshot cannot be built.
         special = read("src/field_specials.c")
