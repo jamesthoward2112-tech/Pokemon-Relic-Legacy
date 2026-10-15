@@ -41,6 +41,9 @@ LittlerootTown_OnTransition:
 	call_if_eq VAR_PRL_REGION_STAGE, 1, LittlerootTown_EventScript_PRLPrepareShuttleTruck
 	call_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_EventScript_PRLHideTrucks
 	call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLHideTrucks
+	@ PR97 saves made just after disembarking are still valid: bank their
+	@ Kanto purse the first time this town transition runs in PR98.
+	call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLEnsureArrivalBank
 	call_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_EventScript_PRLHideTrucks
 	setflag FLAG_VISITED_LITTLEROOT_TOWN
 	call Common_EventScript_SetupRivalGfxId
@@ -130,6 +133,10 @@ LittlerootTown_EventScript_PRLKeepKantoRunningShoes::
 	setflag FLAG_RECEIVED_RUNNING_SHOES
 	setflag FLAG_SYS_B_DASH
 	setvar VAR_LITTLEROOT_TOWN_STATE, 4
+	return
+
+LittlerootTown_EventScript_PRLEnsureArrivalBank::
+	special PRLHoennBankArrivalFunds
 	return
 
 LittlerootTown_EventScript_PRLPlaceAuntNearBrendansHouse::
