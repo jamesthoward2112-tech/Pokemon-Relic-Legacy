@@ -230,8 +230,8 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLAskBirchFirst::
 	end
 
 LittlerootTown_ProfessorBirchsLab_Text_PRLAskBirchFirst::
-	.string "These POKé BALLS belong\n"
-	.string "to PROF. BIRCH.\p"
+	.string "PROF. BIRCH has three\n"
+	.string "POKéMON to offer you.\p"
 	.string "Speak to him first.$"
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLDeclineStarter::
