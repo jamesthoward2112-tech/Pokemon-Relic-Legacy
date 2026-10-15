@@ -45,6 +45,8 @@ LittlerootTown_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_MoveMomToMaysDoor
 	call_if_unset FLAG_RESCUED_BIRCH, LittlerootTown_EventScript_SetTwinPos
+	@ Normalize existing PR89 Hoenn saves too (they may still be at state 3).
+	call_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_EventScript_PRLKeepKantoRunningShoes
 	call_if_eq VAR_LITTLEROOT_TOWN_STATE, 3, LittlerootTown_EventScript_SetMomStandingInFrontOfDoorPos
 	call_if_eq VAR_LITTLEROOT_HOUSES_STATE_MAY, 4, LittlerootTown_EventScript_SetExitedHouseAfterLatiSSTicketEvent
 	call_if_eq VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 4, LittlerootTown_EventScript_SetExitedHouseAfterLatiSSTicketEvent
@@ -105,6 +107,13 @@ LittlerootTown_EventScript_SetMomInFrontOfDoorMale::
 
 LittlerootTown_EventScript_SetMomInFrontOfDoorFemale::
 	setobjectxyperm LOCALID_LITTLEROOT_MOM, 14, 9
+	return
+
+LittlerootTown_EventScript_PRLKeepKantoRunningShoes::
+	setflag FLAG_RECEIVED_RUNNING_SHOES
+	setflag FLAG_SYS_B_DASH
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	setvar VAR_LITTLEROOT_TOWN_STATE, 4
 	return
 
 LittlerootTown_EventScript_PRLHideTrucks::
