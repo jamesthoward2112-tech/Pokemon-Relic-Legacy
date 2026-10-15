@@ -18,7 +18,7 @@ def read(p):
 class TestPR104(unittest.TestCase):
     def test_true_region_name_on_hoenn_map(self):
         src = read("src/field_region_map.c")
-        self.assertIn("VarGet(VAR_PRL_REGION_STAGE) != 2", src)
+        self.assertIn("GetRegionMapType(gMapHeader.regionMapSectionId) != REGION_MAP_HOENN", src)
         self.assertIn("region = gText_Kanto;", src)
         self.assertIn("region = gText_Hoenn;", src)
 
