@@ -165,7 +165,8 @@ def test_preserved_other_parties_and_headers():
     victory_road_trainers = ["TRAINER_COOLTRAINER_ROLANDO","TRAINER_COOLTRAINER_NAOMI","TRAINER_POKEMANIAC_DAWSON","TRAINER_BLACK_BELT_DAISUKE","TRAINER_JUGGLER_NELSON","TRAINER_JUGGLER_GREGORY","TRAINER_TAMER_VINCENT","TRAINER_COOLTRAINER_GEORGE","TRAINER_COOLTRAINER_COLBY","TRAINER_COOLTRAINER_CAROLINE","TRAINER_COOLTRAINER_ALEXA","TRAINER_COOL_COUPLE_RAY_TYRA","TRAINER_STEEVE_NEEVEE_ROUTE23","TRAINER_JESSIE_JAMES_VICTORY_ROAD"]
     untouched = ''.join(k + '\n' + v for k, v in source.items()
                         if k not in targets and k not in victory_road_trainers
-                        and not k.startswith('TRAINER_PRL_CHANSEY_'))
+                        and not k.startswith('TRAINER_PRL_CHANSEY_')
+                        and not k.startswith('TRAINER_PRL_HOENN_'))
     raw = untouched.encode()
     git_blob_sha1 = hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest()
     assert git_blob_sha1 == '03b71837f0cf71a08cab14190609e12f25b02fb6'
