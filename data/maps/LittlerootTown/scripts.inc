@@ -60,7 +60,15 @@ LittlerootTown_OnTransition:
 	call_if_eq VAR_LITTLEROOT_RIVAL_STATE, 3, LittlerootTown_EventScript_SetRivalLeftForRoute103
 	call_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_EventScript_HideMapNamePopup
 	call_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_EventScript_LeftLabAfterDexUpgrade
+	@ PR103: the post-greeting Aunt belongs inside, including older saves.
+	call_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_EventScript_PRLKeepRosieInside
+	call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLKeepRosieInside
+	call_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_EventScript_PRLKeepRosieInside
 	end
+
+LittlerootTown_EventScript_PRLKeepRosieInside::
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	return
 
 LittlerootTown_EventScript_LeftLabAfterDexUpgrade::
 	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3
@@ -220,6 +228,11 @@ LittlerootTown_EventScript_PRLRepairArrivalProps::
 
 LittlerootTown_EventScript_PRLRepairHoennProps::
 	call LittlerootTown_EventScript_PRLRemoveInertOutdoorProps
+	@ Loaded object sprites can survive a flag change until map reload.
+	@ Force-hide the already spawned outdoor Rosie, never re-spawn her.
+	hideobjectat LOCALID_LITTLEROOT_MOM, MAP_LITTLEROOT_TOWN
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	removeobject LOCALID_LITTLEROOT_MOM
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
 	removeobject 5
@@ -313,10 +326,11 @@ LittlerootTown_EventScript_PRLRosieWelcomeOnArrival::
 	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_PRLRosieAlignFemaleDoor
 	opendoor VAR_0x8009, VAR_0x800A
 	waitdooranim
-	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_MomExitThroughDoor
+	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_PRLRosieEnterDoor
 	waitmovement 0
 	hideobjectat LOCALID_LITTLEROOT_MOM, MAP_LITTLEROOT_TOWN
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	removeobject LOCALID_LITTLEROOT_MOM
 	closedoor VAR_0x8009, VAR_0x800A
 	waitdooranim
 	return
@@ -324,14 +338,23 @@ LittlerootTown_EventScript_PRLRosieWelcomeOnArrival::
 LittlerootTown_EventScript_PRLRosieAlignMaleDoor::
 	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_PRLRosieOneLeft
 	waitmovement 0
+	@ Match the actual warp tile (5,8); the final step moves up from (5,9).
+	setobjectxy LOCALID_LITTLEROOT_MOM, 5, 9
 	call LittlerootTown_EventScript_SetHomeDoorCoordsMale
 	return
 
 LittlerootTown_EventScript_PRLRosieAlignFemaleDoor::
 	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_PRLRosieOneRight
 	waitmovement 0
+	@ Match the actual warp tile (14,8) for the female player.
+	setobjectxy LOCALID_LITTLEROOT_MOM, 14, 9
 	call LittlerootTown_EventScript_SetHomeDoorCoordsFemale
 	return
+
+LittlerootTown_Movement_PRLRosieEnterDoor:
+	walk_up
+	set_invisible
+	step_end
 
 LittlerootTown_Movement_PRLRosieOneLeft:
 	walk_left
