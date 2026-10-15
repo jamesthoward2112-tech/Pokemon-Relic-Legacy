@@ -45,15 +45,22 @@ class PR100RuntimeRootCauses(unittest.TestCase):
         self.assertIn("if (stage != 1)", gate)
         self.assertIn("return TRUE;", gate)
 
-    def test_lab_clean_furniture_persists_in_every_hoenn_stage(self):
+    def test_birch_dialogue_replaces_three_ball_table_all_hoenn_stages(self):
         code = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
         for name in ("PRLWaitForBirch", "PRLSetupStarterRoom",
                      "PRLHideStarterRoom", "PRLStarterComplete"):
             block = code.split("EventScript_" + name + "::", 1)[1]
             block = block.split("\n\n", 1)[0] if name != "PRLStarterComplete" else block.split("LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome", 1)[0]
-            self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE", block)
-        for ball in ("CYNDAQUIL", "TOTODILE", "CHIKORITA"):
-            self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_" + ball, code)
+            self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB\n", block)
+            self.assertNotIn("_WITH_TABLE", block)
+        for species in ("RALTS","POOCHYENA","GEMLIN"):
+            self.assertIn("showmonpic SPECIES_"+species,code)
+        self.assertIn("LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchWaiting::",code)
+        self.assertIn("goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLOfferRalts",code)
+        self.assertNotIn("LittlerootTown_ProfessorBirchsLab_EventScript_PRLPlaceStarterBalls::",code)
+        for ball in ("CYNDAQUIL","TOTODILE","CHIKORITA"):
+            self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_"+ball,code)
+
 
 if __name__ == "__main__":
     unittest.main()
