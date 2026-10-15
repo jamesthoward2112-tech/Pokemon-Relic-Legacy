@@ -9,7 +9,7 @@ def read(path): return (R / path).read_text(encoding="utf-8")
 class PR83Journey(unittest.TestCase):
     def test_transaction_allocates_then_packs_every_mon_before_mutation(self):
         c=read("src/field_specials.c")
-        fn=c.split("u16 PRLHoennCommitKantoTransfer(void)",1)[1]
+        fn=c.split("u16 PRLHoennCommitKantoTransfer(void)",1)[1].split("u16 PRLHoennResortExistingPC(void)",1)[0]
         expected=[
             "PRLHoennCheckPCSpaceForParty()", "AllocZeroed(sizeof(*planned) * TOTAL_BOXES_COUNT)",
             "if (planned == NULL)", "for (box = 0; box < TOTAL_BOXES_COUNT; box++)",

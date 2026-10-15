@@ -34,7 +34,9 @@ LittlerootTown_ProfessorBirchsLab_OnTransition:
 
 @ The Champion must actually walk up to Birch first. No off-screen dialogue.
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLWaitForBirch::
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
+	@ The gift-version map bakes three Poké Balls into the FLOOR itself.
+	@ Use the normal lab and show only the three real object sprites.
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
@@ -42,7 +44,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLWaitForBirch::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom::
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
@@ -751,8 +753,37 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchWaiting::
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchResearch::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLBirchResearch
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLSortPCOffer, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, LittlerootTown_ProfessorBirchsLab_EventScript_PRLSortDeclined
+	specialvar VAR_RESULT, PRLHoennResortExistingPC
+	goto_if_eq VAR_RESULT, TRUE, LittlerootTown_ProfessorBirchsLab_EventScript_PRLSortComplete
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLSortFailed
 	release
 	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLSortDeclined::
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLSortComplete::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLSortComplete
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLSortPCOffer::
+	.string "BIRCH: Shall I organise\n"
+	.string "your PC by level?\p"
+	.string "Your items and POKéMON\n"
+	.string "will all be kept.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLSortComplete::
+	.string "BIRCH: All organised!\n"
+	.string "Check your PC boxes.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLSortFailed::
+	.string "BIRCH: I couldn't safely\n"
+	.string "rearrange your PC.\p"
+	.string "Nothing was changed.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_PRLBirchResearch::
 	.string "BIRCH: OAK was right about\n"

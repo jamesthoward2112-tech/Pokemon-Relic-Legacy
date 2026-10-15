@@ -274,10 +274,17 @@ string generate_map_events_text(Json map_data) {
 
             // If no type field is present, assume it's a regular object event.
             if (type == "" || type == "object") {
+                // Emerald's two parked removal trucks become ghost sprites on
+                // the PRL FireRed bridge after the arrival cutscene. Keep BOTH
+                // object indices intact for scripted local IDs and vanilla
+                // Emerald builds, but position their FireRed copies off-grid.
+                bool prlUnusedTownTruck = version == "firered"
+                                        && mapName == "LittlerootTown"
+                                        && (i == 4 || i == 5);
                 text << "\tobject_event " << i + 1 << ", "
                      << json_to_string(obj_event, "graphics_id") << ", "
-                     << json_to_string(obj_event, "x") << ", "
-                     << json_to_string(obj_event, "y") << ", "
+                     << (prlUnusedTownTruck ? "255" : json_to_string(obj_event, "x")) << ", "
+                     << (prlUnusedTownTruck ? "255" : json_to_string(obj_event, "y")) << ", "
                      << json_to_string(obj_event, "elevation") << ", "
                      << json_to_string(obj_event, "movement_type") << ", "
                      << json_to_string(obj_event, "movement_range_x") << ", "
