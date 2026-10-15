@@ -53,6 +53,10 @@
 #define FLAG_PRL_HOENN_ESSENTIALS_READY                   0x4E0
 #define FLAG_PRL_HOENN_FUNDS_BANKED                       0x4E1
 #define FLAG_PRL_HOENN_PC_LEVEL_SORTED                    0x4E2
+// Hoenn Birch aide gifts: save-persistent and independent of badges.
+#define FLAG_PRL_HOENN_ROWAN_TREECKO_GIFT                0x4E3
+#define FLAG_PRL_HOENN_KIRI_TORCHIC_GIFT                 0x4E4
+#define FLAG_PRL_HOENN_NERIS_MUDKIP_GIFT                 0x4E5
 
 // Temporary Flags
 // These temporary flags are are cleared every time a map is loaded. They are used

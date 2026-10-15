@@ -5,8 +5,16 @@ LittlerootTown_BrendansHouse_1F_MapScripts::
 	.byte 0
 
 LittlerootTown_BrendansHouse_1F_OnLoad:
+	@ PRL players arrived by Birch's truck, not the native unpacking scene.
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_BrendansHouse_1F_EventScript_PRLNoMovingBoxes
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_BrendansHouse_1F_EventScript_PRLNoMovingBoxes
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_BrendansHouse_1F_EventScript_PRLNoMovingBoxes
 	call_if_lt VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_BrendansHouse_1F_EventScript_SetMovingBoxes
 	call_if_set FLAG_RECEIVED_RUNNING_SHOES, LittlerootTown_BrendansHouse_1F_EventScript_CheckShowShoesManual
+	end
+
+LittlerootTown_BrendansHouse_1F_EventScript_PRLNoMovingBoxes::
+	@ Preserve original layout furniture; suppress Emerald's moving-box tiles.
 	end
 
 LittlerootTown_BrendansHouse_1F_EventScript_SetMovingBoxes::
@@ -442,10 +450,24 @@ PlayersHouse_1F_Text_StillUnknownPokemon:
 @ PRL continuity: Hoenn's guardian is the player's AUNT.
 @ Kanto MUM remains back in Pallet Town, watching the saved money.
 LittlerootTown_BrendansHouse_1F_EventScript_PRLMakeAuntAvailable::
+	@ On every Hoenn house entry remove the vanilla moving-in props, the
+	@ inert father, and the rival sprite which blocked the door tile.
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_1
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_2
+	setflag FLAG_HIDE_PLAYERS_HOUSE_DAD
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_BRENDAN
 	checkplayergender
-	goto_if_ne VAR_RESULT, MALE, LittlerootTown_BrendansHouse_1F_EventScript_PRLKeepOtherHouse
+	goto_if_eq VAR_RESULT, MALE, LittlerootTown_BrendansHouse_1F_EventScript_PRLRosiesHouse
+	@ Opposite house belongs to Birch's family, never a duplicate Rosie.
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_MOM
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_MOM
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_SIBLING
+	return
+
+LittlerootTown_BrendansHouse_1F_EventScript_PRLRosiesHouse::
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_MOM
-LittlerootTown_BrendansHouse_1F_EventScript_PRLKeepOtherHouse::
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_MOM
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_SIBLING
 	return
 
 LittlerootTown_BrendansHouse_1F_EventScript_PRLAunt::
@@ -490,3 +512,14 @@ LittlerootTown_BrendansHouse_1F_Text_PRLAuntHome::
 	.string "PETALBURG CITY.\p"
 	.string "I'll be here if you ever\n"
 	.string "want to talk, dear!$"
+
+
+LittlerootTown_BrendansHouse_1F_EventScript_PRLBirchFamily::
+	msgbox LittlerootTown_BrendansHouse_1F_Text_PRLBirchFamily, MSGBOX_NPC
+	end
+
+LittlerootTown_BrendansHouse_1F_Text_PRLBirchFamily::
+	.string "BIRCH's family: The Professor\n"
+	.string "is usually at his LAB.\p"
+	.string "We're glad to welcome\n"
+	.string "another researcher to HOENN!$"

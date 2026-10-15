@@ -109,7 +109,15 @@ oldale_map_num = groups["gMapGroup_TownsAndRoutes"].index("OldaleTown")
 assert connection_dest(route, 0) == (2, (route_group, oldale_map_num)), "Route101 must connect north to Oldale"
 assert connection_dest(route, 1) == (2, (route_group, town_map_num)), "Route101 must connect south to Littleroot"
 oldale = header_for("gMapGroup_TownsAndRoutes", "OldaleTown")
-assert connection_dest(oldale, 0) == (1, (route_group, route_map_num)), "Oldale south must connect to Route101 only"
+# PR104: Route 102 opens west of Oldale. The compiled connection count
+# increases from 1 to 2, while Route 101 remains at its original slot 0.
+route102_map_num = groups["gMapGroup_TownsAndRoutes"].index("Route102")
+assert connection_dest(oldale, 0) == (2, (route_group, route_map_num)), "Oldale south must still connect to Route101"
+assert connection_dest(oldale, 1) == (2, (route_group, route102_map_num)), "Oldale west must connect to Route102"
+route102 = header_for("gMapGroup_TownsAndRoutes", "Route102")
+petalburg_map_num = groups["gMapGroup_TownsAndRoutes"].index("PetalburgCity")
+assert connection_dest(route102, 0) == (2, (route_group, petalburg_map_num)), "Route102 west must connect to Petalburg"
+assert connection_dest(route102, 1) == (2, (route_group, oldale_map_num)), "Route102 east must connect to Oldale"
 town_events = valid("Littleroot events", word(town + 4))
 lab_events = valid("Birch lab events", word(lab + 4))
 if byte(town_events + 1) != 3:

@@ -225,7 +225,10 @@ static bool prlHoennMapEnabled(const string &name)
         "LittlerootTown", "LittlerootTown_ProfessorBirchsLab",
         "LittlerootTown_BrendansHouse_1F", "LittlerootTown_BrendansHouse_2F",
         "LittlerootTown_MaysHouse_1F", "LittlerootTown_MaysHouse_2F",
-        "InsideOfTruck", "Route101",
+        "InsideOfTruck", "Route101", "Route102", "PetalburgCity",
+        "PetalburgCity_PokemonCenter_1F", "PetalburgCity_PokemonCenter_2F",
+        "PetalburgCity_Mart", "PetalburgCity_WallysHouse",
+        "PetalburgCity_House1", "PetalburgCity_House2",
         "OldaleTown", "OldaleTown_Mart", "OldaleTown_House1",
         "OldaleTown_House2", "OldaleTown_PokemonCenter_1F",
         "OldaleTown_PokemonCenter_2F",
@@ -239,7 +242,10 @@ static bool prlHoennDestinationEnabled(const string &mapId)
         "MAP_LITTLEROOT_TOWN", "MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB",
         "MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F", "MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F",
         "MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F", "MAP_LITTLEROOT_TOWN_MAYS_HOUSE_2F",
-        "MAP_INSIDE_OF_TRUCK", "MAP_ROUTE101",
+        "MAP_INSIDE_OF_TRUCK", "MAP_ROUTE101", "MAP_ROUTE102", "MAP_PETALBURG_CITY",
+        "MAP_PETALBURG_CITY_POKEMON_CENTER_1F", "MAP_PETALBURG_CITY_POKEMON_CENTER_2F",
+        "MAP_PETALBURG_CITY_MART", "MAP_PETALBURG_CITY_WALLYS_HOUSE",
+        "MAP_PETALBURG_CITY_HOUSE1", "MAP_PETALBURG_CITY_HOUSE2",
         "MAP_OLDALE_TOWN", "MAP_OLDALE_TOWN_MART", "MAP_OLDALE_TOWN_HOUSE1",
         "MAP_OLDALE_TOWN_HOUSE2", "MAP_OLDALE_TOWN_POKEMON_CENTER_1F",
         "MAP_OLDALE_TOWN_POKEMON_CENTER_2F",
@@ -257,7 +263,8 @@ static bool prlHoennLayoutEnabled(const string &layout)
         "LAYOUT_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F",
         "LAYOUT_LITTLEROOT_TOWN_MAYS_HOUSE_1F",
         "LAYOUT_LITTLEROOT_TOWN_MAYS_HOUSE_2F",
-        "LAYOUT_INSIDE_OF_TRUCK", "LAYOUT_ROUTE101",
+        "LAYOUT_INSIDE_OF_TRUCK", "LAYOUT_ROUTE101", "LAYOUT_ROUTE102",
+        "LAYOUT_PETALBURG_CITY", "LAYOUT_HOUSE_WITH_BED",
         "LAYOUT_OLDALE_TOWN", "LAYOUT_MART", "LAYOUT_HOUSE1", "LAYOUT_HOUSE2",
         "LAYOUT_POKEMON_CENTER_1F", "LAYOUT_POKEMON_CENTER_2F",
     };
@@ -426,6 +433,12 @@ string generate_map_events_text(Json map_data) {
                      << json_to_string(bg_event, "script") << "\n";
             }
             else if (type == "hidden_item") {
+                // Hoenn hidden-item flags are not yet verified in the FRLG save
+                // bridge; the Petalburg Rare Candy assembled with flag zero.
+                // Do not emit inaccessible/corrupt background events on this
+                // staged expansion. The original Emerald JSON stays intact.
+                if (version == "firered" && prlHoennMapEnabled(mapName))
+                    continue;
                 string quantity = json_to_string(bg_event, "quantity", true);
                 if (quantity.empty()) {
                     quantity = "1";
