@@ -41,8 +41,9 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLEnsureArrivalFundsBanked::
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLWaitForBirch::
 	@ The gift-version map bakes three Poké Balls into the FLOOR itself.
-	@ Use the normal lab and show only the three real object sprites.
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
+	@ Keep the clean display furniture layout. The ordinary layout can
+	@ reintroduce baked-in gift tiles on compiled FireRed maps.
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
@@ -62,8 +63,9 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom::
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLHideStarterRoom::
 	@ The Johto-gift layout itself contains three ball tiles. Object flags
 	@ alone cannot remove these: they return on the next camera redraw.
-	@ Use the ordinary lab layout AFTER the Hoenn starter is chosen.
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
+	@ Keep the clean display-furniture layout after the starter is chosen;
+	@ hiding sprite objects alone cannot fix baked metatiles.
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
 	special PRLHoennEnsureEssentials
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
@@ -295,9 +297,9 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::
 	setflag FLAG_RESCUED_BIRCH
 	setflag FLAG_ADVENTURE_STARTED
 	setvar VAR_PRL_REGION_STAGE, 2
-	@ Also switch the underlying tilemap: WITH_TABLE contains three
-	@ fixed item-ball metatiles as well as the separate object events.
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
+	@ Preserve the clean display furniture and remove all gift objects.
+	@ Switching back to the original lab resurrects baked Poké Ball tiles.
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
 	@ All three gifts are now permanently hidden. This also protects saves
 	@ that crossed over on PR89/PR90 and had already spawned the three props.
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
