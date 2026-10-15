@@ -2758,6 +2758,28 @@ static void Task_MoveMon(u8 taskId)
     }
 }
 
+// All previous-region Pokémon remain stored, but may only join the Hoenn
+// party at the current Hoenn badge-based level cap. Kanto badges are recorded
+// separately, and the eight Hoenn badge bits were cleared on region entry.
+// The final 91–100 tier unlocks on beating the HOENN League.
+static u8 PRLHoennPcLevelLimit(void)
+{
+    u8 i, badges = 0;
+    if (VarGet(VAR_PRL_REGION_STAGE) != 2 || FlagGet(FLAG_SYS_GAME_CLEAR))
+        return MAX_LEVEL;
+    for (i = 0; i < NUM_BADGES; i++)
+    {
+        if (FlagGet(FLAG_BADGE01_GET + i))
+            badges++;
+    }
+    return 10 + badges * 10;
+}
+
+static bool32 PRLHoennStorageLevelLocked(u8 level)
+{
+    return VarGet(VAR_PRL_REGION_STAGE) == 2 && level > PRLHoennPcLevelLimit();
+}
+
 static void Task_PlaceMon(u8 taskId)
 {
     switch (sStorage->state)
@@ -2824,28 +2846,6 @@ static void Task_ShiftMon(u8 taskId)
         }
         break;
     }
-}
-
-// All previous-region Pokémon remain stored, but may only join the Hoenn
-// party at the current Hoenn badge-based level cap. Kanto badges are recorded
-// separately, and the eight Hoenn badge bits were cleared on region entry.
-// The final 91–100 tier unlocks on beating the HOENN League.
-static u8 PRLHoennPcLevelLimit(void)
-{
-    u8 i, badges = 0;
-    if (VarGet(VAR_PRL_REGION_STAGE) != 2 || FlagGet(FLAG_SYS_GAME_CLEAR))
-        return MAX_LEVEL;
-    for (i = 0; i < NUM_BADGES; i++)
-    {
-        if (FlagGet(FLAG_BADGE01_GET + i))
-            badges++;
-    }
-    return 10 + badges * 10;
-}
-
-static bool32 PRLHoennStorageLevelLocked(u8 level)
-{
-    return VarGet(VAR_PRL_REGION_STAGE) == 2 && level > PRLHoennPcLevelLimit();
 }
 
 static void Task_WithdrawMon(u8 taskId)
