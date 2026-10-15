@@ -788,18 +788,18 @@ PetalburgCity_Text_ImLookingForTalentedTrainers:
 
 
 PetalburgCity_Text_PRLRowanWelcome::
-	.string "ROWAN: Birch asked me\\n"
-	.string "to find a good trainer.\\p"
-	.string "This TREECKO is Lv10\\n"
-	.string "and holding MIRACLE SEED.\\p"
+	.string "ROWAN: Birch asked me\n"
+	.string "to find a good trainer.\p"
+	.string "This TREECKO is Lv10\n"
+	.string "and holding MIRACLE SEED.\p"
 	.string "Will you look after it?$"
 
 PetalburgCity_Text_PRLRowanNoRoom::
-	.string "ROWAN: Make room in\\n"
+	.string "ROWAN: Make room in\n"
 	.string "your party or PC first.$"
 
 PetalburgCity_Text_PRLRowanReceived::
-	.string "ROWAN: Take good care\\n"
+	.string "ROWAN: Take good care\n"
 	.string "of TREECKO!$"
 
 PetalburgCity_Text_PRLRowanAfter::
