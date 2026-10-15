@@ -26,7 +26,7 @@ class PR89HoennStarterSelection(unittest.TestCase):
         self.assertIn("VarSet(VAR_PRL_REGION_STAGE, 2);", c)
         for old, new in (("Cyndaquil","Ralts"),("Totodile","Poochyena"),("Chikorita","Gemlin")):
             event = lab.split("LittlerootTown_ProfessorBirchsLab_EventScript_" + old + "::", 1)[1].split("\n\n",1)[0]
-            self.assertIn("VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRL" + new + "Ball", event)
+            self.assertIn("VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchWaiting", event)
             self.assertIn("VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAlreadyChoseStarter", event)
         for flag in ("CYNDAQUIL", "TOTODILE", "CHIKORITA"):
             self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_" + flag, lab)
