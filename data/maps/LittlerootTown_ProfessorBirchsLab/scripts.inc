@@ -128,9 +128,11 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLPlaceStarterBalls::
 	addobject LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL
 	addobject LOCALID_BIRCHS_LAB_TOTODILE_BALL
 	addobject LOCALID_BIRCHS_LAB_CHIKORITA_BALL
-	setobjectxy LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL, 8, 4
-	setobjectxy LOCALID_BIRCHS_LAB_TOTODILE_BALL, 9, 4
-	setobjectxy LOCALID_BIRCHS_LAB_CHIKORITA_BALL, 10, 4
+	@ Align each visible ball to its display pedestal in WITH_TABLE.
+	@ Do not leave the leftmost Poké Ball on bare laboratory floor.
+	setobjectxy LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL, 9, 4
+	setobjectxy LOCALID_BIRCHS_LAB_TOTODILE_BALL, 10, 4
+	setobjectxy LOCALID_BIRCHS_LAB_CHIKORITA_BALL, 11, 4
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_SetPlayerPosForReceiveStarter::
