@@ -49,7 +49,7 @@ class PR92HoennRegressions(unittest.TestCase):
         self.assertNotIn("uncle FRANK",intro)
         self.assertNotIn("remember uncle FRANK",s)
         mom=read("data/maps/LittlerootTown/scripts.inc")
-        self.assertIn("AUNT: {PLAYER}",mom)
+        self.assertIn("AUNT ROSIE: {PLAYER}",mom)
         self.assertIn("Your MUM told me",mom)
         self.assertNotIn("Those Running Shoes",mom)
 
