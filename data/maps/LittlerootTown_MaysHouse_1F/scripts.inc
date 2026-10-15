@@ -491,7 +491,7 @@ LittlerootTown_MaysHouse_1F_EventScript_PRLBirchFamily::
 	end
 
 LittlerootTown_MaysHouse_1F_Text_PRLBirchFamily::
-	.string "BIRCH's family: The Professor\\n"
-	.string "is usually at his LAB.\\p"
-	.string "We're glad to welcome\\n"
+	.string "BIRCH's family: The Professor\n"
+	.string "is usually at his LAB.\p"
+	.string "We're glad to welcome\n"
 	.string "another researcher to HOENN!$"
