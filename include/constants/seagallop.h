@@ -12,6 +12,8 @@
 #define SEAGALLOP_CINNABAR_ISLAND  8
 #define SEAGALLOP_NAVEL_ROCK       9
 #define SEAGALLOP_BIRTH_ISLAND    10
+// A private PRL voyage target: reuses FireRed ferry then Emerald lorry.
+#define SEAGALLOP_PRL_HOENN_TRUCK  11
 
 #define SEAGALLOP_MORE           254
 

@@ -68,11 +68,27 @@ VermilionCity_EventScript_PRLHoennBoardingPreflight::
 	@ Actual transfer occurs in Birch's lab after the new map has loaded
 	@ and after the player selects the Hoenn starter.
 	setvar VAR_PRL_REGION_STAGE, 1
+	@ Temporary marker avoids replaying Emerald's original new-game triggers.
+	@ Keep Kanto party intact until Birch's atomic starter transfer.
+	setvar VAR_LITTLEROOT_INTRO_STATE, 8
+	checkplayergender
+	goto_if_eq VAR_RESULT, FEMALE, VermilionCity_EventScript_PRLFemaleTruckExit
+	setdynamicwarp MAP_LITTLEROOT_TOWN, 3, 10
+	goto VermilionCity_EventScript_PRLPlayVoyageAnimation
+	end
+
+VermilionCity_EventScript_PRLFemaleTruckExit::
+	setdynamicwarp MAP_LITTLEROOT_TOWN, 12, 10
+
+VermilionCity_EventScript_PRLPlayVoyageAnimation::
 	msgbox VermilionCity_Text_PRLHoennSailAway
 	closemessage
+	setvar VAR_0x8004, SEAGALLOP_VERMILION_CITY
+	setvar VAR_0x8006, SEAGALLOP_PRL_HOENN_TRUCK
+	delay 20
 	fadescreen FADE_TO_BLACK
-	@ First enter the outdoor HOENN map; do not run Birch lab scripts mid-voyage.
-	warp MAP_LITTLEROOT_TOWN, 7, 18
+	@ Existing Seagallop cinematic switches to native InsideOfTruck.
+	special DoSeagallopFerryScene
 	waitstate
 	end
 
@@ -119,7 +135,7 @@ VermilionCity_Text_PRLHoennTransferFailed::
 VermilionCity_Text_PRLHoennSailAway::
 	.string "SAILOR: All aboard!\p"
 	.string "The S.S. LEGACY sets sail\n"
-	.string "across the ocean to HOENN...$"
+	.string "for SLATEPORT CITY...$"
 
 VermilionCity_Text_PRLHoennNeedBoxRoom::
 	.string "SAILOR: Your PC needs enough\n"
