@@ -433,6 +433,12 @@ string generate_map_events_text(Json map_data) {
                      << json_to_string(bg_event, "script") << "\n";
             }
             else if (type == "hidden_item") {
+                // Hoenn hidden-item flags are not yet verified in the FRLG save
+                // bridge; the Petalburg Rare Candy assembled with flag zero.
+                // Do not emit inaccessible/corrupt background events on this
+                // staged expansion. The original Emerald JSON stays intact.
+                if (version == "firered" && prlHoennMapEnabled(mapName))
+                    continue;
                 string quantity = json_to_string(bg_event, "quantity", true);
                 if (quantity.empty()) {
                     quantity = "1";
