@@ -5,8 +5,16 @@ LittlerootTown_BrendansHouse_1F_MapScripts::
 	.byte 0
 
 LittlerootTown_BrendansHouse_1F_OnLoad:
+	@ PRL players arrived by Birch's truck, not the native unpacking scene.
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_BrendansHouse_1F_EventScript_PRLNoMovingBoxes
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_BrendansHouse_1F_EventScript_PRLNoMovingBoxes
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_BrendansHouse_1F_EventScript_PRLNoMovingBoxes
 	call_if_lt VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_BrendansHouse_1F_EventScript_SetMovingBoxes
 	call_if_set FLAG_RECEIVED_RUNNING_SHOES, LittlerootTown_BrendansHouse_1F_EventScript_CheckShowShoesManual
+	end
+
+LittlerootTown_BrendansHouse_1F_EventScript_PRLNoMovingBoxes::
+	@ Preserve original layout furniture; suppress Emerald's moving-box tiles.
 	end
 
 LittlerootTown_BrendansHouse_1F_EventScript_SetMovingBoxes::
