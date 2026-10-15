@@ -84,7 +84,7 @@ assert word(town + 12) == 0, "Route 101 connection still loads a NULL map"
 assert word(lab + 12) == 0, "Birch's lab should have no map connections"
 town_events = valid("Littleroot events", word(town + 4))
 lab_events = valid("Birch lab events", word(lab + 4))
-assert byte(town_events + 1) == 3, "Littleroot warp indices changed"
+assert byte(town_events + 1) == 3, f"Littleroot event counts {[byte(town_events + i) for i in range(4)]}; town={town:#x} events={town_events:#x} warp_ptr={word(town_events + 8):#x}"
 assert byte(lab_events + 1) == 2, "Birch lab return warp count changed"
 town_group = groups["group_order"].index("gMapGroup_TownsAndRoutes")
 town_num = groups["gMapGroup_TownsAndRoutes"].index("LittlerootTown")
