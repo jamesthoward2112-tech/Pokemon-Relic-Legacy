@@ -34,6 +34,7 @@ layout_table = symbol["gMapLayouts"]
 for group_name, map_name, expected_layout, emerald in [
     ("gMapGroup_TownsAndRoutes", "LittlerootTown", "LAYOUT_LITTLEROOT_TOWN", True),
     ("gMapGroup_TownsAndRoutes", "Route101", "LAYOUT_ROUTE101", True),
+    ("gMapGroup_IndoorDynamic", "InsideOfTruck", "LAYOUT_INSIDE_OF_TRUCK", True),
     ("gMapGroup_IndoorLittleroot", "LittlerootTown_ProfessorBirchsLab",
      "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB", True),
     ("gMapGroup_TownsAndRoutes_Frlg", "VermilionCity_Frlg", "LAYOUT_VERMILION_CITY", False),
