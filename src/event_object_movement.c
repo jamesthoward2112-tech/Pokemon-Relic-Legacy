@@ -1894,7 +1894,13 @@ static bool8 PRLRejectHoennBridgeObject(const struct ObjectEventTemplate *obj, u
 {
 #if IS_FRLG
     u16 stage = VarGet(VAR_PRL_REGION_STAGE);
-    if (stage == 0)
+    // Only Route 101's old rescue props need suppression if a legacy
+    // champion save has the Oak voyage ticket but stage was reset to zero.
+    // Everywhere else preserve the normal pre-voyage/stock map behavior.
+    if (stage == 0
+     && !(mapGroup == MAP_GROUP(MAP_ROUTE101)
+       && mapNum == MAP_NUM(MAP_ROUTE101)
+       && FlagGet(FLAG_PRL_POSTHOF_OAK_TICKET)))
         return FALSE;
     if (mapGroup == MAP_GROUP(MAP_LITTLEROOT_TOWN) && mapNum == MAP_NUM(MAP_LITTLEROOT_TOWN))
     {
