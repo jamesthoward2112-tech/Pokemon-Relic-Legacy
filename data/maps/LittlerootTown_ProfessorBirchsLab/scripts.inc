@@ -50,7 +50,11 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLHideStarterRoom::
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
+	@ The Johto-gift layout itself contains three ball tiles. Object flags
+	@ alone cannot remove these: they return on the next camera redraw.
+	@ Use the ordinary lab layout AFTER the Hoenn starter is chosen.
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
+	special PRLHoennEnsureEssentials
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA
@@ -270,6 +274,9 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::
 	setflag FLAG_RESCUED_BIRCH
 	setflag FLAG_ADVENTURE_STARTED
 	setvar VAR_PRL_REGION_STAGE, 2
+	@ Also switch the underlying tilemap: WITH_TABLE contains three
+	@ fixed item-ball metatiles as well as the separate object events.
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
 	@ All three gifts are now permanently hidden. This also protects saves
 	@ that crossed over on PR89/PR90 and had already spawned the three props.
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
@@ -295,14 +302,23 @@ LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome::
 	.string "yourself in KANTO.\p"
 	.string "HOENN is a fresh journey.\n"
 	.string "Let's start your research!\p"
-	.string "Your KANTO POKéMON will\n"
-	.string "be safely stored in your PC.\p"
-	.string "Your old Bag equipment will\n"
-	.string "be donated to our school.\p"
-	.string "You'll keep your EXP SHARE\n"
-	.string "and Running Shoes.\p"
-	.string "Your KANTO funds are safe.\n"
-	.string "You'll start with P3000.\p"
+	.string "When you choose a partner,\n"
+	.string "I'll box your KANTO team.\p"
+	.string "They'll be safe in your PC.\n"
+	.string "Lv1-10 can leave right now.\p"
+	.string "HOENN GYM BADGES unlock\n"
+	.string "stronger POKéMON.\p"
+	.string "Each BADGE adds ten levels.\n"
+	.string "Eight unlocks up to Lv90.\p"
+	.string "Lv91-100 unlock when you\n"
+	.string "beat the HOENN LEAGUE.\p"
+	.string "Your old Bag goes to the\n"
+	.string "HOENN Trainer School.\p"
+	.string "Keep your EXP SHARE,\n"
+	.string "Running Shoes and REMOTE PC.\p"
+	.string "Your MUM back in KANTO\n"
+	.string "will guard your savings.\p"
+	.string "You'll begin with P3000.\p"
 	.string "Take your time. Choose ONE\n"
 	.string "of these three POKé BALLS.$"
 
@@ -326,6 +342,8 @@ LittlerootTown_ProfessorBirchsLab_Text_PRLStarterFailed::
 
 LittlerootTown_ProfessorBirchsLab_Text_PRLHoennNext::
 	.string "BIRCH: Excellent choice!\p"
+	.string "Your KANTO team is now\n"
+	.string "safe in your PC.\p"
 	.string "Start in LITTLEROOT, then\n"
 	.string "head north to OLDALE.\p"
 	.string "The RELIC RESONANCE may\n"

@@ -324,6 +324,22 @@ static void AddStartMenuAction(u8 action)
 
 static void BuildNormalStartMenu(void)
 {
+    // The player arrives in Hoenn with the Kanto party intact for engine
+    // safety. The one-time transfer commits only after Birch's Lv5 starter
+    // has been chosen; until then, Kanto Pokémon and Bag items must not be
+    // accessible as if this were still an active Kanto adventure.
+    // Keep Save/Options so old saves remain safe to resume.
+    if (VarGet(VAR_PRL_REGION_STAGE) == 1
+     || VarGet(VAR_PRL_REGION_STAGE) == 3
+     || VarGet(VAR_PRL_REGION_STAGE) == 4)
+    {
+        AddStartMenuAction(MENU_ACTION_PLAYER);
+        AddStartMenuAction(MENU_ACTION_SAVE);
+        AddStartMenuAction(MENU_ACTION_OPTION);
+        AddStartMenuAction(MENU_ACTION_EXIT);
+        return;
+    }
+
     if (FlagGet(FLAG_SYS_POKEDEX_GET) == TRUE)
         AddStartMenuAction(MENU_ACTION_POKEDEX);
 

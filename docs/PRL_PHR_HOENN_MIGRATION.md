@@ -15,6 +15,13 @@ Actual source donor: [Pokemon-Hoenn-Relics](https://github.com/jamesthoward2112-
 5. **PHR H010–H021 campaign:** trainer teams, Route 101 onwards, early gym rewards, museum relic theft, volcanic plot, Hoenn weather, Dive, Sootopolis, legendary guardians and Hoenn League. Keep **Ralts / Poochyena / Gemlin** as PRL's Hoenn starter trio, not PHR's old Pichu/Azurill/Wynaut Birch-rescue opening. Replace PHR's Norman-dad premise with **Uncle Frank** in PRL; player arrives as Kanto Champion.
 6. **PHR H022/postgame:** source-port the free-order rematch circuit, Mega Ring / Oak-Birch research, strengthened Hoenn E4, Coelossus/Astrachi and later cross-region endgame. Do not use Kanto's game-clear flag to unlock Hoenn postgame prematurely.
 
+## PRL family and PC access canon (do not overwrite with Emerald/PHR defaults)
+
+- The player is the **Kanto Champion**. Their **Mum remains in Kanto** and holds the saved Kanto funds. The Littleroot relative is the player's **Aunt**, never Mum. Norman is **Uncle Frank** in Petalburg, not the player's father.
+- Birch explains before selection: after choosing Ralts/Poochyena/Gemlin, Kanto party is boxed safely; equipment is donated to Hoenn's Trainer School; Kanto Mum safeguards the money; Hoenn starts at 3,000; EXP Share, Running Shoes and functional Remote PC Key Item are retained.
+- Hoenn PC hard-lock on withdrawals to the party: no Hoenn badges → level 1–10, then +10 per earned Hoenn badge; eighth badge → through 90; Hoenn League clear → 100. Kanto badges never count. This applies to normal Withdraw and Move Pokémon placement/shift, and never deletes boxed Pokémon. Deposits and box reorganisation remain allowed.
+- Preserve saved species, OT, shiny, held items, checksums, box layout and out-of-region transfer consistency. Future story content must not restore Emerald's “Mum and Dad” premise.
+
 ## Rules
 
 - Preserve PR89's successful Kanto→Hoenn voyage, Celebi/Jirachi title assets, Kanto trainers/scripts, saved-money banking, EXP Share exception, 14×30 boxes and original Trainer ID.

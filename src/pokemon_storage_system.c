@@ -44,6 +44,8 @@
 #include "constants/rgb.h"
 #include "constants/songs.h"
 #include "constants/pokemon_icon.h"
+#include "constants/flags.h"
+#include "constants/vars.h"
 #include "chooseboxmon.h"
 #include "party_menu.h"
 
@@ -109,6 +111,7 @@ enum {
     MSG_ITEM_IS_HELD,
     MSG_CHANGED_TO_ITEM,
     MSG_CANT_STORE_MAIL,
+    MSG_PRL_HOENN_LEVEL_LOCK,
 };
 
 // IDs for how to resolve variables in the above messages
@@ -1080,6 +1083,7 @@ static const struct StorageMessage sMessages[] =
     [MSG_ITEM_IS_HELD]         = {COMPOUND_STRING("{DYNAMIC 0} is now held."),   MSG_VAR_ITEM_NAME},
     [MSG_CHANGED_TO_ITEM]      = {COMPOUND_STRING("Changed to {DYNAMIC 0}."),    MSG_VAR_ITEM_NAME},
     [MSG_CANT_STORE_MAIL]      = {COMPOUND_STRING("MAIL can't be stored!"),      MSG_VAR_NONE},
+    [MSG_PRL_HOENN_LEVEL_LOCK] = {COMPOUND_STRING("Higher levels need more\nHOENN Gym Badges!"), MSG_VAR_NONE},
 };
 
 static const struct WindowTemplate sYesNoWindowTemplate =
@@ -2754,11 +2758,41 @@ static void Task_MoveMon(u8 taskId)
     }
 }
 
+// All previous-region Pokémon remain stored, but may only join the Hoenn
+// party at the current Hoenn badge-based level cap. Kanto badges are recorded
+// separately, and the eight Hoenn badge bits were cleared on region entry.
+// The final 91–100 tier unlocks on beating the HOENN League.
+static u8 PRLHoennPcLevelLimit(void)
+{
+    u8 i, badges = 0;
+    if (VarGet(VAR_PRL_REGION_STAGE) != 2 || FlagGet(FLAG_SYS_GAME_CLEAR))
+        return MAX_LEVEL;
+    for (i = 0; i < NUM_BADGES; i++)
+    {
+        if (FlagGet(FLAG_BADGE01_GET + i))
+            badges++;
+    }
+    return 10 + badges * 10;
+}
+
+static bool32 PRLHoennStorageLevelLocked(u8 level)
+{
+    return VarGet(VAR_PRL_REGION_STAGE) == 2 && level > PRLHoennPcLevelLimit();
+}
+
 static void Task_PlaceMon(u8 taskId)
 {
     switch (sStorage->state)
     {
     case 0:
+        // MOVE POKéMON can otherwise bypass the regular WITHDRAW restriction.
+        if (sCursorArea == CURSOR_AREA_IN_PARTY && sIsMonBeingMoved
+         && PRLHoennStorageLevelLocked(GetMonData(&sStorage->movingMon, MON_DATA_LEVEL)))
+        {
+            PrintMessage(MSG_PRL_HOENN_LEVEL_LOCK);
+            sStorage->state = 2;
+            break;
+        }
         InitMonPlaceChange(CHANGE_PLACE);
         sStorage->state++;
         break;
@@ -2771,6 +2805,14 @@ static void Task_PlaceMon(u8 taskId)
                 SetPokeStorageTask(Task_PokeStorageMain);
         }
         break;
+    case 2:
+        if (JOY_NEW(A_BUTTON | B_BUTTON | DPAD_ANY))
+        {
+            ClearBottomWindow();
+            // Retain the held Pokémon; the player can return it to the box.
+            SetPokeStorageTask(Task_PokeStorageMain);
+        }
+        break;
     }
 }
 
@@ -2779,6 +2821,13 @@ static void Task_ShiftMon(u8 taskId)
     switch (sStorage->state)
     {
     case 0:
+        if (sCursorArea == CURSOR_AREA_IN_PARTY && sIsMonBeingMoved
+         && PRLHoennStorageLevelLocked(GetMonData(&sStorage->movingMon, MON_DATA_LEVEL)))
+        {
+            PrintMessage(MSG_PRL_HOENN_LEVEL_LOCK);
+            sStorage->state = 2;
+            break;
+        }
         InitMonPlaceChange(CHANGE_SHIFT);
         sStorage->state++;
         break;
@@ -2786,6 +2835,13 @@ static void Task_ShiftMon(u8 taskId)
         if (!DoMonPlaceChange())
         {
             StartDisplayMonMosaicEffect();
+            SetPokeStorageTask(Task_PokeStorageMain);
+        }
+        break;
+    case 2:
+        if (JOY_NEW(A_BUTTON | B_BUTTON | DPAD_ANY))
+        {
+            ClearBottomWindow();
             SetPokeStorageTask(Task_PokeStorageMain);
         }
         break;
@@ -2797,7 +2853,13 @@ static void Task_WithdrawMon(u8 taskId)
     switch (sStorage->state)
     {
     case 0:
-        if (CalculatePlayerPartyCount() == PARTY_SIZE)
+        if (sCursorArea == CURSOR_AREA_IN_BOX
+         && PRLHoennStorageLevelLocked(GetBoxMonDataAt(StorageGetCurrentBox(), sCursorPosition, MON_DATA_LEVEL)))
+        {
+            PrintMessage(MSG_PRL_HOENN_LEVEL_LOCK);
+            sStorage->state = 1;
+        }
+        else if (CalculatePlayerPartyCount() == PARTY_SIZE)
         {
             PrintMessage(MSG_PARTY_FULL);
             sStorage->state = 1;
