@@ -46,8 +46,7 @@ LittlerootTown_OnTransition:
 	call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLEnsureArrivalBank
 	call_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_EventScript_PRLHideTrucks
 	@ Rosie remains a real, talkable NPC even before the starter is selected.
-	call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_EventScript_PRLPlaceWaitingAunt
-	call_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_EventScript_PRLPlaceWaitingAunt
+	@ Rosie stays in the house after her one-time welcome.
 	setflag FLAG_VISITED_LITTLEROOT_TOWN
 	call Common_EventScript_SetupRivalGfxId
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_MoveMomToMaysDoor
@@ -121,12 +120,8 @@ LittlerootTown_EventScript_PRLKeepKantoRunningShoes::
 	special PRLHoennEnsureEssentials
 	@ First post-starter town load: repair box labels/order on PR97 saves.
 	special PRLHoennAutoSortPCOnce
-	@ Aunt Rosie is a real town resident, NOT the player's Kanto Mum.
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
-	setobjectmovementtype LOCALID_LITTLEROOT_MOM, MOVEMENT_TYPE_FACE_DOWN
-	checkplayergender
-	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_PRLPlaceAuntNearBrendansHouse
-	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_PRLPlaceAuntNearMaysHouse
+	@ After welcoming the player, Rosie is indoors, not outside.
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
 	@ PR94: ensure the old Route101 rescue props are hidden BEFORE the
 	@ player crosses the north border, even on older converted saves.
 	setvar VAR_ROUTE101_STATE, 3
