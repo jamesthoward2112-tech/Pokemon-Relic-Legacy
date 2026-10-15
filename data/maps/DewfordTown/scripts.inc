@@ -819,18 +819,18 @@ DewfordTown_Text_YeahDefinitionOfInRightNow:
 
 
 DewfordTown_Text_PRLNerisWelcome::
-	.string "NERIS: Birch asked me\\n"
-	.string "to find a good trainer.\\p"
-	.string "This MUDKIP is Lv10\\n"
-	.string "and holding MYSTIC WATER.\\p"
+	.string "NERIS: Birch asked me\n"
+	.string "to find a good trainer.\p"
+	.string "This MUDKIP is Lv10\n"
+	.string "and holding MYSTIC WATER.\p"
 	.string "Will you look after it?$"
 
 DewfordTown_Text_PRLNerisNoRoom::
-	.string "NERIS: Make room in\\n"
+	.string "NERIS: Make room in\n"
 	.string "your party or PC first.$"
 
 DewfordTown_Text_PRLNerisReceived::
-	.string "NERIS: Take good care\\n"
+	.string "NERIS: Take good care\n"
 	.string "of MUDKIP!$"
 
 DewfordTown_Text_PRLNerisAfter::
