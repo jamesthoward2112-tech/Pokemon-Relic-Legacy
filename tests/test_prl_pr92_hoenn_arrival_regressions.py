@@ -29,7 +29,10 @@ class PR92HoennRegressions(unittest.TestCase):
             self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_"+token,complete)
             self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_"+token,remove)
         self.assertIn("setvar VAR_PRL_REGION_STAGE, 2",complete)
-        self.assertIn("releaseall",complete)
+        # PR99 re-enters the same map to purge the old rendered ball
+        # metatiles after changing layout; waitstate safely terminates that warp.
+        self.assertIn("warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB", complete)
+        self.assertIn("waitstate", complete)
         self.assertIn("PRLHoennCommitKantoTransfer",s)
 
     def test_reset_kanto_inventory_in_live_bag_and_runtime_save_cache(self):
