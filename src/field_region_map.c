@@ -247,7 +247,7 @@ static void PrintTitleWindowText(void)
 {
     static const u8 FlyPromptText[] = _("{R_BUTTON} FLY");
     const u8 *region;
-    if (IS_FRLG && VarGet(VAR_PRL_REGION_STAGE) != 2 && VarGet(VAR_PRL_REGION_STAGE) != 3 && VarGet(VAR_PRL_REGION_STAGE) != 4)
+    if (IS_FRLG && GetRegionMapType(gMapHeader.regionMapSectionId) != REGION_MAP_HOENN)
         region = gText_Kanto;
     else
         region = gText_Hoenn;
