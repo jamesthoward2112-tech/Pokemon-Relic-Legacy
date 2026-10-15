@@ -1,7 +1,30 @@
 InsideOfTruck_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, InsideOfTruck_OnTransition
 	map_script MAP_SCRIPT_ON_LOAD, InsideOfTruck_OnLoad
 	map_script MAP_SCRIPT_ON_RESUME, InsideOfTruck_OnResume
 	.byte 0
+
+// A separate PRL state (8) bypasses vanilla truck/house/clock introduction.
+// The Kanto Champion already has a Trainer ID, Pokédex and established save.
+InsideOfTruck_OnTransition:
+	goto_if_eq VAR_PRL_REGION_STAGE, 1, InsideOfTruck_EventScript_PRLSlateportShuttle
+	end
+
+InsideOfTruck_EventScript_PRLSlateportShuttle::
+	setvar VAR_LITTLEROOT_INTRO_STATE, 8
+	setflag FLAG_HIDE_MAP_NAME_POPUP
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, InsideOfTruck_EventScript_PRLShuttleMale
+	goto_if_eq VAR_RESULT, FEMALE, InsideOfTruck_EventScript_PRLShuttleFemale
+	end
+
+InsideOfTruck_EventScript_PRLShuttleMale::
+	setdynamicwarp MAP_LITTLEROOT_TOWN, 3, 10
+	end
+
+InsideOfTruck_EventScript_PRLShuttleFemale::
+	setdynamicwarp MAP_LITTLEROOT_TOWN, 12, 10
+	end
 
 InsideOfTruck_OnLoad:
 	setmetatile 4, 1, METATILE_InsideOfTruck_ExitLight_Top, FALSE
