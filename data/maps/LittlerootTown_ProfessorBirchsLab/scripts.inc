@@ -25,6 +25,8 @@ LittlerootTown_ProfessorBirchsLab_OnTransition:
 	@ PR89: Hoenn's three starter balls replace Emerald's Johto gift
 	@ while this FireRed bridge is active; no vanilla gift may fire.
 	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLWaitForBirch
+	@ Repair pre-starter Hoenn saves created before funds were banked.
+	call_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLEnsureArrivalFundsBanked
 	goto_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom
 	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHideStarterRoom
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_SetAfterJohtoStarterLayout
@@ -33,6 +35,10 @@ LittlerootTown_ProfessorBirchsLab_OnTransition:
 	end
 
 @ The Champion must actually walk up to Birch first. No off-screen dialogue.
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLEnsureArrivalFundsBanked::
+	special PRLHoennBankArrivalFunds
+	return
+
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLWaitForBirch::
 	@ The gift-version map bakes three Poké Balls into the FLOOR itself.
 	@ Use the normal lab and show only the three real object sprites.
