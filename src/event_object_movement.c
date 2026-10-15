@@ -1917,11 +1917,12 @@ static bool8 PRLRejectHoennBridgeObject(const struct ObjectEventTemplate *obj, u
     }
     if (mapGroup == MAP_GROUP(MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB)
      && mapNum == MAP_NUM(MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB)
-     && (stage == 2 || stage == 3))
+     && (stage == 2 || stage == 3 || stage == 4))
     {
-        // 4/5/6 are the old Johto balls repurposed for Hoenn selection.
-        // Once Birch's gift is claimed the factory itself rejects spawns,
-        // regardless of old saved object flags, camera scroll or addobject.
+        // FireRed Hoenn gifts are now offered directly by Birch using
+        // showmonpic. Reject all legacy lab ball objects at every Hoenn
+        // stage, including converted saves with stale visible-object flags.
+        // Emerald's original Johto gift remains unaffected.
         return obj->localId >= 4 && obj->localId <= 6;
     }
 #endif
