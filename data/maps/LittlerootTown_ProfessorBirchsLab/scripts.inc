@@ -253,8 +253,8 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLCommitChosenStarter::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterFailed::
-	@ Allocation/capacity failure leaves all Kanto Pokémon, money and
-	@ Bag untouched. Set stage 0 and sail home rather than strand the user.
+	@ Failure must restore Kanto funds which Mum banked on arrival.
+	special PRLHoennRestoreKantoFunds
 	setvar VAR_PRL_REGION_STAGE, 0
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLStarterFailed
 	closemessage
