@@ -51,10 +51,9 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLEnsureArrivalFundsBanked::
 	return
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLWaitForBirch::
-	@ The gift-version map bakes three Poké Balls into the FLOOR itself.
-	@ Keep the clean display furniture layout. The ordinary layout can
-	@ reintroduce baked-in gift tiles on compiled FireRed maps.
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
+	@ The Hoenn choice is offered by Birch, not a floor object or a table.
+	@ Use the ordinary lab layout and suppress any old Johto ball sprites.
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
@@ -62,21 +61,17 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLWaitForBirch::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom::
-	@ Use the existing Emerald display table during the actual choice.
-	@ The ordinary lab puts item sprites beside yellow cabinets/floor.
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
+	@ Offer all three from Birch's dialogue; never spawn a starter display.
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLHideStarterRoom::
-	@ The Johto-gift layout itself contains three ball tiles. Object flags
-	@ alone cannot remove these: they return on the next camera redraw.
-	@ Keep the clean display-furniture layout after the starter is chosen;
-	@ hiding sprite objects alone cannot fix baked metatiles.
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
+	@ The same clean layout is used after choosing the starter.
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
 	special PRLHoennEnsureEssentials
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
@@ -109,7 +104,7 @@ LittlerootTown_ProfessorBirchsLab_OnWarp:
 	@ here too, since an old PR90 save may contain three already-spawned balls.
 	map_script_2 VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls
 	map_script_2 VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls
-	map_script_2 VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLPlaceStarterBalls
+	map_script_2 VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls
 	map_script_2 VAR_BIRCH_LAB_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_SetPlayerPosForReceiveStarter
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForDexUpgrade
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForDexUpgrade
@@ -134,18 +129,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls::
 	removeobject LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL
 	removeobject LOCALID_BIRCHS_LAB_TOTODILE_BALL
 	removeobject LOCALID_BIRCHS_LAB_CHIKORITA_BALL
-	end
-
-LittlerootTown_ProfessorBirchsLab_EventScript_PRLPlaceStarterBalls::
-	addobject LOCALID_BIRCHS_LAB_BIRCH
-	addobject LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL
-	addobject LOCALID_BIRCHS_LAB_TOTODILE_BALL
-	addobject LOCALID_BIRCHS_LAB_CHIKORITA_BALL
-	@ Display furniture occupies actual map tiles x=8..10, y=4..5.
-	@ Do not leave the leftmost Poké Ball on bare laboratory floor.
-	setobjectxy LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL, 8, 4
-	setobjectxy LOCALID_BIRCHS_LAB_TOTODILE_BALL, 9, 4
-	setobjectxy LOCALID_BIRCHS_LAB_CHIKORITA_BALL, 10, 4
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_SetPlayerPosForReceiveStarter::
@@ -200,63 +183,45 @@ LittlerootTown_ProfessorBirchsLab_OnFrame:
 @ their national Pokédex and Trainer ID. Never replay Emerald's old truck.
 @ The party was boxed during the Kanto departure transaction.
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival::
-	@ Entered via Birch's object interaction after lock + faceplayer.
-	@ Stage 4 remains persisted even if the player exits before choosing.
+	@ Birch starts the gift dialogue only after the trainer speaks to him.
+	@ This leaves an older stage-4 save eligible to choose on returning.
 	setvar VAR_PRL_REGION_STAGE, 4
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA
-	addobject LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL
-	addobject LOCALID_BIRCHS_LAB_TOTODILE_BALL
-	addobject LOCALID_BIRCHS_LAB_CHIKORITA_BALL
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLOfferRalts
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLOfferRalts::
+	showmonpic SPECIES_RALTS, 10, 3
+	bufferspeciesname STR_VAR_1, SPECIES_RALTS
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLOfferPartner, MSGBOX_YESNO
+	hidemonpic
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveRalts
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLOfferPoochyena
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLOfferPoochyena::
+	showmonpic SPECIES_POOCHYENA, 10, 3
+	bufferspeciesname STR_VAR_1, SPECIES_POOCHYENA
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLOfferPartner, MSGBOX_YESNO
+	hidemonpic
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGivePoochyena
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLOfferGemlin
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLOfferGemlin::
+	showmonpic SPECIES_GEMLIN, 10, 3
+	bufferspeciesname STR_VAR_1, SPECIES_GEMLIN
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLOfferPartner, MSGBOX_YESNO
+	hidemonpic
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLGiveGemlin
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLChooseCarefully
 	release
 	end
 
-@ The same three physical object-event Poké Balls used by Oak's Kanto
-@ starter table. Selecting a ball sets the species and choice, previews
-@ the Pokémon and waits for confirmation. Birch alone enables the table.
-LittlerootTown_ProfessorBirchsLab_EventScript_PRLRaltsBall::
-	setvar VAR_TEMP_1, 1
-	setvar VAR_TEMP_2, SPECIES_RALTS
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLInspectStarterBall
-	end
-
-LittlerootTown_ProfessorBirchsLab_EventScript_PRLPoochyenaBall::
-	setvar VAR_TEMP_1, 2
-	setvar VAR_TEMP_2, SPECIES_POOCHYENA
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLInspectStarterBall
-	end
-
-LittlerootTown_ProfessorBirchsLab_EventScript_PRLGemlinBall::
-	setvar VAR_TEMP_1, 3
-	setvar VAR_TEMP_2, SPECIES_GEMLIN
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLInspectStarterBall
-	end
-
-LittlerootTown_ProfessorBirchsLab_EventScript_PRLInspectStarterBall::
-	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAskBirchFirst
-	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAlreadyChoseStarter
-	goto_if_ne VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLAskBirchFirst
-	lock
-	faceplayer
-	showmonpic VAR_TEMP_2, 10, 3
-	bufferspeciesname STR_VAR_1, VAR_TEMP_2
-	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLConfirmKantoStyleBall, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_PRLChooseKantoStyleBall
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLDeclineStarter
-	end
-
-LittlerootTown_ProfessorBirchsLab_EventScript_PRLChooseKantoStyleBall::
-	hidemonpic
-	copyvar VAR_0x8004, VAR_TEMP_1
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLCommitChosenStarter
-	end
-
-LittlerootTown_ProfessorBirchsLab_Text_PRLConfirmKantoStyleBall::
-	.string "So, {STR_VAR_1} is your\n"
-	.string "HOENN partner?\p"
-	.string "Choose this POKéMON?$"
+LittlerootTown_ProfessorBirchsLab_Text_PRLOfferPartner::
+	.string "BIRCH: This is {STR_VAR_1}.\\p"
+	.string "Would you like {STR_VAR_1}\\n"
+	.string "as your HOENN partner?$"
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLAskBirchFirst::
 	lockall
@@ -326,30 +291,17 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::
 	setflag FLAG_RESCUED_BIRCH
 	setflag FLAG_ADVENTURE_STARTED
 	setvar VAR_PRL_REGION_STAGE, 2
-	@ Preserve the clean display furniture and remove all gift objects.
-	@ Switching back to the original lab resurrects baked Poké Ball tiles.
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
-	@ All three gifts are now permanently hidden. This also protects saves
-	@ that crossed over on PR89/PR90 and had already spawned the three props.
+	@ The gift is handled in Birch's dialogue. No table or ball objects
+	@ are spawned, even on legacy saves with old object visibility flags.
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA
-	@ Hide actual object-events as well as the map/layout.
 	hideobjectat LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL, MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
 	hideobjectat LOCALID_BIRCHS_LAB_TOTODILE_BALL, MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
 	hideobjectat LOCALID_BIRCHS_LAB_CHIKORITA_BALL, MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
-	removeobject LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL
-	removeobject LOCALID_BIRCHS_LAB_TOTODILE_BALL
-	removeobject LOCALID_BIRCHS_LAB_CHIKORITA_BALL
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLHoennNext
-	@ setmaplayoutindex changes the next map load's tiles, not the
-	@ already rendered background. Re-enter this SAME lab once so the
-	@ choice table and all three now-hidden ball objects are gone for
-	@ good, without requiring the trainer to walk out and back in.
-	closemessage
-	fadescreen FADE_TO_BLACK
-	warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 7, 5
-	waitstate
+	release
 	end
 
 LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome::
@@ -810,8 +762,9 @@ LittlerootTown_ProfessorBirchsLab_EventScript_Birch::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchWaiting::
+	@ Offer resumes after saving, re-entering the lab or saying no to all 3.
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLChooseCarefully
-	release
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLOfferRalts
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchResearch::
