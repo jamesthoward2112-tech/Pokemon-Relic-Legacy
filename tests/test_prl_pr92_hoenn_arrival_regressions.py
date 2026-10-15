@@ -44,8 +44,10 @@ class PR92HoennRegressions(unittest.TestCase):
     def test_birch_explicitly_explains_transfer_before_starter(self):
         s=read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
         intro=block(s,"LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome")
-        for phrase in ("KANTO team","safely into the PC","RESONANCE","VALKYVOIR","SKULBERUS","Lv1-10","HOENN LEAGUE"):
+        for phrase in ("KANTO team","safely into the PC","RESONANCE","potential","mystery","Lv1-10","HOENN LEAGUE"):
             self.assertIn(phrase,intro)
+        self.assertNotIn("VALKYVOIR",intro)
+        self.assertNotIn("SKULBERUS",intro)
         self.assertNotIn("uncle FRANK",intro)
         self.assertNotIn("remember uncle FRANK",s)
         mom=read("data/maps/LittlerootTown/scripts.inc")
