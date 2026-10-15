@@ -285,7 +285,7 @@ string generate_map_events_text(Json map_data) {
                      << json_to_string(obj_event, "graphics_id") << ", "
                      << json_to_string(obj_event, "x") << ", "
                      << json_to_string(obj_event, "y") << ", "
-                     << (prlArrivalTruck ? "3" : json_to_string(obj_event, "elevation")) << ", 
+                     << (prlArrivalTruck ? "3" : json_to_string(obj_event, "elevation")) << ", "
                      << json_to_string(obj_event, "movement_type") << ", "
                      << json_to_string(obj_event, "movement_range_x") << ", "
                      << json_to_string(obj_event, "movement_range_y") << ", "
