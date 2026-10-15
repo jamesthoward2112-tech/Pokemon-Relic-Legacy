@@ -953,8 +953,11 @@ LittlerootTown_EventScript_PRLMomAlreadyHasShoes::
 	end
 
 LittlerootTown_Text_PRLMomAlreadyHasShoes::
-	.string "MOM: Those Running Shoes\n"
-	.string "have served you well!$"
+	.string "MOM: HOENN looks lovely,\n"
+	.string "doesn't it?\p"
+	.string "I'm proud of all you did\n"
+	.string "in KANTO.\p"
+	.string "Enjoy this new adventure!$"
 
 LittlerootTown_EventScript_SetReceivedRunningShoes::
 	removeobject LOCALID_LITTLEROOT_MOM

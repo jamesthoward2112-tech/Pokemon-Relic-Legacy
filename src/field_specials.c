@@ -6050,6 +6050,10 @@ u16 PRLHoennCommitKantoTransfer(void)
         AddBagItem(ITEM_EXP_SHARE, expShareQuantity);
     gSaveBlock1Ptr->registeredItem = ITEM_NONE;
     VarSet(VAR_PRL_REGISTERED_ITEM_HOLD, ITEM_NONE);
+    // SavePlayerBag() later copies this runtime Bag snapshot back into the
+    // persistent Bag. Rebuild it NOW, or an older Kanto snapshot repopulates
+    // every pocket after the atomic Hoenn transfer.
+    LoadPlayerBag();
     SyncPrlInventoryLegacyBackup();
 
     // FRLG shares eight system badge bits with Hoenn. Explicit saved Kanto
