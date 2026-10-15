@@ -33,6 +33,7 @@ layout_table = symbol["gMapLayouts"]
 
 for group_name, map_name, expected_layout, emerald in [
     ("gMapGroup_TownsAndRoutes", "LittlerootTown", "LAYOUT_LITTLEROOT_TOWN", True),
+    ("gMapGroup_TownsAndRoutes", "Route101", "LAYOUT_ROUTE101", True),
     ("gMapGroup_IndoorLittleroot", "LittlerootTown_ProfessorBirchsLab",
      "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB", True),
     ("gMapGroup_TownsAndRoutes_Frlg", "VermilionCity_Frlg", "LAYOUT_VERMILION_CITY", False),
@@ -79,9 +80,22 @@ def warp_at(events, index):
 
 
 town = header_for("gMapGroup_TownsAndRoutes", "LittlerootTown")
+route = header_for("gMapGroup_TownsAndRoutes", "Route101")
 lab = header_for("gMapGroup_IndoorLittleroot", "LittlerootTown_ProfessorBirchsLab")
-assert word(town + 12) == 0, "Route 101 connection still loads a NULL map"
+assert word(town + 12) != 0, "Littleroot should now connect north to compiled Route 101"
+assert word(route + 12) != 0, "Route 101 should connect south to compiled Littleroot"
 assert word(lab + 12) == 0, "Birch's lab should have no map connections"
+def connection_dest(header, index):
+    conn = valid("connection table", word(header + 12))
+    count = word(conn)
+    ptr = valid("connection entries", word(conn + 4))
+    entry = ptr + 12 * index
+    return count, (byte(entry + 8), byte(entry + 9))
+route_group = groups["group_order"].index("gMapGroup_TownsAndRoutes")
+town_map_num = groups["gMapGroup_TownsAndRoutes"].index("LittlerootTown")
+route_map_num = groups["gMapGroup_TownsAndRoutes"].index("Route101")
+assert connection_dest(town, 0) == (1, (route_group, route_map_num)), "Littleroot's only connection must target Route101"
+assert connection_dest(route, 0) == (1, (route_group, town_map_num)), "Route101 must connect ONLY to Littleroot, never disabled Oldale"
 town_events = valid("Littleroot events", word(town + 4))
 lab_events = valid("Birch lab events", word(lab + 4))
 if byte(town_events + 1) != 3:
@@ -171,4 +185,10 @@ assert town_targets <= {
 assert lab_targets <= {"MAP_VERMILION_CITY"}, f"unsafe Birch lab script warp: {lab_targets}"
 assert not (byte(town + 0x1A) & 0x02), "Dig/Escape Rope unexpectedly enabled in town"
 assert not (byte(lab + 0x1A) & 0x02), "Dig/Escape Rope unexpectedly enabled in lab"
-print(f"PASS PR88 bridge: no Route 101 connection, house doors disabled, lab warp stable; checked {connection_count} compiled connections.")
+route_source = (ROOT / "data/maps/Route101/scripts.inc").read_text()
+assert "Route101_EventScript_PRLRescueAlreadyComplete::" in route_source
+assert "setvar VAR_ROUTE101_STATE, 3" in route_source
+for prop in ("FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE", "FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG",
+             "FLAG_HIDE_ROUTE_101_ZIGZAGOON", "FLAG_HIDE_ROUTE_101_BIRCH"):
+    assert "setflag " + prop in route_source
+print(f"PASS PR94 bridge: Littleroot/Route101 connected, Oldale remains disabled, rescue bypassed; checked {connection_count} compiled connections.")
