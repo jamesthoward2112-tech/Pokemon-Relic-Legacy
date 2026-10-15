@@ -89,6 +89,20 @@ def warp_at(events, index):
     return struct.unpack_from("<hhBBBB", rom, offset)
 
 
+# PR105 regression: source-valid MAP_DYNAMIC exits were silently converted
+# into (255,255) disabled dummy warps. Inspect the actual finished ROM:
+# all three exit-light tiles must use the dynamic destination (0x7F7F).
+truck = header_for("gMapGroup_IndoorDynamic", "InsideOfTruck")
+truck_events = valid("truck events", word(truck + 4))
+assert byte(truck_events + 1) == 3, "arrival truck must contain 3 exit warps"
+for i, y in enumerate((1, 2, 3)):
+    x, warp_y, elevation, warp_id, map_num, group_num = warp_at(truck_events, i)
+    assert (x, warp_y) == (4, y), f"truck exit {i} disabled or off-grid"
+    assert (warp_id, map_num, group_num) == (0x7F, 0x7F, 0x7F), (
+        f"truck exit {i} must keep MAP_DYNAMIC, not a dummy warp"
+    )
+print("PASS three Hoenn arrival truck MAP_DYNAMIC exits")
+
 town = header_for("gMapGroup_TownsAndRoutes", "LittlerootTown")
 route = header_for("gMapGroup_TownsAndRoutes", "Route101")
 lab = header_for("gMapGroup_IndoorLittleroot", "LittlerootTown_ProfessorBirchsLab")

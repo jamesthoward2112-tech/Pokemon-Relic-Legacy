@@ -373,8 +373,15 @@ string generate_map_events_text(Json map_data) {
             // Keep original warp indexes stable. A disabled destination
             // becomes an unreachable dummy rather than a NULL-header warp.
             // Example: Oldale Center 2F's unused link-room doors.
+            // The arrival truck deliberately uses runtime MAP_DYNAMIC warps.
+            // PR102's static-only whitelist accidentally replaced all three
+            // truck exits with dummy (255,255) warps in FireRed. Always keep
+            // those *specific* dynamic exits live; continue guarding other
+            // Hoenn doors against NULL map headers.
+            const bool prlTruckDynamicExit = mapName == "InsideOfTruck"
+                                           && destination == "MAP_DYNAMIC";
             if (version == "firered" && prlHoennMapEnabled(mapName)
-             && !prlHoennDestinationEnabled(destination)) {
+             && !prlHoennDestinationEnabled(destination) && !prlTruckDynamicExit) {
                 text << "\twarp_def 255, 255, 0, 0, " << json_to_string(map_data, "id") << "\n";
                 continue;
             }
