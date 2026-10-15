@@ -58,6 +58,7 @@
 #include "constants/trainer_types.h"
 #include "constants/union_room.h"
 #include "constants/weather.h"
+#include "constants/vars.h"
 
 #define SPECIAL_LOCALIDS_START (min(LOCALID_CAMERA, \
                                 min(LOCALID_PLAYER, \
@@ -1886,6 +1887,42 @@ static u8 TrySetupObjectEventSprite(const struct ObjectEventTemplate *objectEven
     return objectEventId;
 }
 
+// Do not trust old Emerald object flags alone for the FireRed Hoenn bridge.
+// Camera streaming and addobject both pass through this factory: the old
+// one-off script removals missed late spawns in user PR98/99 videos.
+static bool8 PRLRejectHoennBridgeObject(const struct ObjectEventTemplate *obj, u8 mapNum, u8 mapGroup)
+{
+#if IS_FRLG
+    u16 stage = VarGet(VAR_PRL_REGION_STAGE);
+    if (stage == 0)
+        return FALSE;
+    if (mapGroup == MAP_GROUP(MAP_LITTLEROOT_TOWN) && mapNum == MAP_NUM(MAP_LITTLEROOT_TOWN))
+    {
+        // Object IDs reflect LittlerootTown/map.json; the map is generated
+        // in-order. 7/8 are inert Birch/rival props, not Aunt Rosie (ID 4).
+        if (obj->localId == 7 || obj->localId == 8)
+            return TRUE;
+        if (obj->localId == 5 || obj->localId == 6)
+        {
+            if (stage == 2 || stage == 4)
+                return TRUE;
+            // At stage 1/3 leave only this trainer's delivery lorry.
+            return obj->localId != (gSaveBlock2Ptr->playerGender == MALE ? 5 : 6);
+        }
+    }
+    if (mapGroup == MAP_GROUP(MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB)
+     && mapNum == MAP_NUM(MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB)
+     && (stage == 2 || stage == 3))
+    {
+        // 4/5/6 are the old Johto balls repurposed for Hoenn selection.
+        // Once Birch's gift is claimed the factory itself rejects spawns,
+        // regardless of old saved object flags, camera scroll or addobject.
+        return obj->localId >= 4 && obj->localId <= 6;
+    }
+#endif
+    return FALSE;
+}
+
 u8 TrySpawnObjectEventTemplate(const struct ObjectEventTemplate *objectEventTemplate, u8 mapNum, u8 mapGroup, s16 cameraX, s16 cameraY)
 {
     u8 objectEventId;
@@ -1896,6 +1933,8 @@ u8 TrySpawnObjectEventTemplate(const struct ObjectEventTemplate *objectEventTemp
     const struct ObjectEventTemplate objectEventTemplateLocal = TryGetObjectEventTemplateForOWE(objectEventTemplate);
     u16 graphicsId = objectEventTemplateLocal.graphicsId;
 
+    if (PRLRejectHoennBridgeObject(&objectEventTemplateLocal, mapNum, mapGroup))
+        return OBJECT_EVENTS_COUNT;
     graphicsInfo = GetObjectEventGraphicsInfo(graphicsId);
     CopyObjectGraphicsInfoToSpriteTemplate_WithMovementType(graphicsId, objectEventTemplateLocal.movementType, &spriteTemplate, &subspriteTables);
     spriteFrameImage.size = graphicsInfo->size;
@@ -2903,7 +2942,9 @@ void TrySpawnObjectEvents(s16 cameraX, s16 cameraY)
             s16 npcX = template->x + MAP_OFFSET;
             s16 npcY = template->y + MAP_OFFSET;
 
-            if (top <= npcY && bottom >= npcY && left <= npcX && right >= npcX && !FlagGet(template->flagId))
+            if (top <= npcY && bottom >= npcY && left <= npcX && right >= npcX
+             && !FlagGet(template->flagId)
+             && !PRLRejectHoennBridgeObject(template, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup))
             {
                 if (template->graphicsId == OBJ_EVENT_GFX_LIGHT_SPRITE)
                     SpawnLightSprite(npcX, npcY, cameraX, cameraY, template->trainerRange_berryTreeId); // light sprite instead
