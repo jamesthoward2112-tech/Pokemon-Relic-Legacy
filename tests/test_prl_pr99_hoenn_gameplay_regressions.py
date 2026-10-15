@@ -55,17 +55,19 @@ class PR99GameplayRegressions(unittest.TestCase):
         self.assertIn("setobjectxyperm LOCALID_LITTLEROOT_MOM, 13, 9", town)
         self.assertIn("AUNT ROSIE:", town)
 
-    def test_starter_table_and_reload_clear_baked_balls(self):
+    def test_starter_offered_through_birch_without_table_warp(self):
         lab = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
         before = lab.split("EventScript_PRLSetupStarterRoom::", 1)[1].split("\n\n", 1)[0]
-        after = lab.split("EventScript_PRLStarterComplete::", 1)[1].split("LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome::", 1)[0]
-        self.assertIn("LAB_WITH_TABLE", before)
-        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE", after)
-        self.assertIn("warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 7, 5", after)
+        after = lab.split("EventScript_PRLStarterComplete::", 1)[1].split(
+            "LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome::", 1)[0]
+        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB",before)
+        self.assertNotIn("LAB_WITH_TABLE",before)
+        self.assertNotIn("warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 7, 5",after)
+        self.assertIn("goto LittlerootTown_ProfessorBirchsLab_EventScript_PRLOfferRalts",lab)
+        for mon in ("RALTS","POOCHYENA","GEMLIN"):
+            self.assertIn("showmonpic SPECIES_"+mon,lab)
         for ball in ("CYNDAQUIL", "TOTODILE", "CHIKORITA"):
             self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_" + ball, after)
-        storage = read("src/pokemon_storage_system.c")
-        self.assertIn("PRLHoennStorageLevelLocked(GetBoxMonDataAt", storage)
 
 if __name__ == "__main__":
     unittest.main()
