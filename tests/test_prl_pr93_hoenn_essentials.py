@@ -79,4 +79,19 @@ class TestHoennEssentialsAndStarterRoom(unittest.TestCase):
         self.assertIn("Your MUM told me",town)
         self.assertNotIn("MOM: HOENN looks lovely",town)
 
+    def test_hoenn_house_guardian_is_aunt_not_kanto_mom(self):
+        import json
+        for name in ("Brendans", "Mays"):
+            prefix = "data/maps/LittlerootTown_" + name + "House_1F/"
+            setting = json.loads(read(prefix + "map.json"))
+            guardian = next(obj for obj in setting["object_events"] if obj.get("local_id") == "LOCALID_PLAYERS_HOUSE_1F_MOM")
+            self.assertEqual(guardian["script"], "LittlerootTown_" + name + "House_1F_EventScript_PRLAunt")
+            events = read(prefix + "scripts.inc")
+            self.assertIn('AUNT: Welcome to HOENN', events)
+            self.assertIn('Your MUM is keeping your', events)
+            self.assertIn("goto PlayersHouse_1F_EventScript_Mom", events)
+        lab = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
+        self.assertIn("Each BADGE adds ten levels.", lab)
+        self.assertIn("Your MUM back in KANTO", lab)
+
 if __name__=="__main__": unittest.main()

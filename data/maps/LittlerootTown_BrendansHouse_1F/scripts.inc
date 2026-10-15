@@ -434,3 +434,29 @@ PlayersHouse_1F_Text_WhatColorDidTheySay:
 PlayersHouse_1F_Text_StillUnknownPokemon:
 	.string "MOM: Well, isn't that something!\n"
 	.string "There are still unknown POKéMON.$"
+
+
+@ PRL continuity: Hoenn's guardian is the player's AUNT.
+@ Kanto MUM remains back in Pallet Town, watching the saved money.
+LittlerootTown_BrendansHouse_1F_EventScript_PRLAunt::
+	goto_if_eq VAR_PRL_REGION_STAGE, 2, LittlerootTown_BrendansHouse_1F_EventScript_PRLAuntTalk
+	goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_BrendansHouse_1F_EventScript_PRLAuntTalk
+	goto_if_eq VAR_PRL_REGION_STAGE, 4, LittlerootTown_BrendansHouse_1F_EventScript_PRLAuntTalk
+	goto PlayersHouse_1F_EventScript_Mom
+
+LittlerootTown_BrendansHouse_1F_EventScript_PRLAuntTalk::
+	lock
+	faceplayer
+	msgbox LittlerootTown_BrendansHouse_1F_Text_PRLAuntHome
+	release
+	end
+
+LittlerootTown_BrendansHouse_1F_Text_PRLAuntHome::
+	.string "AUNT: Welcome to HOENN,\n"
+	.string "{PLAYER}! Make yourself at home.\p"
+	.string "Your MUM is keeping your\n"
+	.string "KANTO savings safe.\p"
+	.string "Uncle FRANK is over in\n"
+	.string "PETALBURG CITY.\p"
+	.string "I'll be here if you ever\n"
+	.string "want to talk, dear!$"
