@@ -13,7 +13,7 @@ class TestHoennEssentialsAndStarterRoom(unittest.TestCase):
         for label in ("PRLWaitForBirch", "PRLSetupStarterRoom",
                       "PRLHideStarterRoom", "PRLStarterComplete"):
             block=script_block(lab,"LittlerootTown_ProfessorBirchsLab_EventScript_"+label)
-            self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB\\n",block)
+            self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB",block)
             self.assertNotIn("WITH_TABLE",block)
         self.assertIn("map_script_2 VAR_PRL_REGION_STAGE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls",lab)
         for name in ("RALTS", "POOCHYENA", "GEMLIN"):
