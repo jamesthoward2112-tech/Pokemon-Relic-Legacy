@@ -753,8 +753,37 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchWaiting::
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLBirchResearch::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLBirchResearch
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLSortPCOffer, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, LittlerootTown_ProfessorBirchsLab_EventScript_PRLSortDeclined
+	specialvar VAR_RESULT, PRLHoennResortExistingPC
+	goto_if_eq VAR_RESULT, TRUE, LittlerootTown_ProfessorBirchsLab_EventScript_PRLSortComplete
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLSortFailed
 	release
 	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLSortDeclined::
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PRLSortComplete::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLSortComplete
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLSortPCOffer::
+	.string "BIRCH: Shall I organise\\n"
+	.string "your PC by level?\\p"
+	.string "Your items and POKéMON\\n"
+	.string "will all be kept.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLSortComplete::
+	.string "BIRCH: All organised!\\n"
+	.string "Check your PC boxes.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_PRLSortFailed::
+	.string "BIRCH: I couldn't safely\\n"
+	.string "rearrange your PC.\\p"
+	.string "Nothing was changed.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_PRLBirchResearch::
 	.string "BIRCH: OAK was right about\n"
