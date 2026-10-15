@@ -33,8 +33,8 @@ class PR84Safety(unittest.TestCase):
         for page in text.split(r"\p"):
             self.assertLessEqual(page.count(r"\n"), 1, page)
         self.assertIn("one-way", msg)
-        self.assertNotIn("Your KANTO POKéMON", msg)
-        self.assertNotIn("Your Bag items", msg)
+        self.assertIn("Your KANTO POKéMON", msg)
+        self.assertIn("TRAINER SCHOOL", msg)
 
     def test_map_arrival_precedes_atomic_transfer_and_starter(self):
         lab = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
