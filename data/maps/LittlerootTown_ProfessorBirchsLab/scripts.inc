@@ -272,7 +272,12 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::
 	setvar VAR_PRL_REGION_STAGE, 2
 	@ All three gifts are now permanently hidden. This also protects saves
 	@ that crossed over on PR89/PR90 and had already spawned the three props.
-	call LittlerootTown_ProfessorBirchsLab_EventScript_PRLRemoveStarterBalls
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA
+	removeobject LOCALID_BIRCHS_LAB_CYNDAQUIL_BALL
+	removeobject LOCALID_BIRCHS_LAB_TOTODILE_BALL
+	removeobject LOCALID_BIRCHS_LAB_CHIKORITA_BALL
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PRLHoennNext
 	releaseall
 	end
