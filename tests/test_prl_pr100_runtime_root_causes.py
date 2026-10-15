@@ -1,0 +1,45 @@
+"""PR100 continuation: guard root causes found during gameplay investigation.
+
+These are source regression assertions, not emulator-playthrough evidence.
+"""
+import re
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+def read(relative):
+    return (ROOT / relative).read_text(encoding="utf-8")
+
+class PR100RuntimeRootCauses(unittest.TestCase):
+    def test_every_box_level_read_uses_xp_not_party_level_field(self):
+        code = read("src/field_specials.c")
+        self.assertNotRegex(code, r"GetBoxMonData\\([^;]*?MON_DATA_LEVEL\\)")
+        self.assertIn("GetLevelFromBoxMonExp(mon)", code)
+        self.assertIn("GetLevelFromBoxMonExp(&planned[box][right])", code)
+        self.assertIn("GetLevelFromBoxMonExp(&planned[laterBox][laterSlot])", code)
+        self.assertIn("level = GetLevelFromBoxMonExp(mon);", code)
+        self.assertIn("plan->destToSource", code)
+
+    def test_parked_truck_blocks_exact_three_by_three_sprite(self):
+        code = read("src/field_specials.c").split(
+            "u16 PRLHoennBlockArrivalTruckFootprint(void)\n{", 1)[1].split(
+            "u16 PRLHoennBankArrivalFunds", 1)[0]
+        self.assertIn("VarGet(VAR_PRL_REGION_STAGE) != 3", code)
+        self.assertIn("dx < 3", code)
+        self.assertIn("dy < 3", code)
+        self.assertIn("MAP_OFFSET + 8 + dy", code)
+        self.assertNotIn("dx < 4", code)
+
+    def test_lab_clean_furniture_persists_in_every_hoenn_stage(self):
+        code = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
+        for name in ("PRLWaitForBirch", "PRLSetupStarterRoom",
+                     "PRLHideStarterRoom", "PRLStarterComplete"):
+            block = code.split("EventScript_" + name + "::", 1)[1]
+            block = block.split("\n\n", 1)[0] if name != "PRLStarterComplete" else block.split("LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome", 1)[0]
+            self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE", block)
+        for ball in ("CYNDAQUIL", "TOTODILE", "CHIKORITA"):
+            self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_" + ball, code)
+
+if __name__ == "__main__":
+    unittest.main()
