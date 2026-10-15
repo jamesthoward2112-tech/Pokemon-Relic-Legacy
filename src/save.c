@@ -526,6 +526,7 @@ static u8 CopySaveSlotData(u16 sectorId, struct SaveSectorLocation *locations)
         }
     }
 
+    PrlMigrateLegacyHoennRoute102Flags();
     return SAVE_STATUS_OK;
 }
 
