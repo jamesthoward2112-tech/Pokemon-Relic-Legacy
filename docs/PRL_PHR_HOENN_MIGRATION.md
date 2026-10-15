@@ -1,6 +1,8 @@
 # PRL / PHR Hoenn Migration — Source and Dependency Manifest
 
-**Current truth:** PR89 compiles a safe Littleroot Town + Birch Lab bridge, but the houses, Route 101, Oldale and most Hoenn maps remain disabled in the FireRed build. Do not claim that Hoenn is open.
+**Current truth:** PR93 is the tested-compile Littleroot Town + Birch Lab baseline. PR94 is an **unverified draft** to compile Route 101 with its southern Littleroot link; its north border to Oldale remains closed, as do the houses and other Hoenn maps. The PHR campaign is **not** open yet. PR94 requires FireRed CI, compiled pointer checks and in-emulator save-copy tests.
+
+**PR94 Birch rescue continuity:** The player already met Birch and selected Ralts/Poochyena/Gemlin in his lab. FireRed Route 101 OnTransition marks the original Emerald rescue state completed (VAR_ROUTE101_STATE=3, FLAG_RESCUED_BIRCH) and hides the Bag, Zigzagoon and both Birch rescue NPCs; do not run the original Zigzagoon chase, grant another starter or revive the Emerald truck story. The standalone Emerald configuration keeps its original rescue implementation.
 
 ## Source inventory
 
