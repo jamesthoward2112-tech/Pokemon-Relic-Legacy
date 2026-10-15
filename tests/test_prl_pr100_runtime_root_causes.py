@@ -31,6 +31,20 @@ class PR100RuntimeRootCauses(unittest.TestCase):
         self.assertIn("MAP_OFFSET + 8 + dy", code)
         self.assertNotIn("dx < 4", code)
 
+    def test_delivery_truck_goes_on_first_lab_entry_not_after_starter(self):
+        lab = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
+        transition = lab.split("LittlerootTown_ProfessorBirchsLab_OnTransition:", 1)[1].split("\n\n", 1)[0]
+        self.assertLess(
+            transition.index("call_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLTruckDeparted"),
+            transition.index("goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLWaitForBirch"))
+        depart = lab.split("LittlerootTown_ProfessorBirchsLab_EventScript_PRLTruckDeparted::", 1)[1].split("return", 1)[0]
+        self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK", depart)
+        self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK", depart)
+        spawn = read("src/event_object_movement.c")
+        gate = spawn.split("static bool8 PRLRejectHoennBridgeObject", 1)[1].split("u8 TrySpawnObjectEventTemplate(", 1)[0]
+        self.assertIn("if (stage != 1)", gate)
+        self.assertIn("return TRUE;", gate)
+
     def test_lab_clean_furniture_persists_in_every_hoenn_stage(self):
         code = read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
         for name in ("PRLWaitForBirch", "PRLSetupStarterRoom",
