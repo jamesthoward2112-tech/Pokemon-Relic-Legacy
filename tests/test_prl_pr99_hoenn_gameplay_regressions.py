@@ -30,8 +30,9 @@ class PR99GameplayRegressions(unittest.TestCase):
         special = read("src/field_specials.c")
         sorter = special.split("u16 PRLHoennResortExistingPC(void)\n{", 1)[1].split("u16 PRLHoennAutoSortPCOnce", 1)[0]
         self.assertIn("VarGet(VAR_PRL_REGION_STAGE) != 2", sorter)
-        self.assertIn("if (planned == NULL)", sorter)
-        self.assertIn("PRLHoennSortEachBoxAscending", sorter)
+        self.assertIn("if (plan == NULL)", sorter)
+        self.assertIn("plan->destToSource", sorter)
+        self.assertIn("PRLHoennSortGroup", sorter)
 
     def test_one_truck_and_collision_only_during_arrival(self):
         town = read("data/maps/LittlerootTown/scripts.inc")
