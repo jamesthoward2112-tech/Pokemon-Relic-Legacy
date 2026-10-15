@@ -303,23 +303,23 @@ string generate_map_events_text(Json map_data) {
     if (map_data["warp_events"].array_items().size() > 0) {
         warps_label = mapName + "_MapWarps";
         text << warps_label << ":\n";
-        for (auto &warp_event : map_data["warp_events"].array_items()) {
-            // Keep all three original warp indexes (Birch's lab expects #2).
-            // Disable the two uncompiled house doors by moving their triggers
-            // outside the map grid; no runtime map points to their NULL headers.
-            const string destination = json_to_string(warp_event, "dest_map");
-            if (version == "firered" && mapName == "LittlerootTown"
-             && (destination == "MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F"
-              || destination == "MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F")) {
-                text << "\twarp_def 255, 255, 0, 0, MAP_LITTLEROOT_TOWN\n";
-                continue;
+        if (version == "firered" && mapName == "LittlerootTown") {
+            // PR88: emit a fixed three-entry FireRed bridge. Two unbuilt
+            // house destinations are replaced by permanently unreachable
+            // coordinates, keeping Birch's laboratory at warp index 2.
+            // Never modify the original Emerald source map.
+            text << "\twarp_def 255, 255, 0, 0, MAP_LITTLEROOT_TOWN\n";
+            text << "\twarp_def 255, 255, 0, 0, MAP_LITTLEROOT_TOWN\n";
+            text << "\twarp_def 7, 16, 0, 0, MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB\n";
+        } else {
+            for (auto &warp_event : map_data["warp_events"].array_items()) {
+                text << "\twarp_def "
+                     << json_to_string(warp_event, "x") << ", "
+                     << json_to_string(warp_event, "y") << ", "
+                     << json_to_string(warp_event, "elevation") << ", "
+                     << json_to_string(warp_event, "dest_warp_id") << ", "
+                     << json_to_string(warp_event, "dest_map") << "\n";
             }
-            text << "\twarp_def "
-                 << json_to_string(warp_event, "x") << ", "
-                 << json_to_string(warp_event, "y") << ", "
-                 << json_to_string(warp_event, "elevation") << ", "
-                 << json_to_string(warp_event, "dest_warp_id") << ", "
-                 << json_to_string(warp_event, "dest_map") << "\n";
         }
         text << "\n";
     } else {
