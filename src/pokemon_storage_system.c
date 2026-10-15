@@ -3843,7 +3843,8 @@ static void Task_ChangeScreen(u8 taskId)
         // missed OPTION_SELECT_MON (Remote PC) exits entirely. Commit this
         // all-box, save-preserving re-bucket while storage is still alive,
         // but never in the middle of moving/holding a Pokémon.
-        if (VarGet(VAR_PRL_REGION_STAGE) == 2 && !sIsMonBeingMoved)
+        if (VarGet(VAR_PRL_REGION_STAGE) == 2 && !sIsMonBeingMoved
+         && sStorage->boxOption != OPTION_SELECT_MON)
             PRLHoennResortExistingPC();
         if (sStorage->boxOption == OPTION_SELECT_MON)
             SetMainCallback2(CB2_ReturnToFieldContinueScript);
