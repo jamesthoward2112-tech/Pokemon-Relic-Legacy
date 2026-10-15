@@ -60,7 +60,7 @@ class PR99GameplayRegressions(unittest.TestCase):
         before = lab.split("EventScript_PRLSetupStarterRoom::", 1)[1].split("\n\n", 1)[0]
         after = lab.split("EventScript_PRLStarterComplete::", 1)[1].split("LittlerootTown_ProfessorBirchsLab_Text_PRLHoennWelcome::", 1)[0]
         self.assertIn("LAB_WITH_TABLE", before)
-        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB\n", after)
+        self.assertIn("setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE", after)
         self.assertIn("warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 7, 5", after)
         for ball in ("CYNDAQUIL", "TOTODILE", "CHIKORITA"):
             self.assertIn("setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_" + ball, after)
