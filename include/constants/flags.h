@@ -52,6 +52,7 @@
 // Hoenn Bag normalization applied once, including to PR89/90/92 converted saves.
 #define FLAG_PRL_HOENN_ESSENTIALS_READY                   0x4E0
 #define FLAG_PRL_HOENN_FUNDS_BANKED                       0x4E1
+#define FLAG_PRL_HOENN_PC_LEVEL_SORTED                    0x4E2
 
 // Temporary Flags
 // These temporary flags are are cleared every time a map is loaded. They are used
