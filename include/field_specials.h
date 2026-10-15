@@ -48,6 +48,7 @@ u16 PRLHoennCommitKantoTransfer(void);
 u16 PRLHoennResortExistingPC(void);
 u16 PRLHoennBankArrivalFunds(void);
 u16 PRLHoennRestoreKantoFunds(void);
+u16 PRLHoennAutoSortPCOnce(void);
 u16 PRLHoennEnsureEssentials(void);
 
 #endif // GUARD_FIELD_SPECIALS_H
