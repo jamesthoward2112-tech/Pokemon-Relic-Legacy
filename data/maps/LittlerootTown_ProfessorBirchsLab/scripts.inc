@@ -219,8 +219,8 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLOfferGemlin::
 	end
 
 LittlerootTown_ProfessorBirchsLab_Text_PRLOfferPartner::
-	.string "BIRCH: This is {STR_VAR_1}.\\p"
-	.string "Would you like {STR_VAR_1}\\n"
+	.string "BIRCH: This is {STR_VAR_1}.\p"
+	.string "Would you like {STR_VAR_1}\n"
 	.string "as your HOENN partner?$"
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLAskBirchFirst::
