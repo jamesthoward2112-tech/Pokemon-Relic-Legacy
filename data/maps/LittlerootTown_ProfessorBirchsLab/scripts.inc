@@ -243,8 +243,8 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLChooseKantoStyleBall::
 	end
 
 LittlerootTown_ProfessorBirchsLab_Text_PRLConfirmKantoStyleBall::
-	.string "So, {STR_VAR_1} is your\\n"
-	.string "HOENN partner?\\p"
+	.string "So, {STR_VAR_1} is your\n"
+	.string "HOENN partner?\p"
 	.string "Choose this POKéMON?$"
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLAskBirchFirst::
