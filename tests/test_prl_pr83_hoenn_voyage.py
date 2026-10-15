@@ -43,7 +43,7 @@ class PR83Journey(unittest.TestCase):
             self.assertIn("starterSpecies = SPECIES_"+species+";", read("src/field_specials.c"))
         self.assertIn("setvar VAR_PRL_REGION_STAGE, 4", sc)
         for phrase in ("setvar VAR_PRL_REGION_STAGE, 2", "setflag FLAG_RESCUED_BIRCH",
-                       "KANTO team", "A strange RESONANCE"):
+                       "KANTO team", "I call it RESONANCE"):
             self.assertIn(phrase,sc)
     def test_sailor_full_confirmation_and_failure_guard(self):
         sc=read("data/maps/VermilionCity_Frlg/scripts.inc")
