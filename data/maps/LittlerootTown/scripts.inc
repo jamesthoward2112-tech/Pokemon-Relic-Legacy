@@ -308,8 +308,40 @@ LittlerootTown_EventScript_PRLRosieWelcomeOnArrival::
 	msgbox LittlerootTown_Text_PRLRosieArrival
 	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_PRLRosieReturn
 	waitmovement 0
-	setobjectmovementtype LOCALID_LITTLEROOT_MOM, MOVEMENT_TYPE_FACE_DOWN
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_PRLRosieAlignMaleDoor
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_PRLRosieAlignFemaleDoor
+	opendoor VAR_0x8009, VAR_0x800A
+	waitdooranim
+	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_MomExitThroughDoor
+	waitmovement 0
+	hideobjectat LOCALID_LITTLEROOT_MOM, MAP_LITTLEROOT_TOWN
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	closedoor VAR_0x8009, VAR_0x800A
+	waitdooranim
 	return
+
+LittlerootTown_EventScript_PRLRosieAlignMaleDoor::
+	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_PRLRosieOneLeft
+	waitmovement 0
+	call LittlerootTown_EventScript_SetHomeDoorCoordsMale
+	return
+
+LittlerootTown_EventScript_PRLRosieAlignFemaleDoor::
+	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_PRLRosieOneRight
+	waitmovement 0
+	call LittlerootTown_EventScript_SetHomeDoorCoordsFemale
+	return
+
+LittlerootTown_Movement_PRLRosieOneLeft:
+	walk_left
+	walk_in_place_faster_up
+	step_end
+
+LittlerootTown_Movement_PRLRosieOneRight:
+	walk_right
+	walk_in_place_faster_up
+	step_end
 
 LittlerootTown_EventScript_PRLRosieFaceMalePlayer::
 	turnobject LOCALID_LITTLEROOT_MOM, DIR_WEST
