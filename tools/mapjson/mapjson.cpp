@@ -156,11 +156,9 @@ string generate_map_header_text(Json map_data, Json layouts_data) {
     else
         text << "\t.4byte " << mapName << "_MapScripts\n";
 
-    // The PRL FireRed bridge only includes Littleroot and Birch's lab.
-    // Do not load Route 101's excluded header when drawing the town border.
-    // Leave the original Emerald map JSON and map connections untouched.
-    if (!(version == "firered" && json_to_string(map_data, "name") == "LittlerootTown")
-     && map_data.object_items().find("connections") != map_data.object_items().end()
+    // PR94: Route 101 is compiled with only its southern Littleroot link.
+    // Original Emerald map JSON and its connections remain untouched.
+    if (map_data.object_items().find("connections") != map_data.object_items().end()
      && map_data["connections"].array_items().size() > 0 && json_to_string(map_data, "connections_no_include", true) != "TRUE")
         text << "\t.4byte " << mapName << "_MapConnections\n";
     else
@@ -220,10 +218,8 @@ vector<string> get_existing_maps() {
 }
 
 string generate_map_connections_text(Json map_data) {
-    // Temporary PRL FireRed Hoenn bridge: a solid edge, not a dangling
-    // connection to the excluded Route 101 layout/header.
-    if (version == "firered" && json_to_string(map_data, "name") == "LittlerootTown")
-        return string("\n");
+    // PR94: Route 101 connects south to Littleroot only. Do not include
+    // the uncompiled Oldale header when assembling the border grid.
     if (map_data["connections"] == Json())
         return string("\n");
 
@@ -234,18 +230,24 @@ string generate_map_connections_text(Json map_data) {
     text << get_generated_warning("data/maps/" + mapName + "/map.json", true);
     text << mapName << "_MapConnectionsList:\n";
 
+    size_t enabled_count = 0;
     for (auto &connection : map_data["connections"].array_items()) {
-        auto it = find(existing_maps.begin(), existing_maps.end(), json_to_string(connection, "map"));
+        string destination = json_to_string(connection, "map");
+        if (version == "firered" && mapName == "Route101"
+         && destination != "MAP_LITTLEROOT_TOWN")
+            continue;
+        auto it = find(existing_maps.begin(), existing_maps.end(), destination);
         if (it == existing_maps.end())
             continue;
         text << "\tconnection "
              << json_to_string(connection, "direction") << ", "
              << json_to_string(connection, "offset") << ", "
-             << json_to_string(connection, "map") << "\n";
+             << destination << "\n";
+        enabled_count++;
     }
 
     text << "\n" << mapName << "_MapConnections:\n"
-         << "\t.4byte " << map_data["connections"].array_items().size() << "\n"
+         << "\t.4byte " << (version == "firered" && mapName == "Route101" ? enabled_count : map_data["connections"].array_items().size()) << "\n"
          << "\t.4byte " << mapName << "_MapConnectionsList\n\n";
 
     return text.str();
@@ -778,12 +780,13 @@ void process_groups(string groups_filepath, vector<string> &map_filepaths, strin
         }
         string map_name = json_to_string(map_data, "name");
 
-        // PR87 first safe bridge: compile Littleroot's landing and Birch's lab
-        // alongside ALL existing Kanto maps. Other Hoenn map events include
+        // PR94: Route 101 is the next bounded FireRed Hoenn map, with Oldale
+        // connections omitted. Other Hoenn map events include
         // Emerald-only hidden item flags and need a separate migration audit.
         // Keep map group / numeric map IDs stable for existing Kanto saves.
         bool prlHoennLanding = map_name == "LittlerootTown"
-                           || map_name == "LittlerootTown_ProfessorBirchsLab";
+                           || map_name == "LittlerootTown_ProfessorBirchsLab"
+                           || map_name == "Route101";
         if ((version == "emerald" && region != "REGION_HOENN")
          || (version == "firered" && region != "REGION_KANTO" && !prlHoennLanding)) {
             invalid_maps.push_back(map_name);
@@ -829,7 +832,8 @@ string generate_layout_headers_text(Json layouts_data) {
          || (version == "firered" && layout_version != "frlg" &&
               json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN" &&
               json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB" &&
-              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE"))
+              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE" &&
+              json_to_string(layout, "id", true) != "LAYOUT_ROUTE101"))
             continue;
         string layoutName = json_to_string(layout, "name");
         string border_label = layoutName + "_Border";
@@ -889,7 +893,8 @@ string generate_layouts_table_text(Json layouts_data) {
         if ((version == "emerald" && layout_version != "emerald") || (version == "firered" && layout_version != "frlg" &&
               json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN" &&
               json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB" &&
-              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE")) {
+              json_to_string(layout, "id", true) != "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE" &&
+              json_to_string(layout, "id", true) != "LAYOUT_ROUTE101")) {
             text << "\t.4byte NULL\n";
         } else {
             string layout_name = json_to_string(layout, "name", true);
