@@ -1333,5 +1333,5 @@ RustboroCity_Text_PRLKiriReceived::
 	.string "of TORCHIC!$"
 
 RustboroCity_Text_PRLKiriAfter::
-	.string "KIRI: Your new\\n"
+	.string "KIRI: Your new\n"
 	.string "partner trusts you!$"
