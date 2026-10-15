@@ -50,7 +50,11 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLSetupStarterRoom::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PRLHideStarterRoom::
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB_WITH_TABLE
+	@ The Johto-gift layout itself contains three ball tiles. Object flags
+	@ alone cannot remove these: they return on the next camera redraw.
+	@ Use the ordinary lab layout AFTER the Hoenn starter is chosen.
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
+	special PRLHoennEnsureEssentials
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA
@@ -270,6 +274,9 @@ LittlerootTown_ProfessorBirchsLab_EventScript_PRLStarterComplete::
 	setflag FLAG_RESCUED_BIRCH
 	setflag FLAG_ADVENTURE_STARTED
 	setvar VAR_PRL_REGION_STAGE, 2
+	@ Also switch the underlying tilemap: WITH_TABLE contains three
+	@ fixed item-ball metatiles as well as the separate object events.
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB
 	@ All three gifts are now permanently hidden. This also protects saves
 	@ that crossed over on PR89/PR90 and had already spawned the three props.
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL
