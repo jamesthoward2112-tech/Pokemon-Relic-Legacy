@@ -34,6 +34,16 @@ layout_table = symbol["gMapLayouts"]
 for group_name, map_name, expected_layout, emerald in [
     ("gMapGroup_TownsAndRoutes", "LittlerootTown", "LAYOUT_LITTLEROOT_TOWN", True),
     ("gMapGroup_TownsAndRoutes", "Route101", "LAYOUT_ROUTE101", True),
+    ("gMapGroup_TownsAndRoutes", "OldaleTown", "LAYOUT_OLDALE_TOWN", True),
+    ("gMapGroup_IndoorLittleroot", "LittlerootTown_BrendansHouse_1F",
+     "LAYOUT_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F", True),
+    ("gMapGroup_IndoorLittleroot", "LittlerootTown_MaysHouse_1F",
+     "LAYOUT_LITTLEROOT_TOWN_MAYS_HOUSE_1F", True),
+    ("gMapGroup_IndoorOldale", "OldaleTown_Mart", "LAYOUT_MART", True),
+    ("gMapGroup_IndoorOldale", "OldaleTown_PokemonCenter_1F",
+     "LAYOUT_POKEMON_CENTER_1F", True),
+    ("gMapGroup_IndoorOldale", "OldaleTown_House1", "LAYOUT_HOUSE1", True),
+    ("gMapGroup_IndoorOldale", "OldaleTown_House2", "LAYOUT_HOUSE2", True),
     ("gMapGroup_IndoorDynamic", "InsideOfTruck", "LAYOUT_INSIDE_OF_TRUCK", True),
     ("gMapGroup_IndoorLittleroot", "LittlerootTown_ProfessorBirchsLab",
      "LAYOUT_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB", True),
@@ -57,9 +67,8 @@ for group_name, map_name, expected_layout, emerald in [
 
 print("Compiled PRL both-region map tables valid.")
 
-# PR88: validate the *compiled* FireRed bridge, not the unfiltered Emerald
-# map JSON. The two unbuilt houses must retain their original warp indexes
-# but must never be traversable. Birch's lab remains warp index 2.
+# PR102: verify newly opened family-house doors and Oldale, preserving original
+# compiled map and warp indexes for older save files. Birch remains warp 2.
 ROM_BASE = 0x08000000
 
 def byte(address):
@@ -96,7 +105,11 @@ route_group = groups["group_order"].index("gMapGroup_TownsAndRoutes")
 town_map_num = groups["gMapGroup_TownsAndRoutes"].index("LittlerootTown")
 route_map_num = groups["gMapGroup_TownsAndRoutes"].index("Route101")
 assert connection_dest(town, 0) == (1, (route_group, route_map_num)), "Littleroot's only connection must target Route101"
-assert connection_dest(route, 0) == (1, (route_group, town_map_num)), "Route101 must connect ONLY to Littleroot, never disabled Oldale"
+oldale_map_num = groups["gMapGroup_TownsAndRoutes"].index("OldaleTown")
+assert connection_dest(route, 0) == (2, (route_group, oldale_map_num)), "Route101 must connect north to Oldale"
+assert connection_dest(route, 1) == (2, (route_group, town_map_num)), "Route101 must connect south to Littleroot"
+oldale = header_for("gMapGroup_TownsAndRoutes", "OldaleTown")
+assert connection_dest(oldale, 0) == (1, (route_group, route_map_num)), "Oldale south must connect to Route101 only"
 town_events = valid("Littleroot events", word(town + 4))
 lab_events = valid("Birch lab events", word(lab + 4))
 if byte(town_events + 1) != 3:
@@ -114,10 +127,16 @@ town_group = groups["group_order"].index("gMapGroup_TownsAndRoutes")
 town_num = groups["gMapGroup_TownsAndRoutes"].index("LittlerootTown")
 lab_group = groups["group_order"].index("gMapGroup_IndoorLittleroot")
 lab_num = groups["gMapGroup_IndoorLittleroot"].index("LittlerootTown_ProfessorBirchsLab")
-for index in (0, 1):
+house_group = groups["group_order"].index("gMapGroup_IndoorLittleroot")
+for index, map_name, coords in (
+    (0, "LittlerootTown_MaysHouse_1F", (14, 8)),
+    (1, "LittlerootTown_BrendansHouse_1F", (5, 8)),
+):
     x, y, elevation, warp_id, map_num, group_num = warp_at(town_events, index)
-    assert (x, y) == (255, 255), f"house door {index} remains traversable"
-    assert (group_num, map_num) == (town_group, town_num), f"house door {index} points to disabled map"
+    assert (x, y) == coords, f"house door {index} unexpectedly disabled"
+    assert (group_num, map_num) == (
+        house_group, groups["gMapGroup_IndoorLittleroot"].index(map_name)
+    ), f"house door {index} points to wrong destination"
 assert warp_at(town_events, 2)[4:6] == (lab_num, lab_group), "Birch lab entry changed"
 for index in (0, 1):
     assert warp_at(lab_events, index)[4:6] == (town_num, town_group), "Birch lab return changed"
@@ -169,10 +188,9 @@ assert "setvar VAR_LITTLEROOT_INTRO_STATE, 0" in arrival
 assert "setvar VAR_LITTLEROOT_TOWN_STATE, 0" in arrival
 assert "setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0" in arrival
 
-# Town and lab are the only newly enabled Hoenn maps. Reject new script
-# warps to excluded locations. Vanilla truck-only house warps remain in
-# source for Emerald, but are unreachable in FireRed after the arrival-state
-# reset; their *door tiles* are independently disabled in the compiled ROM.
+# Keep all script warps within reviewed destinations. The family houses are
+# now enabled in PR102, though the original moving-truck house cutscene is
+# still bypassed; Route 103 and Route 102 stay closed on this slice.
 script_warp = re.compile(r"\b(?:warp|warpsilent|setwarp|setdynamicwarp|setescapewarp|setholewarp)\s+(MAP_[A-Z0-9_]+)")
 town_scripts = (ROOT / "data/maps/LittlerootTown/scripts.inc").read_text()
 lab_scripts = (ROOT / "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc").read_text()

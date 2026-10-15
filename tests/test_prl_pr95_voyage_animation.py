@@ -24,8 +24,8 @@ class PR95Voyage(unittest.TestCase):
 
     def test_truck_map_layout_compiled_without_reindexing(self):
         gen = read("tools/mapjson/mapjson.cpp")
-        self.assertIn('|| map_name == "InsideOfTruck"', gen)
-        self.assertEqual(gen.count('json_to_string(layout, "id", true) != "LAYOUT_INSIDE_OF_TRUCK"'), 2)
+        self.assertIn('"InsideOfTruck",', gen)
+        self.assertIn('"LAYOUT_INSIDE_OF_TRUCK"', gen)
         check = read("tools/prl/verify_dual_region_binary.py")
         self.assertIn('("gMapGroup_IndoorDynamic", "InsideOfTruck", "LAYOUT_INSIDE_OF_TRUCK", True)', check)
         source = read("data/maps/InsideOfTruck/scripts.inc")
