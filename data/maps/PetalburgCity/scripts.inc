@@ -803,5 +803,5 @@ PetalburgCity_Text_PRLRowanReceived::
 	.string "of TREECKO!$"
 
 PetalburgCity_Text_PRLRowanAfter::
-	.string "ROWAN: Your new\\n"
+	.string "ROWAN: Your new\n"
 	.string "partner trusts you!$"
