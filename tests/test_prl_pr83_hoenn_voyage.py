@@ -38,12 +38,12 @@ class PR83Journey(unittest.TestCase):
         self.assertIn("#define TOTAL_BOXES_COUNT       14",read("include/pokemon_storage_system.h"))
     def test_arrival_starter_once_and_uncle_frank(self):
         sc=read("data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc")
-        self.assertIn("map_script_2 VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival", sc)
+        self.assertIn("goto_if_eq VAR_PRL_REGION_STAGE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_PRLHoennArrival", sc)
         for species in ("RALTS", "POOCHYENA", "GEMLIN"):
             self.assertIn("starterSpecies = SPECIES_"+species+";", read("src/field_specials.c"))
         self.assertIn("setvar VAR_PRL_REGION_STAGE, 4", sc)
         for phrase in ("setvar VAR_PRL_REGION_STAGE, 2", "setflag FLAG_RESCUED_BIRCH",
-                       "uncle FRANK", "BIRCH: The KANTO CHAMPION"):
+                       "uncle FRANK", "A strange RESONANCE"):
             self.assertIn(phrase,sc)
     def test_sailor_full_confirmation_and_failure_guard(self):
         sc=read("data/maps/VermilionCity_Frlg/scripts.inc")
