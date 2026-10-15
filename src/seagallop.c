@@ -2,6 +2,7 @@
 #include "bg.h"
 #include "event_data.h"
 #include "field_screen_effect.h"
+#include "field_special_scene.h"
 #include "field_weather.h"
 #include "gpu_regs.h"
 #include "main.h"
@@ -76,7 +77,9 @@ static const s8 sSeag[][4] = {
     [SEAGALLOP_SEVEN_ISLAND]    = {MAP_GROUP(MAP_SEVEN_ISLAND_HARBOR), MAP_NUM(MAP_SEVEN_ISLAND_HARBOR), 0x08, 0x05},
     [SEAGALLOP_CINNABAR_ISLAND] = {MAP_GROUP(MAP_CINNABAR_ISLAND), MAP_NUM(MAP_CINNABAR_ISLAND),     0x15, 0x07},
     [SEAGALLOP_NAVEL_ROCK]      = {MAP_GROUP(MAP_NAVEL_ROCK_HARBOR_FRLG), MAP_NUM(MAP_NAVEL_ROCK_HARBOR_FRLG),   0x08, 0x05},
-    [SEAGALLOP_BIRTH_ISLAND]    = {MAP_GROUP(MAP_BIRTH_ISLAND_HARBOR_FRLG), MAP_NUM(MAP_BIRTH_ISLAND_HARBOR_FRLG), 0x08, 0x05}
+    [SEAGALLOP_BIRTH_ISLAND]    = {MAP_GROUP(MAP_BIRTH_ISLAND_HARBOR_FRLG), MAP_NUM(MAP_BIRTH_ISLAND_HARBOR_FRLG), 0x08, 0x05},
+    // S.S. LEGACY docks at Slateport off-screen; the compiled map is Birch's truck.
+    [SEAGALLOP_PRL_SLATEPORT_TRANSFER] = {MAP_GROUP(MAP_INSIDE_OF_TRUCK), MAP_NUM(MAP_INSIDE_OF_TRUCK), 2, 2}
 };
 
 // Bitpacked array.  In the commented section, right-most bit is the
@@ -90,7 +93,7 @@ enum TravelDirections
 };
 
 static const u16 sTravelDirectionMatrix[] = {
-    [SEAGALLOP_VERMILION_CITY]  = 0x6fe, // 11011111110
+    [SEAGALLOP_VERMILION_CITY]  = 0xefe, // PRL transfer is eastbound; preserve existing island directions
     [SEAGALLOP_ONE_ISLAND]      = 0x6fc, // 11011111100
     [SEAGALLOP_TWO_ISLAND]      = 0x6f8, // 11011111000
     [SEAGALLOP_THREE_ISLAND]    = 0x6f0, // 11011110000
@@ -316,7 +319,12 @@ static void Task_Seagallop_3(void)
     SetWarpDestination(warpInfo[0], warpInfo[1], -1, warpInfo[2], warpInfo[3]);
     PlayRainStoppingSoundEffect();
     PlaySE(SE_EXIT);
-    gFieldCallback = FieldCB_DefaultWarpExit;
+    // Use Emerald's full truck-driving camera and moving-box animation only
+    // for the scripted Slateport-to-Littleroot shuttle; Sevii is unchanged.
+    if (gSpecialVar_0x8006 == SEAGALLOP_PRL_SLATEPORT_TRANSFER)
+        gFieldCallback = ExecuteTruckSequence;
+    else
+        gFieldCallback = FieldCB_DefaultWarpExit;
     WarpIntoMap();
     SetMainCallback2(CB2_LoadMap);
     ResetInitialPlayerAvatarState();
