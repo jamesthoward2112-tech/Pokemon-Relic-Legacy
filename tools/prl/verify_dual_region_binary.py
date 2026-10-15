@@ -132,6 +132,33 @@ route102 = header_for("gMapGroup_TownsAndRoutes", "Route102")
 petalburg_map_num = groups["gMapGroup_TownsAndRoutes"].index("PetalburgCity")
 assert connection_dest(route102, 0) == (2, (route_group, petalburg_map_num)), "Route102 west must connect to Petalburg"
 assert connection_dest(route102, 1) == (2, (route_group, oldale_map_num)), "Route102 east must connect to Oldale"
+# PR106: old Hoenn house sprites were still drawn on doorway tiles
+# after setting object-hide flags. Check the actual emitted event templates;
+# their local IDs must be retained, but dormant objects start off-screen.
+def compiled_object_xy(header, index):
+    events = valid("object-map events", word(header + 4))
+    objects = valid("object-map object list", word(events + 4))
+    entry = objects + 24 * index
+    return (struct.unpack_from("<H", rom, entry - ROM_BASE + 4)[0],
+            struct.unpack_from("<H", rom, entry - ROM_BASE + 6)[0])
+
+assert compiled_object_xy(town, 3) == (255, 255), (
+    "Rosie default sprite must not spawn on an exterior front door"
+)
+for house_map, expected_adult in [
+    ("LittlerootTown_BrendansHouse_1F", (3, 5)),
+    ("LittlerootTown_MaysHouse_1F", (7, 5)),
+]:
+    header = header_for("gMapGroup_IndoorLittleroot", house_map)
+    for index in (1, 2, 4, 6):  # local ids 2,3,5,7; index 6 blocked doorway
+        assert compiled_object_xy(header, index) == (255, 255), (
+            f"{house_map}: inactive NPC index {index} spawned on walkable tile"
+        )
+    assert compiled_object_xy(header, 3) == expected_adult, (
+        f"{house_map}: Birch-family adult is too close to door"
+    )
+print("PASS Rosie spawn safety and both house doorway object templates")
+
 town_events = valid("Littleroot events", word(town + 4))
 lab_events = valid("Birch lab events", word(lab + 4))
 if byte(town_events + 1) != 3:

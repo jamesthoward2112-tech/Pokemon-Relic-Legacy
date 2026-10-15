@@ -337,10 +337,33 @@ string generate_map_events_text(Json map_data) {
                 bool prlArrivalTruck = version == "firered"
                                      && mapName == "LittlerootTown"
                                      && (i == 4 || i == 5);
+                // PR106: In the FireRed bridge the vanilla Emerald homes
+                // still contain a non-interactive Norman, moving-in Vigoroth
+                // and the rival sprite *on a door/warp tile*. Event flags can
+                // be stale on carried-over Kanto saves, and do not reliably
+                // despawn an already loaded sprite. Retain local IDs, but
+                // park only these inert templates safely off-map. Never
+                // change native Emerald maps or the three live truck warps.
+                const bool prlBrendansHome = version == "firered"
+                                            && mapName == "LittlerootTown_BrendansHouse_1F";
+                const bool prlMaysHome = version == "firered"
+                                        && mapName == "LittlerootTown_MaysHouse_1F";
+                const bool prlHouse = prlBrendansHome || prlMaysHome;
+                const bool prlInactiveHouseProp = prlHouse
+                                                && (i == 1 || i == 2 || i == 4 || i == 6);
+                // Rosie should ONLY be spawned on purpose by the truck
+                // arrival script (setobjectxyperm + addobject); her default
+                // object must never reappear on a door in older Hoenn saves.
+                const bool prlDefaultRosieOffmap = version == "firered"
+                                               && mapName == "LittlerootTown" && i == 3;
+                const bool prlOffmap = prlInactiveHouseProp || prlDefaultRosieOffmap;
+                // In Birch's neighbouring house, the talkable adult stands
+                // in the room rather than directly beside the exit tiles.
+                const bool prlBirchFamilyAdult = prlHouse && i == 3;
                 text << "\tobject_event " << i + 1 << ", "
                      << json_to_string(obj_event, "graphics_id") << ", "
-                     << json_to_string(obj_event, "x") << ", "
-                     << json_to_string(obj_event, "y") << ", "
+                     << (prlOffmap ? "255" : prlBirchFamilyAdult ? (prlBrendansHome ? "3" : "7") : json_to_string(obj_event, "x")) << ", "
+                     << (prlOffmap ? "255" : prlBirchFamilyAdult ? "5" : json_to_string(obj_event, "y")) << ", "
                      << (prlArrivalTruck ? "3" : json_to_string(obj_event, "elevation")) << ", "
                      << json_to_string(obj_event, "movement_type") << ", "
                      << json_to_string(obj_event, "movement_range_x") << ", "
