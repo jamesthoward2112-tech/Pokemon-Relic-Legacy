@@ -579,7 +579,7 @@ PalletTown_ProfessorOaksLab_EventScript_ProfOak::
 	@ The one-time Hoenn invitation takes priority over normal dex ratings,
 	@ but only after Mum has celebrated the first Hall of Fame.
 	specialvar VAR_RESULT, PRLHasKantoHallOfFameRecord
-	goto_if_eq VAR_RESULT, TRUE, PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck
+	goto_if_eq VAR_RESULT, TRUE, PalletTown_ProfessorOaksLab_EventScript_PKR2ChampionResearch
 	goto_if_set SHOWED_OAK_COMPLETE_DEX, PalletTown_ProfessorOaksLab_EventScript_OakJustShownCompleteDex
 	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 9, PalletTown_ProfessorOaksLab_EventScript_RatePokedex
 	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 8, PalletTown_ProfessorOaksLab_EventScript_MonsAroundWorldWait
@@ -592,6 +592,20 @@ PalletTown_ProfessorOaksLab_EventScript_ProfOak::
 	msgbox PalletTown_ProfessorOaksLab_Text_OakWhichOneWillYouChoose
 	release
 	end
+
+PalletTown_ProfessorOaksLab_EventScript_PKR2ChampionResearch::
+	@ Keep the National Dex / Kanto postgame available without a Hoenn journey.
+	special EnableNationalPokedex
+	msgbox PalletTown_ProfessorOaksLab_Text_PKR2ChampionResearch
+	release
+	end
+
+PalletTown_ProfessorOaksLab_Text_PKR2ChampionResearch:
+	.string "OAK: Congratulations, CHAMPION!\p"
+	.string "KANTO still has many mysteries.\p"
+	.string "Explore the SEVII ISLANDS,\n"
+	.string "rare POKéMON and old ruins.\p"
+	.string "Your research isn't finished!$"
 
 PalletTown_ProfessorOaksLab_EventScript_PRLHoennInvitationCheck::
 	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, PalletTown_ProfessorOaksLab_EventScript_PRLHoennAfterInvitation
