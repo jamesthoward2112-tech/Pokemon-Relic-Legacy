@@ -48,33 +48,11 @@ PalletTown_PlayersHouse_1F_EventScript_MomOakLookingForYouFemale::
 @ Direct talk fallback for anyone loading a save at Pallet Town instead
 @ of reaching the house through the credits.
 PalletTown_PlayersHouse_1F_EventScript_PRLMomPostLeague::
-	goto_if_set FLAG_PRL_POSTHOF_MOM_WELCOME, PalletTown_PlayersHouse_1F_EventScript_PRLCheckDeparturePrep
+	@ PKR 2.0: Champion rest remains repeatable; no Hoenn transfer.
+	goto_if_set FLAG_PRL_POSTHOF_MOM_WELCOME, PalletTown_PlayersHouse_1F_EventScript_MomHeal
 	msgbox PalletTown_PlayersHouse_1F_Text_PRLHomecoming
 	setflag FLAG_PRL_POSTHOF_MOM_WELCOME
-	goto PalletTown_PlayersHouse_1F_EventScript_PRLCheckDeparturePrep
-
-PalletTown_PlayersHouse_1F_EventScript_PRLCheckDeparturePrep::
-	@ Always repeat the Hoenn preparation details, even if an old save has
-	@ the "briefed" flag. The flag is historical, never a dialogue gate.
-	@ Do NOT bank any money, remove items or touch storage until boarding.
-	goto_if_unset FLAG_PRL_POSTHOF_OAK_TICKET, PalletTown_PlayersHouse_1F_EventScript_PRLAskVisitOak
-	msgbox PalletTown_PlayersHouse_1F_Text_PRLDeparturePrep
-	setflag FLAG_PRL_POSTHOF_MOM_PREP_BRIEFED
-	msgbox PalletTown_PlayersHouse_1F_Text_PRLAskRest, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, PalletTown_PlayersHouse_1F_EventScript_PRLRestAfterHoenn
-	release
-	end
-
-PalletTown_PlayersHouse_1F_EventScript_PRLAskVisitOak::
-	msgbox PalletTown_PlayersHouse_1F_Text_PRLVisitOakFirst
 	goto PalletTown_PlayersHouse_1F_EventScript_MomHeal
-
-PalletTown_PlayersHouse_1F_EventScript_PRLRestAfterHoenn::
-	closemessage
-	call Common_EventScript_OutOfCenterPartyHeal
-	msgbox PalletTown_PlayersHouse_1F_Text_LookingGreatTakeCare
-	release
-	end
 
 PalletTown_PlayersHouse_1F_EventScript_MomHeal::
 	msgbox PalletTown_PlayersHouse_1F_Text_YouShouldTakeQuickRest
@@ -146,16 +124,13 @@ PalletTown_PlayersHouse_1F_Text_OopsWrongSide::
 	.string "Oops, wrong side…$"
 
 PalletTown_PlayersHouse_1F_Text_PRLHomecoming::
-	.string "MOM: {PLAYER}! My new CHAMPION!\p"
-	.string "I knew you'd make it. I'm so\n"
-	.string "proud of you and your POKéMON.\p"
-	.string "You've earned time to explore\n"
-	.string "all that KANTO has left.\p"
-	.string "When you're ready for more,\n"
-	.string "visit PROF. OAK in his LAB.\p"
-	.string "He has news of a faraway place\n"
-	.string "called HOENN!$"
-
+	.string "MOM: {PLAYER}! My CHAMPION!\p"
+	.string "I'm proud of you and\n"
+	.string "your POKéMON.\p"
+	.string "KANTO still has many\n"
+	.string "places left to explore!\p"
+	.string "Visit PROF. OAK for\n"
+	.string "his latest research.$"
 
 PalletTown_PlayersHouse_1F_Text_PRLDeparturePrep::
 	.string "MOM: My KANTO CHAMPION!\n"
