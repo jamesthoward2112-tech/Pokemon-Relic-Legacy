@@ -718,7 +718,7 @@ static const struct CreditsOverworldCmd *const sOverworldMapScenes[] = {
 // The credits closing message replaces the stock THE END and copyright
 // closing art, which produced a solid red screen in the user's playtest.
 static const u8 sCreditsText_PRLHoennHeading[] = _("The Journey Continues...");
-static const u8 sCreditsText_PRLHoennSubtitle[] = _("In Hoenn!");
+static const u8 sCreditsText_PRLHoennSubtitle[] = _("In Kanto!");
 
 static const struct CreditsTextHeader sCreditsTexts[] = {
     { gCreditsString_Director, gCreditsString_Junichi_Masuda, FALSE },
