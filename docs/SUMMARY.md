@@ -188,3 +188,5 @@
 - [PRL Issue 26 Player Visual Polish](./PRL_ISSUE26_PLAYER_VISUAL_POLISH_2026-10-10.md)
 
 - [PRL Kanto-to-Hoenn Departure Migration Checkpoint](./PRL_HOENN_DEPARTURE_CHECKPOINT_20261014.md)
+
+- [PKR 2.0 Kanto-only scope](PKR2_KANTO_ONLY_SCOPE.md)
