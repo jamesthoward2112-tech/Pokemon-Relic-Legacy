@@ -51,7 +51,8 @@ VermilionCity_EventScript_FerrySailor::
 	faceplayer
 	@ The PRL Champion's ticket takes priority over the original SS Anne
 	@ story, but Sevii routes remain available before the ticket is issued.
-	goto_if_set FLAG_PRL_POSTHOF_OAK_TICKET, VermilionCity_EventScript_PRLHoennBoardingPreflight
+	@ PKR 2.0 Kanto-only: never route the Champion to Hoenn.
+	@ Retain Seagallop ferries and the original S.S. Anne departure.
 	goto_if_eq VAR_MAP_SCENE_VERMILION_CITY, 3, VermilionCity_EventScript_CheckSeagallopPresent
 	msgbox VermilionCity_Text_WelcomeToTheSSAnne
 	release
