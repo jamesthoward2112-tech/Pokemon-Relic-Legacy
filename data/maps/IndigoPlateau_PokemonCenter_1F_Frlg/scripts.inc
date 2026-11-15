@@ -77,6 +77,7 @@ IndigoPlateau_PokemonCenter_1F_Items::
 	.2byte ITEM_SCOPE_LENS
 	.2byte ITEM_LIFE_ORB
 	.2byte ITEM_RARE_CANDY
+	.2byte ITEM_ABILITY_CAPSULE
 	.2byte ITEM_NONE
 	release
 	end

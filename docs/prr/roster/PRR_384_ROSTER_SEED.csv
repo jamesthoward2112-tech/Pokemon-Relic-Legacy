@@ -1,0 +1,385 @@
+slot,category,entry_key,display_name,source_constant,donor_name,donor_asset_id,status,decision_notes,source_authority
+1,original_kanto,SPECIES_BULBASAUR,Bulbasaur,SPECIES_BULBASAUR,,,approved_official,,pokeemerald-expansion species constants
+2,original_kanto,SPECIES_IVYSAUR,Ivysaur,SPECIES_IVYSAUR,,,approved_official,,pokeemerald-expansion species constants
+3,original_kanto,SPECIES_VENUSAUR,Venusaur,SPECIES_VENUSAUR,,,approved_official,,pokeemerald-expansion species constants
+4,original_kanto,SPECIES_CHARMANDER,Charmander,SPECIES_CHARMANDER,,,approved_official,,pokeemerald-expansion species constants
+5,original_kanto,SPECIES_CHARMELEON,Charmeleon,SPECIES_CHARMELEON,,,approved_official,,pokeemerald-expansion species constants
+6,original_kanto,SPECIES_CHARIZARD,Charizard,SPECIES_CHARIZARD,,,approved_official,,pokeemerald-expansion species constants
+7,original_kanto,SPECIES_SQUIRTLE,Squirtle,SPECIES_SQUIRTLE,,,approved_official,,pokeemerald-expansion species constants
+8,original_kanto,SPECIES_WARTORTLE,Wartortle,SPECIES_WARTORTLE,,,approved_official,,pokeemerald-expansion species constants
+9,original_kanto,SPECIES_BLASTOISE,Blastoise,SPECIES_BLASTOISE,,,approved_official,,pokeemerald-expansion species constants
+10,original_kanto,SPECIES_CATERPIE,Caterpie,SPECIES_CATERPIE,,,approved_official,,pokeemerald-expansion species constants
+11,original_kanto,SPECIES_METAPOD,Metapod,SPECIES_METAPOD,,,approved_official,,pokeemerald-expansion species constants
+12,original_kanto,SPECIES_BUTTERFREE,Butterfree,SPECIES_BUTTERFREE,,,approved_official,,pokeemerald-expansion species constants
+13,original_kanto,SPECIES_WEEDLE,Weedle,SPECIES_WEEDLE,,,approved_official,,pokeemerald-expansion species constants
+14,original_kanto,SPECIES_KAKUNA,Kakuna,SPECIES_KAKUNA,,,approved_official,,pokeemerald-expansion species constants
+15,original_kanto,SPECIES_BEEDRILL,Beedrill,SPECIES_BEEDRILL,,,approved_official,,pokeemerald-expansion species constants
+16,original_kanto,SPECIES_PIDGEY,Pidgey,SPECIES_PIDGEY,,,approved_official,,pokeemerald-expansion species constants
+17,original_kanto,SPECIES_PIDGEOTTO,Pidgeotto,SPECIES_PIDGEOTTO,,,approved_official,,pokeemerald-expansion species constants
+18,original_kanto,SPECIES_PIDGEOT,Pidgeot,SPECIES_PIDGEOT,,,approved_official,,pokeemerald-expansion species constants
+19,original_kanto,SPECIES_RATTATA,Rattata,SPECIES_RATTATA,,,approved_official,,pokeemerald-expansion species constants
+20,original_kanto,SPECIES_RATICATE,Raticate,SPECIES_RATICATE,,,approved_official,,pokeemerald-expansion species constants
+21,original_kanto,SPECIES_SPEAROW,Spearow,SPECIES_SPEAROW,,,approved_official,,pokeemerald-expansion species constants
+22,original_kanto,SPECIES_FEAROW,Fearow,SPECIES_FEAROW,,,approved_official,,pokeemerald-expansion species constants
+23,original_kanto,SPECIES_EKANS,Ekans,SPECIES_EKANS,,,approved_official,,pokeemerald-expansion species constants
+24,original_kanto,SPECIES_ARBOK,Arbok,SPECIES_ARBOK,,,approved_official,,pokeemerald-expansion species constants
+25,original_kanto,SPECIES_PIKACHU,Pikachu,SPECIES_PIKACHU,,,approved_official,,pokeemerald-expansion species constants
+26,original_kanto,SPECIES_RAICHU,Raichu,SPECIES_RAICHU,,,approved_official,,pokeemerald-expansion species constants
+27,original_kanto,SPECIES_SANDSHREW,Sandshrew,SPECIES_SANDSHREW,,,approved_official,,pokeemerald-expansion species constants
+28,original_kanto,SPECIES_SANDSLASH,Sandslash,SPECIES_SANDSLASH,,,approved_official,,pokeemerald-expansion species constants
+29,original_kanto,SPECIES_NIDORAN_F,Nidoran♀,SPECIES_NIDORAN_F,,,approved_official,,pokeemerald-expansion species constants
+30,original_kanto,SPECIES_NIDORINA,Nidorina,SPECIES_NIDORINA,,,approved_official,,pokeemerald-expansion species constants
+31,original_kanto,SPECIES_NIDOQUEEN,Nidoqueen,SPECIES_NIDOQUEEN,,,approved_official,,pokeemerald-expansion species constants
+32,original_kanto,SPECIES_NIDORAN_M,Nidoran♂,SPECIES_NIDORAN_M,,,approved_official,,pokeemerald-expansion species constants
+33,original_kanto,SPECIES_NIDORINO,Nidorino,SPECIES_NIDORINO,,,approved_official,,pokeemerald-expansion species constants
+34,original_kanto,SPECIES_NIDOKING,Nidoking,SPECIES_NIDOKING,,,approved_official,,pokeemerald-expansion species constants
+35,original_kanto,SPECIES_CLEFAIRY,Clefairy,SPECIES_CLEFAIRY,,,approved_official,,pokeemerald-expansion species constants
+36,original_kanto,SPECIES_CLEFABLE,Clefable,SPECIES_CLEFABLE,,,approved_official,,pokeemerald-expansion species constants
+37,original_kanto,SPECIES_VULPIX,Vulpix,SPECIES_VULPIX,,,approved_official,,pokeemerald-expansion species constants
+38,original_kanto,SPECIES_NINETALES,Ninetales,SPECIES_NINETALES,,,approved_official,,pokeemerald-expansion species constants
+39,original_kanto,SPECIES_JIGGLYPUFF,Jigglypuff,SPECIES_JIGGLYPUFF,,,approved_official,,pokeemerald-expansion species constants
+40,original_kanto,SPECIES_WIGGLYTUFF,Wigglytuff,SPECIES_WIGGLYTUFF,,,approved_official,,pokeemerald-expansion species constants
+41,original_kanto,SPECIES_ZUBAT,Zubat,SPECIES_ZUBAT,,,approved_official,,pokeemerald-expansion species constants
+42,original_kanto,SPECIES_GOLBAT,Golbat,SPECIES_GOLBAT,,,approved_official,,pokeemerald-expansion species constants
+43,original_kanto,SPECIES_ODDISH,Oddish,SPECIES_ODDISH,,,approved_official,,pokeemerald-expansion species constants
+44,original_kanto,SPECIES_GLOOM,Gloom,SPECIES_GLOOM,,,approved_official,,pokeemerald-expansion species constants
+45,original_kanto,SPECIES_VILEPLUME,Vileplume,SPECIES_VILEPLUME,,,approved_official,,pokeemerald-expansion species constants
+46,original_kanto,SPECIES_PARAS,Paras,SPECIES_PARAS,,,approved_official,,pokeemerald-expansion species constants
+47,original_kanto,SPECIES_PARASECT,Parasect,SPECIES_PARASECT,,,approved_official,,pokeemerald-expansion species constants
+48,original_kanto,SPECIES_VENONAT,Venonat,SPECIES_VENONAT,,,approved_official,,pokeemerald-expansion species constants
+49,original_kanto,SPECIES_VENOMOTH,Venomoth,SPECIES_VENOMOTH,,,approved_official,,pokeemerald-expansion species constants
+50,original_kanto,SPECIES_DIGLETT,Diglett,SPECIES_DIGLETT,,,approved_official,,pokeemerald-expansion species constants
+51,original_kanto,SPECIES_DUGTRIO,Dugtrio,SPECIES_DUGTRIO,,,approved_official,,pokeemerald-expansion species constants
+52,original_kanto,SPECIES_MEOWTH,Meowth,SPECIES_MEOWTH,,,approved_official,,pokeemerald-expansion species constants
+53,original_kanto,SPECIES_PERSIAN,Persian,SPECIES_PERSIAN,,,approved_official,,pokeemerald-expansion species constants
+54,original_kanto,SPECIES_PSYDUCK,Psyduck,SPECIES_PSYDUCK,,,approved_official,,pokeemerald-expansion species constants
+55,original_kanto,SPECIES_GOLDUCK,Golduck,SPECIES_GOLDUCK,,,approved_official,,pokeemerald-expansion species constants
+56,original_kanto,SPECIES_MANKEY,Mankey,SPECIES_MANKEY,,,approved_official,,pokeemerald-expansion species constants
+57,original_kanto,SPECIES_PRIMEAPE,Primeape,SPECIES_PRIMEAPE,,,approved_official,,pokeemerald-expansion species constants
+58,original_kanto,SPECIES_GROWLITHE,Growlithe,SPECIES_GROWLITHE,,,approved_official,,pokeemerald-expansion species constants
+59,original_kanto,SPECIES_ARCANINE,Arcanine,SPECIES_ARCANINE,,,approved_official,,pokeemerald-expansion species constants
+60,original_kanto,SPECIES_POLIWAG,Poliwag,SPECIES_POLIWAG,,,approved_official,,pokeemerald-expansion species constants
+61,original_kanto,SPECIES_POLIWHIRL,Poliwhirl,SPECIES_POLIWHIRL,,,approved_official,,pokeemerald-expansion species constants
+62,original_kanto,SPECIES_POLIWRATH,Poliwrath,SPECIES_POLIWRATH,,,approved_official,,pokeemerald-expansion species constants
+63,original_kanto,SPECIES_ABRA,Abra,SPECIES_ABRA,,,approved_official,,pokeemerald-expansion species constants
+64,original_kanto,SPECIES_KADABRA,Kadabra,SPECIES_KADABRA,,,approved_official,,pokeemerald-expansion species constants
+65,original_kanto,SPECIES_ALAKAZAM,Alakazam,SPECIES_ALAKAZAM,,,approved_official,,pokeemerald-expansion species constants
+66,original_kanto,SPECIES_MACHOP,Machop,SPECIES_MACHOP,,,approved_official,,pokeemerald-expansion species constants
+67,original_kanto,SPECIES_MACHOKE,Machoke,SPECIES_MACHOKE,,,approved_official,,pokeemerald-expansion species constants
+68,original_kanto,SPECIES_MACHAMP,Machamp,SPECIES_MACHAMP,,,approved_official,,pokeemerald-expansion species constants
+69,original_kanto,SPECIES_BELLSPROUT,Bellsprout,SPECIES_BELLSPROUT,,,approved_official,,pokeemerald-expansion species constants
+70,original_kanto,SPECIES_WEEPINBELL,Weepinbell,SPECIES_WEEPINBELL,,,approved_official,,pokeemerald-expansion species constants
+71,original_kanto,SPECIES_VICTREEBEL,Victreebel,SPECIES_VICTREEBEL,,,approved_official,,pokeemerald-expansion species constants
+72,original_kanto,SPECIES_TENTACOOL,Tentacool,SPECIES_TENTACOOL,,,approved_official,,pokeemerald-expansion species constants
+73,original_kanto,SPECIES_TENTACRUEL,Tentacruel,SPECIES_TENTACRUEL,,,approved_official,,pokeemerald-expansion species constants
+74,original_kanto,SPECIES_GEODUDE,Geodude,SPECIES_GEODUDE,,,approved_official,,pokeemerald-expansion species constants
+75,original_kanto,SPECIES_GRAVELER,Graveler,SPECIES_GRAVELER,,,approved_official,,pokeemerald-expansion species constants
+76,original_kanto,SPECIES_GOLEM,Golem,SPECIES_GOLEM,,,approved_official,,pokeemerald-expansion species constants
+77,original_kanto,SPECIES_PONYTA,Ponyta,SPECIES_PONYTA,,,approved_official,,pokeemerald-expansion species constants
+78,original_kanto,SPECIES_RAPIDASH,Rapidash,SPECIES_RAPIDASH,,,approved_official,,pokeemerald-expansion species constants
+79,original_kanto,SPECIES_SLOWPOKE,Slowpoke,SPECIES_SLOWPOKE,,,approved_official,,pokeemerald-expansion species constants
+80,original_kanto,SPECIES_SLOWBRO,Slowbro,SPECIES_SLOWBRO,,,approved_official,,pokeemerald-expansion species constants
+81,original_kanto,SPECIES_MAGNEMITE,Magnemite,SPECIES_MAGNEMITE,,,approved_official,,pokeemerald-expansion species constants
+82,original_kanto,SPECIES_MAGNETON,Magneton,SPECIES_MAGNETON,,,approved_official,,pokeemerald-expansion species constants
+83,original_kanto,SPECIES_FARFETCHD,Farfetch'd,SPECIES_FARFETCHD,,,approved_official,,pokeemerald-expansion species constants
+84,original_kanto,SPECIES_DODUO,Doduo,SPECIES_DODUO,,,approved_official,,pokeemerald-expansion species constants
+85,original_kanto,SPECIES_DODRIO,Dodrio,SPECIES_DODRIO,,,approved_official,,pokeemerald-expansion species constants
+86,original_kanto,SPECIES_SEEL,Seel,SPECIES_SEEL,,,approved_official,,pokeemerald-expansion species constants
+87,original_kanto,SPECIES_DEWGONG,Dewgong,SPECIES_DEWGONG,,,approved_official,,pokeemerald-expansion species constants
+88,original_kanto,SPECIES_GRIMER,Grimer,SPECIES_GRIMER,,,approved_official,,pokeemerald-expansion species constants
+89,original_kanto,SPECIES_MUK,Muk,SPECIES_MUK,,,approved_official,,pokeemerald-expansion species constants
+90,original_kanto,SPECIES_SHELLDER,Shellder,SPECIES_SHELLDER,,,approved_official,,pokeemerald-expansion species constants
+91,original_kanto,SPECIES_CLOYSTER,Cloyster,SPECIES_CLOYSTER,,,approved_official,,pokeemerald-expansion species constants
+92,original_kanto,SPECIES_GASTLY,Gastly,SPECIES_GASTLY,,,approved_official,,pokeemerald-expansion species constants
+93,original_kanto,SPECIES_HAUNTER,Haunter,SPECIES_HAUNTER,,,approved_official,,pokeemerald-expansion species constants
+94,original_kanto,SPECIES_GENGAR,Gengar,SPECIES_GENGAR,,,approved_official,,pokeemerald-expansion species constants
+95,original_kanto,SPECIES_ONIX,Onix,SPECIES_ONIX,,,approved_official,,pokeemerald-expansion species constants
+96,original_kanto,SPECIES_DROWZEE,Drowzee,SPECIES_DROWZEE,,,approved_official,,pokeemerald-expansion species constants
+97,original_kanto,SPECIES_HYPNO,Hypno,SPECIES_HYPNO,,,approved_official,,pokeemerald-expansion species constants
+98,original_kanto,SPECIES_KRABBY,Krabby,SPECIES_KRABBY,,,approved_official,,pokeemerald-expansion species constants
+99,original_kanto,SPECIES_KINGLER,Kingler,SPECIES_KINGLER,,,approved_official,,pokeemerald-expansion species constants
+100,original_kanto,SPECIES_VOLTORB,Voltorb,SPECIES_VOLTORB,,,approved_official,,pokeemerald-expansion species constants
+101,original_kanto,SPECIES_ELECTRODE,Electrode,SPECIES_ELECTRODE,,,approved_official,,pokeemerald-expansion species constants
+102,original_kanto,SPECIES_EXEGGCUTE,Exeggcute,SPECIES_EXEGGCUTE,,,approved_official,,pokeemerald-expansion species constants
+103,original_kanto,SPECIES_EXEGGUTOR,Exeggutor,SPECIES_EXEGGUTOR,,,approved_official,,pokeemerald-expansion species constants
+104,original_kanto,SPECIES_CUBONE,Cubone,SPECIES_CUBONE,,,approved_official,,pokeemerald-expansion species constants
+105,original_kanto,SPECIES_MAROWAK,Marowak,SPECIES_MAROWAK,,,approved_official,,pokeemerald-expansion species constants
+106,original_kanto,SPECIES_HITMONLEE,Hitmonlee,SPECIES_HITMONLEE,,,approved_official,,pokeemerald-expansion species constants
+107,original_kanto,SPECIES_HITMONCHAN,Hitmonchan,SPECIES_HITMONCHAN,,,approved_official,,pokeemerald-expansion species constants
+108,original_kanto,SPECIES_LICKITUNG,Lickitung,SPECIES_LICKITUNG,,,approved_official,,pokeemerald-expansion species constants
+109,original_kanto,SPECIES_KOFFING,Koffing,SPECIES_KOFFING,,,approved_official,,pokeemerald-expansion species constants
+110,original_kanto,SPECIES_WEEZING,Weezing,SPECIES_WEEZING,,,approved_official,,pokeemerald-expansion species constants
+111,original_kanto,SPECIES_RHYHORN,Rhyhorn,SPECIES_RHYHORN,,,approved_official,,pokeemerald-expansion species constants
+112,original_kanto,SPECIES_RHYDON,Rhydon,SPECIES_RHYDON,,,approved_official,,pokeemerald-expansion species constants
+113,original_kanto,SPECIES_CHANSEY,Chansey,SPECIES_CHANSEY,,,approved_official,,pokeemerald-expansion species constants
+114,original_kanto,SPECIES_TANGELA,Tangela,SPECIES_TANGELA,,,approved_official,,pokeemerald-expansion species constants
+115,original_kanto,SPECIES_KANGASKHAN,Kangaskhan,SPECIES_KANGASKHAN,,,approved_official,,pokeemerald-expansion species constants
+116,original_kanto,SPECIES_HORSEA,Horsea,SPECIES_HORSEA,,,approved_official,,pokeemerald-expansion species constants
+117,original_kanto,SPECIES_SEADRA,Seadra,SPECIES_SEADRA,,,approved_official,,pokeemerald-expansion species constants
+118,original_kanto,SPECIES_GOLDEEN,Goldeen,SPECIES_GOLDEEN,,,approved_official,,pokeemerald-expansion species constants
+119,original_kanto,SPECIES_SEAKING,Seaking,SPECIES_SEAKING,,,approved_official,,pokeemerald-expansion species constants
+120,original_kanto,SPECIES_STARYU,Staryu,SPECIES_STARYU,,,approved_official,,pokeemerald-expansion species constants
+121,original_kanto,SPECIES_STARMIE,Starmie,SPECIES_STARMIE,,,approved_official,,pokeemerald-expansion species constants
+122,original_kanto,SPECIES_MR_MIME,Mr. Mime,SPECIES_MR_MIME,,,approved_official,,pokeemerald-expansion species constants
+123,original_kanto,SPECIES_SCYTHER,Scyther,SPECIES_SCYTHER,,,approved_official,,pokeemerald-expansion species constants
+124,original_kanto,SPECIES_JYNX,Jynx,SPECIES_JYNX,,,approved_official,,pokeemerald-expansion species constants
+125,original_kanto,SPECIES_ELECTABUZZ,Electabuzz,SPECIES_ELECTABUZZ,,,approved_official,,pokeemerald-expansion species constants
+126,original_kanto,SPECIES_MAGMAR,Magmar,SPECIES_MAGMAR,,,approved_official,,pokeemerald-expansion species constants
+127,original_kanto,SPECIES_PINSIR,Pinsir,SPECIES_PINSIR,,,approved_official,,pokeemerald-expansion species constants
+128,original_kanto,SPECIES_TAUROS,Tauros,SPECIES_TAUROS,,,approved_official,,pokeemerald-expansion species constants
+129,original_kanto,SPECIES_MAGIKARP,Magikarp,SPECIES_MAGIKARP,,,approved_official,,pokeemerald-expansion species constants
+130,original_kanto,SPECIES_GYARADOS,Gyarados,SPECIES_GYARADOS,,,approved_official,,pokeemerald-expansion species constants
+131,original_kanto,SPECIES_LAPRAS,Lapras,SPECIES_LAPRAS,,,approved_official,,pokeemerald-expansion species constants
+132,original_kanto,SPECIES_DITTO,Ditto,SPECIES_DITTO,,,approved_official,,pokeemerald-expansion species constants
+133,original_kanto,SPECIES_EEVEE,Eevee,SPECIES_EEVEE,,,approved_official,,pokeemerald-expansion species constants
+134,original_kanto,SPECIES_VAPOREON,Vaporeon,SPECIES_VAPOREON,,,approved_official,,pokeemerald-expansion species constants
+135,original_kanto,SPECIES_JOLTEON,Jolteon,SPECIES_JOLTEON,,,approved_official,,pokeemerald-expansion species constants
+136,original_kanto,SPECIES_FLAREON,Flareon,SPECIES_FLAREON,,,approved_official,,pokeemerald-expansion species constants
+137,original_kanto,SPECIES_PORYGON,Porygon,SPECIES_PORYGON,,,approved_official,,pokeemerald-expansion species constants
+138,original_kanto,SPECIES_OMANYTE,Omanyte,SPECIES_OMANYTE,,,approved_official,,pokeemerald-expansion species constants
+139,original_kanto,SPECIES_OMASTAR,Omastar,SPECIES_OMASTAR,,,approved_official,,pokeemerald-expansion species constants
+140,original_kanto,SPECIES_KABUTO,Kabuto,SPECIES_KABUTO,,,approved_official,,pokeemerald-expansion species constants
+141,original_kanto,SPECIES_KABUTOPS,Kabutops,SPECIES_KABUTOPS,,,approved_official,,pokeemerald-expansion species constants
+142,original_kanto,SPECIES_AERODACTYL,Aerodactyl,SPECIES_AERODACTYL,,,approved_official,,pokeemerald-expansion species constants
+143,original_kanto,SPECIES_SNORLAX,Snorlax,SPECIES_SNORLAX,,,approved_official,,pokeemerald-expansion species constants
+144,original_kanto,SPECIES_ARTICUNO,Articuno,SPECIES_ARTICUNO,,,approved_official,,pokeemerald-expansion species constants
+145,original_kanto,SPECIES_ZAPDOS,Zapdos,SPECIES_ZAPDOS,,,approved_official,,pokeemerald-expansion species constants
+146,original_kanto,SPECIES_MOLTRES,Moltres,SPECIES_MOLTRES,,,approved_official,,pokeemerald-expansion species constants
+147,original_kanto,SPECIES_DRATINI,Dratini,SPECIES_DRATINI,,,approved_official,,pokeemerald-expansion species constants
+148,original_kanto,SPECIES_DRAGONAIR,Dragonair,SPECIES_DRAGONAIR,,,approved_official,,pokeemerald-expansion species constants
+149,original_kanto,SPECIES_DRAGONITE,Dragonite,SPECIES_DRAGONITE,,,approved_official,,pokeemerald-expansion species constants
+150,original_kanto,SPECIES_MEWTWO,Mewtwo,SPECIES_MEWTWO,,,approved_official,,pokeemerald-expansion species constants
+151,original_kanto,SPECIES_MEW,Mew,SPECIES_MEW,,,approved_official,,pokeemerald-expansion species constants
+152,official_kanto_family_extension,SPECIES_PICHU,Pichu,SPECIES_PICHU,,,approved_official,,official later Kanto-family member
+153,official_kanto_family_extension,SPECIES_CLEFFA,Cleffa,SPECIES_CLEFFA,,,approved_official,,official later Kanto-family member
+154,official_kanto_family_extension,SPECIES_IGGLYBUFF,Igglybuff,SPECIES_IGGLYBUFF,,,approved_official,,official later Kanto-family member
+155,official_kanto_family_extension,SPECIES_CROBAT,Crobat,SPECIES_CROBAT,,,approved_official,,official later Kanto-family member
+156,official_kanto_family_extension,SPECIES_BELLOSSOM,Bellossom,SPECIES_BELLOSSOM,,,approved_official,,official later Kanto-family member
+157,official_kanto_family_extension,SPECIES_POLITOED,Politoed,SPECIES_POLITOED,,,approved_official,,official later Kanto-family member
+158,official_kanto_family_extension,SPECIES_ESPEON,Espeon,SPECIES_ESPEON,,,approved_official,,official later Kanto-family member
+159,official_kanto_family_extension,SPECIES_UMBREON,Umbreon,SPECIES_UMBREON,,,approved_official,,official later Kanto-family member
+160,official_kanto_family_extension,SPECIES_SLOWKING,Slowking,SPECIES_SLOWKING,,,approved_official,,official later Kanto-family member
+161,official_kanto_family_extension,SPECIES_STEELIX,Steelix,SPECIES_STEELIX,,,approved_official,,official later Kanto-family member
+162,official_kanto_family_extension,SPECIES_SCIZOR,Scizor,SPECIES_SCIZOR,,,approved_official,,official later Kanto-family member
+163,official_kanto_family_extension,SPECIES_KINGDRA,Kingdra,SPECIES_KINGDRA,,,approved_official,,official later Kanto-family member
+164,official_kanto_family_extension,SPECIES_PORYGON2,Porygon2,SPECIES_PORYGON2,,,approved_official,,official later Kanto-family member
+165,official_kanto_family_extension,SPECIES_TYROGUE,Tyrogue,SPECIES_TYROGUE,,,approved_official,,official later Kanto-family member
+166,official_kanto_family_extension,SPECIES_HITMONTOP,Hitmontop,SPECIES_HITMONTOP,,,approved_official,,official later Kanto-family member
+167,official_kanto_family_extension,SPECIES_SMOOCHUM,Smoochum,SPECIES_SMOOCHUM,,,approved_official,,official later Kanto-family member
+168,official_kanto_family_extension,SPECIES_ELEKID,Elekid,SPECIES_ELEKID,,,approved_official,,official later Kanto-family member
+169,official_kanto_family_extension,SPECIES_MAGBY,Magby,SPECIES_MAGBY,,,approved_official,,official later Kanto-family member
+170,official_kanto_family_extension,SPECIES_BLISSEY,Blissey,SPECIES_BLISSEY,,,approved_official,,official later Kanto-family member
+171,official_kanto_family_extension,SPECIES_MIME_JR,Mime Jr.,SPECIES_MIME_JR,,,approved_official,,official later Kanto-family member
+172,official_kanto_family_extension,SPECIES_HAPPINY,Happiny,SPECIES_HAPPINY,,,approved_official,,official later Kanto-family member
+173,official_kanto_family_extension,SPECIES_MUNCHLAX,Munchlax,SPECIES_MUNCHLAX,,,approved_official,,official later Kanto-family member
+174,official_kanto_family_extension,SPECIES_MAGNEZONE,Magnezone,SPECIES_MAGNEZONE,,,approved_official,,official later Kanto-family member
+175,official_kanto_family_extension,SPECIES_LICKILICKY,Lickilicky,SPECIES_LICKILICKY,,,approved_official,,official later Kanto-family member
+176,official_kanto_family_extension,SPECIES_RHYPERIOR,Rhyperior,SPECIES_RHYPERIOR,,,approved_official,,official later Kanto-family member
+177,official_kanto_family_extension,SPECIES_TANGROWTH,Tangrowth,SPECIES_TANGROWTH,,,approved_official,,official later Kanto-family member
+178,official_kanto_family_extension,SPECIES_ELECTIVIRE,Electivire,SPECIES_ELECTIVIRE,,,approved_official,,official later Kanto-family member
+179,official_kanto_family_extension,SPECIES_MAGMORTAR,Magmortar,SPECIES_MAGMORTAR,,,approved_official,,official later Kanto-family member
+180,official_kanto_family_extension,SPECIES_LEAFEON,Leafeon,SPECIES_LEAFEON,,,approved_official,,official later Kanto-family member
+181,official_kanto_family_extension,SPECIES_GLACEON,Glaceon,SPECIES_GLACEON,,,approved_official,,official later Kanto-family member
+182,official_kanto_family_extension,SPECIES_PORYGON_Z,Porygon-Z,SPECIES_PORYGON_Z,,,approved_official,,official later Kanto-family member
+183,official_kanto_family_extension,SPECIES_SYLVEON,Sylveon,SPECIES_SYLVEON,,,approved_official,,official later Kanto-family member
+184,official_kanto_family_extension,SPECIES_PERRSERKER,Perrserker,SPECIES_PERRSERKER,,,approved_official,,official later Kanto-family member
+185,official_kanto_family_extension,SPECIES_SIRFETCHD,Sirfetch'd,SPECIES_SIRFETCHD,,,approved_official,,official later Kanto-family member
+186,official_kanto_family_extension,SPECIES_MR_RIME,Mr. Rime,SPECIES_MR_RIME,,,approved_official,,official later Kanto-family member
+187,official_kanto_family_extension,SPECIES_KLEAVOR,Kleavor,SPECIES_KLEAVOR,,,approved_official,,official later Kanto-family member
+188,official_kanto_family_extension,SPECIES_ANNIHILAPE,Annihilape,SPECIES_ANNIHILAPE,,,approved_official,,official later Kanto-family member
+189,pru_alpha5_kanto_custom,SPECIES_EDENSAUR,Edensaur,SPECIES_EDENSAUR,,,approved_pru_alpha5,,PRU Alpha 5 verified 450 source
+190,pru_alpha5_kanto_custom,SPECIES_CHARAXIS,Charaxis,SPECIES_CHARAXIS,,,approved_pru_alpha5,Blocks a separate Mega Charizard-derived species.,PRU Alpha 5 verified 450 source
+191,pru_alpha5_kanto_custom,SPECIES_FORTOTOISE,Fortotoise,SPECIES_FORTOTOISE,,,approved_pru_alpha5,,PRU Alpha 5 verified 450 source
+192,pru_alpha5_kanto_custom,SPECIES_ADNOKANA,Adnokana,SPECIES_ADNOKANA,,,approved_pru_alpha5,,PRU Alpha 5 verified 450 source
+193,pru_alpha5_kanto_custom,SPECIES_NOXICHU,Noxichu,SPECIES_NOXICHU,,,approved_pru_alpha5,Preserve the approved signature move and ability.,PRU Alpha 5 verified 450 source
+194,pru_alpha5_kanto_custom,SPECIES_GHOULBAT,Ghoulbat,SPECIES_GHOULBAT,,,approved_pru_alpha5,,PRU Alpha 5 verified 450 source
+195,pru_alpha5_kanto_custom,SPECIES_OSTEODIAN,Osteodian,SPECIES_OSTEODIAN,,,approved_pru_alpha5,,PRU Alpha 5 verified 450 source
+196,pru_alpha5_kanto_custom,SPECIES_MAROGHOST,Maroghost,SPECIES_MAROGHOST,,,approved_pru_alpha5,,PRU Alpha 5 verified 450 source
+197,pru_alpha5_kanto_custom,SPECIES_CHEAUKING,Cheauking,SPECIES_CHEAUKING,,,approved_pru_alpha5,,PRU Alpha 5 verified 450 source
+198,pru_alpha5_kanto_custom,SPECIES_FRYTNING,Frytning,SPECIES_FRYTNING,,,approved_pru_alpha5,Approved ability change: Levitate.,PRU Alpha 5 verified 450 source
+199,pru_alpha5_kanto_custom,SPECIES_KAN,Kan,SPECIES_KAN,,,approved_pru_alpha5,Keep immediately before Kangaskhan in the family mapping.,PRU Alpha 5 verified 450 source
+200,pru_alpha5_kanto_custom,SPECIES_KHANG,Khang,SPECIES_KHANG,,,approved_pru_alpha5,,PRU Alpha 5 verified 450 source
+201,pru_alpha5_kanto_custom,SPECIES_MYSTYNX,Mystynx,SPECIES_MYSTYNX,,,approved_pru_alpha5,"Use the approved donor sprite set, not an approximation.",PRU Alpha 5 verified 450 source
+202,pru_alpha5_kanto_custom,SPECIES_PINSIREX,Pinsirex,SPECIES_PINSIREX,,,approved_pru_alpha5,,PRU Alpha 5 verified 450 source
+203,pru_alpha5_kanto_custom,SPECIES_EEVEEON,Eeveeon,SPECIES_EEVEEON,,,approved_pru_alpha5,,PRU Alpha 5 verified 450 source
+204,pru_alpha5_kanto_custom,SPECIES_NIMBEON,Aereon,SPECIES_NIMBEON,,,approved_pru_alpha5,Alpha 5 internal name: NIMBEON.,PRU Alpha 5 verified 450 source
+205,pru_alpha5_kanto_custom,SPECIES_CHAMPEON,Champeon,SPECIES_CHAMPEON,,,approved_pru_alpha5,,PRU Alpha 5 verified 450 source
+206,pru_alpha5_kanto_custom,SPECIES_LEPIDEON,Moffeon,SPECIES_LEPIDEON,,,approved_pru_alpha5,Alpha 5 internal name: LEPIDEON.,PRU Alpha 5 verified 450 source
+207,pru_alpha5_kanto_custom,SPECIES_SPHYNXEON,Eartheon,SPECIES_SPHYNXEON,,,approved_pru_alpha5,Alpha 5 internal name: SPHYNXEON.,PRU Alpha 5 verified 450 source
+208,pru_alpha5_kanto_custom,SPECIES_GUARDEON,Galveon,SPECIES_GUARDEON,,,approved_pru_alpha5,Alpha 5 internal name: GUARDEON.,PRU Alpha 5 verified 450 source
+209,pru_alpha5_kanto_custom,SPECIES_OBSIDEON,Pebleon,SPECIES_OBSIDEON,,,approved_pru_alpha5,Alpha 5 internal name: OBSIDEON.,PRU Alpha 5 verified 450 source
+210,pru_alpha5_kanto_custom,SPECIES_TOXEON,Toxeon,SPECIES_TOXEON,,,approved_pru_alpha5,,PRU Alpha 5 verified 450 source
+211,pru_alpha5_kanto_custom,SPECIES_OMEON,Obliveon,SPECIES_OMEON,,,approved_pru_alpha5,Alpha 5 internal name: OMEON.,PRU Alpha 5 verified 450 source
+212,pru_alpha5_kanto_custom,SPECIES_DRAKEON,Mytheon,SPECIES_DRAKEON,,,approved_pru_alpha5,Alpha 5 internal name: DRAKEON.,PRU Alpha 5 verified 450 source
+213,pru_alpha5_kanto_custom,SPECIES_NOLAX,Nolax,SPECIES_NOLAX,,,approved_pru_alpha5,,PRU Alpha 5 verified 450 source
+214,pru_alpha5_kanto_custom,SPECIES_MEWSION,Mewduo,SPECIES_MEWSION,,,approved_pru_alpha5_name_check,Alpha 5 source identifies SPECIES_MEWSION; current Relic documentation calls it Mewduo. Confirm the final in-game display string before import.,PRU Alpha 5 verified 450 source
+215,relic_donor_candidate_reserved,RELIC_NIDOKING_CANDIDATE,,,Nidoking Mega,,reserved_requires_audit,Temporary identifier only; final name requires approval.,agreed PRR category capacity
+216,relic_donor_candidate_reserved,RELIC_NIDOQUEEN_CANDIDATE,,,Nidoqueen Mega,,reserved_requires_audit,Separate permanent species candidate; final name requires approval.,agreed PRR category capacity
+217,relic_donor_candidate_reserved,RELIC_BUTTERFREE_CANDIDATE,,,Butterfree Mega,,reserved_requires_audit,Permanent evolution candidate; verify donor ID and licence.,agreed PRR category capacity
+218,relic_donor_candidate_reserved,RELIC_BEEDRILL_CANDIDATE,,,Beedrill Mega,,reserved_requires_audit,Permanent evolution candidate; verify donor ID and licence.,agreed PRR category capacity
+219,relic_donor_candidate_reserved,RELIC_MACHAMP_CANDIDATE,,,Machamp Mega,,reserved_requires_audit,Permanent evolution candidate; verify donor ID and licence.,agreed PRR category capacity
+220,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_006,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+221,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_007,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+222,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_008,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+223,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_009,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+224,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_010,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+225,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_011,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+226,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_012,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+227,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_013,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+228,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_014,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+229,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_015,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+230,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_016,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+231,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_017,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+232,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_018,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+233,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_019,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+234,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_020,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+235,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_021,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+236,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_022,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+237,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_023,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+238,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_024,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+239,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_025,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+240,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_026,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+241,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_027,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+242,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_028,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+243,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_029,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+244,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_030,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+245,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_031,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+246,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_032,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+247,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_033,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+248,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_034,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+249,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_035,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+250,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_036,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+251,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_037,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+252,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_038,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+253,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_039,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+254,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_040,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+255,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_041,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+256,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_042,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+257,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_043,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+258,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_044,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+259,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_045,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+260,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_046,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+261,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_047,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+262,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_048,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+263,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_049,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+264,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_050,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+265,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_051,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+266,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_052,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+267,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_053,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+268,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_054,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+269,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_055,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+270,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_056,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+271,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_057,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+272,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_058,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+273,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_059,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+274,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_060,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+275,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_061,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+276,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_062,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+277,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_063,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+278,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_064,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+279,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_065,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+280,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_066,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+281,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_067,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+282,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_068,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+283,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_069,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+284,relic_donor_candidate_reserved,RELIC_DONOR_SLOT_070,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+285,regional_form_reserved,REGIONAL_FORM_SLOT_001,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+286,regional_form_reserved,REGIONAL_FORM_SLOT_002,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+287,regional_form_reserved,REGIONAL_FORM_SLOT_003,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+288,regional_form_reserved,REGIONAL_FORM_SLOT_004,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+289,regional_form_reserved,REGIONAL_FORM_SLOT_005,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+290,regional_form_reserved,REGIONAL_FORM_SLOT_006,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+291,regional_form_reserved,REGIONAL_FORM_SLOT_007,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+292,regional_form_reserved,REGIONAL_FORM_SLOT_008,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+293,regional_form_reserved,REGIONAL_FORM_SLOT_009,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+294,regional_form_reserved,REGIONAL_FORM_SLOT_010,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+295,regional_form_reserved,REGIONAL_FORM_SLOT_011,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+296,regional_form_reserved,REGIONAL_FORM_SLOT_012,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+297,regional_form_reserved,REGIONAL_FORM_SLOT_013,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+298,regional_form_reserved,REGIONAL_FORM_SLOT_014,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+299,regional_form_reserved,REGIONAL_FORM_SLOT_015,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+300,regional_form_reserved,REGIONAL_FORM_SLOT_016,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+301,regional_form_reserved,REGIONAL_FORM_SLOT_017,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+302,regional_form_reserved,REGIONAL_FORM_SLOT_018,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+303,regional_form_reserved,REGIONAL_FORM_SLOT_019,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+304,regional_form_reserved,REGIONAL_FORM_SLOT_020,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+305,regional_form_reserved,REGIONAL_FORM_SLOT_021,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+306,regional_form_reserved,REGIONAL_FORM_SLOT_022,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+307,regional_form_reserved,REGIONAL_FORM_SLOT_023,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+308,regional_form_reserved,REGIONAL_FORM_SLOT_024,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+309,regional_form_reserved,REGIONAL_FORM_SLOT_025,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+310,regional_form_reserved,REGIONAL_FORM_SLOT_026,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+311,regional_form_reserved,REGIONAL_FORM_SLOT_027,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+312,regional_form_reserved,REGIONAL_FORM_SLOT_028,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+313,regional_form_reserved,REGIONAL_FORM_SLOT_029,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+314,regional_form_reserved,REGIONAL_FORM_SLOT_030,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+315,regional_form_reserved,REGIONAL_FORM_SLOT_031,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+316,regional_form_reserved,REGIONAL_FORM_SLOT_032,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+317,regional_form_reserved,REGIONAL_FORM_SLOT_033,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+318,regional_form_reserved,REGIONAL_FORM_SLOT_034,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+319,regional_form_reserved,REGIONAL_FORM_SLOT_035,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+320,regional_form_reserved,REGIONAL_FORM_SLOT_036,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+321,regional_form_reserved,REGIONAL_FORM_SLOT_037,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+322,regional_form_reserved,REGIONAL_FORM_SLOT_038,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+323,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_001,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+324,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_002,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+325,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_003,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+326,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_004,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+327,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_005,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+328,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_006,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+329,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_007,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+330,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_008,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+331,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_009,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+332,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_010,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+333,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_011,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+334,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_012,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+335,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_013,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+336,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_014,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+337,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_015,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+338,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_016,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+339,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_017,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+340,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_018,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+341,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_019,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+342,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_020,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+343,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_021,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+344,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_022,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+345,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_023,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+346,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_024,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+347,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_025,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+348,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_026,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+349,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_027,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+350,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_028,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+351,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_029,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+352,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_030,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+353,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_031,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+354,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_032,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+355,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_033,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+356,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_034,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+357,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_035,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+358,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_036,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+359,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_037,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+360,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_038,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+361,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_039,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+362,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_040,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+363,redux_alternate_reserved,REDUX_ALTERNATE_SLOT_041,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+364,other_custom_evolution_reserved,CUSTOM_EVOLUTION_SLOT_001,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+365,other_custom_evolution_reserved,CUSTOM_EVOLUTION_SLOT_002,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+366,other_custom_evolution_reserved,CUSTOM_EVOLUTION_SLOT_003,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+367,other_custom_evolution_reserved,CUSTOM_EVOLUTION_SLOT_004,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+368,other_custom_evolution_reserved,CUSTOM_EVOLUTION_SLOT_005,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+369,other_custom_evolution_reserved,CUSTOM_EVOLUTION_SLOT_006,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+370,other_custom_evolution_reserved,CUSTOM_EVOLUTION_SLOT_007,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+371,other_custom_evolution_reserved,CUSTOM_EVOLUTION_SLOT_008,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+372,other_custom_evolution_reserved,CUSTOM_EVOLUTION_SLOT_009,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+373,other_custom_evolution_reserved,CUSTOM_EVOLUTION_SLOT_010,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+374,other_custom_evolution_reserved,CUSTOM_EVOLUTION_SLOT_011,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+375,other_custom_evolution_reserved,CUSTOM_EVOLUTION_SLOT_012,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+376,other_custom_evolution_reserved,CUSTOM_EVOLUTION_SLOT_013,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+377,other_custom_evolution_reserved,CUSTOM_EVOLUTION_SLOT_014,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+378,other_special_form_reserved,SPECIAL_FORM_SLOT_001,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+379,other_special_form_reserved,SPECIAL_FORM_SLOT_002,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+380,other_special_form_reserved,SPECIAL_FORM_SLOT_003,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+381,other_special_form_reserved,SPECIAL_FORM_SLOT_004,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+382,other_special_form_reserved,SPECIAL_FORM_SLOT_005,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+383,other_special_form_reserved,SPECIAL_FORM_SLOT_006,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
+384,other_special_form_reserved,SPECIAL_FORM_SLOT_007,,,,,reserved_requires_audit,"Reserved count only; assign an authentic donor ID after duplicate, art, and licence audit.",agreed PRR category capacity
