@@ -1,6 +1,9 @@
 #include "constants/trainers.h"
 #include "data.h"
 
+const u32 gTrainerFrontPic_PRRChanseyTwins[] = INCGFX_U32("graphics/trainers/front_pics/pru_chansey_twins.png", ".4bpp.smol");
+const u16 gTrainerPalette_PRRChanseyTwins[] = INCGFX_U16("graphics/trainers/front_pics/pru_chansey_twins.png", ".gbapal");
+
 const u32 gTrainerFrontPic_None[] = INCGFX_U32("graphics/trainers/front_pics/none.png", ".4bpp.smol");
 const u16 gTrainerPalette_None[] = INCGFX_U16("graphics/trainers/palettes/none.pal", ".gbapal");
 
@@ -1238,5 +1241,9 @@ const struct TrainerPicInfo gTrainerPicInfo[TRAINER_PIC_COUNT] =
     [TRAINER_PIC_PAINTER_FRLG] =
     {
         .frontPic = TRAINER_FRONT_PIC(gTrainerFrontPic_PainterFrlg, gTrainerPalette_PainterFrlg),
+    },
+    [TRAINER_PIC_PRR_CHANSEY_TWINS] =
+    {
+        .frontPic = TRAINER_FRONT_PIC(gTrainerFrontPic_PRRChanseyTwins, gTrainerPalette_PRRChanseyTwins),
     },
 };

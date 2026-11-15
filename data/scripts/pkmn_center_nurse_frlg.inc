@@ -12,9 +12,10 @@ EventScript_AfterWhiteOutHeal_Frlg::
 	end
 
 EventScript_PkmnCenterNurse_Frlg::
-	@ PRL: Nurse Joy heals immediately when spoken to: no questions or text.
+	@ PRR: instant normal heal without the prolonged healing field effect.
+	@ White-out restoration and legacy scripted heal sequence are unchanged.
 	incrementgamestat GAME_STAT_USED_POKECENTER
-	call EventScript_PkmnCenterNurse_TakeAndHealPkmn_Frlg
+	special HealPlayerParty
 	return
 
 EventScript_PkmnCenterNurse_HealPkmn_Frlg::

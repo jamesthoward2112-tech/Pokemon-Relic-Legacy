@@ -14742,13 +14742,13 @@ Ability: Sheer Force
 
 
 === TRAINER_PRL_CHANSEY_VIRIDIAN ===
-Name: COACH
-Class: Pkmn Trainer 1
-Pic: Lady Frlg
+Name: CHANSEY
+Class: Twins Frlg
+Pic: PRR Chansey Twins
 Gender: Female
 Music: Female
-Double Battle: No
-AI: Check Bad Move
+Double Battle: Yes
+AI: Basic Trainer
 
 Chansey
 Level: 7
@@ -14757,43 +14757,19 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Heal Pulse
 
 Chansey
-Level: 8
+Level: 7
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
 - Heal Pulse
-
-Chansey
-Level: 9
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Memento
-- Heal Pulse
-
-Chansey
-Level: 10
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 11
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 12
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
 
 === TRAINER_PRL_CHANSEY_PEWTER ===
-Name: COACH
-Class: Pkmn Trainer 1
-Pic: Lady Frlg
+Name: CHANSEY
+Class: Twins Frlg
+Pic: PRR Chansey Twins
 Gender: Female
 Music: Female
-Double Battle: No
-AI: Check Bad Move
+Double Battle: Yes
+AI: Basic Trainer
 
 Chansey
 Level: 10
@@ -14802,43 +14778,19 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Heal Pulse
 
 Chansey
-Level: 11
+Level: 10
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
 - Heal Pulse
-
-Chansey
-Level: 12
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Memento
-- Heal Pulse
-
-Chansey
-Level: 13
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 14
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 15
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
 
 === TRAINER_PRL_CHANSEY_ROUTE4 ===
-Name: COACH
-Class: Pkmn Trainer 1
-Pic: Lady Frlg
+Name: CHANSEY
+Class: Twins Frlg
+Pic: PRR Chansey Twins
 Gender: Female
 Music: Female
-Double Battle: No
-AI: Check Bad Move
+Double Battle: Yes
+AI: Basic Trainer
 
 Chansey
 Level: 14
@@ -14847,43 +14799,19 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Heal Pulse
 
 Chansey
-Level: 15
+Level: 14
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
 - Heal Pulse
-
-Chansey
-Level: 16
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Memento
-- Heal Pulse
-
-Chansey
-Level: 17
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 18
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 19
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
 
 === TRAINER_PRL_CHANSEY_CERULEAN ===
-Name: COACH
-Class: Pkmn Trainer 1
-Pic: Lady Frlg
+Name: CHANSEY
+Class: Twins Frlg
+Pic: PRR Chansey Twins
 Gender: Female
 Music: Female
-Double Battle: No
-AI: Check Bad Move
+Double Battle: Yes
+AI: Basic Trainer
 
 Chansey
 Level: 16
@@ -14892,43 +14820,19 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Heal Pulse
 
 Chansey
-Level: 17
+Level: 16
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
 - Heal Pulse
-
-Chansey
-Level: 18
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Memento
-- Heal Pulse
-
-Chansey
-Level: 19
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 20
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 21
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
 
 === TRAINER_PRL_CHANSEY_VERMILION ===
-Name: COACH
-Class: Pkmn Trainer 1
-Pic: Lady Frlg
+Name: CHANSEY
+Class: Twins Frlg
+Pic: PRR Chansey Twins
 Gender: Female
 Music: Female
-Double Battle: No
-AI: Check Bad Move
+Double Battle: Yes
+AI: Basic Trainer
 
 Chansey
 Level: 22
@@ -14937,43 +14841,19 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Heal Pulse
 
 Chansey
-Level: 23
+Level: 22
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
 - Heal Pulse
-
-Chansey
-Level: 24
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Memento
-- Heal Pulse
-
-Chansey
-Level: 25
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 26
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 27
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
 
 === TRAINER_PRL_CHANSEY_ROUTE10 ===
-Name: COACH
-Class: Pkmn Trainer 1
-Pic: Lady Frlg
+Name: CHANSEY
+Class: Twins Frlg
+Pic: PRR Chansey Twins
 Gender: Female
 Music: Female
-Double Battle: No
-AI: Check Bad Move
+Double Battle: Yes
+AI: Basic Trainer
 
 Chansey
 Level: 26
@@ -14982,43 +14862,19 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Heal Pulse
 
 Chansey
-Level: 27
+Level: 26
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
 - Heal Pulse
-
-Chansey
-Level: 28
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Memento
-- Heal Pulse
-
-Chansey
-Level: 29
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 30
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 31
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
 
 === TRAINER_PRL_CHANSEY_LAVENDER ===
-Name: COACH
-Class: Pkmn Trainer 1
-Pic: Lady Frlg
+Name: CHANSEY
+Class: Twins Frlg
+Pic: PRR Chansey Twins
 Gender: Female
 Music: Female
-Double Battle: No
-AI: Check Bad Move
+Double Battle: Yes
+AI: Basic Trainer
 
 Chansey
 Level: 27
@@ -15027,43 +14883,19 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Heal Pulse
 
 Chansey
-Level: 28
+Level: 27
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
 - Heal Pulse
-
-Chansey
-Level: 29
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Memento
-- Heal Pulse
-
-Chansey
-Level: 30
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 31
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 32
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
 
 === TRAINER_PRL_CHANSEY_CELADON ===
-Name: COACH
-Class: Pkmn Trainer 1
-Pic: Lady Frlg
+Name: CHANSEY
+Class: Twins Frlg
+Pic: PRR Chansey Twins
 Gender: Female
 Music: Female
-Double Battle: No
-AI: Check Bad Move
+Double Battle: Yes
+AI: Basic Trainer
 
 Chansey
 Level: 30
@@ -15072,43 +14904,19 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Heal Pulse
 
 Chansey
-Level: 31
+Level: 30
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
 - Heal Pulse
-
-Chansey
-Level: 32
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Memento
-- Heal Pulse
-
-Chansey
-Level: 33
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 34
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 35
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
 
 === TRAINER_PRL_CHANSEY_SAFFRON ===
-Name: COACH
-Class: Pkmn Trainer 1
-Pic: Lady Frlg
+Name: CHANSEY
+Class: Twins Frlg
+Pic: PRR Chansey Twins
 Gender: Female
 Music: Female
-Double Battle: No
-AI: Check Bad Move
+Double Battle: Yes
+AI: Basic Trainer
 
 Chansey
 Level: 34
@@ -15117,43 +14925,19 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Heal Pulse
 
 Chansey
-Level: 35
+Level: 34
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
 - Heal Pulse
-
-Chansey
-Level: 36
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Memento
-- Heal Pulse
-
-Chansey
-Level: 37
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 38
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 39
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
 
 === TRAINER_PRL_CHANSEY_FUCHSIA ===
-Name: COACH
-Class: Pkmn Trainer 1
-Pic: Lady Frlg
+Name: CHANSEY
+Class: Twins Frlg
+Pic: PRR Chansey Twins
 Gender: Female
 Music: Female
-Double Battle: No
-AI: Check Bad Move
+Double Battle: Yes
+AI: Basic Trainer
 
 Chansey
 Level: 38
@@ -15162,43 +14946,19 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Heal Pulse
 
 Chansey
-Level: 39
+Level: 38
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
 - Heal Pulse
-
-Chansey
-Level: 40
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Memento
-- Heal Pulse
-
-Chansey
-Level: 41
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 42
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 43
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
 
 === TRAINER_PRL_CHANSEY_CINNABAR ===
-Name: COACH
-Class: Pkmn Trainer 1
-Pic: Lady Frlg
+Name: CHANSEY
+Class: Twins Frlg
+Pic: PRR Chansey Twins
 Gender: Female
 Music: Female
-Double Battle: No
-AI: Check Bad Move
+Double Battle: Yes
+AI: Basic Trainer
 
 Chansey
 Level: 42
@@ -15207,43 +14967,19 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Heal Pulse
 
 Chansey
-Level: 43
+Level: 42
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
 - Heal Pulse
-
-Chansey
-Level: 44
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Memento
-- Heal Pulse
-
-Chansey
-Level: 45
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 46
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 47
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
 
 === TRAINER_PRL_CHANSEY_INDIGO ===
-Name: COACH
-Class: Pkmn Trainer 1
-Pic: Lady Frlg
+Name: CHANSEY
+Class: Twins Frlg
+Pic: PRR Chansey Twins
 Gender: Female
 Music: Female
-Double Battle: No
-AI: Check Bad Move
+Double Battle: Yes
+AI: Basic Trainer
 
 Chansey
 Level: 47
@@ -15252,34 +14988,10 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Heal Pulse
 
 Chansey
-Level: 48
+Level: 47
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
 - Heal Pulse
-
-Chansey
-Level: 49
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Memento
-- Heal Pulse
-
-Chansey
-Level: 50
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 51
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
-
-Chansey
-Level: 52
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Memento
-- Heal Pulse
 
 === TRAINER_PRL_CHANSEY_ONE_ISLAND ===
 Name: COACH

@@ -7,7 +7,7 @@ EventScript_PRL_Chansey_VIRIDIAN::
 	msgbox PRL_Chansey_TextOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PRL_Chansey_Decline
 	cleartrainerflag TRAINER_PRL_CHANSEY_VIRIDIAN
-	trainerbattle_single TRAINER_PRL_CHANSEY_VIRIDIAN, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, EventScript_PRL_Chansey_VIRIDIAN_After
+	trainerbattle_double TRAINER_PRL_CHANSEY_VIRIDIAN, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, PRL_Chansey_TextNeedTwo, EventScript_PRL_Chansey_VIRIDIAN_After
 	goto EventScript_PRL_Chansey_VIRIDIAN_After
 EventScript_PRL_Chansey_VIRIDIAN_After::
 	cleartrainerflag TRAINER_PRL_CHANSEY_VIRIDIAN
@@ -21,7 +21,7 @@ EventScript_PRL_Chansey_PEWTER::
 	msgbox PRL_Chansey_TextOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PRL_Chansey_Decline
 	cleartrainerflag TRAINER_PRL_CHANSEY_PEWTER
-	trainerbattle_single TRAINER_PRL_CHANSEY_PEWTER, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, EventScript_PRL_Chansey_PEWTER_After
+	trainerbattle_double TRAINER_PRL_CHANSEY_PEWTER, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, PRL_Chansey_TextNeedTwo, EventScript_PRL_Chansey_PEWTER_After
 	goto EventScript_PRL_Chansey_PEWTER_After
 EventScript_PRL_Chansey_PEWTER_After::
 	cleartrainerflag TRAINER_PRL_CHANSEY_PEWTER
@@ -35,7 +35,7 @@ EventScript_PRL_Chansey_ROUTE4::
 	msgbox PRL_Chansey_TextOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PRL_Chansey_Decline
 	cleartrainerflag TRAINER_PRL_CHANSEY_ROUTE4
-	trainerbattle_single TRAINER_PRL_CHANSEY_ROUTE4, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, EventScript_PRL_Chansey_ROUTE4_After
+	trainerbattle_double TRAINER_PRL_CHANSEY_ROUTE4, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, PRL_Chansey_TextNeedTwo, EventScript_PRL_Chansey_ROUTE4_After
 	goto EventScript_PRL_Chansey_ROUTE4_After
 EventScript_PRL_Chansey_ROUTE4_After::
 	cleartrainerflag TRAINER_PRL_CHANSEY_ROUTE4
@@ -49,7 +49,7 @@ EventScript_PRL_Chansey_CERULEAN::
 	msgbox PRL_Chansey_TextOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PRL_Chansey_Decline
 	cleartrainerflag TRAINER_PRL_CHANSEY_CERULEAN
-	trainerbattle_single TRAINER_PRL_CHANSEY_CERULEAN, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, EventScript_PRL_Chansey_CERULEAN_After
+	trainerbattle_double TRAINER_PRL_CHANSEY_CERULEAN, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, PRL_Chansey_TextNeedTwo, EventScript_PRL_Chansey_CERULEAN_After
 	goto EventScript_PRL_Chansey_CERULEAN_After
 EventScript_PRL_Chansey_CERULEAN_After::
 	cleartrainerflag TRAINER_PRL_CHANSEY_CERULEAN
@@ -63,7 +63,7 @@ EventScript_PRL_Chansey_VERMILION::
 	msgbox PRL_Chansey_TextOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PRL_Chansey_Decline
 	cleartrainerflag TRAINER_PRL_CHANSEY_VERMILION
-	trainerbattle_single TRAINER_PRL_CHANSEY_VERMILION, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, EventScript_PRL_Chansey_VERMILION_After
+	trainerbattle_double TRAINER_PRL_CHANSEY_VERMILION, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, PRL_Chansey_TextNeedTwo, EventScript_PRL_Chansey_VERMILION_After
 	goto EventScript_PRL_Chansey_VERMILION_After
 EventScript_PRL_Chansey_VERMILION_After::
 	cleartrainerflag TRAINER_PRL_CHANSEY_VERMILION
@@ -77,7 +77,7 @@ EventScript_PRL_Chansey_ROUTE10::
 	msgbox PRL_Chansey_TextOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PRL_Chansey_Decline
 	cleartrainerflag TRAINER_PRL_CHANSEY_ROUTE10
-	trainerbattle_single TRAINER_PRL_CHANSEY_ROUTE10, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, EventScript_PRL_Chansey_ROUTE10_After
+	trainerbattle_double TRAINER_PRL_CHANSEY_ROUTE10, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, PRL_Chansey_TextNeedTwo, EventScript_PRL_Chansey_ROUTE10_After
 	goto EventScript_PRL_Chansey_ROUTE10_After
 EventScript_PRL_Chansey_ROUTE10_After::
 	cleartrainerflag TRAINER_PRL_CHANSEY_ROUTE10
@@ -91,7 +91,7 @@ EventScript_PRL_Chansey_LAVENDER::
 	msgbox PRL_Chansey_TextOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PRL_Chansey_Decline
 	cleartrainerflag TRAINER_PRL_CHANSEY_LAVENDER
-	trainerbattle_single TRAINER_PRL_CHANSEY_LAVENDER, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, EventScript_PRL_Chansey_LAVENDER_After
+	trainerbattle_double TRAINER_PRL_CHANSEY_LAVENDER, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, PRL_Chansey_TextNeedTwo, EventScript_PRL_Chansey_LAVENDER_After
 	goto EventScript_PRL_Chansey_LAVENDER_After
 EventScript_PRL_Chansey_LAVENDER_After::
 	cleartrainerflag TRAINER_PRL_CHANSEY_LAVENDER
@@ -105,7 +105,7 @@ EventScript_PRL_Chansey_CELADON::
 	msgbox PRL_Chansey_TextOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PRL_Chansey_Decline
 	cleartrainerflag TRAINER_PRL_CHANSEY_CELADON
-	trainerbattle_single TRAINER_PRL_CHANSEY_CELADON, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, EventScript_PRL_Chansey_CELADON_After
+	trainerbattle_double TRAINER_PRL_CHANSEY_CELADON, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, PRL_Chansey_TextNeedTwo, EventScript_PRL_Chansey_CELADON_After
 	goto EventScript_PRL_Chansey_CELADON_After
 EventScript_PRL_Chansey_CELADON_After::
 	cleartrainerflag TRAINER_PRL_CHANSEY_CELADON
@@ -119,7 +119,7 @@ EventScript_PRL_Chansey_SAFFRON::
 	msgbox PRL_Chansey_TextOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PRL_Chansey_Decline
 	cleartrainerflag TRAINER_PRL_CHANSEY_SAFFRON
-	trainerbattle_single TRAINER_PRL_CHANSEY_SAFFRON, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, EventScript_PRL_Chansey_SAFFRON_After
+	trainerbattle_double TRAINER_PRL_CHANSEY_SAFFRON, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, PRL_Chansey_TextNeedTwo, EventScript_PRL_Chansey_SAFFRON_After
 	goto EventScript_PRL_Chansey_SAFFRON_After
 EventScript_PRL_Chansey_SAFFRON_After::
 	cleartrainerflag TRAINER_PRL_CHANSEY_SAFFRON
@@ -133,7 +133,7 @@ EventScript_PRL_Chansey_FUCHSIA::
 	msgbox PRL_Chansey_TextOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PRL_Chansey_Decline
 	cleartrainerflag TRAINER_PRL_CHANSEY_FUCHSIA
-	trainerbattle_single TRAINER_PRL_CHANSEY_FUCHSIA, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, EventScript_PRL_Chansey_FUCHSIA_After
+	trainerbattle_double TRAINER_PRL_CHANSEY_FUCHSIA, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, PRL_Chansey_TextNeedTwo, EventScript_PRL_Chansey_FUCHSIA_After
 	goto EventScript_PRL_Chansey_FUCHSIA_After
 EventScript_PRL_Chansey_FUCHSIA_After::
 	cleartrainerflag TRAINER_PRL_CHANSEY_FUCHSIA
@@ -147,7 +147,7 @@ EventScript_PRL_Chansey_CINNABAR::
 	msgbox PRL_Chansey_TextOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PRL_Chansey_Decline
 	cleartrainerflag TRAINER_PRL_CHANSEY_CINNABAR
-	trainerbattle_single TRAINER_PRL_CHANSEY_CINNABAR, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, EventScript_PRL_Chansey_CINNABAR_After
+	trainerbattle_double TRAINER_PRL_CHANSEY_CINNABAR, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, PRL_Chansey_TextNeedTwo, EventScript_PRL_Chansey_CINNABAR_After
 	goto EventScript_PRL_Chansey_CINNABAR_After
 EventScript_PRL_Chansey_CINNABAR_After::
 	cleartrainerflag TRAINER_PRL_CHANSEY_CINNABAR
@@ -161,7 +161,7 @@ EventScript_PRL_Chansey_INDIGO::
 	msgbox PRL_Chansey_TextOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PRL_Chansey_Decline
 	cleartrainerflag TRAINER_PRL_CHANSEY_INDIGO
-	trainerbattle_single TRAINER_PRL_CHANSEY_INDIGO, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, EventScript_PRL_Chansey_INDIGO_After
+	trainerbattle_double TRAINER_PRL_CHANSEY_INDIGO, PRL_Chansey_TextIntro, PRL_Chansey_TextDefeat, PRL_Chansey_TextNeedTwo, EventScript_PRL_Chansey_INDIGO_After
 	goto EventScript_PRL_Chansey_INDIGO_After
 EventScript_PRL_Chansey_INDIGO_After::
 	cleartrainerflag TRAINER_PRL_CHANSEY_INDIGO
@@ -273,8 +273,12 @@ PRL_Chansey_Decline::
 	end
 
 PRL_Chansey_TextOffer::
-	.string "Train against six CHANSEY?\n"
-	.string "They only know two moves!$"
+	.string "Train against two CHANSEY?\n"
+	.string "A DOUBLE BATTLE for EXP!$"
+
+PRL_Chansey_TextNeedTwo::
+	.string "Bring two POKéMON able to battle\n"
+	.string "for DOUBLE CHANSEY training.$"
 
 PRL_Chansey_TextIntro::
 	.string "Time for Chansey training!$"
