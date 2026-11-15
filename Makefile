@@ -6,8 +6,8 @@ MAP_VERSION  ?= emerald
 
 ifeq (firered, $(or $(BUILD), $(MAKECMDGOALS)))
   	GAME_VERSION 	:= FIRERED
-	TITLE       	:= POKEMON FIRE
-	GAME_CODE   	:= BPRE
+	TITLE       	:= RADICAL RELC
+	GAME_CODE   	:= BPRR
 	BUILD_NAME  	:= firered
 	MAP_VERSION 	:= firered
 else
