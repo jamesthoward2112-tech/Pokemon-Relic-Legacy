@@ -59,8 +59,31 @@ ViridianForest_EventScript_Anthony::
 	end
 
 ViridianForest_EventScript_Charlie::
-	trainerbattle_single TRAINER_BUG_CATCHER_CHARLIE, ViridianForest_Text_CharlieIntro, ViridianForest_Text_CharlieDefeat
+	trainerbattle_single TRAINER_BUG_CATCHER_CHARLIE, ViridianForest_Text_CharlieIntro, ViridianForest_Text_CharlieDefeat, ViridianForest_EventScript_PRRCharlieReward
+	goto_if_unset FLAG_PRR_FOREST_MINIBOSS_REWARD, ViridianForest_EventScript_PRRCharlieReward
 	msgbox ViridianForest_Text_CharliePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+@ Charlie is opt-in and has a separate one-time prize flag.
+@ If the Bag is full, defeating him still persists; the prize stays claimable.
+ViridianForest_EventScript_PRRCharlieReward::
+	goto_if_set FLAG_PRR_FOREST_MINIBOSS_REWARD, ViridianForest_EventScript_PRRCharliePostBattle
+	checkitemspace ITEM_ABILITY_CAPSULE, 1
+	goto_if_eq VAR_RESULT, FALSE, ViridianForest_EventScript_PRRCharlieNoRoom
+	giveitem_msg ViridianForest_Text_CharlieReward, ITEM_ABILITY_CAPSULE
+	setflag FLAG_PRR_FOREST_MINIBOSS_REWARD
+	msgbox ViridianForest_Text_CharliePostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+ViridianForest_EventScript_PRRCharlieNoRoom::
+	msgbox ViridianForest_Text_CharlieNoRoom, MSGBOX_DEFAULT
+	release
+	end
+
+ViridianForest_EventScript_PRRCharliePostBattle::
+	msgbox ViridianForest_Text_CharliePostBattle, MSGBOX_DEFAULT
+	release
 	end
 
 ViridianForest_Text_FriendsItchingToBattle::
@@ -120,15 +143,23 @@ ViridianForest_Text_AnthonyPostBattle::
 	.string "I lost some of my allowance…$"
 
 ViridianForest_Text_CharlieIntro::
-	.string "Did you know that POKéMON evolve?$"
+	.string "These trees are humming with RELIC\n"
+	.string "ENERGY! Want a real BUG challenge?$"
 
 ViridianForest_Text_CharlieDefeat::
-	.string "Oh!\n"
-	.string "I lost!$"
+	.string "You broke through my strategy!$"
 
 ViridianForest_Text_CharliePostBattle::
-	.string "BUG POKéMON evolve quickly.\n"
-	.string "They're a lot of fun!$"
+	.string "That strange energy is spreading.\n"
+	.string "Try the PEWTER MUSEUM for clues.$"
+
+ViridianForest_Text_CharlieReward::
+	.string "A prize for your fine battle!\n"
+	.string "{PLAYER} got an ABILITY CAPSULE!$"
+
+ViridianForest_Text_CharlieNoRoom::
+	.string "Your BAG is full! Make room and\n"
+	.string "come back for your prize.$"
 
 ViridianForest_Text_RanOutOfPokeBalls::
 	.string "I was throwing POKé BALLS to\n"

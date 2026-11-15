@@ -26,9 +26,9 @@ MtMoon_B1F_OnTransition_PRLRocketWon::
 	goto MtMoon_B1F_OnTransition_PRLReturn
 MtMoon_B1F_OnTransition_PRLRocketShow::
 	clearflag FLAG_HIDE_PRL_ROCKET_MT_MOON
-	addobject LOCALID_PRL_JESSIE_MT_MOON
-	addobject LOCALID_PRL_JAMES_MT_MOON
-	addobject LOCALID_PRL_MEOWTH_MT_MOON
+	addobject LOCALID_PRL_JESSIE_MT_MOON_B1F
+	addobject LOCALID_PRL_JAMES_MT_MOON_B1F
+	addobject LOCALID_PRL_MEOWTH_MT_MOON_B1F
 MtMoon_B1F_OnTransition_PRLReturn::
 	return
 
@@ -36,12 +36,12 @@ MtMoon_B1F_OnTransition_PRLReturn::
 @ and their walking approach when player is in the same column.
 @ One shared trainer flag means only one double fight, never two rematches.
 MtMoon_B1F_EventScript_PRL_Jessie::
-	trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON, MtMoon_B2F_Text_PRL_RocketIntro, MtMoon_B2F_Text_PRL_RocketDefeat, MtMoon_B2F_Text_PRL_RocketNotEnoughMons, MtMoon_B1F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_JESSIE_MT_MOON
+	trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON, MtMoon_B2F_Text_PRL_RocketIntro, MtMoon_B2F_Text_PRL_RocketDefeat, MtMoon_B2F_Text_PRL_RocketNotEnoughMons, MtMoon_B1F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_JESSIE_MT_MOON_B1F
 	msgbox MtMoon_B1F_Text_PRL_JessiePostBattle, MSGBOX_AUTOCLOSE
 	end
 
 MtMoon_B1F_EventScript_PRL_James::
-	trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON, MtMoon_B2F_Text_PRL_RocketIntro, MtMoon_B2F_Text_PRL_RocketDefeat, MtMoon_B2F_Text_PRL_RocketNotEnoughMons, MtMoon_B1F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_JAMES_MT_MOON
+	trainerbattle_double TRAINER_JESSIE_JAMES_MT_MOON, MtMoon_B2F_Text_PRL_RocketIntro, MtMoon_B2F_Text_PRL_RocketDefeat, MtMoon_B2F_Text_PRL_RocketNotEnoughMons, MtMoon_B1F_EventScript_PRL_RocketWon, localId=LOCALID_PRL_JAMES_MT_MOON_B1F
 	msgbox MtMoon_B1F_Text_PRL_JamesPostBattle, MSGBOX_AUTOCLOSE
 	end
 
@@ -63,16 +63,16 @@ MtMoon_B1F_EventScript_PRL_RocketWon::
 	msgbox MtMoon_B2F_Text_PRL_RocketPostBattle
 	closemessage
 	@ Running away on foot after this encounter; no further balloon departures.
-	applymovement LOCALID_PRL_JESSIE_MT_MOON, MtMoon_B1F_Movement_PRL_JessieRetreat
-	applymovement LOCALID_PRL_JAMES_MT_MOON, MtMoon_B1F_Movement_PRL_JamesRetreat
-	applymovement LOCALID_PRL_MEOWTH_MT_MOON, MtMoon_B1F_Movement_PRL_MeowthRetreat
-	waitmovement LOCALID_PRL_JESSIE_MT_MOON
-	waitmovement LOCALID_PRL_JAMES_MT_MOON
-	waitmovement LOCALID_PRL_MEOWTH_MT_MOON
+	applymovement LOCALID_PRL_JESSIE_MT_MOON_B1F, MtMoon_B1F_Movement_PRL_JessieRetreat
+	applymovement LOCALID_PRL_JAMES_MT_MOON_B1F, MtMoon_B1F_Movement_PRL_JamesRetreat
+	applymovement LOCALID_PRL_MEOWTH_MT_MOON_B1F, MtMoon_B1F_Movement_PRL_MeowthRetreat
+	waitmovement LOCALID_PRL_JESSIE_MT_MOON_B1F
+	waitmovement LOCALID_PRL_JAMES_MT_MOON_B1F
+	waitmovement LOCALID_PRL_MEOWTH_MT_MOON_B1F
 	setflag FLAG_HIDE_PRL_ROCKET_MT_MOON
-	removeobject LOCALID_PRL_JESSIE_MT_MOON
-	removeobject LOCALID_PRL_JAMES_MT_MOON
-	removeobject LOCALID_PRL_MEOWTH_MT_MOON
+	removeobject LOCALID_PRL_JESSIE_MT_MOON_B1F
+	removeobject LOCALID_PRL_JAMES_MT_MOON_B1F
+	removeobject LOCALID_PRL_MEOWTH_MT_MOON_B1F
 	release
 	end
 

@@ -7062,20 +7062,34 @@ Pic: Leader Brock Frlg
 Gender: Male
 Music: Male
 Double Battle: No
-AI: Check Bad Move / Try To Faint / Check Viability
+AI: Smart Trainer
 
-Geodude
+Geodude @ Oran Berry
+Adamant Nature
 Level: 13
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Stealth Rock
+- Rock Tomb
+- Bulldoze
+- Rock Polish
 
-Kabuto
+Kabuto @ Oran Berry
+Adamant Nature
 Level: 14
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
+- Aqua Jet
+- Rock Tomb
+- Mud Shot
+- Scratch
 
-Onix
+Onix @ Oran Berry
+Jolly Nature
 Level: 16
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Rock Tomb
+- Bulldoze
+- Dragon Breath
+- Bind
 
 === TRAINER_LEADER_MISTY ===
 Name: MISTY
@@ -9316,19 +9330,32 @@ Pic: Bug Catcher Frlg
 Gender: Male
 Music: Male
 Double Battle: No
-AI: Check Bad Move
+AI: Smart Trainer
 
 Metapod
-Level: 7
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+Impish Nature
+Level: 8
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Harden
+- String Shot
+- Bug Bite
 
-Caterpie
-Level: 7
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+Paras @ Oran Berry
+Adamant Nature
+Level: 9
+IVs: 16 HP / 16 Atk / 16 Def / 16 SpA / 16 SpD / 16 Spe
+- Absorb
+- Scratch
+- Stun Spore
 
-Metapod
-Level: 7
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+Butterfree @ Oran Berry
+Modest Nature
+Level: 10
+IVs: 16 HP / 16 Atk / 16 Def / 16 SpA / 16 SpD / 16 Spe
+- Confusion
+- Gust
+- String Shot
+- Sleep Powder
 
 === TRAINER_TWINS_ELI_ANNE_2 ===
 Name: ELI & ANNE
