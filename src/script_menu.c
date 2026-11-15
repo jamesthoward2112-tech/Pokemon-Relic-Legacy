@@ -26,6 +26,8 @@
 
 #include "data/script_menu.h"
 
+static const u8 sText_PRRCodes[] = _("PRR CODES");
+
 struct DynamicListMenuEventArgs
 {
     struct ListMenuTemplate *list;
@@ -744,28 +746,29 @@ static void CreatePCMultichoice(void)
         pixelWidth = DisplayTextAndGetWidth(sPCNameStrings[i], pixelWidth);
     }
 
+    pixelWidth = DisplayTextAndGetWidth(sText_PRRCodes, pixelWidth);
     if (FlagGet(FLAG_SYS_GAME_CLEAR))
-    {
         pixelWidth = DisplayTextAndGetWidth(gText_HallOfFame, pixelWidth);
-    }
 
     width = ConvertPixelWidthToTileWidth(pixelWidth);
 
-    // Include Hall of Fame option if player is champion
+    // Keep the normal PC services and Hall of Fame; append PRR codes as index 2.
     if (FlagGet(FLAG_SYS_GAME_CLEAR))
+    {
+        numChoices = 5;
+        windowId = CreateWindowFromRect(0, 0, width, 10);
+        SetStandardWindowBorderStyle(windowId, FALSE);
+        AddTextPrinterParameterized(windowId, FONT_NORMAL, sText_PRRCodes, x, 33, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(windowId, FONT_NORMAL, gText_HallOfFame, x, 49, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(windowId, FONT_NORMAL, gText_LogOff, x, 65, TEXT_SKIP_DRAW, NULL);
+    }
+    else
     {
         numChoices = 4;
         windowId = CreateWindowFromRect(0, 0, width, 8);
         SetStandardWindowBorderStyle(windowId, FALSE);
-        AddTextPrinterParameterized(windowId, FONT_NORMAL, gText_HallOfFame, x, 33, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(windowId, FONT_NORMAL, sText_PRRCodes, x, 33, TEXT_SKIP_DRAW, NULL);
         AddTextPrinterParameterized(windowId, FONT_NORMAL, gText_LogOff, x, 49, TEXT_SKIP_DRAW, NULL);
-    }
-    else
-    {
-        numChoices = 3;
-        windowId = CreateWindowFromRect(0, 0, width, 6);
-        SetStandardWindowBorderStyle(windowId, FALSE);
-        AddTextPrinterParameterized(windowId, FONT_NORMAL, gText_LogOff, x, 33, TEXT_SKIP_DRAW, NULL);
     }
 
     // Change PC name if player has met Lanette

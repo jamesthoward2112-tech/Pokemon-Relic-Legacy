@@ -4576,10 +4576,27 @@ void EnterCode(void)
 void GetCodeFeedback(void)
 {
     static const u8 sText_SampleCode[] = _("SampleCode");
-    if (!StringCompare(gStringVar2, sText_SampleCode))
-        gSpecialVar_Result = 1;
-    else
+    static const u8 sText_DexAll[] = _("DexAll");
+    static const u8 sText_DexOff[] = _("DexOff");
+    static const u8 sText_TeamPreview[] = _("TeamPreview");
+    static const u8 sText_TeamOff[] = _("TeamOff");
+
+    // Save-persistent flags, no new save fields or Pokédex species mutations.
+    if (!StringCompare(gStringVar2, sText_DexAll))
+        FlagSet(FLAG_PRR_DEX_ALL);
+    else if (!StringCompare(gStringVar2, sText_DexOff))
+        FlagClear(FLAG_PRR_DEX_ALL);
+    else if (!StringCompare(gStringVar2, sText_TeamPreview))
+        FlagSet(FLAG_PRR_TEAM_PREVIEW);
+    else if (!StringCompare(gStringVar2, sText_TeamOff))
+        FlagClear(FLAG_PRR_TEAM_PREVIEW);
+    else if (StringCompare(gStringVar2, sText_SampleCode))
+    {
         gSpecialVar_Result = 0;
+        return;
+    }
+
+    gSpecialVar_Result = 1;
 }
 
 void SetHiddenNature(void)

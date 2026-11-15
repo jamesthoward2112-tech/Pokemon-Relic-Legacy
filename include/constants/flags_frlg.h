@@ -1221,8 +1221,8 @@
 #define FLAG_UNUSED_0x4AB               0x4AB // Unused Flag
 #define FLAG_UNUSED_0x4AC               0x4AC // Unused Flag
 #define FLAG_PRR_FOREST_MINIBOSS_REWARD  0x4AD // PRR optional Charlie prize; independent from PRL gym/heist flags
-#define FLAG_UNUSED_0x4AE               0x4AE // Unused Flag
-#define FLAG_UNUSED_0x4AF               0x4AF // Unused Flag
+#define FLAG_PRR_DEX_ALL                 0x4AE // See all local encounters in DexNav; not counted as Pokédex seen
+#define FLAG_PRR_TEAM_PREVIEW            0x4AF // Opt-in opposing-team preview, isolated from badge/reward flags
 
 // Boss clear flags, 1200
 #define FLAG_DEFEATED_BROCK           0x4B0

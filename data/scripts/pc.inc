@@ -18,10 +18,41 @@ EventScript_AccessPC::
 	switch VAR_RESULT
 	case 0, EventScript_AccessPokemonStorage
 	case 1, EventScript_AccessPlayersPC
-	case 2, EventScript_AccessHallOfFame
-	case 3, EventScript_TurnOffPC
+	case 2, EventScript_AccessPRRCodes
+	case 3, EventScript_AccessPRRHallOrOff
+	case 4, EventScript_TurnOffPC
 	case MULTI_B_PRESSED, EventScript_TurnOffPC
 	end
+
+@ When the Hall of Fame is unavailable, index 3 is LOG OFF.
+EventScript_AccessPRRHallOrOff::
+	goto_if_unset FLAG_SYS_GAME_CLEAR, EventScript_TurnOffPC
+	goto EventScript_AccessHallOfFame
+
+EventScript_AccessPRRCodes::
+	playse SE_PC_LOGIN
+	msgbox PRR_PcText_EnterCode, MSGBOX_DEFAULT
+	special EnterCode
+	waitstate
+	special GetCodeFeedback
+	goto_if_eq VAR_RESULT, 0, EventScript_PRRUnknownCode
+	msgbox PRR_PcText_Recognized, MSGBOX_DEFAULT
+	goto EventScript_PCMainMenu
+
+EventScript_PRRUnknownCode::
+	msgbox PRR_PcText_UnknownCode, MSGBOX_DEFAULT
+	goto EventScript_PCMainMenu
+
+PRR_PcText_EnterCode::
+	.string "Enter a PRR code.\n"
+	.string "Repeat OFF codes to disable.$"
+
+PRR_PcText_Recognized::
+	.string "PRR setting saved.\n"
+	.string "You can change it later.$"
+
+PRR_PcText_UnknownCode::
+	.string "Unknown code. Check spelling.$"
 
 EventScript_AccessPlayersPC::
 	playse SE_PC_LOGIN

@@ -56,6 +56,7 @@
 #include "constants/items.h"
 #include "constants/songs.h"
 #include "constants/abilities.h"
+#include "constants/flags.h"
 #include "constants/rgb.h"
 #include "constants/region_map_sections.h"
 #include "gba/m4a_internal.h"
@@ -66,6 +67,16 @@ STATIC_ASSERT(DN_FLAG_DETECTOR_MODE != 0, DNFlagDetectorMode_Must_Not_Be_Zero);
 STATIC_ASSERT(DN_VAR_SPECIES != 0, DNVarSpecies_Must_Not_Be_Zero);
 STATIC_ASSERT(DN_VAR_STEP_COUNTER != 0, DNVarStepCounter_Must_Not_Be_Zero);
 #endif
+
+// PRR's DexAll is view-only: never write to Pokédex seen/caught flags.
+static bool8 PRR_DexNavCanDisplaySpecies(enum Species species)
+{
+    if (species == SPECIES_NONE)
+        return FALSE;
+    if (FlagGet(FLAG_PRR_DEX_ALL))
+        return TRUE;
+    return GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN);
+}
 
 // Defines
 enum WindowIds
@@ -1010,7 +1021,7 @@ static void RevealHiddenMon(void)
     }
 
 
-    if (!GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN))
+    if (!PRR_DexNavCanDisplaySpecies(species))
     {
         u8 index;
 
@@ -1133,7 +1144,7 @@ static void DexNavUpdateSearchWindow(u8 proximity, u8 searchLevel)
 {
     bool8 hideName = FALSE;
 
-    if (sDexNavSearchDataPtr->hiddenSearch && !GetSetPokedexFlag(SpeciesToNationalPokedexNum(sDexNavSearchDataPtr->species), FLAG_GET_SEEN))
+    if (sDexNavSearchDataPtr->hiddenSearch && !PRR_DexNavCanDisplaySpecies(sDexNavSearchDataPtr->species))
         hideName = TRUE;    //if a detector mode hidden search and player hasn't seen the mon, hide info
 
     FillWindowPixelBuffer(sDexNavSearchDataPtr->windowId, PIXEL_FILL(1));   //clear window
@@ -1956,7 +1967,7 @@ static void TryDrawIconInSlot(enum Species species, s16 x, s16 y)
 {
     if (species == SPECIES_NONE || species > NUM_SPECIES)
         CreateNoDataIcon(x, y);   //'X' in slot
-    else if (!GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN))
+    else if (!PRR_DexNavCanDisplaySpecies(species))
         CreateMonIcon(SPECIES_NONE, SpriteCB_MonIcon, x, y, 0, 0xFFFFFFFF); //question mark
     else
         CreateMonIcon(species, SpriteCB_MonIcon, x, y, 0, 0xFFFFFFFF);
@@ -2024,7 +2035,7 @@ static enum Species DexNavGetSpecies(void)
         return SPECIES_NONE;
     }
 
-    if (!GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN))
+    if (!PRR_DexNavCanDisplaySpecies(species))
         return SPECIES_NONE;
 
     return species;
@@ -2079,7 +2090,7 @@ static void PrintCurrentSpeciesInfo(void)
     enum NationalDexOrder dexNum = SpeciesToNationalPokedexNum(species);
     enum Type type1, type2;
 
-    if (!GetSetPokedexFlag(dexNum, FLAG_GET_SEEN))
+    if (!PRR_DexNavCanDisplaySpecies(species))
         species = SPECIES_NONE;
 
     // clear windows

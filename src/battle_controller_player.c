@@ -12,6 +12,8 @@
 #include "battle_gimmick.h"
 #include "bg.h"
 #include "data.h"
+#include "event_data.h"
+#include "constants/flags.h"
 #include "item.h"
 #include "item_menu.h"
 #include "link.h"
@@ -231,8 +233,67 @@ static enum Item GetNextBall(enum Item ballId)
     return ballId;
 }
 
+// PRR TeamPreview: pressing START during ordinary trainer command selection
+// shows the entire preloaded opposing lineup, including unrevealed species.
+// Two names per page keep the standard 240px battle interface readable.
+// No battle choices, Pokédex flags, or party data are changed.
+static void HandleInputChooseAction(enum BattlerId battler);
+static u8 sPRRPreviewPage = 0;
+
+static void PRR_DrawOpponentTeamPreview(void)
+{
+    static const u8 sText_Empty[] = _("---");
+    u32 slot;
+    bool32 printed = FALSE;
+
+    StringCopy(gStringVar4, COMPOUND_STRING(""));
+    for (slot = sPRRPreviewPage * 2; slot < (sPRRPreviewPage + 1) * 2 && slot < PARTY_SIZE; slot++)
+    {
+        enum Species species = GetMonData(&gParties[B_TRAINER_OPPONENT_A][slot], MON_DATA_SPECIES);
+
+        if (printed)
+            StringAppend(gStringVar4, COMPOUND_STRING("\n"));
+        if (species != SPECIES_NONE)
+            StringAppend(gStringVar4, GetSpeciesName(species));
+        else
+            StringAppend(gStringVar4, sText_Empty);
+        printed = TRUE;
+    }
+
+    // The action prompt supports two lines and doesn't erase the 4 action buttons.
+    BattlePutTextOnWindow(gStringVar4, B_WIN_ACTION_PROMPT);
+}
+
+static void HandleInputPRRTeamPreview(enum BattlerId battler)
+{
+    if (JOY_NEW(START_BUTTON))
+    {
+        PlaySE(SE_SELECT);
+        sPRRPreviewPage = (sPRRPreviewPage + 1) % ((PARTY_SIZE + 1) / 2);
+        PRR_DrawOpponentTeamPreview();
+    }
+    else if (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON))
+    {
+        PlaySE(SE_SELECT);
+        BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_ACTION_PROMPT);
+        gBattlerControllerFuncs[battler] = HandleInputChooseAction;
+    }
+}
+
 static void HandleInputChooseAction(enum BattlerId battler)
 {
+    if (JOY_NEW(START_BUTTON)
+     && (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+     && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_MULTI | BATTLE_TYPE_TWO_OPPONENTS | BATTLE_TYPE_RECORDED))
+     && FlagGet(FLAG_PRR_TEAM_PREVIEW))
+    {
+        PlaySE(SE_SELECT);
+        sPRRPreviewPage = 0;
+        PRR_DrawOpponentTeamPreview();
+        gBattlerControllerFuncs[battler] = HandleInputPRRTeamPreview;
+        return;
+    }
+
     // PRL: R-to-run. One press immediately chooses RUN in ordinary wild battles.
     // Trainer battles deliberately ignore this shortcut.
     if (JOY_NEW(R_BUTTON) && !(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
