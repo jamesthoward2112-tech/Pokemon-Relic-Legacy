@@ -44,6 +44,8 @@ enum {
 #define A_B_START_SELECT (A_BUTTON | B_BUTTON | START_BUTTON | SELECT_BUTTON)
 
 static void MainCB2(void);
+static void CB2_InitPRRTitleScreen(void);
+static void Task_PRRTitleScreenInput(u8 taskId);
 static void Task_TitleScreenPhase1(u8);
 static void Task_TitleScreenPhase2(u8);
 static void Task_TitleScreenPhase3(u8);
@@ -60,6 +62,11 @@ static void SpriteCB_PressStartCopyrightBanner(struct Sprite *sprite);
 static void SpriteCB_PokemonLogoShine(struct Sprite *sprite);
 
 // const rom data
+// Exact 240x160 indexed source artwork from the previously approved PRR
+// title-screen GBA conversion. No redraw, recolour, or baked PRESS START.
+static const ALIGNED(4) u8 sPRRTitleBitmap[] = INCBIN_U8("graphics/title_screen/prr/official_title.8bpp");
+static const ALIGNED(4) u16 sPRRTitlePalette[] = INCBIN_U16("graphics/title_screen/prr/official_title.gbapal");
+
 static const u16 sUnusedUnknownPal[] = INCGFX_U16("graphics/title_screen/unused.pal", ".gbapal");
 
 static const u32 sTitleScreenRayquazaGfx[] = INCGFX_U32("graphics/title_screen/rayquaza.png", ".4bpp.smol");
@@ -565,7 +572,7 @@ void CB2_InitTitleScreen(void)
 {
     if (IS_FRLG)
     {
-        CB2_InitTitleScreenFrlg();
+        CB2_InitPRRTitleScreen();
         return;
     }
     switch (gMain.state)
@@ -669,6 +676,72 @@ void CB2_InitTitleScreen(void)
         }
         break;
     }
+}
+
+// Mode 4 title implementation follows the verified PRU Alpha 5 title
+// infrastructure. The standard five-sprite PRESS START banner already blinks
+// independently every 16 frames. It is never baked into official artwork.
+static void CB2_InitPRRTitleScreen(void)
+{
+    switch (gMain.state)
+    {
+    case 0:
+        SetVBlankCallback(NULL);
+        ScanlineEffect_Stop();
+        SetGpuReg(REG_OFFSET_DISPCNT, 0);
+        DmaFill16(3, 0, (void *)VRAM, VRAM_SIZE);
+        DmaFill32(3, 0, (void *)OAM, OAM_SIZE);
+        DmaFill16(3, 0, (void *)PLTT, PLTT_SIZE);
+        ResetPaletteFade();
+        ResetTasks();
+        ResetSpriteData();
+        gReservedSpriteTileCount = 512;
+        FreeAllSpritePalettes();
+        gMain.state++;
+        break;
+    case 1:
+        DmaCopy16(3, sPRRTitleBitmap, (void *)VRAM, sizeof(sPRRTitleBitmap));
+        LoadPalette(sPRRTitlePalette, BG_PLTT_ID(0), sizeof(sPRRTitlePalette));
+        LoadCompressedSpriteSheet(&sSpriteSheet_PressStart[0]);
+        LoadSpritePalette(&sSpritePalette_PressStart[0]);
+        CreatePressStartBanner(START_BANNER_X, 138);
+        CreateTask(Task_PRRTitleScreenInput, 0);
+        SetGpuReg(REG_OFFSET_BG2CNT, BGCNT_PRIORITY(3));
+        SetGpuReg(REG_OFFSET_BG2PA, 0x100);
+        SetGpuReg(REG_OFFSET_BG2PB, 0);
+        SetGpuReg(REG_OFFSET_BG2PC, 0);
+        SetGpuReg(REG_OFFSET_BG2PD, 0x100);
+        SetGpuReg(REG_OFFSET_BG2X_L, 0);
+        SetGpuReg(REG_OFFSET_BG2X_H, 0);
+        SetGpuReg(REG_OFFSET_BG2Y_L, 0);
+        SetGpuReg(REG_OFFSET_BG2Y_H, 0);
+        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_4 | DISPCNT_OBJ_1D_MAP
+                                            | DISPCNT_BG2_ON | DISPCNT_OBJ_ON);
+        EnableInterrupts(INTR_FLAG_VBLANK);
+        m4aSongNumStart(MUS_TITLE);
+        SetVBlankCallback(VBlankCB);
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
+        SetMainCallback2(MainCB2);
+        gMain.state++;
+        break;
+    }
+}
+
+static void Task_PRRTitleScreenInput(u8 taskId)
+{
+    if (JOY_NEW(A_BUTTON) || JOY_NEW(START_BUTTON))
+    {
+        FadeOutBGM(4);
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_WHITEALPHA);
+        SetMainCallback2(CB2_GoToMainMenu);
+        DestroyTask(taskId);
+    }
+    else if (JOY_HELD(CLEAR_SAVE_BUTTON_COMBO) == CLEAR_SAVE_BUTTON_COMBO)
+        SetMainCallback2(CB2_GoToClearSaveDataScreen);
+    else if (JOY_HELD(RESET_RTC_BUTTON_COMBO) == RESET_RTC_BUTTON_COMBO && CanResetRTC())
+        SetMainCallback2(CB2_GoToResetRtcScreen);
+    else if (JOY_HELD(BERRY_UPDATE_BUTTON_COMBO) == BERRY_UPDATE_BUTTON_COMBO)
+        SetMainCallback2(CB2_GoToBerryFixScreen);
 }
 
 static void MainCB2(void)

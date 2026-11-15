@@ -24,7 +24,11 @@
 
 #if IS_FRLG
 
-#define INTRO_SPECIES SPECIES_OMANYTE
+// Kan is currently an approved INTRO-ONLY visual. Do not repurpose species IDs
+// or alter PRR's roster while its Pokédex is being finalised.
+// Kangaskhan supplies the closest existing cry/effect species for Kan.
+#define INTRO_SPECIES SPECIES_KANGASKHAN
+#define INTRO_KAN_GFX_TAG 0x3A69
 
 enum
 {
@@ -120,6 +124,31 @@ extern const struct OamData gOamData_AffineOff_ObjBlend_32x32;
 extern const struct OamData gOamData_AffineOff_ObjNormal_32x32;
 extern const struct OamData gOamData_AffineOff_ObjNormal_32x16;
 extern const struct OamData gOamData_AffineOff_ObjNormal_16x8;
+extern const struct OamData gOamData_AffineOff_ObjNormal_64x64;
+
+static const u32 sOakIntroKanGfx[] = INCGFX_U32("graphics/oak_speech/kan_intro.png", ".4bpp.smol");
+static const u16 sOakIntroKanPal[] = INCGFX_U16("graphics/oak_speech/kan_intro.png", ".gbapal");
+static const struct CompressedSpriteSheet sOakIntroKanSheet =
+{
+    .data = sOakIntroKanGfx,
+    .size = 64 * 64 / 2,
+    .tag = INTRO_KAN_GFX_TAG,
+};
+static const struct SpritePalette sOakIntroKanPalette =
+{
+    .data = sOakIntroKanPal,
+    .tag = INTRO_KAN_GFX_TAG,
+};
+static const struct SpriteTemplate sOakIntroKanTemplate =
+{
+    .tileTag = INTRO_KAN_GFX_TAG,
+    .paletteTag = INTRO_KAN_GFX_TAG,
+    .oam = &gOamData_AffineOff_ObjNormal_64x64,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy
+};
 
 static const u16 sOakSpeech_Background_Pals[] = INCGFX_U16("graphics/oak_speech/bg_tiles.png", ".gbapal"); // Shared by the Controls Guide, Pikachu Intro and Oak Speech scenes
 static const u32 sControlsGuide_PikachuIntro_Background_Tiles[] = INCGFX_U32("graphics/oak_speech/bg_tiles.png", ".4bpp.smol");
@@ -1889,10 +1918,11 @@ static void CreateNidoranFSprite(u8 taskId)
 {
     u8 spriteId;
 
-    LoadSpecialPokePic(MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, 0), INTRO_SPECIES, 0, TRUE);
-    LoadSpritePaletteWithTag(GetMonSpritePalFromSpeciesAndPersonality(INTRO_SPECIES, 0, 0), INTRO_SPECIES);
-    SetMultiuseSpriteTemplateToPokemon(INTRO_SPECIES, 0);
-    spriteId = CreateSprite(&gMultiuseSpriteTemplate, 96, 96, 1);
+    // Use the genuine PRU Alpha 5 Kan artwork, not a re-colour of Kangaskhan
+    // or a newly assigned PRR species slot.
+    LoadCompressedSpriteSheet(&sOakIntroKanSheet);
+    LoadSpritePalette(&sOakIntroKanPalette);
+    spriteId = CreateSprite(&sOakIntroKanTemplate, 96, 96, 1);
     gSprites[spriteId].callback = SpriteCallbackDummy;
     gSprites[spriteId].oam.priority = 1;
     gSprites[spriteId].invisible = TRUE;
